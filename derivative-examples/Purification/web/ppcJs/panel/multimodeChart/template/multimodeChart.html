@@ -1,0 +1,44 @@
+﻿<div data-dojo-attach-point="containerNode">
+    <div data-dojo-attach-point="borderContainer" class="multimodeChartBorder" data-dojo-type="dijit/layout/BorderContainer"
+        data-dojo-props="design:'sidebar'">
+        <div data-dojo-attach-point="leftPane" class="multimodeLeftPane" data-dojo-type="dijit/layout/ContentPane"
+            data-dojo-props="region:'left', splitter:true">
+            <div class="multimodeSelect baseControlHeader">
+                <div class="multimodeMenuBar ">
+                    <div data-dojo-attach-point="menuBar" data-dojo-type="dijit/MenuBar" title="select a different chart">
+                    </div>
+                    <span data-dojo-attach-point="noCookie" class="noCookieIcon" title="settings are not being saved">
+                        <img src="ppcJs/mixin/_cookieClient/images/no_cookies.gif" alt="no cookies icon" />
+                    </span>
+                </div>
+            </div>
+            <div class="multimodeWindowSelectorDiv">
+                <div data-dojo-attach-point="windowSelector" data-dojo-type="ppcJs/control/WindowSelect"
+                    data-dojo-props="windowSizeMap:[{key: 300, value: '5 minutes'},
+                                                {key: 900, value: '15 minutes'},
+                                                {key: 3600, value: '1 hour'},
+                                                {key: 21600, value: '6 hours'},
+                                                {key: 86400, value: '1 day'},
+                                                {key: 172800, value: '2 days'},
+                                                {key: 432000, value: '5 days'}],
+                                                triggerEnabled:true"
+                    data-dojo-attach-event="onWindowLengthChange:onSelectWindowLength,
+                                        onRealTimeToggle:onRealTimeToggleChange,
+                                        onFixedWindowSelected:onGetFixedWindow,
+                                        onSwitchChild:onSwitchWindow">
+                </div>
+            </div>
+        </div>
+        <div data-dojo-attach-point="rightPane" class="multimodeRightPane" data-dojo-type="dijit/layout/ContentPane"
+            data-dojo-props="region:'center'">
+            <div class="multimodeChartBox">
+                <div data-dojo-attach-point="movingWindowChart" data-dojo-type="ppcJs/panel/MovingWindowChart"
+                    data-dojo-attach-event="onZoomExtant:_onZoomExtant, 
+                                            onWindowRangeChange:_onWindowRangeChange,
+                                            onExportLink:_onExportLink">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-dojo-attach-point="fadeoutAlertBox" data-dojo-type="ppcJs/widget/FadeoutAlertBox"></div>
+</div>

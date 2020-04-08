@@ -1,0 +1,7 @@
+pur_ansible_dir: /opt/deploy
+archive_dir: /vionx
+unique_suffix: "{{ ansible_facts['date_time']['date'] }}-{{ ansible_facts['date_time']['hour'] }}-{{ ansible_facts['date_time']['minute'] }}--{{ ansible_facts['date_time']['second'] }}"
+
+# path to common_web and ng-simple-ui
+common_web: ../../common/web
+ng_simple_ui_deploy: ../../common/web/apps/ng-simple-ui/src/public/deploy

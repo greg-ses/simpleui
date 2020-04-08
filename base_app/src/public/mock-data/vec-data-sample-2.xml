@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?><Data_Summary u_id="2001">
+    <Title u_id="2002">VEC Board</Title>
+    <timeStamp u_id="2003">1547662690922</timeStamp>
+    <Version u_id="2004">Name: vec-0007 Build: 4e075ce2019-01-14 14:23 EST | OS Release 4.9.47-bsp-yocto-am335x-pd17.2.1 #2 Tue Dec 4 14:41:14 EST 2018</Version>
+    <Section u_id="2005">
+        <DataSets u_id="2006">
+            <Commands u_id="2007">
+                <Enable_Watchdog class="on" u_id="2009">
+                    <command cmd="Enable_Watchdog" confirm="true" desc="trigger the watchdog pat signal" disabled="true" idnum="0" label="Enable_WatchDog" name="Enable_Watchdog" u_id="2010" val="on"/>on</Enable_Watchdog>
+                <Cmd_Set u_id="2010">
+                    <command cmd="Reboot" confirm="true" desc="Pressing this will cause the VEC to reboot!" disabled="true" idnum="0" label="Restart VEC" name="Reboot" u_id="2012"/>
+                </Cmd_Set>
+                <CmdSet u_id="2012">
+                    <command cmd="Enable_System" confirm="true" desc="Do you wish to enable the system?" disabled="false" idnum="0" label="Enable System" name="Enable_System" u_id="2014"/>
+                </CmdSet>
+                <CmdSet u_id="2014">
+                    <command cmd="Disable_System" confirm="false" desc="Disable System" disabled="false" idnum="0" label="Disable System" name="Disable_System" u_id="2016"/>
+                </CmdSet>
+                <SeqName class="on" name="Sequence State" u_id="2016">Offline</SeqName>
+                <TestResult name="Test Result" u_id="2016">Idle</TestResult>
+                <TestDetail name="Test details" u_id="2016">Unknown</TestDetail>
+                <TestInstructions name="Troubleshooting instructions" u_id="2016">TBD</TestInstructions>
+            </Commands>
+            <U84_Inputs u_id="2016">
+                <dyn class="off" disabled="false" name="Safety_IN1_a" u_id="2018">off</dyn>
+                <dyn class="off" disabled="false" name="Safety_IN2_a" u_id="2019">off</dyn>
+                <dyn class="off" disabled="false" name="Safety_IN3_a" u_id="2020">off</dyn>
+                <dyn class="off" disabled="false" name="Safety_IN4_a" u_id="2021">off</dyn>
+                <dyn class="off" disabled="false" name="Safety_IN5_a" u_id="2022">off</dyn>
+                <dyn class="off" disabled="false" name="Safety_IN6_a" u_id="2023">off</dyn>
+                <dyn class="off" disabled="false" name="Safety_IN7_a" u_id="2024">off</dyn>
+                <dyn class="off" disabled="false" name="VEC_Enabled_a" u_id="2025">off</dyn>
+                <dyn class="off" disabled="false" name="MD1_GD2_EN_CMD_FB" u_id="2026">off</dyn>
+                <dyn class="off" disabled="false" name="MD2_GD2_EN_CMD_FB" u_id="2027">off</dyn>
+                <dyn class="off" disabled="false" name="MD3_GD2_EN_CMD_FB" u_id="2028">off</dyn>
+                <dyn class="off" disabled="false" name="MD1_FLT" u_id="2029">off</dyn>
+                <dyn class="on" disabled="false" name="Safety_IN_1_2_Bypass" u_id="2030">on</dyn>
+                <dyn class="off" disabled="false" name="K1_Enabled" u_id="2031">off</dyn>
+                <dyn class="off" disabled="false" name="Flt_Mux_Output" u_id="2032">off</dyn>
+                <dyn class="off" disabled="false" name="Sys_Stop_Req_Exp_Slot_1_a" u_id="2033">off</dyn>
+                <dyn class="on" disabled="false" name="Sys_Stop_Req_Exp_Slot_2_a" u_id="2034">on</dyn>
+                <dyn class="off" disabled="false" name="Sys_Stop_Req_Exp_Slot_3_a" u_id="2035">off</dyn>
+                <dyn class="off" disabled="false" name="Sys_Stop_Req_Exp_Slot_4_a" u_id="2036">off</dyn>
+                <dyn class="on" disabled="false" name="Exp_Slot_1_Stopped_a" u_id="2037">on</dyn>
+                <dyn class="on" disabled="false" name="Exp_Slot_2_Stopped_a" u_id="2038">on</dyn>
+                <dyn class="on" disabled="false" name="Exp_Slot_3_Stopped_a" u_id="2039">on</dyn>
+                <dyn class="off" disabled="false" name="Exp_Slot_4_Stopped_a" u_id="2040">off</dyn>
+            </U84_Inputs>
+            <U84_Outputs u_id="2040">
+                <TOGGLE_DIGITAL class="off" u_id="2043">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="8" label="En_MD1_GD1" name="TOGGLE_DIGITAL" u_id="2044" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2046">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="9" label="En_MD2_GD1" name="TOGGLE_DIGITAL" u_id="2047" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2049">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="10" label="En_MD3_GD1" name="TOGGLE_DIGITAL" u_id="2050" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2052">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="11" label="Test_MD1_ESTOP_FB" name="TOGGLE_DIGITAL" u_id="2053" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2055">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="12" label="Test_MD3_ESTOP_FB" name="TOGGLE_DIGITAL" u_id="2056" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2058">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="17" label="Test_Safety_IN1" name="TOGGLE_DIGITAL" u_id="2059" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2061">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="18" label="Test_Safety_IN3" name="TOGGLE_DIGITAL" u_id="2062" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2064">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="19" label="Test_Safety_IN5" name="TOGGLE_DIGITAL" u_id="2065" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2067">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="20" label="Test_Safety_IN7" name="TOGGLE_DIGITAL" u_id="2068" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2070">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="23" label="Container_Lights_On" name="TOGGLE_DIGITAL" u_id="2071" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2073">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="24" label="Flt_Stat_Sel_Bit_0" name="TOGGLE_DIGITAL" u_id="2074" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2076">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="25" label="Flt_Stat_Sel_Bit_1" name="TOGGLE_DIGITAL" u_id="2077" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2079">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="26" label="Flt_Stat_Sel_Bit_2" name="TOGGLE_DIGITAL" u_id="2080" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2082">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="27" label="Flt_Stat_Sel_Bit_3" name="TOGGLE_DIGITAL" u_id="2083" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2085">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="28" label="Reset_Sys_En_Fault" name="TOGGLE_DIGITAL" u_id="2086" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2088">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="30" label="Reset_Exp_Slot_1" name="TOGGLE_DIGITAL" u_id="2089" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2091">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="31" label="Reset_Exp_Slot_2" name="TOGGLE_DIGITAL" u_id="2092" val="on"/>off</TOGGLE_DIGITAL>
+            </U84_Outputs>
+            <U85_Inputs u_id="2092">
+                <dyn class="off" disabled="false" name="Safety_IN1_b" u_id="2094">off</dyn>
+                <dyn class="off" disabled="false" name="Safety_IN2_b" u_id="2095">off</dyn>
+                <dyn class="off" disabled="false" name="Safety_IN3_b" u_id="2096">off</dyn>
+                <dyn class="off" disabled="false" name="Safety_IN4_b" u_id="2097">off</dyn>
+                <dyn class="off" disabled="false" name="Safety_IN5_b" u_id="2098">off</dyn>
+                <dyn class="off" disabled="false" name="Safety_IN6_b" u_id="2099">off</dyn>
+                <dyn class="off" disabled="false" name="Safety_IN7_b" u_id="2100">off</dyn>
+                <dyn class="off" disabled="false" name="VEC_Enabled_b" u_id="2101">off</dyn>
+                <dyn class="off" disabled="false" name="MD1_GD1_EN_CMD_FB" u_id="2102">off</dyn>
+                <dyn class="off" disabled="false" name="MD2_GD1_EN_CMD_FB" u_id="2103">off</dyn>
+                <dyn class="off" disabled="false" name="MD3_GD1_EN_CMD_FB" u_id="2104">off</dyn>
+                <dyn class="off" disabled="false" name="MD2_FLT" u_id="2105">off</dyn>
+                <dyn class="off" disabled="false" name="MD3_FLT" u_id="2106">off</dyn>
+                <dyn class="off" disabled="false" name="Door_Bypass_Test_Passed" u_id="2107">off</dyn>
+                <dyn class="off" disabled="false" name="K2_Enabled" u_id="2108">off</dyn>
+                <dyn class="off" disabled="false" name="Sys_En_Rst_Cmd_FB" u_id="2109">off</dyn>
+                <dyn class="on" disabled="false" name="Fault_Detected" u_id="2110">on</dyn>
+                <dyn class="off" disabled="false" name="Sys_Stop_Req_Exp_Slot_1_b" u_id="2111">off</dyn>
+                <dyn class="on" disabled="false" name="Sys_Stop_Req_Exp_Slot_2_b" u_id="2112">on</dyn>
+                <dyn class="off" disabled="false" name="Sys_Stop_Req_Exp_Slot_3_b" u_id="2113">off</dyn>
+                <dyn class="off" disabled="false" name="Sys_Stop_Req_Exp_Slot_4_b" u_id="2114">off</dyn>
+                <dyn class="on" disabled="false" name="Exp_Slot_1_Stopped_b" u_id="2115">on</dyn>
+                <dyn class="on" disabled="false" name="Exp_Slot_2_Stopped_b" u_id="2116">on</dyn>
+                <dyn class="on" disabled="false" name="Exp_Slot_3_Stopped_b" u_id="2117">on</dyn>
+                <dyn class="off" disabled="false" name="Exp_Slot_4_Stopped_b" u_id="2118">off</dyn>
+            </U85_Inputs>
+            <U85_Outputs u_id="2118">
+                <TOGGLE_DIGITAL class="off" u_id="2121">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="48" label="En_MD1_GD2" name="TOGGLE_DIGITAL" u_id="2122" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2124">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="49" label="En_MD2_GD2" name="TOGGLE_DIGITAL" u_id="2125" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2127">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="50" label="En_MD3_GD2" name="TOGGLE_DIGITAL" u_id="2128" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2130">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="51" label="Test_MD2_ESTOP_FB" name="TOGGLE_DIGITAL" u_id="2131" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2133">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="57" label="Test_Safety_IN2" name="TOGGLE_DIGITAL" u_id="2134" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2136">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="58" label="Test_Safety_IN4" name="TOGGLE_DIGITAL" u_id="2137" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2139">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="59" label="Test_Safety_IN6" name="TOGGLE_DIGITAL" u_id="2140" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2142">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="60" label="Test_VEC_Enabled_FB" name="TOGGLE_DIGITAL" u_id="2143" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2145">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="61" label="Reset_Exp_Slot_3" name="TOGGLE_DIGITAL" u_id="2146" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2148">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="62" label="Reset_Exp_Slot_4" name="TOGGLE_DIGITAL" u_id="2149" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2151">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="63" label="External_Reset" name="TOGGLE_DIGITAL" u_id="2152" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2154">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="64" label="Test_Door_Bypass_Timer" name="TOGGLE_DIGITAL" u_id="2155" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2157">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="68" label="En_Test_24V" name="TOGGLE_DIGITAL" u_id="2158" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2160">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="69" label="Disable_Sys_En_Rst" name="TOGGLE_DIGITAL" u_id="2161" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2163">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="71" label="Reset_Safe_Input_Flt" name="TOGGLE_DIGITAL" u_id="2164" val="on"/>off</TOGGLE_DIGITAL>
+            </U85_Outputs>
+            <U89A_Outputs u_id="2164">
+                <TOGGLE_DIGITAL class="off" u_id="2167">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="80" label="Ext_D1_GPIO0" name="TOGGLE_DIGITAL" u_id="2168" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2170">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="81" label="Ext_D1_GPIO1" name="TOGGLE_DIGITAL" u_id="2171" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2173">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="82" label="Ext_D1_GPIO2" name="TOGGLE_DIGITAL" u_id="2174" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2176">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="83" label="Ext_D1_GPIO3" name="TOGGLE_DIGITAL" u_id="2177" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2179">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="84" label="Ext_D1_GPIO4" name="TOGGLE_DIGITAL" u_id="2180" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2182">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="85" label="Ext_D1_GPIO5" name="TOGGLE_DIGITAL" u_id="2183" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2185">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="86" label="Ext_D1_GPIO6" name="TOGGLE_DIGITAL" u_id="2186" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2188">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="87" label="Ext_D1_GPIO7" name="TOGGLE_DIGITAL" u_id="2189" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2191">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="88" label="Ext_D2_GPIO0" name="TOGGLE_DIGITAL" u_id="2192" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2194">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="89" label="Ext_D2_GPIO1" name="TOGGLE_DIGITAL" u_id="2195" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2197">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="90" label="Ext_D2_GPIO2" name="TOGGLE_DIGITAL" u_id="2198" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2200">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="91" label="Ext_D2_GPIO3" name="TOGGLE_DIGITAL" u_id="2201" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2203">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="92" label="Ext_D2_GPIO4" name="TOGGLE_DIGITAL" u_id="2204" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2206">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="93" label="Ext_D2_GPIO5" name="TOGGLE_DIGITAL" u_id="2207" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2209">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="94" label="Ext_D2_GPIO6" name="TOGGLE_DIGITAL" u_id="2210" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2212">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="95" label="Ext_D2_GPIO7" name="TOGGLE_DIGITAL" u_id="2213" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2215">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="96" label="Ext_D3_GPIO0" name="TOGGLE_DIGITAL" u_id="2216" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2218">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="97" label="Ext_D3_GPIO1" name="TOGGLE_DIGITAL" u_id="2219" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2221">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="98" label="Ext_D3_GPIO2" name="TOGGLE_DIGITAL" u_id="2222" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2224">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="99" label="Ext_D3_GPIO3" name="TOGGLE_DIGITAL" u_id="2225" val="on"/>off</TOGGLE_DIGITAL>
+            </U89A_Outputs>
+            <U89B_Outputs u_id="2225">
+                <TOGGLE_DIGITAL class="off" u_id="2228">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="100" label="Ext_D3_GPIO4" name="TOGGLE_DIGITAL" u_id="2229" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2231">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="101" label="Ext_D3_GPIO5" name="TOGGLE_DIGITAL" u_id="2232" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2234">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="102" label="Ext_D3_GPIO6" name="TOGGLE_DIGITAL" u_id="2235" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2237">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="103" label="Ext_D3_GPIO7" name="TOGGLE_DIGITAL" u_id="2238" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2240">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="104" label="Ext_D4_GPIO0" name="TOGGLE_DIGITAL" u_id="2241" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2243">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="105" label="Ext_D4_GPIO1" name="TOGGLE_DIGITAL" u_id="2244" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2246">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="106" label="Ext_D4_GPIO2" name="TOGGLE_DIGITAL" u_id="2247" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2249">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="107" label="Ext_D4_GPIO3" name="TOGGLE_DIGITAL" u_id="2250" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2252">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="108" label="Ext_D4_GPIO4" name="TOGGLE_DIGITAL" u_id="2253" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2255">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="109" label="Ext_D4_GPIO5" name="TOGGLE_DIGITAL" u_id="2256" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2258">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="110" label="Ext_D4_GPIO6" name="TOGGLE_DIGITAL" u_id="2259" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2261">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="111" label="Ext_D4_GPIO7" name="TOGGLE_DIGITAL" u_id="2262" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2264">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="112" label="Test_Sys_Enabled_Expansion_Slot_1_FB" name="TOGGLE_DIGITAL" u_id="2265" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2267">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="113" label="Test_Sys_Enabled_Expansion_Slot_2_FB" name="TOGGLE_DIGITAL" u_id="2268" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2270">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="114" label="Test_Sys_Enabled_Expansion_Slot_3_FB" name="TOGGLE_DIGITAL" u_id="2271" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2273">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="115" label="Test_Sys_Enabled_Expansion_Slot_4_FB" name="TOGGLE_DIGITAL" u_id="2274" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2276">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="116" label="Test_Stopped_Expansion_Slot_1_FB" name="TOGGLE_DIGITAL" u_id="2277" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2279">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="117" label="Test_Stopped_Expansion_Slot_2_FB" name="TOGGLE_DIGITAL" u_id="2280" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2282">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="118" label="Test_Stopped_Expansion_Slot_3_FB" name="TOGGLE_DIGITAL" u_id="2283" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2285">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="119" label="Test_Stopped_Expansion_Slot_4_FB" name="TOGGLE_DIGITAL" u_id="2286" val="on"/>off</TOGGLE_DIGITAL>
+            </U89B_Outputs>
+        </DataSets>
+    </Section>
+    <Section u_id="2286">
+        <DataSets u_id="2287">
+            <SOM_IO_Inputs u_id="2288">
+                <dyn class="off" disabled="false" name="WD_FLT" u_id="2290">off</dyn>
+                <dyn class="on" disabled="false" name="BOOT_FLT" u_id="2291">on</dyn>
+                <dyn class="off" disabled="false" name="WD_TEST_INPUT" u_id="2292">off</dyn>
+                <dyn class="off" disabled="false" name="ESTOP_FB" u_id="2293">off</dyn>
+            </SOM_IO_Inputs>
+            <SOM_IO_Outputs u_id="2293">
+                <TOGGLE_DIGITAL class="off" u_id="2296">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="124" label="SPI_EXP_SLCT_A" name="TOGGLE_DIGITAL" u_id="2297" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2299">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="125" label="SPI_EXP_SLCT_B" name="TOGGLE_DIGITAL" u_id="2300" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2302">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="126" label="SPI_CS_A" name="TOGGLE_DIGITAL" u_id="2303" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2305">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="127" label="SPI_CS_B" name="TOGGLE_DIGITAL" u_id="2306" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2308">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="128" label="SPI_CS_C" name="TOGGLE_DIGITAL" u_id="2309" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2311">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="129" label="WD_PAT" name="TOGGLE_DIGITAL" u_id="2312" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2314">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="130" label="STOP_RESET" name="TOGGLE_DIGITAL" u_id="2315" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2317">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="131" label="K1_ENABLE" name="TOGGLE_DIGITAL" u_id="2318" val="on"/>off</TOGGLE_DIGITAL>
+                <TOGGLE_DIGITAL class="off" u_id="2320">
+                    <command cmd="TOGGLE_DIGITAL" confirm="false" desc="description" disabled="true" idnum="132" label="K2_ENABLE" name="TOGGLE_DIGITAL" u_id="2321" val="on"/>off</TOGGLE_DIGITAL>
+            </SOM_IO_Outputs>
+            <AnalogData u_id="2321">
+                <dyn name="RelativeHumidity" u_id="2323" units="%">9.196</dyn>
+                <dyn name="Temperature" u_id="2324" units="C">26.664</dyn>
+                <dyn name="Heater" u_id="2325" units="TBD">0.000</dyn>
+                <dyn name="AccelX" u_id="2326" units="g">-0.063</dyn>
+                <dyn name="AccelY" u_id="2327" units="g">0.006</dyn>
+                <dyn name="AccelZ" u_id="2328" units="g">1.029</dyn>
+            </AnalogData>
+            <SafetyData u_id="2328">
+                <dyn class="off" name="Channel 1" u_id="2330">off</dyn>
+                <dyn class="off" name="Channel 2" u_id="2331">off</dyn>
+                <dyn class="off" name="Channel 3" u_id="2332">off</dyn>
+                <dyn class="off" name="Channel 4" u_id="2333">off</dyn>
+                <dyn class="off" name="Channel 5" u_id="2334">off</dyn>
+                <dyn class="off" name="Channel 6" u_id="2335">off</dyn>
+                <dyn class="off" name="Channel 7" u_id="2336">off</dyn>
+                <dyn class="off" name="Channel 8" u_id="2337">off</dyn>
+            </SafetyData>
+            <NvData u_id="2337">
+                <Serial_Num u_id="2338">
+                    <command cmd="SET_COMMON_EEPROM_STR" desc="Set_Serial_Number" dest="Set manufacturing serial number" disabled="true" idnum="0" label="Set_Serial_Number" name="SET_COMMON_EEPROM_STR" u_id="2340">
+                        <_input _type="text" desc="Set manufacturing serial number" idnum="0" max="32" u_id="2341" value="vec-0007"/>
+                    </command>vec-0007</Serial_Num>
+                <Mfg_Date u_id="2341">
+                    <command cmd="SET_COMMON_EEPROM_STR" desc="Set_Mfg_Date" dest="Set manufacturing date" disabled="true" idnum="0" label="Set_Mfg_Date" name="SET_COMMON_EEPROM_STR" u_id="2343">
+                        <_input _type="text" desc="Set manufacturing date" idnum="0" max="32" u_id="2344" value="No Data"/>
+                    </command>No Data</Mfg_Date>
+            </NvData>
+            <Metrics u_id="2344">
+                <dyn name="DigitalElapseTime" u_id="2346" units="ms">1</dyn>
+                <dyn name="DigitalTimestamp" u_id="2347">1547662690755</dyn>
+                <dyn name="GyroElapseTime" u_id="2348" units="ms">1</dyn>
+                <dyn name="GyroTimestamp" u_id="2349">1547662690780</dyn>
+                <dyn name="RHElapseTime" u_id="2350" units="ms">23</dyn>
+                <dyn name="RHTimestamp" u_id="2351">1547662690779</dyn>
+                <dyn name="TotalTime" u_id="2352" units="ms">26</dyn>
+                <dyn name="AvgTime" u_id="2353" units="ms">49</dyn>
+                <dyn name="WorstTime" u_id="2354" units="ms">3241</dyn>
+                <dyn name="LastViolationTime" u_id="2355" units="ms">74</dyn>
+                <dyn name="TimeViolations" u_id="2356">32277</dyn>
+                <dyn name="System Up Time" u_id="2357">00:01:48:23</dyn>
+            </Metrics>
+            <POST_Data u_id="2357">
+                <PostStat class="on" name="StandardPOSTManager State" u_id="2358">Completed</PostStat>
+                <PostStat name="Last Sequence Info" u_id="2358">Complete</PostStat>
+                <PostStat name="Test Sub State" u_id="2358">Check_Temperature</PostStat>
+                <PostStat name="Last Sequence Under Test" u_id="2358">TestInternalSensors</PostStat>
+                <PostStat class="on" name="Last Sequence Test Result" u_id="2358">Complete</PostStat>
+                <PostStat name="Exceptions" u_id="2358"/>
+            </POST_Data>
+            <CommStatus u_id="2358">
+                <dyn name="U84Status" u_id="2360">yes</dyn>
+                <dyn name="U85Status" u_id="2361">yes</dyn>
+                <dyn name="U89Status" u_id="2362">yes</dyn>
+                <dyn name="U110Status" u_id="2363">yes</dyn>
+                <dyn name="U111Status" u_id="2364">yes</dyn>
+                <dyn name="EEPROMStatus" u_id="2365">yes</dyn>
+            </CommStatus>
+        </DataSets>
+    </Section>
+    <status>0</status></Data_Summary>

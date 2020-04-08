@@ -1,0 +1,71 @@
+.tbContainer        { width: 100%; top:  0px; left:   0px; vertical-align: top; padding: 0; height: 55px; bordor-bottom: 1px solid lightgray;}
+.logoContainer      { position: absolute; top: -5px; left:  10px; font-family: Tahoma, sans-serif; font-size: 16pt;}
+.logo               { padding-top: 10px; border:0;}
+.eventMsg           { position: absolute; top: 8px; left:  20%; font-family: Tahoma, sans-serif; font-size: 8pt; color:yellow; background-color:lightgrey;}
+.miniConsole        { position: absolute; top: 8px; left:  60%; font-family: Tahoma, sans-serif; font-size: 8pt; color:red; background-color:lightgrey; z-index: 0;}
+.miniConsoleAnnounce { position: absolute; opacity: 0.7; z-index: 99; top: 75px; left: 0; height: 100%; width: 100%; padding: 200px 0 0 0; font-family: Tahoma, sans-serif; font-size: 30pt; text-align: center; color:red; background-color:white; }
+.appTitle           { position: absolute; top:  8px; left:   1px; width: 100%; text-align: center; color: black; font-family: Tahoma, sans-serif; font-size: 15pt;  font-weight: bold; }
+.tabTitleFromTab { position: absolute; top: 31px; left:   1px; width: 100%; text-align: center; color: black; font-family: Tahoma, sans-serif; font-size: 11pt; }
+.appVersion         { color: black; font-family: Tahoma, sans-serif; font-size: 7pt; margin-left: 5px;}
+.updateTime         { position: absolute; top: 10px; right: 55px; width: 100%; text-align: right;  color: black; font-family: Tahoma, sans-serif; font-size: 8pt; vertical-align: top; }
+.pulseButton        { position: absolute; top:  5px; right: 10px; width: 100%; text-align: right;  font-family: Tahoma, sans-serif; font-size: 8pt; vertical-align: top;}
+.appLinks           { position: absolute; top: 28px; right: 45px; width: 100%; text-align: right;  font-family: Tahoma, sans-serif; font-size: 11pt; padding: 5px; user-select: none}
+
+.moveButton         { font-family: Tahoma, sans-serif; font-size: 8pt;}
+
+.appOptions         { position: absolute; display: none; top: 0px; left: 0px; horiz-align: center; vertical-align: middle; padding: 0; width: 400px; height: 200px; border: 2px solid black;}
+
+
+.SimpleUiBlueTitleBar   { background-color: #8cb1d9;}
+.SimpleUiBlue   { background-color: #bcd1e9;}
+
+.SimpleUiPurpleTitleBar { background-color: #a489d3;}
+.SimpleUiPurple { background-color: #d1c4e9;}
+
+.SimpleUiSeaTitleBar    { background-color: #20b2aa;}
+.SimpleUiSea    { background-color: #d2fff0;}
+
+.SimpleUiPeachTitleBar  { background-color: #ffa07a;}
+.SimpleUiPeach  { background-color: #ffdab9;}
+
+.indicatorOn {
+    background-color:lime;
+    position: relative;
+    top: 0;
+    right: 0;
+    border: 3px solid #000;
+    height:40px;
+    width:40px;
+    font-family: Tahoma, sans-serif;
+    font-size: 8px;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+}
+
+.indicatorPending {
+    background-color:gray;
+    position: relative;
+    top: 0;
+    right: 0;
+    border: 3px solid #000;
+    height:40px;
+    width:40px;
+    font-family: Tahoma, sans-serif;
+    font-size: 8px;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+}
+
+.indicatorOff {
+    background-color:red;
+    position: relative;
+    top: 0;
+    right: 0;
+    border: 3px solid #000;
+    height:40px;
+    width:40px;
+    font-family: Tahoma, sans-serif;
+    font-size: 8px;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+}

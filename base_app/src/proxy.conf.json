@@ -1,0 +1,34 @@
+{
+  "/images": {
+    "target": "http://localhost:80/ng-simple-ui/images",
+    "secure": false,
+    "pathRewrite": {
+      "^/images": "/ng-simple-ui/images"
+    },
+    "changeOrigin": true
+  },
+  "/php": {
+    "target": "http://localhost:80/ng-simple-ui/php",
+    "secure": false,
+    "pathRewrite": {
+      "^/php": "/ng-simple-ui/php"
+    },
+    "changeOrigin": true
+  },
+  "/bms/images": {
+    "target": "http://localhost:80/bms/images",
+    "secure": false,
+    "pathRewrite": {
+      "^/images": "/bms/images"
+    },
+    "changeOrigin": true
+  },
+  "/bms/php": {
+    "target": "http://localhost:80/bms/php",
+    "secure": false,
+    "pathRewrite": {
+      "^/bms/php": "/bms/php"
+    },
+    "changeOrigin": true
+  }
+}

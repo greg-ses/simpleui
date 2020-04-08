@@ -1,0 +1,2452 @@
+{
+  "Data_Summary": {
+    "u_id": "2002",
+    "Title": {
+      "u_id": "2002",
+      "value": "BMS"
+    },
+    "timeStamp": {
+      "u_id": "2003",
+      "value": "1564609106000"
+    },
+    "Version": {
+      "u_id": "2004",
+      "value": "debug-BMSServer: develop, 2019-07-25 17:57 EDT"
+    },
+    "Section": [
+      {
+        "name": "Battery System",
+        "u_id": "2006",
+        "DataSets": [
+          {
+            "u_id": "2007",
+            "id": "DataSet-0.0",
+            "className": "tableRowGroupBlock dataset-wrapper L3",
+            "sha1sums": " b34b844aed9a1a2b85fc7594689bc7e74e289939 04c27f784a3047bb5df7a78825fb79f35bb4466f 6fabc5b820780cf39bd1c8f9ccefd92ee0654319 353c2770f5f0c59cad9e15e5063fbfac455a8fd1",
+            "dsItems": [
+              {
+                "label": "Configuration",
+                "desc": "",
+                "u_id": "2008",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "name": "Num_Modules",
+                    "u_id": "2009",
+                    "value": "2",
+                    "id": "2009"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-0.0.0",
+                "name": "Configuration",
+                "sha1sum": "b34b844aed9a1a2b85fc7594689bc7e74e289939"
+              },
+              {
+                "label": "System_State",
+                "desc": "",
+                "u_id": "2010",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "on",
+                    "disabled": "false",
+                    "name": "Local_Mode",
+                    "u_id": "2011",
+                    "value": "on",
+                    "id": "2011"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "System_Mode",
+                    "u_id": "2012",
+                    "value": "Offline",
+                    "id": "2012"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "EPO_State",
+                    "u_id": "2013",
+                    "value": "EPO_Fault",
+                    "id": "2013"
+                  },
+                  {
+                    "name": "ChargeSt",
+                    "u_id": "2014",
+                    "value": "Invalid",
+                    "id": "2014"
+                  },
+                  {
+                    "name": "Fault_Level",
+                    "u_id": "2015",
+                    "value": "none",
+                    "id": "2015"
+                  },
+                  {
+                    "name": "Fault_Op_Mode",
+                    "u_id": "2016",
+                    "value": "tolerant",
+                    "id": "2016"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-0.0.1",
+                "name": "System_State",
+                "sha1sum": "04c27f784a3047bb5df7a78825fb79f35bb4466f"
+              },
+              {
+                "label": "System_Data",
+                "desc": "",
+                "u_id": "2017",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "name": "DcBattV",
+                    "u_id": "2018",
+                    "units": "V",
+                    "value": "0.0",
+                    "id": "2018"
+                  },
+                  {
+                    "name": "DcBattAmps",
+                    "u_id": "2019",
+                    "units": "A",
+                    "value": "0.0",
+                    "id": "2019"
+                  },
+                  {
+                    "name": "DcBattKW",
+                    "u_id": "2020",
+                    "units": "kW",
+                    "value": "0.0",
+                    "id": "2020"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "DcBattSoC",
+                    "u_id": "2021",
+                    "units": "%",
+                    "value": "0.0",
+                    "id": "2021"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-0.0.2",
+                "name": "System_Data",
+                "sha1sum": "6fabc5b820780cf39bd1c8f9ccefd92ee0654319"
+              },
+              {
+                "label": "Event_Log",
+                "desc": "",
+                "u_id": "2023",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "timestamp": "16:38:05",
+                    "type": "EVENT NOTICE",
+                    "u_id": "2023",
+                    "value": "Mod2 : Tank valves are not in required\n                    position, ignoring Start_HEX_Pumps\n                ",
+                    "id": "2023"
+                  },
+                  {
+                    "timestamp": "16:37:58",
+                    "type": "EVENT INFO",
+                    "u_id": "2024",
+                    "value": "Mod2 received cmd:Service",
+                    "id": "2024"
+                  },
+                  {
+                    "timestamp": "16:20:38",
+                    "type": "EVENT INFO",
+                    "u_id": "2025",
+                    "value": "Mod2 received cmd:Offline",
+                    "id": "2025"
+                  },
+                  {
+                    "timestamp": "16:20:38",
+                    "type": "URGENT SERVICE REQUEST",
+                    "u_id": "2026",
+                    "value": "Mod2-Process-CaTank-4-Tank_Level :\n                    trip, value 37876.88 >= 37400.00\n                ",
+                    "id": "2026"
+                  },
+                  {
+                    "timestamp": "16:20:38",
+                    "type": "URGENT SERVICE REQUEST",
+                    "u_id": "2027",
+                    "value": "Mod2-Process-CaTank-3-Tank_Level :\n                    trip, value 37876.88 >= 37400.00\n                ",
+                    "id": "2027"
+                  }
+                ],
+                "tableType": "PropDefinedTable",
+                "props": {
+                  "index": "2",
+                  "id": "table-3",
+                  "element": "Event_Log",
+                  "item": "Event",
+                  "columns": [
+                    [
+                      "((index))",
+                      "Index"
+                    ],
+                    [
+                      "timestamp",
+                      "Time"
+                    ],
+                    [
+                      "type",
+                      "Type"
+                    ],
+                    [
+                      "value",
+                      "Description",
+                      "width300"
+                    ]
+                  ]
+                },
+                "id": "Table-0.0.3",
+                "name": "Event_Log",
+                "sha1sum": "353c2770f5f0c59cad9e15e5063fbfac455a8fd1"
+              }
+            ]
+          }
+        ],
+        "CmdSet": [],
+        "Fault_List": [],
+        "menuPos": "top",
+        "colCount": 4,
+        "rowCount": 2
+      },
+      {
+        "name": "Module 1",
+        "u_id": "2029",
+        "CmdSet": [
+          {
+            "label": "CmdSet",
+            "orientation": "horizontal",
+            "u_id": "2030",
+            "id": "2030",
+            "sha1sums": " a14edd028fed03dfa8f9e98f57d07f5a79619d52 28ce8a3590b145ada1b34697fd7c1a1a87d55c52 668cac72e34b977ae476cf74520254a9cf312e93 76b8b9717c882e5afda40cc993a7ad750837c7c1 c39a1aa38690574431f3278202a421e5238e9243 c7658cfd3b3cecbed3a5c841e0dce395c70e754f 5d7bb4353a26f15d249f88136aeedbf62b707122 5bdf4553ed80ce9227e9ffaf7040a9666858a30d 1a939889f4963d228c484895fdc487d940b975be",
+            "url": "",
+            "elements": [
+              {
+                "name": "0",
+                "command": {
+                  "cmd": "Remote",
+                  "confirm": "true",
+                  "desc": "desc",
+                  "dest": "1-0",
+                  "deviceId": "1",
+                  "disabled": "false",
+                  "idnum": "0",
+                  "label": "Remote",
+                  "name": "Remote",
+                  "u_id": "2031",
+                  "sha1sum": "4c952074bf4be65cf6944d13ee880555522cfb65",
+                  "class": "command",
+                  "id": "2031"
+                },
+                "sha1sums": " 4c952074bf4be65cf6944d13ee880555522cfb65",
+                "_action": "confirmDialog",
+                "sha1sum": "a14edd028fed03dfa8f9e98f57d07f5a79619d52"
+              },
+              {
+                "name": "1",
+                "command": {
+                  "cmd": "ResetEPO",
+                  "confirm": "false",
+                  "desc": "Reset the EPO safety inputs.",
+                  "dest": "1-0",
+                  "deviceId": "1",
+                  "disabled": "false",
+                  "idnum": "0",
+                  "label": "ResetEPO",
+                  "name": "ResetEPO",
+                  "u_id": "2032",
+                  "sha1sum": "30a9380e4df4ff3be537f737c84f0b5e064e55a5",
+                  "class": "command",
+                  "id": "2032"
+                },
+                "sha1sums": " 30a9380e4df4ff3be537f737c84f0b5e064e55a5",
+                "_action": "simpleCommand",
+                "sha1sum": "28ce8a3590b145ada1b34697fd7c1a1a87d55c52"
+              },
+              {
+                "name": "2",
+                "command": {
+                  "cmd": "Service",
+                  "confirm": "false",
+                  "desc": "desc",
+                  "dest": "1-0",
+                  "deviceId": "1",
+                  "disabled": "false",
+                  "idnum": "0",
+                  "label": "Service",
+                  "name": "Service",
+                  "u_id": "2033",
+                  "sha1sum": "faa4e1df5d934bfcd09210a43a4530880601c703",
+                  "class": "command",
+                  "id": "2033"
+                },
+                "sha1sums": " faa4e1df5d934bfcd09210a43a4530880601c703",
+                "_action": "simpleCommand",
+                "sha1sum": "668cac72e34b977ae476cf74520254a9cf312e93"
+              },
+              {
+                "name": "3",
+                "command": {
+                  "cmd": "Offline",
+                  "confirm": "true",
+                  "desc": "desc",
+                  "dest": "1-0",
+                  "deviceId": "1",
+                  "disabled": "true",
+                  "idnum": "0",
+                  "label": "Offline",
+                  "name": "Offline",
+                  "u_id": "2034",
+                  "sha1sum": "500c91d336b71977f519c2d2097bcdae80d8eb76",
+                  "class": "command",
+                  "id": "2034"
+                },
+                "sha1sums": " 500c91d336b71977f519c2d2097bcdae80d8eb76",
+                "_action": "disabled",
+                "sha1sum": "76b8b9717c882e5afda40cc993a7ad750837c7c1"
+              },
+              {
+                "name": "4",
+                "command": {
+                  "cmd": "Post",
+                  "confirm": "true",
+                  "desc": "desc",
+                  "dest": "1-0",
+                  "deviceId": "1",
+                  "disabled": "true",
+                  "idnum": "0",
+                  "label": "Post",
+                  "name": "Post",
+                  "u_id": "2035",
+                  "sha1sum": "c6306e8275ec5f06c0b8804bfac27c747dc3a59d",
+                  "class": "command",
+                  "id": "2035"
+                },
+                "sha1sums": " c6306e8275ec5f06c0b8804bfac27c747dc3a59d",
+                "_action": "disabled",
+                "sha1sum": "c39a1aa38690574431f3278202a421e5238e9243"
+              },
+              {
+                "name": "5",
+                "command": {
+                  "cmd": "Standby",
+                  "confirm": "false",
+                  "desc": "desc",
+                  "dest": "1-0",
+                  "deviceId": "1",
+                  "disabled": "true",
+                  "idnum": "0",
+                  "label": "Standby",
+                  "name": "Standby",
+                  "u_id": "2036",
+                  "sha1sum": "7b883377d9ad0fb0e2910f0edf748a379cdb1ea4",
+                  "class": "command",
+                  "id": "2036"
+                },
+                "sha1sums": " 7b883377d9ad0fb0e2910f0edf748a379cdb1ea4",
+                "_action": "disabled",
+                "sha1sum": "c7658cfd3b3cecbed3a5c841e0dce395c70e754f"
+              },
+              {
+                "name": "6",
+                "command": {
+                  "cmd": "Float",
+                  "confirm": "false",
+                  "desc": "desc",
+                  "dest": "1-0",
+                  "deviceId": "1",
+                  "disabled": "true",
+                  "idnum": "0",
+                  "label": "Float",
+                  "name": "Float",
+                  "u_id": "2037",
+                  "sha1sum": "4d71740c162a25233952f62cb5ee277943af41d4",
+                  "class": "command",
+                  "id": "2037"
+                },
+                "sha1sums": " 4d71740c162a25233952f62cb5ee277943af41d4",
+                "_action": "disabled",
+                "sha1sum": "5d7bb4353a26f15d249f88136aeedbf62b707122"
+              },
+              {
+                "name": "7",
+                "command": {
+                  "cmd": "Active",
+                  "confirm": "false",
+                  "desc": "desc",
+                  "dest": "1-0",
+                  "deviceId": "1",
+                  "disabled": "true",
+                  "idnum": "0",
+                  "label": "Active",
+                  "name": "Active",
+                  "u_id": "2038",
+                  "sha1sum": "515134b02343bb01f521aec9e20c06c0e77afb6e",
+                  "class": "command",
+                  "id": "2038"
+                },
+                "sha1sums": " 515134b02343bb01f521aec9e20c06c0e77afb6e",
+                "_action": "disabled",
+                "sha1sum": "5bdf4553ed80ce9227e9ffaf7040a9666858a30d"
+              },
+              {
+                "name": "8",
+                "command": {
+                  "cmd": "Clear_Fault",
+                  "confirm": "false",
+                  "desc": "desc",
+                  "dest": "1-0",
+                  "deviceId": "1",
+                  "disabled": "false",
+                  "idnum": "0",
+                  "label": "Clear Fault",
+                  "name": "Clear_Fault",
+                  "u_id": "2039",
+                  "sha1sum": "ec89d008130c24232ff775b82dc14d195ca3f0b8",
+                  "class": "command",
+                  "id": "2039"
+                },
+                "sha1sums": " ec89d008130c24232ff775b82dc14d195ca3f0b8",
+                "_action": "simpleCommand",
+                "sha1sum": "1a939889f4963d228c484895fdc487d940b975be"
+              }
+            ]
+          }
+        ],
+        "DataSets": [
+          {
+            "u_id": "2040",
+            "id": "DataSet-1.0",
+            "className": "tableRowGroupBlock dataset-wrapper L3",
+            "sha1sums": " eea868839132b751e399077983a7800a93b78981 295a794421f224ffb711af9cd5fc09db6f4fc143 cf1b5b7d5c5d21253e238df7a888d5a9cad3173a 5b75c22180c03826215e896dd23f42f0fcc66ae2 1a724a27dea5936a49455b5546d77f65d5e12f72 313422c4fa93c6744a0d3a29584a0791999ce09d fc44251293111c9b85ff31b3422ab439c458f17c",
+            "dsItems": [
+              {
+                "label": "Status",
+                "desc": "",
+                "u_id": "2041",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "on",
+                    "disabled": "false",
+                    "name": "Local_Mode",
+                    "u_id": "2042",
+                    "value": "on",
+                    "id": "2042"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "Container_State",
+                    "u_id": "2043",
+                    "value": "Pre_Init",
+                    "id": "2043"
+                  },
+                  {
+                    "name": "EPO_State",
+                    "u_id": "2044",
+                    "value": "EPO_Fault",
+                    "id": "2044"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "Process_State",
+                    "u_id": "2045",
+                    "value": "Offline",
+                    "id": "2045"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "Utility_State",
+                    "u_id": "2046",
+                    "value": "Offline",
+                    "id": "2046"
+                  },
+                  {
+                    "class": "trip",
+                    "desc": "Current fault level for the container",
+                    "name": "Fault_Level",
+                    "u_id": "2047",
+                    "value": "trip",
+                    "id": "2047"
+                  },
+                  {
+                    "desc": "Fault response mode",
+                    "name": "Fault_Op_Mode",
+                    "u_id": "2048",
+                    "value": "tolerant",
+                    "id": "2048"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-1.0.0",
+                "name": "Status",
+                "sha1sum": "eea868839132b751e399077983a7800a93b78981"
+              },
+              {
+                "label": "Anolyte Tanks",
+                "desc": "",
+                "u_id": "2049",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "AnolyteTotalVolume",
+                    "u_id": "2050",
+                    "units": "L",
+                    "value": "113,630",
+                    "id": "2050"
+                  },
+                  {
+                    "class": "Closed",
+                    "name": "AnolyteValvesState",
+                    "u_id": "2051",
+                    "value": "Closed",
+                    "id": "2051"
+                  },
+                  {
+                    "desc": "Tank level reading. [c1-smu-SENSEMON-1:AIN14] raw: 20.05",
+                    "name": "LT102_Level_Transducer",
+                    "u_id": "2052",
+                    "units": "L",
+                    "value": "37,876\n                ",
+                    "id": "2052"
+                  },
+                  {
+                    "desc": "Tank level reading. [c1-smu-SENSEMON-2:AIN13] raw: 20.05",
+                    "name": "LT103_Level_Transducer",
+                    "u_id": "2053",
+                    "units": "L",
+                    "value": "37,876\n                ",
+                    "id": "2053"
+                  },
+                  {
+                    "desc": "Tank level reading. [c1-smu-SENSEMON-2:AIN14] raw: 20.05",
+                    "name": "LT104_Level_Transducer",
+                    "u_id": "2054",
+                    "units": "L",
+                    "value": "37,876\n                ",
+                    "id": "2054"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-1.0.1",
+                "name": "Anolyte Tanks",
+                "sha1sum": "295a794421f224ffb711af9cd5fc09db6f4fc143"
+              },
+              {
+                "label": "String Side A (SSA)",
+                "desc": "",
+                "u_id": "2055",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "String_Voltage_Side_A",
+                    "u_id": "2056",
+                    "units": "V",
+                    "value": "3.8",
+                    "id": "2056"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "String_Current_Side_A",
+                    "u_id": "2057",
+                    "units": "A",
+                    "value": "7.6",
+                    "id": "2057"
+                  },
+                  {
+                    "name": "Rung_1_Voltage_Side_A",
+                    "u_id": "2058",
+                    "units": "V",
+                    "value": "1.9",
+                    "id": "2058"
+                  },
+                  {
+                    "name": "Rung_1_Current_Side_A",
+                    "u_id": "2059",
+                    "units": "A",
+                    "value": "7.6",
+                    "id": "2059"
+                  },
+                  {
+                    "name": "Rung_2_Voltage_Side_A",
+                    "u_id": "2060",
+                    "units": "V",
+                    "value": "1.9",
+                    "id": "2060"
+                  },
+                  {
+                    "name": "Rung_2_Current_Side_A",
+                    "u_id": "2061",
+                    "units": "A",
+                    "value": "7.6",
+                    "id": "2061"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-1.0.2",
+                "name": "String Side A (SSA)",
+                "sha1sum": "cf1b5b7d5c5d21253e238df7a888d5a9cad3173a"
+              },
+              {
+                "label": "Process Side A (PSA)",
+                "desc": "",
+                "u_id": "2062",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "ProcessPumpsState_Side_A",
+                    "u_id": "2063",
+                    "value": "Stopped",
+                    "id": "2063"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "AnolyteFlow_Side_A",
+                    "u_id": "2064",
+                    "units": "LPM",
+                    "value": "0",
+                    "id": "2064"
+                  },
+                  {
+                    "name": "AnolytePress_Side_A",
+                    "u_id": "2065",
+                    "units": "PSI",
+                    "value": "4",
+                    "id": "2065"
+                  },
+                  {
+                    "desc": "Current operating motor frequency.",
+                    "name": "Actual_Speed",
+                    "u_id": "2066",
+                    "units": "Hz",
+                    "value": "0.0",
+                    "id": "2066"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "CatholyteFlow_Side_A",
+                    "u_id": "2067",
+                    "units": "LPM",
+                    "value": "0",
+                    "id": "2067"
+                  },
+                  {
+                    "name": "CatholytePress_Side_A",
+                    "u_id": "2068",
+                    "units": "PSI",
+                    "value": "3",
+                    "id": "2068"
+                  },
+                  {
+                    "desc": "Current operating motor frequency.",
+                    "name": "Actual_Speed",
+                    "u_id": "2069",
+                    "units": "Hz",
+                    "value": "0.0",
+                    "id": "2069"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-1.0.3",
+                "name": "Process Side A (PSA)",
+                "sha1sum": "5b75c22180c03826215e896dd23f42f0fcc66ae2"
+              },
+              {
+                "label": "Process Side B (PSB)",
+                "desc": "",
+                "u_id": "2070",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "ProcessPumpsState_Side_B",
+                    "u_id": "2071",
+                    "value": "Stopped",
+                    "id": "2071"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "AnolyteFlow_Side_B",
+                    "u_id": "2072",
+                    "units": "LPM",
+                    "value": "0",
+                    "id": "2072"
+                  },
+                  {
+                    "name": "AnolytePress_Side_B",
+                    "u_id": "2073",
+                    "units": "PSI",
+                    "value": "4",
+                    "id": "2073"
+                  },
+                  {
+                    "desc": "Current operating motor frequency.",
+                    "name": "Actual_Speed",
+                    "u_id": "2074",
+                    "units": "Hz",
+                    "value": "0.0",
+                    "id": "2074"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "CatholyteFlow_Side_B",
+                    "u_id": "2075",
+                    "units": "LPM",
+                    "value": "0",
+                    "id": "2075"
+                  },
+                  {
+                    "name": "CatholytePress_Side_B",
+                    "u_id": "2076",
+                    "units": "PSI",
+                    "value": "4",
+                    "id": "2076"
+                  },
+                  {
+                    "desc": "Current operating motor frequency.",
+                    "name": "Actual_Speed",
+                    "u_id": "2077",
+                    "units": "Hz",
+                    "value": "0.0",
+                    "id": "2077"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-1.0.4",
+                "name": "Process Side B (PSB)",
+                "sha1sum": "1a724a27dea5936a49455b5546d77f65d5e12f72"
+              },
+              {
+                "label": "String Side B (SSB)",
+                "desc": "",
+                "u_id": "2078",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "String_Voltage_Side_B",
+                    "u_id": "2079",
+                    "units": "V",
+                    "value": "3.8",
+                    "id": "2079"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "String_Current_Side_B",
+                    "u_id": "2080",
+                    "units": "A",
+                    "value": "7.6",
+                    "id": "2080"
+                  },
+                  {
+                    "name": "Rung_1_Voltage_Side_B",
+                    "u_id": "2081",
+                    "units": "V",
+                    "value": "1.9",
+                    "id": "2081"
+                  },
+                  {
+                    "name": "Rung_1_Current_Side_B",
+                    "u_id": "2082",
+                    "units": "A",
+                    "value": "7.6",
+                    "id": "2082"
+                  },
+                  {
+                    "name": "Rung_2_Voltage_Side_B",
+                    "u_id": "2083",
+                    "units": "V",
+                    "value": "1.9",
+                    "id": "2083"
+                  },
+                  {
+                    "name": "Rung_2_Current_Side_B",
+                    "u_id": "2084",
+                    "units": "A",
+                    "value": "7.6",
+                    "id": "2084"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-1.0.5",
+                "name": "String Side B (SSB)",
+                "sha1sum": "313422c4fa93c6744a0d3a29584a0791999ce09d"
+              },
+              {
+                "label": "Catholyte Tanks",
+                "desc": "",
+                "u_id": "2085",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "CatholyteTotalVolume",
+                    "u_id": "2086",
+                    "units": "L",
+                    "value": "113,630",
+                    "id": "2086"
+                  },
+                  {
+                    "class": "Closed",
+                    "name": "CatholyteValvesState",
+                    "u_id": "2087",
+                    "value": "Closed",
+                    "id": "2087"
+                  },
+                  {
+                    "desc": "Tank level reading. [c1-smu-SENSEMON-1:AIN16] raw: 20.05",
+                    "name": "LT202_Level_Transducer",
+                    "u_id": "2088",
+                    "units": "L",
+                    "value": "37,876\n                ",
+                    "id": "2088"
+                  },
+                  {
+                    "desc": "Tank level reading. [c1-smu-SENSEMON-2:AIN15] raw: 20.05",
+                    "name": "LT203_Level_Transducer",
+                    "u_id": "2089",
+                    "units": "L",
+                    "value": "37,876\n                ",
+                    "id": "2089"
+                  },
+                  {
+                    "desc": "Tank level reading. [c1-smu-SENSEMON-2:AIN16] raw: 20.05",
+                    "name": "LT204_Level_Transducer",
+                    "u_id": "2090",
+                    "units": "L",
+                    "value": "37,876\n                ",
+                    "id": "2090"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-1.0.6",
+                "name": "Catholyte Tanks",
+                "sha1sum": "fc44251293111c9b85ff31b3422ab439c458f17c"
+              }
+            ]
+          },
+          {
+            "u_id": "2091",
+            "id": "DataSet-1.1",
+            "className": "tableRowGroupBlock dataset-wrapper L3",
+            "sha1sums": " 938a570b69eba83d386ab9da29d25a22016ab4f0 57a5d17c8b0d5d31541182a11189a62fa58a5f2c 734b1f49d8ad19ec8aa1647036a4382901d29445 b349efb23d33cae918e7a75b841eab7fe953ffbf 9e7ee91aeaddf4f8b9cc271a249ae43162bb1d09 6b82f625ed9e579a750c44f91553c6ff3f916167 586f2d8c0186f90087c6ac6b8a4efc7fd88a92a9",
+            "dsItems": [
+              {
+                "label": "Utility",
+                "desc": "",
+                "u_id": "2092",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "HotelPower",
+                    "u_id": "2093",
+                    "units": "V",
+                    "value": "27.8",
+                    "id": "2093"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-1.1.0",
+                "name": "Utility",
+                "sha1sum": "938a570b69eba83d386ab9da29d25a22016ab4f0"
+              },
+              {
+                "label": "Rebalance System",
+                "desc": "",
+                "u_id": "2094",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "Rebalance_State",
+                    "u_id": "2095",
+                    "value": "Offline",
+                    "id": "2095"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "status",
+                    "u_id": "2096",
+                    "value": "---",
+                    "id": "2096"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-1.1.1",
+                "name": "Rebalance System",
+                "sha1sum": "57a5d17c8b0d5d31541182a11189a62fa58a5f2c"
+              },
+              {
+                "label": "Anolyte Util",
+                "desc": "",
+                "u_id": "2097",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "desc": "Anolyte utility flow. [c1-smu-SENSEMON-3:AIN1] raw: 4.10",
+                    "name": "FT105_An_Util",
+                    "u_id": "2098",
+                    "units": "LPM",
+                    "value": "0.0\n                ",
+                    "id": "2098"
+                  },
+                  {
+                    "desc": "Anolyte utility pressure. [c1-smu-SENSEMON-3:AIN3] raw: 5.25",
+                    "name": "PT102_An_Util",
+                    "u_id": "2099",
+                    "units": "PSI",
+                    "value": "3.9\n                ",
+                    "id": "2099"
+                  },
+                  {
+                    "desc": "Current operating motor frequency.",
+                    "name": "Actual_Speed",
+                    "u_id": "2100",
+                    "units": "Hz",
+                    "value": "0.0",
+                    "id": "2100"
+                  },
+                  {
+                    "class": "Process",
+                    "desc": "Anolyte utility transfer valve. [c1-vcu-VALVECTRL-1:Valve 11]",
+                    "name": "CV121_An_Xfer",
+                    "u_id": "2101",
+                    "value": "Process\n                ",
+                    "id": "2101"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-1.1.2",
+                "name": "Anolyte Util",
+                "sha1sum": "734b1f49d8ad19ec8aa1647036a4382901d29445"
+              },
+              {
+                "label": "Catholyte Util",
+                "desc": "",
+                "u_id": "2102",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "desc": "Catholyte utility flow. [c1-smu-SENSEMON-3:AIN2] raw: 4.00",
+                    "name": "FT205_Ca_Util",
+                    "u_id": "2103",
+                    "units": "LPM",
+                    "value": "0.0\n                ",
+                    "id": "2103"
+                  },
+                  {
+                    "desc": "Catholyte utility pressure. [c1-smu-SENSEMON-3:AIN4] raw: 5.36",
+                    "name": "PT202_Ca_Util",
+                    "u_id": "2104",
+                    "units": "PSI",
+                    "value": "4.2\n                ",
+                    "id": "2104"
+                  },
+                  {
+                    "desc": "Current operating motor frequency.",
+                    "name": "Actual_Speed",
+                    "u_id": "2105",
+                    "units": "Hz",
+                    "value": "0.0",
+                    "id": "2105"
+                  },
+                  {
+                    "class": "Process",
+                    "desc": "Catholyte utility transfer valve. [c1-vcu-VALVECTRL-2:Valve 11]",
+                    "name": "CV221_Ca_Xfer",
+                    "u_id": "2106",
+                    "value": "Process\n                ",
+                    "id": "2106"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-1.1.3",
+                "name": "Catholyte Util",
+                "sha1sum": "b349efb23d33cae918e7a75b841eab7fe953ffbf"
+              },
+              {
+                "label": "Electrolyte Accounting",
+                "desc": "",
+                "u_id": "2107",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "name": "AnVol_Pct",
+                    "u_id": "2108",
+                    "units": "%",
+                    "value": "50.00",
+                    "id": "2108"
+                  },
+                  {
+                    "name": "AnMol_Pct",
+                    "u_id": "2109",
+                    "units": "%",
+                    "value": "48.3",
+                    "id": "2109"
+                  },
+                  {
+                    "name": "Va",
+                    "u_id": "2110",
+                    "value": "1.556",
+                    "id": "2110"
+                  },
+                  {
+                    "name": "Vc",
+                    "u_id": "2111",
+                    "value": "1.664",
+                    "id": "2111"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "VaValence",
+                    "u_id": "2112",
+                    "value": "2.97",
+                    "id": "2112"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-1.1.4",
+                "name": "Electrolyte Accounting",
+                "sha1sum": "9e7ee91aeaddf4f8b9cc271a249ae43162bb1d09"
+              },
+              {
+                "label": "Electrolyte SoC",
+                "desc": "",
+                "u_id": "2113",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "name": "AnSOC",
+                    "u_id": "2114",
+                    "units": "%",
+                    "value": "51.2",
+                    "id": "2114"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "RefSOC",
+                    "u_id": "2115",
+                    "units": "%",
+                    "value": "57.8",
+                    "id": "2115"
+                  },
+                  {
+                    "name": "CaSOC",
+                    "u_id": "2116",
+                    "units": "%",
+                    "value": "64.4",
+                    "id": "2116"
+                  },
+                  {
+                    "name": "RefCellVolts",
+                    "u_id": "2117",
+                    "units": "V",
+                    "value": "1.450",
+                    "id": "2117"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-1.1.5",
+                "name": "Electrolyte SoC",
+                "sha1sum": "6b82f625ed9e579a750c44f91553c6ff3f916167"
+              },
+              {
+                "label": "Active_Fault_List",
+                "desc": "",
+                "u_id": "2118",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "ev_details": "value 37876.88 >= 37400.00",
+                    "fault_code": "Process-Mod1-2",
+                    "idx": "2",
+                    "name": "Mod1-Process-AnTank-2-Tank_Level",
+                    "timestamp": "16:20:38",
+                    "u_id": "2118",
+                    "value": "trip\n                ",
+                    "id": "2118"
+                  },
+                  {
+                    "ev_details": "value 37876.88 >= 37400.00",
+                    "fault_code": "Process-Mod1-4",
+                    "idx": "4",
+                    "name": "Mod1-Process-AnTank-3-Tank_Level",
+                    "timestamp": "16:20:38",
+                    "u_id": "2119",
+                    "value": "trip\n                ",
+                    "id": "2119"
+                  },
+                  {
+                    "ev_details": "value 37876.88 >= 37400.00",
+                    "fault_code": "Process-Mod1-6",
+                    "idx": "6",
+                    "name": "Mod1-Process-AnTank-4-Tank_Level",
+                    "timestamp": "16:20:38",
+                    "u_id": "2120",
+                    "value": "trip\n                ",
+                    "id": "2120"
+                  },
+                  {
+                    "ev_details": "value 37876.88 >= 37400.00",
+                    "fault_code": "Process-Mod1-8",
+                    "idx": "8",
+                    "name": "Mod1-Process-CaTank-2-Tank_Level",
+                    "timestamp": "16:20:38",
+                    "u_id": "2121",
+                    "value": "trip\n                ",
+                    "id": "2121"
+                  },
+                  {
+                    "ev_details": "value 37876.88 >= 37400.00",
+                    "fault_code": "Process-Mod1-10",
+                    "idx": "10",
+                    "name": "Mod1-Process-CaTank-3-Tank_Level",
+                    "timestamp": "16:20:38",
+                    "u_id": "2122",
+                    "value": "trip\n                ",
+                    "id": "2122"
+                  },
+                  {
+                    "ev_details": "",
+                    "fault_code": "....",
+                    "idx": "",
+                    "name": "15 more not displayed.",
+                    "timestamp": "",
+                    "u_id": "2123",
+                    "value": "\n                    ...\n                ",
+                    "id": "2123"
+                  }
+                ],
+                "tableType": "PropDefinedTable",
+                "props": {
+                  "index": "0",
+                  "id": "table-1",
+                  "element": "Active_Fault_List",
+                  "item": "Fault",
+                  "columns": [
+                    [
+                      "timestamp",
+                      "Time"
+                    ],
+                    [
+                      "name",
+                      "Name"
+                    ],
+                    [
+                      "ev_details",
+                      "Details"
+                    ],
+                    [
+                      "value",
+                      "Fault Status"
+                    ]
+                  ]
+                },
+                "id": "Table-1.1.6",
+                "name": "Active_Fault_List",
+                "sha1sum": "586f2d8c0186f90087c6ac6b8a4efc7fd88a92a9"
+              }
+            ]
+          }
+        ],
+        "Fault_List": [],
+        "menuPos": "top",
+        "colCount": 7,
+        "rowCount": 3
+      },
+      {
+        "name": "Module 2",
+        "u_id": "2125",
+        "CmdSet": [
+          {
+            "label": "CmdSet",
+            "orientation": "horizontal",
+            "u_id": "2126",
+            "id": "2126",
+            "sha1sums": " 34e8c2f039a4d03ec2619537400978e164d689ff 5c7153fc1539c3365060672f04425df32ed7d562 830fd4b6b7f72a4b4f082c4e441e4fbac40bdb79 dc36513f7a09dc4fac28261d760f8079f6e5a948 64fc2a0611fc14b520a0ab9e9431f387b864aa83 92c28b8e5a69c384aee4a6230fa329b1a72c4679 768994047e96cdad1b04a678bc21932679eea1d2 09c68a5e75fb7d7b4c2fb34afdb22a4305501ae1 1cb9bb4a349955f146ef0968b4ad0d2de90366fc",
+            "url": "",
+            "elements": [
+              {
+                "name": "0",
+                "command": {
+                  "cmd": "Remote",
+                  "confirm": "true",
+                  "desc": "desc",
+                  "dest": "2-0",
+                  "deviceId": "2",
+                  "disabled": "false",
+                  "idnum": "0",
+                  "label": "Remote",
+                  "name": "Remote",
+                  "u_id": "2127",
+                  "sha1sum": "6bb4ad33d74c555c7d34821994dd4319bef4b6ec",
+                  "class": "command",
+                  "id": "2127"
+                },
+                "sha1sums": " 6bb4ad33d74c555c7d34821994dd4319bef4b6ec",
+                "_action": "confirmDialog",
+                "sha1sum": "34e8c2f039a4d03ec2619537400978e164d689ff"
+              },
+              {
+                "name": "1",
+                "command": {
+                  "cmd": "ResetEPO",
+                  "confirm": "false",
+                  "desc": "Reset the EPO safety inputs.",
+                  "dest": "2-0",
+                  "deviceId": "2",
+                  "disabled": "false",
+                  "idnum": "0",
+                  "label": "ResetEPO",
+                  "name": "ResetEPO",
+                  "u_id": "2128",
+                  "sha1sum": "e7aaa8ece27502c332db7a0e37daaab78aea25f5",
+                  "class": "command",
+                  "id": "2128"
+                },
+                "sha1sums": " e7aaa8ece27502c332db7a0e37daaab78aea25f5",
+                "_action": "simpleCommand",
+                "sha1sum": "5c7153fc1539c3365060672f04425df32ed7d562"
+              },
+              {
+                "name": "2",
+                "command": {
+                  "cmd": "Service",
+                  "confirm": "false",
+                  "desc": "desc",
+                  "dest": "2-0",
+                  "deviceId": "2",
+                  "disabled": "false",
+                  "idnum": "0",
+                  "label": "Service",
+                  "name": "Service",
+                  "u_id": "2129",
+                  "sha1sum": "035dca616b69c3cee74d3ed8ccfe1ef30152e6da",
+                  "class": "command",
+                  "id": "2129"
+                },
+                "sha1sums": " 035dca616b69c3cee74d3ed8ccfe1ef30152e6da",
+                "_action": "simpleCommand",
+                "sha1sum": "830fd4b6b7f72a4b4f082c4e441e4fbac40bdb79"
+              },
+              {
+                "name": "3",
+                "command": {
+                  "cmd": "Offline",
+                  "confirm": "true",
+                  "desc": "desc",
+                  "dest": "2-0",
+                  "deviceId": "2",
+                  "disabled": "false",
+                  "idnum": "0",
+                  "label": "Offline",
+                  "name": "Offline",
+                  "u_id": "2130",
+                  "sha1sum": "cdf2cb078f1a2ee1120eb7670574cfe0b539bb27",
+                  "class": "command",
+                  "id": "2130"
+                },
+                "sha1sums": " cdf2cb078f1a2ee1120eb7670574cfe0b539bb27",
+                "_action": "confirmDialog",
+                "sha1sum": "dc36513f7a09dc4fac28261d760f8079f6e5a948"
+              },
+              {
+                "name": "4",
+                "command": {
+                  "cmd": "Post",
+                  "confirm": "true",
+                  "desc": "desc",
+                  "dest": "2-0",
+                  "deviceId": "2",
+                  "disabled": "true",
+                  "idnum": "0",
+                  "label": "Post",
+                  "name": "Post",
+                  "u_id": "2131",
+                  "sha1sum": "a2c4662b597651aa22e0b47444d96490e790844a",
+                  "class": "command",
+                  "id": "2131"
+                },
+                "sha1sums": " a2c4662b597651aa22e0b47444d96490e790844a",
+                "_action": "disabled",
+                "sha1sum": "64fc2a0611fc14b520a0ab9e9431f387b864aa83"
+              },
+              {
+                "name": "5",
+                "command": {
+                  "cmd": "Standby",
+                  "confirm": "false",
+                  "desc": "desc",
+                  "dest": "2-0",
+                  "deviceId": "2",
+                  "disabled": "true",
+                  "idnum": "0",
+                  "label": "Standby",
+                  "name": "Standby",
+                  "u_id": "2132",
+                  "sha1sum": "e119efe8112186b43197da980e675bc72113a659",
+                  "class": "command",
+                  "id": "2132"
+                },
+                "sha1sums": " e119efe8112186b43197da980e675bc72113a659",
+                "_action": "disabled",
+                "sha1sum": "92c28b8e5a69c384aee4a6230fa329b1a72c4679"
+              },
+              {
+                "name": "6",
+                "command": {
+                  "cmd": "Float",
+                  "confirm": "false",
+                  "desc": "desc",
+                  "dest": "2-0",
+                  "deviceId": "2",
+                  "disabled": "true",
+                  "idnum": "0",
+                  "label": "Float",
+                  "name": "Float",
+                  "u_id": "2133",
+                  "sha1sum": "be92327ba0421681945880a8c04de380171612a4",
+                  "class": "command",
+                  "id": "2133"
+                },
+                "sha1sums": " be92327ba0421681945880a8c04de380171612a4",
+                "_action": "disabled",
+                "sha1sum": "768994047e96cdad1b04a678bc21932679eea1d2"
+              },
+              {
+                "name": "7",
+                "command": {
+                  "cmd": "Active",
+                  "confirm": "false",
+                  "desc": "desc",
+                  "dest": "2-0",
+                  "deviceId": "2",
+                  "disabled": "true",
+                  "idnum": "0",
+                  "label": "Active",
+                  "name": "Active",
+                  "u_id": "2134",
+                  "sha1sum": "63541d6b8d47ec29ac8de3b5d3fff71d75c71246",
+                  "class": "command",
+                  "id": "2134"
+                },
+                "sha1sums": " 63541d6b8d47ec29ac8de3b5d3fff71d75c71246",
+                "_action": "disabled",
+                "sha1sum": "09c68a5e75fb7d7b4c2fb34afdb22a4305501ae1"
+              },
+              {
+                "name": "8",
+                "command": {
+                  "cmd": "Clear_Fault",
+                  "confirm": "false",
+                  "desc": "desc",
+                  "dest": "2-0",
+                  "deviceId": "2",
+                  "disabled": "false",
+                  "idnum": "0",
+                  "label": "Clear Fault",
+                  "name": "Clear_Fault",
+                  "u_id": "2135",
+                  "sha1sum": "aa94f643cfec60e163a1d6688967f1dce7c03ca5",
+                  "class": "command",
+                  "id": "2135"
+                },
+                "sha1sums": " aa94f643cfec60e163a1d6688967f1dce7c03ca5",
+                "_action": "simpleCommand",
+                "sha1sum": "1cb9bb4a349955f146ef0968b4ad0d2de90366fc"
+              }
+            ]
+          },
+          {
+            "label": "CmdSet",
+            "orientation": "horizontal",
+            "u_id": "2136",
+            "id": "2136",
+            "sha1sums": " 697dd387857b941fef348b39e2cd2ded78071aca fe4bb1d5d67e0b1dee8e725984789c0aa6f89ffc",
+            "url": "",
+            "elements": [
+              {
+                "name": "0",
+                "command": {
+                  "cmd": "Open_Tanks",
+                  "confirm": "false",
+                  "desc": "Open all tank valves.",
+                  "dest": "2-2",
+                  "disabled": "true",
+                  "idnum": "0",
+                  "label": "Open Tanks",
+                  "name": "Open_Tanks",
+                  "u_id": "2137",
+                  "sha1sum": "e23c44bfb519d64dd9a4e79b44b3c3dcd80d8494",
+                  "class": "command",
+                  "id": "2137"
+                },
+                "sha1sums": " e23c44bfb519d64dd9a4e79b44b3c3dcd80d8494",
+                "_action": "disabled",
+                "sha1sum": "697dd387857b941fef348b39e2cd2ded78071aca"
+              },
+              {
+                "name": "1",
+                "command": {
+                  "cmd": "Close_Tanks",
+                  "confirm": "false",
+                  "desc": "Close all tank valves.",
+                  "dest": "2-2",
+                  "disabled": "true",
+                  "idnum": "0",
+                  "label": "Close Tanks",
+                  "name": "Close_Tanks",
+                  "u_id": "2138",
+                  "sha1sum": "0e50fb3ea0563951b7452ae8dc78b9f9f9d9f823",
+                  "class": "command",
+                  "id": "2138"
+                },
+                "sha1sums": " 0e50fb3ea0563951b7452ae8dc78b9f9f9d9f823",
+                "_action": "disabled",
+                "sha1sum": "fe4bb1d5d67e0b1dee8e725984789c0aa6f89ffc"
+              }
+            ]
+          }
+        ],
+        "DataSets": [
+          {
+            "u_id": "2139",
+            "id": "DataSet-2.0",
+            "className": "tableRowGroupBlock dataset-wrapper L3",
+            "sha1sums": " 3bd02b23e700b6c46f0149aff00010c0a7ab6e37 2abde9567bae29a25fbdd8fa28a74cebd9bbd49d 5344911c7bb552904db63e74e1b3806a858f2126 81c787acce72b26936f7b7ea8d6681544c15cfd9 609033cb61dbfb7d086db664d37ce9a3d91edb9e c0b46f3ade7a87ee0165c50aadf057914764239f a40846cbc9694e5778dd90c87b5999767ed57f88",
+            "dsItems": [
+              {
+                "label": "Status",
+                "desc": "",
+                "u_id": "2140",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "on",
+                    "disabled": "false",
+                    "name": "Local_Mode",
+                    "u_id": "2141",
+                    "value": "on",
+                    "id": "2141"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "Container_State",
+                    "u_id": "2142",
+                    "value": "Service",
+                    "id": "2142"
+                  },
+                  {
+                    "name": "EPO_State",
+                    "u_id": "2143",
+                    "value": "EPO_Fault",
+                    "id": "2143"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "Process_State",
+                    "u_id": "2144",
+                    "value": "Standby",
+                    "id": "2144"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "Utility_State",
+                    "u_id": "2145",
+                    "value": "Standby",
+                    "id": "2145"
+                  },
+                  {
+                    "class": "trip",
+                    "desc": "Current fault level for the container",
+                    "name": "Fault_Level",
+                    "u_id": "2146",
+                    "value": "trip",
+                    "id": "2146"
+                  },
+                  {
+                    "desc": "Fault response mode",
+                    "name": "Fault_Op_Mode",
+                    "u_id": "2147",
+                    "value": "critical_only",
+                    "id": "2147"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-2.0.0",
+                "name": "Status",
+                "sha1sum": "3bd02b23e700b6c46f0149aff00010c0a7ab6e37"
+              },
+              {
+                "label": "Anolyte Tanks",
+                "desc": "",
+                "u_id": "2148",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "AnolyteTotalVolume",
+                    "u_id": "2149",
+                    "units": "L",
+                    "value": "113,630",
+                    "id": "2149"
+                  },
+                  {
+                    "class": "Closed",
+                    "name": "AnolyteValvesState",
+                    "u_id": "2150",
+                    "value": "Closed",
+                    "id": "2150"
+                  },
+                  {
+                    "desc": "Tank level reading. [c2-smu-SENSEMON-1:AIN14] raw: 20.05",
+                    "name": "LT102_Level_Transducer",
+                    "u_id": "2151",
+                    "units": "L",
+                    "value": "37,876\n                ",
+                    "id": "2151"
+                  },
+                  {
+                    "desc": "Tank level reading. [c2-smu-SENSEMON-2:AIN13] raw: 20.05",
+                    "name": "LT103_Level_Transducer",
+                    "u_id": "2152",
+                    "units": "L",
+                    "value": "37,876\n                ",
+                    "id": "2152"
+                  },
+                  {
+                    "desc": "Tank level reading. [c2-smu-SENSEMON-2:AIN14] raw: 20.05",
+                    "name": "LT104_Level_Transducer",
+                    "u_id": "2153",
+                    "units": "L",
+                    "value": "37,876\n                ",
+                    "id": "2153"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-2.0.1",
+                "name": "Anolyte Tanks",
+                "sha1sum": "2abde9567bae29a25fbdd8fa28a74cebd9bbd49d"
+              },
+              {
+                "label": "String Side A (SSA)",
+                "desc": "",
+                "u_id": "2154",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "String_Voltage_Side_A",
+                    "u_id": "2155",
+                    "units": "V",
+                    "value": "3.8",
+                    "id": "2155"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "String_Current_Side_A",
+                    "u_id": "2156",
+                    "units": "A",
+                    "value": "7.6",
+                    "id": "2156"
+                  },
+                  {
+                    "name": "Rung_1_Voltage_Side_A",
+                    "u_id": "2157",
+                    "units": "V",
+                    "value": "1.9",
+                    "id": "2157"
+                  },
+                  {
+                    "name": "Rung_1_Current_Side_A",
+                    "u_id": "2158",
+                    "units": "A",
+                    "value": "7.6",
+                    "id": "2158"
+                  },
+                  {
+                    "name": "Rung_2_Voltage_Side_A",
+                    "u_id": "2159",
+                    "units": "V",
+                    "value": "1.9",
+                    "id": "2159"
+                  },
+                  {
+                    "name": "Rung_2_Current_Side_A",
+                    "u_id": "2160",
+                    "units": "A",
+                    "value": "7.6",
+                    "id": "2160"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-2.0.2",
+                "name": "String Side A (SSA)",
+                "sha1sum": "5344911c7bb552904db63e74e1b3806a858f2126"
+              },
+              {
+                "label": "Process Side A (PSA)",
+                "desc": "",
+                "u_id": "2161",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "u_id": "2162",
+                    "value": "Stopped\n                ",
+                    "command": {
+                      "cmd": "StartProcessPumps",
+                      "confirm": "false",
+                      "dest": "2-3",
+                      "deviceId": "0",
+                      "disabled": "true",
+                      "idnum": "0",
+                      "label": "Start Pumps",
+                      "name": "StartProcessPumps",
+                      "u_id": "2163",
+                      "sha1sum": "6bff90c62e7e7473ee90fad2044bce1f7374dcf7",
+                      "class": "command",
+                      "id": "2163"
+                    },
+                    "name": "",
+                    "id": "2162",
+                    "sha1sums": " 6bff90c62e7e7473ee90fad2044bce1f7374dcf7",
+                    "_action": "disabled",
+                    "sha1sum": "e2336d6ca81d78ce6a0cc955fc533082a47db94a"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "AnolyteFlow_Side_A",
+                    "u_id": "2164",
+                    "units": "LPM",
+                    "value": "0",
+                    "id": "2164"
+                  },
+                  {
+                    "name": "AnolytePress_Side_A",
+                    "u_id": "2165",
+                    "units": "PSI",
+                    "value": "4",
+                    "id": "2165"
+                  },
+                  {
+                    "desc": "Current operating motor frequency.",
+                    "name": "Actual_Speed",
+                    "u_id": "2166",
+                    "units": "Hz",
+                    "value": "0.0",
+                    "id": "2166"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "CatholyteFlow_Side_A",
+                    "u_id": "2167",
+                    "units": "LPM",
+                    "value": "0",
+                    "id": "2167"
+                  },
+                  {
+                    "name": "CatholytePress_Side_A",
+                    "u_id": "2168",
+                    "units": "PSI",
+                    "value": "4",
+                    "id": "2168"
+                  },
+                  {
+                    "desc": "Current operating motor frequency.",
+                    "name": "Actual_Speed",
+                    "u_id": "2169",
+                    "units": "Hz",
+                    "value": "0.0",
+                    "id": "2169"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-2.0.3",
+                "name": "Process Side A (PSA)",
+                "sha1sum": "81c787acce72b26936f7b7ea8d6681544c15cfd9"
+              },
+              {
+                "label": "Process Side B (PSB)",
+                "desc": "",
+                "u_id": "2170",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "u_id": "2171",
+                    "value": "Stopped\n                ",
+                    "command": {
+                      "cmd": "StartProcessPumps",
+                      "confirm": "false",
+                      "dest": "2-4",
+                      "deviceId": "0",
+                      "disabled": "true",
+                      "idnum": "0",
+                      "label": "Start Pumps",
+                      "name": "StartProcessPumps",
+                      "u_id": "2172",
+                      "sha1sum": "a6d91798d920b0f5b812a01e2781001746c5fa6c",
+                      "class": "command",
+                      "id": "2172"
+                    },
+                    "name": "",
+                    "id": "2171",
+                    "sha1sums": " a6d91798d920b0f5b812a01e2781001746c5fa6c",
+                    "_action": "disabled",
+                    "sha1sum": "28017feda9b18f85dae0b89df4de6809b3ff4b86"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "AnolyteFlow_Side_B",
+                    "u_id": "2173",
+                    "units": "LPM",
+                    "value": "0",
+                    "id": "2173"
+                  },
+                  {
+                    "name": "AnolytePress_Side_B",
+                    "u_id": "2174",
+                    "units": "PSI",
+                    "value": "4",
+                    "id": "2174"
+                  },
+                  {
+                    "desc": "Current operating motor frequency.",
+                    "name": "Actual_Speed",
+                    "u_id": "2175",
+                    "units": "Hz",
+                    "value": "0.0",
+                    "id": "2175"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "CatholyteFlow_Side_B",
+                    "u_id": "2176",
+                    "units": "LPM",
+                    "value": "0",
+                    "id": "2176"
+                  },
+                  {
+                    "name": "CatholytePress_Side_B",
+                    "u_id": "2177",
+                    "units": "PSI",
+                    "value": "3",
+                    "id": "2177"
+                  },
+                  {
+                    "desc": "Current operating motor frequency.",
+                    "name": "Actual_Speed",
+                    "u_id": "2178",
+                    "units": "Hz",
+                    "value": "0.0",
+                    "id": "2178"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-2.0.4",
+                "name": "Process Side B (PSB)",
+                "sha1sum": "609033cb61dbfb7d086db664d37ce9a3d91edb9e"
+              },
+              {
+                "label": "String Side B (SSB)",
+                "desc": "",
+                "u_id": "2179",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "String_Voltage_Side_B",
+                    "u_id": "2180",
+                    "units": "V",
+                    "value": "3.8",
+                    "id": "2180"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "String_Current_Side_B",
+                    "u_id": "2181",
+                    "units": "A",
+                    "value": "7.6",
+                    "id": "2181"
+                  },
+                  {
+                    "name": "Rung_1_Voltage_Side_B",
+                    "u_id": "2182",
+                    "units": "V",
+                    "value": "1.9",
+                    "id": "2182"
+                  },
+                  {
+                    "name": "Rung_1_Current_Side_B",
+                    "u_id": "2183",
+                    "units": "A",
+                    "value": "7.6",
+                    "id": "2183"
+                  },
+                  {
+                    "name": "Rung_2_Voltage_Side_B",
+                    "u_id": "2184",
+                    "units": "V",
+                    "value": "1.9",
+                    "id": "2184"
+                  },
+                  {
+                    "name": "Rung_2_Current_Side_B",
+                    "u_id": "2185",
+                    "units": "A",
+                    "value": "7.6",
+                    "id": "2185"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-2.0.5",
+                "name": "String Side B (SSB)",
+                "sha1sum": "c0b46f3ade7a87ee0165c50aadf057914764239f"
+              },
+              {
+                "label": "Catholyte Tanks",
+                "desc": "",
+                "u_id": "2186",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "CatholyteTotalVolume",
+                    "u_id": "2187",
+                    "units": "L",
+                    "value": "113,630",
+                    "id": "2187"
+                  },
+                  {
+                    "class": "Closed",
+                    "name": "CatholyteValvesState",
+                    "u_id": "2188",
+                    "value": "Closed",
+                    "id": "2188"
+                  },
+                  {
+                    "desc": "Tank level reading. [c2-smu-SENSEMON-1:AIN16] raw: 20.05",
+                    "name": "LT202_Level_Transducer",
+                    "u_id": "2189",
+                    "units": "L",
+                    "value": "37,876\n                ",
+                    "id": "2189"
+                  },
+                  {
+                    "desc": "Tank level reading. [c2-smu-SENSEMON-2:AIN15] raw: 20.05",
+                    "name": "LT203_Level_Transducer",
+                    "u_id": "2190",
+                    "units": "L",
+                    "value": "37,876\n                ",
+                    "id": "2190"
+                  },
+                  {
+                    "desc": "Tank level reading. [c2-smu-SENSEMON-2:AIN16] raw: 20.05",
+                    "name": "LT204_Level_Transducer",
+                    "u_id": "2191",
+                    "units": "L",
+                    "value": "37,876\n                ",
+                    "id": "2191"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-2.0.6",
+                "name": "Catholyte Tanks",
+                "sha1sum": "a40846cbc9694e5778dd90c87b5999767ed57f88"
+              }
+            ]
+          },
+          {
+            "u_id": "2192",
+            "id": "DataSet-2.1",
+            "className": "tableRowGroupBlock dataset-wrapper L3",
+            "sha1sums": " fd6be86e1cdf04cabccfce0b2f81239befc86d37 2581f173ffbbff4f4cb49273c935d37487b23c07 23526ea001706e31d89402599d879469ec79df67 38b4edd7deb5cb382c473e1d4bfb8589a78e7073 025a4383d471537b0cb4bfb56fe78c0efe30911f 754d1460f9297bee61639ff05767e7c42c1ed260 9448a7e09e4cfa9618147a9ed7c18820a1921950",
+            "dsItems": [
+              {
+                "label": "Utility",
+                "desc": "",
+                "u_id": "2193",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "HotelPower",
+                    "u_id": "2194",
+                    "units": "V",
+                    "value": "28.1",
+                    "id": "2194"
+                  },
+                  {
+                    "class": "",
+                    "u_id": "2195",
+                    "command": {
+                      "cmd": "Stop_Utility_Sys",
+                      "confirm": "false",
+                      "desc": "Stop utility pumps and set valves to process.",
+                      "dest": "2-1",
+                      "deviceId": "0",
+                      "disabled": "false",
+                      "idnum": "0",
+                      "label": "Stop Utility",
+                      "name": "Stop_Utility_Sys",
+                      "u_id": "2196",
+                      "sha1sum": "a683940ce64f8aa78fa3ab7fc36775d460b0e6b8",
+                      "class": "command",
+                      "id": "2196"
+                    },
+                    "name": "",
+                    "id": "2195",
+                    "sha1sums": " a683940ce64f8aa78fa3ab7fc36775d460b0e6b8",
+                    "_action": "simpleCommand",
+                    "sha1sum": "a93e1c18dc26758b2d63ad05940283880d09cc28"
+                  },
+                  {
+                    "class": "",
+                    "u_id": "2197",
+                    "command": {
+                      "cmd": "Start_HEX_Pumps",
+                      "confirm": "false",
+                      "desc": "Start running the utility pumps.",
+                      "dest": "2-1",
+                      "deviceId": "0",
+                      "disabled": "false",
+                      "idnum": "0",
+                      "label": "Start HEX Pumps",
+                      "name": "Start_HEX_Pumps",
+                      "u_id": "2198",
+                      "sha1sum": "a404be8be78cf1925747f1b25bc02fa115e0d5be",
+                      "class": "command",
+                      "id": "2198"
+                    },
+                    "name": "",
+                    "id": "2197",
+                    "sha1sums": " a404be8be78cf1925747f1b25bc02fa115e0d5be",
+                    "_action": "simpleCommand",
+                    "sha1sum": "96b9d061dcfba49099bc0139f603e3522243b8cb"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-2.1.0",
+                "name": "Utility",
+                "sha1sum": "fd6be86e1cdf04cabccfce0b2f81239befc86d37"
+              },
+              {
+                "label": "Rebalance System",
+                "desc": "",
+                "u_id": "2199",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "name": "Rebalance_State",
+                    "u_id": "2200",
+                    "value": "Offline",
+                    "id": "2200"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "status",
+                    "u_id": "2201",
+                    "value": "---",
+                    "id": "2201"
+                  },
+                  {
+                    "u_id": "2202",
+                    "command": {
+                      "cmd": "Move_Liters",
+                      "desc": "[Not enabled] Move chemistry.",
+                      "dest": "2-1",
+                      "disabled": "true",
+                      "idnum": "0",
+                      "label": "Move Liters",
+                      "name": "Move_Liters",
+                      "u_id": "2203",
+                      "controls": [
+                        {
+                          "_type": "float",
+                          "desc": "Enter target Anolyte to Catholyte Vol (L)",
+                          "idnum": "0",
+                          "max": "10000.00",
+                          "min": "0.00",
+                          "u_id": "2204",
+                          "value": "0.00",
+                          "id": "2204",
+                          "sha1sum": "b2b45c9110c7adf0d95c662bdeb526a8f298a574"
+                        },
+                        {
+                          "_type": "float",
+                          "desc": "Enter target Catholyte to Anolyte Vol (L)",
+                          "idnum": "0",
+                          "max": "10000.00",
+                          "min": "0.00",
+                          "u_id": "2205",
+                          "value": "0.00",
+                          "id": "2205",
+                          "sha1sum": "e9f9e55e3bfffdf51bc482539abe4491cdb37d94"
+                        }
+                      ],
+                      "class": "command",
+                      "id": "2203"
+                    },
+                    "name": "",
+                    "id": "2202",
+                    "sha1sums": " b2b45c9110c7adf0d95c662bdeb526a8f298a574 e9f9e55e3bfffdf51bc482539abe4491cdb37d94",
+                    "_action": "disabled",
+                    "sha1sum": "0b84ca3b6a8d6a0a1bd43bb715dab6bbd053bb66"
+                  },
+                  {
+                    "u_id": "2206",
+                    "command": {
+                      "cmd": "Move_Volume_Perc",
+                      "desc": "[Not enabled] Mix a percentage of the Anolyte and Catholyte chemistry's.",
+                      "dest": "2-1",
+                      "disabled": "true",
+                      "idnum": "0",
+                      "label": "Move Volume Perc",
+                      "name": "Move_Volume_Perc",
+                      "u_id": "2207",
+                      "controls": [
+                        {
+                          "_type": "float",
+                          "desc": "Enter Volume Percentage to mix.",
+                          "idnum": "0",
+                          "max": "12.5",
+                          "min": "0.1",
+                          "u_id": "2208",
+                          "value": "1.0",
+                          "id": "2208",
+                          "sha1sum": "723215ac619ade7b1b4821fd4cae3e9da469a311"
+                        },
+                        {
+                          "_type": "float",
+                          "desc": "Enter target Anolyte Volume Percentage.",
+                          "idnum": "0",
+                          "max": "54.50",
+                          "min": "45.50",
+                          "u_id": "2209",
+                          "value": "51.50",
+                          "id": "2209",
+                          "sha1sum": "df5714486b9a3bb5f64687cec9b38697ec7ff717"
+                        }
+                      ],
+                      "class": "command",
+                      "id": "2207"
+                    },
+                    "name": "",
+                    "id": "2206",
+                    "sha1sums": " 723215ac619ade7b1b4821fd4cae3e9da469a311 df5714486b9a3bb5f64687cec9b38697ec7ff717",
+                    "_action": "disabled",
+                    "sha1sum": "ff1d9ec051fb4a09c351a82f497a301102718f7d"
+                  },
+                  {
+                    "u_id": "2210",
+                    "command": {
+                      "cmd": "Mix_Tanks",
+                      "desc": "[Not enabled] Mix Anolyte and Catholyte chemistry's.",
+                      "dest": "2-1",
+                      "disabled": "true",
+                      "idnum": "0",
+                      "label": "Mix Tanks",
+                      "name": "Mix_Tanks",
+                      "u_id": "2211",
+                      "controls": [
+                        {
+                          "_type": "float",
+                          "desc": "Enter target Anolyte Vol Percentage",
+                          "idnum": "0",
+                          "max": "54.50",
+                          "min": "45.50",
+                          "u_id": "2212",
+                          "value": "51.50",
+                          "id": "2212",
+                          "sha1sum": "6b51f87fc408c4c62ba5cff8574b832a2f95beb6"
+                        },
+                        {
+                          "_type": "int",
+                          "desc": "Enter amount of time to mix in minutes.",
+                          "max": "6000",
+                          "min": "1",
+                          "u_id": "2213",
+                          "value": "5",
+                          "id": "2213",
+                          "sha1sum": "0d6df7fbe8882d95a32c958eeaf79eb1396f4081"
+                        }
+                      ],
+                      "class": "command",
+                      "id": "2211"
+                    },
+                    "name": "",
+                    "id": "2210",
+                    "sha1sums": " 6b51f87fc408c4c62ba5cff8574b832a2f95beb6 0d6df7fbe8882d95a32c958eeaf79eb1396f4081",
+                    "_action": "disabled",
+                    "sha1sum": "833341f2488ec2aa6390c560c9924e1cfd721ddd"
+                  },
+                  {
+                    "u_id": "2214",
+                    "command": {
+                      "cmd": "Level_Tanks",
+                      "desc": "[Not enabled] Set the Anolyte Volume Percentage.",
+                      "dest": "2-1",
+                      "disabled": "true",
+                      "idnum": "0",
+                      "label": "Level Tanks",
+                      "name": "Level_Tanks",
+                      "u_id": "2215",
+                      "controls": [
+                        {
+                          "_type": "float",
+                          "desc": "Enter target Anolyte Vol Percentage",
+                          "idnum": "0",
+                          "max": "54.50",
+                          "min": "45.50",
+                          "u_id": "2216",
+                          "value": "51.50",
+                          "id": "2216",
+                          "sha1sum": "2c7056597e767b73a29499b97c4e321cb11ddad7"
+                        }
+                      ],
+                      "class": "command",
+                      "id": "2215"
+                    },
+                    "name": "",
+                    "id": "2214",
+                    "sha1sums": " 2c7056597e767b73a29499b97c4e321cb11ddad7",
+                    "_action": "disabled",
+                    "sha1sum": "954e7b4216c0032e698d92025c33596c12f61361"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-2.1.1",
+                "name": "Rebalance System",
+                "sha1sum": "2581f173ffbbff4f4cb49273c935d37487b23c07"
+              },
+              {
+                "label": "Anolyte Util",
+                "desc": "",
+                "u_id": "2217",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "desc": "Anolyte utility flow. [c2-smu-SENSEMON-3:AIN1] raw: 4.10",
+                    "name": "FT105_An_Util",
+                    "u_id": "2218",
+                    "units": "LPM",
+                    "value": "0.0\n                ",
+                    "id": "2218"
+                  },
+                  {
+                    "desc": "Anolyte utility pressure. [c2-smu-SENSEMON-3:AIN3] raw: 5.22",
+                    "name": "PT102_An_Util",
+                    "u_id": "2219",
+                    "units": "PSI",
+                    "value": "3.8\n                ",
+                    "id": "2219"
+                  },
+                  {
+                    "desc": "Current operating motor frequency.",
+                    "name": "Actual_Speed",
+                    "u_id": "2220",
+                    "units": "Hz",
+                    "value": "0.0",
+                    "id": "2220"
+                  },
+                  {
+                    "class": "Process",
+                    "desc": "Anolyte utility transfer valve. [c2-vcu-VALVECTRL-1:Valve 11]",
+                    "name": "CV121_An_Xfer",
+                    "u_id": "2221",
+                    "value": "Process\n                ",
+                    "id": "2221"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-2.1.2",
+                "name": "Anolyte Util",
+                "sha1sum": "23526ea001706e31d89402599d879469ec79df67"
+              },
+              {
+                "label": "Catholyte Util",
+                "desc": "",
+                "u_id": "2222",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "class": "priority",
+                    "desc": "Catholyte utility flow. [c2-smu-SENSEMON-3:AIN2] raw: 4.01",
+                    "name": "FT205_Ca_Util",
+                    "u_id": "2223",
+                    "units": "LPM",
+                    "value": "0.0\n                ",
+                    "id": "2223"
+                  },
+                  {
+                    "desc": "Catholyte utility pressure. [c2-smu-SENSEMON-3:AIN4] raw: 5.33",
+                    "name": "PT202_Ca_Util",
+                    "u_id": "2224",
+                    "units": "PSI",
+                    "value": "4.1\n                ",
+                    "id": "2224"
+                  },
+                  {
+                    "desc": "Current operating motor frequency.",
+                    "name": "Actual_Speed",
+                    "u_id": "2225",
+                    "units": "Hz",
+                    "value": "0.0",
+                    "id": "2225"
+                  },
+                  {
+                    "class": "Process",
+                    "desc": "Catholyte utility transfer valve. [c2-vcu-VALVECTRL-2:Valve 11]",
+                    "name": "CV221_Ca_Xfer",
+                    "u_id": "2226",
+                    "value": "Process\n                ",
+                    "id": "2226"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-2.1.3",
+                "name": "Catholyte Util",
+                "sha1sum": "38b4edd7deb5cb382c473e1d4bfb8589a78e7073"
+              },
+              {
+                "label": "Electrolyte Accounting",
+                "desc": "",
+                "u_id": "2227",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "name": "AnVol_Pct",
+                    "u_id": "2228",
+                    "units": "%",
+                    "value": "50.00",
+                    "id": "2228"
+                  },
+                  {
+                    "name": "AnMol_Pct",
+                    "u_id": "2229",
+                    "units": "%",
+                    "value": "48.3",
+                    "id": "2229"
+                  },
+                  {
+                    "name": "Va",
+                    "u_id": "2230",
+                    "value": "1.556",
+                    "id": "2230"
+                  },
+                  {
+                    "name": "Vc",
+                    "u_id": "2231",
+                    "value": "1.664",
+                    "id": "2231"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "VaValence",
+                    "u_id": "2232",
+                    "value": "2.97",
+                    "id": "2232"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-2.1.4",
+                "name": "Electrolyte Accounting",
+                "sha1sum": "025a4383d471537b0cb4bfb56fe78c0efe30911f"
+              },
+              {
+                "label": "Electrolyte SoC",
+                "desc": "",
+                "u_id": "2233",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "name": "AnSOC",
+                    "u_id": "2234",
+                    "units": "%",
+                    "value": "51.1",
+                    "id": "2234"
+                  },
+                  {
+                    "class": "priority",
+                    "name": "RefSOC",
+                    "u_id": "2235",
+                    "units": "%",
+                    "value": "57.6",
+                    "id": "2235"
+                  },
+                  {
+                    "name": "CaSOC",
+                    "u_id": "2236",
+                    "units": "%",
+                    "value": "64.2",
+                    "id": "2236"
+                  },
+                  {
+                    "name": "RefCellVolts",
+                    "u_id": "2237",
+                    "units": "V",
+                    "value": "1.450",
+                    "id": "2237"
+                  }
+                ],
+                "tableType": "PairListTable",
+                "id": "Table-2.1.5",
+                "name": "Electrolyte SoC",
+                "sha1sum": "754d1460f9297bee61639ff05767e7c42c1ed260"
+              },
+              {
+                "label": "Active_Fault_List",
+                "desc": "",
+                "u_id": "2238",
+                "url": "",
+                "tooltip": "",
+                "elements": [
+                  {
+                    "ev_details": "value 37876.88 >= 37400.00",
+                    "fault_code": "Process-Mod2-2",
+                    "idx": "114",
+                    "name": "Mod2-Process-AnTank-2-Tank_Level",
+                    "timestamp": "16:20:38",
+                    "u_id": "2238",
+                    "value": "trip\n                ",
+                    "id": "2238"
+                  },
+                  {
+                    "ev_details": "value 37876.88 >= 37400.00",
+                    "fault_code": "Process-Mod2-4",
+                    "idx": "116",
+                    "name": "Mod2-Process-AnTank-3-Tank_Level",
+                    "timestamp": "16:20:38",
+                    "u_id": "2239",
+                    "value": "trip\n                ",
+                    "id": "2239"
+                  },
+                  {
+                    "ev_details": "value 37876.88 >= 37400.00",
+                    "fault_code": "Process-Mod2-6",
+                    "idx": "118",
+                    "name": "Mod2-Process-AnTank-4-Tank_Level",
+                    "timestamp": "16:20:38",
+                    "u_id": "2240",
+                    "value": "trip\n                ",
+                    "id": "2240"
+                  },
+                  {
+                    "ev_details": "value 37876.88 >= 37400.00",
+                    "fault_code": "Process-Mod2-8",
+                    "idx": "120",
+                    "name": "Mod2-Process-CaTank-2-Tank_Level",
+                    "timestamp": "16:20:38",
+                    "u_id": "2241",
+                    "value": "trip\n                ",
+                    "id": "2241"
+                  },
+                  {
+                    "ev_details": "value 37876.88 >= 37400.00",
+                    "fault_code": "Process-Mod2-10",
+                    "idx": "122",
+                    "name": "Mod2-Process-CaTank-3-Tank_Level",
+                    "timestamp": "16:20:38",
+                    "u_id": "2242",
+                    "value": "trip\n                ",
+                    "id": "2242"
+                  },
+                  {
+                    "ev_details": "",
+                    "fault_code": "....",
+                    "idx": "",
+                    "name": "15 more not displayed.",
+                    "timestamp": "",
+                    "u_id": "2243",
+                    "value": "\n                    ...\n                ",
+                    "id": "2243"
+                  }
+                ],
+                "tableType": "PropDefinedTable",
+                "props": {
+                  "index": "0",
+                  "id": "table-1",
+                  "element": "Active_Fault_List",
+                  "item": "Fault",
+                  "columns": [
+                    [
+                      "timestamp",
+                      "Time"
+                    ],
+                    [
+                      "name",
+                      "Name"
+                    ],
+                    [
+                      "ev_details",
+                      "Details"
+                    ],
+                    [
+                      "value",
+                      "Fault Status"
+                    ]
+                  ]
+                },
+                "id": "Table-2.1.6",
+                "name": "Active_Fault_List",
+                "sha1sum": "9448a7e09e4cfa9618147a9ed7c18820a1921950"
+              }
+            ]
+          }
+        ],
+        "Fault_List": [],
+        "menuPos": "top",
+        "colCount": 7,
+        "rowCount": 3
+      }
+    ],
+    "status": "0"
+  }
+}

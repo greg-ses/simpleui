@@ -1,0 +1,302 @@
+<div data-dojo-attach-point="containerNode">
+    <div class="dcServerBorder" data-dojo-type="dijit/layout/BorderContainer" data-dojo-attach-point="borderContainer"
+        data-dojo-props="design:'sidebar'">
+        <div class="dcServerLeftPane" data-dojo-attach-point="leftPane" data-dojo-type="dijit/layout/ContentPane"
+            data-dojo-props="region:'left'">
+            <div class="basePanelTable">
+            <div class="basePanelTableRow">
+                    <!-- Plan to properly format this with a table and css 
+                    <div class="basePanelTableCell">
+                    DC-DC (99 for all devices)
+                    </div>
+                    <div class="basePanelTableCell">
+                        <div data-dojo-attach-point="txtDCDCID" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtDCDCID', constraints: { pattern: '#' }"
+                            data-dojo-attach-event="onKeyUp:_handleIDNum" value="0">
+                        </div>
+                    </div>            -->
+            </div>
+            
+                <div class="basePanelTableRow">
+                    <div class="dcServerButton basePanelTableCell">
+                        <button data-dojo-type="dijit/form/Button" type="button"  baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton' " data-dojo-attach-event="onClick:_handleServiceOffline">
+                        Off
+                        </button>
+                    </div>
+                </div>
+                <div class="basePanelTableRow">
+                    <div class="dcServerButton basePanelTableCell">
+                        <button data-dojo-type="dijit/form/Button" type="button" baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton'" data-dojo-attach-event="onClick:_handleServiceOnline">
+                        On
+                        </button>
+                    </div>
+                </div>
+                <div class="basePanelTableRow">
+                    <!-- Plan to properly format this with a table and css -->
+                    <div class=" basePanelTableCell dcServerButton">
+                        <button data-dojo-type="dijit/form/Button" type="button" baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton'" data-dojo-attach-event="onClick:_handleCharge">
+                        Charge
+                        </button>
+                    </div>
+                    <div class="basePanelTableCell">
+                        <div data-dojo-attach-point="txtCharge" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtCharge', constraints: { pattern: '0.######' }"
+                            data-dojo-attach-event="onKeyUp:_handleCharge">
+                        </div>
+                    </div>
+                </div>
+                <div class="basePanelTableRow">
+                    <!-- Plan to properly format this with a table and css -->
+                    <div class="basePanelTableCell dcServerButton">
+                        <button data-dojo-type="dijit/form/Button" type="button" baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton'" data-dojo-attach-event="onClick:_handleStrip">
+                        Strip
+                        </button>
+                    </div>
+                    <div class="basePanelTableCell dcServerNumberInput">
+                        <div data-dojo-attach-point="txtStrip" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtStrip', constraints: { pattern:'0.######', value:0 }"
+                            data-dojo-attach-event="onKeyUp:_handleStrip">
+                        </div>
+                    </div>
+                </div>
+                <div class="basePanelTableRow">
+                    <div class="dcServerButton basePanelTableCell">
+                        <button data-dojo-type="dijit/form/Button" type="button" baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton'" data-dojo-attach-event="onClick:_handleSetVoltage">
+                        Voltage Set
+                        </button>
+                    </div>
+                    <div class="basePanelTableCell dcServerNumberInput">
+                        <div data-dojo-attach-point="txtVSet" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtVSet'"
+                            data-dojo-attach-event="onKeyUp:_handleSetVoltage">
+                        </div>
+                    </div>					
+                </div>
+                <div class="basePanelTableRow">
+                    <div class="dcServerButton basePanelTableCell">
+                        <button data-dojo-type="dijit/form/Button" type="button" baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton'" data-dojo-attach-event="onClick:_handleSetCurrent">
+                        Current Set
+                        </button>
+                    </div>
+                    <div class="basePanelTableCell dcServerNumberInput">
+                        <div data-dojo-attach-point="txtISet" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtISet'"
+                            data-dojo-attach-event="onKeyUp:_handleSetCurrent">
+                        </div>
+                    </div>										
+                </div>				
+                <div class="basePanelTableRow">
+                    <div class="dcServerButton basePanelTableCell">
+                        <button data-dojo-type="dijit/form/Button" type="button" baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton'" data-dojo-attach-event="onClick:_handleSetOVP">
+                        Over Voltage Set
+                        </button>
+                    </div>
+                    <div class="basePanelTableCell dcServerNumberInput">
+                        <div data-dojo-attach-point="txtOVPSet" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtOVPSet'"
+                            data-dojo-attach-event="onKeyUp:_handleSetOVP">
+                        </div>
+                    </div>										
+                </div>			
+                <div class="basePanelTableRow">
+                    <div class="dcServerButton basePanelTableCell">
+                        <button data-dojo-type="dijit/form/Button" type="button" baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton'" data-dojo-attach-event="onClick:_handleSimCmd">
+                        Sim Command
+                        </button>
+                    </div>
+                    <div class="basePanelTableCell dcServerNumberInput">
+                        <div data-dojo-attach-point="txtSimCmd" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtSimCmd'"
+                            data-dojo-attach-event="onKeyUp:_handleSimCmd">
+                        </div>
+                    </div>										
+                    <div class="basePanelTableCell dcServerNumberInput">
+                        <div data-dojo-attach-point="txtSimVal" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtSimVal'">
+                        </div>
+                    </div>										
+                </div>			
+				
+                <div class="basePanelTableRow">
+                    <div class="dcServerButton basePanelTableCell">
+                        <button data-dojo-type="dijit/form/Button" type="button" baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton'" data-dojo-attach-event="onClick:_handleClear">
+                        Send Clear
+                        </button>
+                    </div>
+				</div>
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                        <button data-dojo-type="dijit/form/Button" type="button" baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton'" data-dojo-attach-event="onClick:_handleZeroAH">
+                        ZeroAH
+                        </button>
+                    </div>
+                </div>
+
+				<hr>
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                        <button data-dojo-type="dijit/form/Button" type="button" baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton'" data-dojo-attach-event="onClick:_handleDefaultSetup1">
+                        Default Setup 1
+                        </button>
+                    </div>
+                </div>
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                        <button data-dojo-type="dijit/form/Button" type="button" baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton'" data-dojo-attach-event="onClick:_handleDefaultSetup2">
+                        Default Setup 2
+                        </button>
+                    </div>
+                </div>
+				<hr>
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                    Max Bus Volts
+                    </div>
+                    <div class="basePanelTableCell">
+                        <div  data-dojo-attach-point="txtMaxBusV" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtMaxBusV', constraints: { pattern: '0.######' }">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                    Min Bus Volts
+                    </div>
+                    <div class="basePanelTableCell">
+                        <div  data-dojo-attach-point="txtMinBusV" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtMinBusV', constraints: { pattern: '0.######' }">
+                        </div>
+                    </div>
+                </div>
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                    BusV Sense Offset
+                    </div>
+                    <div class="basePanelTableCell">
+                        <div  data-dojo-attach-point="txtBusVSenseOffset" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtBusVSenseOffset', constraints: { pattern: '0.######' }">
+                        </div>
+                    </div>
+                </div>
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                    DC Bus Target
+                    </div>
+                    <div class="basePanelTableCell">
+                        <div  data-dojo-attach-point="txtDCBusTarget" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtDCBusTarget', constraints: { pattern: '0.######' }">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                        <button data-dojo-type="dijit/form/Button" type="button" baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton'" data-dojo-attach-event="onClick:_handleSetup1">
+                        Send Setup 1
+                        </button>
+                    </div>
+                </div>
+                <!-- Setup 2 values -->
+				<!--
+				<hr>
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                    Batt I Charge limit
+                    </div>
+                    <div class="basePanelTableCell">
+                        <div  data-dojo-attach-point="txtBattIChargeLimit" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtBattIChargeLimit', constraints: { pattern: '0.######' }" value="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                    Batt I Disharge limit
+                    </div>
+                    <div class="basePanelTableCell">
+                        <div  data-dojo-attach-point="txtBattIDischargeLimit" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtBattIDischargeLimit', constraints: { pattern: '0.######' }" value="2">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                    Batt V Charge limit
+                    </div>
+                    <div class="basePanelTableCell">
+                        <div  data-dojo-attach-point="txtBattVChargeLimit" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtBattVChargeLimit', constraints: { pattern: '0.######' }" value="3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                    Batt V Sensor Offset
+                    </div>
+                    <div class="basePanelTableCell">
+                        <div  data-dojo-attach-point="txtBattVSensorOffset" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtBattVSensorOffset', constraints: { pattern: '0.######' }" value="4">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                    Batt V Target
+                    </div>
+                    <div class="basePanelTableCell">
+                        <div  data-dojo-attach-point="txtBattVTarget" data-dojo-type="dijit/form/NumberTextBox" 
+                            data-dojo-props="name: 'txtBattVTarget', constraints: { pattern: '0.######' }" value="5">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="basePanelTableRow">
+                    <div class="basePanelTableCell">
+                        <button data-dojo-type="dijit/form/Button" type="button" baseclass='btnWidth'
+                            data-dojo-props="iconclass:'dcServerButton'" data-dojo-attach-event="onClick:_handleSetup2">
+                        Send Setup 2
+                        </button>
+                    </div>
+                </div>
+                <hr class='lineBreak'> -->
+            </div>
+            <div data-dojo-attach-point="btnResult">
+            </div>
+            <div data-dojo-attach-point="btnTest">
+            </div>
+        </div>
+        <div class="dcServerCenterPane" data-dojo-attach-point="centerPane" data-dojo-type="dijit/layout/ContentPane"
+            data-dojo-props="region:'center'">
+            <div class="dcServerDataTable" data-dojo-attach-point="tableDiv">
+                <div id="_dcDataTable">
+                </div>
+                <!--div data-dojo-type="dojox/layout/TableContainer" data-dojo-props="cols:3, labelWidth:100, showLabels:false" data-dojo-attach-point="_dcDataTable">
+                </div-->
+            </div>
+            <hr>
+            <div class="dcServerDataDetail" data-dojo-attach-point="tableDiv2">
+                <div id="_dcDetailTable" customClass:"dcServerDetailControl">
+            	</div>
+            </div>
+        </div>
+    </div>
+</div>

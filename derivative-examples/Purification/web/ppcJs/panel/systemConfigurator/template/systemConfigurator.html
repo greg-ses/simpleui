@@ -1,0 +1,41 @@
+﻿<div data-dojo-attach-point="containerNode">
+    <div class="scSystemSelectDiv">
+        <div data-dojo-attach-point="systemSelect" data-dojo-type="dijit/form/Select" style="width: 182px;"
+            data-dojo-attach-event="onChange:_onSelectChange">
+        </div>
+    </div>
+    <div data-dojo-attach-point="newSystemDialog" class="basePanelControlBorder scNewSystemDialog">
+        <div data-dojo-attach-point="newSystemTable" data-dojo-type="dojox/layout/TableContainer"
+            data-dojo-props="customClass:'scSystemTableCell'">
+            <div title="system name"
+                data-dojo-attach-point="newSystemName"
+                data-dojo-type="dijit/form/TextBox"
+                data-dojo-props="trim:true">
+            </div>
+            <input class="scNumberSpinner" data-dojo-type="dijit/form/NumberSpinner"
+                data-dojo-attach-point="numSubsystems"
+                value="1"
+                data-dojo-props="smallDelta:1, constraints:{min:1,max:100,places:0}"
+                title="subsystems" />
+            <input class="scNumberSpinner" data-dojo-type="dijit/form/NumberSpinner"
+                data-dojo-attach-point="numBatteries"
+                value="1"
+                data-dojo-props="smallDelta:1, constraints:{min:1,max:100,places:0}"
+                title="batteries" />
+        </div>
+        <div  class="scNewSystemButtonDiv">
+            <button data-dojo-type="dijit/form/Button" data-dojo-attach-point="newRowButton" data-dojo-attach-event="onClick:_onSaveClick">
+                Create</button>
+            <button data-dojo-type="dijit/form/Button" data-dojo-attach-point="newRowButton" data-dojo-attach-event="onClick:_onCancelClick">
+                Cancel</button>
+        </div>
+    </div>
+    <div data-dojo-attach-point="subsystemDiv" class="scSubsystemDiv">
+        <div data-dojo-attach-point="subsystemButtonsDiv" class="scSubsystemsButtonsDiv">
+            <button data-dojo-type="dijit/form/Button" data-dojo-attach-point="newSubsystemButton" data-dojo-attach-event="onClick:_onNewSubsystemClick">
+                Add Subsystem</button>
+        </div>
+        <div data-dojo-attach-point="subsystemControlsDiv"></div>
+    </div>
+
+</div>

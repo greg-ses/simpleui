@@ -1,0 +1,123 @@
+### title of application ###
+instance.name = BMS_Battery_System_Controller
+
+############################################################
+refreshRate = 3000
+
+# How much detail to log (0 - None .. 7 - Verbose)
+logLevel = 0
+
+# How long to allow auto-refresh to continue (in seconds)
+sessionExpiration = 6
+
+## Show unimplemented vars as draggable elements: design means yes, anything else means no ##
+#mode = design
+
+############################################################
+###  MACROS fetch values from other properties files.     ##
+###  When this file is read, any macro enclosed in ${}    ##
+###  will be replaced by the value fetched from the       ##
+###  corresponding properties file                        ##
+############################################################
+
+macro.1.token    = BMS_MYSQL_HOST
+macro.1.source   = /opt/config/BMSServer.properties
+macro.1.property = DatabaseMgr.MYSQL_HOST
+
+macro.2.token    = BMS_MYSQL_DB
+macro.2.source   = /opt/config/BMSServer.properties
+macro.2.property = DatabaseMgr.MYSQL_DB
+
+macro.3.token    = BMS_RESOURCE
+macro.3.source   = /opt/config/BMSServer.properties
+macro.3.property = DatabaseMgr.RESOURCE_ID
+
+###############################################################
+###  APPLICATION LEVEL THEMES AND LINKS                      ##
+##   Use an Angular service that calls get-props-file.php    ##
+##   to return an array of appLink objects, tuples of        ##
+##   (name, url, tooltip)                                    ##
+###############################################################
+
+#appTheme.name     = SimpleUiBlue
+#appTheme.name     = SimpleUiPurple
+#appTheme.name     = SimpleUiSea
+appTheme.name     = SimpleUiPeach
+
+appLink.1.name    = Graph Set
+appLink.1.url     = /fleetviewer/SQ_SetGraph.html?SYS_TYPE=VTS&MACH_NAME=${BMS_RESOURCE}&SQL_DB=${BMS_MYSQL_DB}
+appLink.1.tooltip = Start the Graph Set UI on BMS Server${BMS_MYSQL_HOST}
+
+appLink.2.name    = Parameters
+appLink.2.url     = /bms/html/ParamsApp/Parameters.html
+appLink.2.tooltip = Start the Web UI Parameter Editor on BMS Server ${BMS_MYSQL_HOST}
+
+appLink.3.name    = Event Log
+appLink.3.url     = /fleetviewer/EventList.html?SYS_TYPE=VTS&MACH_NAME=${BMS_RESOURCE}&MYSQL_HOST=${BMS_MYSQL_HOST}&SQL_DB=${BMS_MYSQL_DB}&RealTime=1
+appLink.3.tooltip = Open the Event Log page on BMS Server ${BMS_MYSQL_HOST}
+
+####################################################
+## Tab Configuration                              ##
+## Required: 1 data and 1 command service per tab ##
+####################################################
+
+tab.2.name = VNX1000 Dashboard
+tab.2.overlayHostName = [HOSTNAME]
+tab.2.pageType = overlay
+#tab.2.overlayImageUrl = /bms/ContainerPID/GUI.bmp
+tab.2.overlayImageUrl = /bms/overlay-1/images/VNX-1000-GUI-v3-Model-exp1.png
+#tab.2.imageOverlayGroupNames = ElectrolyteOverview,ValvesOverview,DerivedSummary,LayeredImages
+tab.2.imageOverlayGroupNames = LEGACY_LAYOUT,EPO_Control,Anolyte_Tank_1,Anolyte_Tank_2,Anolyte_Tank_3,Anolyte_Tank_4,Anolyte_Tank_5,Catholyte_Tank_1,Catholyte_Tank_2,Catholyte_Tank_3,Catholyte_Tank_4,Catholyte_Tank_5,PMP101A_Anolyte_Pump,PSA_Anolyte_Data,PMP201A_Catholyte_Pump,PSA_Catholyte_Data,PMP101B_Anolyte_Pump,PSB_Anolyte_Data,PMP201B_Catholyte_Pump,PSB_Catholyte_Data,SCU_A1,SCU_A1_Stack_1,SCU_A1_Stack_2,SCU_A1_Stack_3,SCU_A1_Stack_4,SCU_A2,SCU_A2_Stack_1,SCU_A2_Stack_2,SCU_A2_Stack_3,SCU_A2_Stack_4,SCU_B1,SCU_B1_Stack_1,SCU_B1_Stack_2,SCU_B1_Stack_3,SCU_B1_Stack_4,SCU_B2,SCU_B2_Stack_1,SCU_B2_Stack_2,SCU_B2_Stack_3,SCU_B2_Stack_4,PMP102_An_Util_Pump,An_Utility_Data,PMP202_Ca_Util_Pump,Ca_Utility_Data,Utility_Measurements,N2Pad_Control
+#tab.2.imageOverlayGroupNames = Catholyte_Tank_1
+tab.2.cmdBarNames = emergency_commands,commands,service_commands
+tab.2.dataTableNames = StatusOverview,ElectrolyteOverview,ValvesOverview,DerivedSummary,ActiveFaultList
+#tab.2.dataUrl = /bms/php/container-PidData.php?containerNum=1
+tab.2.dataUrl = /bms/php/get_mock_data.php?file=gm-bms-vnx1000-dashboard.json&versions=2
+tab.2.commandUrl = /bms/php/io-cmd.php
+tab.2.refreshRate = 10000
+
+tab.1.name = BMS
+tab.1.dataUrl = /bms/php/bms-data.php?JSON
+tab.1.commandUrl = /bms/php/bms-cmd.php
+
+tab.3.name = IO 1
+tab.3.dataUrl = /bms/php/io-data.php?containerNum=1
+tab.3.commandUrl = /bms/php/io-cmd.php
+
+tab.4.name = IO 2
+tab.4.dataUrl = /bms/php/io-data.php?containerNum=2
+tab.4.commandUrl = /bms/php/io-cmd.php
+
+tab.5.name = Units
+tab.5.dataUrl = /bms/php/units-data.php
+tab.5.commandUrl = /bms/php/units-cmd.php
+
+tab.6.name = FaultList
+tab.6.dataUrl = /bms/php/bms-faultlist.php
+tab.6.commandUrl = /bms/php/bms-cmd.php
+
+#tab.7.name = Chiller
+#tab.7.dataUrl = /bms/php/chiller-data.php
+#tab.7.commandUrl = /bms/php/chiller-command.php
+
+#tab.8.name = Heaters
+#tab.8.dataUrl = /bms/php/heaters-data.php
+#tab.8.commandUrl = /bms/php/heaters-command.php
+
+
+#####################################
+###### Props-Defined Tables #######
+#####################################
+
+table.1.element = Active_Fault_List
+table.1.item = Fault
+table.1.columns = fault_code:Code, timestamp:Time, name:Name, value:Fault Status
+
+table.2.element = Fault_List
+table.2.item = Fault
+table.2.columns = idx:Index, timestamp:Time, primLoc:Location, subLoc:Sub_loc, mode_critical_only:critical, mode_tolerant:tolerant, mode_averse:averse, fault_code:Code, type:Type, name:Name, desc:Description:width300, warn_ms:Warn (mS), trip_ms:Trip (mS), conditions:Conditions, currVal:Value, value:Fault Status
+
+
+table.3.element = Event_Log
+table.3.item = Event
+table.3.columns = {{index}}:Index, timestamp:Time, type:Type, value:Description:width300

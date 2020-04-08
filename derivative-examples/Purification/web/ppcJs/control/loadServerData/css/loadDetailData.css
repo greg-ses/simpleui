@@ -1,0 +1,123 @@
+/* layout for LoadServerData control */
+/* release path */
+/*@import url("../../../dojox/charting/resources/Legend.css");*/
+
+@import url("../../../themes/domainObjects.css");
+@import url("../../../themes/basePanel/basePanel.css");
+@import url("../../baseControl/css/baseControl.css");
+@import url("../../../bizLogic/generic/flashTimer/css/flashTimer.css");
+
+.loadDetailData-table
+{
+	width: 600px;
+	/*border: 1px solid black;*/
+	/*
+    height: 300px;
+	width: 1500px;
+    position:relative;
+	float: left;
+    margin:0px;
+    padding:0px;
+    */
+}
+
+.loadDetailData-valueCell
+{
+	width: 200px;
+	nowrap: nowrap;
+	float: left;
+}
+
+.loadDetailData-labelCell
+{
+	width: 10px;
+	nowrap: nowrap;
+	float: left;
+}
+
+div.loadDetailControl
+{
+    height:300px;
+    width: 700px;
+	position:relative;
+	float: left;
+    margin:0px;
+    padding:0px;
+}
+
+/* block body */
+div.loadDetailBody
+{
+    position: static;
+    background-color: #6699CC;
+    color:black;
+    height:110px;
+    width: 600px;
+	padding: 7px;
+}
+
+div.loadDetailDiv
+{
+    /*position:absolute;*/
+    width: 800px;
+    top: 5px;
+    right: 3px;
+}
+
+.loadDetailItem
+{
+    width:30px;
+    height:15px;
+    margin:2px;
+}
+
+.loadDetailMediumItem
+{
+    width:200px;
+    height:15px;
+    margin:2px;
+    float: left;
+}
+
+.loadDetailLargeItem
+{
+    width:500px;
+    height:15px;
+    margin:2px;
+    float: left;
+}
+
+.loadDetailRightAlign
+{
+    float:right;
+}
+
+.loadDetailCenterAlign
+{
+    float:center;
+}
+
+.loadDetailLeftAlign
+{
+    float:left;
+}
+
+.loadDetailLabel
+{
+float:left;
+height:15px;
+margin:2px;
+width: 80px;
+font-size: 10px;
+
+}
+
+.loadDetailTitle
+{
+text-align: center;
+width:90px;
+height:15px;
+margin:2px;
+font-size: 15px;
+font-weight: 400;
+}

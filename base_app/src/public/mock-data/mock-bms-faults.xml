@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2001">
+    <Section name="Fault List" u_id="2002">
+        <DataSets u_id="2003">
+            <Fault_List u_id="2004">
+                <Fault conditions="value &gt; Warn:0.25 &gt; Trip:0.50" currVal="0.002" desc="Tank Leak Sensor."
+                       fault_code="Process-Mod1-1" idx="1" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-Process-AnTank-2" primLoc="Mod1" subLoc="mod"
+                       timestamp="10:10:19" trip_ms="20000" type="DoubleRange" warn_ms="10000">trip
+                </Fault>
+                <Fault conditions="value &gt; Warn:0.25 &gt; Trip:0.50" currVal="0.055" desc="Tank Leak Sensor."
+                       fault_code="Process-Mod1-2" idx="2" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-Process-AnTank-3" primLoc="Mod1" subLoc="mod"
+                       timestamp="13:26:18" trip_ms="20000" type="DoubleRange" warn_ms="10000">warning
+                </Fault>
+                <Fault conditions="value &gt; Warn:0.25 &gt; Trip:0.50" currVal="0.890" desc="Tank Leak Sensor."
+                       fault_code="Process-Mod1-3" idx="3" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-Process-AnTank-4" primLoc="Mod1" subLoc="mod"
+                       timestamp="10:10:19" trip_ms="20000" type="DoubleRange" warn_ms="10000">trip
+                </Fault>
+                <Fault conditions="value &gt; Warn:0.25 &gt; Trip:0.50" currVal="-0.003" desc="Tank Leak Sensor."
+                       fault_code="Process-Mod1-4" idx="4" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-Process-CaTank-2" primLoc="Mod1" subLoc="mod"
+                       timestamp="05:39:56" trip_ms="20000" type="DoubleRange" warn_ms="10000">warning
+                </Fault>
+                <Fault conditions="value &gt; Warn:0.25 &gt; Trip:0.50" currVal="4.014" desc="Tank Leak Sensor."
+                       fault_code="Process-Mod1-5" idx="5" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-Process-CaTank-3" primLoc="Mod1" subLoc="mod"
+                       timestamp="10:10:18" trip_ms="20000" type="DoubleRange" warn_ms="10000">trip
+                </Fault>
+                <Fault conditions="value &gt; Warn:0.25 &gt; Trip:0.50" currVal="4.094" desc="Tank Leak Sensor."
+                       fault_code="Process-Mod1-6" idx="6" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-Process-CaTank-4" primLoc="Mod1" subLoc="mod"
+                       timestamp="10:10:19" trip_ms="20000" type="DoubleRange" warn_ms="10000">trip
+                </Fault>
+                <Fault conditions="when device is enabled" currVal="EPO_Fault"
+                       desc="Emergency power off (EPO) event occurred." fault_code="EpoFlt-Mod1-1" idx="7"
+                       mode_averse="epo" mode_critical_only="epo" mode_tolerant="epo" name="Mod1-EpoEvent"
+                       primLoc="Mod1" subLoc="mod" timestamp="09:42:17" trip_ms="0" type="VEC-EpoEvent" warn_ms="0">none
+                </Fault>
+                <Fault conditions="warn when true" currVal="false" desc="External stop input."
+                       fault_code="EpoFlt-Mod1-2" idx="8" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-External_Stop_SCU_B2" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="250" type="Bool" value="false" warn_ms="250">none
+                </Fault>
+                <Fault conditions="warn when true" currVal="false" desc="External stop input."
+                       fault_code="EpoFlt-Mod1-3" idx="9" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-External_Stop_SCU_B1" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="250" type="Bool" value="false" warn_ms="250">none
+                </Fault>
+                <Fault conditions="warn when true" currVal="false" desc="External stop input."
+                       fault_code="EpoFlt-Mod1-4" idx="10" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-External_Stop_SCU_A2" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="250" type="Bool" value="false" warn_ms="250">none
+                </Fault>
+                <Fault conditions="warn when true" currVal="false" desc="External stop input."
+                       fault_code="EpoFlt-Mod1-5" idx="11" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-External_Stop_SCU_A1" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="250" type="Bool" value="false" warn_ms="250">none
+                </Fault>
+                <Fault conditions="warn when true" currVal="false" desc="External stop input."
+                       fault_code="EpoFlt-Mod1-6" idx="12" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-External_Stop_SMU" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="250" type="Bool" value="false" warn_ms="250">none
+                </Fault>
+                <Fault conditions="warn when true" currVal="false" desc="External stop input."
+                       fault_code="EpoFlt-Mod1-7" idx="13" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-External_Stop_VCU" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="250" type="Bool" value="false" warn_ms="250">none
+                </Fault>
+                <Fault conditions="when input is not on" currVal="Off" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-8" idx="14" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-EPO_Mushroom_Button_SCU_B2" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:20" trip_ms="250" type="VEC-SafeIn-Warn" warn_ms="250">warning
+                </Fault>
+                <Fault conditions="when input is not on" currVal="Off" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-9" idx="15" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-EPO_Mushroom_Button_SCU_B1" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:20" trip_ms="250" type="VEC-SafeIn-Warn" warn_ms="250">warning
+                </Fault>
+                <Fault conditions="when input is not on" currVal="Off" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-10" idx="16" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-EPO_Mushroom_Button_SCU_A2" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:20" trip_ms="250" type="VEC-SafeIn-Warn" warn_ms="250">warning
+                </Fault>
+                <Fault conditions="when input is not on" currVal="Off" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-11" idx="17" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-EPO_Mushroom_Button_SCU_A1" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:20" trip_ms="250" type="VEC-SafeIn-Warn" warn_ms="250">warning
+                </Fault>
+                <Fault conditions="when input is not on" currVal="Off" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-12" idx="18" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-EPO_Mushroom_Button_SMU" primLoc="Mod1" subLoc="mod"
+                       timestamp="10:20:58" trip_ms="250" type="VEC-SafeIn-Warn" warn_ms="250">warning
+                </Fault>
+                <Fault conditions="when input is not on" currVal="Off" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-13" idx="19" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-LS401_Switch_Leak_Stack_Container_PAD" primLoc="Mod1"
+                       subLoc="mod" timestamp="10:20:58" trip_ms="250" type="VEC-SafeIn-Warn" warn_ms="250">warning
+                </Fault>
+                <Fault conditions="when input is not on" currVal="Off" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-14" idx="20" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-LS318_Switch_Leak_Stack_Container_Ref_Cell"
+                       primLoc="Mod1" subLoc="mod" timestamp="10:20:58" trip_ms="250" type="VEC-SafeIn-Warn"
+                       warn_ms="250">warning
+                </Fault>
+                <Fault conditions="when input is not on" currVal="Off" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-15" idx="21" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-LS317B_Switch_Leak_Stack_Container_Side_B"
+                       primLoc="Mod1" subLoc="mod" timestamp="10:20:58" trip_ms="250" type="VEC-SafeIn-Warn"
+                       warn_ms="250">warning
+                </Fault>
+                <Fault conditions="when input is not on" currVal="Off" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-16" idx="22" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-EPO_Mushroom_Button_VCU" primLoc="Mod1" subLoc="mod"
+                       timestamp="10:20:34" trip_ms="250" type="VEC-SafeIn-Warn" warn_ms="250">warning
+                </Fault>
+                <Fault conditions="when input is not on" currVal="Off" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-17" idx="23" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-Safety_Interlock_VCU_SMU_Alive" primLoc="Mod1"
+                       subLoc="mod" timestamp="10:20:39" trip_ms="250" type="VEC-SafeIn-Warn" warn_ms="250">warning
+                </Fault>
+                <Fault conditions="when input is not on" currVal="Off" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-18" idx="24" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-LS317A_Switch_Leak_Stack_Container_Side_A"
+                       primLoc="Mod1" subLoc="mod" timestamp="10:20:31" trip_ms="250" type="VEC-SafeIn-Warn"
+                       warn_ms="250">warning
+                </Fault>
+                <Fault conditions="when input is not on" currVal="On" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-19" idx="25" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-PS403_Switch_PAD_Over_Pressure" primLoc="Mod1"
+                       subLoc="mod" timestamp="10:20:32" trip_ms="250" type="VEC-SafeIn-Warn" warn_ms="250">none
+                </Fault>
+                <Fault conditions="when input is not on" currVal="On" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-20" idx="26" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-ZS301B_Switch_Door_Side_B" primLoc="Mod1" subLoc="mod"
+                       timestamp="10:20:35" trip_ms="250" type="VEC-SafeIn-Warn" warn_ms="250">none
+                </Fault>
+                <Fault conditions="when input is not on" currVal="Off" desc="EPO input not set."
+                       fault_code="EpoFlt-Mod1-21" idx="27" mode_averse="none" mode_critical_only="none"
+                       mode_tolerant="none" name="Mod1-EpoInput-ZS301A_Switch_Door_Side_A" primLoc="Mod1" subLoc="mod"
+                       timestamp="10:20:29" trip_ms="250" type="VEC-SafeIn-Warn" warn_ms="250">warning
+                </Fault>
+                <Fault conditions="when device is not Connected" currVal="Connected" desc="VEC Disconnected fault."
+                       fault_code="EpoFlt-Mod1-22" idx="28" mode_averse="epo" mode_critical_only="none"
+                       mode_tolerant="epo" name="Mod1-VEC_Connection-VCU_VEC" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:21" trip_ms="2000" type="VEC-Conn" warn_ms="500">trip
+                </Fault>
+                <Fault conditions="when device is not Connected" currVal="Connected" desc="VEC Disconnected fault."
+                       fault_code="EpoFlt-Mod1-23" idx="29" mode_averse="epo" mode_critical_only="none"
+                       mode_tolerant="epo" name="Mod1-VEC_Connection-SMU_VEC" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:21" trip_ms="2000" type="VEC-Conn" warn_ms="500">trip
+                </Fault>
+                <Fault conditions="when device is not Connected" currVal="UNKNOWN" desc="VEC Disconnected fault."
+                       fault_code="EpoFlt-Mod1-24" idx="30" mode_averse="epo" mode_critical_only="none"
+                       mode_tolerant="epo" name="Mod1-VEC_Connection-SCU_A1_VEC" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:21" trip_ms="2000" type="VEC-Conn" warn_ms="500">trip
+                </Fault>
+                <Fault conditions="when device is not Connected" currVal="UNKNOWN" desc="VEC Disconnected fault."
+                       fault_code="EpoFlt-Mod1-25" idx="31" mode_averse="epo" mode_critical_only="none"
+                       mode_tolerant="epo" name="Mod1-VEC_Connection-SCU_A2_VEC" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:21" trip_ms="2000" type="VEC-Conn" warn_ms="500">trip
+                </Fault>
+                <Fault conditions="when device is not Connected" currVal="UNKNOWN" desc="VEC Disconnected fault."
+                       fault_code="EpoFlt-Mod1-26" idx="32" mode_averse="epo" mode_critical_only="none"
+                       mode_tolerant="epo" name="Mod1-VEC_Connection-SCU_B1_VEC" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:21" trip_ms="2000" type="VEC-Conn" warn_ms="500">trip
+                </Fault>
+                <Fault conditions="when device is not Connected" currVal="UNKNOWN" desc="VEC Disconnected fault."
+                       fault_code="EpoFlt-Mod1-27" idx="33" mode_averse="epo" mode_critical_only="none"
+                       mode_tolerant="epo" name="Mod1-VEC_Connection-SCU_B2_VEC" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:21" trip_ms="2000" type="VEC-Conn" warn_ms="500">trip
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-28" idx="34"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-ZS301A_Switch_Door_Side_A" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="On"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-29" idx="35"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-ZS301B_Switch_Door_Side_B" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="On"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-30" idx="36"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-PS403_Switch_PAD_Over_Pressure" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-31" idx="37"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-LS317A_Switch_Leak_Stack_Container_Side_A" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-32" idx="38"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-Safety_Interlock_VCU_SMU_Alive" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-33" idx="39"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-EPO_Mushroom_Button_VCU" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-34" idx="40"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-LS317B_Switch_Leak_Stack_Container_Side_B" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-35" idx="41"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-LS318_Switch_Leak_Stack_Container_Ref_Cell" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-36" idx="42"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-LS401_Switch_Leak_Stack_Container_PAD" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-37" idx="43"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-Safety_Interlock_SMU_VCU_Enabled" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-38" idx="44"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-EPO_Mushroom_Button_SMU" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-39" idx="45"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-Safety_Interlock_SCU_A1_VCU_Enabled" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-40" idx="46"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-EPO_Mushroom_Button_SCU_A1" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-41" idx="47"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-Safety_Interlock_SCU_A2_VCU_Enabled" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-42" idx="48"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-EPO_Mushroom_Button_SCU_A2" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-43" idx="49"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-Safety_Interlock_SCU_B1_SMU_Enabled" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-44" idx="50"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-EPO_Mushroom_Button_SCU_B1" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-45" idx="51"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-Safety_Interlock_SCU_B2_SMU_Enabled" primLoc="Mod1" subLoc="mod"
+                       timestamp="09:42:17" trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-46" idx="52"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-EPO_Mushroom_Button_SCU_B2" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-47" idx="53"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-VEC_Enabled_VCU" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-48" idx="54"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-VEC_Enabled_SMU" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-49" idx="55"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-VEC_Enabled_SCU_A1" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-50" idx="56"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-VEC_Enabled_SCU_A2" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-51" idx="57"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-VEC_Enabled_SCU_B1" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="when safety bit are not matched" currVal="Off"
+                       desc="VEC Safety input bit mismatch fault." fault_code="EpoFlt-Mod1-52" idx="58"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="Mod1-SafeInFlt-VEC_Enabled_SCU_B2" primLoc="Mod1" subLoc="mod" timestamp="09:42:17"
+                       trip_ms="2000" type="VEC-HW-Flt" warn_ms="500">none
+                </Fault>
+                <Fault conditions="Trip:26.50 &gt; Warn:27.00 &gt; value " currVal="23.756"
+                       desc="Hotel Power supply low level detection." fault_code="EpoFlt-Mod1-53" idx="59"
+                       mode_averse="epo" mode_critical_only="none" mode_tolerant="epo" name="Mod1-HotelPower_Low"
+                       primLoc="Mod1" subLoc="mod" timestamp="09:42:21" trip_ms="2000" type="DoubleRange" warn_ms="500">
+                    trip
+                </Fault>
+                <Fault conditions="When module EPO states are not matched." desc="EPO States do not match."
+                       fault_code="BMSFlt-1" idx="60" mode_averse="epo" mode_critical_only="none" mode_tolerant="epo"
+                       name="BMS-EPO_mismatch" primLoc="BMS" subLoc="bms" timestamp="09:42:17" trip_ms="2000"
+                       type="EpoMismatch" warn_ms="500">none
+                </Fault>
+            </Fault_List>
+        </DataSets>
+    </Section>
+    <status>0</status>
+</Data_Summary>

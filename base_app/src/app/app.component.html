@@ -1,0 +1,96 @@
+<div id="wrapper">
+<!-- Start Title Bar -->
+<div [className]="'tbContainer ' + _props['appTheme'].name + 'TitleBar'" width='100%' id='titleBar'>
+  <div class='logoContainer'><img class='logo' [src]="_appURI + 'images/logo.png'" alt='logo'/></div>
+  <div class='eventMsg' id='eventMsg'>{{_tBarProps?._eventMsg}}</div>
+  <div class='appTitle'>{{_tBarProps?._appTitle}}</div>
+  <div class='tabTitleFromTab'>
+    <span id='tabTitle'>{{_tBarProps?._tabTitle}}</span>
+    <span class='appVersion' id='appVersion' [title]="_tBarProps?._appVersion">({{_tBarProps?._appVersion}})</span>
+  </div>
+  <div class='miniConsole' id='miniConsole'>{{_tBarProps?._miniConsoleText}}</div>
+  <div class='updateTime' id='updateTime'>{{_tBarProps?._updateTime}}</div>
+  <div class='pulseButton'><button id='dbPulse'
+                                   (click)="onToggleAutoRefresh($event)"
+                                   [className]="_tBarProps?._refreshState"
+                                   [title]="_tBarProps?._serverStatus"
+    >{{_tBarProps?._autoRefreshLabel}}</button>
+  </div>
+  <span class='appLinks'>
+        <span *ngFor="let e of _props?.appLink ">
+            <a [href]="e['url']" target="_blank" [title]="e['tooltip']">{{e['name']}}</a>&nbsp;&nbsp;
+        </span>
+        <a id='moveButton' (click)="onMoveElement($event)" title='Click to move the Unimplemented Overlays Window.'
+          >⦻&nbsp;&nbsp;</a>
+        <a [href]="_appURI + 'doc/simple_ui_doc/my-simple-ui-derivative.html?hash=' + _appHash" target="_blank" title="{{_tBarProps?._appTitle}} Documentation.">⍰</a>&nbsp;&nbsp;
+    </span>
+
+  <error-popup *ngFor='let t of _props?.tab' [_tabId]='t.id' [id]="'global-error-popup-' + t.id" ></error-popup>
+</div>
+<!-- End Title Bar -->
+
+    <!-- appOptions is normally hidden - can be enabled for development -->
+    <!--
+    <div class="appOptions" *ngIf="_appOptionsVisible">
+      <div>Options Window</div>
+      <div>
+        <input *ngFor="let option of _appOptions" type="radio" [name]="_appOptions.option.value" [value]="_appOptions.option.value"/>
+      </div>
+    </div>
+    -->
+
+<mat-tab-group #_tabGroup (selectedTabChange)="onSelect($event)">
+  <mat-tab *ngIf="(!_props || !_props['uiProp'])">
+    <ng-template mat-tab-label>Stalled Communications</ng-template>
+    <div class="tabScrollRegion">
+      <div class="tabBody">
+        <div [className]="_props['appTheme'].name">
+          <div style="width:100%; padding:50px">
+              <br>Waiting to receive properties from: <a href="{{_propsURL}}">{{_propsURL}}</a>
+              <br>&nbsp;
+              <br>On host <b>{{ getWindowLocationField('hostname') }}</b>, execute the commands:
+              <pre>sudo systemctl status {{ getServiceName() }}<br>sudo systemctl status {{ getServiceName('-web') }}</pre>
+              If necessary, execute commands to restart the down service(s):
+              <pre>sudo systemctl restart {{ getServiceName() }}<br>sudo systemctl restart {{ getServiceName('-web') }}</pre>
+              Once the service is running, refresh this page.
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab *ngFor="let t of _props?.tab" [id]="t.id" >
+    <ng-template mat-tab-label>{{t.name}}</ng-template>
+    <div class="tabScrollRegion">
+      <div class="tabBody">
+        <popup-dialog #appPopupDialog></popup-dialog>
+        <div [className]="_props['appTheme'].name">
+          <div style="width:100%">
+            <app-tab-overlay
+                    *ngIf="t['pageType'] === 'overlay'"
+                    [detectChanges]="_detectChanges"
+                    [_uiTab]="t"
+                    [_imageOverlayGroupNames]="t['imageOverlayGroupNames']"
+                    [_appURI]="_appURI"
+                    [_cmdBarNames]="t['cmdBarNames']"
+                    [_dataTableNames]="t['dataTableNames']" >
+            </app-tab-overlay>
+
+            <app-tab-mock
+                    *ngIf="t['pageType'] === 'mock-tab'"
+                    [detectChanges]="_detectChanges"
+                    [_uiTab]="t" >
+            </app-tab-mock>
+
+            <app-tab-normal
+                    *ngIf="((t['pageType'] !== 'overlay') && (t['pageType'] !== 'mock-tab'))"
+                    (fullUpdateRequired)="onFullUpdateRequired($event)"
+                    (updateModelOfChildDataSet)="onUpdateModelOfChildDataSet($event)"
+                    [_uiTab]="t" >
+            </app-tab-normal>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+</div>

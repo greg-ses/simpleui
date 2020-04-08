@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+reference script: SevenElevenAmp.dat
+absolute time (sec): 1657381706 = Sat, 09 Jul 2022 15:48:26 GMT = Saturday, July 09, 2022 11:48:26 AM EDT (GMT-4)
+relative time (sec): 10 = 10 seconds
+
+cmdtype attribute is ppcJs/script/EntryEnum/CommandType, where the cmdname attribute is included for readibility
+-->
+<cmds xmlns="http://www.premiumpower.com">
+  <cmd cmdname="SetVariable" cmdtype="15" uuid="ce361595-007f-4e7e-8639-22fc9c9e342f">
+    <arg id="1">
+      <name>variable</name>
+      <value>varA</value>
+    </arg>
+    <arg id="2">
+      <name>function</name>
+      <value>=</value>
+    </arg>
+    <arg id="3">
+      <name>value</name>
+      <value>1.1</value>
+    </arg>
+  </cmd>
+  
+  <cmd cmdname="ForLoop" cmdtype="16" uuid="ce361596-007f-4e7e-8639-22fc9c9e342f">
+    <arg id="1">
+      <name>variable</name>
+      <value>variableB</value>
+    </arg>
+    <arg id="2">
+      <name>initial_value</name>
+      <value>1000</value>
+    </arg>
+    <arg id="3">
+      <name>incrementer</name>
+      <value>+=</value>
+    </arg>
+    <arg id="4">
+      <name>increment</name>
+      <value>0.1</value>
+    </arg>
+    <arg id="5">
+      <name>while</name>
+      <value>&lt;=</value>
+    </arg>
+    <arg id="6">
+      <name>threshold</name>
+      <value>1001.0</value>
+    </arg>
+    <arg id="7">
+      <name>end_label</name>
+      <value>strip cycle A</value>
+    </arg>
+    <arg id="8">
+      <name>label_uuid</name>
+      <value>ce361597-007f-4e7e-8639-22fc9c9e342f</value>
+    </arg>
+    <updateSequence>
+      <updateArgId once="false">7</updateArgId>
+    </updateSequence>
+  </cmd>
+  
+  <!-- + 00:00:10 ControlCmd "COMMAND=strip&IDNUM=x" -->
+  <cmd cmdtype="1" uuid="a8e21a20-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>time</name>
+      <value>10</value>
+    </arg>
+  </cmd>
+  <cmd cmdtype="9" uuid="16b32040-e70b-11e1-aff1-0800200c9a66">
+    <arg id="1">
+      <name>COMMAND</name>
+      <value>strip</value>
+    </arg>
+  </cmd>
+  <!-- L strip cycle A -->
+  <cmd cmdtype="0" uuid="ce361597-007f-4e7e-8639-22fc9c9e342f">
+    <arg id="1">
+      <name>label</name>
+      <value>strip cycle A</value>
+    </arg>
+  </cmd>
+  
+  <!-- ! "Discharge" "Strip Complete" -->
+  <cmd cmdtype="6" uuid="a8e21a21-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>mode</name>
+      <value>Discharge</value>
+    </arg>
+    <arg id="2">
+      <name>submode</name>
+      <value>Strip Complete</value>
+    </arg>
+  </cmd>
+
+  <!-- + 00:10:00 ControlCmd "COMMAND=charge&IDNUM=x" -->
+  <cmd cmdtype="1" uuid="a8e21a22-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>time</name>
+      <value>600</value>
+    </arg>
+  </cmd>
+  <cmd cmdtype="9" uuid="16b32041-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>COMMAND</name>
+      <value>charge</value>
+    </arg>
+  </cmd>
+
+  <!-- + 06:00:10 ControlCmd "COMMAND=strip&IDNUM=x" -->
+  <cmd cmdtype="1" uuid="a8e21a23-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>time</name>
+      <value>21610</value>
+    </arg>
+  </cmd>
+  <cmd cmdtype="9" uuid="16b32042-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>COMMAND</name>
+      <value>strip</value>
+    </arg>
+  </cmd>
+
+  <!-- ! "Discharge" "Strip Complete" -->
+  <cmd cmdtype="6" uuid="a8e21a24-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>mode</name>
+      <value>Discharge</value>
+    </arg>
+    <arg id="2">
+      <name>submode</name>
+      <value>Strip Complete</value>
+    </arg>
+  </cmd>
+
+  <!-- L AA -->
+  <cmd cmdtype="0" uuid="a8e21a25-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>label</name>
+      <value>AA</value>
+    </arg>
+  </cmd>
+
+  <!-- + 00:00:01 ControlCmd "IDNUM=X&COMMAND=PARAM_UPDATE&PTYPE=float&PSTR=MAX_CHARGECURRENT_A&VALUE=7.0" -->
+  <cmd cmdtype="1" uuid="a8e21a26-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>time</name>
+      <value>1</value>
+    </arg>
+  </cmd>
+  <cmd cmdtype="9" uuid="16b32043-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>COMMAND</name>
+      <value>PARAM_UPDATE</value>
+    </arg>
+    <arg id="r1">
+      <name>PSTR</name>
+      <value>MAX_CHARGECURRENT_A</value>
+    </arg>
+    <arg id="r2">
+      <name>VALUE</name>
+      <value>7.0</value>
+    </arg>
+  </cmd>
+
+  <!-- + 00:10:00 ControlCmd "COMMAND=charge&IDNUM=x" -->
+  <cmd cmdtype="1" uuid="a8e21a27-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>time</name>
+      <value>600</value>
+    </arg>
+  </cmd>
+  <cmd cmdtype="9" uuid="16b32044-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>COMMAND</name>
+      <value>charge</value>
+    </arg>
+  </cmd>
+
+  <!-- > AHR 58.6 -->
+  <cmd cmdtype="5" uuid="a8e21a28-d040-11e1-9b23-0800200c9a66">
+    <arg id="2">
+      <name>threshold</name>
+      <value>58.6</value>
+    </arg>
+    <arg id="1">
+      <name>units</name>
+      <value>AHR</value>
+    </arg>
+  </cmd>
+
+  <!-- + 00:00:10 ControlCmd "COMMAND=strip&IDNUM=x" -->
+  <cmd cmdtype="1" uuid="a8e21a29-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>time</name>
+      <value>10</value>
+    </arg>
+  </cmd>
+  <cmd cmdtype="9" uuid="16b32045-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>COMMAND</name>
+      <value>strip</value>
+    </arg>
+  </cmd>
+
+  <!-- ! "Discharge" "Strip Complete" -->
+  <cmd cmdtype="6" uuid="a8e21a2a-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>mode</name>
+      <value>Discharge</value>
+    </arg>
+    <arg id="2">
+      <name>submode</name>
+      <value>Strip Complete</value>
+    </arg>
+  </cmd>
+
+  <!-- + 00:00:01 ControlCmd "IDNUM=X&COMMAND=PARAM_UPDATE&PTYPE=float&PSTR=MAX_CHARGECURRENT_A&VALUE=11.0" -->
+  <cmd cmdtype="1" uuid="a8e21a2b-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>time</name>
+      <value>1</value>
+    </arg>
+  </cmd>
+  <cmd cmdtype="9" uuid="16b32046-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>COMMAND</name>
+      <value>PARAM_UPDATE</value>
+    </arg>
+    <arg id="r1">
+      <name>PSTR</name>
+      <value>MAX_CHARGECURRENT_A</value>
+    </arg>
+    <arg id="r2">
+      <name>VALUE</name>
+      <value>11.0</value>
+    </arg>
+  </cmd>
+
+  <!-- + 00:10:00 ControlCmd "COMMAND=charge&IDNUM=x" -->
+  <cmd cmdtype="1" uuid="a8e21a2c-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>time</name>
+      <value>600</value>
+    </arg>
+  </cmd>
+  <cmd cmdtype="9" uuid="16b32047-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>COMMAND</name>
+      <value>charge</value>
+    </arg>
+  </cmd>
+
+  <!-- > AHR 58.6 -->
+  <cmd cmdtype="5" uuid="a8e21a2d-d040-11e1-9b23-0800200c9a66">
+    <arg id="2">
+      <name>threshold</name>
+      <value>58.6</value>
+    </arg>
+    <arg id="1">
+      <name>units</name>
+      <value>AHR</value>
+    </arg>
+  </cmd>
+
+  <!-- + 00:00:10 ControlCmd "COMMAND=strip&IDNUM=x" -->
+  <cmd cmdtype="1" uuid="a8e21a2e-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>time</name>
+      <value>10</value>
+    </arg>
+  </cmd>
+  <cmd cmdtype="9" uuid="16b32048-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>COMMAND</name>
+      <value>strip</value>
+    </arg>
+  </cmd>
+
+  <!-- ! "Discharge" "Strip Complete" -->
+  <cmd cmdtype="6" uuid="a8e21a2f-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>mode</name>
+      <value>Discharge</value>
+    </arg>
+    <arg id="2">
+      <name>submode</name>
+      <value>Strip Complete</value>
+    </arg>
+  </cmd>
+
+  <!-- J AA 5 -->
+  <cmd cmdtype="3" uuid="a8e21a30-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>label</name>
+      <value>AA</value>
+    </arg>
+    <arg id="2">
+      <name>count</name>
+      <value>5</value>
+    </arg>
+  </cmd>
+
+  <!-- L BB -->
+  <cmd cmdtype="0" uuid="a8e21a35-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>label</name>
+      <value>BB</value>
+    </arg>
+  </cmd>
+  
+  <!-- additional absolute time command 
+    Sat, 09 Jul 2022 15:48:26 GMT, ControlCmd "COMMAND=strip&IDNUM=x
+  -->
+  <cmd cmdtype="2" uuid="a8e21a31-d040-11e1-9b23-0800200c9a66">>
+    <arg id="1">
+      <name>time</name>
+      <value>1657381706</value>
+    </arg>
+  </cmd>
+  <cmd cmdtype="9" uuid="16b32049-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>COMMAND</name>
+      <value>strip</value>
+    </arg>
+  </cmd>
+
+  <!-- J BB 6 -->
+  <cmd cmdtype="3" uuid="a8e21a36-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>label</name>
+      <value>BB</value>
+    </arg>
+    <arg id="2">
+      <name>count</name>
+      <value>6</value>
+    </arg>
+  </cmd>
+  
+  <!-- WaitTimeOfDay 12:01 PM -->
+  <cmd cmdtype="7" uuid="a8e21a32-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>time</name>
+      <value>43260</value>
+    </arg>
+  </cmd>
+  
+  <!-- CustomAction, name=customAction1, value=customValue1 -->
+  <cmd cmdtype="10" uuid="a8e21a33-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name id="r4">customAction1</name>
+      <value id="r5">customValue1</value>
+    </arg>
+    <!--arg id="2">
+      <name id="r4">customAction2</name>
+      <value id="r5">customValue2</value>
+    </arg>
+    <arg id="3">
+      <name id="r4">customAction3</name>
+      <value id="r5">customValue3</value>
+    </arg-->
+  </cmd>
+
+  <!-- Action: Set_Discharge_Rate -->
+  <cmd cmdtype="9" uuid="a8e21a34-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>COMMAND</name>
+      <value>Set_Discharge_Rate</value>
+    </arg>
+    <arg id="r10">
+      <name>VALUE</name>
+      <value>1.0</value>
+    </arg>
+  </cmd>
+
+  <cmd cmdname="IfDateTimeGoto" cmdtype="11" uuid="a8e21a37-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>time</name>
+      <value>1349894640</value>
+    </arg>
+    <arg id="2">
+      <name>label</name>
+      <value>AA</value>
+    </arg>
+  </cmd>
+  <cmd cmdname="SendPage" cmdtype="12" uuid="a8e21a38-d040-11e1-9b23-0800200c9a66">
+    <arg id="1">
+      <name>text</name>
+      <value>text content</value>
+    </arg>
+  </cmd>
+</cmds>

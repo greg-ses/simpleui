@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LogControl test</title>
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/soria/soria.css" />
+    <link rel="stylesheet" type="text/css" href="../themes/logControl/logControl.css" />
+
+    <script type="text/javascript">
+        // djConfig must be set before any dojo scripts are loaded
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            modulePaths: { 'ppcJs': '../../ppcJs' }
+        };
+    </script>
+
+    <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        dojo.provide("ppcJs.tests.LogControlTestHTML");
+        dojo.require("dojo.parser");
+        dojo.require('dojox.xml.parser');
+        dojo.require("doh.runner");
+        dojo.require('ppcJs.Enum');
+        dojo.require('ppcJs.DataFormat');
+        dojo.require("ppcJs.LogControl");
+
+        var paramControlUITestTimeout = 7000;
+
+        dojo.addOnLoad(function () {
+            doh.register("ppcJs.tests.LogControlTest", [
+                    function testCreateLogControlHomeView(t) {
+                        var sutContainer = dojo.byId("sutContainer");
+
+                        var sut = new ppcJs.LogControl();
+                        dojo.place(sut.domNode, "sutContainer");
+
+                        var id = '17137';
+                        var timestamp1 = 1333715968000;
+                        var errLevel = ppcJs.Enum.Error.Fault;
+                        var msg = 'Resource 4 battery discharged.';
+                        var resource = 'resource1';
+                        var msgType = 'test entry';
+                        var status = new ppcJs.LogData.Status(id,
+                                                            timestamp1,
+                                                            errLevel,
+                                                            msg,
+                                                            resource, 
+                                                            msgType);
+                        var timestamp2 = 1333715967000;
+                        var dto = new ppcJs.LogData.DTO(timestamp2, [status]);
+                        sut.update(dto);
+                        sut.update(dto);
+                        t.assertTrue(true);
+                    },
+
+                    function testParseXml(t) {
+                        var timestamp = 1333715967000;
+                        var xmlString = '<log>' +
+                                          '<timestamp>' + timestamp.toString() + '</timestamp>' +
+                                          '<r id="17137" time="1333700857220" err="2">' +
+                                            '<rs>TF2kSql</rs>' +
+                                            '<tp>EVENT NOTICE</tp>' +
+                                            '<m>Resource 4 battery discharged.</m>' +
+                                          '</r>' +
+                                          '<r id="17138" time="1333701033667" err="1">' +
+                                            '<rs>TF2kSql</rs>' +
+                                            '<tp>EVENT NOTICE</tp>' +
+                                            '<m>Resource 4 battery low.</m>' +
+                                          '</r>' +
+                                          '<r id="17139" time="1333701040329" err="0">' +
+                                            '<rs>TF2kSql</rs>' +
+                                            '<tp>EVENT NOTICE</tp>' +
+                                            '<m>Discharge begun.</m>' +
+                                          '</r>' +
+                                          '<r id="17140" time="1333701125183" err="0">' +
+                                            '<rs>Quad2</rs>' +
+                                            '<tp>DEBUG NOTICE</tp>' +
+                                            '<m>Entered discharge mode.</m>' +
+                                          '</r>' +
+                                        '</log>';
+                        var xmlElement = dojox.xml.parser.parse(xmlString);
+
+                        var dto = ppcJs.LogData.parseXml(xmlElement);
+
+                        t.assertEqual(timestamp, dto.timestamp);
+                        t.assertEqual(2, dto.statuses[0].errorLevel);
+                        t.assertEqual('Resource 4 battery low.', dto.statuses[1].text);
+                        t.assertEqual('17140', dto.statuses[3].id);
+                    }
+                ]);
+            //Execute D.O.H. in this remote file.
+            doh.run();
+        });
+    </script>
+</head>
+<body class="soria">
+    <!-- place to insert sut. -->
+    <div id="sutContainer" style="width: 300px">
+    </div>
+    <div id="mouseOutArea" style="width: 300px; height: 100px">
+        <br />
+    </div>
+</body>
+</html>

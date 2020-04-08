@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2002">
+    <Title u_id="2002">BSC</Title>
+    <timeStamp u_id="2003">1554235176905</timeStamp>
+    <Version u_id="2004">simple-cmd-set.5.xml - 3 buttons: Local, Clear Fault, Rebal Molar - Repeat 3x</Version>
+    <Section name="Battery System 5" u_id="2006">
+        <CmdSet u_id="2007">
+            <command cmd="Local" confirm="true" desc="desc" dest="0-0" disabled="false" idnum="0" label="Local"
+                     name="Local" u_id="2008"/>
+            <command cmd="Clear_Fault" confirm="false" desc="Reset any active faults in the system." dest="0-0"
+                     disabled="false" idnum="0" label="Clear_Fault" name="Clear_Fault" u_id="2009"/>
+            <command cmd="Rebal_Molar" desc="Execute's a Anolyte Mole balance sequence." dest="0-0" disabled="false"
+                     idnum="0" label="Rebal_Molar" name="Rebal_Molar" u_id="2010">
+                <_input _type="float" desc="Enter Target SOC" idnum="0" max="80.0" min="0.0" u_id="2011" value="0.0"/>
+            </command>
+        </CmdSet>
+    </Section>
+    <status>0</status>
+</Data_Summary>

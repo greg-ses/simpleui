@@ -1,0 +1,109 @@
+TABLE_NAME=VNX1000_IO
+META_TYPE=FLOAT
+NO_TABLE_PREFIX=true
+<COLUMN_DEFINITION>
+	# Name, SQL_TYPE, MetaType, Description
+	timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st, 1970
+	num_points,INTEGER,INTEGER,Hint
+	FT105_An_Util,DOUBLE,DOUBLE,TBD
+	FT205_Ca_Util,DOUBLE,DOUBLE,TBD
+	PT102_An_Util,DOUBLE,DOUBLE,TBD
+	PT202_Ca_Util,DOUBLE,DOUBLE,TBD
+	PT401_N2_Tank,DOUBLE,DOUBLE,TBD
+	PT402_N2_Feed,DOUBLE,DOUBLE,TBD
+	PT403_N2_Blanket,DOUBLE,DOUBLE,TBD
+	PT301_Glycol_Inlet,DOUBLE,DOUBLE,TBD
+	CT301_Conductivity_Glycol,DOUBLE,DOUBLE,TBD
+	OT101V2_Optical_VisUv_V2,DOUBLE,DOUBLE,TBD
+	OT101VT_Optical_VisUv_Total,DOUBLE,DOUBLE,TBD
+	FT101A_An_Row2_Pos,DOUBLE,DOUBLE,TBD
+	FT102A_An_Row2_Neg,DOUBLE,DOUBLE,TBD
+	FT103A_An_Row1_Pos,DOUBLE,DOUBLE,TBD
+	FT104A_An_Row1_Neg,DOUBLE,DOUBLE,TBD
+	FT201A_Ca_Row2_Pos,DOUBLE,DOUBLE,TBD
+	FT202A_Ca_Row2_Neg,DOUBLE,DOUBLE,TBD
+	FT203A_Ca_Row1_Pos,DOUBLE,DOUBLE,TBD
+	FT204A_Ca_Row1_Neg,DOUBLE,DOUBLE,TBD
+	PT101A_Pump_Discharge_An,DOUBLE,DOUBLE,TBD
+	PT201A_Pump_Discharge_Ca,DOUBLE,DOUBLE,TBD
+	JT101A_Meter_AnolytePumpPwr,DOUBLE,DOUBLE,TBD
+	JT201A_Meter_CatholytePumpPwr,DOUBLE,DOUBLE,TBD
+	FT104B_An_Row2_Pos,DOUBLE,DOUBLE,TBD
+	FT103B_An_Row2_Neg,DOUBLE,DOUBLE,TBD
+	FT102B_An_Row1_Pos,DOUBLE,DOUBLE,TBD
+	FT101B_An_Row1_Neg,DOUBLE,DOUBLE,TBD
+	FT204B_Ca_Row2_Pos,DOUBLE,DOUBLE,TBD
+	FT203B_Ca_Row2_Neg,DOUBLE,DOUBLE,TBD
+	FT202B_Ca_Row1_Pos,DOUBLE,DOUBLE,TBD
+	FT201B_Ca_Row1_Neg,DOUBLE,DOUBLE,TBD
+	PT101B_Pump_Discharge_An,DOUBLE,DOUBLE,TBD
+	PT201B_Pump_Discharge_Ca,DOUBLE,DOUBLE,TBD
+	JT101B_Meter_AnolytePumpPwr,DOUBLE,DOUBLE,TBD
+	JT201B_Meter_CatholytePumpPwr,DOUBLE,DOUBLE,TBD
+	LT102_Depth_Transducer,DOUBLE,DOUBLE,TBD
+	LT103_Depth_Transducer,DOUBLE,DOUBLE,TBD
+	LT104_Depth_Transducer,DOUBLE,DOUBLE,TBD
+	LT202_Depth_Transducer,DOUBLE,DOUBLE,TBD
+	LT203_Depth_Transducer,DOUBLE,DOUBLE,TBD
+	LT204_Depth_Transducer,DOUBLE,DOUBLE,TBD
+</COLUMN_DEFINITION>
+<VARS>
+	LASTID
+	BEGIN
+	END
+	MACHINE_NAME
+	MAXNUMPTS
+</VARS>
+<SQL>
+	SELECT  timestamp, num_points
+	, `FT105_An_Util`
+	, `FT205_Ca_Util`
+	, `PT102_An_Util`
+	, `PT202_Ca_Util`
+	, `PT401_N2_Tank`
+	, `PT402_N2_Feed`
+	, `PT403_N2_Blanket`
+	, `PT301_Glycol_Inlet`
+	, `CT301_Conductivity_Glycol`
+	, `OT101V2_Optical_VisUv_V2`
+	, `OT101VT_Optical_VisUv_Total`
+	, `FT101A_An_Rung2_Pos`
+	, `FT102A_An_Rung2_Neg`
+	, `FT103A_An_Rung1_Pos`
+	, `FT104A_An_Rung1_Neg`
+	, `FT201A_Ca_Rung2_Pos`
+	, `FT202A_Ca_Rung2_Neg`
+	, `FT203A_Ca_Rung1_Pos`
+	, `FT204A_Ca_Rung1_Neg`
+	, `PT101A_Pump_Discharge_An`
+	, `PT201A_Pump_Discharge_Ca`
+	, `JT101A_Meter_AnolytePumpPwr`
+	, `JT201A_Meter_CatholytePumpPwr`
+	, `FT104B_An_Rung2_Pos`
+	, `FT103B_An_Rung2_Neg`
+	, `FT102B_An_Rung1_Pos`
+	, `FT101B_An_Rung1_Neg`
+	, `FT204B_Ca_Rung2_Pos`
+	, `FT203B_Ca_Rung2_Neg`
+	, `FT202B_Ca_Rung1_Pos`
+	, `FT201B_Ca_Rung1_Neg`
+	, `PT101B_Pump_Discharge_An`
+	, `PT201B_Pump_Discharge_Ca`
+	, `JT101B_Meter_AnolytePumpPwr`
+	, `JT201B_Meter_CatholytePumpPwr`
+	, `LT102_Depth_Transducer`
+	, `LT103_Depth_Transducer`
+	, `LT104_Depth_Transducer`
+	, `LT202_Depth_Transducer`
+	, `LT203_Depth_Transducer`
+	, `LT204_Depth_Transducer`
+	FROM VNX1000_IO
+	WHERE resource = `MACHINE_NAME` AND timestamp >= `BEGIN` AND timestamp <= `END` 
+	ORDER BY timestamp ASC LIMIT `MAXNUMPTS`;
+</SQL>
+<CHART_CONFIG>
+ Y_MIN=0   # Expected Graph y axis min
+ Y_MAX=1000  # Expected Graph y axis max
+ Y_PIX=25  # Y Graniluarity of the filtered data, the higher the number the more points.
+ X_PIX=500  # X Graniluarity of the filtered data, the higher the number the more points.
+</CHART_CONFIG>

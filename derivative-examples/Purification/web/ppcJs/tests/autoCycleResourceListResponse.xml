@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- reference response to GET RESOURCE_LIST and RESOURCE_SELECT_LIST commands
+ex: GET ~/cgi-bin/cgicmd?COMMAND=RESOURCE_LIST&CGI=sqreader...
+
+returns list of resource IDs that can be called to set/get script state
+-->
+
+<scriptResources>
+  <scriptResource noscript="true">
+    <resourceName>NoScript Resource</resourceName>
+    <resourceId>1234qrst</resourceId>
+  </scriptResource>
+  <scriptResource>
+    <resourceName>Major Resource</resourceName>
+     <resourceId>1234abcd</resourceId> 
+  </scriptResource>
+  <scriptResource>
+    <resourceName>Another Resource</resourceName>
+    <resourceId>1234efgh</resourceId>
+  </scriptResource>
+  <scriptResource>
+    <resourceName>Remote Resource</resourceName>
+    <resourceId>1234ijkl</resourceId>
+  </scriptResource>
+  <scriptResource>
+    <resourceName>Minor Resource</resourceName>
+    <resourceId>1234mnop</resourceId>
+  </scriptResource>
+</scriptResources>

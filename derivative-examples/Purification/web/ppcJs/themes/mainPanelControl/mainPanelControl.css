@@ -1,0 +1,91 @@
+﻿/* layout for MainPanelControl */
+/* release path */
+@import url("../../../dijit/themes/soria/form/Button.css");
+
+/* dev path */
+@import url("../../../dojo-toolkit/dijit/themes/soria/form/Button.css");
+
+@import url("../basePanel/basePanel.css");
+@import url("../baseControl/baseControl.css");
+@import url("../domainObjects.css");
+@import url("../iPhoneButton/iPhoneButton.css");
+
+div.mainPanelControl
+{
+    height: 100%;
+    width: 100%;
+}
+
+
+/* view configuration classes */
+div.mpcViewDiv
+{
+    margin: 10px;
+}
+
+.mpcTableCell
+{
+    padding:10px;
+}
+
+/* control configuration classes */
+div.mpcControlDiv
+{
+    /*padding:10px;*/
+}
+
+.mpcControlTable-table
+{
+    margin-left:10px;
+    margin-right:auto;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.mpcControlTable-labelCell
+{
+    padding:5px;
+}
+
+.mpcControlTable-valueCell
+{
+    padding:5px;
+}
+
+div.mpcSetButtonDiv
+{
+    width:40px;
+    position:static;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:0px;
+    margin-bottom:10px;
+}
+/* EStop button */
+.soria .dijitToggleButtonChecked
+{
+    border-color:#657c9c;
+    background: #91b4e5 url("../../../dijit/themes/soria/images/buttonActive.png") top left repeat-x;
+	background: #91b4e5 url("../../../dojo-toolkit/dijit/themes/soria/images/buttonActive.png") top left repeat-x;
+}
+
+.eStopOffIcon
+{
+    background-image: url("images/eStopOffIcon.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+}
+
+.eStopOnIcon
+{
+    background-image: url("images/eStopOnIcon.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+}
+
+
+

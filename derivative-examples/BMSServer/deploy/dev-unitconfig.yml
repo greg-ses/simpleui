@@ -1,0 +1,27 @@
+---
+- hosts: all
+  vars:
+    app_name: vecpackage-unitconfig
+  remote_user: root
+  tasks:
+  - include_vars:
+      file: commonvars.yml
+  - name: Prep VEC Target Staging Area
+    file:
+      path: "{{ vec_stage_dir }}"
+      state: absent
+  - file:
+      path: "{{ vec_stage_dir }}"
+      state: directory
+      mode: 0755
+
+  - name: Transfer Archive To VEC Target
+    file:
+      path: "{{ vec_stage_dir }}/{{ python_zip_name }}"
+      state: absent
+  - copy: src={{ bms_stage_dir }}/{{ python_zip_name }} dest={{ vec_stage_dir }}/{{ python_zip_name }}
+
+  - name: Backup Existing VEC Unit Configuration Script
+    command: cp -f /opt/setup/{{ python_zip_name }} {{ archive_dir }}/{{ python_zip_name }}
+  - name: Deploy VEC Unit Configuration Script
+    command: cp -f {{ vec_stage_dir }}/{{ python_zip_name }} /opt/setup/{{ python_zip_name }}

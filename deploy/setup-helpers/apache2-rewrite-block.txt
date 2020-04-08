@@ -1,0 +1,9 @@
+
+	#++ Start Rewrite Block: /XX_APP_NAME/ ++
+		RewriteEngine On
+		RewriteRule "(/XX_APP_NAME/svr-util/.*/.*)"	"http://localhost:XX_PORT$1"		[P]
+		RewriteRule "(/XX_APP_NAME/.*/query/props)"	"http://localhost:XX_PORT$1"		[P]
+		RewriteRule "(/XX_APP_NAME/.*/.*/query/.*/zmq/.*/.*)"	"http://localhost:XX_PORT$1"	[P]
+		RewriteRule "(/XX_APP_NAME/.*/.*/query/.*/zmq/.*/.*/.*)"	"http://localhost:XX_PORT$1"	[P]
+		RewriteRule "(/XX_APP_NAME/.*/.*/mock/data/.*)"	"http://localhost:XX_PORT$1"		[P]
+	#-- End Rewrite Block: /XX_APP_NAME/ --

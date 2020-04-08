@@ -1,0 +1,17 @@
+<table cellspacing='1' align='left' valign='top' style='margin-top: 2px'>
+    <thead>
+    <tr><th [attr.colspan]='_dataset?.props.columns.length' class='tableTitle' align='center' uid='_data.u_id'>
+        <span [className]="isCollapsed()?'sectionClosed':'sectionOpened'" [title]=''  (click)='toggle()'>&nbsp;</span>{{ getTitle() }}
+        &nbsp;<a *ngIf='_dataset?.url' target='_blank' [href]="_dataset?.url" [title]="_dataset?.tooltip">&#x2600;</a>
+    </th></tr>
+    </thead>
+    <tbody [id]='_id' [className]='isCollapsed() ? "hiddenBlock" : "tableRowGroupBlock"'>
+    <tr>
+        <th *ngFor='let colDesc of _dataset?.props.columns;'
+            [className]='(colDesc.length === 3) ? colDesc[2] : ""'>{{colDesc[1]}}</th>
+    </tr>
+    <tr *ngFor='let row of _dataset?.elements; let rowNum = index;'>
+        <td *ngFor='let colDesc of getColumns(_dataset);' [id]="row.id">{{(colDesc[0] === "((index))") ? rowNum : row[colDesc[0]]}}</td>
+    </tr>
+    </tbody>
+</table>

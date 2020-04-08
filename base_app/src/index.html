@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NgSimpleUi</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    let appPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+    if (appPath === '') {
+      appPath = '/ng-simple-ui/';
+    }
+
+    let appURI = appPath;
+    let url = new URL(window.location.href);
+    let uiProp = url.searchParams.get("uiProp");
+
+    let webpackURI = appURI + '/js/';
+    document.title = appURI;
+
+    console.log("appURI : ", appURI );
+    let link = document.createElement('link');
+    link.setAttribute('rel', 'icon');
+    link.type = 'image/x-icon';
+    link.href = appURI + '/images/favicon.ico';
+    document.head.appendChild(link);
+
+    let base = document.getElementsByTagName('base')[0];
+    base['appURI'] = appURI ;
+    base['uiProp'] = uiProp;
+    base['propsQuery'] = appPath + (uiProp || 'ui') + '/query/props';
+
+    if (uiProp) {
+        document.title = uiProp;
+    }
+
+  </script>
+  <base href=appURI />
+</head>
+<body style="margin:0;overflow:hidden">
+  <app-ng-simple-ui>Loading...</app-ng-simple-ui>
+</body>
+</html>

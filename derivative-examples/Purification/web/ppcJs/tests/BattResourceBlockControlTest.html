@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>DiagramBlockControl test</title>
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/soria/soria.css" />
+    <link rel="stylesheet" type="text/css" href="../themes/battResourceBlockControl/battResourceBlockControl.css" />
+
+    <script type="text/javascript">
+        // djConfig must be set before any dojo scripts are loaded
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            modulePaths: { 'ppcJs': '../../ppcJs' }
+        };
+    </script>
+
+    <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        dojo.provide("ppcJs.tests.BattResourceBlockControlTestHTML");
+        dojo.require("dojo.parser");
+        dojo.require("doh.runner");
+        dojo.require("dojo.robot");
+        dojo.require("dojox.collections.Dictionary");
+        dojo.require('ppcJs.Enum');
+        dojo.require("ppcJs.BattResourceBlockControl");
+        dojo.require("ppcJs.tests.ParamControlTestUtilities");
+
+        var paramControlUITestTimeout = 7000;
+
+        dojo.addOnLoad(function () {
+            doh.register("ppcJs.tests.BattResourceBlockControlTest", [
+                    function testCreateBattResourceBlockControl(t) {
+                        var sutContainer = dojo.byId("sutContainer");
+
+                        var sut = new ppcJs.BattResourceBlockControl();
+                        dojo.place(sut.domNode, "sutContainer");
+
+                        var acInOk = true;
+                        var contactorClosed = false;
+                        var battPower = 100.1;
+                        var hotelPower = 10.1;
+                        var dto = new ppcJs.BattResourceBlockDTO(acInOk, contactorClosed, ppcJs.Enum.Soc.Low, battPower, hotelPower);
+                        sut.update(dto);
+                        t.assertTrue(true);
+                    }
+                ]);
+            //Execute D.O.H. in this remote file.
+            doh.run();
+        });
+    </script>
+</head>
+<body class="soria">
+    <!-- place to insert sut. -->
+    <div id="sutContainer" style="width: 300px">
+    </div>
+    <div id="mouseOutArea" style="width: 300px; height: 100px">
+        <br />
+    </div>
+</body>
+</html>

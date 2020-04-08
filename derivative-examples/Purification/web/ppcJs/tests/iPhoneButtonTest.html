@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>iPhoneButton test</title>
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/soria/soria.css" />
+    <link rel="stylesheet" type="text/css" href="../widget/iPhoneButton/css/iPhoneButton.css" />
+
+    <script type="text/javascript">
+        // djConfig must be set before any dojo scripts are loaded
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            modulePaths: { 'ppcJs': '../../ppcJs' }
+        };
+    </script>
+
+    <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        dojo.provide("ppcJs.tests.iPhoneButtonTestHTML");
+        dojo.require("dojo.parser");
+        dojo.require("doh.runner");
+        dojo.require('ppcJs.widget.iPhoneButton');
+
+        dojo.addOnLoad(function () {
+            doh.register("ppcJs.tests.iPhoneButtonTest", [
+                    function testCreateFileManager(t) {
+                        var sutContainer = dojo.byId("sutContainer");
+
+                        var sut = new ppcJs.widget.iPhoneButton();
+                        dojo.place(sut.domNode, "sutContainer");
+
+                        t.assertTrue(true);
+                    }
+
+                ]);
+            //Execute D.O.H. in this remote file.
+            doh.run();
+        });
+    </script>
+</head>
+<body class="soria">
+    <!-- place to insert sut. -->
+    <div id="sutContainer" style="width: 300px">
+    </div>
+    <div id="mouseOutArea" style="width: 300px; height: 100px">
+        <br />
+    </div>
+</body>
+</html>

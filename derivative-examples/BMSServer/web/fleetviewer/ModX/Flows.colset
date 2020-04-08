@@ -1,0 +1,75 @@
+TABLE_NAME=VNX1000_IO
+META_TYPE=FLOAT
+NO_TABLE_PREFIX=true
+<COLUMN_DEFINITION>
+	# Name, SQL_TYPE, MetaType, Description
+	timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st, 1970
+	num_points,INTEGER,INTEGER,Hint
+	FT105_An_Util,DOUBLE,DOUBLE,TBD
+	FT205_Ca_Util,DOUBLE,DOUBLE,TBD
+	PT102_An_Util,DOUBLE,DOUBLE,TBD
+	PT202_Ca_Util,DOUBLE,DOUBLE,TBD
+	ProcSideA_An_Flow,DOUBLE,DOUBLE,TBD
+	ProcSideA_Ca_Flow,DOUBLE,DOUBLE,TBD
+	FT101A_An_Rung2_Pos,DOUBLE,DOUBLE,TBD
+	FT102A_An_Rung2_Neg,DOUBLE,DOUBLE,TBD
+	FT103A_An_Rung1_Pos,DOUBLE,DOUBLE,TBD
+	FT104A_An_Rung1_Neg,DOUBLE,DOUBLE,TBD
+	FT201A_Ca_Rung2_Pos,DOUBLE,DOUBLE,TBD
+	FT202A_Ca_Rung2_Neg,DOUBLE,DOUBLE,TBD
+	FT203A_Ca_Rung1_Pos,DOUBLE,DOUBLE,TBD
+	FT204A_Ca_Rung1_Neg,DOUBLE,DOUBLE,TBD
+	ProcSideB_An_Flow,DOUBLE,DOUBLE,TBD
+	ProcSideB_Ca_Flow,DOUBLE,DOUBLE,TBD
+	FT104B_An_Rung2_Pos,DOUBLE,DOUBLE,TBD
+	FT103B_An_Rung2_Neg,DOUBLE,DOUBLE,TBD
+	FT102B_An_Rung1_Pos,DOUBLE,DOUBLE,TBD
+	FT101B_An_Rung1_Neg,DOUBLE,DOUBLE,TBD
+	FT204B_Ca_Rung2_Pos,DOUBLE,DOUBLE,TBD
+	FT203B_Ca_Rung2_Neg,DOUBLE,DOUBLE,TBD
+	FT202B_Ca_Rung1_Pos,DOUBLE,DOUBLE,TBD
+	FT201B_Ca_Rung1_Neg,DOUBLE,DOUBLE,TBD
+</COLUMN_DEFINITION>
+<VARS>
+	LASTID
+	BEGIN
+	END
+	MACHINE_NAME
+	MAXNUMPTS
+</VARS>
+<SQL>
+	SELECT  timestamp, num_points
+	, `FT105_An_Util`
+	, `FT205_Ca_Util`
+	, `PT102_An_Util`
+	, `PT202_Ca_Util`
+	, (`FT101A_An_Rung2_Pos` + `FT102A_An_Rung2_Neg` + `FT103A_An_Rung1_Pos` + `FT104A_An_Rung1_Neg`) as `ProcSideA_An_Flow`
+	, (`FT201A_Ca_Rung2_Pos` + `FT202A_Ca_Rung2_Neg` + `FT203A_Ca_Rung1_Pos` + `FT204A_Ca_Rung1_Neg`) as `ProcSideA_Ca_Flow`
+	, `FT101A_An_Rung2_Pos`
+	, `FT102A_An_Rung2_Neg`
+	, `FT103A_An_Rung1_Pos`
+	, `FT104A_An_Rung1_Neg`
+	, `FT201A_Ca_Rung2_Pos`
+	, `FT202A_Ca_Rung2_Neg`
+	, `FT203A_Ca_Rung1_Pos`
+	, `FT204A_Ca_Rung1_Neg`
+	, (`FT101B_An_Rung1_Neg` + `FT102B_An_Rung1_Pos` + `FT103B_An_Rung2_Neg` + `FT104B_An_Rung2_Pos`) as `ProcSideB_An_Flow`
+	, (`FT201B_Ca_Rung1_Neg` + `FT202B_Ca_Rung1_Pos` + `FT203B_Ca_Rung2_Neg` + `FT204B_Ca_Rung2_Pos`) as `ProcSideB_Ca_Flow`
+	, `FT104B_An_Rung2_Pos`
+	, `FT103B_An_Rung2_Neg`
+	, `FT102B_An_Rung1_Pos`
+	, `FT101B_An_Rung1_Neg`
+	, `FT204B_Ca_Rung2_Pos`
+	, `FT203B_Ca_Rung2_Neg`
+	, `FT202B_Ca_Rung1_Pos`
+	, `FT201B_Ca_Rung1_Neg`
+	FROM `VNX1000_IO`
+	WHERE resource = `MACHINE_NAME` AND timestamp >= `BEGIN` AND timestamp <= `END` 
+	ORDER BY timestamp ASC LIMIT `MAXNUMPTS`;
+</SQL>
+<CHART_CONFIG>
+ Y_MIN=0   # Expected Graph y axis min
+ Y_MAX=1000  # Expected Graph y axis max
+ Y_PIX=25  # Y Graniluarity of the filtered data, the higher the number the more points.
+ X_PIX=500  # X Graniluarity of the filtered data, the higher the number the more points.
+</CHART_CONFIG>

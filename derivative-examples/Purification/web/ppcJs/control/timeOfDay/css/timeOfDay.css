@@ -1,0 +1,17 @@
+﻿/* layout for TimeOfDayControl */
+/* release path */
+
+/* dev path */
+
+
+@import url("../../../themes/basePanel/basePanel.css");
+
+div.timeOfDayControl
+{
+
+}
+
+.dtcInput
+{
+    margin: 5px;
+}

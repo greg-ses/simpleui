@@ -1,0 +1,37 @@
+---
+# Set DIR_BMS_BIN, DIR_ARM_BIN and DIR_ARM_UNITS directory locations as environment variables on your local system.
+#Location of VEC compiled rootfs on Source PC
+rootfs_source_dir: /opt/yocto_ti/build/tmp/work/phycore_r2_am335x_5-phytec-linux-gnueabi/phytec-vionx-module-image/1.0-r0/rootfs
+#Source PC directory, used to assemble files
+unit_config_source_dir: /tmp/unit-source-staging-area
+#Source PC binary build directory
+arm_binary_source_dir: "{{ lookup('env','DIR_ARM_BIN') }}"
+app_binary: DeviceService
+unit_properties_source_dir: "{{ lookup('env','DIR_ARM_UNITS') }}"
+vec_proxy_source_dir: "{{ lookup('env', 'DIR_X86_BIN') }}/VECProxyServer/bin"
+vec_proxy_binary: VECProxyServer
+
+bms_ansible_dir: /opt/deploy
+#BMS target directory for distribution archives
+bms_stage_dir: /home/service/stage/unit-staging-area
+#BMS decompression directory to hold expanded archives
+bms_expanded_stage_dir: /home/service/stage/expanded-unit-staging-area
+bms_binary_source_dir: "{{ lookup('env','DIR_BMS_BIN') }}"
+bms_app_binary: BMSServer
+bms_properties_source_dir: "{{ lookup('env','DIR_BMS_UNITS') }}"
+
+#VEC target stage directory
+vec_stage_dir: /home/root/vec-staging-area
+archive_dir: /vionx
+archive_suffix: _prev
+target_dir_web: /usr/share/apache2/htdocs
+
+#Unit configuration script
+python_zip_path: "{{ rootfs_source_dir }}/opt/setup"
+python_zip_name: unitconfig.zip
+
+unique_suffix: "{{ ansible_facts['date_time']['date'] }}-{{ ansible_facts['date_time']['hour'] }}-{{ ansible_facts['date_time']['minute'] }}--{{ ansible_facts['date_time']['second'] }}"
+
+# path to common_web and ng-simple-ui
+common_web: ../../common/web
+ng_simple_ui_deploy: ../../../deploy

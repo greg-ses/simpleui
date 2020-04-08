@@ -1,0 +1,26 @@
+﻿/* layout for FileManager */
+/* release path */
+
+/* dev path */
+
+@import url("../../../themes/basePanel/basePanel.css");
+@import url("../../../widget/fadeoutAlertBox/css/fadeoutAlertBox.css");
+
+
+div.fileManager
+{
+    width: 335px;
+    margin:0px;
+    background-color:#E1EBFB;
+}
+
+.fmLoadedScriptBox
+{
+    font-weight:bold;
+    height:15px;
+}
+
+.fmSaveButtonsDiv
+{
+    padding:5px;
+}

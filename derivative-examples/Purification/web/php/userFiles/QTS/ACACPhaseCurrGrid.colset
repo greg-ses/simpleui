@@ -1,0 +1,29 @@
+TABLE_NAME=grid
+META_TYPE=FLOAT
+NO_TABLE_PREFIX=true
+<COLUMN_DEFINITION>
+	# Name, SQL_TYPE, MetaType, Description
+	rowid,INTEGER,INTEGER,Unique row Unique Row ID
+	timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st, 1970
+	num_points,INTEGER,INTEGER,Number of points in averaged in float values
+	avg_AC_Current_A_ext,REAL,FLOAT,External AC Current phase A Grid.
+	avg_AC_Current_B_ext,REAL,FLOAT,External AC Current phase B Grid.
+	avg_AC_Current_C_ext,REAL,FLOAT,External AC Current phase C Grid.
+	avg_AC_Current_A_int,REAL,FLOAT,Internal AC Current phase A Grid.
+	avg_AC_Current_B_int,REAL,FLOAT,Internal AC Current phase B Grid.
+	avg_AC_Current_C_int,REAL,FLOAT,Internal AC Current phase C Grid.
+</COLUMN_DEFINITION>
+<VARS>
+	LASTID
+	BEGIN
+	END
+	MAXNUMPTS
+</VARS>
+<SQL>
+	SELECT  rowid, timestamp, num_points
+		, avg_AC_Current_A_ext, avg_AC_Current_B_ext, avg_AC_Current_C_ext
+		, avg_AC_Current_A_int, avg_AC_Current_B_int, avg_AC_Current_C_int
+	FROM grid 
+	WHERE rowid > `LASTID` AND timestamp >= `BEGIN` AND timestamp <= `END` 
+	ORDER BY rowid ASC LIMIT `MAXNUMPTS`;
+</SQL>

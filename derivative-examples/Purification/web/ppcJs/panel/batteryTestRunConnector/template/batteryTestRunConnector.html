@@ -1,0 +1,12 @@
+﻿<div data-dojo-attach-point="containerNode">
+    <div class="btrcChild">
+        <button data-dojo-type="dijit/form/Button" data-dojo-attach-point="createTableButton" data-dojo-attach-event="onClick:_onCreateTableClick" title="create a table on a blank worksheet">
+            New Data Table</button>
+    </div>
+    <div data-dojo-attach-point="tableControls" class="btrcChild">
+        <span>Type a battery's serial number to import its test runs</span>
+        <div data-dojo-attach-point="batterySelect" class="btrcBatterySelect" title="Enter or select a battery serial number.">
+        </div>
+    </div>
+    <div data-dojo-attach-point="fadeoutAlertBox" data-dojo-type="ppcJs/widget/FadeoutAlertBox"></div>
+</div>

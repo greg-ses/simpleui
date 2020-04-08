@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+reference response to DATA_SETS GET command
+ex: ~/cgi-bin/cgicmd?GET=DATA_SETS&CGI=dbReader
+-->
+<dataSets>
+  <dataSet>
+    <majorItems>
+      <item>
+        <value>SSTS</value>
+        <desc>SSTS System</desc>
+      </item>
+    </majorItems>
+    <minorItems>
+      <item>
+        <value>ACAC_Grid_Misc</value>
+        <desc>AC/AC Grid: DC Bus voltage, temperature, AC power</desc>
+      </item>
+      <item>
+        <value>ACAC_Load_Misc</value>
+        <desc>AC/AC Load: DC Bus voltage, temperature, AC power</desc>
+      </item>
+      <item>
+        <value>ACAC_VoltCurr_Grid</value>
+        <desc>AC/AC Grid: phase voltage &amp; current</desc>
+      </item>
+      <item>
+        <value>ACAC_VoltCurr_Load</value>
+        <desc>AC/AC Load: phase voltage &amp; current</desc>
+      </item>
+    </minorItems>
+  </dataSet>
+</dataSets>

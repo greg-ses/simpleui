@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+reference response to MAIN_SYSTEM_TEMPLATE GET command
+ex: ~/cgi-bin/cgicmd?GET=MAIN_SYSTEM_TEMPLATE&CGI=sqreader...
+
+uses fixed enums where:
+  >> used to map resource specific mode to icon representation/selection value
+  ex: modeIconEnum: {
+        Null: 0,
+        Charge: 1,
+        Discharge: 2,
+        OffLine: 3,
+        Standby: 4,
+        SpecialSystemMode: 10,
+        Generic: 11,
+        ...
+      }
+-->
+<mainSystemTemplate>
+  <numChildren></numChildren>
+  <modes>
+    <item>
+      <value>0</value>
+      <desc>-</desc>
+    </item>
+    <item>
+      <value>1</value>
+      <desc>Charge</desc>
+    </item>
+    <item>
+      <value>2</value>
+      <desc>Discharge</desc>
+    </item>
+    <item>
+      <value>3</value>
+      <desc>OffLine</desc>
+    </item>
+    <item>
+      <value>4</value>
+      <desc>Standby</desc>
+    </item>
+  </modes>
+</mainSystemTemplate>

@@ -1,0 +1,65 @@
+---
+- hosts: all
+  vars:
+    app_name: vecpackage-devapp
+  remote_user: root
+  tasks:
+  - include_vars:
+      file: commonvars.yml
+  - name: Prep VEC Target Staging Area
+    file:
+      path: "{{ vec_stage_dir }}"
+      state: absent
+  - file:
+      path: "{{ vec_stage_dir }}"
+      state: directory
+      mode: 0755
+
+  - name: Transfer Archive To VEC Target
+    copy: src={{ bms_stage_dir }}/{{ app_name }}.tar.gz dest={{ vec_stage_dir }}/{{ app_name }}.tar.gz
+  - name: Decompress Archive On VEC Target
+    command: tar -xzf {{ vec_stage_dir }}/{{ app_name }}.tar.gz -C {{ vec_stage_dir }}
+  - file:
+      path: "{{ vec_stage_dir }}/{{ app_name }}.tar.gz"
+      state: absent
+  - name: Backup Existing VEC Unit Configuration Files
+
+    command: cp -rf /vionx/units {{ archive_dir }}/units{{ archive_suffix }}
+  - name: Copy unit configuration files
+    command: cp -rf {{ vec_stage_dir }}/units /vionx
+
+  - name: Backup Existing Binary
+    command: cp /opt/bin/{{ app_binary }} {{ archive_dir }}/{{ app_binary }}{{ archive_suffix }}
+  - name: Stop DeviceService
+    systemd:
+      name: device_service
+      state: stopped
+      no_block: no
+  - name: Deploy binary
+    command: cp {{ vec_stage_dir }}/{{ app_binary }} /opt/bin/{{ app_binary }}
+  - name: Get binary md5
+    command: md5sum /opt/bin/{{ app_binary }}
+    register: md5output
+  - debug: msg="{{ md5output.stdout }}"
+  - name: Set executable permissions
+    file:
+      path: /opt/bin/{{ app_binary }}
+      state: file
+      mode: 0777
+  - name: Rebooting target, this will take over a minute
+    command: shutdown -r now
+    async: 2
+    poll: 0
+    # Now wait for an ssh connection response after reboot
+  - name: Waiting for target to respond
+    local_action: wait_for host={{ ansible_default_ipv4.address }} port=22 state=started delay=45 timeout=60
+    become: false
+    # Pause here to give the app time to start
+  - pause:
+      seconds: 20
+    # Make sure the device service app has started
+  - name: Confirm DeviceService is running
+    command: systemctl is-active device_service
+    register: agent_status
+    failed_when: "'failed' in agent_status.stdout"
+    changed_when: False

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2002">
+    <Title u_id="2002">BSC</Title>
+    <timeStamp u_id="2003">1554235176904</timeStamp>
+    <Version u_id="2004">simple-cmd-set.4.xml - 2 buttons: Distant, Clear Fault</Version>
+    <Section name="Battery System 4" u_id="2006">
+        <CmdSet u_id="2007">
+            <command cmd="Distant" confirm="true" desc="desc" dest="0-0" disabled="false" idnum="0" label="Distant"
+                     name="Distant" u_id="2008"/>
+            <command cmd="Clear_Fault" confirm="false" desc="Reset any active faults in the system." dest="0-0"
+                     disabled="false" idnum="0" label="Clear_Fault" name="Clear_Fault" u_id="2009"/>
+        </CmdSet>
+    </Section>
+    <status>0</status>
+</Data_Summary>

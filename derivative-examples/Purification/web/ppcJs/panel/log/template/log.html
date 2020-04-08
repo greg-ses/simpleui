@@ -1,0 +1,46 @@
+﻿<div data-dojo-attach-point="containerNode">
+    <div data-dojo-attach-point="borderContainer" class="lpBorder" data-dojo-type="dijit/layout/BorderContainer"
+        data-dojo-props="design:'sidebar'">
+        <div class="lpLeftPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'">
+            <div class="lpDownloadDiv baseControlHeader">
+                <div data-dojo-attach-point="downloadPanel" data-dojo-type="ppcJs/panel/Download" data-dojo-attach-event="onMouseEnter:createExportContent">
+                </div>
+            </div>
+            <div class="lpWindowSelectorDiv">
+                <div data-dojo-attach-point="windowSelector" data-dojo-type="ppcJs/control/WindowSelect"
+                    data-dojo-props="windowSizeMap:[{key: 3600, value: '1 hour'},
+                                                    {key: 18000, value: '5 hours'},
+                                                    {key: 86400, value: '24 hours'},
+                                                    {key: 432000, value: '5 days'}]"
+                    data-dojo-attach-event="onWindowLengthChange:onSelectWindowLength,
+                                            onRealTimeToggle:onRealTimeToggleChange,
+                                            onFixedWindowSelected:onGetFixedWindow,
+                                            onSwitchChild:onSwitchWindow">
+                </div>
+            </div>
+        </div>
+        <div data-dojo-attach-point="logDiv" class="lpLogDiv" data-dojo-type="dijit/layout/ContentPane"
+            data-dojo-props="region:'center'">
+            <div class="lpFilterDiv baseControlHeader">
+                <div data-dojo-attach-point="controlTable" class="lpFilterTable" data-dojo-type="dojox/layout/TableContainer"
+                    data-dojo-props="cols:3, labelwidth:0, spacing:5">
+                    <input data-dojo-attach-point="filterResource" class="lpFilter" type="text" name="filterResource" value=""
+                        placeHolder="search by Resource"
+                        data-dojo-type="dijit/form/TextBox"
+                        data-dojo-props="intermediateChanges:true"
+                        data-dojo-attach-event="onKeyPress:onFilterChange" />
+                    <input data-dojo-attach-point="filterType" class="lpFilter" type="text" name="filterType" value=""
+                        placeHolder="search by Type"
+                        data-dojo-type="dijit/form/TextBox"
+                        data-dojo-props="intermediateChanges:true"
+                        data-dojo-attach-event="onKeyPress:onFilterChange" />
+                    <input data-dojo-attach-point="filterEvent" class="lpFilter" type="text" name="filterEvent" value=""
+                        placeHolder="search by Event"
+                        data-dojo-type="dijit/form/TextBox"
+                        data-dojo-props="intermediateChanges:true"
+                        data-dojo-attach-event="onKeyPress:onFilterChange" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

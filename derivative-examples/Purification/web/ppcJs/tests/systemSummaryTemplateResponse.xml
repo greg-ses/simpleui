@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+reference response to SYS_SUMMARY_TEMPLATE GET command
+ex: ~/cgi-bin/cgicmd?GET=SYS_SUMMARY_TEMPLATE&CGI=sqreader...
+
+The presence of a resource's <childResources> members establishes it's master/slave status.
+* A resource with child resources is a master and will process the following tags:
+  <lock> - true = child resources are locked and can't be switched to manual control
+  <auto> - true = automatic daily cycle, false = manual control from master resource's panel
+
+* A resource without any child resources is a slave and will process the following tag:
+  <auto> - true = slaved to master, false = manual control from slave resource's panel
+  
+<valueType> = Enum.ValueType: {
+            Integer: 0,
+            Float: 1,
+            TimeStamp: 2
+        }
+-->
+<systemSummaryTemplate>
+  <resource id="1">
+    <name>System 1</name>
+    <type>TF 2000</type>
+    <dataItems>
+      <dataItem id="data1">
+        <label>PWR</label>
+        <desc>Power Output, kW</desc>
+        <valueType>1</valueType>
+      </dataItem>
+      <dataItem id="data2">
+        <label>SOC</label>
+        <desc>State of Charge, kWHr</desc>
+        <valueType>1</valueType>
+      </dataItem>
+    </dataItems>
+    <childResources>
+      <resource id="2">
+        <name>Subsys A</name>
+        <type>Quad</type>
+        <dataItems>
+          <dataItem id="data1">
+            <label>PWR</label>
+            <desc>Power Output, kW</desc>
+            <valueType>1</valueType>
+          </dataItem>
+          <dataItem id="data2">
+            <label>SOC</label>
+            <desc>State of Charge, kWHr</desc>
+            <valueType>1</valueType>
+          </dataItem>
+        </dataItems>
+        <childResources>
+        </childResources>
+      </resource>
+      <resource id="3">
+        <name>Subsys B</name>
+        <type>Quad</type>
+        <dataItems>
+          <dataItem id="data1">
+            <label>EFF</label>
+            <desc>Power Conversion Efficiency, %</desc>
+            <valueType>0</valueType>
+          </dataItem>
+          <dataItem id="data2">
+            <label>SOC</label>
+            <desc>State of Charge, kWHr</desc>
+            <valueType>1</valueType>
+          </dataItem>
+        </dataItems>
+        <childResources>
+        </childResources>
+      </resource>
+      <resource id="4">
+        <name>Subsys C</name>
+        <type>Quad</type>
+        <dataItems>
+          <dataItem id="data1">
+            <label>PWR</label>
+            <desc>Power Output, kW</desc>
+            <valueType>1</valueType>
+          </dataItem>
+          <dataItem id="data2">
+            <label>SOC</label>
+            <desc>State of Charge, kWHr</desc>
+            <valueType>1</valueType>
+          </dataItem>
+        </dataItems>
+        <childResources>
+        </childResources>
+      </resource>
+      <resource id="5">
+        <name>Subsys D</name>
+        <type>Quad</type>
+        <dataItems>
+          <dataItem id="varA">
+            <label>AAA</label>
+            <desc>Some variable, meters</desc>
+            <valueType>1</valueType>
+          </dataItem>
+          <dataItem id="varB">
+            <label>BBB</label>
+            <desc>Another variable, light-years</desc>
+            <valueType>0</valueType>
+          </dataItem>
+          <dataItem id="varC">
+            <label>CCC</label>
+            <desc>Some sound measurement, dB</desc>
+            <valueType>1</valueType>
+          </dataItem>
+        </dataItems>
+        <childResources>
+        </childResources>
+      </resource>
+    </childResources>
+  </resource>
+  <resource id="6">
+    <name>pb150_0014</name>
+    <type>PB150</type>
+    <dataItems>
+      <dataItem id="data1">
+        <label>GRID</label>
+        <desc>Grid Power, kW</desc>
+        <valueType>1</valueType>
+      </dataItem>
+      <dataItem id="data2">
+        <label>LOAD</label>
+        <desc>Load Power, kW</desc>
+        <valueType>1</valueType>
+      </dataItem>
+    </dataItems>
+    <childResources>
+    </childResources>
+  </resource>
+</systemSummaryTemplate>

@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+reference response to MAIN_BLOCK_DATA GET command
+ex: ~/cgi-bin/cgicmd?CGI=sqreader&GET=MAIN_BLOCK_DATA&LOGLEVEL=1...
+
+Additional query options:
+  >> lowest level entry to include
+  LOGLEVEL= {errorEnum}
+  
+uses fixed enums where:
+  
+  >> used to map resource specific mode to icon representation/selection value
+  >> map of allowable values is sent in main system template response
+  ex: modeIconEnum: {
+        Null: 0,
+        Charge: 1,
+        Discharge: 2,
+        OffLine: 3,
+        Standby: 4,
+        SpecialSystemMode: 10,
+        Generic: 11,
+        ...
+      }
+  
+  socEnum: {
+    Discharged: 0
+    Low: 1,
+    Normal: 2,
+  }
+  
+  >> used to classify event log entries
+  errorEnum: {
+      None: 0,
+      Warn: 1,
+      Fault: 2
+  }
+  
+  >> selects data set for a Control
+  viewEnum: {
+      Home: 0,    // condensed home view data
+      Detail: 1   // expanded detail view data
+  }
+  
+  socEnum: {
+      Discharged: 0
+      Low: 1,
+      Normal: 2,
+  }
+  
+  
+allowed bool values: {<=0, 'false', 'FALSE', 'False' = false}
+
+- mpc (Main Panel Control)
+  - mode: modeIconEnum value
+  - rate: charge(+)/discharge(-) rate, kW
+  - estop: bool
+  - auto: bool
+  - lock: bool
+  - fault: '' or text description of latest active fault/warning
+ 
+- acAc (AC/AC):
+  - acIn (AC Input status): bool, true = ok
+  - contact (contactor closed): bool, true = closed
+  - rect (rectifier on): bool, true = on
+  - inv (inverter on): bool, true = on
+  - temp (temperature status): bool, true = ok
+  - intPwr (internal power, kW): float
+  - vBus (avg bus voltage, V): float
+  
+- dcDc (DC/DC):
+  - cabPwr (cabinet power on): bool, true = on
+  - temp (temperature status): bool, true = ok
+  - mode: string
+  - vBus (avg bus voltage, V): float
+
+- pump:
+  - on: bool
+  - leak (leak status): bool, true = ok
+  - valve12 (neutralize valves 1 & 2): bool, true = closed
+  - valve34 (neutralize valves 3 & 4): bool, true = closed
+  - temp (temperature status): bool, true = ok
+  - press (pressure status): bool, true = ok
+-->
+<mainBlockData>
+  <mpc>
+    <mode>2</mode>
+    <rate>-10</rate>
+    <estop>0</estop>
+    <auto>1</auto>
+    <lock>0</lock>
+  </mpc>
+  <log src="PBSql">
+    <timestamp>1333715967000</timestamp>
+    <r id="17140" time="1333701125183" err="1">
+      <rs>Quad2</rs>
+      <tp>DEBUG NOTICE</tp>
+      <m>A block specific error message</m>
+    </r>
+  </log>
+  <acAc>
+    <acIn>1</acIn>
+    <contact>1</contact>
+    <rect>1</rect>
+    <inv>0</inv>
+    <temp>0</temp>
+    <intPwr>110.1</intPwr>
+    <vBus>90.0</vBus>
+  </acAc>
+  <dcDc>
+    <cabPwr>1</cabPwr>
+    <temp>0</temp>
+    <mode>DC/DC mode 1</mode>
+    <vBus>90.0</vBus>
+  </dcDc>
+  <batt>
+    <soc>1</soc>
+    <totI>90.1</totI>
+    <avgI>100.1</avgI>
+    <totAh>200.1</totAh>
+    <avgAh>200.1</avgAh>
+    <pwr>1.1</pwr>
+    <avgV>110.1</avgV>
+  </batt>
+  <pump>
+    <on>1</on>
+    <leak>1</leak>
+    <valve12>1</valve12>
+    <valve34>0</valve34>
+    <temp>1</temp>
+    <press>0</press>
+  </pump>
+</mainBlockData>

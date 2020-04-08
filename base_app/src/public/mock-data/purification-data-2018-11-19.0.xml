@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2001">
+    <Title u_id="2002">Purification</Title>
+    <timeStamp u_id="2003">1542653801804</timeStamp>
+    <Version u_id="2004">Greg has fix.</Version>
+    <Section name="Purification Station Overview" u_id="2005">
+        <CmdSet u_id="2006">
+            <command cmd="Disable" confirm="false" desc="desc" disabled="false" idnum="0" label="Disable" name="Disable"
+                     u_id="2008"/>
+            <command cmd="Service" confirm="false" desc="desc" disabled="false" idnum="0" label="Service" name="Service"
+                     u_id="2009"/>
+            <command cmd="POST" confirm="false" desc="desc" disabled="false" idnum="0" label="POST" name="POST"
+                     u_id="2010"/>
+        </CmdSet>
+        <DataSets u_id="2010">
+            <SystemData u_id="2011">
+                <System_Mode u_id="2012">Offline</System_Mode>
+                <Sub_Mode u_id="2013">--</Sub_Mode>
+                <Last_Purification_Mode u_id="2014">Offline</Last_Purification_Mode>
+                <Total_Pure_Elyte u_id="2015" units="L">1384.00</Total_Pure_Elyte>
+                <Elyte_Turnover_Progress u_id="2016" units="">0.00</Elyte_Turnover_Progress>
+            </SystemData>
+            <Pump_Overview u_id="2017">
+                <Pump_Catholyte_Speed class="fault" u_id="2018" units="Hz">0.0</Pump_Catholyte_Speed>
+                <Pump_Catholyte_Purification u_id="2019" units="LPM">0.0</Pump_Catholyte_Purification>
+                <Pump_Anolyte_Speed class="fault" u_id="2020" units="Hz">0.0</Pump_Anolyte_Speed>
+                <Pump_Anolyte_Purification u_id="2021" units="LPM">0.0</Pump_Anolyte_Purification>
+                <Pump_Raw_Elyte_Transfer_Speed class="fault" u_id="2022" units="Hz">0.0</Pump_Raw_Elyte_Transfer_Speed>
+                <Pump_Raw_Elyte_Transfer_Purification u_id="2023" units="LPM">0.0</Pump_Raw_Elyte_Transfer_Purification>
+                <Pump_Product_Transfer_Speed class="fault" u_id="2024" units="Hz">0.0</Pump_Product_Transfer_Speed>
+                <Pump_Product_Transfer_Purification u_id="2025" units="LPM">1.8</Pump_Product_Transfer_Purification>
+                <Pump_An_Aux_Filter_Speed class="fault" u_id="2026" units="Hz">0.0</Pump_An_Aux_Filter_Speed>
+                <Pump_An_Aux_Filter_Purification u_id="2027" units="LPM">0.0</Pump_An_Aux_Filter_Purification>
+                <Stack_Pressure_Differential u_id="2028" units="PSI">0.0</Stack_Pressure_Differential>
+                <Filter_1A_Pressure_Differential u_id="2029" units="PSI">0.0</Filter_1A_Pressure_Differential>
+                <Filter_1B_Pressure_Differential u_id="2030" units="PSI">0.0</Filter_1B_Pressure_Differential>
+                <Filter_3A_Pressure_Differential u_id="2031" units="PSI">0.0</Filter_3A_Pressure_Differential>
+            </Pump_Overview>
+            <Electrolyte_Overview u_id="2032">
+                <N2_Pad_Pressure u_id="2033" units="mbar">6.1</N2_Pad_Pressure>
+                <Anolyte_Valence u_id="2034" units="">3.058</Anolyte_Valence>
+                <Catholyte_Valence u_id="2035" units="">2.976</Catholyte_Valence>
+                <Catholyte_V2 u_id="2036" units="">0.158</Catholyte_V2>
+                <Catholyte_VTotal u_id="2037" units="">0.000</Catholyte_VTotal>
+                <AnSOC u_id="2038" units="">-5.8</AnSOC>
+                <Anolyte_Inlet_Electrolyte_Temp u_id="2039" units="C">20.3</Anolyte_Inlet_Electrolyte_Temp>
+                <Catholyte_Inlet_Electrolyte_Temp u_id="2040" units="C">20.9</Catholyte_Inlet_Electrolyte_Temp>
+                <Coolant_Temp u_id="2041" units="C">21.1</Coolant_Temp>
+                <Anolyte_Tank_Level u_id="2042" units="L">807.4</Anolyte_Tank_Level>
+                <Catholyte_Tank_Level u_id="2043" units="L">1165.3</Catholyte_Tank_Level>
+                <Raw_Elyte_Buffer_Tank_Level u_id="2044" units="L">2086.9</Raw_Elyte_Buffer_Tank_Level>
+                <Product_Tank_Level u_id="2045" units="L">90.8</Product_Tank_Level>
+            </Electrolyte_Overview>
+            <Stack_Overview u_id="2046">
+                <Stack_1_Voltage u_id="2047" units="V">0.5</Stack_1_Voltage>
+                <Stack_1_Current u_id="2048" units="A">-0.4</Stack_1_Current>
+                <Stack_2_Voltage u_id="2049" units="V">-0.3</Stack_2_Voltage>
+                <Stack_2_Current u_id="2050" units="A">0.3</Stack_2_Current>
+                <Ref_Cell_Voltage u_id="2051" units="V">0.029</Ref_Cell_Voltage>
+            </Stack_Overview>
+            <Hydrogen_Overview u_id="2052">
+                <HS101_Container_Pos_1 u_id="2053" units="% LEL">0.00</HS101_Container_Pos_1>
+                <HS102_Container_Pos_2 u_id="2054" units="% LEL">0.00</HS102_Container_Pos_2>
+                <HS103_Container_Pos_3 u_id="2055" units="% LEL">0.00</HS103_Container_Pos_3>
+                <HS104_Container_Pos_4 u_id="2056" units="% LEL">0.00</HS104_Container_Pos_4>
+                <HS105_An_Exhaust u_id="2057" units="% LEL">0.00</HS105_An_Exhaust>
+            </Hydrogen_Overview>
+        </DataSets>
+    </Section>
+    <Section name="Recent Events" u_id="2058">
+        <DataSets u_id="2059">
+            <Event_Log u_id="2060">
+                <event-1 name="SERVICE REQUEST" u_id="2061">09:00:00 Daily system health message. H1_LEL:0.00,
+                    H2_LEL:0.00, H3_LEL:0.00, H4_LEL:0.00, H5_LEL:0.00, N2Pad:6.03, N2_Tank1:1462.76, N2_Tank2:1534.80
+                </event-1>
+                <event-2 name="SERVICE REQUEST" u_id="2062">09:00:00 Daily system health message. H1_LEL:0.00,
+                    H2_LEL:0.00, H3_LEL:0.00, H4_LEL:0.00, H5_LEL:0.00, N2Pad:5.61, N2_Tank1:1766.79, N2_Tank2:1537.24
+                </event-2>
+                <event-3 name="SERVICE REQUEST" u_id="2063">09:00:00 Daily system health message. H1_LEL:0.00,
+                    H2_LEL:0.00, H3_LEL:0.00, H4_LEL:0.00, H5_LEL:0.00, N2Pad:4.91, N2_Tank1:2074.48, N2_Tank2:1534.80
+                </event-3>
+                <event-4 name="SERVICE REQUEST" u_id="2064">09:00:00 Daily system health message. H1_LEL:0.00,
+                    H2_LEL:0.00, H3_LEL:0.00, H4_LEL:0.00, H5_LEL:0.00, N2Pad:6.87, N2_Tank1:2377.29, N2_Tank2:1558.00
+                </event-4>
+                <event-5 name="SERVICE REQUEST" u_id="2065">09:00:00 Daily system health message. H1_LEL:0.00,
+                    H2_LEL:0.00, H3_LEL:0.00, H4_LEL:0.00, H5_LEL:0.00, N2Pad:5.19, N2_Tank1:2642.86, N2_Tank2:1616.61
+                </event-5>
+            </Event_Log>
+        </DataSets>
+    </Section>
+    <Section name="Active Faults" u_id="2066">
+        <DataSets u_id="2067">
+            <Active_Faults u_id="2068"/>
+        </DataSets>
+    </Section>
+    <Section name="MagnaPower" u_id="2069">
+        <CmdSet u_id="2070">
+            <command cmd="Power_Enable" confirm="true" desc="Enable power supply" disabled="false" idnum="0"
+                     label="Power_Enable" name="Power_Enable" u_id="2072"/>
+            <command cmd="Power_Disable" confirm="true" desc="Disable power supply" disabled="false" idnum="0"
+                     label="Power_Disable" name="Power_Disable" u_id="2073"/>
+            <command cmd="Power_Clear_Alarms" confirm="true" desc="Clear Supply Alarms" disabled="false" idnum="0"
+                     label="Power_Clear_Alarms" name="Power_Clear_Alarms" u_id="2074"/>
+        </CmdSet>
+        <DataSets u_id="2074">
+            <SettablePowerData u_id="2075">
+                <Power_Mode_Voltage u_id="2076">
+                    <command cmd="Power_Mode_Voltage" desc="" disabled="false" idnum="0" label="Set_Mode_Voltage"
+                             name="Power_Mode_Voltage" u_id="2078">
+                        <_input _type="float" desc="Enter New Value" idnum="0" max="1000.000" min="0.000" u_id="2079"
+                                value="0.000"/>
+                    </command>
+                    0.000
+                </Power_Mode_Voltage>
+                <Power_Level_Voltage_V u_id="2079">
+                    <command cmd="Power_Level_Voltage_V" desc="" disabled="false" idnum="1" label="Set_Level_Voltage_V"
+                             name="Power_Level_Voltage_V" u_id="2081">
+                        <_input _type="float" desc="Enter New Value" idnum="0" max="1000.000" min="0.000" u_id="2082"
+                                value="0.000"/>
+                    </command>
+                    0.000 V
+                </Power_Level_Voltage_V>
+                <Power_Max_Voltage_V u_id="2082">
+                    <command cmd="Power_Max_Voltage_V" desc="" disabled="false" idnum="2" label="Set_Max_Voltage_V"
+                             name="Power_Max_Voltage_V" u_id="2084">
+                        <_input _type="float" desc="Enter New Value" idnum="0" max="1000.000" min="0.000" u_id="2085"
+                                value="0.000"/>
+                    </command>
+                    0.000 V
+                </Power_Max_Voltage_V>
+                <Power_Mode_Current u_id="2085">
+                    <command cmd="Power_Mode_Current" desc="" disabled="false" idnum="3" label="Set_Mode_Current"
+                             name="Power_Mode_Current" u_id="2087">
+                        <_input _type="float" desc="Enter New Value" idnum="0" max="1000.000" min="0.000" u_id="2088"
+                                value="0.000"/>
+                    </command>
+                    0.000
+                </Power_Mode_Current>
+                <Power_Level_Current_A u_id="2088">
+                    <command cmd="Power_Level_Current_A" desc="" disabled="false" idnum="4" label="Set_Level_Current_A"
+                             name="Power_Level_Current_A" u_id="2090">
+                        <_input _type="float" desc="Enter New Value" idnum="0" max="1000.000" min="0.000" u_id="2091"
+                                value="0.000"/>
+                    </command>
+                    0.000 A
+                </Power_Level_Current_A>
+                <Power_Max_Current_A u_id="2091">
+                    <command cmd="Power_Max_Current_A" desc="" disabled="false" idnum="5" label="Set_Max_Current_A"
+                             name="Power_Max_Current_A" u_id="2093">
+                        <_input _type="float" desc="Enter New Value" idnum="0" max="1000.000" min="0.000" u_id="2094"
+                                value="0.000"/>
+                    </command>
+                    0.000 A
+                </Power_Max_Current_A>
+            </SettablePowerData>
+            <PowerData u_id="2094">
+                <PostStat class="fault" name="Communications Status" u_id="2095">Fault</PostStat>
+                <Measure_Voltage u_id="2095">0</Measure_Voltage>
+                <Measure_Current u_id="2096">0</Measure_Current>
+                <Questionable_Status u_id="2097">0</Questionable_Status>
+                <Operational_Status u_id="2098">0</Operational_Status>
+                <Supply_Enable u_id="2099">false</Supply_Enable>
+                <Supply_Disable u_id="2100">false</Supply_Disable>
+                <Clear_Alarms u_id="2101">false</Clear_Alarms>
+                <dyn class="off" disabled="false" name="Status_Supply_On" u_id="2103">off</dyn>
+                <Op_Status u_id="2103"/>
+                <Quest_Status u_id="2104"/>
+            </PowerData>
+        </DataSets>
+    </Section>
+    <status>0</status>
+</Data_Summary>

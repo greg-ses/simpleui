@@ -1,0 +1,32 @@
+﻿<div data-dojo-attach-point="containerNode">
+    <div data-dojo-attach-point="loadingOverlay" class="loadingOverlay loadingMessage">Loading...</div>
+    <div data-dojo-attach-point="testRunSelect" data-dojo-type="ppcJs/control/TestRunFilteringSelect"
+        data-dojo-attach-event="onChange:_onSelectChange">
+    </div>
+    <div data-dojo-attach-point="testRunDiv" class="basePanelControlBorder trcTestRunContainer">
+        <div class="trcLeftPane">
+            <input data-dojo-attach-point="testType" data-dojo-type="dijit/form/ComboBox" name="testType" title="test type"
+                data-dojo-props="placeHolder:'test type', searchAttr:'name', autoComplete:false" />
+            <div class="trcLinkDiv">
+                <a data-dojo-attach-point="fleetViewerLink" title="view this test run in the FleetViewer">FleetViewer</a>
+            </div>
+        </div>
+
+        <div data-dojo-attach-point="newChemLogButtonDiv" class="trcNewChemLogButton">
+            <button data-dojo-type="dijit/form/Button" data-dojo-attach-point="newChemLogButton" data-dojo-attach-event="onClick:_onNewChemLogClick" title="create the chem log for this test run">
+                Create Chemistry Log</button>
+        </div>
+        <div data-dojo-attach-point="chemDataEntry" data-dojo-type="dijit/Dialog" title="Create a Chemistry Log">
+            <div data-dojo-attach-point="newChemistryDataEditor" data-dojo-type="ppcJs/control/ChemistryDataEditor" data-dojo-props="newDataEntry:true"></div>
+            <div class="trcNewChemistryDataButtonDiv">
+                <button data-dojo-type="dijit/form/Button" type="button" data-dojo-attach-event="onClick:_onSubmitNewChemLogClick">Create</button>
+                <button data-dojo-type="dijit/form/Button" type="button" data-dojo-attach-event="onClick:_onCancelNewChemLogClick">Cancel</button>
+            </div>
+        </div>
+
+        <div data-dojo-attach-point="chemDataGrid" class="basePanelControlBorder trcRightPane">
+            <div data-dojo-attach-point="existingChemistryDataEditor" data-dojo-type="ppcJs/control/ChemistryDataEditor" data-dojo-props="newDataEntry:false">
+            </div>
+        </div>
+    </div>
+</div>

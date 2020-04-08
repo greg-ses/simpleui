@@ -1,0 +1,329 @@
+TABLE_NAME=PurificationTable
+META_TYPE=FLOAT
+NO_TABLE_PREFIX=true
+<COLUMN_DEFINITION>
+        # Name, SQL_TYPE, MetaType, Description
+
+        timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st 1970
+        num_points,INTEGER,INTEGER,Number of points in averaged in float values
+        PMP201_Catholyte_DriveStatus,TEXT,TEXT,PMP201_Catholyte_DriveStatus
+        PMP201_Catholyte_RunStatus,TEXT,TEXT,PMP201_Catholyte_RunStatus
+        PMP201_Catholyte_CmdFreq,DOUBLE,DOUBLE,Average : PMP201_Catholyte_CmdFreq
+        PMP201_Catholyte_ActualFreq,DOUBLE,DOUBLE,Average : PMP201_Catholyte_ActualFreq
+        PMP201_Catholyte_LoadPerc,DOUBLE,DOUBLE,Average : PMP201_Catholyte_LoadPerc
+        PMP201_Catholyte_FaultState,TEXT,TEXT,PMP201_Catholyte_FaultState
+        PMP101_Anolyte_DriveStatus,TEXT,TEXT,PMP101_Anolyte_DriveStatus
+        PMP101_Anolyte_RunStatus,TEXT,TEXT,PMP101_Anolyte_RunStatus
+        PMP101_Anolyte_CmdFreq,DOUBLE,DOUBLE,Average : PMP101_Anolyte_CmdFreq
+        PMP101_Anolyte_ActualFreq,DOUBLE,DOUBLE,Average : PMP101_Anolyte_ActualFreq
+        PMP101_Anolyte_LoadPerc,DOUBLE,DOUBLE,Average : PMP101_Anolyte_LoadPerc
+        PMP101_Anolyte_FaultState,TEXT,TEXT,PMP101_Anolyte_FaultState
+        PMP103_Raw_Elyte_DriveStatus,TEXT,TEXT,PMP103_Raw_Elyte_DriveStatus
+        PMP103_Raw_Elyte_RunStatus,TEXT,TEXT,PMP103_Raw_Elyte_RunStatus
+        PMP103_Raw_Elyte_CmdFreq,DOUBLE,DOUBLE,Average : PMP103_Raw_Elyte_CmdFreq
+        PMP103_Raw_Elyte_ActualFreq,DOUBLE,DOUBLE,Average : PMP103_Raw_Elyte_ActualFreq
+        PMP103_Raw_Elyte_LoadPerc,DOUBLE,DOUBLE,Average : PMP103_Raw_Elyte_LoadPerc
+        PMP103_Raw_Elyte_FaultState,TEXT,TEXT,PMP103_Raw_Elyte_FaultState
+        PMP202_Product_DriveStatus,TEXT,TEXT,PMP202_Product_DriveStatus
+        PMP202_Product_RunStatus,TEXT,TEXT,PMP202_Product_RunStatus
+        PMP202_Product_CmdFreq,DOUBLE,DOUBLE,Average : PMP202_Product_CmdFreq
+        PMP202_Product_ActualFreq,DOUBLE,DOUBLE,Average : PMP202_Product_ActualFreq
+        PMP202_Product_LoadPerc,DOUBLE,DOUBLE,Average : PMP202_Product_LoadPerc
+        PMP202_Product_FaultState,TEXT,TEXT,PMP202_Product_FaultState
+        PMP102_An_Transfer_DriveStatus,TEXT,TEXT,PMP102_An_Transfer_DriveStatus
+        PMP102_An_Transfer_RunStatus,TEXT,TEXT,PMP102_An_Transfer_RunStatus
+        PMP102_An_Transfer_CmdFreq,DOUBLE,DOUBLE,Average : PMP102_An_Transfer_CmdFreq
+        PMP102_An_Transfer_ActualFreq,DOUBLE,DOUBLE,Average : PMP102_An_Transfer_ActualFreq
+        PMP102_An_Transfer_LoadPerc,DOUBLE,DOUBLE,Average : PMP102_An_Transfer_LoadPerc
+        PMP102_An_Transfer_FaultState,TEXT,TEXT,PMP102_An_Transfer_FaultState
+        I1_PT101A_Anolyte_Filter_1A_Inlet,DOUBLE,DOUBLE,Average :                               I1_PT101A_Anolyte_Filter_1A_Inlet
+        I1_PT101B_Anolyte_Filter_1B_Inlet,DOUBLE,DOUBLE,Average :                               I1_PT101B_Anolyte_Filter_1B_Inlet
+        I1_PT102A_Anolyte_Filter_1A_Outlet,DOUBLE,DOUBLE,Average :                              I1_PT102A_Anolyte_Filter_1A_Outlet
+        I1_PT102B_Anolyte_Filter_1B_Outlet,DOUBLE,DOUBLE,Average :                              I1_PT102B_Anolyte_Filter_1B_Outlet
+        I1_PT103_Anolyte_Stack_Inlet,DOUBLE,DOUBLE,Average :                                    I1_PT103_Anolyte_Stack_Inlet
+        I1_PT402_N2_Pad,DOUBLE,DOUBLE,Average :                                                 I1_PT402_N2_Pad
+        I1_PT403_N2_Feed,DOUBLE,DOUBLE,Average :                                                I1_PT403_N2_Feed
+        I1_PT404_N2_Tank_1,DOUBLE,DOUBLE,Average :                                              I1_PT404_N2_Tank_1
+        I1_PT405_N2_Tank_2,DOUBLE,DOUBLE,Average :                                              I1_PT405_N2_Tank_2
+        I1_CT301_Coolant,DOUBLE,DOUBLE,Average :                                                I1_CT301_Coolant
+        I1_TT302_Coolant_HEX_Outlet,DOUBLE,DOUBLE,Average :                                     I1_TT302_Coolant_HEX_Outlet
+        I1_TT101_Anolyte_Stack_Inlet,DOUBLE,DOUBLE,Average :                                    I1_TT101_Anolyte_Stack_Inlet
+        I1_TT201_Catholyte_Stack_Intlet,DOUBLE,DOUBLE,Average :                                 I1_TT201_Catholyte_Stack_Intlet
+        I1_TT102_Anolyte_Stack_Outlet,DOUBLE,DOUBLE,Average :                                   I1_TT102_Anolyte_Stack_Outlet
+        I1_TT103_Anolyte_Hex_Outlet,DOUBLE,DOUBLE,Average :                                     I1_TT103_Anolyte_Hex_Outlet
+        I1_TT202_Catholyte_Stack_Outlet,DOUBLE,DOUBLE,Average :                                 I1_TT202_Catholyte_Stack_Outlet
+        I1_TT203_Catholyte_Hex_Outlet,DOUBLE,DOUBLE,Average :                                   I1_TT203_Catholyte_Hex_Outlet
+        I1_TT301_Coolant_HEX_Inlet,DOUBLE,DOUBLE,Average :                                      I1_TT301_Coolant_HEX_Inlet
+        I1_LT102_Elyte_Raw_Buffer_Tank,DOUBLE,DOUBLE,Average :                                  I1_LT102_Elyte_Raw_Buffer_Tank
+        I1_LT101_Anolyte_Tank,DOUBLE,DOUBLE,Average :                                           I1_LT101_Anolyte_Tank
+        I1_LT202_Elyte_Product_Buffer_Tank,DOUBLE,DOUBLE,Average :                              I1_LT202_Elyte_Product_Buffer_Tank
+        I1_LT201_Catholyte_Tank,DOUBLE,DOUBLE,Average :                                         I1_LT201_Catholyte_Tank
+        I1_OT101A_Anolyte_V_Total,DOUBLE,DOUBLE,Average :                                       I1_OT101A_Anolyte_V_Total
+        I1_OT101B_Anolyte_V2,DOUBLE,DOUBLE,Average :                                            I1_OT101B_Anolyte_V2
+        I1_Stack_1_Voltage,DOUBLE,DOUBLE,Average :                                              I1_Stack_1_Voltage
+        I1_Stack_1_Current,DOUBLE,DOUBLE,Average :                                              I1_Stack_1_Current
+        I1_Stack_2_Voltage,DOUBLE,DOUBLE,Average :                                              I1_Stack_2_Voltage
+        I1_Stack_2_Current,DOUBLE,DOUBLE,Average :                                              I1_Stack_2_Current
+        I1_Reference_Voltage,DOUBLE,DOUBLE,Average :                                            I1_Reference_Voltage
+        I1_PT301_Coolant_Inlet_Pressure,DOUBLE,DOUBLE,Average :                                 I1_PT301_Coolant_Inlet_Pressure
+        I1_PT104_Anolyte_Stack_Outlet,DOUBLE,DOUBLE,Average :                                   I1_PT104_Anolyte_Stack_Outlet
+        I1_PT105A_Anolyte_Aux_Filter_3A_Inlet,DOUBLE,DOUBLE,Average :                           I1_PT105A_Anolyte_Aux_Filter_3A_Inlet
+        I1_PT105B_Anolyte_Aux_Filter_3B_Inlet,DOUBLE,DOUBLE,Average :                           I1_PT105B_Anolyte_Aux_Filter_3B_Inlet
+        I1_PT106A_Anolyte_Aux_Filter_3A_Outlet,DOUBLE,DOUBLE,Average :                          I1_PT106A_Anolyte_Aux_Filter_3A_Outlet
+       # I1_PT106B_Anolyte_Aux_Filter_3B_Outlet,DOUBLE,DOUBLE,Average :                          I1_PT106B_Anolyte_Aux_Filter_3B_Outlet
+        I1_HS105_Anolyte_Tank_Hydrogen_Sensor,DOUBLE,DOUBLE,Average :                           I1_HS105_Anolyte_Tank_Hydrogen_Sensor
+        I1_PT201_Catholyte_Stack_Inlet,DOUBLE,DOUBLE,Average :                                  I1_PT201_Catholyte_Stack_Inlet
+        I1_PT202_Catholyte_Stack_Outlet,DOUBLE,DOUBLE,Average :                                 I1_PT202_Catholyte_Stack_Outlet
+        I1_FT101_Anolyte_Loop,DOUBLE,DOUBLE,Average :                                           I1_FT101_Anolyte_Loop
+        I1_FT201_Catholyte_Loop,DOUBLE,DOUBLE,Average :                                         I1_FT201_Catholyte_Loop
+        I1_FT102_Anolyte_Transfer,DOUBLE,DOUBLE,Average :                                       I1_FT102_Anolyte_Transfer
+        I1_FT202_Catholyte_Product_Transfer,DOUBLE,DOUBLE,Average :                             I1_FT202_Catholyte_Product_Transfer
+        I1_FT103_Anolyte_Buffer_Transfer,DOUBLE,DOUBLE,Average :                                I1_FT103_Anolyte_Buffer_Transfer
+        I1_FT301_Coolant_Flow,DOUBLE,DOUBLE,Average :                                           I1_FT301_Coolant_Flow
+        I1_OT201A_Catholyte_V_Total,DOUBLE,DOUBLE,Average :                                     I1_OT201A_Catholyte_V_Total
+        I1_OT201B_Catholyte_V2,DOUBLE,DOUBLE,Average :                                          I1_OT201B_Catholyte_V2
+        I1_HS101_Container_Position_1,DOUBLE,DOUBLE,Average :                                   I1_HS101_Container_Position_1
+        I1_HS102_Container_Position_2,DOUBLE,DOUBLE,Average :                                   I1_HS101_Container_Position_2
+        I1_HS103_Container_Position_3,DOUBLE,DOUBLE,Average :                                   I1_HS101_Container_Position_3
+        I1_HS104_Container_Position_4,DOUBLE,DOUBLE,Average :                                   I1_HS101_Container_Position_4
+        I1_LS001_006_Secondary_Containment,DOUBLE,DOUBLE,Average :                              I1_LS001_006_Secondary_Containment
+        I1_LS007_008_Filter_Trays,DOUBLE,DOUBLE,Average :                                       I1_LS007_008_Filter_Trays
+        I1_LS009_Filter_Trap,DOUBLE,DOUBLE,Average :                                            I1_LS009_Filter_Trap
+        I1_FS201_Product_Elyte_Tote,DOUBLE,DOUBLE,Average :                                     I1_FS201_Product_Elyte_Tote
+        I1_N2_PAD_Not_Overpressure,DOUBLE,DOUBLE,Average :                                      I1_N2_PAD_Not_Overpressure
+        I1_AC_Aux_Enclosure_Door_Closed,DOUBLE,DOUBLE,Average :                                 I1_AC_Aux_Enclosure_Door_Closed
+        I1_HVDC_Enclosure_Door_Closed,DOUBLE,DOUBLE,Average :                                   I1_HVDC_Enclosure_Door_Closed
+        I1_Container_Doors_Closed,DOUBLE,DOUBLE,Average :                                       I1_Container_Doors_Closed
+        I1_Service_Switch_Run,DOUBLE,DOUBLE,Average :                                           I1_Service_Switch_Run
+        I1_ESTOP_Released,DOUBLE,DOUBLE,Average :                                               I1_ESTOP_Released
+        I1_HVDC_Disconnect_Open,DOUBLE,DOUBLE,Average :                                         I1_HVDC_Disconnect_Open
+        I1_HVDC_Disconnect_Closed,DOUBLE,DOUBLE,Average :                                       I1_HVDC_Disconnect_Closed
+        I1_HVDC_Contactors_Normal,DOUBLE,DOUBLE,Average :                                       I1_HVDC_Contactors_Normal
+        I1_HVDC_Contactors_Reverse,DOUBLE,DOUBLE,Average :                                      I1_HVDC_Contactors_Reverse
+        I1_LVDC_Power_Supply_Active,DOUBLE,DOUBLE,Average :                                     I1_LVDC_Power_Supply_Active
+        I1_Optical_Converter_Active,DOUBLE,DOUBLE,Average :                                     I1_Optical_Converter_Active
+        I1_AC_Aux_Ethernet_Active,DOUBLE,DOUBLE,Average :                                       I1_AC_Aux_Ethernet_Active
+        I1_CV101_Anolyte_Stack_Filter_Inlet_OPENED_FB,DOUBLE,DOUBLE,Average :                   I1_CV101_Anolyte_Stack_Filter_Inlet_OPENED_FB
+        I1_CV201_Catholyte_Tank_Outlet_OPENED_FB,DOUBLE,DOUBLE,Average :                        I1_CV201_Catholyte_Tank_Outlet_OPENED_FB
+        I1_CV102_Anolyte_Tank_Outlet_to_Stack_OPENED_FB,DOUBLE,DOUBLE,Average :                 I1_CV102_Anolyte_Tank_Outlet_to_Stack_OPENED_FB
+        I1_CV103_Anolyte_to_RawElyte_Transfer_CLOSED_FB,DOUBLE,DOUBLE,Average :                 I1_CV103_Anolyte_to_RawElyte_Transfer_CLOSED_FB
+        I1_CV101_Anolyte_Stack_Filter_Inlet_CLOSED_FB,DOUBLE,DOUBLE,Average :                   I1_CV101_Anolyte_Stack_Filter_Inlet_CLOSED_FB
+        I1_CV201_Catholyte_Tank_Outlet_CLOSED_FB,DOUBLE,DOUBLE,Average :                        I1_CV201_Catholyte_Tank_Outlet_CLOSED_FB
+        I1_CV102_Anolyte_to_CV103_Transfer_CLOSED_FB,DOUBLE,DOUBLE,Average :                    I1_CV102_Anolyte_to_CV103_Transfer_CLOSED_FB
+        I1_CV103_Anolyte_to_Catholyte_Transfer_OPENED_FB,DOUBLE,DOUBLE,Average :                I1_CV103_Anolyte_to_Catholyte_Transfer_OPENED_FB
+        I1_N2_Pad_Release_Control_Active,DOUBLE,DOUBLE,Average :                                I1_N2_Pad_Release_Control_Active
+        I1_Normal_State_Active,DOUBLE,DOUBLE,Average :                                          I1_Normal_State_Active
+        I1_Reverse_State_Active,DOUBLE,DOUBLE,Average :                                         I1_Reverse_State_Active
+        I1_HVDC_Contactor_Drive_Normal,DOUBLE,DOUBLE,Average :                                  I1_HVDC_Contactor_Drive_Normal
+        I1_HVDC_Contactor_Drive_Reverse,DOUBLE,DOUBLE,Average :                                 I1_HVDC_Contactor_Drive_Reverse
+        I1_ESM_Disabled,DOUBLE,DOUBLE,Average :                                                 I1_ESM_Disabled
+        I1_CV104_RawElyte_to_Catholyte_Tank_OPENED_FB,DOUBLE,DOUBLE,Average :                   I1_CV104_RawElyte_to_Catholyte_Tank_OPENED_FB
+        I1_CV105_Anolyte_Hex_Outlet_OPENED_FB,DOUBLE,DOUBLE,Average :                           I1_CV105_Anolyte_Hex_Outlet_OPENED_FB
+        I1_CV202_Catholyte_to_RawElyte_Transfer_OPENED_FB,DOUBLE,DOUBLE,Average :               I1_CV202_Catholyte_to_RawElyte_Transfer_OPENED_FB
+        I1_CV301_Catholyte_Cooling_OPENED_FB,DOUBLE,DOUBLE,Average :                            I1_CV301_Catholyte_Cooling_OPENED_FB
+        I1_CV302_Anolyte_Cooling_OPENED_FB,DOUBLE,DOUBLE,Average :                              I1_CV302_Anolyte_Cooling_OPENED_FB
+        I1_CV303_Cooling_Bypass_OPENED_FB,DOUBLE,DOUBLE,Average :                               I1_CV303_Cooling_Bypass_OPENED_FB
+        I1_CV104_RawElyte_to_Anolyte_Tank_CLOSED_FB,DOUBLE,DOUBLE,Average :                     I1_CV104_RawElyte_to_Anolyte_Tank_CLOSED_FB
+        I1_CV105_Anolyte_Hex_Outlet_CLOSED_FB,DOUBLE,DOUBLE,Average :                           I1_CV105_Anolyte_Hex_Outlet_CLOSED_FB
+        I1_CV202_Catholyte_to_Product_Transfer_CLOSED_FB,DOUBLE,DOUBLE,Average :                I1_CV202_Catholyte_to_Product_Transfer_CLOSED_FB
+        I1_CV301_Catholyte_Cooling_CLOSED_FB,DOUBLE,DOUBLE,Average :                            I1_CV301_Catholyte_Cooling_CLOSED_FB
+        I1_CV302_Anolyte_Cooling_CLOSED_FB,DOUBLE,DOUBLE,Average :                              I1_CV302_Anolyte_Cooling_CLOSED_FB
+        I1_CV303_Cooling_Bypass_CLOSED_FB,DOUBLE,DOUBLE,Average :                               I1_CV303_Cooling_Bypass_CLOSED_FB
+        I1_Process_Pumps_Enable,DOUBLE,DOUBLE,Average :                                         I1_Process_Pumps_Enable
+        I1_PMP103_Enable_RAW_Material_Transfer_Pump_Anolyte_Side,DOUBLE,DOUBLE,Average :        I1_PMP103_Enable_RAW_Material_Transfer_Pump_Anolyte_Side
+        I1_PMP202_Enable_Product_Transfer_Pump_Catholyte_Side,DOUBLE,DOUBLE,Average :           I1_PMP202_Enable_Product_Transfer_Pump_Catholyte_Side
+        I1_PMP102_Enable_Aux_Filter_Pump_Anolyte_Side,DOUBLE,DOUBLE,Average :                   I1_PMP102_Enable_Aux_Filter_Pump_Anolyte_Side
+        I1_Normal_Contactors_Enable,DOUBLE,DOUBLE,Average :                                     I1_Normal_Contactors_Enable
+        I1_Reverse_Contactors_Enable,DOUBLE,DOUBLE,Average :                                    I1_Reverse_Contactors_Enable
+        I1_Stack_1_Contactor_1_Enable,DOUBLE,DOUBLE,Average :                                   I1_Stack_1_Contactor_1_Enable
+        I1_Stack_1_Contactor_2_Enable,DOUBLE,DOUBLE,Average :                                   I1_Stack_1_Contactor_2_Enable
+        I1_Stack_2_Contactor_1_Enable,DOUBLE,DOUBLE,Average :                                   I1_Stack_2_Contactor_1_Enable
+        I1_Stack_2_Contactor_2_Enable,DOUBLE,DOUBLE,Average :                                   I1_Stack_2_Contactor_2_Enable
+        I1_CV101_Filtered_Anolyte_Stack_Control,DOUBLE,DOUBLE,Average :                         I1_CV101_Filtered_Anolyte_Stack_Control
+        I1_CV102_Anolyte_Tank_Outlet_Control,DOUBLE,DOUBLE,Average :                            I1_CV102_Anolyte_Tank_Outlet_Control
+        I1_CV201_Catholyte_Stack_Control,DOUBLE,DOUBLE,Average :                                I1_CV201_Catholyte_Stack_Control
+        I1_CV103_Anolyte_Transfer_Control,DOUBLE,DOUBLE,Average :                               I1_CV103_Anolyte_Transfer_Control
+        I1_Exhaust_Fan_Enable,DOUBLE,DOUBLE,Average :                                           I1_Exhaust_Fan_Enable
+        I1_Air_Hex_Enable,DOUBLE,DOUBLE,Average :                                               I1_Air_Hex_Enable
+        I1_UPS_Enable,DOUBLE,DOUBLE,Average :                                                   I1_UPS_Enable
+        I1_ESM_Enable,DOUBLE,DOUBLE,Average :                                                   I1_ESM_Enable
+        I1_ESM_STOP_Reset,DOUBLE,DOUBLE,Average :                                               I1_ESM_STOP_Reset
+        I1_PMP104_Enable_Raw_Material_Tote_Transfer_Pump_Anolyte_Side,DOUBLE,DOUBLE,Average :   I1_PMP104_Enable_Raw_Material_Tote_Transfer_Pump_Anolyte_Side
+        I1_PMP203_Enable_Product_Tote_Transfer_Pump_Catholyte_Side,DOUBLE,DOUBLE,Average :      I1_PMP203_Enable_Product_Tote_Transfer_Pump_Catholyte_Side
+        I1_CV104_Raw_Material_Transfer_Control,DOUBLE,DOUBLE,Average :                          I1_CV104_Raw_Material_Transfer_Control
+        I1_CV105_Anolyte_Hex_Outlet_Control,DOUBLE,DOUBLE,Average :                             I1_CV105_Anolyte_Hex_Outlet_Control
+        I1_CV202_Catholyte_Transfer_Control,DOUBLE,DOUBLE,Average :                             I1_CV202_Catholyte_Transfer_Control
+        I1_CV301_Catholyte_Cooling_Control,DOUBLE,DOUBLE,Average :                              I1_CV301_Catholyte_Cooling_Control
+        I1_CV302_Anolyte_Cooling_Control,DOUBLE,DOUBLE,Average :                                I1_CV302_Anolyte_Cooling_Control
+        I1_CV303_Cooling_Bypass_Control,DOUBLE,DOUBLE,Average :                                 I1_CV303_Cooling_Bypass_Control
+
+</COLUMN_DEFINITION>
+<VARS>
+        LASTID
+        BEGIN
+        END
+        MAXNUMPTS
+</VARS>
+<SQL>
+        SELECT timestamp, num_points
+                , PMP201_Catholyte_DriveStatus
+                , PMP201_Catholyte_RunStatus
+                , PMP201_Catholyte_CmdFreq
+                , PMP201_Catholyte_ActualFreq
+                , PMP201_Catholyte_LoadPerc
+                , PMP201_Catholyte_FaultState
+                , PMP101_Anolyte_DriveStatus
+                , PMP101_Anolyte_RunStatus
+                , PMP101_Anolyte_CmdFreq
+                , PMP101_Anolyte_ActualFreq
+                , PMP101_Anolyte_LoadPerc
+                , PMP101_Anolyte_FaultState
+                , PMP103_Raw_Elyte_DriveStatus
+                , PMP103_Raw_Elyte_RunStatus
+                , PMP103_Raw_Elyte_CmdFreq
+                , PMP103_Raw_Elyte_ActualFreq
+                , PMP103_Raw_Elyte_LoadPerc
+                , PMP103_Raw_Elyte_FaultState
+                , PMP202_Product_DriveStatus
+                , PMP202_Product_RunStatus
+                , PMP202_Product_CmdFreq
+                , PMP202_Product_ActualFreq
+                , PMP202_Product_LoadPerc
+                , PMP202_Product_FaultState
+                , PMP102_An_Transfer_DriveStatus
+                , PMP102_An_Transfer_RunStatus
+                , PMP102_An_Transfer_CmdFreq
+                , PMP102_An_Transfer_ActualFreq
+                , PMP102_An_Transfer_LoadPerc
+                , PMP102_An_Transfer_FaultState
+                , I1_PT101A_Anolyte_Filter_1A_Inlet
+                , I1_PT101B_Anolyte_Filter_1B_Inlet
+                , I1_PT102A_Anolyte_Filter_1A_Outlet
+                , I1_PT102B_Anolyte_Filter_1B_Outlet
+                , I1_PT103_Anolyte_Stack_Inlet
+                , I1_PT402_N2_Pad
+                , I1_PT403_N2_Feed
+                , I1_PT404_N2_Tank_1
+                , I1_PT405_N2_Tank_2
+                , I1_CT301_Coolant
+                , I1_TT302_Coolant_HEX_Outlet
+                , I1_TT101_Anolyte_Stack_Inlet
+                , I1_TT201_Catholyte_Stack_Intlet
+                , I1_TT102_Anolyte_Stack_Outlet
+                , I1_TT103_Anolyte_Hex_Outlet
+                , I1_TT202_Catholyte_Stack_Outlet
+                , I1_TT203_Catholyte_Hex_Outlet
+                , I1_TT301_Coolant_HEX_Inlet
+                , I1_LT102_Elyte_Raw_Buffer_Tank
+                , I1_LT101_Anolyte_Tank
+                , I1_LT202_Elyte_Product_Buffer_Tank
+                , I1_LT201_Catholyte_Tank
+                , I1_OT101A_Anolyte_V_Total
+                , I1_OT101B_Anolyte_V2
+                , I1_Stack_1_Voltage
+                , I1_Stack_1_Current
+                , I1_Stack_2_Voltage
+                , I1_Stack_2_Current
+                , I1_Reference_Voltage
+                , I1_PT301_Coolant_Inlet_Pressure
+                , I1_PT104_Anolyte_Stack_Outlet
+                , I1_PT105A_Anolyte_Aux_Filter_3A_Inlet
+                , I1_PT105B_Anolyte_Aux_Filter_3B_Inlet
+                , I1_PT106A_Anolyte_Aux_Filter_3A_Outlet
+                #, I1_PT106B_Anolyte_Aux_Filter_3B_Outlet
+                , I1_HS105_Anolyte_Tank_Hydrogen_Sensor
+                , I1_PT201_Catholyte_Stack_Inlet
+                , I1_PT202_Catholyte_Stack_Outlet
+                , I1_FT101_Anolyte_Loop
+                , I1_FT201_Catholyte_Loop
+                , I1_FT102_Anolyte_Transfer
+                , I1_FT202_Catholyte_Product_Transfer
+                , I1_FT103_Anolyte_Buffer_Transfer
+                , I1_FT301_Coolant_Flow
+                , I1_OT201A_Catholyte_V_Total
+                , I1_OT201B_Catholyte_V2
+                , I1_HS101_Container_Position_1
+                , I1_HS102_Container_Position_2
+                , I1_HS103_Container_Position_3
+                , I1_HS104_Container_Position_4
+                , I1_LS001_006_Secondary_Containment
+                , I1_LS007_008_Filter_Trays
+                , I1_LS009_Filter_Trap
+                , I1_FS201_Product_Elyte_Tote
+                , I1_N2_PAD_Not_Overpressure
+                , I1_AC_Aux_Enclosure_Door_Closed
+                , I1_HVDC_Enclosure_Door_Closed
+                , I1_Container_Doors_Closed
+                , I1_Service_Switch_Run
+                , I1_ESTOP_Released
+                , I1_HVDC_Disconnect_Open
+                , I1_HVDC_Disconnect_Closed
+                , I1_HVDC_Contactors_Normal
+                , I1_HVDC_Contactors_Reverse
+                , I1_LVDC_Power_Supply_Active
+                , I1_Optical_Converter_Active
+                , I1_AC_Aux_Ethernet_Active
+                , I1_CV101_Anolyte_Stack_Filter_Inlet_OPENED_FB
+                , I1_CV201_Catholyte_Tank_Outlet_OPENED_FB
+                , I1_CV102_Anolyte_Tank_Outlet_to_Stack_OPENED_FB
+                , I1_CV103_Anolyte_to_RawElyte_Transfer_CLOSED_FB
+                , I1_CV101_Anolyte_Stack_Filter_Inlet_CLOSED_FB
+                , I1_CV201_Catholyte_Tank_Outlet_CLOSED_FB
+                , I1_CV102_Anolyte_to_CV103_Transfer_CLOSED_FB
+                , I1_CV103_Anolyte_to_Catholyte_Transfer_OPENED_FB
+                , I1_N2_Pad_Release_Control_Active
+                , I1_Normal_State_Active
+                , I1_Reverse_State_Active
+                , I1_HVDC_Contactor_Drive_Normal
+                , I1_HVDC_Contactor_Drive_Reverse
+                , I1_ESM_Disabled
+                , I1_CV104_RawElyte_to_Catholyte_Tank_OPENED_FB
+                , I1_CV105_Anolyte_Hex_Outlet_OPENED_FB
+                , I1_CV202_Catholyte_to_RawElyte_Transfer_OPENED_FB
+                , I1_CV301_Catholyte_Cooling_OPENED_FB
+                , I1_CV302_Anolyte_Cooling_OPENED_FB
+                , I1_CV303_Cooling_Bypass_OPENED_FB
+                , I1_CV104_RawElyte_to_Anolyte_Tank_CLOSED_FB
+                , I1_CV105_Anolyte_Hex_Outlet_CLOSED_FB
+                , I1_CV202_Catholyte_to_Product_Transfer_CLOSED_FB
+                , I1_CV301_Catholyte_Cooling_CLOSED_FB
+                , I1_CV302_Anolyte_Cooling_CLOSED_FB
+                , I1_CV303_Cooling_Bypass_CLOSED_FB
+                , I1_Process_Pumps_Enable
+                , I1_PMP103_Enable_RAW_Material_Transfer_Pump_Anolyte_Side
+                , I1_PMP202_Enable_Product_Transfer_Pump_Catholyte_Side
+                , I1_PMP102_Enable_Aux_Filter_Pump_Anolyte_Side
+                , I1_Normal_Contactors_Enable
+                , I1_Reverse_Contactors_Enable
+                , I1_Stack_1_Contactor_1_Enable
+                , I1_Stack_1_Contactor_2_Enable
+                , I1_Stack_2_Contactor_1_Enable
+                , I1_Stack_2_Contactor_2_Enable
+                , I1_CV101_Filtered_Anolyte_Stack_Control
+                , I1_CV102_Anolyte_Tank_Outlet_Control
+                , I1_CV201_Catholyte_Stack_Control
+                , I1_CV103_Anolyte_Transfer_Control
+                , I1_Exhaust_Fan_Enable
+                , I1_Air_Hex_Enable
+                , I1_UPS_Enable
+                , I1_ESM_Enable
+                , I1_ESM_STOP_Reset
+                , I1_PMP104_Enable_Raw_Material_Tote_Transfer_Pump_Anolyte_Side
+                , I1_PMP203_Enable_Product_Tote_Transfer_Pump_Catholyte_Side
+                , I1_CV104_Raw_Material_Transfer_Control
+                , I1_CV105_Anolyte_Hex_Outlet_Control
+                , I1_CV202_Catholyte_Transfer_Control
+                , I1_CV301_Catholyte_Cooling_Control
+                , I1_CV302_Anolyte_Cooling_Control
+                , I1_CV303_Cooling_Bypass_Control
+        FROM PurificationTable
+        WHERE timestamp >= `BEGIN` AND timestamp <= `END`
+        ORDER BY timestamp ASC LIMIT `MAXNUMPTS`;
+</SQL>
+<CHART_CONFIG>
+ Y_MIN=0   # Expected Graph y axis min
+ Y_MAX=1000  # Expected Graph y axis max
+ Y_PIX=25  # Y Graniluarity of the filtered data, the higher the number the more points.
+ X_PIX=500  # X Graniluarity of the filtered data, the higher the number the more points.
+</CHART_CONFIG>
+

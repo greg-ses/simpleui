@@ -1,0 +1,36 @@
+---
+- hosts: all
+  vars:
+    app_name: device
+  remote_user: root
+  tasks:
+  - include_vars:
+      file: commonvars.yml
+  - name: Prep VEC Staging Area
+    file:
+      path: "{{ vec_stage_dir }}"
+      state: absent
+  - file:
+      path: "{{ vec_stage_dir }}"
+      state: directory
+      mode: 0755
+
+  - name: Transfer UI Archive To VEC Target
+    copy: src={{ bms_stage_dir }}/{{ app_name }}.tar dest={{ vec_stage_dir }}/{{ app_name }}.tar
+
+  - name: Backup Existing UI
+    shell: tar -cf {{ archive_dir }}/{{ app_name }}{{ archive_suffix }}.tar {{ target_dir_web }}/{{ app_name }}
+  - shell: cp -P {{ target_dir_web }}/{{ app_name }}/ui.properties /tmp/.
+  - shell: cp -P {{ target_dir_web }}/{{ app_name }}/index.html /tmp/.
+  - name: Delete Previous UI directory
+    file:
+      state: absent
+      path: "{{ target_dir_web }}/{{ app_name }}"
+
+  - name: Decompress new archive on target
+    shell: tar -xf {{ vec_stage_dir }}/{{ app_name }}.tar -C {{ target_dir_web }}
+  - shell: cp -P /tmp/ui.properties {{ target_dir_web }}/{{ app_name }}/.
+
+  - name: Linking System File To Web Directory
+    command: mkdir -p /media/card/sys_data
+  - command: ln -sf /media/card/sys_data /usr/share/apache2/htdocs/sys_data

@@ -1,0 +1,145 @@
+{
+  "props": {
+    "uiVersionLong": {
+      "value": "build-dev bb692b6 develop dirty 2019-07-31 14:48:49 -0400 (jscarsdale)"
+    },
+    "uiVersionShort": {
+      "value": "dev bb692b6"
+    },
+    "fullAppUrl": {
+      "value": "HTTP:\/\/jks-ubuntu16-dev\/bms\/"
+    },
+    "selectedIndex": {
+      "value": "0"
+    },
+    "instance": {
+      "name": "ui.bms.mock.properties"
+    },
+    "refreshRate": {
+      "value": "1200"
+    },
+    "logLevel": {
+      "value": "0"
+    },
+    "sessionExpiration": {
+      "value": "6"
+    },
+    "macro": [
+      {
+        "index": "0",
+        "id": "macro-1",
+        "token": "BMS_MYSQL_HOST",
+        "source": "\/var\/www\/ng-simple-ui\/mock-config\/MOCKServer.properties",
+        "property": "DatabaseMgr.MYSQL_HOST"
+      },
+      {
+        "index": "1",
+        "id": "macro-2",
+        "token": "BMS_MYSQL_DB",
+        "source": "\/var\/www\/ng-simple-ui\/mock-config\/MOCKServer.properties",
+        "property": "DatabaseMgr.MYSQL_DB"
+      },
+      {
+        "index": "2",
+        "id": "macro-3",
+        "token": "BMS_RESOURCE",
+        "source": "\/var\/www\/ng-simple-ui\/mock-config\/MOCKServer.properties",
+        "property": "DatabaseMgr.RESOURCE_ID"
+      }
+    ],
+    "appTheme": {
+      "name": "SimpleUiBlue"
+    },
+    "appLink": [
+      {
+        "index": "0",
+        "id": "appLink-1",
+        "name": "Graph Set",
+        "url": "\/fleetviewer\/SQ_SetGraph.html?SYS_TYPE=VTS&MACH_NAME=MOCK&SQL_DB=VSITE",
+        "tooltip": "Start the Graph Set UI on BMS Server127.0.0.1"
+      },
+      {
+        "index": "1",
+        "id": "appLink-2",
+        "name": "Parameters",
+        "url": "\/bms\/html\/ParamsApp\/Parameters.html",
+        "tooltip": "Start the Web UI Parameter Editor on BMS Server 127.0.0.1"
+      },
+      {
+        "index": "2",
+        "id": "appLink-3",
+        "name": "Event Log",
+        "url": "\/fleetviewer\/EventList.html?SYS_TYPE=VTS&MACH_NAME=MOCK&MYSQL_HOST=127.0.0.1&SQL_DB=VSITE&RealTime=1",
+        "tooltip": "Open the Event Log page on BMS Server 127.0.0.1"
+      }
+    ],
+    "tab": [
+      {
+        "index": "0",
+        "id": "tab-1",
+        "name": "Mock dc-batt-data",
+        "dataUrl": "\/bms\/php\/get_mock_data.php?file=dc-batt-data.0.xml&versions=1",
+        "commandUrl": "\/bms\/php\/bms-cmd.php"
+      },
+      {
+        "index": "1",
+        "id": "tab-4",
+        "name": "IO 2",
+        "dataUrl": "\/bms\/php\/io-data.php?containerNum=2",
+        "commandUrl": "\/bms\/php\/io-cmd.php"
+      },
+      {
+        "index": "2",
+        "id": "tab-5",
+        "name": "Mock-Units",
+        "dataUrl": "\/bms\/php\/get_mock_data.php?file=mock-bms-units.xml&versions=1",
+        "commandUrl": "\/bms\/php\/units-cmd.php"
+      },
+      {
+        "index": "3",
+        "id": "tab-6",
+        "name": "Mock-FaultList",
+        "dataUrl": "\/bms\/php\/get_mock_data.php?file=mock-bms-faults.xml&versions=1",
+        "commandUrl": "\/bms\/php\/bms-cmd.php"
+      },
+      {
+        "index": "4",
+        "id": "tab-9",
+        "name": "Properties",
+        "pageType": "properties",
+        "dataUrl": "\/bms\/php\/bms-faultlist.php",
+        "commandUrl": "\/bms\/php\/bms-cmd.php"
+      }
+    ],
+    "table": [
+      {
+        "index": "0",
+        "id": "table-1",
+        "element": "Active_Fault_List",
+        "item": "Fault",
+        "columns": "timestamp:Time, name:Name, ev_details:Details, value:Fault Status"
+      },
+      {
+        "index": "1",
+        "id": "table-2",
+        "element": "Fault_List",
+        "item": "Fault",
+        "columns": "idx:Index, timestamp:Time, primLoc:Location, subLoc:Sub_loc, mode_critical_only:critical, mode_tolerant:tolerant, mode_averse:averse, fault_code:Code, type:Type, name:Name, desc:Description:width300, warn_ms:Warn (mS), trip_ms:Trip (mS), conditions:Conditions, currVal:Value, value:Fault Status"
+      },
+      {
+        "index": "2",
+        "id": "table-3",
+        "element": "Event_Log",
+        "item": "Event",
+        "columns": "((index)):Index, timestamp:Time, type:Type, value:Description:width300"
+      },
+      {
+        "index": "3",
+        "id": "table-4",
+        "element": "Volt_Curr_Temp_Table",
+        "item": "String",
+        "columns": "rowLabel:Name:width300, voltage:Volts:width150, current:Current:width150"
+      }
+    ]
+  }
+}

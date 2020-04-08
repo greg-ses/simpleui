@@ -1,0 +1,34 @@
+TABLE_NAME=quads
+META_TYPE=FLOAT
+<COLUMN_DEFINITION>
+	# Name, SQL_TYPE, MetaType, Description
+	rowid,INTEGER,INTEGER,Unique row Unique Row ID
+	timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st, 1970
+	num_points,INTEGER,INTEGER,Number of points in averaged in float values
+	Q1_DC_kW,REAL,FLOAT,Total DC battery power for Quad 1
+	Q2_DC_kW,REAL,FLOAT,Total DC battery power for Quad 2
+	Q3_DC_kW,REAL,FLOAT,Total DC battery power for Quad 3
+	Q4_DC_kW,REAL,FLOAT,Total DC battery power for Quad 4
+</COLUMN_DEFINITION>
+<VARS>
+	LASTID
+	BEGIN
+	END
+	MAXNUMPTS
+</VARS>
+<SQL>
+	SELECT  rowid, timestamp, num_points
+		, (avg_Q1_TotalBattCurr*avg_Q1_AvgBattVolt/1000) AS Q1_DC_kW
+		, (avg_Q2_TotalBattCurr*avg_Q2_AvgBattVolt/1000) AS Q2_DC_kW
+		, (avg_Q3_TotalBattCurr*avg_Q3_AvgBattVolt/1000) AS Q3_DC_kW
+		, (avg_Q4_TotalBattCurr*avg_Q4_AvgBattVolt/1000) AS Q4_DC_kW
+	FROM quads 
+	WHERE rowid > `LASTID` AND timestamp > `BEGIN` AND timestamp <= `END` 
+	ORDER BY timestamp ASC LIMIT `MAXNUMPTS`;
+</SQL>
+<CHART_CONFIG>
+	Y_MIN=-125		# Expected Graph y axis min
+	Y_MAX=125		# Expected Graph y axis max
+	Y_PIX=25		# Y Graniluarity of the filtered data, the higher the number the more points.
+	X_PIX=500		# X Graniluarity of the filtered data, the higher the number the more points.
+</CHART_CONFIG>

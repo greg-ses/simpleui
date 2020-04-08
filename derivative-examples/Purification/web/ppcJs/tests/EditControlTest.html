@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Edit Control test</title>
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/soria/soria.css" />
+    <link rel="stylesheet" type="text/css" href="../control/edit/css/edit.css" />
+    <script type="text/javascript">
+        // djConfig must be set before any dojo scripts are loaded
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            modulePaths: { 'ppcJs': '../../ppcJs' }
+        };
+    </script>
+    <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        dojo.provide('ppcJs.tests.EditControlTestHTML');
+        dojo.require('dojo.parser');
+        dojo.require('doh.runner');
+        dojo.require('dojo.robot');
+        dojo.require('ppcJs.Enum');
+        dojo.require('ppcJs.control.Edit');
+        dojo.require('ppcJs.control.edit.eDto');
+        dojo.require('ppcJs.script.State');
+        dojo.require('ppcJs.script.EntryControlFactory');
+        dojo.require('ppcJs.tests.ScriptTestUtilities');
+
+        var testCaseTimeout = 50000;
+        var perActionPause = 600;
+        var assertPause = 1000;
+
+        dojo.addOnLoad(function () {
+            doh.register('ppcJs.tests.EditControlTest', [
+            // note: bypass click event handler to call internal register method
+                    function testGetBusinessObjects(t) {
+                        var sutContainer = dojo.byId('sutContainer');
+                        sutContainer.innerHTML = '';
+                        var commandTemplate = ppcJs.tests.ScriptTestUtilities.getTemplate();
+                        var entryControlFactory = new ppcJs.script.EntryControlFactory(commandTemplate);
+                        var ctorDto = new ppcJs.control.edit.eDto.Ctor(entryControlFactory);
+                        sut = new ppcJs.control.Edit(ctorDto);
+                        dojo.place(sut.domNode, sutContainer);
+
+                        sut.configure(null);
+
+                        // insert first label at beginning of script
+                        var firstLabel = 'firstLabel';
+                        var bo1 = new ppcJs.script.Entry('1', ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', firstLabel, ppcJs.script.EntryEnum.ValueType.String)]);
+                        sut._insertEntry(bo1, 0);
+
+                        // insert second label at beginning of script
+                        var secondLabel = 'secondLabel';
+                        var bo2 = new ppcJs.script.Entry('2', ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', secondLabel, ppcJs.script.EntryEnum.ValueType.String)]);
+                        sut._insertEntry(bo2, 0);
+
+                        var result = sut.getValue();
+                        t.assertEqual(2, result.length);
+                        t.assertEqual(secondLabel, result[0].args[0].value);
+                        t.assertEqual(firstLabel, result[1].args[0].value);
+                    },
+
+                    function testInsertBelow(t) {
+                        var sutContainer = dojo.byId('sutContainer');
+                        sutContainer.innerHTML = '';
+                        var commandTemplate = ppcJs.tests.ScriptTestUtilities.getTemplate();
+                        var entryControlFactory = new ppcJs.script.EntryControlFactory(commandTemplate);
+                        var ctorDto = new ppcJs.control.edit.eDto.Ctor(entryControlFactory);
+                        sut = new ppcJs.control.Edit(ctorDto);
+                        dojo.place(sut.domNode, sutContainer);
+
+                        sut.configure(null);
+
+                        // insert first label at beginning of script
+                        var firstLabel = 'firstLabel';
+                        var bo1 = new ppcJs.script.Entry('1', ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', firstLabel, ppcJs.script.EntryEnum.ValueType.String)]);
+                        sut._insertEntry(bo1, 0);
+
+                        // insert second label at beginning of script
+                        var secondLabel = 'secondLabel';
+                        var bo2 = new ppcJs.script.Entry('2', ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', secondLabel, ppcJs.script.EntryEnum.ValueType.String)]);
+                        sut._insertEntry(bo2, 0);
+
+                        // insert GoTo at index=1 (fudging by using ScriptEntryControl's domNode instead of InsertCommandMenuControl)
+                        var nodeRequestingInsertion = sut._entryControls[0].domNode;
+                        sut._onInsertEntry(nodeRequestingInsertion, ppcJs.script.EntryEnum.CommandType.GoTo);
+
+                        var result = sut.getValue();
+                        t.assertEqual(3, result.length);
+                        t.assertEqual(secondLabel, result[0].args[0].value);
+                        t.assertEqual(ppcJs.script.EntryEnum.CommandType.GoTo, result[1].commandType);
+                        t.assertEqual(firstLabel, result[2].args[0].value);
+                    },
+
+                    function testDelete(t) {
+                        var sutContainer = dojo.byId('sutContainer');
+                        sutContainer.innerHTML = '';
+                        var commandTemplate = ppcJs.tests.ScriptTestUtilities.getTemplate();
+                        var entryControlFactory = new ppcJs.script.EntryControlFactory(commandTemplate);
+                        var ctorDto = new ppcJs.control.edit.eDto.Ctor(entryControlFactory);
+                        sut = new ppcJs.control.Edit(ctorDto);
+                        dojo.place(sut.domNode, sutContainer);
+
+                        sut.configure(null);
+
+                        // insert first label at beginning of script
+                        var firstLabel = 'firstLabel';
+                        var bo1 = new ppcJs.script.Entry('1', ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', firstLabel, ppcJs.script.EntryEnum.ValueType.String)]);
+                        sut._insertEntry(bo1, 0);
+
+                        // insert second label at beginning of script
+                        var secondLabel = 'secondLabel';
+                        var bo2 = new ppcJs.script.Entry('2', ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', secondLabel, ppcJs.script.EntryEnum.ValueType.String)]);
+                        sut._insertEntry(bo2, 0);
+
+                        // delete entry at index=1 (fudging by using ScriptEntryControl's domNode instead of InsertCommandMenuControl)
+                        var nodeRequestingDelete = sut._entryControls[1].domNode;
+                        sut._onDeleteEntry(nodeRequestingDelete);
+
+                        var result = sut.getValue();
+                        t.assertEqual(1, result.length);
+                        t.assertEqual(secondLabel, result[0].args[0].value);
+                    },
+
+                    function testVerifyInitializedInEditState(t) {
+                        var sutContainer = dojo.byId('sutContainer');
+                        sutContainer.innerHTML = '';
+                        var commandTemplate = ppcJs.tests.ScriptTestUtilities.getTemplate();
+                        var entryControlFactory = new ppcJs.script.EntryControlFactory(commandTemplate);
+                        var ctorDto = new ppcJs.control.edit.eDto.Ctor(entryControlFactory);
+                        sut = new ppcJs.control.Edit(ctorDto);
+                        dojo.place(sut.domNode, sutContainer);
+
+                        sut.configure(null);
+                        sut.setViewState(ppcJs.Enum.ViewState.Edit);
+
+                        t.assertEqual(ppcJs.Enum.ViewState.Edit, sut._viewState);
+                    },
+
+                    function testInsertEntriesAndUpdateInEditState(t) {
+                        var sutContainer = dojo.byId('sutContainer');
+                        sutContainer.innerHTML = '';
+                        var commandTemplate = ppcJs.tests.ScriptTestUtilities.getTemplate();
+                        var entryControlFactory = new ppcJs.script.EntryControlFactory(commandTemplate);
+                        var ctorDto = new ppcJs.control.edit.eDto.Ctor(entryControlFactory);
+                        sut = new ppcJs.control.Edit(ctorDto);
+                        dojo.place(sut.domNode, sutContainer);
+
+                        sut.configure(null);
+                        sut.setViewState(ppcJs.Enum.ViewState.Edit);
+                        t.assertFalse(sut.getIsEdited(), 'incorrect initial isEdited value');
+
+                        // verify event occurs on inserting first entry
+                        var isEdited = false;
+                        var handler = dojo.connect(sut, 'onStateChange', function (edited) {
+                            isEdited = edited;
+                        }, this);
+
+                        // test event
+                        sut._onInsertEntryAtStart(null, ppcJs.script.EntryEnum.CommandType.Label);
+                        t.assertTrue(isEdited);
+
+                        var testLabel = 'firstLabel';
+                        var bo1 = new ppcJs.script.Entry('1', ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', testLabel, ppcJs.script.EntryEnum.ValueType.String)]);
+                        sut._insertEntry(bo1, 0, null, true);
+
+                        var state = new ppcJs.script.State('testFile');
+                        sut.update(state);
+                        t.assertTrue(true);
+                    },
+
+                    function testInsertScript(t) {
+                        var sutContainer = dojo.byId('sutContainer');
+                        sutContainer.innerHTML = '';
+                        var commandTemplate = ppcJs.tests.ScriptTestUtilities.getTemplate();
+                        var entryControlFactory = new ppcJs.script.EntryControlFactory(commandTemplate);
+                        var ctorDto = new ppcJs.control.edit.eDto.Ctor(entryControlFactory);
+                        sut = new ppcJs.control.Edit(ctorDto);
+                        dojo.place(sut.domNode, sutContainer);
+
+                        sut.configure(null);
+                        sut.setViewState(ppcJs.Enum.ViewState.Edit);
+
+                        var testLabel = 'firstLabel';
+                        var bo1 = new ppcJs.script.Entry('1', ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', testLabel, ppcJs.script.EntryEnum.ValueType.String)]);
+                        sut._insertEntry(bo1, 0, null, true);
+
+                        // insert script after first entry
+                        var secondLabel = 'second label';
+                        var uuid2 = '2';
+                        var bo2 = new ppcJs.script.Entry(uuid2, ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', secondLabel, ppcJs.script.EntryEnum.ValueType.String)]);
+                        var thirdLabel = 'third label';
+                        var bo3 = new ppcJs.script.Entry('3', ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', thirdLabel, ppcJs.script.EntryEnum.ValueType.String)]);
+                        sut._scriptInsertRowIndex = 1;
+                        sut.configure([bo2, bo3]);
+
+                        var result = sut.getValue();
+                        t.assertEqual(3, result.length);
+                        t.assertEqual(secondLabel, result[1].args[0].value);
+                        t.assertNotEqual(uuid2, result[1].uuid);    // verifies new uuid generated for inserted BOs
+                        t.assertEqual(thirdLabel, result[2].args[0].value);
+                    },
+
+                    function testViewModeHidesInsertControlsUpdatesBreakPoints(t) {
+                        //var sutContainer = dojo.byId('sutContainer');
+                        //sutContainer.innerHTML = '';
+                        var commandTemplate = ppcJs.tests.ScriptTestUtilities.getTemplate();
+                        var entryControlFactory = new ppcJs.script.EntryControlFactory(commandTemplate);
+                        var ctorDto = new ppcJs.control.edit.eDto.Ctor(entryControlFactory);
+                        sut = new ppcJs.control.Edit(ctorDto);
+                        dojo.place(sut.domNode, sutContainer);
+
+                        var firstLabel = 'firstLabel';
+                        var uuid = 'id1';
+                        var bo1 = new ppcJs.script.Entry(uuid, ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', firstLabel, ppcJs.script.EntryEnum.ValueType.String)]);
+                        var bo2 = new ppcJs.script.Entry('id2', ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', 'second label', ppcJs.script.EntryEnum.ValueType.String)]);
+                        sut.configure([bo1, bo2]);
+                        sut.setViewState(ppcJs.Enum.ViewState.View);
+
+                        // verify insert controls hidden
+                        var insertStyle = dojo.getStyle(sut.insertMenuControl.domNode, 'display');
+                        t.assertEqual('none', insertStyle, 'incorrect top insertMenuControl style');
+
+                        dojo.forEach(sut._entryInsertControls, function (insertControl) {
+                            var insertStyle = dojo.getStyle(insertControl.domNode, 'display');
+                            t.assertEqual('none', insertStyle, 'incorrect entry insertMenuControl style');
+                        });
+
+                        var loopCounts = new Array();
+                        loopCounts.push({ uuid: uuid, timesRemaining: 10 });
+                        var state = new ppcJs.script.State('testFile', uuid, ppcJs.Enum.PlayBackState.Running, 'resource1', loopCounts, 'current entry status', [uuid]);
+                        sut.update(state);
+
+                        dojo.connect(sut, 'onBreakPointChange', function (uuid, enable) {
+                            console.log('Break at: ' + uuid + ', checked= ' + enable.toString());
+                        });
+
+                        dojo.forEach(sut._breakPoints, function (breakPoint) {
+                            if (breakPoint.checked && (breakPoint.value != uuid)) {
+                                t.assertTrue(false, 'wrong breakpoint set');
+                            }
+                            else if ((breakPoint.value == uuid) && !breakPoint.checked) {
+                                t.assertTrue(false, 'breakpoint not set');
+                            }
+                        });
+                    },
+
+            {
+                name: "SelectEntryWidgetWithEventArgThrowsDataRequest",
+                timeout: testCaseTimeout,
+
+                setUp: function () {
+                    //var sutContainer = dojo.byId('sutContainer');
+                    //sutContainer.innerHTML = "";
+                },
+
+                runTest: function () {
+                    var d = new doh.Deferred();
+
+                    var commandTemplate = ppcJs.tests.ScriptTestUtilities.getSingleCmdTemplateWithEvent();
+                    var entryControlFactory = new ppcJs.script.EntryControlFactory(commandTemplate);
+                    var ctorDto = new ppcJs.control.edit.eDto.Ctor(entryControlFactory);
+                    sut = new ppcJs.control.Edit(ctorDto);
+                    dojo.place(sut.domNode, sutContainer);
+
+                    sut.configure(null);
+                    sut.setViewState(ppcJs.Enum.ViewState.Edit);
+
+                    // verify on change/select event
+                    var resultEventType = null;
+                    var handler = dojo.connect(sut, 'dataRequest', function (eventType) {
+                        resultEventType = eventType;
+                    }, this);
+
+                    var testLabel = 'firstLabel';
+                    var bo1 = new ppcJs.script.Entry('1', ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', testLabel, ppcJs.script.EntryEnum.ValueType.String)]);
+                    sut._insertEntry(bo1, 0, null, true);
+
+                    // click on  label
+                    var control = sut._entryControls[0];
+                    var textBoxNode = control._idWidgetMap.item('1').domNode;
+                    dojo.robot.mouseMoveAt(textBoxNode, perActionPause, perActionPause);
+                    dojo.robot.mouseClick({ left: true }, perActionPause);
+
+                    dojo.robot.sequence(d.getTestCallback(function () {
+                        doh.assertEqual(ppcJs.script.EntryEnum.EventArgType.DataFile, resultEventType, 'incorrect event type');
+                    }), assertPause);
+
+                    return d;
+                }
+            },
+
+                function testUpdateEditModeUpdatesEntry(t) {
+                    var commandTemplate = ppcJs.tests.ScriptTestUtilities.getSingleCmdTemplateWithEvent();
+                    var entryControlFactory = new ppcJs.script.EntryControlFactory(commandTemplate);
+                    var ctorDto = new ppcJs.control.edit.eDto.Ctor(entryControlFactory);
+                    sut = new ppcJs.control.Edit(ctorDto);
+                    dojo.place(sut.domNode, sutContainer);
+
+                    sut.configure(null);
+                    sut.setViewState(ppcJs.Enum.ViewState.Edit);
+
+                    var testLabel = 'firstLabel';
+                    var referenceLabel = 'reference label';
+                    var bo1 = new ppcJs.script.Entry('1', ppcJs.script.EntryEnum.CommandType.Label, [new ppcJs.script.Arg('1', 'label', testLabel, ppcJs.script.EntryEnum.ValueType.String)]);
+                    sut._insertEntry(bo1, 0, null, true);
+                    sut._entryToUpdate = sut._entryControls[0]; // bypasses Edit._onSelectWidget()
+
+                    // set up control
+                    var control = sut._entryControls[0];
+                    control._widgetToUpdate = control._idWidgetMap.item('1');
+
+                    var state = new ppcJs.script.State(referenceLabel);
+                    sut.update(state);
+
+                    var bo = sut.getValue()[0];
+                    t.assertEqual(referenceLabel, bo.args[0].value);
+                }
+
+                ]);
+            //Execute D.O.H. in this remote file.
+            doh.run();
+        });
+    </script>
+</head>
+<body class="soria">
+    <!-- place to insert sut. -->
+    <div id="sutContainer" style="width: 800px; height: 800px">
+    </div>
+    <div id="mouseOutArea" style="width: 300px; height: 100px">
+        <br />
+    </div>
+</body>
+</html>

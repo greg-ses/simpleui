@@ -1,0 +1,43 @@
+﻿<div data-dojo-attach-point="containerNode">
+    <div data-dojo-type="dojox/layout/TableContainer" data-dojo-props="cols:1, labelWidth:250, customClass:'cdeTableCell'">
+        <div class="cdeNumberTextBox" data-dojo-attach-point="zincMolarConcentration" data-dojo-type="dijit/form/NumberTextBox"
+            data-dojo-props="constraints:{pattern: '0.00'}, value:0" title="Zn Tank Molar Concentration (moles/L)"
+            data-dojo-attach-event="onKeyUp:_onKeyUp">
+        </div>
+        <div class="cdeNumberTextBox" data-dojo-attach-point="bromineMolarConcentration" data-dojo-type="dijit/form/NumberTextBox"
+            data-dojo-props="constraints:{pattern: '0.00'}, value:0" title="Br Tank Molar Concentration (moles/L)"
+            data-dojo-attach-event="onKeyUp:_onKeyUp">
+        </div>
+        <div class="cdeNumberTextBox cdeReadOnly" data-dojo-attach-point="avgMolarConcentration" data-dojo-type="dijit/form/NumberTextBox"
+            data-dojo-props="constraints:{pattern: '0.00'}, readOnly:true, value:0" title="Average Molar Concentration (mole/L)">
+        </div>
+        <div class="cdeNumberTextBox" data-dojo-attach-point="zincPh" data-dojo-type="dijit/form/NumberTextBox"
+            data-dojo-props="constraints:{pattern: '0.00'}, value:0" title="Zn Tank pH"
+            data-dojo-attach-event="onKeyUp:_onKeyUp">
+        </div>
+        <div class="cdeNumberTextBox" data-dojo-attach-point="brominePh" data-dojo-type="dijit/form/NumberTextBox"
+            data-dojo-props="constraints:{pattern: '0.00'}, value:0" title="Br Tank pH"
+            data-dojo-attach-event="onKeyUp:_onKeyUp">
+        </div>
+        <div class="cdeNumberTextBox cdeReadOnly" data-dojo-attach-point="avgPh" data-dojo-type="dijit/form/NumberTextBox"
+            data-dojo-props="constraints:{pattern: '0.00'}, readOnly:true, value:0" title="Average pH">
+        </div>
+        <div class="cdeNumberTextBox" data-dojo-attach-point="indirectBromineInZincTank" data-dojo-type="dijit/form/NumberTextBox"
+            data-dojo-props="constraints:{pattern: '0.00'}, value:0" title="Indirect Bromine Zn Tank (g/kg)"
+            data-dojo-attach-event="onKeyUp:_onKeyUp">
+        </div>
+        <div class="cdeNumberTextBox" data-dojo-attach-point="indirectBromineInBromineTank" data-dojo-type="dijit/form/NumberTextBox"
+            data-dojo-props="constraints:{pattern: '0.00'}, value:0" title="Indirect Bromine Br Tank (g/kg)"
+            data-dojo-attach-event="onKeyUp:_onKeyUp">
+        </div>
+        <div class="cdeNumberTextBox cdeReadOnly" data-dojo-attach-point="avgBromine" data-dojo-type="dijit/form/NumberTextBox"
+            data-dojo-props="constraints:{pattern: '0.00'}, readOnly:true, value:0" title="Average Bromine">
+        </div>
+        <div data-dojo-attach-point="electrolyteAdded" data-dojo-type="dijit/form/CheckBox" title="Electrolyte added">
+        </div>
+        <div data-dojo-attach-point="bromineAdded" data-dojo-type="dijit/form/CheckBox" title="Bromine added">
+        </div>
+    </div>
+    <textarea data-dojo-attach-point="logEntry" data-dojo-type="dijit/form/SimpleTextarea" rows="4" cols="50" style="width: 95%"
+        data-dojo-attach-event="onKeyUp:_onKeyUp"></textarea>
+</div>

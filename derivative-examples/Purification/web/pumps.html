@@ -1,0 +1,721 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <link type="text/css" href="css/jqDialogForms.css" rel="Stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Greg Morehead" />
+    <meta name="copyright" content="Premium Power Corperation" />
+    <style type="text/css" media="screen">
+        @import url(css/style.css);
+    </style>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.ajaxq.js"></script>
+    <script type="text/javascript" src="config.js"></script>
+    <script type="text/javascript" src="appJs/ppcAjaxQue.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script language="javascript" type="text/javascript" src="js/jqDnR.js"></script>
+    <script language="javascript" type="text/javascript" src="js/jqDialogForms.js"></script>
+
+    <script type="text/javascript" src="appJs/ppcHtmlBag.js"></script>
+    <script type="text/javascript" src="ppcJs/ppcXml.js"></script>
+    <script type="text/javascript" src="ppcJs/ppcObjects.js"></script>
+
+    <script> document.title = _machine_name + " Pumps" </script>
+
+    <script type="text/javascript">
+
+        // var ajaxCmd = new ppcAjaxQue("pump_smv_cmd", createTables);
+        var ajaxCmd = new ppcAjaxQue("Pump", createTables);
+
+        var global_disp_level = 3;
+
+        var cmds_supported = false;
+        var io_active = false;
+
+        var ppcPage = new ppcPageWrapper(4);
+
+        var ppumps = new ppcProcPumps("ppumps");
+
+        var _command_buttons = "";
+        var temp_command_buttons = "";
+
+        var currQuad = parseInt(GetUrlParameter("quad"));
+
+        function createHeaderMenu(responseStr) {
+            var str = responseStr;
+            disable_commands = false;
+
+            tstr = xmlFindTag(responseStr, "Write_Acess", 1); // If commands exist
+            cmds_supported = false;
+            if ("" != tstr) {
+                xmlExtractElement(tstr);
+                cmds_supported = (1 == _val); // Not only does the field need to exist, it must be a 1.
+            }
+
+            tstr = xmlFindTag(responseStr, "IO_Active", 1); // Check for active io.
+            io_active = false;
+            if ("" != tstr) {
+                xmlExtractElement(tstr);
+                io_active = (1 == _val); // Not only does the field need to exist, it must be a 1.
+            }
+
+            tstr = xmlFindTag(responseStr, "Service_mode", 1); // Check for active service mode.
+            service_mode = false;
+            if ("" != tstr) {
+                xmlExtractElement(tstr);
+                service_mode = (1 == _val); // Not only does the field need to exist, it must be a 1.
+            }
+
+            tstr = xmlFindTag(responseStr, "Allow_speed_control", 1); // Check for active service mode.
+            allow_speed_control = false;
+            if ("" != tstr) {
+                xmlExtractElement(tstr);
+                allow_speed_control = (1 == _val); // Not only does the field need to exist, it must be a 1.
+            }
+            if (cmds_supported)
+                temp_command_buttons = createCgiButtons(str, "commands", disable_commands);
+
+            if (service_mode)
+                temp_command_buttons = createCgiButtons(str, "service_commands", disable_commands, false);
+
+            if (!createTheTables && temp_command_buttons == _command_buttons)
+                return;
+
+            resp_str = xmlFindTag(responseStr, "Access", 1);
+            if ("" != resp_str) {
+                xmlExtractElement(resp_str);
+            }
+
+            var __hwlinks =
+                    "&nbsp;<a style=\"font-size: 12px;\" href=\"/purification/io.html\" class=\"linkBarItem\">I/O</a>" +
+                    "&nbsp;<a style=\"font-size: 12px;\" href=\"/purification\" class=\"linkBarItem\">Dashboard</a>" +
+                    "&nbsp;<a style=\"font-size: 12px;\" href=\"/purification/index.html\" class=\"linkBarItem\">Index</a>";
+
+            ppcPage.addHardwareLinks(__hwlinks);
+
+            if (temp_command_buttons) {
+                _command_buttons = temp_command_buttons;
+
+                ppcPage.addLink(_command_buttons);
+            }
+
+            ppcPage.addEmergencyButtons(createCgiButtons(responseStr, "emergency_commands", disable_commands));
+
+            document.getElementById('cmd_bar').innerHTML = ppcPage.createMenuBar();
+
+            if (createTheTables == false) {
+                resetTheSpeedCtrls = true;
+                createTheTables = true; // Only set this, if this function determined a need to creatTheTables.
+            }
+        }
+
+
+        function sendInitializeCmd() {
+
+            document.getElementById("initialize_pump_server").disabled = true;
+
+            if (confirm("Are you sure you want to reset the pump server?") == true) {
+                ajaxCmd.sendCommand({
+                    COMMAND: "INIT",
+                    IDNUM: GetUrlParameter("quad")
+                });
+                createTheTables = true;
+                resetTheSpeedCtrls = true;
+                return;
+            }
+
+            document.getElementById("initialize_pump_server").disabled = false;
+        }
+
+
+        var createTheTables = true;
+        var resetTheSpeedCtrls = true;
+
+        function createTables(responseStr, status) {
+            _xml_failed = false;
+            var resp_str = responseStr;
+
+            //alert("createTables begin");
+
+            tstr = xmlFindTag(resp_str, "TF2000_PUMP_SUMMARY", 1); // If commands exist
+            if ("" == tstr) {
+                return;
+            }
+
+            update_time_display('curr_ts', resp_str);
+
+            createHeaderMenu(responseStr); // This function looks for button changes, if foudn it sets createTheTables
+
+            if (false == createTheTables) {
+                update_text_fields(resp_str);
+
+                //ajaxCmd.stopUpdates();	// Uncomment when debuggin'.
+                return;
+
+            }
+            createTheTables = false;
+
+            clear_text_fields(); // Make sure a new list is created.
+
+            if (false == ajaxCmd.autoUpdate) {
+                style_str = 'style="color: #BABABA;"';
+                disabled = 'disabled="disabled"';
+            } else {
+                style_str = "";
+                disabled = '';
+            }
+
+            q = GetUrlParameter("quad");
+
+            table_str = "";
+
+            table_str += '<br><table cellspacing="1" border="0"  align="center" valign="top">'; // Container table
+
+
+            table_str += '<tr><td>'; // Container table
+
+
+            tstr = xmlFindTag(resp_str, "Pump_Status", 1); // Need to get display level info
+            xmlExtractElement(tstr);
+            m_state_disp_level = _detail_lev;
+            tstr = xmlFindTag(resp_str, "Pump_Faults", 1);
+            xmlExtractElement(tstr);
+            m_fault_disp_level = _detail_lev;
+
+            table_str += '<table border="1" align="center" cellpadding="3">';
+            var col_span = 2;
+            if (io_active) col_span++;
+            if (cmds_supported) col_span++;
+            if (allow_speed_control) col_span++;
+            table_str += '<tr> <td colspan="' + col_span + '"/>';
+            table_str += '<th>Command<br />Spd (Hz)</th>';
+            table_str += '<th>Actual<br />Spd (Hz)</th>';
+            if (m_state_disp_level <= global_disp_level)
+                table_str += '<th>Motor<br />State</th>';
+            if (m_fault_disp_level <= global_disp_level)
+                table_str += '<th>Motor<br />Faults</th>';
+//            if (io_active) table_str += '<th>Pressure<br />(psig)</th>';
+            table_str += '</tr>';
+
+            table_str += '<tr>';
+
+            resp_str = xmlFindTag(resp_str, "CLUSTER", 1); // Find the first instance/next of the tag
+
+            createClusterRow(resp_str, status);
+
+            createStandardPumpRow(resp_str, status, "Ca");
+
+            table_str += '</tr><tr>';
+
+            createStandardPumpRow(resp_str, status, "An");
+
+            table_str += '</tr>';
+
+            //Insert additional pumps here, if they exist
+
+            tstr = xmlFindTag(resp_str, "CLUSTER", 2); // If commands exist
+
+            if ("" == tstr) {
+                tstr = xmlFindTag(resp_str, "Utility", 1); // If commands exist
+
+                if ("" == tstr) {
+                    createSimplePumpRow(resp_str, status, "AnToCa");        // Attempt to build VTS3 simple pumps, will do nothing if the tag can't be found.
+                    createSimplePumpRow(resp_str, status, "CaToAn");
+                }
+                else {
+                    resp_str = tstr;
+
+                    table_str += '</tr></table><br><table border="1" align="center" cellpadding="3"><tr>';
+                    var col_span = 1;
+                    if (io_active) col_span++;
+                    if (cmds_supported) col_span++;
+                    if (allow_speed_control) col_span++;
+                    table_str += '<tr> <td colspan="' + col_span + '"/>';
+                    table_str += '<th>Command<br />Spd (Hz)</th>';
+                    table_str += '<th>Actual<br />Spd (Hz)</th>';
+                    if (m_state_disp_level <= global_disp_level)
+                        table_str += '<th>Motor<br />State</th>';
+                    if (m_fault_disp_level <= global_disp_level)
+                        table_str += '<th>Motor<br />Faults</th>';
+//                    if (io_active) table_str += '<th>Flow<br />(lpm)</th>';
+                    table_str += '</tr>';
+
+                    table_str += '<tr>';
+
+                    createUtilityRow(resp_str, status, "CaUtil");
+
+                    table_str += '</tr><tr>';
+
+                    createUtilityRow(resp_str, status, "AnUtil");
+                }
+            }
+            table_str += '</table>';
+
+            table_str += '</td></tr>'; // Container table
+
+            table_str += '</table>'; // Container table
+            table_str += '<cr><lf>';
+
+            resetTheSpeedCtrls = false;
+
+            document.getElementById('data').innerHTML = table_str;
+
+            if (_xml_failed == true) {
+                alert("_xml_failed");
+                ajaxCmd.stopUpdates();
+            }
+
+            //alert("createTables end");
+
+            //ajaxCmd.stopUpdates();	// Uncomment when debuggin'.
+        }
+
+        function createClusterRow(responseStr, status)
+        {
+            l_str = responseStr;
+
+            l_str = xmlFindTag(l_str, "Title", 1);            // Build VTS4 type utility pumps.
+            l_str = xmlExtractElement(l_str);
+            if (_tag == "Title")
+                table_str += '<th rowspan="2" height="60" width="55">' + _val + '</th>';
+            else
+                table_str += '<th rowspan="2" height="60" width="55">' + 'Unkown' + '</th>';
+
+
+            if (io_active) // IO section  *************************
+            {
+                table_str += '<td rowspan="2" align="center" width="60">';
+
+                table_str += '<table border="0" align="center" valign="top" cellpadding="1">'; // A new table for the text and buttons
+
+                l_str = xmlExtractElement(l_str); // IO ctrl for the row.
+                table_str += '<tr><td><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var></td></tr>';
+                add_text_field_id(_u_id);
+
+                if (!cmds_supported) // End the cell if there are no buttons to follow.
+                    table_str += '</table></td>';
+            }
+
+            if (cmds_supported) {
+                l_str = xmlExtractElement(l_str); // remove section-tag row_cmds
+
+                if (io_active) {
+                    table_str += '<tr><td rowspan="2" align="center" width="65">';
+                    table_str += '<table border="0" align="center" valign="top" cellpadding="1">'; // A new table for the text and buttons
+
+                    l_str = xmlExtractElement(l_str); // get the data-tag enable.
+                    table_str += '<tr><td align="center">' + buildAjaxRowStateButton(_u_id) + '</td></tr>'; // Builds and handles simple buttons.
+
+                    l_str = xmlExtractElement(l_str); // get the data-tag disable.
+                    table_str += '<tr><td align="center">' + buildAjaxRowStateButton(_u_id) + '</td></tr>'; // Builds and handles simple buttons.
+
+                    table_str += '</table></td>'; // Complete the IO command table and cell.
+                }
+
+
+                table_str += '</td></table>';
+            }
+
+        }
+
+        function createStandardPumpRow(responseStr, status, pumpTag)
+        {
+            var l_str = responseStr;
+
+            l_str = xmlFindTag(l_str, pumpTag, 1);
+
+            if (l_str == "")
+                return;
+
+            l_str = xmlFindTag(l_str, pumpTag, 1);
+            l_str = xmlExtractElement(l_str); // Ca section **************************************
+            if (_tag == pumpTag) {
+                table_str += '<th height="30" width="25">' + pumpTag + '</th>';
+
+                if (cmds_supported) {
+                    l_str = xmlExtractElement(l_str); // The command tag.
+
+                    // The start stop buttons.
+                    table_str += '<td align="center" valign="middle" width="50">';
+                    table_str += '<table border="0" align="center" valign="top" cellpadding="1">';
+                    //table_str += '<td>';
+
+                    table_str += '<tr>';
+
+                    // Ca start button
+                    l_str = xmlExtractElement(l_str); // get the data-tag start.
+                    table_str += '<td align="center">' + buildAjaxRowStateButton(_u_id) + '</td>'; // Builds and handles simple buttons.
+
+                    // Ca stop button
+                    l_str = xmlExtractElement(l_str); // get the data-tag start.
+                    table_str += '<td align="center">' + buildAjaxRowStateButton(_u_id) + '</td>'; // Builds and handles simple buttons.
+
+                    table_str += '</tr></table></td>'; // Complete the IO command table and cell.
+
+                    if (allow_speed_control) {
+                        table_str += '<td align="right" valign="middle" width="95">';
+
+                        l_str = xmlExtractElement(l_str); // get the speed.
+                        _speed = _val;
+                        l_str = xmlExtractElement(l_str); // the speed button before calling the function.
+
+                        table_str += buildSpeedControlForThePump(_speed);
+
+                        table_str += '</td>';
+                    }
+                } else   l_str = xmlExtractElement(l_str); // The command tag.
+
+
+                l_str = xmlExtractElement(l_str); // Command speed
+                table_str += '<td align="center" width="70"><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var></td>';
+                add_text_field_id(_u_id);
+
+                l_str = xmlExtractElement(l_str); // Actual speed
+                table_str += '<td align="center" width="70"><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var></td>';
+                add_text_field_id(_u_id);
+
+                l_str = xmlExtractElement(l_str); // Motor state
+                if (_detail_lev <= global_disp_level) {
+                    table_str += '<td align="center" width="100"><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var></td>';
+                    add_text_field_id(_u_id);
+                }
+
+                l_str = xmlExtractElement(l_str); // Motor faults
+                if (_detail_lev <= global_disp_level) {
+                    table_str += '<td align="center" width="=45"><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var></td>';
+                    add_text_field_id(_u_id);
+                }
+
+//                if (io_active) {
+//                    l_str = xmlExtractElement(l_str); // Actual pressure
+//                    table_str += '<td align="center" width="70"><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var></td>';
+//                    add_text_field_id(_u_id);
+//                }
+            } else {
+                table_str += '<td>' + pumpTag + ' tag missing' + '</td>';
+            }
+
+        }
+
+        function createUtilityRow(responseStr, status, pumpTag) {
+            l_str = responseStr;
+
+            l_str = xmlFindTag(l_str, pumpTag, 1);
+
+            if (l_str == "")
+                return;
+
+            l_str = xmlFindTag(l_str, pumpTag, 1);
+            l_str = xmlExtractElement(l_str); // Ca section **************************************
+            if (_tag == pumpTag) {
+
+                table_str += '<th rowspan="1" height="60" width="55">' + pumpTag + '</th>';
+
+                if (cmds_supported) {
+
+                    l_str = xmlExtractElement(l_str); // Enable/Disable state for the row.
+                    table_str += '<td><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var>';
+                    add_text_field_id(_u_id);
+
+                    l_str = xmlExtractElement(l_str); // The command tag.
+
+
+                    table_str += '<table border="0" align="center" valign="top" cellpadding="1">'; // A new table for the text and buttons
+
+                    l_str = xmlExtractElement(l_str); // get the data-tag enable.
+                    table_str += '<tr><td align="center">' + buildAjaxRowStateButton(_u_id) + '</td></tr>'; // Builds and handles simple buttons.
+
+                    l_str = xmlExtractElement(l_str); // get the data-tag disable.
+                    table_str += '<tr><td align="center">' + buildAjaxRowStateButton(_u_id) + '</td></tr>'; // Builds and handles simple buttons.
+
+                    table_str += '</table></td>'; // Complete the IO command table and cell.
+
+
+                    // The start stop buttons.
+                    table_str += '<td align="center" valign="middle" width="50">';
+                    table_str += '<table border="0" align="center" valign="top" cellpadding="1">';
+
+                    table_str += '<tr>';
+
+                    // start button
+                    l_str = xmlExtractElement(l_str); // get the data-tag start.
+                    table_str += '<td align="center">' + buildAjaxRowStateButton(_u_id) + '</td>'; // Builds and handles simple buttons.
+
+                    // stop button
+                    l_str = xmlExtractElement(l_str); // get the data-tag start.
+                    table_str += '<td align="center">' + buildAjaxRowStateButton(_u_id) + '</td>'; // Builds and handles simple buttons.
+
+                    table_str += '</tr></table></td>'; // Complete the IO command table and cell.
+
+                    if (allow_speed_control) {
+                        table_str += '<td align="right" valign="middle" width="95">';
+
+                        l_str = xmlExtractElement(l_str); // get the speed.
+                        _speed = _val;
+                        l_str = xmlExtractElement(l_str); // the speed button before calling the function.
+
+                        table_str += buildSpeedControlForThePump(_speed);
+
+                        table_str += '</td>';
+                    }
+                } else {
+                    l_str = xmlExtractElement(l_str); // Enable/Disable state for the row.
+                    table_str += '<td><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var>';
+                    add_text_field_id(_u_id);
+                    l_str = xmlExtractElement(l_str); // The command tag.
+                }
+
+                l_str = xmlExtractElement(l_str); // Command speed
+                table_str += '<td align="center" width="70"><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var></td>';
+                add_text_field_id(_u_id);
+
+                l_str = xmlExtractElement(l_str); // Actual speed
+                table_str += '<td align="center" width="70"><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var></td>';
+                add_text_field_id(_u_id);
+
+                l_str = xmlExtractElement(l_str); // Motor state
+                if (_detail_lev <= global_disp_level) {
+                    table_str += '<td align="center" width="100"><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var></td>';
+                    add_text_field_id(_u_id);
+                }
+
+                l_str = xmlExtractElement(l_str); // Motor faults
+                if (_detail_lev <= global_disp_level) {
+                    table_str += '<td align="center" width="=45"><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var></td>';
+                    add_text_field_id(_u_id);
+                }
+
+//                {
+//                    l_str = xmlExtractElement(l_str); // Actual flow
+//                    table_str += '<td align="center" width="70"><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var></td>';
+//                    add_text_field_id(_u_id);
+//                }
+            } else {
+                table_str += '<td>' + pumpTag + ' tag missing' + '</td>';
+            }
+
+        }
+
+        function createSimplePumpRow(responseStr, status, pumpTag) {
+            var l_str = responseStr;
+
+            l_str = xmlFindTag(l_str, pumpTag, 1);
+
+            if (l_str == "")
+                return;
+
+            table_str += '<table border="1" align="center" cellpadding="3">';
+            var col_span = 3;
+            //if (io_active && cmds_supported) col_span++; //For enable button
+            //table_str += '<tr> <td colspan="' + col_span + '"/>';
+            table_str += '<tr><th>Name</th>';
+            if (io_active && cmds_supported)
+                table_str += '<th>Enable</th>';
+
+            table_str += '<th>Motor<br />State</th>';
+            table_str += '<th>Flow<br />Rate</th>';
+            table_str += '</tr>';
+
+            table_str += '<tr><td>' + pumpTag + '</td>';
+
+
+
+            if (io_active && cmds_supported) // IO section  *************************
+            {
+                table_str += '<td align="center" width="70">';
+
+                table_str += '<table border="0" align="center" valign="top" cellpadding="1">'; // A new table for the text and buttons
+                l_str = xmlFindTag(l_str, "commands", 1); // Find the first instance/next of the tag
+                if (l_str) {
+                    l_str = xmlFindTag(l_str, "ENABLE_SIMPLE_PUMP", 1); //
+                    for (counter = 0; counter < 2; counter++) // The enable/disable buttons
+                    {
+                        l_str = xmlExtractElement(l_str); // get the data-tag enable.
+                        table_str += '<tr><td align="center">' + buildAjaxRowStateButton(_u_id) + '</td></tr>'; // Builds and handles simple buttons.
+                    }
+
+                }
+
+
+                //End cell
+                table_str += '</table></td>';
+            }
+
+            l_str = xmlFindTag(l_str, "Pump_Status", 1);
+            l_str = xmlExtractElement(l_str); // Motor state
+            table_str += '<td align="center" width="100"><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var></td>';
+            add_text_field_id(_u_id);
+
+            l_str = xmlFindTag(l_str, "Flow_Rate", 1);
+            l_str = xmlExtractElement(l_str); // Actual flow
+            table_str += '<td align="center" width="85"><var id="' + _u_id + '" ' + style_str + '>' + _val + '</var></td>';
+            add_text_field_id(_u_id);
+
+            table_str += '</tr>';
+
+            table_str += '</table>';
+
+            table_str += '</td></tr>'; // Container table
+
+            return(table_str);
+        }
+
+
+        // The function called by the text created in the function below.
+        function SendRowStateCommand(button_id, cmd, num_text, _num, cgi_handler) {
+
+            var button = document.getElementById(button_id).disabled = true;
+
+            if (typeof cgi_handler == 'undefined') cgi_handler = '';
+
+            if (cgi_handler == "" || cgi_handler == "pump_smv_cmd" || cgi_handler == "Pump")
+                sendAjax = ajaxCmd;
+            else
+                sendAjax = new ppcAjaxQue(cgi_handler, createTables);
+
+            var cmd_text = "COMMAND=" + cmd
+                    + "&IDNUM=" + GetUrlParameter("quad")
+                    + "&" + num_text + "=" + _num;
+
+            sendAjax.sendCommand(cmd_text);
+
+            createTheTables = true;
+        }
+
+        // Assumes that the xml element contains the standard command values.
+        function buildAjaxRowStateButton(button_id) {
+            var row_num = 0;
+            var max_speed = 240;
+            var max_offset = 10;
+            var cgih = "";
+
+            var ajax_cmd_func = 'SendRowStateCommand('
+                    + '\'' + button_id + '\'' // Button Name
+                    + ',\'' + _tag + '\''; // Command for CGI
+
+            disabled = '';
+            for (x = 0; x < _num_attributes; x++) {
+                if (_attr_type[x] == 'ROW_NUM') ajax_cmd_func += ', \'ROW_NUM\',\'' + _attr_val[x] + '\''; // Must be
+                if (_attr_type[x] == 'PUMP_NUM') ajax_cmd_func += ', \'PUMP_NUM\',\'' + _attr_val[x] + '\''; // mutually exclusive!!
+                if (_attr_type[x] == 'cgi_handler') ajax_cmd_func += ',\'' + _attr_val[x] + '\'';
+                if (_attr_type[x] == 'disabled' && _attr_val[x] == 'true')
+                    disabled = 'disabled="disabled"';
+            }
+
+            ajax_cmd_func += ');';
+
+            var ret_str = '<input'
+                    + ' type="button" id="' + button_id + '" name="' + button_id + '"'
+                    + ' value="' + _val + '"'
+                    + ' ' + disabled
+                    + ' onClick="' + ajax_cmd_func + '"'
+                    + ' onDblClick="' + ajax_cmd_func + '"'
+                    + ' />';
+
+            return ret_str;
+        }
+
+        //Make sure the xml variables are set before calling this func!!!!
+        function buildSpeedControlForThePump(current_speed) {
+            var gui_text = "";
+
+            input_name = _u_id + "_input";
+
+            disabled = '';
+            for (x = 0; x < _num_attributes; x++)
+                if (_attr_type[x] == 'disabled' && _attr_val[x] == 'true') {
+                    disabled = 'disabled="disabled"';
+                }
+
+            if (!resetTheSpeedCtrls) { // Get speed from the html
+                try {
+                    current_speed = document.getElementById(input_name).value;
+                } catch (e) {
+                    current_speed = 0;
+                }
+            }
+
+            var gui_cmd_func = buildAjaxCommandFunction(_u_id, _tag);
+            gui_text += createInputAndButton(input_name, current_speed, _u_id, _val, gui_cmd_func, disabled, 6);
+
+            return gui_text;
+        }
+
+        //Make sure the xml variables are set before calling this func!!!!
+        //- button_id - The id text for the button which will be created.
+        function buildAjaxCommandFunction(button_id, strCGICmd) {
+            ajax_cmd_func = 'SendCGI(\'' + button_id + '\''; // Button Name
+            ajax_cmd_func += ',\'' + strCGICmd + '\''; // Command for CGI
+
+            for (x = 0; x < _num_attributes; x++) {
+                if (_attr_type[x] == 'PUMP_NUM') ajax_cmd_func += ', ' + _attr_val[x]; // pos for CGI
+                if (_attr_type[x] == 'cgi_handler') ajax_cmd_func += ', \'' + _attr_val[x] + '\''; // Potential cgi handler
+            }
+            ajax_cmd_func += ');';
+            return ajax_cmd_func;
+        }
+
+        //The function called by the text created in the function above.
+        function SendCGI(button_id, cmd, pnum, cgi_handler) {
+
+            if (typeof cgi_handler == 'undefined') cgi_handler = '';
+
+            var button = document.getElementById(button_id).disabled = true;
+
+            if (cgi_handler != "")
+                sendAjax = new ppcAjaxQue(cgi_handler, createTables);
+            else
+                sendAjax = ajaxCmd;
+
+            var DOMVal = 0;
+
+            //Read the value from the text box associated with this button
+            //If no text box exists, use the default value
+            try {
+                DOMVal = document.getElementById(button_id + '_input').value;
+            } catch (e) {
+                DOMVal = val;
+            }
+
+
+            //Output the text box value to the cgi handler
+            sendAjax.sendCommand({
+                COMMAND: cmd,
+                IDNUM: GetUrlParameter("quad"),
+                PUMP_NUM: pnum,
+                VALUE: DOMVal
+            });
+
+            createTheTables = true;
+        }
+
+        function toggle() {
+
+            createTheTables = true;
+
+            if (false == ajaxCmd.autoUpdate) {
+                ajaxCmd.beginUpdates(1500, {
+                            COMMAND: "EXPORT_PUMP_CTRL",
+                            IDNUM: GetUrlParameter("quad")
+                        }
+                );
+            } else {
+                ajaxCmd.stopUpdates();
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+
+<script>
+
+    // Set the title and all other static elements.
+    ppcPage.PageLayout("Q" + GetUrlParameter("quad") + " Pump\'s");
+
+
+    toggle(); // Start the updating on initial load.
+</script>
+
+</body>
+</html>

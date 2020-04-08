@@ -1,0 +1,20 @@
+﻿<div data-dojo-attach-point="containerNode">
+    <div data-dojo-attach-point="resourceName" class="srComponent srResourceName">
+    </div>
+    <div class="srComponent">
+        <div data-dojo-attach-point="scriptSelect" data-dojo-type="dijit/form/Select" style="width: 182px;"
+            data-dojo-attach-event="onChange:_onSelectChange">
+        </div>
+    </div>
+    <div class="srComponent">
+        <div data-dojo-attach-point="playBack" data-dojo-type="ppcJs/widget/PlayBack" 
+            data-dojo-props="showPauseButton:true" data-dojo-attach-event="onPlayStateChange:_onScriptStateChange">
+        </div>
+    </div>
+    <div class="srComponent">
+        <span>Mode</span><span data-dojo-attach-point="modeBox" class="basePanelInfoBox"></span>
+    </div>
+    <div class="srComponent">
+        <span>Submode</span><span data-dojo-attach-point="submodeBox" class="basePanelInfoBox"></span>
+    </div>
+</div>

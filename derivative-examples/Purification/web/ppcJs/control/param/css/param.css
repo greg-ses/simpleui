@@ -1,0 +1,14 @@
+﻿div.paramControl 
+{
+    color: #000000;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width:300px;
+}
+
+/* differentiates widget when its edited or active value are different from its saved value */
+div.paramControlEdited
+{
+    color: #009900;
+}
+

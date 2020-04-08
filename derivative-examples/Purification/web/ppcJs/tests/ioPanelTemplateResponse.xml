@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+reference response to IO_TEMPLATE GET command
+ex: ~/cgi-bin/cgicmd?GET=IO_TEMPLATE&CGI=sqreader...
+
+NOTES: 
+- make sure free text is xml escaped
+- organization by DO/DI/AI is only for readability; signals can be in mixed order
+-->
+<ioTemplate>
+  <!-- DO -->
+  <item id="AC_PWR_ENABLE" type="bool" write="true">
+    <name>AC Power</name>
+    <desc>EPC_PWR_EN_b2  AC Power enable, W119-DO2</desc>
+  </item>
+  <item id="AC_12V_PWR" type="bool" write="true">
+    <name>AC Control 12V</name>
+    <desc>AC_12v_en_wago_b2      Turns on 12V to AC control boards, W111-DO1</desc>
+  </item>
+  <item id="DC_CABINET_POWER" type="bool" write="true">
+    <name>DC Cabinet Power</name>
+    <desc>DC Control power to cabinets, W111-DO2</desc>
+  </item>
+  <item id="GRID_POWER_TO_PUMPS" type="bool" write="true">
+    <name>Grid Power to Pumps</name>
+    <desc>_b2_14 DC Power the pumps directly from the grid, W109-DO1</desc>
+  </item>
+  <item id="QUAD_DC_POWER_SRC" type="bool" write="true">
+    <name>DC Power Source</name>
+    <desc>W12_DO2_t2     DC Pwr source: Reset-24v supply; Set-Backup battery, W112-!DO2</desc>
+  </item>
+  <item id="SV_VALVE_CMPLX" type="bool" write="true">
+    <name>Complex Valve</name>
+    <desc>SV5_en_b2      Enable Complex valve, W109-DO3</desc>
+  </item>
+  <item id="SV_VALVE_NEUT_3_4" type="bool" write="true">
+    <name>Neutralize valves 3 &amp; 4</name>
+    <desc>SV_3_4_en_b2   Enable Neutralize valves 3 and 4, W109-DO5</desc>
+  </item>
+  <item id="SV_VALVE_NEUT_1_2" type="bool" write="true">
+    <name>Neutralize valves 1 &amp; 2</name>
+    <desc>SV_1_2_en_b2   Enable Neutralize valves 1 and 2, W109-DO7</desc>
+  </item>
+  <item id="QUAD_ESTOP_CTRL" type="bool" write="true">
+    <name>EStop</name>
+    <desc>Svc_estop_en_24v_b2    Software Quadrant eStop Ctrl, Set enables eStop, W112-!DO1</desc>
+  </item>
+  <item id="BATT_CHARGE_DISABLE" type="bool" write="true">
+    <name>Battery Charge Disable</name>
+    <desc>Batt_Chrg_Disable_b2, W109-DO4</desc>
+  </item>
+  <item id="PUMP_DRIVES_1_2" type="bool" write="true">
+    <name>Pump Drives 1 &amp; 2</name>
+    <desc>Drives_1and2_pin1_b2   On/Off for pump drives 1&amp;2, W113-DO1</desc>
+  </item>
+  <item id="PUMP_DRIVES_3_4" type="bool" write="true">
+    <name>Pump Drives 3 &amp; 4</name>
+    <desc>Drives_3and4_pin1_b2   On/Off for pump drives 3&amp;4, W113-DO2</desc>
+  </item>
+  <item id="PUMP_DRIVES_5_6" type="bool" write="true">
+    <name>Pump Drives 5 &amp; 6</name>
+    <desc>Drives_5and6_pin1_b2   On/Off for pump drives 5&amp;6, W114-DO1</desc>
+  </item>
+  <item id="PUMP_DRIVES_7_8" type="bool" write="true">
+    <name>Pump Drives 7 &amp; 8</name>
+    <desc>Drives_7and8_pin1_b2   On/Off for pump drives 7&amp;8, W114-DO2</desc>
+  </item>
+  <item id="PUMP_9_CMPLX" type="bool" write="true">
+    <name>Pump Drive 9 (Complex)</name>
+    <desc>Drive_9_pin1_b2  On/Off for pump drive 9 - Complex pump, W115-DO1</desc>
+  </item>
+  <item id="DO_CHILLER_CTL" type="bool" write="true">
+    <name>Chiller Control</name>
+    <desc>Chiller control On/Off ,W119-D01</desc>
+  </item>
+  <item id="PUMP_WATCHDOG_LATCH_ON" type="bool" write="true">
+    <name>Pump Watchdog On</name>
+    <desc>Turns the Pump watchdog circuit on, W109-DO6</desc>
+  </item>
+  <item id="PUMP_WATCHDOG_LATCH_OFF" type="bool" write="true">
+    <name>Pump Watchdog Off</name>
+    <desc>Turns the Pump watchdog circuit off, W109-DO8</desc>
+  </item>
+  <item id="PUMP_WATCHDOG_TOGGLE" type="bool" write="true">
+    <name>Pump Watchdog Toggle</name>
+    <desc>PUMP_WATCHDOG_TOGGLE, W109-DO2</desc>
+  </item>
+  <!-- DI -->
+  <item id="HOTEL_POWER_SUPPLY_OK" type="bool" write="false">
+    <name>Hotel Power</name>
+    <desc>Quint_OK_sns_t2     Hotel Power Supply OK, W108-DI1</desc>
+  </item>
+  <item id="AC_EPO_Feedback" type="bool" write="false">
+    <name>AC EPO Sense</name>
+    <desc>AC_epo_sense_b2, W108-DI2</desc>
+  </item>
+  <item id="SV_CLOSED_CMPLX" type="bool" write="false">
+    <name>Complex valve close</name>
+    <desc>SV5_CLOSEDFB_b2, Complex valve is closed, W110-DI1</desc>
+  </item>
+  <item id="SV_OPEN_CMPLX" type="bool" write="false">
+    <name>Complex valve open</name>
+    <desc>SV5_OPENFB_b2, Complex valve is open, W110-DI2</desc>
+  </item>
+  <item id="CLFB_CLOSED_NEUT_3_4" type="bool" write="false">
+    <name>Neutralize 3 &amp; 4 close</name>
+    <desc>CLFB_3_4_b2, Neutralize valves 3&amp;4 are closed, W110-DI3</desc>
+  </item>
+  <item id="OFB_OPEN_NEUT_3_4" type="bool" write="false">
+    <name>Neutralize 3 &amp; 4 open</name>
+    <desc>OLFB_3_4_b2, Neutralize valves 3&amp;4 are open, W110-DI4</desc>
+  </item>
+  <item id="CLFB_CLOSED_NEUT_1_2" type="bool" write="false">
+    <name>Neutralize 1 &amp; 2 close</name>
+    <desc>CLFB_1_2_b2, Neutralize valves 1&amp;2 are closed, W118-DI1</desc>
+  </item>
+  <item id="OFB_OPEN_NEUT_1_2" type="bool" write="false">
+    <name>Neutralize 1 &amp; 2 open</name>
+    <desc>OFB_1_2_b2, Neutralize valves 1&amp;2 are open, W118-DI2</desc>
+  </item>
+  <item id="QUAD_ENABLED" type="bool" write="false">
+    <name>Quad enable</name>
+    <desc>Quad_Enable_sns_b2, Quad enabled, W118-DI3</desc>
+  </item>
+  <item id="FLOAT_SWITCH" type="bool" write="false">
+    <name>Float switch enable</name>
+    <desc>FLOAT_SNS_Rtn_t2, float switch enabled, W118-DI4</desc>
+  </item>
+  <item id="PUMP_WATCHDOG_NOT_ARMED" type="bool" write="false">
+    <name>Deadman disable</name>
+    <desc>DM_Disabled_SNS_b0, Deadman disabled, W108-DI3</desc>
+  </item>
+  <!-- AI -->
+  <item id="PRESS_SENSE_ZN_1" type="float" write="false">
+    <name>Pressure 1 - Zn</name>
+    <desc>PS1_ka  Pressure Sensor 1 - Zn, W101-AI1</desc>
+  </item>
+  <item id="PRESS_SENSE_BR_2" type="float" write="false">
+    <name>Pressure 2 - Br</name>
+    <desc>PS2_ka  Pressure Sensor 2 - Br, W101-AI2</desc>
+  </item>
+  <item id="PRESS_SENSE_ZN_3" type="float" write="false">
+    <name>Pressure 3 - Zn</name>
+    <desc>PS3_ka  Pressure Sensor 3 - Zn, W102-AI1</desc>
+  </item>
+  <item id="PRESS_SENSE_BR_4" type="float" write="false">
+    <name>Pressure 4 - Br</name>
+    <desc>PS4_ka  Pressure Sensor 4 - Br, W102-AI2</desc>
+  </item>
+  <item id="PRESS_SENSE_ZN_5" type="float" write="false">
+    <name>Pressure 5 - Zn</name>
+    <desc>PS5_ka  Pressure Sensor 5 - Zn, W103-AI1</desc>
+  </item>
+  <item id="PRESS_SENSE_BR_6" type="float" write="false">
+    <name>Pressure 6 - Br</name>
+    <desc>PS6_ka  Pressure Sensor 6 - Br, W103-AI2</desc>
+  </item>
+  <item id="PRESS_SENSE_ZN_7" type="float" write="false">
+    <name>Pressure 7 - Zn</name>
+    <desc>PS7_ka  Pressure Sensor 7 - Zn, W104-AI1</desc>
+  </item>
+  <item id="PRESS_SENSE_BR_8" type="float" write="false">
+    <name>Pressure 8 - Br</name>
+    <desc>PS8_ka  Pressure Sensor 8 - Br, W104-AI2</desc>
+  </item>
+  <item id="BET" type="float" write="false">
+    <name>Bromine Temperature</name>
+    <desc>BET_ka  Bromine Temperature Sensor, W106-AI2</desc>
+  </item>
+  <item id="AAT" type="float" write="false">
+    <name>Ambient Temperature</name>
+    <desc>AAT_ka  Ambient Temperature Sensor, W107-AI1</desc>
+  </item>
+  <item id="ZET" type="float" write="false">
+    <name>Zinc Temperature</name>
+    <desc>ZET_ka  Zinc Temperature Sensor, W107-AI2</desc>
+  </item>
+  <item id="LEAK1_BANK_1" type="float" write="false">
+    <name>Bank 1 leak detection</name>
+    <desc>LS1_OUT+_b2  Bank 1 leak detection, W105-AI1</desc>
+  </item>
+  <item id="LEAK2_BANK_2" type="float" write="false">
+    <name>Bank 2 leak detection</name>
+    <desc>LS2_OUT+_b2  Bank 2 leak detection, W105-AI2</desc>
+  </item>
+  <item id="LEAK3_PIT" type="float" write="false">
+    <name>Pit leak detection</name>
+    <desc>LS3_OUT+_b2  Pit leak detection, W106-AI1</desc>
+  </item>
+</ioTemplate>

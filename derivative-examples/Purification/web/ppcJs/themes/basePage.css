@@ -1,0 +1,102 @@
+﻿/* layout for basic PPC page frame */
+
+html, body 
+{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+#appLayout {
+    height: 100%;
+    width: 100%;
+}
+
+#topPane 
+{
+    height: 40px;
+    margin: 1px; 
+    border: solid 1px;
+    overflow: hidden;
+}
+
+#ppcLogo
+{
+    margin: 3px;
+}
+
+#resourceNameDiv
+{
+    position:absolute;
+    top: 15px;
+    left:100px;
+    font-size:large;
+}
+
+#ajaxStatusDiv
+{
+    position:absolute;
+    top: 0px;
+    left:300px;
+    height: 100%;
+    margin: 5px;
+}
+
+#leftPane 
+{
+    width: 242px;
+    margin: 1px; 
+    border: solid 1px;
+    overflow: hidden;
+}
+
+#stack
+{
+    margin: 1px; 
+    border: solid 1px;
+}
+
+#linkBar
+/* aligns link bar to top right */
+{
+    width: 100px;
+    height: 20px;
+    position: absolute;
+
+    left: auto;
+    margin-left: auto;
+    
+    right: 0;
+    margin-right: 10px;
+ 
+    top: 0;
+    margin-top: 10px;
+    
+    bottom: auto;
+    margin-bottom: auto;
+}
+
+.homeLinkImage
+{
+    width: 20px; 
+    height: 20px;
+    border:0px;
+}
+
+/* base classes for common elements */
+.baseMenuBarItem
+{
+    border: solid 1px;
+}
+
+.showPanel
+{
+    display:inherit;
+}
+
+.hidePanel
+{
+    display:none;
+}

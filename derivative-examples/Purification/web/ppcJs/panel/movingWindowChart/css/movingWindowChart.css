@@ -1,0 +1,231 @@
+﻿/* layout for MovingWindowChart */
+/* release path */
+/*@import url("../../../dojox/charting/resources/Legend.css");*/
+
+/* dev path */
+@import url("../../../../dojo-toolkit/dojox/charting/resources/Legend.css");
+@import url("../../../../dojo-toolkit/dojox/form/resources/RangeSlider.css");
+
+/* universally applicable relative paths */
+@import url("../../../themes/loadOverlay.css");
+@import url("../../../themes/basePanel/basePanel.css");
+@import url("../../../widget/binaryRadioButton/css/binaryRadioButton.css");
+@import url("../../../widget/fadeoutAlertBox/css/fadeoutAlertBox.css");
+@import url("../../../widget/collapseToggle/css/collapseToggle.css");
+@import url("../../../widget/iPhoneButton/css/iPhoneButton.css");
+@import url("../../../widget/undoRedo/css/undoRedo.css");
+
+div.movingWindowChart
+{
+    height: 100%;
+    width: 100%;
+    overflow:hidden;
+}
+
+div.mwcChartContainer
+{
+    position:relative;
+}
+
+div.mwcChartSliderBox
+{
+    /* Conflicting Absolute Positions pattern to stretch width to fill offset space */
+    position:absolute;
+    left:12px;
+    right:0px;
+}
+
+div.mwcChartBox
+{
+    height: 460px;
+    width:100%;
+}
+
+div.mwcPanButtons
+{
+    position:absolute; 
+    left:0px;
+    top:35px;
+    z-index:1;
+}
+
+div.mwcVerticalSlider
+{
+    position:absolute; 
+    left:0px;
+    top:100px;
+    height:200px;
+    z-index:1;
+}
+
+
+div.mwcControlsStrip
+{
+    position:relative;
+    width: 100%;
+    height: 30px;
+    margin:0,5px,5px,5px;
+}
+
+div.mwcDownloadBox
+{
+    padding-top:3px;
+}
+
+
+div.mwcLinkPane
+{
+    position:absolute; 
+    left:5px;
+    width:500px;
+    height:170px;
+}
+
+.mwcLinkPaneTitle
+{
+    font-weight:bold;
+}
+
+.mwcLinkUrl
+{
+    margin:5px;
+    word-wrap: break-word;
+}
+
+.mwcRefreshIcon
+{
+    height:20px;
+    width:20px;
+    background: url(../images/refresh.gif) no-repeat right 0;
+}
+
+.mwcToggleExpandIcon
+{
+    height:20px;
+    width:20px;
+    background: url(../images/link.gif) no-repeat right 0;
+}
+
+.mwcCopyWindowIcon
+{
+    height:20px;
+    width:20px;
+    background: url(../images/copy_window.gif) no-repeat right 0;
+}
+
+.mwcPanUpIcon
+{
+    height:10px;
+    width:14px;
+    background: url(../images/pan_up.gif) no-repeat center 0;
+}
+
+.mwcPanDownIcon
+{
+    height:10px;
+    width:14px;
+    background: url(../images/pan_down.gif) no-repeat center 0;
+}
+
+.mwcButtonSpacer
+{
+    height:20px;
+    width:30px;
+}
+
+.mwcInlineBlock
+{
+    display:inline-block;
+}
+
+div.mwcRangeSlider
+{
+    /* indexers aligned with x axis bounds */
+    margin-left:25px;
+    margin-right:25px;
+}
+
+div.mwcSliderReadouts
+{
+    position:relative;
+    margin-top:5px;
+    height:15px;
+    z-index:1;
+}
+
+.mwcSliderMinReadout
+{
+    position:absolute;
+    left:25px;
+}
+
+.mwcSliderMaxReadout
+{
+    position:absolute;
+    right:25px;
+}
+
+div.mwcLegend
+{
+    padding:0px,5px,0px,0px;
+}
+
+.mwcTitleBox
+{
+    font-size:large;
+}
+
+.mwcConfigButton
+{
+    position:absolute;
+    right:1px;
+    bottom:1px;
+    z-index:1;
+}
+
+.mwcConfigPane
+{
+    position: absolute; 
+    bottom: 5px;
+    right:23px; 
+    width:290px;
+    height: 90%;
+    padding:5px;
+}
+
+div.mwcConfigTopDiv
+{
+    margin-bottom:15px;
+}
+
+div.mwcSecondPlotConfigPane
+{
+    position:absolute;
+    top:60px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+
+    padding:10px;
+    margin:5px;
+}
+
+.mwcStackContainer{
+    position:absolute;
+    top:50px;
+    bottom:0px;
+    width:100%;
+}
+
+.mwcStackPane
+{
+    position:relative;
+    width:100%;
+    height:100%;
+    overflow-y:auto;
+}
+
+.mwcCheckBoxLabel
+{
+    padding: 5px;
+}

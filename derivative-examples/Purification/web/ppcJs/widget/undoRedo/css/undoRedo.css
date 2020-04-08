@@ -1,0 +1,27 @@
+﻿/* layout for CollapseToggle */
+
+/*@import url("../../../control/baseControl/css/baseControl.css");*/
+
+.undoRedo
+{
+}
+
+/*override dijit button label css*/
+.urButtonText
+{
+    padding:0px;
+}
+
+.urUndoIcon
+{
+    height:20px;
+    width:20px;
+    background: url(../images/undo.gif) no-repeat right 0;
+}
+
+.urRedoIcon
+{
+    height:20px;
+    width:20px;
+    background: url(../images/redo.gif) no-repeat right 0;
+}

@@ -1,0 +1,33 @@
+﻿<div class="mainBlockPanel" dojoattachpoint="containerNode">
+    <div class="mbpBorder" dojotype="dijit.layout.BorderContainer" design="sidebar">
+        <div dojoattachpoint="leftPane" class="mbpLeftPane" dojotype="dijit.layout.ContentPane"
+            region="left" splitter="false">
+            <div dojoattachpoint="faultDiv" class="mbpFaultDiv">
+                <div dojoattachpoint="logControl" dojotype="ppcJs.LogControl">
+                </div>
+            </div>
+            <div class="mbpControlsUpper">
+                <div dojoattachpoint="acAcControl" dojotype="ppcJs.AcAcControl" class="mpbFloatControl">
+                </div>
+                <div dojoattachpoint="dcDcControl" dojotype="ppcJs.DcDcControl" class="mpbFloatControl">
+                </div>
+            </div>
+            <div class="mbpControlsLower">
+                <div dojoattachpoint="batteryControl" dojotype="ppcJs.BatteryControl" class="mpbFloatControl">
+                </div>
+                <div dojoattachpoint="pumpControl" dojotype="ppcJs.PumpControl" class="mpbFloatControl">
+                </div>
+            </div>
+        </div>
+        <div class="mbpRightPane" dojotype="dijit.layout.ContentPane" region="center">
+            <div dojoattachpoint="controlDiv" class="mbpControlDiv">
+            </div>
+            <div dojotype="dijit.MenuBar">
+                <div dojotype="dijit.MenuBarItem" dojoAttachEvent="onClick:onSelectBattChart">Batteries</div>
+                <div dojotype="dijit.MenuBarItem" dojoAttachEvent="onClick:onSelectPumpChart">Pumps</div>
+            </div>
+            <div dojoattachpoint="chartDiv"></div>
+            <div dojoattachpoint="legendDiv"></div>
+        </div>
+    </div>
+</div>

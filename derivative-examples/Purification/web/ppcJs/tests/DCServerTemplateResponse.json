@@ -1,0 +1,80 @@
+{"RESULT":"OK",
+ "DCServerTemplate" :
+	{"Legend" : { "Batt_Current":{"name":"Battery Current", "desc":"Battery Current Description"}
+			    , "Batt_Voltage":{"name":"Battery Voltage", "desc":"Battery Voltage Description"}
+			    , "DCBus_Voltage":{"name":"DC Bus Voltage", "desc":"DC Bus Voltage Description"}
+			    , "Bus_Current":{"name":"Bus Current", "desc":"Bus Current Description"}
+			    , "Amp_Hours":{"name":"Amp Hours", "desc":"Amp Hours Description"}
+			    , "OVP_Setpoint":{"name":"OVP Setpoint", "desc":"Overvoltage setpoint"}
+			    , "DC_OutSense":{"name":"DCDC Mode", "desc":"DCDC Mode Description"}
+			    , "Status":{"name":"Status", "desc":"Status Description"}
+			    , "Fault_Status":{"name":"Fault Status", "desc":"Fault Status Description"}  }
+	, "DCDCs":{"DCDC1":{"name":"DCDC1"
+						, "desc":"DCDC1 description"
+						, "item":{"Batt_Current":{"type":"float","write":"false"}
+							    ,"Batt_Voltage":{"type":"float","write":"false"}
+							    ,"DCBus_Voltage":{"type":"float","write":"false"}
+							    ,"Bus_Current":{"type":"float","write":"false"}
+							    ,"Amp_Hours":{"type":"float","write":"false"}
+							    ,"OVP_Setpoint":{"type":"float","write":"false"}
+							    ,"DC_OutSense":{"type":"int","write":"false"}
+							    ,"Status":{"type":"string","write":"false"}
+							    ,"Fault_Status":{"type":"string","write":"false"}  } }
+				, "DCDC2":{"name":"DCDC2"
+						, "desc":"DCDC2 description"
+						, "item":{"Batt_Current":{"type":"float","write":"false"}
+							    ,"Batt_Voltage":{"type":"float","write":"false"}
+							    ,"DCBus_Voltage":{"type":"float","write":"false"}
+							    ,"Bus_Current":{"type":"float","write":"false"}
+							    ,"Amp_Hours":{"type":"float","write":"false"}
+							    ,"OVP_Setpoint":{"type":"float","write":"false"}
+							    ,"DC_OutSense":{"type":"int","write":"false"}
+							    ,"Status":{"type":"string","write":"false"}
+							    ,"Fault_Status":{"type":"string","write":"false"}  } }
+				, "DCDC3":{"name":"DCDC3"
+						, "desc":"DCDC3 description"
+						, "item":{"Batt_Current":{"type":"float","write":"false"}
+							    ,"Batt_Voltage":{"type":"float","write":"false"}
+							    ,"DCBus_Voltage":{"type":"float","write":"false"}
+							    ,"Bus_Current":{"type":"float","write":"false"}
+							    ,"Amp_Hours":{"type":"float","write":"false"}
+							    ,"OVP_Setpoint":{"type":"float","write":"false"}
+							    ,"DC_OutSense":{"type":"int","write":"false"}
+							    ,"Status":{"type":"string","write":"false"}
+							    ,"Fault_Status":{"type":"string","write":"false"}  } }
+				, "DCDC4":{"name":"DCDC4"
+						, "desc":"DCDC4 description"
+						, "item":{"Batt_Current":{"type":"float","write":"false"}
+							    ,"Batt_Voltage":{"type":"float","write":"false"}
+							    ,"DCBus_Voltage":{"type":"float","write":"false"}
+							    ,"Bus_Current":{"type":"float","write":"false"}
+							    ,"Amp_Hours":{"type":"float","write":"false"}
+							    ,"OVP_Setpoint":{"type":"float","write":"false"}
+							    ,"DC_OutSense":{"type":"int","write":"false"}
+							    ,"Status":{"type":"string","write":"false"}
+							    ,"Fault_Status":{"type":"string","write":"false"}  } }
+				, "DCDC5":{"name":"DCDC5"
+						, "desc":"DCDC5 description"
+						, "item":{"Batt_Current":{"type":"float","write":"false"}
+							    ,"Batt_Voltage":{"type":"float","write":"false"}
+							    ,"DCBus_Voltage":{"type":"float","write":"false"}
+							    ,"Bus_Current":{"type":"float","write":"false"}
+							    ,"Amp_Hours":{"type":"float","write":"false"}
+							    ,"OVP_Setpoint":{"type":"float","write":"false"}
+							    ,"DC_OutSense":{"type":"int","write":"false"}
+							    ,"Status":{"type":"string","write":"false"}
+							    ,"Fault_Status":{"type":"string","write":"false"}  } }
+				, "DCDC6":{"name":"DCDC6"
+						, "desc":"DCDC6 description"
+						, "item":{"Batt_Current":{"type":"float","write":"false"}
+							    ,"Batt_Voltage":{"type":"float","write":"false"}
+							    ,"DCBus_Voltage":{"type":"float","write":"false"}
+							    ,"Bus_Current":{"type":"float","write":"false"}
+							    ,"Amp_Hours":{"type":"float","write":"false"}
+							    ,"OVP_Setpoint":{"type":"float","write":"false"}
+							    ,"DC_OutSense":{"type":"int","write":"false"}
+							    ,"Status":{"type":"string","write":"false"}
+							    ,"Fault_Status":{"type":"string","write":"false"}  } }
+				}
+	}
+}

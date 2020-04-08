@@ -1,0 +1,13 @@
+﻿/* layout for AjaxStatusControl */
+/* release path */
+
+@import url("../../../themes/basePanel/basePanel.css");
+@import url("../../../bizLogic/generic/flashTimer/css/flashTimer.css");
+
+div.testRunFilteringSelect
+{
+    position:relative;
+    margin:0px;
+    padding:0px;
+}
+

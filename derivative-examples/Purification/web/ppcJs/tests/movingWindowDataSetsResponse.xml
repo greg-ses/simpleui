@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+reference response to DATA_SETS GET command
+ex: ~/cgi-bin/cgicmd?GET=DATA_SETS&CGI=sqreader
+-->
+<dataSets>
+  <dataSet>
+    <majorItems>
+      <item>
+        <value>resource1</value>
+        <desc>Resource A</desc>
+      </item>    
+    </majorItems>
+    <minorItems>
+      <item>
+        <value>ACAC_VoltCurr</value>
+        <desc>AC/AC (Volt-Amps)</desc>
+      </item>
+      <item>
+        <value>Accumulators</value>
+        <desc>Accumulators ()</desc>
+      </item>
+      <category>
+        <desc>First Subcategories</desc>
+        <item>
+          <value>resourceChart1</value>
+          <desc>Resource subcategory 1</desc>
+        </item>
+        <item>
+          <value>resourceChart2</value>
+          <desc>Resource subcategory 2</desc>
+        </item>
+      </category>
+      <category>
+        <desc>Second Subcategories</desc>
+        <item>
+          <value>resourceChart3</value>
+          <desc>Resource subcategory 3</desc>
+        </item>
+        <item>
+          <value>resourceChart4</value>
+          <desc>Resource subcategory 4</desc>
+        </item>
+      </category>
+    </minorItems>
+  </dataSet>
+</dataSets>

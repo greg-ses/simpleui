@@ -1,0 +1,69 @@
+---
+# use flag --extra-vars "remupdate=true" to complete the distribution to all VECs.
+# Without the flag set the packages are created and copied to the BMS server staging area only.
+- hosts: all
+  vars:
+    app_name: vecpackage-devapp
+  remote_user: service
+  tasks:
+  - include_vars:
+      file: commonvars.yml
+  - name: Prep Local Staging Area
+    local_action: file path={{ unit_config_source_dir }} state=absent
+  - local_action: file path={{ unit_config_source_dir }} state=directory mode=0755
+  - name: Prep BMS Target Staging Area
+    file:
+      path: "{{ bms_stage_dir }}"
+      state: directory
+      mode: 0755
+
+  - name: Copy Binary To Local Stage Area
+    local_action: command install -D {{ arm_binary_source_dir }}/{{ app_binary }} {{ unit_config_source_dir }}/{{ app_binary }}
+  - name: Copy Unit Configuration Files To Local Stage Area
+    local_action: command cp -r {{ unit_properties_source_dir }} {{ unit_config_source_dir }}
+
+  - name: Create archive for transfer
+    local_action: command tar -czf /tmp/{{ app_name }}.tar.gz -C {{ unit_config_source_dir }}/ ./
+
+  - name: Copy archive to target
+    copy: src=/tmp/{{ app_name }}.tar.gz dest={{ bms_stage_dir }}/{{ app_name }}.tar.gz
+
+  - name: Copy VEC proxy Binary To Local Stage Area
+    copy: src={{ vec_proxy_source_dir }}/{{ vec_proxy_binary }} dest={{ bms_stage_dir }}/{{ vec_proxy_binary }}
+
+  - name: Backup Existing Binary
+    command: cp /opt/bin/{{ vec_proxy_binary }} {{ archive_dir }}/{{ vec_proxy_binary }}{{ archive_suffix }}
+
+  - name: Stop vec proxy service
+    service:
+      name: vecproxy
+      state: stopped
+    become: true
+
+  - name: Deploy binary
+    command: install -D {{ bms_stage_dir }}/{{ vec_proxy_binary }} /opt/bin/{{ vec_proxy_binary }}
+
+  - name: Get binary md5
+    command: md5sum /opt/bin/{{ vec_proxy_binary }}
+    register: md5output
+  - debug: msg="{{ md5output.stdout }}"
+  - name: Set executable permissions
+    file:
+      path: /opt/bin/{{ vec_proxy_binary }}
+      state: file
+      mode: 0777
+
+  - name: Start vec proxy service
+    service:
+      name: vecproxy
+      state: started
+    become: true
+
+  - name: Invoke BMS ansible script for VEC distribution (When var remupdate set)
+    command: ansible-playbook {{ bms_ansible_dir }}/devapp-update.yml --limit Sys-Units
+    async: 300
+    poll: 10
+    register: bms_ansible_out
+    when: remupdate is defined
+  - debug: msg="{{ bms_ansible_out.stdout }}"
+    when: remupdate is defined

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+reference response to DATA_SETS GET command
+ex: ~/cgi-bin/cgicmd?GET=DATA_SETS&CGI=dbReader
+-->
+<dataSets>
+  <dataSet>
+    <majorItems>
+      <item>
+        <value>TF2000</value>
+        <desc>TransFlow System</desc>
+      </item>
+    </majorItems>
+    <minorItems>
+      <item>
+        <value>ACAC</value>
+        <desc>AC/AC ()</desc>
+      </item>
+      <item>
+        <value>Batt_AH</value>
+        <desc>Battery Amp-Hours</desc>
+      </item>
+      <item>
+        <value>Batt_Curr</value>
+        <desc>Battery Current</desc>
+      </item>
+      <item>
+        <value>Batt_Volt</value>
+        <desc>Battery Voltage</desc>
+      </item>
+      <item>
+        <value>Digital_IO_sys</value>
+        <desc>Digital I/O</desc>
+      </item>
+      <item>
+        <value>PCU_3phase_pwr</value>
+        <desc>PCU 3 Phase Power (kW)</desc>
+      </item>
+      <item>
+        <value>PCU_DC_CurrVolt</value>
+        <desc>PCU DC Volt-Amps</desc>
+      </item>
+      <item>
+        <value>Pony_Battery</value>
+        <desc>Pony Battery Voltage</desc>
+      </item>
+      <item>
+        <value>Temperatures_sys</value>
+        <desc>Temperature (F)</desc>
+      </item>
+      <item>
+        <value>Total_DC_Power</value>
+        <desc>Total DC Power (kW)</desc>
+      </item>
+    </minorItems>
+  </dataSet>
+</dataSets>

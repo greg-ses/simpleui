@@ -1,0 +1,56 @@
+﻿/* layout for ScriptEntryControl */
+/* release path */
+
+/* dev path */
+@import url("../../../themes/basePanel/basePanel.css");
+@import url("../../dateTime/css/dateTime.css");
+@import url("../../timeOfDay/css/timeOfDay.css");
+@import url("../../timeSpan/css/timeSpan.css");
+@import url("../../../widget/collapseToggle/css/collapseToggle.css");
+
+
+div.scriptEntryControl
+{
+    position:relative;
+    width: 750px;
+    margin:0px;
+    padding:0px;
+    background-color: #CAE1FF;  /*http://cloford.com/resources/colours/500col.htm, lightsteelblue1*/
+}
+
+.secHeader
+{
+    height:auto;   
+}
+
+.secCmdType
+{
+    display:inline-block;
+    width: 700px;
+    margin:4px;
+}
+
+.secViewToggle
+{
+    position:relative;
+    float:right;
+    margin:0px;
+    height:auto;
+}
+
+.secExpanded
+{
+    height: 155px;
+}
+
+.secCollapsed
+{
+    height: 28px;
+}
+
+.secInfoBoxValue
+{
+    font-weight:600;
+    color:darkred;
+}
+

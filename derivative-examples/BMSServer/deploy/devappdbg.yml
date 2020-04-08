@@ -1,0 +1,51 @@
+---
+- hosts: all
+  vars:
+    app_name: DeviceService
+    stage_dir: /home/root/module-staging-area
+    unit_config_source_dir: /home/service/armworkspace/target/arm/units
+    archive_dir: /vionx
+    archive_suffix: _prev
+  remote_user: root
+  tasks:
+  - name: Prep staging area
+    file:
+      path: "{{ stage_dir }}"
+      state: absent
+  - file:
+      path: "{{ stage_dir }}"
+      state: directory
+      mode: 0755
+  - name: Copy binary to target staging area
+    copy: src=~/armworkspace/target/arm/bin/DeviceService dest={{ stage_dir }}/{{ app_name }}
+    # Debug version of this update script does not copy unit configuration files
+  - name: Backup Existing Binary
+    command: cp /opt/bin/{{ app_name }} {{ archive_dir }}/{{ app_name }}{{ archive_suffix }}
+  - name: Deploy binary
+    command: cp {{ stage_dir }}/{{ app_name }} /opt/bin/{{ app_name }}
+  - name: Get binary md5
+    command: md5sum /opt/bin/{{ app_name }}
+    register: md5output
+  - debug: msg="{{ md5output.stdout }}"
+  - name: Set executable permissions
+    file:
+      path: /opt/bin/{{ app_name }}
+      state: file
+      mode: 777
+  - name: Rebooting target, this will take over a minute
+    command: systemctl reboot
+    async: 2
+    poll: 0
+    # Now wait for an ssh connection response after reboot
+  - name: Waiting for target to respond
+    local_action: wait_for host={{ ansible_default_ipv4.address }} port=22 state=started delay=45 timeout=60
+    become: false
+    # Pause here to give the app time to start
+  - pause:
+      seconds: 20
+    # Make sure the device service app has started
+  - name: Confirm DeviceService is running
+    command: systemctl is-active device_service
+    register: agent_status
+    failed_when: "'failed' in agent_status.stdout"
+    changed_when: False

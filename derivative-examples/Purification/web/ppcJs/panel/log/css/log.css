@@ -1,0 +1,74 @@
+﻿/* layout for LogPanel */
+
+@import url("../../download/css/download.css");
+@import url("../../../widget/dataGrid/css/dataGrid.css");
+@import url("../../../control/baseControl/css/baseControl.css");
+@import url("../../../control/windowSelect/css/windowSelect.css");
+
+div.logPanel
+{
+    height: 100%;
+    width: 100%;
+    margin:0px;
+    padding:0px;
+}
+
+div.lpBorder
+{
+    height: 100%;
+    width: 100%;
+}
+
+div.lpLeftPane
+{
+    position:relative;
+    height: 100%;
+    width: 197px;
+}
+
+div.lpDownloadDiv
+{
+    position:absolute;
+    left:5px;
+    right:5px;
+
+    height: 25px;
+    padding:10px;
+}
+
+div.lpFilterDiv
+{
+    position:relative;
+    width:100%;
+
+    height: 25px;
+    padding:10px;
+}
+
+div.lpFilterTable
+{
+    position:absolute;
+    left:177px;
+    width:400px;
+}
+
+.lpFilter
+{
+    width:120px;
+}
+
+div.lpWindowSelectorDiv
+{
+    /* Conflicting Absolute Positions pattern to stretch height to fill parent */
+    position:absolute;
+    top:50px;
+    left:5px;
+    right:5px;
+    bottom:5px;
+}
+
+div.lpLogDiv
+{
+    height: 100%;
+    width: 100%;
+}

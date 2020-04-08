@@ -1,0 +1,46 @@
+TABLE_NAME=PurificationTable
+META_TYPE=FLOAT
+NO_TABLE_PREFIX=true
+<COLUMN_DEFINITION>
+        # Name, SQL_TYPE, MetaType, Description
+
+        timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st 1970
+        num_points,INTEGER,INTEGER,Number of points in averaged in float values
+        I1_CT301_Coolant,DOUBLE,DOUBLE,Average :                                                I1_CT301_Coolant
+        I1_TT302_Coolant_HEX_Outlet,DOUBLE,DOUBLE,Average :                                     I1_TT302_Coolant_HEX_Outlet
+        I1_TT101_Anolyte_Stack_Inlet,DOUBLE,DOUBLE,Average :                                    I1_TT101_Anolyte_Stack_Inlet
+        I1_TT201_Catholyte_Stack_Intlet,DOUBLE,DOUBLE,Average :                                 I1_TT201_Catholyte_Stack_Intlet
+        I1_TT102_Anolyte_Stack_Outlet,DOUBLE,DOUBLE,Average :                                   I1_TT102_Anolyte_Stack_Outlet
+        I1_TT103_Anolyte_Hex_Outlet,DOUBLE,DOUBLE,Average :                                     I1_TT103_Anolyte_Hex_Outlet
+        I1_TT202_Catholyte_Stack_Outlet,DOUBLE,DOUBLE,Average :                                 I1_TT202_Catholyte_Stack_Outlet
+        I1_TT203_Catholyte_Hex_Outlet,DOUBLE,DOUBLE,Average :                                   I1_TT203_Catholyte_Hex_Outlet
+        I1_TT301_Coolant_HEX_Inlet,DOUBLE,DOUBLE,Average :                                      I1_TT301_Coolant_HEX_Inlet
+
+</COLUMN_DEFINITION>
+<VARS>
+        LASTID
+        BEGIN
+        END
+        MAXNUMPTS
+</VARS>
+<SQL>
+        SELECT timestamp, num_points
+                , I1_CT301_Coolant
+                , I1_TT302_Coolant_HEX_Outlet
+                , I1_TT101_Anolyte_Stack_Inlet
+                , I1_TT201_Catholyte_Stack_Intlet
+                , I1_TT102_Anolyte_Stack_Outlet
+                , I1_TT103_Anolyte_Hex_Outlet
+                , I1_TT202_Catholyte_Stack_Outlet
+                , I1_TT203_Catholyte_Hex_Outlet
+                , I1_TT301_Coolant_HEX_Inlet
+        FROM PurificationTable
+        WHERE timestamp >= `BEGIN` AND timestamp <= `END`
+        ORDER BY timestamp ASC LIMIT `MAXNUMPTS`;
+</SQL>
+<CHART_CONFIG>
+ Y_MIN=0   # Expected Graph y axis min
+ Y_MAX=1000  # Expected Graph y axis max
+ Y_PIX=25  # Y Graniluarity of the filtered data, the higher the number the more points.
+ X_PIX=500  # X Graniluarity of the filtered data, the higher the number the more points.
+</CHART_CONFIG>

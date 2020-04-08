@@ -1,0 +1,1137 @@
+{
+    "Data_Summary": {
+        "u_id": "2002",
+        "Title": {
+            "u_id": "2003",
+            "value": "Watlow WatlowHeaterSimulation"
+        },
+        "timeStamp": {
+            "u_id": "2004",
+            "value": "1573685129282"
+        },
+        "dyn": {
+            "name": "Version",
+            "u_id": "2005",
+            "value": "Unknown Revision"
+        },
+        "Section": [
+            {
+                "name": "WatlowSim-1",
+                "u_id": "2006",
+                "DataSets": [
+                    {
+                        "u_id": "2007",
+                        "id": "DataSet-0.0",
+                        "className": "tableRowGroupBlock dataset-wrapper L3",
+                        "sha1sums": " ff6890387cea496415d81cb1ef417207598d80d4 d5f9cf0dd889d7848a35b763e9102d8130a4d153 534444800c30ea2a2d679814c5317b35693ab555 9f1e09460ff49ebc96bed795bcc9f00941576043 95a68d985b51db2223e75cc554a803ebbd94c410 ffb699ac2b74b21966a7509265c09bc4992d160d 72203cc1d7220144221a8d17142f72f3c2af3a12",
+                        "dsItems": [
+                            {
+                                "label": "BoolVars-0",
+                                "desc": "",
+                                "u_id": "2007",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "class": "on",
+                                        "u_id": "2009",
+                                        "value": "on",
+                                        "command": {
+                                            "cmd": "CommFailure",
+                                            "confirm": "false",
+                                            "desc": "Set or Reset Comm failure state",
+                                            "dest": "1",
+                                            "disabled": "false",
+                                            "idnum": "1",
+                                            "label": "CommFailure",
+                                            "name": "CommFailure",
+                                            "u_id": "2010",
+                                            "val": "off",
+                                            "sha1sum": "11a9954aa255a0a9c0b24a0b11d9ae9164081350",
+                                            "class": "command",
+                                            "id": "2010"
+                                        },
+                                        "name": "",
+                                        "id": "2009",
+                                        "sha1sums": " 11a9954aa255a0a9c0b24a0b11d9ae9164081350",
+                                        "_action": "simpleCommand",
+                                        "sha1sum": "014767e05896c09d85e10e2c4c85bab4d06c13ec"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2011",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "DummyVar",
+                                            "confirm": "false",
+                                            "desc": "na",
+                                            "dest": "1",
+                                            "disabled": "false",
+                                            "idnum": "1",
+                                            "label": "DummyVar",
+                                            "name": "DummyVar",
+                                            "u_id": "2012",
+                                            "val": "on",
+                                            "sha1sum": "aee70f87edb4e418f7aabc4c5949442da72cbd8c",
+                                            "class": "command",
+                                            "id": "2012"
+                                        },
+                                        "name": "",
+                                        "id": "2011",
+                                        "sha1sums": " aee70f87edb4e418f7aabc4c5949442da72cbd8c",
+                                        "_action": "simpleCommand",
+                                        "sha1sum": "8047ad90658b1fc21abd566ff0d474d69d0685bd"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-0.0.0",
+                                "name": "BoolVars-0",
+                                "sha1sum": "ff6890387cea496415d81cb1ef417207598d80d4"
+                            },
+                            {
+                                "label": "FloatVars-0",
+                                "desc": "",
+                                "u_id": "2012",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "u_id": "2014",
+                                        "value": "12.0",
+                                        "command": {
+                                            "cmd": "AmbientTemp",
+                                            "desc": "Set the ambient temperature.",
+                                            "dest": "1",
+                                            "disabled": "false",
+                                            "idnum": "1",
+                                            "label": "AmbientTemp",
+                                            "name": "AmbientTemp",
+                                            "u_id": "2015",
+                                            "controls": [
+                                                {
+                                                    "desc": "",
+                                                    "idnum": "0",
+                                                    "max": "99999.0",
+                                                    "min": "-99999.0",
+                                                    "u_id": "2016",
+                                                    "value": "12.0",
+                                                    "id": "2016",
+                                                    "sha1sum": "858d82ed0f74235b373cf2918d976fbe107f8a8a",
+                                                    "type": "float",
+                                                    "label": "Value 1 (-99999.0 .. 99999.0)",
+                                                    "size": 20,
+                                                    "cols": 20,
+                                                    "rows": 1,
+                                                    "name": "Value-1"
+                                                }
+                                            ],
+                                            "class": "command",
+                                            "id": "2015"
+                                        },
+                                        "name": "",
+                                        "id": "2014",
+                                        "sha1sums": " e5dab3e77b673e1ac4522bed031532798634269e",
+                                        "_action": "floatInputDialog",
+                                        "sha1sum": "f4589d897eaa1b59feda9ae415605a6f7760a1f1"
+                                    },
+                                    {
+                                        "u_id": "2017",
+                                        "value": "19.0",
+                                        "command": {
+                                            "cmd": "TankTemp",
+                                            "desc": "Set the tank temperature.",
+                                            "dest": "1",
+                                            "disabled": "false",
+                                            "idnum": "1",
+                                            "label": "TankTemp",
+                                            "name": "TankTemp",
+                                            "u_id": "2018",
+                                            "controls": [
+                                                {
+                                                    "desc": "",
+                                                    "idnum": "0",
+                                                    "max": "99999.0",
+                                                    "min": "-99999.0",
+                                                    "u_id": "2019",
+                                                    "value": "19.0",
+                                                    "id": "2019",
+                                                    "sha1sum": "b6353501b028af76a2d56e29dfa830786efbd71a",
+                                                    "type": "float",
+                                                    "label": "Value 1 (-99999.0 .. 99999.0)",
+                                                    "size": 20,
+                                                    "cols": 20,
+                                                    "rows": 1,
+                                                    "name": "Value-1"
+                                                }
+                                            ],
+                                            "class": "command",
+                                            "id": "2018"
+                                        },
+                                        "name": "",
+                                        "id": "2017",
+                                        "sha1sums": " 8185230bb95be25cbc453418ec0a9cd6d5bffacf",
+                                        "_action": "floatInputDialog",
+                                        "sha1sum": "4fb904767041b5591e74d8b79290ca787bcc82de"
+                                    },
+                                    {
+                                        "u_id": "2020",
+                                        "value": "0.0",
+                                        "command": {
+                                            "cmd": "OverrideSetpoint",
+                                            "desc": "Override the commanded setpoint.",
+                                            "dest": "1",
+                                            "disabled": "false",
+                                            "idnum": "1",
+                                            "label": "OverrideSetpoint",
+                                            "name": "OverrideSetpoint",
+                                            "u_id": "2021",
+                                            "controls": [
+                                                {
+                                                    "desc": "",
+                                                    "idnum": "0",
+                                                    "max": "99999.0",
+                                                    "min": "-99999.0",
+                                                    "u_id": "2022",
+                                                    "value": "0.0",
+                                                    "id": "2022",
+                                                    "sha1sum": "e577f46d1df9f58ee444c74b1aaf7b3782237c63",
+                                                    "type": "float",
+                                                    "label": "Value 1 (-99999.0 .. 99999.0)",
+                                                    "size": 20,
+                                                    "cols": 20,
+                                                    "rows": 1,
+                                                    "name": "Value-1"
+                                                }
+                                            ],
+                                            "class": "command",
+                                            "id": "2021"
+                                        },
+                                        "name": "",
+                                        "id": "2020",
+                                        "sha1sums": " e29a25b254d26f19e4b8dc0dc1bfed9a8d3422a1",
+                                        "_action": "floatInputDialog",
+                                        "sha1sum": "aa691049dd8accb1bd31d102a0ccfee7f7f12cbc"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-0.0.1",
+                                "name": "FloatVars-0",
+                                "sha1sum": "d5f9cf0dd889d7848a35b763e9102d8130a4d153"
+                            },
+                            {
+                                "label": "AnalogFeedback-0",
+                                "desc": "",
+                                "u_id": "2023",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "desc": "pReg: 40, vReg: 200, val: 0,0",
+                                        "name": "ControlLoop_ControlMode",
+                                        "u_id": "2024",
+                                        "value": "0",
+                                        "id": "2024"
+                                    },
+                                    {
+                                        "desc": "pReg: 42, vReg: 202, val: 0,0",
+                                        "name": "ControlLoop_ClosedLoop_SetPoint",
+                                        "u_id": "2025",
+                                        "value": "0",
+                                        "id": "2025"
+                                    },
+                                    {
+                                        "desc": "pReg: 44, vReg: 204, val: 0,0",
+                                        "name": "ControlLoop_OpenLoop_SetPoint",
+                                        "u_id": "2026",
+                                        "value": "0%",
+                                        "id": "2026"
+                                    },
+                                    {
+                                        "desc": "pReg: 46, vReg: 206, val: 0,0",
+                                        "name": "Alarm1_HighSetPoint",
+                                        "u_id": "2027",
+                                        "value": "0",
+                                        "id": "2027"
+                                    },
+                                    {
+                                        "desc": "pReg: 48, vReg: 208, val: 0,0",
+                                        "name": "Alarm1_LowSetPoint",
+                                        "u_id": "2028",
+                                        "value": "0",
+                                        "id": "2028"
+                                    },
+                                    {
+                                        "desc": "pReg: 50, vReg: 210, val: 0,0",
+                                        "name": "Alarm2_HighSetPoint",
+                                        "u_id": "2029",
+                                        "value": "0",
+                                        "id": "2029"
+                                    },
+                                    {
+                                        "desc": "pReg: 52, vReg: 212, val: 0,0",
+                                        "name": "Alarm2_LowSetPoint",
+                                        "u_id": "2030",
+                                        "value": "0",
+                                        "id": "2030"
+                                    },
+                                    {
+                                        "desc": "pReg: 54, vReg: 214, val: 0,0",
+                                        "name": "Alarm3_HighSetPoint",
+                                        "u_id": "2031",
+                                        "value": "0",
+                                        "id": "2031"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-0.0.2",
+                                "name": "AnalogFeedback-0",
+                                "sha1sum": "534444800c30ea2a2d679814c5317b35693ab555"
+                            },
+                            {
+                                "label": "AnalogFeedback-1",
+                                "desc": "",
+                                "u_id": "2032",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "desc": "pReg: 56, vReg: 216, val: 0,0",
+                                        "name": "Alarm3_LowSetPoint",
+                                        "u_id": "2033",
+                                        "value": "0",
+                                        "id": "2033"
+                                    },
+                                    {
+                                        "desc": "pReg: 58, vReg: 218, val: 0,0",
+                                        "name": "MB_ControlLoop_AutotuneRequest",
+                                        "u_id": "2034",
+                                        "value": "0",
+                                        "id": "2034"
+                                    },
+                                    {
+                                        "desc": "pReg: 60, vReg: 220, val: 0,0",
+                                        "name": "Alarm4_LowSetPoint",
+                                        "u_id": "2035",
+                                        "value": "0",
+                                        "id": "2035"
+                                    },
+                                    {
+                                        "desc": "pReg: 62, vReg: 222, val: 0,0",
+                                        "name": "ProfileStatus_ProfileActionRequest",
+                                        "u_id": "2036",
+                                        "value": "0",
+                                        "id": "2036"
+                                    },
+                                    {
+                                        "desc": "pReg: 64, vReg: 224, val: 0,0",
+                                        "name": "ProfileStatus_ProfileStart",
+                                        "u_id": "2037",
+                                        "value": "0 - Min",
+                                        "id": "2037"
+                                    },
+                                    {
+                                        "desc": "pReg: 66, vReg: 226, val: 0,0",
+                                        "name": "ControlLoop_HeatProportionalBand",
+                                        "u_id": "2038",
+                                        "value": "0",
+                                        "id": "2038"
+                                    },
+                                    {
+                                        "desc": "pReg: 68, vReg: 228, val: 0,0",
+                                        "name": "ControlLoop_CoolProportionalBand",
+                                        "u_id": "2039",
+                                        "value": "0",
+                                        "id": "2039"
+                                    },
+                                    {
+                                        "desc": "pReg: 70, vReg: 230, val: 0,0",
+                                        "name": "ControlLoop_TimeIntegral",
+                                        "u_id": "2040",
+                                        "value": "0",
+                                        "id": "2040"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-0.0.3",
+                                "name": "AnalogFeedback-1",
+                                "sha1sum": "9f1e09460ff49ebc96bed795bcc9f00941576043"
+                            },
+                            {
+                                "label": "AnalogFeedback-2",
+                                "desc": "",
+                                "u_id": "2041",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "desc": "pReg: 72, vReg: 232, val: 0,0",
+                                        "name": "ControlLoop_TimeDerivative",
+                                        "u_id": "2042",
+                                        "value": "0",
+                                        "id": "2042"
+                                    },
+                                    {
+                                        "desc": "pReg: 74, vReg: 234, val: 0,0",
+                                        "name": "ControlLoop_HeatHysteresis",
+                                        "u_id": "2043",
+                                        "value": "0",
+                                        "id": "2043"
+                                    },
+                                    {
+                                        "desc": "pReg: 76, vReg: 236, val: 0,0",
+                                        "name": "ControlLoop_CoolHysteresis",
+                                        "u_id": "2044",
+                                        "value": "0",
+                                        "id": "2044"
+                                    },
+                                    {
+                                        "desc": "pReg: 78, vReg: 238, val: 0,0",
+                                        "name": "ControlLoop_DeadBand",
+                                        "u_id": "2045",
+                                        "value": "0",
+                                        "id": "2045"
+                                    },
+                                    {
+                                        "desc": "pReg: 80, vReg: 240, val: 16696,3087",
+                                        "name": "AnalogInput_1_ProcessValue",
+                                        "u_id": "2046",
+                                        "value": "11.502944",
+                                        "id": "2046"
+                                    },
+                                    {
+                                        "desc": "pReg: 82, vReg: 242, val: 0,0",
+                                        "name": "AnalogInput_1_ErrorStatus",
+                                        "u_id": "2047",
+                                        "value": "0",
+                                        "id": "2047"
+                                    },
+                                    {
+                                        "desc": "pReg: 84, vReg: 244, val: 0,0",
+                                        "name": "AnalogInput_2_ProcessValue",
+                                        "u_id": "2048",
+                                        "value": "0",
+                                        "id": "2048"
+                                    },
+                                    {
+                                        "desc": "pReg: 86, vReg: 246, val: 0,0",
+                                        "name": "AnalogInput_2_ErrorStatus",
+                                        "u_id": "2049",
+                                        "value": "0",
+                                        "id": "2049"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-0.0.4",
+                                "name": "AnalogFeedback-2",
+                                "sha1sum": "95a68d985b51db2223e75cc554a803ebbd94c410"
+                            },
+                            {
+                                "label": "AnalogFeedback-3",
+                                "desc": "",
+                                "u_id": "2050",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "desc": "pReg: 88, vReg: 248, val: 0,0",
+                                        "name": "Alarm1_State",
+                                        "u_id": "2051",
+                                        "value": "0",
+                                        "id": "2051"
+                                    },
+                                    {
+                                        "desc": "pReg: 90, vReg: 250, val: 0,0",
+                                        "name": "Alarm2_State",
+                                        "u_id": "2052",
+                                        "value": "0",
+                                        "id": "2052"
+                                    },
+                                    {
+                                        "desc": "pReg: 92, vReg: 252, val: 0,0",
+                                        "name": "Alarm3_State",
+                                        "u_id": "2053",
+                                        "value": "0",
+                                        "id": "2053"
+                                    },
+                                    {
+                                        "desc": "pReg: 94, vReg: 254, val: 0,0",
+                                        "name": "Alarm4_State",
+                                        "u_id": "2054",
+                                        "value": "0",
+                                        "id": "2054"
+                                    },
+                                    {
+                                        "desc": "pReg: 96, vReg: 256, val: 0,0",
+                                        "name": "Digital_Input1_Status",
+                                        "u_id": "2055",
+                                        "value": "0",
+                                        "id": "2055"
+                                    },
+                                    {
+                                        "desc": "pReg: 98, vReg: 258, val: 0,0",
+                                        "name": "Digital_Input2_Status",
+                                        "u_id": "2056",
+                                        "value": "0",
+                                        "id": "2056"
+                                    },
+                                    {
+                                        "desc": "pReg: 100, vReg: 260, val: 0,0",
+                                        "name": "Monitor_ControlModeActive",
+                                        "u_id": "2057",
+                                        "value": "0",
+                                        "id": "2057"
+                                    },
+                                    {
+                                        "desc": "pReg: 102, vReg: 262, val: 0,0",
+                                        "name": "Monitor_HeatPower",
+                                        "u_id": "2058",
+                                        "value": "0",
+                                        "id": "2058"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-0.0.5",
+                                "name": "AnalogFeedback-3",
+                                "sha1sum": "ffb699ac2b74b21966a7509265c09bc4992d160d"
+                            },
+                            {
+                                "label": "AnalogFeedback-4",
+                                "desc": "",
+                                "u_id": "2059",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "desc": "pReg: 104, vReg: 264, val: 0,0",
+                                        "name": "Monitor_CoolPower",
+                                        "u_id": "2060",
+                                        "value": "0",
+                                        "id": "2060"
+                                    },
+                                    {
+                                        "desc": "pReg: 106, vReg: 266, val: 0,0",
+                                        "name": "Limit_State",
+                                        "u_id": "2061",
+                                        "value": "0",
+                                        "id": "2061"
+                                    },
+                                    {
+                                        "desc": "pReg: 108, vReg: 268, val: 0,0",
+                                        "name": "ProfileStatus_ProfileStart_dup",
+                                        "u_id": "2062",
+                                        "value": "0 - Min",
+                                        "id": "2062"
+                                    },
+                                    {
+                                        "desc": "pReg: 110, vReg: 270, val: 0,0",
+                                        "name": "ProfileStatus_ProfileActionRequest_dup",
+                                        "u_id": "2063",
+                                        "value": "0",
+                                        "id": "2063"
+                                    },
+                                    {
+                                        "desc": "pReg: 112, vReg: 272, val: 0,0",
+                                        "name": "Profile_CurrentFile",
+                                        "u_id": "2064",
+                                        "value": "0",
+                                        "id": "2064"
+                                    },
+                                    {
+                                        "desc": "pReg: 114, vReg: 274, val: 0,0",
+                                        "name": "Profile_CurrentStep",
+                                        "u_id": "2065",
+                                        "value": "0 - Min",
+                                        "id": "2065"
+                                    },
+                                    {
+                                        "desc": "pReg: 116, vReg: 276, val: 0,0",
+                                        "name": "ActiveSetPoint",
+                                        "u_id": "2066",
+                                        "value": "0",
+                                        "id": "2066"
+                                    },
+                                    {
+                                        "desc": "pReg: 118, vReg: 278, val: 0,0",
+                                        "name": "Profile_StepTimeRemaining",
+                                        "u_id": "2067",
+                                        "value": "0",
+                                        "id": "2067"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-0.0.6",
+                                "name": "AnalogFeedback-4",
+                                "sha1sum": "72203cc1d7220144221a8d17142f72f3c2af3a12"
+                            }
+                        ]
+                    }
+                ],
+                "CmdSet": [],
+                "Fault_List": [],
+                "menuPos": "top",
+                "colCount": 7,
+                "rowCount": 2,
+                "sha1sum": "d5220a2316e98fcd63b1c80f72e808cb6bf06cd5"
+            },
+            {
+                "name": "WatlowSim-2",
+                "u_id": "2068",
+                "DataSets": [
+                    {
+                        "u_id": "2069",
+                        "id": "DataSet-1.0",
+                        "className": "tableRowGroupBlock dataset-wrapper L3",
+                        "sha1sums": " 9d25200a93c869ba7d9263a6b3f2aeabd99c36c8 0e70d935fd07bf8b84cc6b0dfa027966ce55e75c 5c4221b68934ce92dd4912ac67ab950c011643c3 8d102e400237d16bc97aeb8a818cc50df9284448 ad910cbe8fa7e8e283612c3d28516cf2d5e0fdfb c9b98b5e2aeaea3c5e4c0394b970888b5b5570f0 8e3161e655d2919f050d1dd0395ba58c34af365f",
+                        "dsItems": [
+                            {
+                                "label": "BoolVars-0",
+                                "desc": "",
+                                "u_id": "2069",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "class": "on",
+                                        "u_id": "2071",
+                                        "value": "on",
+                                        "command": {
+                                            "cmd": "CommFailure",
+                                            "confirm": "false",
+                                            "desc": "Set or Reset Comm failure state",
+                                            "dest": "2",
+                                            "disabled": "false",
+                                            "idnum": "2",
+                                            "label": "CommFailure",
+                                            "name": "CommFailure",
+                                            "u_id": "2072",
+                                            "val": "off",
+                                            "sha1sum": "eecec44bb6dbfed0c1e5fc1b8abd6c3ed3769237",
+                                            "class": "command",
+                                            "id": "2072"
+                                        },
+                                        "name": "",
+                                        "id": "2071",
+                                        "sha1sums": " eecec44bb6dbfed0c1e5fc1b8abd6c3ed3769237",
+                                        "_action": "simpleCommand",
+                                        "sha1sum": "49173681c3f6f9e9d29f162d85301c1f8cfdc8f7"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2073",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "DummyVar",
+                                            "confirm": "false",
+                                            "desc": "na",
+                                            "dest": "2",
+                                            "disabled": "false",
+                                            "idnum": "2",
+                                            "label": "DummyVar",
+                                            "name": "DummyVar",
+                                            "u_id": "2074",
+                                            "val": "on",
+                                            "sha1sum": "a8c65987596e05b4defdcd150f49a16b6c8677e7",
+                                            "class": "command",
+                                            "id": "2074"
+                                        },
+                                        "name": "",
+                                        "id": "2073",
+                                        "sha1sums": " a8c65987596e05b4defdcd150f49a16b6c8677e7",
+                                        "_action": "simpleCommand",
+                                        "sha1sum": "0f5e6f10db66a3df06ce48b0ee5342a44bba2868"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-1.0.0",
+                                "name": "BoolVars-0",
+                                "sha1sum": "9d25200a93c869ba7d9263a6b3f2aeabd99c36c8"
+                            },
+                            {
+                                "label": "FloatVars-0",
+                                "desc": "",
+                                "u_id": "2074",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "u_id": "2076",
+                                        "value": "12.0",
+                                        "command": {
+                                            "cmd": "AmbientTemp",
+                                            "desc": "Set the ambient temperature.",
+                                            "dest": "2",
+                                            "disabled": "false",
+                                            "idnum": "2",
+                                            "label": "AmbientTemp",
+                                            "name": "AmbientTemp",
+                                            "u_id": "2077",
+                                            "controls": [
+                                                {
+                                                    "desc": "",
+                                                    "idnum": "0",
+                                                    "max": "99999.0",
+                                                    "min": "-99999.0",
+                                                    "u_id": "2078",
+                                                    "value": "12.0",
+                                                    "id": "2078",
+                                                    "sha1sum": "c5e49591a5661dee9057147d1f54e87d718caa4c",
+                                                    "type": "float",
+                                                    "label": "Value 1 (-99999.0 .. 99999.0)",
+                                                    "size": 20,
+                                                    "cols": 20,
+                                                    "rows": 1,
+                                                    "name": "Value-1"
+                                                }
+                                            ],
+                                            "class": "command",
+                                            "id": "2077"
+                                        },
+                                        "name": "",
+                                        "id": "2076",
+                                        "sha1sums": " 1eae8fbd44e8e1dc4032fc536bb0923d794fb266",
+                                        "_action": "floatInputDialog",
+                                        "sha1sum": "b46abe07ad7eb9862d7f36148a872581761c34a1"
+                                    },
+                                    {
+                                        "u_id": "2079",
+                                        "value": "19.0",
+                                        "command": {
+                                            "cmd": "TankTemp",
+                                            "desc": "Set the tank temperature.",
+                                            "dest": "2",
+                                            "disabled": "false",
+                                            "idnum": "2",
+                                            "label": "TankTemp",
+                                            "name": "TankTemp",
+                                            "u_id": "2080",
+                                            "controls": [
+                                                {
+                                                    "desc": "",
+                                                    "idnum": "0",
+                                                    "max": "99999.0",
+                                                    "min": "-99999.0",
+                                                    "u_id": "2081",
+                                                    "value": "19.0",
+                                                    "id": "2081",
+                                                    "sha1sum": "0806f75ef43010c009ece79e985927542dcbed58",
+                                                    "type": "float",
+                                                    "label": "Value 1 (-99999.0 .. 99999.0)",
+                                                    "size": 20,
+                                                    "cols": 20,
+                                                    "rows": 1,
+                                                    "name": "Value-1"
+                                                }
+                                            ],
+                                            "class": "command",
+                                            "id": "2080"
+                                        },
+                                        "name": "",
+                                        "id": "2079",
+                                        "sha1sums": " 5c3a7ee73f4caaeca36f2c65b86e67969d9ebf2c",
+                                        "_action": "floatInputDialog",
+                                        "sha1sum": "fe6de1eb7ec1ef93a25d5e2ef02437195e62839b"
+                                    },
+                                    {
+                                        "u_id": "2082",
+                                        "value": "0.0",
+                                        "command": {
+                                            "cmd": "OverrideSetpoint",
+                                            "desc": "Override the commanded setpoint.",
+                                            "dest": "2",
+                                            "disabled": "false",
+                                            "idnum": "2",
+                                            "label": "OverrideSetpoint",
+                                            "name": "OverrideSetpoint",
+                                            "u_id": "2083",
+                                            "controls": [
+                                                {
+                                                    "desc": "",
+                                                    "idnum": "0",
+                                                    "max": "99999.0",
+                                                    "min": "-99999.0",
+                                                    "u_id": "2084",
+                                                    "value": "0.0",
+                                                    "id": "2084",
+                                                    "sha1sum": "7d5c8dd54dff4c779791fc6c73b7e794ff34fd8a",
+                                                    "type": "float",
+                                                    "label": "Value 1 (-99999.0 .. 99999.0)",
+                                                    "size": 20,
+                                                    "cols": 20,
+                                                    "rows": 1,
+                                                    "name": "Value-1"
+                                                }
+                                            ],
+                                            "class": "command",
+                                            "id": "2083"
+                                        },
+                                        "name": "",
+                                        "id": "2082",
+                                        "sha1sums": " 89a5ca26cf58d2cfdf68ff5d6ff991c028429ded",
+                                        "_action": "floatInputDialog",
+                                        "sha1sum": "aed4cc7711ca1e536b5924d5769e543ad5a129c0"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-1.0.1",
+                                "name": "FloatVars-0",
+                                "sha1sum": "0e70d935fd07bf8b84cc6b0dfa027966ce55e75c"
+                            },
+                            {
+                                "label": "AnalogFeedback-0",
+                                "desc": "",
+                                "u_id": "2085",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "desc": "pReg: 40, vReg: 200, val: 0,0",
+                                        "name": "ControlLoop_ControlMode",
+                                        "u_id": "2086",
+                                        "value": "0",
+                                        "id": "2086"
+                                    },
+                                    {
+                                        "desc": "pReg: 42, vReg: 202, val: 0,0",
+                                        "name": "ControlLoop_ClosedLoop_SetPoint",
+                                        "u_id": "2087",
+                                        "value": "0",
+                                        "id": "2087"
+                                    },
+                                    {
+                                        "desc": "pReg: 44, vReg: 204, val: 0,0",
+                                        "name": "ControlLoop_OpenLoop_SetPoint",
+                                        "u_id": "2088",
+                                        "value": "0%",
+                                        "id": "2088"
+                                    },
+                                    {
+                                        "desc": "pReg: 46, vReg: 206, val: 0,0",
+                                        "name": "Alarm1_HighSetPoint",
+                                        "u_id": "2089",
+                                        "value": "0",
+                                        "id": "2089"
+                                    },
+                                    {
+                                        "desc": "pReg: 48, vReg: 208, val: 0,0",
+                                        "name": "Alarm1_LowSetPoint",
+                                        "u_id": "2090",
+                                        "value": "0",
+                                        "id": "2090"
+                                    },
+                                    {
+                                        "desc": "pReg: 50, vReg: 210, val: 0,0",
+                                        "name": "Alarm2_HighSetPoint",
+                                        "u_id": "2091",
+                                        "value": "0",
+                                        "id": "2091"
+                                    },
+                                    {
+                                        "desc": "pReg: 52, vReg: 212, val: 0,0",
+                                        "name": "Alarm2_LowSetPoint",
+                                        "u_id": "2092",
+                                        "value": "0",
+                                        "id": "2092"
+                                    },
+                                    {
+                                        "desc": "pReg: 54, vReg: 214, val: 0,0",
+                                        "name": "Alarm3_HighSetPoint",
+                                        "u_id": "2093",
+                                        "value": "0",
+                                        "id": "2093"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-1.0.2",
+                                "name": "AnalogFeedback-0",
+                                "sha1sum": "5c4221b68934ce92dd4912ac67ab950c011643c3"
+                            },
+                            {
+                                "label": "AnalogFeedback-1",
+                                "desc": "",
+                                "u_id": "2094",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "desc": "pReg: 56, vReg: 216, val: 0,0",
+                                        "name": "Alarm3_LowSetPoint",
+                                        "u_id": "2095",
+                                        "value": "0",
+                                        "id": "2095"
+                                    },
+                                    {
+                                        "desc": "pReg: 58, vReg: 218, val: 0,0",
+                                        "name": "MB_ControlLoop_AutotuneRequest",
+                                        "u_id": "2096",
+                                        "value": "0",
+                                        "id": "2096"
+                                    },
+                                    {
+                                        "desc": "pReg: 60, vReg: 220, val: 0,0",
+                                        "name": "Alarm4_LowSetPoint",
+                                        "u_id": "2097",
+                                        "value": "0",
+                                        "id": "2097"
+                                    },
+                                    {
+                                        "desc": "pReg: 62, vReg: 222, val: 0,0",
+                                        "name": "ProfileStatus_ProfileActionRequest",
+                                        "u_id": "2098",
+                                        "value": "0",
+                                        "id": "2098"
+                                    },
+                                    {
+                                        "desc": "pReg: 64, vReg: 224, val: 0,0",
+                                        "name": "ProfileStatus_ProfileStart",
+                                        "u_id": "2099",
+                                        "value": "0 - Min",
+                                        "id": "2099"
+                                    },
+                                    {
+                                        "desc": "pReg: 66, vReg: 226, val: 0,0",
+                                        "name": "ControlLoop_HeatProportionalBand",
+                                        "u_id": "2100",
+                                        "value": "0",
+                                        "id": "2100"
+                                    },
+                                    {
+                                        "desc": "pReg: 68, vReg: 228, val: 0,0",
+                                        "name": "ControlLoop_CoolProportionalBand",
+                                        "u_id": "2101",
+                                        "value": "0",
+                                        "id": "2101"
+                                    },
+                                    {
+                                        "desc": "pReg: 70, vReg: 230, val: 0,0",
+                                        "name": "ControlLoop_TimeIntegral",
+                                        "u_id": "2102",
+                                        "value": "0",
+                                        "id": "2102"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-1.0.3",
+                                "name": "AnalogFeedback-1",
+                                "sha1sum": "8d102e400237d16bc97aeb8a818cc50df9284448"
+                            },
+                            {
+                                "label": "AnalogFeedback-2",
+                                "desc": "",
+                                "u_id": "2103",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "desc": "pReg: 72, vReg: 232, val: 0,0",
+                                        "name": "ControlLoop_TimeDerivative",
+                                        "u_id": "2104",
+                                        "value": "0",
+                                        "id": "2104"
+                                    },
+                                    {
+                                        "desc": "pReg: 74, vReg: 234, val: 0,0",
+                                        "name": "ControlLoop_HeatHysteresis",
+                                        "u_id": "2105",
+                                        "value": "0",
+                                        "id": "2105"
+                                    },
+                                    {
+                                        "desc": "pReg: 76, vReg: 236, val: 0,0",
+                                        "name": "ControlLoop_CoolHysteresis",
+                                        "u_id": "2106",
+                                        "value": "0",
+                                        "id": "2106"
+                                    },
+                                    {
+                                        "desc": "pReg: 78, vReg: 238, val: 0,0",
+                                        "name": "ControlLoop_DeadBand",
+                                        "u_id": "2107",
+                                        "value": "0",
+                                        "id": "2107"
+                                    },
+                                    {
+                                        "desc": "pReg: 80, vReg: 240, val: 16696,3087",
+                                        "name": "AnalogInput_1_ProcessValue",
+                                        "u_id": "2108",
+                                        "value": "11.502944",
+                                        "id": "2108"
+                                    },
+                                    {
+                                        "desc": "pReg: 82, vReg: 242, val: 0,0",
+                                        "name": "AnalogInput_1_ErrorStatus",
+                                        "u_id": "2109",
+                                        "value": "0",
+                                        "id": "2109"
+                                    },
+                                    {
+                                        "desc": "pReg: 84, vReg: 244, val: 0,0",
+                                        "name": "AnalogInput_2_ProcessValue",
+                                        "u_id": "2110",
+                                        "value": "0",
+                                        "id": "2110"
+                                    },
+                                    {
+                                        "desc": "pReg: 86, vReg: 246, val: 0,0",
+                                        "name": "AnalogInput_2_ErrorStatus",
+                                        "u_id": "2111",
+                                        "value": "0",
+                                        "id": "2111"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-1.0.4",
+                                "name": "AnalogFeedback-2",
+                                "sha1sum": "ad910cbe8fa7e8e283612c3d28516cf2d5e0fdfb"
+                            },
+                            {
+                                "label": "AnalogFeedback-3",
+                                "desc": "",
+                                "u_id": "2112",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "desc": "pReg: 88, vReg: 248, val: 0,0",
+                                        "name": "Alarm1_State",
+                                        "u_id": "2113",
+                                        "value": "0",
+                                        "id": "2113"
+                                    },
+                                    {
+                                        "desc": "pReg: 90, vReg: 250, val: 0,0",
+                                        "name": "Alarm2_State",
+                                        "u_id": "2114",
+                                        "value": "0",
+                                        "id": "2114"
+                                    },
+                                    {
+                                        "desc": "pReg: 92, vReg: 252, val: 0,0",
+                                        "name": "Alarm3_State",
+                                        "u_id": "2115",
+                                        "value": "0",
+                                        "id": "2115"
+                                    },
+                                    {
+                                        "desc": "pReg: 94, vReg: 254, val: 0,0",
+                                        "name": "Alarm4_State",
+                                        "u_id": "2116",
+                                        "value": "0",
+                                        "id": "2116"
+                                    },
+                                    {
+                                        "desc": "pReg: 96, vReg: 256, val: 0,0",
+                                        "name": "Digital_Input1_Status",
+                                        "u_id": "2117",
+                                        "value": "0",
+                                        "id": "2117"
+                                    },
+                                    {
+                                        "desc": "pReg: 98, vReg: 258, val: 0,0",
+                                        "name": "Digital_Input2_Status",
+                                        "u_id": "2118",
+                                        "value": "0",
+                                        "id": "2118"
+                                    },
+                                    {
+                                        "desc": "pReg: 100, vReg: 260, val: 0,0",
+                                        "name": "Monitor_ControlModeActive",
+                                        "u_id": "2119",
+                                        "value": "0",
+                                        "id": "2119"
+                                    },
+                                    {
+                                        "desc": "pReg: 102, vReg: 262, val: 0,0",
+                                        "name": "Monitor_HeatPower",
+                                        "u_id": "2120",
+                                        "value": "0",
+                                        "id": "2120"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-1.0.5",
+                                "name": "AnalogFeedback-3",
+                                "sha1sum": "c9b98b5e2aeaea3c5e4c0394b970888b5b5570f0"
+                            },
+                            {
+                                "label": "AnalogFeedback-4",
+                                "desc": "",
+                                "u_id": "2121",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "desc": "pReg: 104, vReg: 264, val: 0,0",
+                                        "name": "Monitor_CoolPower",
+                                        "u_id": "2122",
+                                        "value": "0",
+                                        "id": "2122"
+                                    },
+                                    {
+                                        "desc": "pReg: 106, vReg: 266, val: 0,0",
+                                        "name": "Limit_State",
+                                        "u_id": "2123",
+                                        "value": "0",
+                                        "id": "2123"
+                                    },
+                                    {
+                                        "desc": "pReg: 108, vReg: 268, val: 0,0",
+                                        "name": "ProfileStatus_ProfileStart_dup",
+                                        "u_id": "2124",
+                                        "value": "0 - Min",
+                                        "id": "2124"
+                                    },
+                                    {
+                                        "desc": "pReg: 110, vReg: 270, val: 0,0",
+                                        "name": "ProfileStatus_ProfileActionRequest_dup",
+                                        "u_id": "2125",
+                                        "value": "0",
+                                        "id": "2125"
+                                    },
+                                    {
+                                        "desc": "pReg: 112, vReg: 272, val: 0,0",
+                                        "name": "Profile_CurrentFile",
+                                        "u_id": "2126",
+                                        "value": "0",
+                                        "id": "2126"
+                                    },
+                                    {
+                                        "desc": "pReg: 114, vReg: 274, val: 0,0",
+                                        "name": "Profile_CurrentStep",
+                                        "u_id": "2127",
+                                        "value": "0 - Min",
+                                        "id": "2127"
+                                    },
+                                    {
+                                        "desc": "pReg: 116, vReg: 276, val: 0,0",
+                                        "name": "ActiveSetPoint",
+                                        "u_id": "2128",
+                                        "value": "0",
+                                        "id": "2128"
+                                    },
+                                    {
+                                        "desc": "pReg: 118, vReg: 278, val: 0,0",
+                                        "name": "Profile_StepTimeRemaining",
+                                        "u_id": "2129",
+                                        "value": "0",
+                                        "id": "2129"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-1.0.6",
+                                "name": "AnalogFeedback-4",
+                                "sha1sum": "8e3161e655d2919f050d1dd0395ba58c34af365f"
+                            }
+                        ]
+                    }
+                ],
+                "CmdSet": [],
+                "Fault_List": [],
+                "menuPos": "top",
+                "colCount": 7,
+                "rowCount": 2,
+                "sha1sum": "d5220a2316e98fcd63b1c80f72e808cb6bf06cd5"
+            }
+        ],
+        "status": "0"
+    }
+}

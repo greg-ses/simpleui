@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+reference response to SYS_SUMMARY_DATA GET command
+ex: ~/cgi-bin/cgicmd?GET=SYS_SUMMARY_DATA&CGI=sqreader...
+
+uses fixed enums where:
+    modeEnum: {
+        Null: 0,
+        Charge: 1,
+        Discharge: 2,
+        OffLine: 3,
+        Standby: 4
+    }
+    
+    powerDirEnum: {
+        None: 0,
+        In: 1,
+        Out: 2
+    }
+    
+    errorEnum: {
+        None: 0,
+        Warn: 1,
+        Fault: 2
+    }
+    
+timestamps (ms):
+    1327838520000;   // 1/29/12 12:02:00 UTC, sec
+    1327838490000;   // 1/29/12 12:01:30 UTC, sec
+-->
+<systemSummaryData>
+  <resource id="1">
+    <mode>Charge</mode>
+    <dataItems>
+      <dataItem id="data1">1.1</dataItem>
+      <dataItem id="data2">30.8</dataItem>
+    </dataItems>
+    <pwrDir>1</pwrDir>
+    <err>1</err>
+    <timestamp>1327838520000</timestamp>
+  </resource>
+  <resource id="2">
+    <mode>Charge</mode>
+    <dataItems>
+      <dataItem id="data1">2.3</dataItem>
+      <dataItem id="data2">10.1</dataItem>
+    </dataItems>
+    <pwrDir>1</pwrDir>
+    <err>0</err>
+    <timestamp></timestamp>
+  </resource>
+  <resource id="3">
+    <mode>Discharge</mode>
+    <dataItems>
+      <dataItem id="data1">75</dataItem>
+      <dataItem id="data2"></dataItem>
+    </dataItems>
+    <pwrDir>2</pwrDir>
+    <err>0</err>
+  </resource>
+  <resource id="4" disabled="true">
+    <mode>Standby</mode>
+    <dataItems>
+      <dataItem id="data1">0.0</dataItem>
+    </dataItems>
+    <pwrDir>1</pwrDir>
+    <err>1</err>
+  </resource>
+  <resource id="5">
+    <mode>Quad Fault</mode>
+    <dataItems>
+      <dataItem id="varA">80.0</dataItem>
+      <dataItem id="varB">4</dataItem>
+      <dataItem id="varC">12.5</dataItem>
+    </dataItems>
+    <pwrDir>0</pwrDir>
+    <err>2</err>
+  </resource>
+  <resource id="6">
+    <mode>Charge</mode>
+    <dataItems>
+      <dataItem id="data1">2.3</dataItem>
+      <dataItem id="data2">10.1</dataItem>
+    </dataItems>
+    <pwrDir>1</pwrDir>
+    <err>0</err>
+    <timestamp>1327838490000</timestamp>
+  </resource>
+</systemSummaryData>

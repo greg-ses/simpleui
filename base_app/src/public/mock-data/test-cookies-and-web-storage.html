@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Test Cookies and Web Storage</title>
+  <base href="/">
+
+  <style>
+    div.first {
+      color: white;
+      background-color: #8cb1d9;
+    }
+
+     div.second {
+       color: pink;
+       background-color: #4080bf;
+     }
+
+    div.third {
+      color: goldenrod;
+      background-color: #336699;
+    }
+  </style>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    let appPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+    if (appPath === '') {
+      appPath = '/ng-simple-ui/';
+    }
+    let hostURI = window.location.protocol + '//' + window.location.hostname;
+    if ( (window.location.port !== '80') && (window.location.port !== '')) {
+      hostURI += ':' + window.location.port;
+    }
+
+    let appURI = hostURI + appPath;
+    let url = new URL(window.location.href);
+    let uiProp = url.searchParams.get("uiProp");
+
+    let webpackURI = appURI + '/js/';
+    document.title = appURI;
+
+    console.log("appURI : ", appURI );
+    let link = document.createElement('link');
+    link.setAttribute('rel', 'icon');
+    link.type = 'image/x-icon';
+    link.href = appURI + '/images/favicon.ico';
+    document.head.appendChild(link);
+
+    let base = document.getElementsByTagName('base')[0];
+    base['hostURI'] = hostURI ;
+    base['appURI'] = appURI ;
+    base['uiProp'] = uiProp;
+    if (uiProp) {
+        document.title = uiProp;
+    }
+
+    function setCookieStorage(event) {
+      const value = window.prompt('Enter value of cookie data to store, or empty to delete:', 'cookie data');
+      if (value === '') {
+        document.cookie = 'value=;' + '; path=/value; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+      } else {
+        document.cookie = 'value=' + value + '; path=/value; expires=Tue, 20 Aug 2019 17:15:00 UTC;';
+      }
+    }
+
+    function setWindowSessionStorage(event) {
+      const value = window.prompt('Enter value of Window.sessionStorage data to store, or empty to delete:', 'Window.sessionStorage data');
+      if (value === '') {
+        sessionStorage.removeItem(value);
+      } else {
+        sessionStorage.value = value;
+      }
+    }
+
+    function setWindowLocalStorage(event) {
+      const value = window.prompt('Enter value of Window.localStorage data to store, or empty to delete:', 'Window.localStorage data');
+      if (value === '') {
+        localStorage.removeItem(value);
+      } else {
+        localStorage.value = value;
+      }
+    }
+
+    function onLoad(event) {
+      if (document.cookie !== '') {
+        document.getElementById('cookie-data').innerText = document.cookie;
+      }
+
+      if (sessionStorage.value !== '') {
+        document.getElementById('window-session-storage-data').innerText = sessionStorage.value;
+      }
+
+      if (localStorage.value !== '') {
+        document.getElementById('window-local-storage-data').innerText = localStorage.value;
+      }
+    }
+
+  </script>
+  <!-- link href="https://fonts.googleapis.com/icon?family=Material+Iconsrel="stylesheet" -->
+  <base href=appURI />
+</head>
+<body style="margin:0;overflow:hidden;padding:10px;" onLoad="onLoad(event)">
+
+  <div class="first">
+    <h3>Cookie data</h3>
+    <div id="cookie-data">
+        Initial cookie-data (not from cookie).<br/>
+    </div>
+    <button value="cookie-data" onClick="setCookieStorage(event)">setCookieStorage</button>
+  </div>
+
+  <div class="second">
+    <h3>window-session-storage-data</h3>
+    <div id="window-session-storage-data">
+      Initial window-session-storage-data (not from window-session-storage).<br/>
+    </div>
+    <button value="window-session-storage" onClick="setWindowSessionStorage(event)">setWindowSessionStorage</button>
+  </div>
+
+  <div class="third">
+    <h3>Window.localStorage data</h3>
+    <div id="window-local-storage-data">
+      Initial window-local-storage-data (not from window-local-storage).<br/>
+    </div>
+    <button value="window-local-storage" onClick="setWindowLocalStorage(event)">setWindowLocalStorage</button>
+  </div>
+</body>
+</html>

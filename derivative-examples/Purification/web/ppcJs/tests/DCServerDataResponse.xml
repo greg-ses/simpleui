@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+reference response to DCSERVER_DATA GET command
+ex: ~/cgi-bin/cgicmd?GET=DCSERVER_DATA&CGI=sqreader...
+   
+timestamp (ms):
+    1327838520000;   // 1/29/12 12:02:00 UTC
+-->
+<DCServerData>
+  <timestamp>1327838520000</timestamp>
+  <DCDC id="DCDC1">
+    <item id="Batt_Current">10.2</item>
+    <item id="Batt_Voltage">20.3</item>
+    <item id="DCBus_Voltage">30.4</item>
+    <item id="Bus_Current">40.5</item>
+    <item id="Amp_Hours">50.6</item>
+    <item id="OVP_Setpoint">60.7</item>
+    <item id="DC_OutSense">1</item>
+    <item id="Status">2</item>
+    <item id="Fault_Status">3</item>  
+  </DCDC>
+  <DCDC id="DCDC2">    
+    <item id="Batt_Current">10.2</item>
+    <item id="Batt_Voltage">20.3</item>
+    <item id="DCBus_Voltage">30.4</item>
+    <item id="Bus_Current">40.5</item>
+    <item id="Amp_Hours">50.6</item>
+    <item id="OVP_Setpoint">60.7</item>
+    <item id="DC_OutSense">1</item>
+    <item id="Status">2</item>
+    <item id="Fault_Status">3</item>  
+  </DCDC>
+  <DCDC id="DCDC3">
+    <item id="Batt_Current">10.2</item>
+    <item id="Batt_Voltage">20.3</item>
+    <item id="DCBus_Voltage">30.4</item>
+    <item id="Bus_Current">40.5</item>
+    <item id="Amp_Hours">50.6</item>
+    <item id="OVP_Setpoint">60.7</item>
+    <item id="DC_OutSense">1</item>
+    <item id="Status">2</item>
+    <item id="Fault_Status">3</item>  
+  </DCDC>
+  <DCDC id="DCDC4">
+    <item id="Batt_Current">10.2</item>
+    <item id="Batt_Voltage">20.3</item>
+    <item id="DCBus_Voltage">30.4</item>
+    <item id="Bus_Current">40.5</item>
+    <item id="Amp_Hours">50.6</item>
+    <item id="OVP_Setpoint">60.7</item>
+    <item id="DC_OutSense">1</item>
+    <item id="Status">2</item>
+    <item id="Fault_Status">3</item>  
+  </DCDC>
+  <DCDC id="DCDC5">
+      <item id="Batt_Current">10.2</item>
+    <item id="Batt_Voltage">20.3</item>
+    <item id="DCBus_Voltage">30.4</item>
+    <item id="Bus_Current">40.5</item>
+    <item id="Amp_Hours">50.6</item>
+    <item id="OVP_Setpoint">60.7</item>
+    <item id="DC_OutSense">1</item>
+    <item id="Status">2</item>
+    <item id="Fault_Status">3</item>  
+  </DCDC>
+</DCServerData>

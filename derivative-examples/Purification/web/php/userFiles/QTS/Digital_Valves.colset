@@ -1,0 +1,38 @@
+TABLE_NAME=dio
+META_TYPE=DIGITAL
+<COLUMN_DEFINITION>
+	# Name, SQL_TYPE, MetaType, Description
+	rowid,INTEGER,INTEGER,Unique row Unique Row ID
+	timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st, 1970
+	num_points,INTEGER,INTEGER,Number of points in averaged in float values
+	DOUT_Valve_Complex,INTEGER,DIGITAL, 
+	DIN_Valve_Complex_-_Closed,INTEGER,DIGITAL, 
+	DIN_Valve_Complex_-_Open,INTEGER,DIGITAL, 
+	DOUT_Valve_Bromine,INTEGER,DIGITAL, 
+	DIN_Valve_Bromine_-_Closed,INTEGER,DIGITAL, 
+	DIN_Valve_Bromine_-_Open,INTEGER,DIGITAL, 
+	DOUT_Valve_Neutralize,INTEGER,DIGITAL, 
+	DIN_Valve_Neutralize_-_Closed,INTEGER,DIGITAL, 
+	DIN_Valve_Neutralize_-_Open,INTEGER,DIGITAL, 
+</COLUMN_DEFINITION>
+<VARS>
+	LASTID
+	BEGIN
+	END
+	MAXNUMPTS
+</VARS>
+<SQL>
+	SELECT  rowid, timestamp, num_points
+		, DOUT_04 as `DOUT_Valve_Complex`
+		, DIN_04 as `DIN_Valve_Complex_-_Closed`
+		, DIN_05 as `DIN_Valve_Complex_-_Open`
+		, DOUT_05 as `DOUT_Valve_Bromine`
+		, DIN_06 as `DIN_Valve_Bromine_-_Closed`
+		, DIN_07 as `DIN_Valve_Bromine_-_Open`
+		, DOUT_06 as `DOUT_Valve_Neutralize`
+		, DIN_08 as `DIN_Valve_Neutralize_-_Closed`
+		, DIN_09 as `DIN_Valve_Neutralize_-_Open`
+	FROM dio 
+	WHERE rowid > `LASTID` AND timestamp > `BEGIN` AND timestamp <= `END` 
+	ORDER BY rowid ASC LIMIT `MAXNUMPTS`;
+</SQL>

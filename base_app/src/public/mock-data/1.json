@@ -1,0 +1,101 @@
+{
+  "label": "Active_Fault_List",
+  "desc": "",
+  "u_id": "2238",
+  "url": "",
+  "tooltip": "",
+  "elements": [
+    {
+      "ev_details": "value 37876.88 >= 37400.00",
+      "fault_code": "Process-Mod2-2",
+      "idx": "114",
+      "name": "Mod2-Process-AnTank-2-Tank_Level",
+      "timestamp": "16:20:38",
+      "u_id": "2238",
+      "value": "trip\n                ",
+      "id": "2238"
+    },
+    {
+      "ev_details": "value 37876.88 >= 37400.00",
+      "fault_code": "Process-Mod2-4",
+      "idx": "116",
+      "name": "Mod2-Process-AnTank-3-Tank_Level",
+      "timestamp": "16:20:38",
+      "u_id": "2239",
+      "value": "trip\n                ",
+      "id": "2239"
+    },
+    {
+      "ev_details": "value 37876.88 >= 37400.00",
+      "fault_code": "Process-Mod2-6",
+      "idx": "118",
+      "name": "Mod2-Process-AnTank-4-Tank_Level",
+      "timestamp": "16:20:38",
+      "u_id": "2240",
+      "value": "trip\n                ",
+      "id": "2240"
+    },
+    {
+      "ev_details": "value 37876.88 >= 37400.00",
+      "fault_code": "Process-Mod2-8",
+      "idx": "120",
+      "name": "Mod2-Process-CaTank-2-Tank_Level",
+      "timestamp": "16:20:38",
+      "u_id": "2241",
+      "value": "trip\n                ",
+      "id": "2241"
+    },
+    {
+      "ev_details": "value 37876.88 >= 37400.00",
+      "fault_code": "Process-Mod2-10",
+      "idx": "122",
+      "name": "Mod2-Process-CaTank-3-Tank_Level",
+      "timestamp": "16:20:38",
+      "u_id": "2242",
+      "value": "trip\n                ",
+      "id": "2242"
+    },
+    {
+      "ev_details": "",
+      "fault_code": "....",
+      "idx": "",
+      "name": "15 more not displayed.",
+      "timestamp": "",
+      "u_id": "2243",
+      "value": "\n                    ...\n                ",
+      "id": "2243"
+    }
+  ],
+  "tableType": "PropDefinedTable",
+  "props": {
+    "index": "0",
+    "id": "table-1",
+    "element": "Active_Fault_List",
+    "item": "Fault",
+    "columns": []
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

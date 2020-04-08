@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AcAcControl test</title>
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/soria/soria.css" />
+    <link rel="stylesheet" type="text/css" href="../themes/acAcControl/acAcControl.css" />
+
+    <script type="text/javascript">
+        // djConfig must be set before any dojo scripts are loaded
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            modulePaths: { 'ppcJs': '../../ppcJs' }
+        };
+    </script>
+
+    <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        dojo.provide("ppcJs.tests.DcDcControlTestHTML");
+        dojo.require("dojo.parser");
+        dojo.require("doh.runner");
+        dojo.require("dojo.robot");
+
+        dojo.require("ppcJs.DcDcControl");
+
+        var paramControlUITestTimeout = 7000;
+
+        dojo.addOnLoad(function () {
+            doh.register("ppcJs.tests.DcDcControlTest", [
+                    function testCreateDcDcControlHomeView(t) {
+                        var sutContainer = dojo.byId("sutContainer");
+
+                        var sut = new ppcJs.DcDcControl();
+                        dojo.place(sut.domNode, "sutContainer");
+
+                        var dto = new ppcJs.DcDcDTO(
+                            1,                  // cabPwr
+                            1,                  // temp
+                            '0123456789abcdef', // mode
+                            90.0                // busVoltage
+                        );
+                        sut.update(dto);
+                        t.assertTrue(true);
+                    }
+                ]);
+            //Execute D.O.H. in this remote file.
+            doh.run();
+        });
+    </script>
+</head>
+<body class="soria">
+    <!-- place to insert sut. -->
+    <div id="sutContainer" style="width: 300px">
+    </div>
+    <div id="mouseOutArea" style="width: 300px; height: 100px">
+        <br />
+    </div>
+</body>
+</html>

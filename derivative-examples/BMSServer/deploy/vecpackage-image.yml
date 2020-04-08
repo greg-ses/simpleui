@@ -1,0 +1,74 @@
+---
+# use flag --extra-vars "remupdate=true" to complete the distribution to all VECs.
+# Without the flag set the packages are created and copied to the BMS server staging area only.
+- hosts: all
+  vars:
+    app_name: vecpackage-image
+  remote_user: service
+  tasks:
+  - include_vars:
+      file: commonvars.yml
+  - name: Prep Local Staging Area
+    local_action: file path={{ unit_config_source_dir }} state=absent
+  - local_action: file path={{ unit_config_source_dir }} state=directory mode=0755
+  - name: Prep BMS Target Staging Area
+    file:
+      path: "{{ bms_stage_dir }}"
+      state: directory
+      mode: 0755
+
+  - name: Copy Rootfs Files To Local Stage Area
+    local_action: command install -D {{ rootfs_source_dir }}/etc/apache2/httpd.conf {{ unit_config_source_dir }}/etc/apache2/httpd.conf
+#  - local_action: command install -D {{ rootfs_source_dir }}/etc/apache2/server.crt {{ unit_config_source_dir }}/etc/apache2/server.crt
+#  - local_action: command install -D {{ rootfs_source_dir }}/etc/apache2/server.key {{ unit_config_source_dir }}/etc/apache2/server.key
+  - local_action: command install -D {{ rootfs_source_dir }}/lib/systemd/system/apache2.service {{ unit_config_source_dir }}/lib/systemd/system/apache2.service
+  - local_action: command install -D {{ rootfs_source_dir }}/lib/systemd/system/ntpd.service {{ unit_config_source_dir }}/lib/systemd/system/ntpd.service
+  - local_action: command install -D {{ rootfs_source_dir }}/etc/systemd/system/sys-health.service {{ unit_config_source_dir }}/etc/systemd/system/sys-health.service
+  - local_action: command install -D {{ rootfs_source_dir }}/etc/systemd/system/sys-health.timer {{ unit_config_source_dir }}/etc/systemd/system/sys-health.timer
+
+  - local_action: command install -D {{ rootfs_source_dir }}/etc/ntp.conf {{ unit_config_source_dir }}/etc/ntp.conf
+  - local_action: command install -D {{ rootfs_source_dir }}/etc/default/ntpdate {{ unit_config_source_dir }}/etc/default/ntpdate
+  - local_action: command install -D {{ rootfs_source_dir }}/etc/systemd/system/device_service.service {{ unit_config_source_dir }}/etc/systemd/system/device_service.service
+  - local_action: command install -D {{ rootfs_source_dir }}/etc/systemd/system/event_server.service {{ unit_config_source_dir }}/etc/systemd/system/event_server.service
+  - local_action: command install -D {{ rootfs_source_dir }}/etc/vionx/vionx_configure.sh {{ unit_config_source_dir }}/etc/vionx/vionx_configure.sh
+  - local_action: command install -D {{ rootfs_source_dir }}/etc/vionx/mon-device-server.sh {{ unit_config_source_dir }}/etc/vionx/mon-device-server.sh
+  - local_action: command install -D {{ rootfs_source_dir }}/etc/ssh/sshd_config {{ unit_config_source_dir }}/etc/ssh/sshd_config
+  - local_action: command install -D {{ rootfs_source_dir }}/usr/share/apache2/htdocs/sysmgmt/get-proc-stats.php {{ unit_config_source_dir }}/usr/share/apache2/htdocs/sysmgmt/get-proc-stats.php
+  - local_action: command install -D {{ rootfs_source_dir }}/usr/share/apache2/htdocs/sysmgmt/get-proc-stats.sh {{ unit_config_source_dir }}/usr/share/apache2/htdocs/sysmgmt/get-proc-stats.sh
+  - local_action: command install -D {{ rootfs_source_dir }}/etc/hosts {{ unit_config_source_dir }}/etc/hosts
+  - local_action: command install -D {{ rootfs_source_dir }}/etc/vionx/sd_format.sh {{ unit_config_source_dir }}/etc/vionx/sd_format.sh
+
+  # Updated Poco libraries
+  - local_action: command install -d 0755 {{ unit_config_source_dir }}/usr/lib
+  - local_action: shell cp --preserve=links {{ rootfs_source_dir }}/usr/lib/libPoco* {{ unit_config_source_dir }}/usr/lib/.
+
+  #Updated zeromq libraries
+  - local_action: command install -d 0755 {{ unit_config_source_dir }}/usr/lib/php7/extensions/no-debug-zts-20160303/
+  - local_action: shell cp --preserve=links {{ rootfs_source_dir }}/usr/lib/php7/extensions/no-debug-zts-20160303/zmq.so {{ unit_config_source_dir }}/usr/lib/php7/extensions/no-debug-zts-20160303/.
+  - local_action: shell cp --preserve=links {{ rootfs_source_dir }}/usr/lib/libzmq.so.5 {{ unit_config_source_dir }}/usr/lib/libzmq.so.5
+
+  #- local_action: command rsync -avz -e ssh {{ rootfs_source_dir }}/lib/*Poco* root@remote.host:dst/dir
+  - name: Create rootfs archive for transfer
+    local_action: command tar -czf /tmp/{{ app_name }}.tar.gz -C {{ unit_config_source_dir }}/ ./
+
+  - name: Copy archive to target
+    copy: src=/tmp/{{ app_name }}.tar.gz dest={{ bms_stage_dir }}/{{ app_name }}.tar.gz
+
+  - name: Invoke BMS ansible script for VEC distribution (Not Yet)
+    command: ansible-playbook {{ bms_ansible_dir }}/devimage-update.yml --limit Sys-Units
+    register: bms_ansible_out
+    when: remupdate is defined
+  - debug: msg="{{ bms_ansible_out.stdout }}"
+    when: remupdate is defined
+
+  #- name: Backup Previous Files
+  #  shell: tar -czf {{ archive_dir }}/{{ app_name }}{{ archive_suffix }}.tar.gz {{ target_dir }}/{{ app_name }}
+  #- shell: cp -P {{ target_dir }}/{{ app_name }}/ui.properties /tmp/.
+  #- name: Delete Previous UI directory
+  #  file:
+  #    state: absent
+  #    path: "{{ target_dir }}/{{ app_name }}"
+  #- name: Decompress new archive on target
+  #  shell: tar -xf {{ stage_dir }}/{{ app_name }}.tar -C {{ target_dir }}
+  #- shell: cp -P /tmp/ui.properties {{ target_dir }}/{{ app_name }}/.
+  #  # unarchive: dest=/usr/share/apache2/htdocs remote_src=yes src=/home/root/module-staging-area/device.tar

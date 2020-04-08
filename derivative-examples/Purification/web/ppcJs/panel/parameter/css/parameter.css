@@ -1,0 +1,18 @@
+﻿@import url("../../../control/param/css/param.css");
+
+div.parameterPanel 
+{
+    margin: 5px;
+    background-color:White;
+}
+
+div.parameterPanelButtonRow
+{
+    margin-top: 10px;
+}
+
+div.parameterPanelTreeDiv
+{
+    margin-top: 15px;
+    
+}

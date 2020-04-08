@@ -1,0 +1,17 @@
+/** THIS FILE IS AUTO-GENERATED, DO NOT EDIT **/
+#pragma once
+
+#include "core/GitInfo.h"
+#define GIT_REVSTR "efffd46d0932f80a65d38824e1121a457a91ceb5"
+#define GIT_REVSTR "efffd46d0932f80a65d38824e1121a457a91ceb5"
+#define GIT_REVDATE "2020-03-05 12:56:32 -0500"
+#define GIT_BRANCH "develop-zeromq-for-nodejs"
+#define GIT_STATUS ""
+#define GIT_DIRTY_STATUS "clean"
+#define GIT_TAG_INFO ""
+#define GIT_REVSTR_SHORT "dev efffd46"
+#define GIT_USER "jscarsdale"
+#define GIT_REV_SUMMARY "build-dev efffd46 develop-zeromq-for-nodejs clean 2020-03-05 12:56:32 -0500"
+#define CREATION_DATE "2020-03-05 12:58 EST"
+
+const tGitData GITDATA = {GIT_REVSTR, GIT_REVDATE, GIT_BRANCH, GIT_STATUS, GIT_DIRTY_STATUS, GIT_TAG_INFO, GIT_REVSTR_SHORT, GIT_USER, GIT_REV_SUMMARY};

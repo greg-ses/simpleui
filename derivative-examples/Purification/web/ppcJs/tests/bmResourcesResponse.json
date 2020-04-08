@@ -1,0 +1,5 @@
+{"scriptResources" 
+		: [ {"resourceName":"BMC 01","resourceId":"BMC01"}
+		   , {"resourceName":"BMC 02","resourceId":"BMC02"}]
+ }
+

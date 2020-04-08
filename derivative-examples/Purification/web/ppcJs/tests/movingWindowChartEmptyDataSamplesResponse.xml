@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+reference response to DATA_SET_RANGE GET command when no new data is present (ie, data is unchanged)
+ex: ~/cgi-bin/cgicmd?GET=DATA_SET_RANGE&CGI=sqreader...
+-->
+<dataSet>
+  <timeStamp>1324482430</timeStamp>
+</dataSet>
+

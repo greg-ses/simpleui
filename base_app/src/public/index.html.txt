@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- script src="LoggingFeatures.js"></script -->
+    <script>
+        // WARNING: This file is manipulated by webpack.config.js during SIMPLE_UI build
+        //          and again by merge-derived-app.sh when merging a SIMPLE_UI derivative app.
+        //          Use caution when changing it.
+        //var appDir = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+        var appDir = window.location.protocol + '//' + window.location.hostname + '/';
+        document.title = appDir;
+        console.log("appDir: ", appDir);
+        var link = document.createElement('link');
+        link.setAttribute('rel', 'icon');
+        link.type = 'image/x-icon';
+        link.href = appDir + 'images/favicon.ico';
+        document.head.appendChild(link);
+
+    </script>
+    <base href=appDir>
+    <!-- link href="/simple_ui/app.css" rel="stylesheet" -->
+</head>
+<body>
+</body>
+</html>

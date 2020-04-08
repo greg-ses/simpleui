@@ -1,0 +1,11 @@
+---
+- hosts: REPLICATION
+  remote_user: service
+  tasks:
+  - name: 'Copying files'
+    copy:
+      src: "{{ item }}"
+      dest: /var/www/siteshir-fleetviewer/userfiles/Mod1
+    with_fileglob:
+      - ./*.colset
+

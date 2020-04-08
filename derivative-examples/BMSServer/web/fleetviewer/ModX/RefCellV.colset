@@ -1,0 +1,33 @@
+TABLE_NAME=VNX1000_IO
+META_TYPE=FLOAT
+NO_TABLE_PREFIX=true
+<COLUMN_DEFINITION>
+	# Name, SQL_TYPE, MetaType, Description
+	timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st, 1970
+	num_points,INTEGER,INTEGER,Hint
+	ET301A_Reference_OCV_Voltage_A,DOUBLE,DOUBLE,TBD
+	ET301B_Reference_OCV_Voltage_B,DOUBLE,DOUBLE,TBD
+	ET301C_Reference_OCV_Voltage_C,DOUBLE,DOUBLE,TBD
+</COLUMN_DEFINITION>
+<VARS>
+	LASTID
+	BEGIN
+	END
+	MACHINE_NAME
+	MAXNUMPTS
+</VARS>
+<SQL>
+	SELECT  timestamp, num_points
+	, `ET301A_Reference_OCV_Voltage_A`
+	, `ET301B_Reference_OCV_Voltage_B`
+	, `ET301C_Reference_OCV_Voltage_C`
+	FROM `VNX1000_IO`
+	WHERE resource = `MACHINE_NAME` AND timestamp >= `BEGIN` AND timestamp <= `END` 
+	ORDER BY timestamp ASC LIMIT `MAXNUMPTS`;
+</SQL>
+<CHART_CONFIG>
+ Y_MIN=0   # Expected Graph y axis min
+ Y_MAX=1000  # Expected Graph y axis max
+ Y_PIX=25  # Y Graniluarity of the filtered data, the higher the number the more points.
+ X_PIX=500  # X Graniluarity of the filtered data, the higher the number the more points.
+</CHART_CONFIG>

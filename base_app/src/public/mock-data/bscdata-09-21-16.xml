@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2000">
+    <Title u_id="2001">Default</Title>
+    <timeStamp u_id="2002">1</timeStamp>
+    <Version u_id="2003">Mock data from static XML</Version>
+    <Section u_id="2003.1" name="old Greg">
+        <CmdSet u_id="2003.2">
+            <command confirm="true" name="Post" u_id="2004"/>
+            <command confirm="true" disabled="false" name="Local Mode" u_id="2004.1"/>
+            <command confirm="false" disabled="false" name="Vent Fans" u_id="1.7.14.2"/>
+        </CmdSet>
+        <DataSets u_id="2004.1">
+            <Configuration>
+                <NumModules u_id="2005">8</NumModules>
+                <NumStrings u_id="2006">2</NumStrings>
+                <ThermalType u_id="2007">DOE</ThermalType>
+            </Configuration>
+            <SystemLimits u_id="2007.1">
+                <NamePlateCapacity u_id="2008" units="kW">0</NamePlateCapacity>
+                <MaxChargeKW u_id="2009" units="kW">0</MaxChargeKW>
+                <MaxChargeAmps u_id="2010" units="A">400</MaxChargeAmps>
+                <MaxChargeV u_id="2011" units="V">1600</MaxChargeV>
+                <MaxDischargeKW u_id="2012" units="kW">6</MaxDischargeKW>
+                <MaxDischargeAmps u_id="2013" units="A">600</MaxDischargeAmps>
+                <MinDischargeV u_id="2014" units="V">600</MinDischargeV>
+            </SystemLimits>
+            <SystemData u_id="2014.1">
+                <System_Mode u_id="2015">Standby</System_Mode>
+                <DcBattAmps u_id="2016" units="A">2.0</DcBattAmps>
+                <DcBattV u_id="2017" units="V">1316.0</DcBattV>
+                <DcBattSoC u_id="2018" units="%">-0.5</DcBattSoC>
+            </SystemData>
+            <String1 u_id="2018.1">
+                <DcStringAmps u_id="2019" units="A">1.0</DcStringAmps>
+                <DcStringV u_id="2020" units="V">1316.0</DcStringV>
+                <DcStringSoC u_id="2021" units="%">16.1</DcStringSoC>
+            </String1>
+            <String2 u_id="2021.1">
+                <DcStringAmps u_id="2022" units="A">1.0</DcStringAmps>
+                <DcStringV u_id="2023" units="V">1316.0</DcStringV>
+                <DcStringSoC u_id="2024" units="%">15.1</DcStringSoC>
+            </String2>
+        </DataSets>
+        <DataSets u_id="2024.1">
+            <DataMod1 u_id="2024.2">
+                <System_Mode u_id="2025">Standby</System_Mode>
+                <DcModAmps u_id="2026" units="A">1.0</DcModAmps>
+                <DcModV u_id="2027" units="V">329.0</DcModV>
+                <DcModSoC u_id="2028" units="%">17.2</DcModSoC>
+            </DataMod1>
+            <DataMod2 u_id="2028.1">
+                <System_Mode u_id="2029">Standby</System_Mode>
+                <DcModAmps u_id="2030" units="A">1.0</DcModAmps>
+                <DcModV u_id="2031" units="V">329.0</DcModV>
+                <DcModSoC u_id="2032" units="%">14.7</DcModSoC>
+            </DataMod2>
+            <DataMod3 u_id="2032.1">
+                <System_Mode u_id="2033">Standby</System_Mode>
+                <DcModAmps u_id="2034" units="A">1.0</DcModAmps>
+                <DcModV u_id="2035" units="V">329.0</DcModV>
+                <DcModSoC u_id="2036" units="%">15.4</DcModSoC>
+            </DataMod3>
+            <DataMod4 u_id="2036.1">
+                <System_Mode u_id="2037">Standby</System_Mode>
+                <DcModAmps u_id="2038" units="A">1.0</DcModAmps>
+                <DcModV u_id="2039" units="V">329.0</DcModV>
+                <DcModSoC u_id="2040" units="%">17.2</DcModSoC>
+            </DataMod4>
+            <DataMod5 u_id="2040.1">
+                <System_Mode u_id="2041">Standby</System_Mode>
+                <DcModAmps u_id="2042" units="A">1.0</DcModAmps>
+                <DcModV u_id="2043" units="V">329.0</DcModV>
+                <DcModSoC u_id="2044" units="%">15.5</DcModSoC>
+            </DataMod5>
+            <DataMod6 u_id="2044.1">
+                <System_Mode u_id="2045">Standby</System_Mode>
+                <DcModAmps u_id="2046" units="A">1.0</DcModAmps>
+                <DcModV u_id="2047" units="V">329.0</DcModV>
+                <DcModSoC u_id="2048" units="%">14.7</DcModSoC>
+            </DataMod6>
+            <DataMod7 u_id="2048.1">
+                <System_Mode u_id="2049">Standby</System_Mode>
+                <DcModAmps u_id="2050" units="A">1.0</DcModAmps>
+                <DcModV u_id="2051" units="V">329.0</DcModV>
+                <DcModSoC u_id="2052" units="%">14.7</DcModSoC>
+            </DataMod7>
+            <DataMod8 u_id="2052.1">
+                <System_Mode u_id="2053">Standby</System_Mode>
+                <DcModAmps u_id="2054" units="A">1.0</DcModAmps>
+                <DcModV u_id="2055" units="V">329.0</DcModV>
+                <DcModSoC u_id="2056" units="%">15.5</DcModSoC>
+            </DataMod8>
+        </DataSets>
+    </Section>
+  </Data_Summary>

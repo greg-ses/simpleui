@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>DiagramBlockControl test</title>
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/soria/soria.css" />
+    <link rel="stylesheet" type="text/css" href="../control/diagramBlock/css/diagramBlock.css" />
+
+    <script type="text/javascript">
+        // djConfig must be set before any dojo scripts are loaded
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            modulePaths: { 'ppcJs': '../../ppcJs' }
+        };
+    </script>
+
+    <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        dojo.provide("ppcJs.tests.DiagramBlockControlTestHTML");
+        dojo.require("dojo.parser");
+        dojo.require("doh.runner");
+        dojo.require("dojo.robot");
+        dojo.require('ppcJs.Enum');
+        dojo.require("ppcJs.control.DiagramBlock");
+        dojo.require('ppcJs.control.diagramBlock.dbDto');
+        dojo.require("ppcJs.tests.ParamControlTestUtilities");
+
+        var paramControlUITestTimeout = 7000;
+
+        dojo.addOnLoad(function () {
+            doh.register("ppcJs.tests.DiagramBlockControlTest", [
+                    function testSelectDiagramBlock(t) {
+                        var sutContainer = dojo.byId("sutContainer");
+
+                        // first is selected
+                        var serverId1 = 'sut1';
+                        var name1 = serverId1 + ' - long type';
+                        var isMaster = true;
+                        var id1 = 'id1';
+                        var id2 = 'id2';
+                        var dataConfigs = [new ppcJs.control.diagramBlock.dbDto.DataConfig(id1, 'DT1', 'data item 1, integer', ppcJs.Enum.ValueType.Integer),
+                                        new ppcJs.control.diagramBlock.dbDto.DataConfig(id2, 'DT2', 'data item 2, float', ppcJs.Enum.ValueType.Float)];
+
+                        var resourceType1 = serverId1 + ' - long type';
+                        var dto1 = new ppcJs.control.diagramBlock.dbDto.Ctor(serverId1, name1, isMaster, dataConfigs, resourceType1);
+                        var sut = new ppcJs.control.DiagramBlock(dto1);
+                        dojo.place(sut.domNode, "sutContainer");
+
+                        var timestamp = 1327838520000;   // 1/29/12 12:02:00 UTC, ms
+                        var dataValues = [new ppcJs.control.diagramBlock.dbDto.DataValue(id1, 10),
+                                        new ppcJs.control.diagramBlock.dbDto.DataValue(id2, 100.22)];
+                        var newState = new ppcJs.control.diagramBlock.dbDto.Status(ppcJs.control.diagramBlock.dbDto.PowerDirEnum.In,
+                                                                    'Service Mode',
+                                                                    dataValues,
+                                                                    ppcJs.Enum.Error.Fault,
+                                                                    timestamp);
+                        sut.update(newState);
+                        sut.select();
+
+                        // second is unselected
+                        var serverId2 = 'sut2';
+                        var name2 = serverId2 + ' - long name';
+                        var resourceType2 = serverId2 + ' - long type';
+                        var dto2 = new ppcJs.control.diagramBlock.dbDto.Ctor(serverId2, name2, isMaster, dataConfigs, resourceType2);
+                        var sut2 = new ppcJs.control.DiagramBlock(dto2);
+                        dojo.place(sut2.domNode, "sutContainer");
+                        sut2.update(newState);
+                        sut2.unselect();
+
+                        var deferred = new doh.Deferred();
+                        setTimeout(deferred.getTestCallback(function () {
+                            doh.assertTrue(true);
+                        }), 200);
+                        return deferred;
+                    },
+
+                ]);
+            //Execute D.O.H. in this remote file.
+            doh.run();
+        });
+    </script>
+</head>
+<body class="soria">
+    <!-- place to insert sut. -->
+    <div id="sutContainer" style="width: 300px">
+    </div>
+    <div id="mouseOutArea" style="width: 300px; height: 100px">
+        <br />
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<div *ngIf='_cmdset?.orientation === "horizontal"' id='cmd_bar'>
+    <table border='0' width='100%'>
+        <tbody>
+        <tr>
+            <td class='cmd-bar-horizontal' align='left' [title]='_cmdset?.sha1sums'>
+                <app-command-button *ngFor='let i of getRange()'
+                    [_uiTab]='_uiTab' [element]="_cmdset?.elements[i]"
+                    [_container]='"cmdset"' [_sha1sum]="_cmdset?.elements[i].sha1sum"
+                ></app-command-button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<table *ngIf="_cmdset?.orientation === 'vertical'" border='0' width='100%'>
+    <tbody>
+    <tr>
+        <td class='cmd-bar-vertical' align='left' [title]='_cmdset?.sha1sums'>
+            <div *ngFor='let i of getRange()'>
+                <app-command-button
+                    [_uiTab]='_uiTab' [element]="_cmdset?.elements[i]"
+                    [_container]='"cmdset"' [_sha1sum]="_cmdset?.elements[i].sha1sum"
+                ></app-command-button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

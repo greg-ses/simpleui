@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2002">
+    <Title u_id="2002">BSC</Title>
+    <timeStamp u_id="2003">1554235176902</timeStamp>
+    <Version u_id="2004">BSCServer: bms_pump_controls_dev, 2019-04-01 13:59 EDT:</Version>
+    <Section name="Battery System" u_id="2006">
+        <CmdSet u_id="2007">
+            <command cmd="Local" confirm="true" desc="desc" dest="0-0" disabled="false" idnum="0" label="Local"
+                     name="Local" u_id="2008"/>
+            <command cmd="Clear_Fault" confirm="false" desc="Reset any active faults in the system." dest="0-0"
+                     disabled="false" idnum="0" label="Clear_Fault" name="Clear_Fault" u_id="2009"/>
+            <command cmd="Rebal_Molar" desc="Execute's a Anolyte Mole balance sequence." dest="0-0" disabled="false"
+                     idnum="0" label="Rebal_Molar" name="Rebal_Molar" u_id="2010">
+                <_input _type="float" desc="Enter Target SOC" idnum="0" max="80.0" min="0.0" u_id="2011" value="0.0"/>
+            </command>
+        </CmdSet>
+        <DataSets u_id="2012">
+            <System_Information u_id="2013">
+                <dyn name="Cycle_Num" u_id="2014">4228</dyn>
+                <dyn name="Grid_Modbus_Active" u_id="2015">yes</dyn>
+                <dyn name="Last_Rebal" u_id="2016">Apr, 2 11:59</dyn>
+            </System_Information>
+            <Configuration u_id="2017">
+                <dyn name="NumStrings" u_id="2018">1</dyn>
+                <dyn name="NumModules" u_id="2019">2</dyn>
+                <dyn name="ThermalType" u_id="2020">Cerl</dyn>
+            </Configuration>
+            <SystemLimits u_id="2021">
+                <dyn name="MaxChargeKW" u_id="2022" units="kW">154</dyn>
+                <dyn name="MaxChargeAmps" u_id="2023" units="A">200</dyn>
+                <dyn name="MaxDischargeKW" u_id="2024" units="kW">128</dyn>
+                <dyn name="MaxChargeV" u_id="2025" units="V">800</dyn>
+                <dyn name="MaxDischargeAmps" u_id="2026" units="A">300</dyn>
+                <dyn name="MinDischargeV" u_id="2027" units="V">300</dyn>
+            </SystemLimits>
+            <SystemData u_id="2028">
+                <dyn class="priority" name="System_Mode" u_id="2029">Active</dyn>
+                <dyn name="ChargeSt" u_id="2030">Charging</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2031">off</dyn>
+                <dyn name="DcBattV" u_id="2032" units="V">707.0</dyn>
+                <dyn name="DcBattAmps" u_id="2033" units="A">-198.9</dyn>
+                <dyn name="DcBattKW" u_id="2034" units="kW">-140.6</dyn>
+                <dyn class="priority" name="DcBattSoC" u_id="2035" units="%">16.4</dyn>
+            </SystemData>
+        </DataSets>
+    </Section>
+    <Section name="Battery String 1" u_id="2036">
+        <DataSets u_id="2037">
+            <String_1 name="Module String 1" u_id="2038">
+                <dyn class="priority" name="String_Mode" u_id="2039">Active</dyn>
+                <dyn class="on" disabled="false" name="Enabled" u_id="2040">on</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2041">off</dyn>
+                <dyn name="DcStringV" u_id="2042" units="V">707.0</dyn>
+                <dyn name="DcStringAmps" u_id="2043" units="A">-198.9</dyn>
+                <dyn name="DcStringKW" u_id="2044" units="kW">-140.6</dyn>
+                <dyn class="priority" name="DcStringSoC" u_id="2045" units="%">20.8</dyn>
+            </String_1>
+            <DataMod1 name="Module 1" u_id="2046" url="http://10.0.5.220:5015/modmgr/">
+                <dyn class="priority" name="System_Mode" u_id="2047">Active</dyn>
+                <dyn name="ChargeSt" u_id="2048">Charging</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2049">off</dyn>
+                <dyn name="DcModV" u_id="2050" units="V">354.0</dyn>
+                <dyn name="DcModAmps" u_id="2051" units="A">-198.9</dyn>
+                <dyn name="DcModKW" u_id="2052" units="kW">-70.4</dyn>
+                <dyn class="priority" name="ElyteSoC" u_id="2053" units="%">20.9</dyn>
+                <dyn name="ElyteTemp" u_id="2054" units="C">33.1</dyn>
+                <dyn name="CoolReq" u_id="2055">Pumps</dyn>
+                <dyn name="RebalNecessity" u_id="2056">None</dyn>
+                <dyn name="RebaPredSoC" u_id="2057" units="%">20.8</dyn>
+            </DataMod1>
+            <DataMod2 name="Module 2" u_id="2058" url="http://10.0.5.221:5015/modmgr/">
+                <dyn class="priority" name="System_Mode" u_id="2059">Active</dyn>
+                <dyn name="ChargeSt" u_id="2060">Charging</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2061">off</dyn>
+                <dyn name="DcModV" u_id="2062" units="V">353.0</dyn>
+                <dyn name="DcModAmps" u_id="2063" units="A">-198.9</dyn>
+                <dyn name="DcModKW" u_id="2064" units="kW">-70.2</dyn>
+                <dyn class="priority" name="ElyteSoC" u_id="2065" units="%">20.7</dyn>
+                <dyn name="ElyteTemp" u_id="2066" units="C">33.1</dyn>
+                <dyn name="CoolReq" u_id="2067">Pumps</dyn>
+                <dyn name="RebalNecessity" u_id="2068">None</dyn>
+                <dyn name="RebaPredSoC" u_id="2069" units="%">20.6</dyn>
+            </DataMod2>
+        </DataSets>
+    </Section>
+    <Section name="Thermal Controls" u_id="2070">
+        <DataSets u_id="2071">
+            <ThermalLoop_1 name="Thermal Control Loop1" u_id="2072">
+                <Local class="Remote" u_id="2073"><command cmd="Local" confirm="false" desc="desc" dest="1-1"
+                                                           disabled="false" idnum="1" label="Local" name="Local"
+                                                           u_id="2074"/>Remote
+                </Local>
+                <dyn name="Mode" u_id="2075">PumpsOnly</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2076">off</dyn>
+                <dyn name="Supply" u_id="2077" units="C">21.1</dyn>
+                <dyn name="Return" u_id="2078" units="C">22.2</dyn>
+                <dyn name="Conductivity" u_id="2079" units="uSiem">7.2</dyn>
+            </ThermalLoop_1>
+        </DataSets>
+    </Section>
+    <Section name="Battery Logs" u_id="2080">
+        <DataSets u_id="2081">
+            <Event_Log u_id="2082">
+                <Event timestamp="15:43:10" type="EVENT INFO" u_id="2082">Chiller Received Run_Pump</Event>
+                <Event timestamp="15:35:58" type="EVENT INFO" u_id="2083">Increment system cycle.</Event>
+                <Event timestamp="15:23:37" type="EVENT INFO" u_id="2084">Chiller Received Standby</Event>
+                <Event timestamp="15:01:45" type="EVENT INFO" u_id="2085">Chiller Received Run_Pump</Event>
+                <Event timestamp="14:54:32" type="EVENT INFO" u_id="2086">Increment system cycle.</Event>
+            </Event_Log>
+            <Active_Fault_List u_id="2088"/>
+        </DataSets>
+    </Section>
+    <status>0</status>
+</Data_Summary>

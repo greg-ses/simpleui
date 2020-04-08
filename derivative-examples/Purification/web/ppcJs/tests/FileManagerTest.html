@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>FileManager test</title>
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/soria/soria.css" />
+    <link rel="stylesheet" type="text/css" href="../panel/fileManager/css/fileManager.css" />
+    <script type="text/javascript">
+        // djConfig must be set before any dojo scripts are loaded
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            modulePaths: { 'ppcJs': '../../ppcJs' }
+        };
+    </script>
+    <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        dojo.provide('ppcJs.tests.FileManagerTestHTML');
+        dojo.require('dojo.parser');
+        dojo.require('doh.runner');
+        dojo.require('doh.robot');
+        dojo.require('ppcJs.panel.FileManager');
+        dojo.require('ppcJs.panel.fileManager.fmDto');
+
+        var assertPause = 2000;
+        var testCaseTimeout = 4000;
+
+        dojo.addOnLoad(function () {
+            doh.register("ppcJs.tests.FileManagerTest", [
+            {
+                name: "Create_getFileNames",
+                timeout: testCaseTimeout,
+
+                setUp: function () {
+                },
+
+                runTest: function () {
+                    var d = new doh.Deferred();
+
+                    var sutContainer = dojo.byId("sutContainer");
+
+                    var sut = new ppcJs.panel.FileManager();
+                    sut.load('http://127.0.0.1/test', '1', 'serverProcess');    // force to use reference XML files
+                    dojo.place(sut.domNode, "sutContainer");
+                    var fileMap = [new ppcJs.panel.fileManager.fmDto.FileExtensionMap('xml', ppcJs.panel.fileManager.fmDto.FileType.Script),
+                                    new ppcJs.panel.fileManager.fmDto.FileExtensionMap('csv', ppcJs.panel.fileManager.fmDto.FileType.Data)];
+                    sut.configure(fileMap);
+
+                    var numFiles = 0;
+                    var handler = dojo.connect(sut, 'onGetFileList', function (fileNames) {
+                        numFiles = fileNames.length;
+                    }, this);
+
+                    doh.robot.sequence(d.getTestCallback(function () {
+
+                        sut.baseShowFileOption = ppcJs.panel.fileManager.fmDto.ShowFileOptionType.All;   // bypass html configuration
+                        sut._refreshMenu();
+                        doh.assertEqual(6, numFiles, 'incorrect file list for ShowFileOptionType.All');
+
+                        sut.baseShowFileOption = ppcJs.panel.fileManager.fmDto.ShowFileOptionType.AllScripts;
+                        sut._refreshMenu();
+                        doh.assertEqual(4, numFiles, 'incorrect file list for ShowFileOptionType.AllScripts');
+
+                        sut.baseShowFileOption = ppcJs.panel.fileManager.fmDto.ShowFileOptionType.LoadDataNoImport;
+                        sut._refreshMenu();
+                        doh.assertEqual(2, numFiles, 'incorrect file list for ShowFileOptionType.LoadDataNoImport');
+
+                        sut.show(ppcJs.panel.fileManager.fmDto.ShowFileOptionType.AllScripts);
+                    }), assertPause);
+
+                    return d;
+                }
+            },
+
+                ]);
+            //Execute D.O.H. in this remote file.
+            doh.run();
+        });
+    </script>
+</head>
+<body class="soria">
+    <!-- place to insert sut. -->
+    <div id="sutContainer" style="width: 300px">
+    </div>
+    <div id="mouseOutArea" style="width: 300px; height: 100px">
+        <br />
+    </div>
+</body>
+</html>

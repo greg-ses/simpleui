@@ -1,0 +1,39 @@
+TABLE_NAME=VNX1000_IO
+META_TYPE=FLOAT
+NO_TABLE_PREFIX=true
+<COLUMN_DEFINITION>
+	# Name, SQL_TYPE, MetaType, Description
+	timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st, 1970
+	num_points,INTEGER,INTEGER,Hint
+	CT102_Leak_Sensor,DOUBLE,DOUBLE,TBD
+	CT103_Leak_Sensor,DOUBLE,DOUBLE,TBD
+	CT104_Leak_Sensor,DOUBLE,DOUBLE,TBD
+	CT202_Leak_Sensor,DOUBLE,DOUBLE,TBD
+	CT203_Leak_Sensor,DOUBLE,DOUBLE,TBD
+	CT204_Leak_Sensor,DOUBLE,DOUBLE,TBD
+</COLUMN_DEFINITION>
+<VARS>
+	LASTID
+	BEGIN
+	END
+	MACHINE_NAME
+	MAXNUMPTS
+</VARS>
+<SQL>
+	SELECT  timestamp, num_points
+	, `CT102_Leak_Sensor`
+	, `CT103_Leak_Sensor`
+	, `CT104_Leak_Sensor`
+	, `CT202_Leak_Sensor`
+	, `CT203_Leak_Sensor`
+	, `CT204_Leak_Sensor`
+	FROM `VNX1000_IO`
+	WHERE resource = `MACHINE_NAME` AND timestamp >= `BEGIN` AND timestamp <= `END` 
+	ORDER BY timestamp ASC LIMIT `MAXNUMPTS`;
+</SQL>
+<CHART_CONFIG>
+ Y_MIN=0   # Expected Graph y axis min
+ Y_MAX=1000  # Expected Graph y axis max
+ Y_PIX=25  # Y Graniluarity of the filtered data, the higher the number the more points.
+ X_PIX=500  # X Graniluarity of the filtered data, the higher the number the more points.
+</CHART_CONFIG>

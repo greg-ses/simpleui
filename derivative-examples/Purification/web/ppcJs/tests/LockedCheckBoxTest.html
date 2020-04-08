@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LockedCheckBox test</title>
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/soria/soria.css" />
+    <link rel="stylesheet" type="text/css" href="../widget/lockedCheckBox/css/lockedCheckBox.css" />
+    <script type="text/javascript">
+        // djConfig must be set before any dojo scripts are loaded
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            modulePaths: { 'ppcJs': '../../ppcJs' }
+        };
+    </script>
+    <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        dojo.provide("ppcJs.tests.LockedCheckBoxTestHTML");
+        dojo.require("dojo.parser");
+        dojo.require("doh.runner");
+        dojo.require("dojo.robot");
+        dojo.require("ppcJs.widget.LockedCheckBox");
+
+        var testCaseTimeout = 5000;
+        var perActionPause = 200;
+        var assertPause = 2000;
+
+        dojo.addOnLoad(function () {
+            doh.register("ppcJs.tests.LockedCheckBoxTest", [
+                    {
+                        name: "UnlockAndSet",
+                        timeout: testCaseTimeout,
+
+                        setUp: function () {
+                            //var sutContainer = dojo.byId('sutContainer');
+                            //sutContainer.innerHTML = "";
+                        },
+
+                        runTest: function () {
+                            var d = new doh.Deferred();
+                            var refId = 'test1';
+                            var sut = new ppcJs.widget.LockedCheckBox(refId, 'lcbBreakPointIcon2');
+                            var checkedResult = 0;
+                            var idResult = '';
+                            var handler = dojo.connect(sut, 'onChange', function (checked, id) {
+                                ++checkedResult;
+                                idResult = id;
+                            });
+                            dojo.place(sut.domNode, 'sutContainer');
+
+                            // click to unlock, then set subject and mouse out
+                            doh.robot.mouseMoveAt(sut.lockCheckbox.domNode, perActionPause);
+                            doh.robot.mouseClick({ left: true }, perActionPause);
+                            doh.robot.mouseMoveAt(sut.subjectCheckbox.domNode, perActionPause);
+                            doh.robot.mouseClick({ left: true }, perActionPause);
+                            doh.robot.mouseClick({ left: true }, perActionPause);
+                            doh.robot.mouseClick({ left: true }, perActionPause);
+                            var sutContainer = dojo.byId('sutContainer');
+                            doh.robot.mouseMoveAt(sutContainer, perActionPause);
+
+                            dojo.robot.sequence(d.getTestCallback(function () {
+                                doh.assertEqual(refId, idResult, 'incorrect id');
+                                doh.assertEqual(1, checkedResult, 'checkbox set incorrect number of times');
+                                doh.assertEqual(sut.stateEnum.Blur, sut._state, 'incorrect state');
+                            }), assertPause);
+
+                            return d;
+                        }
+                    },
+
+                    {
+                        name: "SetWhileLockedRejected",
+                        timeout: testCaseTimeout,
+
+                        setUp: function () {
+                            var sutContainer = dojo.byId('sutContainer');
+                            sutContainer.innerHTML = "";
+                        },
+
+                        runTest: function () {
+                            var d = new doh.Deferred();
+                            var refId = 'test1';
+                            var sut = new ppcJs.widget.LockedCheckBox(refId);
+                            var checkedResult = false;
+                            var idResult = '';
+                            var handler = dojo.connect(sut, 'onChange', function (checked, id) {
+                                checkedResult = checked;
+                                idResult = id;
+                            });
+                            dojo.place(sut.domNode, 'sutContainer');
+
+                            // set subject
+                            doh.robot.mouseMoveAt(sut.subjectCheckbox.domNode, perActionPause);
+                            doh.robot.mouseClick({ left: true }, perActionPause);
+
+                            dojo.robot.sequence(d.getTestCallback(function () {
+                                doh.assertEqual('', idResult, 'id set');
+                                doh.assertFalse(checkedResult, 'checkbox set while locked');
+                            }), assertPause);
+
+                            return d;
+                        }
+                    },
+
+                    function testSetValueWhileLocked(t) {
+                        var refId = 'test1';
+                        var sut = new ppcJs.widget.LockedCheckBox(refId);
+                        dojo.place(sut.domNode, 'sutContainer');
+                        sut.setValue(true);
+                        t.assertTrue(sut.subjectCheckbox.checked);
+                    }
+                ]);
+            //Execute D.O.H. in this remote file.
+            doh.run();
+        });
+    </script>
+</head>
+<body class="soria">
+    <!-- place to insert sut. -->
+    <div id="sutContainer" style="width: 300px">
+    </div>
+    <div id="mouseOutArea" style="width: 300px; height: 100px">
+        <br />
+    </div>
+</body>
+</html>

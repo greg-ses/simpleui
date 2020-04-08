@@ -1,0 +1,51 @@
+﻿<div data-dojo-attach-point="containerNode">
+    <div data-dojo-attach-point="dataRequestDialog" data-dojo-type="dijit/Dialog" title="Insert Script"
+        data-dojo-attach-event="onHide:_onInsertScriptDialogHide">
+        <div data-dojo-attach-point="insertDialogFileManagerDiv"></div>
+        <div class="smInsertScriptCancelDiv">
+            <button data-dojo-type="dijit/form/Button" type="button" data-dojo-attach-event="onClick:_onCancelInsertClick">
+                Cancel</button>
+        </div>
+    </div>
+    <div class="basePanelTable">
+        <div class="basePanelTableRow">
+            <div class="basePanelTableCell smpModeSelectBoxLeft">
+            </div>
+            <div class="basePanelTableCell basePanelHighlightBg smpModeSelectBoxRight" title="Switch between monitoring a script running on a resource and editing a script.">
+                <div data-dojo-type="ppcJs/widget/iPhoneButton" data-dojo-attach-point="editToggle" data-dojo-props="onText:'RUN', offText:'EDIT'"
+                    data-dojo-attach-event="onChange:_onRunToggleChange">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-dojo-attach-point="borderContainer" class="smpBorder" data-dojo-type="dijit/layout/BorderContainer"
+        data-dojo-attach-point="borderContainer" data-dojo-props="design:'sidebar'">
+        <div data-dojo-attach-point="leftPane" class="smpLeftPane" data-dojo-type="dijit/layout/ContentPane" region="left">
+            <div data-dojo-attach-point="scriptRunnerList" data-dojo-type="ppcJs/panel/ScriptRunnerList" 
+                data-dojo-attach-event="onScriptStateUpdate:_onScriptStateUpdate, onSelectRunner:_onSelectRunner">
+            </div>
+        </div>
+        <div data-dojo-attach-point="rightPane" class="smpRightPane" data-dojo-type="dijit/layout/ContentPane"
+            region="center">
+            <div data-dojo-attach-point="rightTopSubPane" class="basePanelHighlightBg smpFileManagementBox">
+                <div data-dojo-attach-point="fileManagerDiv" class="smpInlineBlock">
+                    <div data-dojo-attach-point="fileManager" data-dojo-type="ppcJs/panel/FileManager" 
+                        data-dojo-props="baseShowFileOption:1" 
+                        data-dojo-attach-event="onGetFile:_onGetFile,
+                            onSaveFile:_onSaveFile,
+                            onNewFileRequest:_onNewFileRequest,
+                            onNewFile:_onNewFile,
+                            onGetFileList:_onGetFileList">
+                    </div>
+                </div>
+                <div class="smpInlineBlock smpDownloadBlock" title="Save the script in the Editor to a local file on the client.">
+                    <div data-dojo-attach-point="download" data-dojo-type="ppcJs/panel/Download">
+                    </div>
+                </div>
+            </div>
+            <div data-dojo-attach-point="editControlDiv">
+            </div>
+            <div data-dojo-attach-point="fadeoutAlertBox" data-dojo-type="ppcJs/widget/FadeoutAlertBox"></div>
+        </div>
+    </div>
+</div>

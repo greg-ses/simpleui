@@ -1,0 +1,9 @@
+---
+- name: Update Critical OS Image Changes
+  include: devimage-update.yml
+- name: Update Application And Configuration Files
+  include: devapp-update.yml
+- name: Update User Interface
+  include: devui-update.yml
+- name: Update User Configuration Scripts
+  include: dev-unitconfig.yml

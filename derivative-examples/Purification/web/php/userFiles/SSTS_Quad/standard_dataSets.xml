@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+reference response to DATA_SETS GET command
+ex: ~/cgi-bin/cgicmd?GET=DATA_SETS&CGI=dbReader
+-->
+<dataSets>
+  <dataSet>
+    <majorItems>
+      <item>
+        <value>SSTS_Quad</value>
+        <desc>SSTS Quad</desc>
+      </item>
+    </majorItems>
+    <minorItems>
+      <item>
+        <value>Accumulators</value>
+        <desc>Accumulators</desc>
+      </item>
+      <item>
+        <value>BattAH</value>
+        <desc>Battery Amp-Hours</desc>
+      </item>
+      <item>
+        <value>BattCurr</value>
+        <desc>Battery Current</desc>
+      </item>
+      <item>
+        <value>BattPow</value>
+        <desc>Battery Power</desc>
+      </item>
+      <item>
+        <value>BattTemp</value>
+        <desc>Battery Temperature</desc>
+      </item>
+      <item>
+        <value>BattVolt</value>
+        <desc>Battery Voltage</desc>
+      </item>
+      <item>
+        <value>BattVoltCurr</value>
+        <desc>Battery Voltage and Current</desc>
+      </item>
+      <item>
+        <value>DC_Bus</value>
+        <desc>DC Bus Voltage</desc>
+      </item>
+      <item>
+        <value>Digital_IO</value>
+        <desc>Digital I/O</desc>
+      </item>
+      <item>
+        <value>Digital_Valves</value>
+        <desc>Digital Valves</desc>
+      </item>
+      <item>
+        <value>Pump_Speed_Pressure</value>
+        <desc>Pump Speed and Pressure</desc>
+      </item>
+	  <item>
+        <value>Q1_AnalogSensors</value>
+        <desc>Q1 Analog Sensors</desc>
+      </item>
+	  <item>
+        <value>Q2_AnalogSensors</value>
+        <desc>Q2 Analog Sensors</desc>
+      </item>
+	  <item>
+        <value>Q3_AnalogSensors</value>
+        <desc>Q3 Analog Sensors</desc>
+      </item>
+	  <item>
+        <value>Q4_AnalogSensors</value>
+        <desc>Q4 Analog Sensors</desc>
+      </item>
+      <item>
+        <value>Quad_Power</value>
+        <desc>Quad Power</desc>
+      </item>
+      <item>
+        <value>Temperatures</value>
+        <desc>Temperatures</desc>
+      </item>
+    </minorItems>
+  </dataSet>
+</dataSets>

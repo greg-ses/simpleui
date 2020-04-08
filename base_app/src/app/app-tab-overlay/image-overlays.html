@@ -1,0 +1,69 @@
+<div id='unimplementedDyns' [hidden]='_un_implemented_dyns_in_group.length === 0' class='unimplementedContainer'>
+  <pre style='background-color:lightgreen' [title]='"u_id:" + _uiObjList?.u_id'>
+   <b>Dyn</b> Overlay Group: <b>{{ _groupName }}</b>
+   implemented:{{_count_implemented_dyns_in_group}}, unimplemented:{{_un_implemented_dyns_in_group.length}}</pre>
+
+    <div *ngFor='let varInfo of _un_implemented_dyns_in_group'  draggable="true" (dragstart)='onDragStart($event)'
+         [id]='varInfo.id' class='draggable_process_var' style='position:absolute; background-color: #8cb1d9; left: 5px; top: 25px; height:20px; width: 100px; border:1px solid red; padding: 0 0 0 0;'
+         [title]='"Drag to position: " + varInfo.id'>
+        <span class='var_label'>{{getAttr(varInfo.id, "label")}}</span>
+        <span class='process_var' [id]='varInfo.id + "_value"'>{{ formatValue(varInfo.id, false) }}</span>
+    </div>
+</div>
+
+<div id='un_implemented_commands' [hidden]='_un_implemented_commands_in_group.length === 0' class='unimplementedContainer'>
+ <pre style='background-color:lightgreen' [title]='"u_id:" + _uiObjList?.u_id'>
+   <b>Commands</b> Overlay Group: <b>{{ _groupName }}</b>
+   implemented:{{ _count_implemented_commands_in_group }}, unimplemented:{{ _un_implemented_commands_in_group.length }}</pre>
+
+    <div *ngFor='let commandInfo of getCommandList(_un_implemented_commands_in_group);'
+         [id]='commandInfo.id'  class='draggable_process_var' draggable="true" (dragstart)='onDragStart($event)'
+         [title]='"Drag to position: " + commandInfo.id'>
+        <span *ngIf='commandInfo.commandLabel !== ""' class='var_label'>{{commandInfo.commandLabel}}</span>
+        <app-command-button *ngIf='commandInfo.command' [id]='commandInfo.command.id'
+                [_uiTab]="_uiTab" [element]="commandInfo"
+                [_container]="commandInfo.id" [_sha1sum]="commandInfo.sha1sum"
+        ></app-command-button>
+    </div>
+
+</div>
+
+<div id='unimplementedImages' [hidden]='_un_implemented_images_in_group.length === 0' class='unimplementedContainer'>
+ <pre style='background-color:lightgreen' [title]='"u_id:" + _uiObjList?.u_id'>
+   <b>Images</b> Overlay Group: <b>{{ _groupName }}</b>
+   implemented:{{ _count_implemented_images_in_group }}, unimplemented:{{ _un_implemented_images_in_group.length }}</pre>
+
+    <div *ngFor='let imgInfo of _un_implemented_images_in_group'  creator='unimp-images-ngFor'>
+        <img [id]='imgInfo.id'
+             class='draggable_process_var' draggable="true" (dragstart)='onDragStart($event)'
+             [title]='"Drag to position: " + imgInfo.id'
+             [src]='getImgSrc(imgInfo.id)'
+        >
+    </div>
+</div>
+
+<div id='unimplementedDataTables' [hidden]='_un_implemented_data_tables_in_group.length === 0' class='unimplementedContainer'>
+ <pre style='background-color:lightgreen' [title]='"u_id:" + _uiObjList?.u_id'>
+   <b>Tables</b> Overlay Group: <b>{{ _groupName }}</b>
+   implemented:{{ _count_implemented_data_tables_in_group }}, unimplemented:{{ _un_implemented_data_tables_in_group.length }}</pre>
+
+  <div *ngFor='let tableInfo of _un_implemented_data_tables_in_group'
+       [id]='tableInfo.id'  class='draggable_process_var' draggable="true" (dragstart)='onDragStart($event)'
+       [title]='"Drag to position: " + tableInfo.id' creator='unimp-tables-ngFor'>
+    <table align='left' width='20%' border='hidden'>
+    <tr>
+      <td>dataset-table: {{tableInfo.id}}
+        <!--
+        <dataset-table
+          [_tableName]='e' [_uiObjList]='_DataSummary[e]'
+          [_uiTab]='_uiTab'
+          [_hidden]='false'>
+        </dataset-table>
+        -->
+      </td>
+    </tr>
+    </table>
+  </div>
+</div>
+
+

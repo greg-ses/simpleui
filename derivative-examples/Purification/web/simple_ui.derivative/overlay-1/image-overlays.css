@@ -1,0 +1,118 @@
+
+/* Objects for the GUI */
+
+div.var_label, span.var_label {
+    font-size: 10px;
+    color: royalblue;
+}
+
+input {
+    font-size: 10px;
+}
+
+div.process_var, span.process_var, label.process_var {
+    position: absolute;
+    white-space: nowrap;
+    width:50px;
+    height:16px;
+    color: #003399;
+    background-color: lightyellow;
+    text-align: center;
+    font-size: 12px;
+    border: 1px solid #c4c4c4;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    box-shadow: 2px 2px 2px #d9d9d9;
+    -moz-box-shadow: 2px 2px 2px #d9d9d9;
+    -webkit-box-shadow: 2px 2px 8px #d9d9d9;
+    padding-left: 2px;
+}
+/* Drag-n-Drop positions */
+#ElectrolyteOverview__PT101A_Anolyte_Filter_1A_Inlet{position: absolute; top: 577px; left: 560px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT101B_Anolyte_Filter_1B_Inlet{position: absolute; top: 649px; left: 577px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT102A_Anolyte_Filter_1A_Outlet{position: absolute; top: 577px; left: 681px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT102B_Anolyte_Filter_1B_Outlet{position: absolute; top: 650px; left: 679px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT103_Anolyte_Stack_Inlet{position: absolute; top: 626px; left: 808px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT402_N2_Pad{position: absolute; top: 56px; left: 1404px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT403_N2_Feed{position: absolute; top: 139px; left: 1461px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT404_N2_Tank_1{position: absolute; top: 167px; left: 1345px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT405_N2_Tank_2{position: absolute; top: 167px; left: 1481px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT301_Coolant_Inlet_Pressure{position: absolute; top: 224px; left: 795px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT104_Anolyte_Stack_Outlet{position: absolute; top: 259px; left: 842px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT105A_Anolyte_Aux_Filter_3A_Inlet{position: absolute; top: 31px; left: 630px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT105B_Anolyte_Aux_Filter_3B_Inlet{position: absolute; top: 106px; left: 652px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT106A_Anolyte_Aux_Filter_3A_Outlet{position: absolute; top: 32px; left: 750px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT106B_Anolyte_Aux_Filter_3B_Outlet{position: absolute; top: 111px; left: 758px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT201_Catholyte_Stack_Inlet{position: absolute; top: 630px; left: 1032px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__PT203_Catholyte_Stack_Outlet{position: absolute; top: 233px; left: 1072px; width:80px; height:18px; --format:'%2d';}
+
+#ElectrolyteOverview__TT302_Coolant_HEX_Outlet{position: absolute; top: 130px; left: 689px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__TT101_Anolyte_Stack_Inlet{position: absolute; top: 626px; left: 913px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__TT201_Catholyte_Stack_Intlet{position: absolute; top: 654px; left: 1032px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__TT102_Anolyte_Stack_Outlet{position: absolute; top: 281px; left: 842px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__TT103_Anolyte_Hex_Outlet{position: absolute; top: 279px; left: 662px; width:50px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__TT202_Catholyte_Stack_Outlet{position: absolute; top: 235px; left: 1158px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__TT203_Catholyte_Hex_Outlet{position: absolute; top: 152px; left: 1170px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__TT301_Coolant_HEX_Inlet{position: absolute; top: 177px; left: 812px; width:80px; height:18px; --format:'%2d';}
+
+#ElectrolyteOverview__FT101_Anolyte_Loop{position: absolute; top: 645px; left: 837px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__FT201_Catholyte_Loop{position: absolute; top: 714px; left: 1094px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__FT102_Anolyte_Transfer{position: absolute; top: 136px; left: 579px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__FT202_Catholyte_Product_Transfer{position: absolute; top: 700px; left: 1317px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__FT103_Anolyte_Buffer_Transfer{position: absolute; top: 709px; left: 433px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__FT301_Coolant_Flow{position: absolute; top: 229px; left: 636px; width:80px; height:18px; --format:'%2d';}
+
+#ElectrolyteOverview__LT101_Elyte_Raw_Buffer_Tank{position: absolute; top: 329px; left: 519px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__LT102_Anolyte_Tank{position: absolute; top: 329px; left: 648px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__LT201_Elyte_Product_Buffer_Tank{position: absolute; top: 329px; left: 1355px; width:80px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__LT202_Catholyte_Tank{position: absolute; top: 329px; left: 1231px; width:80px; height:18px; --format:'%2d';}
+
+#ElectrolyteOverview__OT101B_Anolyte_V2{position: absolute; top: 332px; left: 270px; width:80px; height:18px; --format:'';}
+#ElectrolyteOverview__OT101A_Anolyte_V_TOTAL{position: absolute; top: 354px; left: 270px; width:80px; height:18px; --format:'';}
+
+#ElectrolyteOverview__Stack_1_Voltage{position: absolute; top: 400px; left: 895px; width:78px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__Stack_2_Voltage{position: absolute; top: 400px; left: 1047px; width:78px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__Stack_1_Current{position: absolute; top: 422px; left: 895px; width:78px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__Stack_2_Current{position: absolute; top: 422px; left: 1047px; width:78px; height:18px; --format:'%2d';}
+#ElectrolyteOverview__Reference_Voltage{position: absolute; top: 404px; left: 772px; width:50px; height:18px; --format:'%2d';}
+
+#ValvesOverview__CV101_valve_item{position: absolute; top: 557px; left: 497px; width:80px; height:18px; --format:'';}
+
+#LayeredImages__CV104_valve_item_1 {width:50px; height:50px;}
+#LayeredImages__CV104_valve_item_1.closeHorizontal{position: absolute; top: 400px; left: 325px; width:100px; height:50px;}
+#LayeredImages__CV104_valve_item_1.arrowUp{position: absolute; top: 400px; left: 325px; width:50px; height:50px;}
+
+#LayeredImages__CV104_valve_item_2 {width:100px; height:100px;}
+#LayeredImages__CV104_valve_item_2.closeVertical{position: absolute; top: 569px; left: 325px; width:100px; height:100px;}
+#LayeredImages__CV104_valve_item_2.arrowDown{position: absolute; top: 569px; left: 325px; width:100px; height:100px;}
+
+#LayeredImages__CV102_valve_item_1 {width:100px; height:100px;}
+#LayeredImages__CV102_valve_item_1.closeHorizontal{position: absolute; top: 569px; left: 325px; width:100px; height:100px;}
+#LayeredImages__CV102_valve_item_1.arrowDown{position: absolute; top: 569px; left: 325px; width:100px; height:100px;}
+
+#LayeredImages__CV102_valve_item_2 {width:100px; height:100px;}
+#LayeredImages__CV102_valve_item_2.arrowUp{position: absolute; top: 569px; left: 325px; width:100px; height:100px;}
+#LayeredImages__CV102_valve_item_2.closeVertical{position: absolute; top: 569px; left: 325px; width:100px; height:100px;}
+
+#DerivedSummary__Cycle_Count{position: absolute; top: 450px; left: 895px; width:78px; height:18px; --format:'';}
+#ElectrolyteOverview__Stack_SN_1{position: absolute; top: 482px; left: 895px; width:78px; height:18px; --format:'';}
+#DerivedSummary__Cycle_Count2{position: absolute; top: 450px; left: 1047px; width:78px; height:18px; --format:'';}
+#ElectrolyteOverview__Stack_SN_2{position: absolute; top: 482px; left: 1047px; width:78px; height:18px; --format:'';}
+
+#DerivedSummary__Raw_Tank_Oxidation{position: absolute; top: 357px; left: 519px; width:80px; height:18px; --format:'';}
+#DerivedSummary__Anolyte_Tank_Oxidation{position: absolute; top: 357px; left: 648px; width:80px; height:18px; --format:'';}
+#DerivedSummary__Catholyte_Tank_Oxidation{position: absolute; top: 357px; left: 1231px; width:80px; height:18px; --format:'';}
+#DerivedSummary__Product_Tank_Oxidation{position: absolute; top: 357px; left: 1355px; width:80px; height:18px; --format:'';}
+
+#ElectrolyteOverview__ESTOP_Released{position: absolute; top: 20px; left: 270px; width:100px; height:18px; --format:'';}
+#ElectrolyteOverview__ESM_Disabled{position: absolute; top: 54px; left: 270px; width:100px; height:18px; --format:'';}
+#ElectrolyteOverview__Service_Switch_Run{position: absolute; top: 88px; left: 270px; width:100px; height:18px; --format:'';}
+
+
+
+/*#System_Operational_State {width:217px; height:100px;}*/
+/* Remove the three lines below to enable drag and drop for System_Operational_State (comment and add space after #) */
+/*#System_Operational_State.Autonomous{position: absolute; top: 411.73px; left: 1317.5px; width:216.989px; height:100px;}*/
+/*#System_Operational_State.Service{position: absolute; top: 411.73px; left: 1317.5px; width:216.989px; height:100px;}*/
+/*#System_Operational_State.Hardware{position: absolute; top: 411.73px; left: 1317.5px; width:216.989px; height:100px;}*/

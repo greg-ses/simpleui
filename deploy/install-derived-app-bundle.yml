@@ -1,0 +1,164 @@
+# DO NOT CALL DIRECTLY - use include-task to consume this module
+
+# START SECTION - DISTRIBUTE_AND_INSTALL_ARCHIVE
+- name: 'Verify that node is installed on Remote Device'
+  file:
+    path: "/usr/bin/node"
+    state: file
+
+- name: "Create WEB_DEPLOY_DIR stat symbol for Remote Web Deploy Folder ({{ web_deploy_dir }})"
+  stat:
+    path: "{{ web_deploy_dir }}"
+  register: WEB_DEPLOY_DIR
+
+- name: 'Create Remote Archive Folder {{ archive_dir }}'
+  file:
+    path: "{{ archive_dir }}"
+    state: directory
+  become: true
+
+- name: "Backup/archive previous remote deployment of {{ web_deploy_dir }}"
+  archive:
+    path: "{{ web_deploy_dir }}"
+    dest: "{{ archive_dir }}/{{ web_app_name }}-pre-{{ unique_suffix }}.tgz"
+  when: WEB_DEPLOY_DIR.stat.isdir is defined and WEB_DEPLOY_DIR.stat.isdir
+  become: true
+
+- name: "Backup remote /etc/fstab"
+  copy:
+    src: /etc/fstab
+    dest: "{{ archive_dir }}/fstab-pre-{{ unique_suffix }}"
+    remote_src: yes
+  become: true
+
+- name: "Backup remote /etc/apache2/apache2.conf"
+  copy:
+    src: /etc/apache2/apache2.conf
+    dest: "{{ archive_dir }}/apache2-conf-pre-{{ unique_suffix }}"
+    remote_src: yes
+  become: true
+
+- name: "Remove Remote Web Staging Folder ( {{ remote_stage_dir }} )"
+  file:
+    path: "{{ remote_stage_dir }}"
+    state: absent
+  become: true
+
+- name: "Create Remote Web Staging Folder ({{ remote_stage_dir }})"
+  file:
+    path: "{{ remote_stage_dir }}"
+    state: directory
+    mode: 0755
+    owner: service
+    group: service
+  become: true
+
+- name: "Copy bundle to remote"
+  copy:
+    src="/tmp/{{ web_bundle_file }}"
+    dest="/tmp/{{ web_bundle_file_remote }}"
+
+- name: "Extract the files from the bundle file {{ web_bundle_file }} to {{ remote_stage_dir }}"
+  unarchive:
+    remote_src: yes
+    src: "/tmp/{{ web_bundle_file_remote }}"
+    dest: "{{ remote_stage_dir }}"
+
+# START REMOTE INSTALLATION SECTION
+
+- name: "Install Remote RAMDISK"
+  shell:
+    bash "{{ remote_stage_dir }}/{{ web_app_name }}-staging-area/web/{{ web_app_name }}/php/setup_ram_disk.sh" -f
+  become: true
+
+- name: "Update /etc/apache2/apache2.conf {{ web_app_name }} {{ nodejs_port }}"
+  shell:
+    bash "{{ remote_stage_dir }}/{{ web_app_name }}-staging-area/web/{{ web_app_name }}/setup-helpers/update-apache-conf.sh" "{{ web_app_name }}" "{{nodejs_port}}"
+  become: true
+
+- name: "Remove previous deployed web directory"
+  file:
+    path: "{{ web_deploy_dir }}"
+    state: absent
+  become: true
+
+#- name: "Copy/deploy web files to target {{ web_root }}"
+#  copy:
+#    remote_src: no
+#    src: "{{ remote_stage_dir }}/{{ web_app_name }}-staging-area/web/{{ web_app_name }}"
+#    dest: "{{ web_root }}"
+#    mode: 0755
+#    owner: service
+#    group: service
+#  become: true
+
+- name: "Move web files from {{ remote_stage_dir }} to {{ web_root }}"
+  command: mv "{{ remote_stage_dir }}/{{ web_app_name }}-staging-area/web/{{ web_app_name }}" "{{ web_root }}"
+  become: true
+
+- name: "Extract the angularjs files from {{ web_root }}/{{ web_app_name }}/angularjs1-dist.tgz"
+  unarchive:
+    remote_src: yes
+    src: "{{ web_root }}/{{ web_app_name }}/angularjs1-dist.tgz"
+    dest: "{{ web_root }}/{{ web_app_name }}/"
+  when: copy_params_app is defined and copy_params_app
+
+- name: "Change ownership of {{ web_root }}/{{ web_app_name}} to service"
+  command: chown -R service:service "{{ web_root }}/{{ web_app_name }}"
+  become: true
+
+- name: "Change protection {{ web_root }}/{{ web_app_name}} to 755"
+  command: chmod -R 755 "{{ web_root }}/{{ web_app_name }}"
+  become: true
+
+- name: "Change protection {{ web_root }}/{{ web_app_name}}/overlay-1/image-overlays.css to 777"
+  command: chmod 777 "{{ web_root }}/{{ web_app_name }}/overlay-1/image-overlays.css"
+  become: true
+  ignore_errors: yes
+
+- name: "Copy/deploy {{ web_app_name }}.service file"
+  copy:
+    remote_src: yes
+    src: "{{ web_deploy_dir }}/simpleui-server/{{ web_app_name }}-web.service"
+    dest: "/etc/systemd/system/{{ web_app_name }}-web.service"
+    mode: 0644
+    owner: root
+    group: root
+  become: true
+  when: web_service_apps_list is defined and web_service_apps_list
+
+- name: "Restart apache2"
+  service:
+    name: apache2
+    state: restarted
+  become: true
+
+- name: "Call systemctl daemon-reload"
+  command: systemctl daemon-reload
+  become: true
+  when: web_service_apps_list is defined and web_service_apps_list
+
+- name: "Start {{ web_app_name }}-web.service"
+  service:
+    name: "{{ web_app_name }}-web"
+    enabled: yes
+    state: restarted
+  become: true
+  when: web_service_apps_list is defined and web_service_apps_list
+
+  # Cleanup, remove remote staging Folder and files
+- name: "Remove remote staging area folder"
+  file:
+    path: "{{ remote_stage_dir }}"
+    state: absent
+  become: true
+
+- name: 'Remove tar file'
+  file:
+    path: /tmp/{{ web_bundle_file_remote }}
+    state: absent
+  become: true
+
+  # END REMOTE INSTALLATION SECTION
+
+  # END SECTION - DISTRIBUTE_AND_INSTALL_ARCHIVE

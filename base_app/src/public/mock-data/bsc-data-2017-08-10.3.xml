@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2001">
+    <Title u_id="2002">BSC Dashboard</Title>
+    <timeStamp u_id="2003">1502373198613</timeStamp>
+    <Version u_id="2004">GM-BSCServer: 12476, Aug 3 2017:</Version>
+    <Section name="Battery System" u_id="2005">
+        <CmdSet u_id="2006">
+            <command cmd="Remote" confirm="true" desc="desc" dest="dProcCtrl" disabled="false" idnum="0" label="Remote"
+                     name="Remote" u_id="2008"/>
+            <command cmd="Offline" confirm="true" desc="desc" dest="dProcCtrl" disabled="false" idnum="0"
+                     label="Offline" name="Offline" u_id="2009"/>
+            <command cmd="Post" confirm="true" desc="desc" dest="dProcCtrl" disabled="true" idnum="0" label="Post"
+                     name="Post" u_id="2010"/>
+            <command cmd="Standby" confirm="false" desc="desc" dest="dProcCtrl" disabled="false" idnum="0"
+                     label="Standby" name="Standby" u_id="2011"/>
+            <command cmd="Float" confirm="false" desc="desc" dest="dProcCtrl" disabled="false" idnum="0" label="Float"
+                     name="Float" u_id="2012"/>
+            <command cmd="Active" confirm="false" desc="desc" dest="dProcCtrl" disabled="true" idnum="0" label="Active"
+                     name="Active" u_id="2013"/>
+            <command cmd="Auto Rebal" desc="Execute's a Anolyte Mole balance sequence." dest="dProcCtrl"
+                     disabled="false" idnum="0" label="Auto Rebal" name="Auto Rebal" u_id="2013">
+                <_input _type="float" desc="Enter Target SOC" idnum="0" max="80.0" min="0.0" u_id="2014" value="0.0"/>
+            </command>
+        </CmdSet>
+        <DataSets u_id="2015">
+            <Configuration u_id="2016">
+                <dyn name="NumModules" u_id="2018">8</dyn>
+                <dyn name="NumModules" u_id="2019">8</dyn>
+                <dyn name="NumStrings" u_id="2020">2</dyn>
+                <dyn name="ThermalType" u_id="2021">DOE</dyn>
+            </Configuration>
+            <SystemLimits u_id="2021">
+                <dyn name="MaxChargeKW" u_id="2023" units="kW">308</dyn>
+                <dyn name="MaxChargeAmps" u_id="2024" units="A">400</dyn>
+                <dyn name="MaxDischargeKW" u_id="2025" units="kW">304</dyn>
+                <dyn name="MaxChargeV" u_id="2026" units="V">772</dyn>
+                <dyn name="MaxDischargeAmps" u_id="2027" units="A">600</dyn>
+                <dyn name="MinDischargeV" u_id="2028" units="V">500</dyn>
+            </SystemLimits>
+            <SystemData u_id="2028">
+                <dyn class="priority" name="System_Mode" u_id="2030">Active</dyn>
+                <dyn name="ChargeSt" u_id="2031">Full</dyn>
+                <dyn class="on" disabled="false" name="Local_Mode" u_id="2032">on</dyn>
+                <dyn name="DcBattV" u_id="2033" units="V">695.0</dyn>
+                <dyn name="DcBattAmps" u_id="2034" units="A">-0.3</dyn>
+                <dyn name="DcBattKW" u_id="2035" units="kW">-0.2</dyn>
+                <dyn class="priority" name="DcBattSoC" u_id="2036" units="%">403.5</dyn>
+            </SystemData>
+        </DataSets>
+    </Section>
+    <Section name="Greg" u_id="2228">
+        <DataSets u_id="2229">
+            <Pumps u_id="2230">
+                <FakePump1 u_id="2231" class="closed">
+                    <command cmd="setPump" desc="Fake Pump 1" dest="fake pump" disabled="false" idnum="0" label="Open Fake Pump 1" name="FakePump1" u_id="2232">
+                        <_input _type="boolean" desc="Open Fake Pump 1" idnum="0" u_id="2233" value="Open"/>
+                    </command>
+                    Closed
+                </FakePump1>
+
+                <FakePump2 u_id="2234" class="open">
+                    <command cmd="setPump" desc="Fake Pump 2" dest="fake pump" disabled="false" idnum="1" label="Close Fake Pump 2" name="FakePump2" u_id="2235">
+                        <_input _type="float" desc="Close Fake Pump 2" idnum="1" u_id="2236" value="Close"/>
+                    </command>
+                    Open
+                </FakePump2>
+
+                <dyn class="open" disabled="false" name="Fake Pump 3" u_id="3041">Open</dyn>
+                <dyn class="closed" disabled="true" name="Fake Pump 4" u_id="3042">Closed</dyn>
+
+                <FakePump5 u_id="3043" class="on">
+                    <command cmd="setPump" desc="Fake Pump 5" dest="fake pump 5" disabled="false" idnum="4" label="Turn Off Fake Pump 5" name="FakePump5" u_id="3044">
+                        <_input _type="float" desc="Turn Off Fake Pump5" idnum="1" u_id="3045" value="Off"/>
+                    </command>
+                    On
+                </FakePump5>
+
+                <FakePump6 u_id="3046" class="off">
+                    <command cmd="setPump" desc="Fake Pump 6" dest="fake pump 6" disabled="false" idnum="3" label="Turn On Fake Pump 6" name="FakePump6" u_id="3047">
+                        <_input _type="boolean" desc="Turn On Fake Pump 6" idnum="0" u_id="3048" value="On"/>
+                    </command>
+                    Off
+                </FakePump6>
+
+                <dyn class="off" disabled="false" name="Fake Pump 7" u_id="3049">Off</dyn>
+                <dyn class="on" disabled="true" name="Fake Pump 8" u_id="3050">On</dyn>
+
+            </Pumps>
+        </DataSets>
+    </Section>
+    <Section name="Battery String 1" u_id="2036">
+        <DataSets u_id="2037">
+            <String_1 name="Module String 1" u_id="2038">
+                <dyn class="priority" name="String_Mode" u_id="2040">Active</dyn>
+                <dyn class="on" disabled="false" name="Enabled" u_id="2041">on</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2042">off</dyn>
+                <dyn name="DcStringV" u_id="2043" units="V">695.0</dyn>
+                <dyn name="DcStringAmps" u_id="2044" units="A">-0.3</dyn>
+                <dyn name="DcStringKW" u_id="2045" units="kW">-0.2</dyn>
+                <dyn class="priority" name="DcStringSoC" u_id="2046" units="%">29.8</dyn>
+            </String_1>
+            <DataMod1 name="Module 1" u_id="2046" url="http://10.100.3.21:5015/modmgr/">
+                <dyn class="priority" name="System_Mode" u_id="2048">Active</dyn>
+                <dyn name="ChargeSt" u_id="2049">Holding</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2050">off</dyn>
+                <dyn name="DcModV" u_id="2051" units="V">174.0</dyn>
+                <dyn name="DcModAmps" u_id="2052" units="A">0.4</dyn>
+                <dyn name="DcModKW" u_id="2053" units="kW">0.0</dyn>
+                <dyn class="priority" name="ElyteSoC" u_id="2054" units="%">40.0</dyn>
+                <dyn name="ElyteTemp" u_id="2055" units="C">22.2</dyn>
+                <dyn name="CoolReq" u_id="2056">None</dyn>
+                <dyn name="RebalNecessity" u_id="2057">None</dyn>
+                <dyn name="RebaPredSoC" u_id="2058" units="%">38.6</dyn>
+            </DataMod1>
+            <DataMod2 name="Module 2" u_id="2058" url="http://10.100.3.22:5015/modmgr/">
+                <dyn class="priority" name="System_Mode" u_id="2060">Active</dyn>
+                <dyn name="ChargeSt" u_id="2061">Holding</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2062">off</dyn>
+                <dyn name="DcModV" u_id="2063" units="V">174.0</dyn>
+                <dyn name="DcModAmps" u_id="2064" units="A">-0.7</dyn>
+                <dyn name="DcModKW" u_id="2065" units="kW">-0.1</dyn>
+                <dyn class="priority" name="ElyteSoC" u_id="2066" units="%">31.9</dyn>
+                <dyn name="ElyteTemp" u_id="2067" units="C">22.0</dyn>
+                <dyn name="CoolReq" u_id="2068">None</dyn>
+                <dyn name="RebalNecessity" u_id="2069">Err</dyn>
+                <dyn name="RebaPredSoC" u_id="2070" units="%">-99.0</dyn>
+            </DataMod2>
+            <DataMod3 name="Module 3" u_id="2070" url="http://10.100.3.23:5015/modmgr/">
+                <dyn class="priority" name="System_Mode" u_id="2072">Active</dyn>
+                <dyn name="ChargeSt" u_id="2073">Holding</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2074">off</dyn>
+                <dyn name="DcModV" u_id="2075" units="V">174.0</dyn>
+                <dyn name="DcModAmps" u_id="2076" units="A">-0.9</dyn>
+                <dyn name="DcModKW" u_id="2077" units="kW">-0.1</dyn>
+                <dyn class="priority" name="ElyteSoC" u_id="2078" units="%">22.7</dyn>
+                <dyn name="ElyteTemp" u_id="2079" units="C">21.6</dyn>
+                <dyn name="CoolReq" u_id="2080">None</dyn>
+                <dyn name="RebalNecessity" u_id="2081">Err</dyn>
+                <dyn name="RebaPredSoC" u_id="2082" units="%">-99.0</dyn>
+            </DataMod3>
+            <DataMod4 name="Module 4" u_id="2082" url="http://10.100.3.24:5015/modmgr/">
+                <dyn class="priority" name="System_Mode" u_id="2084">Active</dyn>
+                <dyn name="ChargeSt" u_id="2085">Holding</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2086">off</dyn>
+                <dyn name="DcModV" u_id="2087" units="V">173.0</dyn>
+                <dyn name="DcModAmps" u_id="2088" units="A">-0.3</dyn>
+                <dyn name="DcModKW" u_id="2089" units="kW">-0.0</dyn>
+                <dyn class="priority" name="ElyteSoC" u_id="2090" units="%">24.7</dyn>
+                <dyn name="ElyteTemp" u_id="2091" units="C">21.7</dyn>
+                <dyn name="CoolReq" u_id="2092">None</dyn>
+                <dyn name="RebalNecessity" u_id="2093">None</dyn>
+                <dyn name="RebaPredSoC" u_id="2094" units="%">22.9</dyn>
+            </DataMod4>
+        </DataSets>
+    </Section>
+    <Section name="Battery String 2" u_id="2094">
+        <CmdSet u_id="2095">
+            <command cmd="str_Enable" confirm="false" desc="desc" dest="dProcCtrl" disabled="true" idnum="2"
+                     label="str_Enable" name="str_Enable" u_id="2097"/>
+            <command cmd="str_Offline" confirm="true" desc="desc" dest="dProcCtrl" disabled="true" idnum="2"
+                     label="str_Offline" name="str_Offline" u_id="2098"/>
+            <command cmd="str_Post" confirm="true" desc="desc" dest="dProcCtrl" disabled="false" idnum="2"
+                     label="str_Post" name="str_Post" u_id="2099"/>
+            <command cmd="str_Standby" confirm="false" desc="desc" dest="dProcCtrl" disabled="true" idnum="2"
+                     label="str_Standby" name="str_Standby" u_id="2100"/>
+            <command cmd="str_Float" confirm="false" desc="desc" dest="dProcCtrl" disabled="true" idnum="2"
+                     label="str_Float" name="str_Float" u_id="2101"/>
+        </CmdSet>
+        <DataSets u_id="2101">
+            <String_2 name="Module String 2" u_id="2102">
+                <dyn class="priority" name="String_Mode" u_id="2104">Offline</dyn>
+                <dyn class="off" disabled="false" name="Enabled" u_id="2105">off</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2106">off</dyn>
+                <dyn name="DcStringV" u_id="2107" units="V">0.0</dyn>
+                <dyn name="DcStringAmps" u_id="2108" units="A">-1.0</dyn>
+                <dyn name="DcStringKW" u_id="2109" units="kW">0.0</dyn>
+                <dyn class="priority" name="DcStringSoC" u_id="2110" units="%">28.7</dyn>
+            </String_2>
+            <DataMod5 name="Module 5" u_id="2110" url="http://10.100.3.25:5015/modmgr/">
+                <dyn class="priority" name="System_Mode" u_id="2112">Offline</dyn>
+                <dyn name="ChargeSt" u_id="2113">Off</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2114">off</dyn>
+                <dyn name="DcModV" u_id="2115" units="V">0.0</dyn>
+                <dyn name="DcModAmps" u_id="2116" units="A">-1.2</dyn>
+                <dyn name="DcModKW" u_id="2117" units="kW">0.0</dyn>
+                <dyn class="priority" name="ElyteSoC" u_id="2118" units="%">27.7</dyn>
+                <dyn name="ElyteTemp" u_id="2119" units="C">23.5</dyn>
+                <dyn name="CoolReq" u_id="2120">None</dyn>
+                <dyn name="RebalNecessity" u_id="2121">Err</dyn>
+                <dyn name="RebaPredSoC" u_id="2122" units="%">-99.0</dyn>
+            </DataMod5>
+            <DataMod6 name="Module 6" u_id="2122" url="http://10.100.3.26:5015/modmgr/">
+                <dyn class="priority" name="System_Mode" u_id="2124">Offline</dyn>
+                <dyn name="ChargeSt" u_id="2125">Off</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2126">off</dyn>
+                <dyn name="DcModV" u_id="2127" units="V">0.0</dyn>
+                <dyn name="DcModAmps" u_id="2128" units="A">-1.0</dyn>
+                <dyn name="DcModKW" u_id="2129" units="kW">0.0</dyn>
+                <dyn class="priority" name="ElyteSoC" u_id="2130" units="%">30.1</dyn>
+                <dyn name="ElyteTemp" u_id="2131" units="C">23.6</dyn>
+                <dyn name="CoolReq" u_id="2132">None</dyn>
+                <dyn name="RebalNecessity" u_id="2133">Err</dyn>
+                <dyn name="RebaPredSoC" u_id="2134" units="%">-99.0</dyn>
+            </DataMod6>
+            <DataMod7 name="Module 7" u_id="2134" url="http://10.100.3.27:5015/modmgr/">
+                <dyn class="priority" name="System_Mode" u_id="2136">Offline</dyn>
+                <dyn name="ChargeSt" u_id="2137">Off</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2138">off</dyn>
+                <dyn name="DcModV" u_id="2139" units="V">0.0</dyn>
+                <dyn name="DcModAmps" u_id="2140" units="A">-0.7</dyn>
+                <dyn name="DcModKW" u_id="2141" units="kW">0.0</dyn>
+                <dyn class="priority" name="ElyteSoC" u_id="2142" units="%">28.6</dyn>
+                <dyn name="ElyteTemp" u_id="2143" units="C">23.6</dyn>
+                <dyn name="CoolReq" u_id="2144">None</dyn>
+                <dyn name="RebalNecessity" u_id="2145">None</dyn>
+                <dyn name="RebaPredSoC" u_id="2146" units="%">27.9</dyn>
+            </DataMod7>
+            <DataMod8 name="Module 8" u_id="2146" url="http://10.100.3.28:5015/modmgr/">
+                <dyn class="priority" name="System_Mode" u_id="2148">Offline</dyn>
+                <dyn name="ChargeSt" u_id="2149">Off</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2150">off</dyn>
+                <dyn name="DcModV" u_id="2151" units="V">0.0</dyn>
+                <dyn name="DcModAmps" u_id="2152" units="A">-1.4</dyn>
+                <dyn name="DcModKW" u_id="2153" units="kW">0.0</dyn>
+                <dyn class="priority" name="ElyteSoC" u_id="2154" units="%">28.6</dyn>
+                <dyn name="ElyteTemp" u_id="2155" units="C">24.7</dyn>
+                <dyn name="CoolReq" u_id="2156">None</dyn>
+                <dyn name="RebalNecessity" u_id="2157">Err</dyn>
+                <dyn name="RebaPredSoC" u_id="2158" units="%">-99.0</dyn>
+            </DataMod8>
+        </DataSets>
+    </Section>
+    <Section name="Thermal Controls" u_id="2158">
+        <DataSets u_id="2159">
+            <ThermalLoop_1 name="Thermal Control Loop1" u_id="2160">
+                <Local class="Remote" u_id="2162"><command cmd="Local" confirm="false" dest="dWatlow_ThermCtrl"
+                                                           disabled="false" idnum="1" label="Local" name="Local"
+                                                           u_id="2163"/>Remote
+                </Local>
+                <dyn name="Mode" u_id="2164">Idle</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2165">off</dyn>
+                <dyn name="Supply" u_id="2166" units="C">0.0</dyn>
+                <dyn name="Return" u_id="2167" units="C">41.0</dyn>
+            </ThermalLoop_1>
+            <ThermalLoop_2 name="Thermal Control Loop2" u_id="2167">
+                <Local class="Remote" u_id="2169"><command cmd="Local" confirm="false" dest="dWatlow_ThermCtrl"
+                                                           disabled="false" idnum="2" label="Local" name="Local"
+                                                           u_id="2170"/>Remote
+                </Local>
+                <dyn name="Mode" u_id="2171">Idle</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2172">off</dyn>
+                <dyn name="Supply" u_id="2173" units="C">0.0</dyn>
+                <dyn name="Return" u_id="2174" units="C">32.2</dyn>
+            </ThermalLoop_2>
+            <ThermalLoop_3 name="Thermal Control Loop3" u_id="2174">
+                <Local class="Remote" u_id="2176"><command cmd="Local" confirm="false" dest="dWatlow_ThermCtrl"
+                                                           disabled="false" idnum="3" label="Local" name="Local"
+                                                           u_id="2177"/>Remote
+                </Local>
+                <dyn name="Mode" u_id="2178">Idle</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2179">off</dyn>
+                <dyn name="Supply" u_id="2180" units="C">0.0</dyn>
+                <dyn name="Return" u_id="2181" units="C">11.5</dyn>
+            </ThermalLoop_3>
+            <ThermalLoop_4 name="Thermal Control Loop4" u_id="2181">
+                <Local class="Remote" u_id="2183"><command cmd="Local" confirm="false" dest="dWatlow_ThermCtrl"
+                                                           disabled="false" idnum="4" label="Local" name="Local"
+                                                           u_id="2184"/>Remote
+                </Local>
+                <dyn name="Mode" u_id="2185">Idle</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2186">off</dyn>
+                <dyn name="Supply" u_id="2187" units="C">0.0</dyn>
+                <dyn name="Return" u_id="2188" units="C">41.4</dyn>
+            </ThermalLoop_4>
+        </DataSets>
+    </Section>
+    <Section name="Battery Logs" u_id="2188">
+        <DataSets u_id="2189">
+            <Event_Log u_id="2190">
+                <Event timestamp="09:51:57" type="EVENT INFO" u_id="2191">Battery Recieved Active [0]</Event>
+                <Event timestamp="09:51:46" type="SERVICE REQUEST" u_id="2192">Recieved cmd:Standby from invalid
+                    source:1 while local=1
+                </Event>
+                <Event timestamp="09:51:46" type="EVENT INFO" u_id="2193">Battery Recieved Standby [-1]</Event>
+                <Event timestamp="09:51:04" type="URGENT SERVICE REQUEST" u_id="2194">BattString-1-DeltaVolt : trip
+                </Event>
+                <Event timestamp="09:50:46" type="EVENT INFO" u_id="2195">Battery Recieved Float [0]</Event>
+            </Event_Log>
+            <Active_Fault_List u_id="2196">
+                <Fault idx="1" name="BattString-1-DeltaSoC" timestamp="09:50:06" u_id="2197">trip</Fault>
+                <Fault idx="2" name="BattString-1-DeltaVolt" timestamp="09:51:04" u_id="2198">trip</Fault>
+                <Fault idx="5" name="BattString-2-DeltaVolt" timestamp="17:15:23" u_id="2199">trip</Fault>
+                <Fault idx="6" name="BattString-2-DeltaCurr" timestamp="17:15:23" u_id="2200">trip</Fault>
+            </Active_Fault_List>
+        </DataSets>
+    </Section>
+    <status>0</status>
+</Data_Summary>

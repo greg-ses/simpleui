@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BSC_Summary u_id="2001">
+    <Title u_id="2002">Module Extract</Title>
+    <timeStamp u_id="2002">1478789264079</timeStamp>
+    <hostname u_id="2003">John Oliver</hostname>
+    <Access u_id="2004">1</Access>
+    <Number_DCDCs u_id="2005">0</Number_DCDCs>
+    <Section name="First Section" u_id="2004.2">
+        <DataSets name="useful data" u_id="2004.5" url="/bsc/html/ParamsApp/Parameters.html" tooltip="sometimes helpful">
+            <StatusOverview u_id="2006" url="html/ParamsApp/Parameters.html">
+                <Title u_id="2007" name="Named_Title">System Status</Title>
+                <Build_Number u_id="2008">10773</Build_Number>
+                <Module_Cycle u_id="2009">0</Module_Cycle>
+                <System_Mode u_id="2010">Offline</System_Mode>
+                <System_SubMode u_id="2011">----
+                </System_SubMode>
+                <Thermal_State u_id="2012">Offline</Thermal_State>
+                <Rebalance_State u_id="2013">Offline
+                </Rebalance_State>
+                <Fault_Condition u_id="2014">none</Fault_Condition>
+                <Rebalance_Necessity u_id="2015">Disabled, 0</Rebalance_Necessity>
+                <An_to_Ca_L u_id="2016">0 L</An_to_Ca_L>
+                <Ca_to_An_L u_id="2017">0 L</Ca_to_An_L>
+                <Final_SoC_An_ref_Ca u_id="2018">-100.0 -100.0
+                    -100.0
+                </Final_SoC_An_ref_Ca>
+            </StatusOverview>
+        </DataSets>
+        <CmdSet name="emergency_commands" u_id="2019">
+            <command confirm="true" disabled="false" name="Enable_System" u_id="2020"/>
+            <command desc="Enter a log message" max="256" name="User_log_text" type="text" u_id="2021"/>
+        </CmdSet>
+        <CmdSet name="commands" u_id="2022">
+            <command confirm="true" name="Remote_Mode" u_id="2023"/>
+            <command confirm="true" name="Turn_On_Vent_Fans" u_id="2024" disabled="true"/>
+            <command confirm="false" name="Post" u_id="2025"/>
+        </CmdSet>
+    </Section>
+    <Section name="Second Section" u_id="2025.8" url="http://www.w3schools.com">
+        <DataSets name="Sweet Data" u_id="2025.9">
+            <ElectrolyteOverview u_id="2026" name="NamedElectrolytes" tooltip="should not appear">
+                <PT101_An_Stack_Inlet u_id="2027" units="PSI">0.42429805</PT101_An_Stack_Inlet>
+                <PT201_Ca_Stack_Inlet u_id="2028" units="PSI">
+                    <command desc="Enter a log message" max="256" name="user_Log_text" type="text" u_id="2021"/>
+                    0.25641033</PT201_Ca_Stack_Inlet>
+                <PT111_An_HEX_Input u_id="2029" units="PSI">
+                    <command confirm="true" name="Remote_Mode" u_id="2023"/>
+                    0
+                </PT111_An_HEX_Input>
+                <PT211_Ca_HEX_Input u_id="2030" units="PSI">0</PT211_Ca_HEX_Input>
+                <PT311_Coolant_HEX_Inlet u_id="2031" units="PSI">5.4548244</PT311_Coolant_HEX_Inlet>
+                <PT402_N2_PAD u_id="2032" units="mbar">
+                    10.255847
+                </PT402_N2_PAD>
+                <PT403_N2_Feed u_id="2033" units="PSI">25.412088</PT403_N2_Feed>
+                <PT404_N2_Tank_1 u_id="2034" units="PSI">1725.4274
+                </PT404_N2_Tank_1>
+                <PT405_N2_Tank_2 u_id="2035" units="PSI">
+                    153.08302
+                </PT405_N2_Tank_2>
+                <TT101_An_Stack_Inlet u_id="2036" units="C">27.664835</TT101_An_Stack_Inlet>
+                <TT111_An_HEX_Outlet u_id="2037" units="C">24.95116</TT111_An_HEX_Outlet>
+                <TT201_Ca_Stack_Inlet u_id="2038" units="C">
+                    27.362637
+                </TT201_Ca_Stack_Inlet>
+                <TT211_Ca_HEX_Outlet u_id="2039" units="C">25.064102</TT211_Ca_HEX_Outlet>
+                <TT301_Ambient u_id="2040" units="C">23.388277</TT301_Ambient>
+                <TT311_Coolant_HEX_Inlet u_id="2041" units="C">
+                    22.826618
+                </TT311_Coolant_HEX_Inlet>
+                <TT321_Coolant_HEX_Outlet u_id="2042" units="C">
+                    23.373016
+                </TT321_Coolant_HEX_Outlet>
+                <FT101_An_Process u_id="2043" units="LPM">0.96153754</FT101_An_Process>
+                <FT201_Ca_Process u_id="2044" units="LPM">0.94780123</FT201_Ca_Process>
+                <FT102_An_Utility u_id="2045" units="LPM">
+                    0.001282372
+                </FT102_An_Utility>
+                <FT202_Ca_Utility u_id="2046" units="LPM">0.001282372</FT202_Ca_Utility>
+                <LT101_An_Tank_1 u_id="2047" units="L">2992.915</LT101_An_Tank_1>
+                <LT104_An_Tank_4 u_id="2048" units="L">
+                    2993.4084
+                </LT104_An_Tank_4>
+                <LT201_Ca_Tank_1 u_id="2049" units="L">2705.3276</LT201_Ca_Tank_1>
+                <LT204_Ca_Tank_4 u_id="2050" units="L">2705.0808</LT204_Ca_Tank_4>
+                <OT101_An_V2 u_id="2051" units="">
+                    0.05463975
+                </OT101_An_V2>
+                <OT102_An_V_TOTAL u_id="2052" units="">1.3849193</OT102_An_V_TOTAL>
+                <Stack_1_Voltage u_id="2053" units="V">156.29292</Stack_1_Voltage>
+                <Stack_2_Voltage u_id="2054" units="V">
+                    158.26137
+                </Stack_2_Voltage>
+                <Stack_1_Current u_id="2055" units="A">0.036615346</Stack_1_Current>
+                <Stack_2_Current u_id="2056" units="A">2.0142148</Stack_2_Current>
+                <Reference_Voltage u_id="2057" units="V">
+                    1.2500418
+                </Reference_Voltage>
+                <CV101_An_Tank_Open_FB u_id="2058">false</CV101_An_Tank_Open_FB>
+                <CV101_An_Tank_Closed_FB u_id="2059">true</CV101_An_Tank_Closed_FB>
+                <CV201_Ca_Tank_Open_FB u_id="2060">
+                    false
+                </CV201_Ca_Tank_Open_FB>
+                <CV201_Ca_Tank_Closed_FB u_id="2061">true</CV201_Ca_Tank_Closed_FB>
+                <CV111_An_Utility_Transfer_FB u_id="2062">false</CV111_An_Utility_Transfer_FB>
+                <CV211_Ca_Utility_Transfer_FB u_id="2063">false
+                </CV211_Ca_Utility_Transfer_FB>
+                <CV111_An_Utility_Stir_FB u_id="2064">
+                    true
+                </CV111_An_Utility_Stir_FB>
+                <CV211_Ca_Utility_Stir_FB u_id="2065">true</CV211_Ca_Utility_Stir_FB>
+                <ESTOP_Released u_id="2066">false</ESTOP_Released>
+                <ESM_Disabled u_id="2067">true</ESM_Disabled>
+                <No_Leaks_Detected u_id="2068">true</No_Leaks_Detected>
+                <N2_PAD_Not_Overpressure u_id="2069">
+                    true
+                </N2_PAD_Not_Overpressure>
+                <N2_Blanket_Release_Control_Active u_id="2070">
+                    false
+                </N2_Blanket_Release_Control_Active>
+                <Normal_State_Active u_id="2071">true</Normal_State_Active>
+                <Reverse_State_Active u_id="2072">false</Reverse_State_Active>
+                <HVDC_Contactor_Drive_Normal u_id="2073">
+                    false
+                </HVDC_Contactor_Drive_Normal>
+                <HVDC_Contactor_Drive_Reverse u_id="2074">
+                    false
+                </HVDC_Contactor_Drive_Reverse>
+                <HVDC_Disconnect_Open u_id="2075">false</HVDC_Disconnect_Open>
+                <HVDC_Disconnect_Closed u_id="2076">true</HVDC_Disconnect_Closed>
+                <HVDC_Contactors_Normal u_id="2077">
+                    false
+                </HVDC_Contactors_Normal>
+                <HVDC_Contactors_Reverse u_id="2078">false</HVDC_Contactors_Reverse>
+                <AC_Aux_Enclosure_Door_Closed u_id="2079">true</AC_Aux_Enclosure_Door_Closed>
+                <HVDC_Enclosure_Door_Closed u_id="2080">true
+                </HVDC_Enclosure_Door_Closed>
+                <Container_Doors_Closed u_id="2081">
+                    true
+                </Container_Doors_Closed>
+                <Service_Switch_Run u_id="2082">true</Service_Switch_Run>
+                <Optical_Converter_Active u_id="2083">false</Optical_Converter_Active>
+                <AC_Aux_Ethernet_Active u_id="2084">
+                    false
+                </AC_Aux_Ethernet_Active>
+                <Container_Bypass_Disabled u_id="2085">true</Container_Bypass_Disabled>
+                <LVDC_Power_Supply_Active u_id="2086">true</LVDC_Power_Supply_Active>
+                <CV101_An_Tank_Open u_id="2087">
+                    false
+                </CV101_An_Tank_Open>
+                <CV201_Ca_Tank_Open u_id="2088">false</CV201_Ca_Tank_Open>
+                <CV111_An_Utility_Transfer u_id="2089">false</CV111_An_Utility_Transfer>
+                <CV211_Ca_Utility_Transfer u_id="2090">
+                    false
+                </CV211_Ca_Utility_Transfer>
+                <Process_Pumps_Enable u_id="2091">false</Process_Pumps_Enable>
+                <An_Utility_Pump_Enable u_id="2093">false</An_Utility_Pump_Enable>
+                <Ca_Utility_Pump_Enable u_id="2094">
+                    false
+                </Ca_Utility_Pump_Enable>
+                <Normal_Contactors_Enable u_id="2095">false</Normal_Contactors_Enable>
+                <Reverse_Contactors_Enable u_id="2096">false</Reverse_Contactors_Enable>
+                <Stack_1_Contactor_1_Enable u_id="2097">false
+                </Stack_1_Contactor_1_Enable>
+                <Stack_1_Contactor_2_Enable u_id="2098">
+                    false
+                </Stack_1_Contactor_2_Enable>
+                <Stack_2_Contactor_1_Enable u_id="2099">
+                    false
+                </Stack_2_Contactor_1_Enable>
+                <Stack_2_Contactor_2_Enable u_id="2100">
+                    false
+                </Stack_2_Contactor_2_Enable>
+                <Exhaust_Fan_Enable u_id="2101">false</Exhaust_Fan_Enable>
+                <Air_Hex_Enable u_id="2102">false</Air_Hex_Enable>
+                <UPS_Enable u_id="2103">true</UPS_Enable>
+                <ESM_Enable u_id="2105">false
+                </ESM_Enable>
+                <ESM_STOP_Reset u_id="2106">false</ESM_STOP_Reset>
+                <Stack_Cycle_1 u_id="2107">0
+                </Stack_Cycle_1>
+                <Stack_SN_1 u_id="2108">0001</Stack_SN_1>
+                <Stack_Cycle_2 u_id="2109">
+                    0
+                </Stack_Cycle_2>
+                <Stack_SN_2 u_id="2110">0002</Stack_SN_2>
+            </ElectrolyteOverview>
+
+            <ValvesOverview u_id="2111">
+                <valve_item name="An Tank Out" u_id="2112">closed</valve_item>
+                <valve_item name="Ca Tank Out" u_id="2113">closed
+                </valve_item>
+                <valve_item name="An Utility Valve" u_id="2114">
+                    closed
+                </valve_item>
+                <valve_item name="Ca Utility Valve" u_id="2115">closed</valve_item>
+            </ValvesOverview>
+
+            <DerivedSummary u_id="2116">
+                <Cycle_Count u_id="2117" units="">0</Cycle_Count>
+                <Cycle_Count2 u_id="2118" units="">
+                    0
+                </Cycle_Count2>
+                <Cycle_Count_Sys u_id="2119" units="">0</Cycle_Count_Sys>
+                <Cycle_Count_El u_id="2120" units="">
+                    0
+                </Cycle_Count_El>
+                <End_Cycle u_id="2121" units="">0</End_Cycle>
+                <Rebal_Necessity u_id="2122" units="">
+                    0
+                </Rebal_Necessity>
+                <Speed_Ca u_id="2123" units="Hz">0</Speed_Ca>
+                <Speed_An u_id="2124" units="Hz">0</Speed_An>
+                <Speed_Ca_Utility u_id="2125" units="Hz">0</Speed_Ca_Utility>
+                <Speed_An_Utility u_id="2126" units="Hz">
+                    0
+                </Speed_An_Utility>
+                <Module_I u_id="2127" units="A">1.0132077</Module_I>
+                <Module_V u_id="2128" units="V">
+                    314.52377
+                </Module_V>
+                <Module_P u_id="2129" units="kW">0.31867787</Module_P>
+                <Avg_SOC u_id="2130" units="%">
+                    0
+                </Avg_SOC>
+                <Avg_AnVolume u_id="2131" units="L">11972.348</Avg_AnVolume>
+                <Avg_CaVolume u_id="2132" units="L">
+                    10822.229
+                </Avg_CaVolume>
+                <Vol_AnRebalTarg u_id="2133" units="L">1.5</Vol_AnRebalTarg>
+                <Vol_CaRebalTarg u_id="2134" units="L">1.5
+                </Vol_CaRebalTarg>
+                <Vol_AnRebalMove u_id="2135" units="L">1.5</Vol_AnRebalMove>
+                <Vol_CaRebalMove u_id="2136" units="L">1.5</Vol_CaRebalMove>
+                <Max_ChargeI u_id="2137" units="A">
+                    100
+                </Max_ChargeI>
+                <Max_DischargeI u_id="2138" units="A">300</Max_DischargeI>
+                <Max_ChargeV u_id="2139" units="V">
+                    400
+                </Max_ChargeV>
+                <Min_DischargeV u_id="2140" units="V">150</Min_DischargeV>
+                <AnSOC u_id="2141" units="%">
+                    0
+                </AnSOC>
+                <CaSOC u_id="2142" units="%">0</CaSOC>
+                <Va u_id="2143" units="">0</Va>
+                <Vc u_id="2144" units="">
+                    0
+                </Vc>
+                <AnVolPct u_id="2145" units="%">0</AnVolPct>
+                <AnMolPct u_id="2146" units="%">0</AnMolPct>
+                <Valance u_id="2147" units="">-1
+                </Valance>
+                <Pred_An_SoC u_id="2148" units="%">-1</Pred_An_SoC>
+                <Pred_Ref_SoC u_id="2149" units="%">-1
+                </Pred_Ref_SoC>
+                <Pred_Ca_SoC u_id="2150" units="%">-1</Pred_Ca_SoC>
+                <An_to_Ca_Vol u_id="2151" units="L">0</An_to_Ca_Vol>
+                <Ca_to_An_Vol u_id="2152" units="L">0</Ca_to_An_Vol>
+            </DerivedSummary>
+            <ActiveFaultList u_id="2153"/>
+        </DataSets>
+    </Section>
+    <status>0</status>
+</BSC_Summary>

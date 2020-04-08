@@ -1,0 +1,608 @@
+{
+  "u_id": "2002",
+  "Title": {
+    "u_id": "2002",
+    "value": "Module Simulation"
+  },
+  "timeStamp": {
+    "u_id": "2003",
+    "value": "1562095556018"
+  },
+  "Version": {
+    "u_id": "2004",
+    "value": "debug-SimVNX1000Server: develop-dirty, 2019-07-02 11:47 EDT"
+  },
+  "Section": [
+    {
+      "name": "Sendyne Board Simulation Status",
+      "u_id": "2006",
+      "DataSets": [
+        {
+          "u_id": "2007",
+          "id": "DataSet-0.0",
+          "className": "tableRowGroupBlock dataset-wrapper L3",
+          "sha1sums": " 369f6ea9d939acf492504c8415ca5a7391a1d879 123cea3616f6ffb204da1eceefb9e20fd6ac5569 6de52617c7eca55af3f8d601b4e50a7642a583fa",
+          "dsItems": [
+            {
+              "label": "Thread_Rate",
+              "desc": "",
+              "u_id": "2008",
+              "url": "",
+              "tooltip": "",
+              "elements": [
+                {
+                  "name": "LastTime",
+                  "u_id": "2009",
+                  "units": "ms",
+                  "value": "301",
+                  "id": "2009"
+                },
+                {
+                  "name": "AvgTime",
+                  "u_id": "2010",
+                  "units": "ms",
+                  "value": "300",
+                  "id": "2010"
+                },
+                {
+                  "name": "RecentWorst",
+                  "u_id": "2011",
+                  "units": "ms",
+                  "value": "302",
+                  "id": "2011"
+                },
+                {
+                  "name": "WorstTime",
+                  "u_id": "2012",
+                  "units": "ms",
+                  "value": "309",
+                  "id": "2012"
+                },
+                {
+                  "name": "TimeViolations",
+                  "u_id": "2013",
+                  "value": "11426",
+                  "id": "2013"
+                }
+              ],
+              "tableType": "PairListTable",
+              "id": "Table-0.0.0",
+              "name": "Thread_Rate",
+              "sha1sum": "369f6ea9d939acf492504c8415ca5a7391a1d879"
+            },
+            {
+              "label": "Command_Sub",
+              "desc": "",
+              "u_id": "2014",
+              "url": "",
+              "tooltip": "",
+              "elements": [
+                {
+                  "name": "LastTime",
+                  "u_id": "2015",
+                  "units": "ms",
+                  "value": "0",
+                  "id": "2015"
+                },
+                {
+                  "name": "AvgTime",
+                  "u_id": "2016",
+                  "units": "ms",
+                  "value": "0",
+                  "id": "2016"
+                },
+                {
+                  "name": "RecentWorst",
+                  "u_id": "2017",
+                  "units": "ms",
+                  "value": "2",
+                  "id": "2017"
+                },
+                {
+                  "name": "WorstTime",
+                  "u_id": "2018",
+                  "units": "ms",
+                  "value": "7",
+                  "id": "2018"
+                },
+                {
+                  "name": "TimeViolations",
+                  "u_id": "2019",
+                  "value": "0",
+                  "id": "2019"
+                }
+              ],
+              "tableType": "PairListTable",
+              "id": "Table-0.0.1",
+              "name": "Command_Sub",
+              "sha1sum": "123cea3616f6ffb204da1eceefb9e20fd6ac5569"
+            },
+            {
+              "label": "Simulation_Response",
+              "desc": "",
+              "u_id": "2020",
+              "url": "",
+              "tooltip": "",
+              "elements": [
+                {
+                  "name": "LastTime",
+                  "u_id": "2021",
+                  "units": "ms",
+                  "value": "0",
+                  "id": "2021"
+                },
+                {
+                  "name": "AvgTime",
+                  "u_id": "2022",
+                  "units": "ms",
+                  "value": "0",
+                  "id": "2022"
+                },
+                {
+                  "name": "RecentWorst",
+                  "u_id": "2023",
+                  "units": "ms",
+                  "value": "0",
+                  "id": "2023"
+                },
+                {
+                  "name": "WorstTime",
+                  "u_id": "2024",
+                  "units": "ms",
+                  "value": "1",
+                  "id": "2024"
+                },
+                {
+                  "name": "TimeViolations",
+                  "u_id": "2025",
+                  "value": "0",
+                  "id": "2025"
+                }
+              ],
+              "tableType": "PairListTable",
+              "id": "Table-0.0.2",
+              "name": "Simulation_Response",
+              "sha1sum": "6de52617c7eca55af3f8d601b4e50a7642a583fa"
+            }
+          ]
+        }
+      ],
+      "CmdSet": [],
+      "Fault_List": [],
+      "menuPos": "top",
+      "colCount": 3,
+      "rowCount": 2
+    },
+    {
+      "name": "Container 1",
+      "u_id": "2026",
+      "DataSets": [
+        {
+          "u_id": "2027",
+          "id": "DataSet-1.0",
+          "className": "tableRowGroupBlock dataset-wrapper L3",
+          "sha1sums": " fabb7aa3ae4e3d534105a4e656a55d596c8c1e6e 490c33ea5037da662c5135a3c12214439b615ecf 3a32c08652a05895465a3acc1809c205b2366841",
+          "dsItems": [
+            {
+              "label": "Status",
+              "desc": "",
+              "u_id": "2028",
+              "url": "",
+              "tooltip": "",
+              "elements": [
+                {
+                  "name": "Status",
+                  "u_id": "2029",
+                  "value": "connected",
+                  "id": "2029"
+                },
+                {
+                  "name": "Last ts",
+                  "u_id": "2030",
+                  "value": "15:25:56",
+                  "id": "2030"
+                },
+                {
+                  "name": "LastTime",
+                  "u_id": "2031",
+                  "units": "ms",
+                  "value": "0",
+                  "id": "2031"
+                },
+                {
+                  "name": "AvgTime",
+                  "u_id": "2032",
+                  "units": "ms",
+                  "value": "0",
+                  "id": "2032"
+                },
+                {
+                  "name": "RecentWorst",
+                  "u_id": "2033",
+                  "units": "ms",
+                  "value": "0",
+                  "id": "2033"
+                },
+                {
+                  "name": "WorstTime",
+                  "u_id": "2034",
+                  "units": "ms",
+                  "value": "0",
+                  "id": "2034"
+                },
+                {
+                  "name": "TimeViolations",
+                  "u_id": "2035",
+                  "value": "0",
+                  "id": "2035"
+                }
+              ],
+              "tableType": "PairListTable",
+              "id": "Table-1.0.0",
+              "name": "Status",
+              "sha1sum": "fabb7aa3ae4e3d534105a4e656a55d596c8c1e6e"
+            },
+            {
+              "label": "Model",
+              "desc": "",
+              "u_id": "2036",
+              "url": "",
+              "tooltip": "",
+              "elements": [
+                {
+                  "name": "Num_Tanks",
+                  "u_id": "2037",
+                  "value": "10",
+                  "id": "2037"
+                },
+                {
+                  "name": "Total_Vol",
+                  "u_id": "2038",
+                  "value": "349728",
+                  "id": "2038"
+                },
+                {
+                  "name": "AnVol%",
+                  "u_id": "2039",
+                  "units": "%",
+                  "value": "52.50",
+                  "id": "2039"
+                },
+                {
+                  "name": "AnTankImbalance",
+                  "u_id": "2040",
+                  "units": " inches",
+                  "value": "-0.001",
+                  "id": "2040"
+                },
+                {
+                  "name": "CaTankImbalance",
+                  "u_id": "2041",
+                  "units": " inches",
+                  "value": "-0.001",
+                  "id": "2041"
+                }
+              ],
+              "tableType": "PairListTable",
+              "id": "Table-1.0.1",
+              "name": "Model",
+              "sha1sum": "490c33ea5037da662c5135a3c12214439b615ecf"
+            },
+            {
+              "label": "FloatVars-0",
+              "desc": "",
+              "u_id": "2041",
+              "url": "",
+              "tooltip": "",
+              "elements": [
+                {
+                  "u_id": "2043",
+                  "value": "0.9",
+                  "command": {
+                    "cmd": "AnolyteTankImbalance",
+                    "desc": "Anolyte tank imbalance in inches.",
+                    "dest": "1-0",
+                    "disabled": "false",
+                    "idnum": "0",
+                    "label": "AnolyteTankImbalance",
+                    "name": "AnolyteTankImbalance",
+                    "u_id": "2044",
+                    "controls": [
+                      {
+                        "desc": "",
+                        "idnum": "0",
+                        "max": "99999.0",
+                        "min": "-99999.0",
+                        "u_id": "2045",
+                        "value": "0.9",
+                        "id": "2045",
+                        "sha1sum": "d5c954f65bff14de74369600476c3a60cb1375df",
+                        "type": "float",
+                        "label": "Value 1 (-99999.0 .. 99999.0)",
+                        "size": 20,
+                        "cols": 20,
+                        "rows": 1,
+                        "name": "Value-1"
+                      }
+                    ],
+                    "class": "command",
+                    "id": "2044"
+                  },
+                  "name": "",
+                  "id": "2043",
+                  "sha1sums": " 3abc0e859fb484baf27b35b1ae1a9b6ba249397d",
+                  "_action": "floatInputDialog",
+                  "sha1sum": "d055398b758f59325437950a60cea9a6f784c865"
+                },
+                {
+                  "u_id": "2046",
+                  "value": "0.9",
+                  "command": {
+                    "cmd": "CatholyteTankImbalance",
+                    "desc": "Anolyte tank imbalance in inches.",
+                    "dest": "1-0",
+                    "disabled": "false",
+                    "idnum": "0",
+                    "label": "CatholyteTankImbalance",
+                    "name": "CatholyteTankImbalance",
+                    "u_id": "2047",
+                    "controls": [
+                      {
+                        "desc": "",
+                        "idnum": "0",
+                        "max": "99999.0",
+                        "min": "-99999.0",
+                        "u_id": "2048",
+                        "value": "0.9",
+                        "id": "2048",
+                        "sha1sum": "d344192c340b32cba29445e1beb9e7fecd5ebb7a",
+                        "type": "float",
+                        "label": "Value 1 (-99999.0 .. 99999.0)",
+                        "size": 20,
+                        "cols": 20,
+                        "rows": 1,
+                        "name": "Value-1"
+                      }
+                    ],
+                    "class": "command",
+                    "id": "2047"
+                  },
+                  "name": "",
+                  "id": "2046",
+                  "sha1sums": " 4b51e68d43f588815ba6609d6864f5738157a744",
+                  "_action": "floatInputDialog",
+                  "sha1sum": "f918b19a46891a6d2b9d6916be65e3b7fed78604"
+                }
+              ],
+              "tableType": "PairListTable",
+              "id": "Table-1.0.2",
+              "name": "FloatVars-0",
+              "sha1sum": "3a32c08652a05895465a3acc1809c205b2366841"
+            }
+          ]
+        }
+      ],
+      "CmdSet": [],
+      "Fault_List": [],
+      "menuPos": "top",
+      "colCount": 3,
+      "rowCount": 2
+    },
+    {
+      "name": "Container 2",
+      "u_id": "2049",
+      "DataSets": [
+        {
+          "u_id": "2050",
+          "id": "DataSet-2.0",
+          "className": "tableRowGroupBlock dataset-wrapper L3",
+          "sha1sums": " b6fd70db9a2545835f58848e53e7d2ab3ef806ef 36dae5279bc02d6d686d467f18b684b02c961cef 71478cf0484b4c06802ed0c7e7401eacad3ce542",
+          "dsItems": [
+            {
+              "label": "Status",
+              "desc": "",
+              "u_id": "2051",
+              "url": "",
+              "tooltip": "",
+              "elements": [
+                {
+                  "name": "Status",
+                  "u_id": "2052",
+                  "value": "connected",
+                  "id": "2052"
+                },
+                {
+                  "name": "Last ts",
+                  "u_id": "2053",
+                  "value": "15:25:56",
+                  "id": "2053"
+                },
+                {
+                  "name": "LastTime",
+                  "u_id": "2054",
+                  "units": "ms",
+                  "value": "0",
+                  "id": "2054"
+                },
+                {
+                  "name": "AvgTime",
+                  "u_id": "2055",
+                  "units": "ms",
+                  "value": "0",
+                  "id": "2055"
+                },
+                {
+                  "name": "RecentWorst",
+                  "u_id": "2056",
+                  "units": "ms",
+                  "value": "0",
+                  "id": "2056"
+                },
+                {
+                  "name": "WorstTime",
+                  "u_id": "2057",
+                  "units": "ms",
+                  "value": "0",
+                  "id": "2057"
+                },
+                {
+                  "name": "TimeViolations",
+                  "u_id": "2058",
+                  "value": "0",
+                  "id": "2058"
+                }
+              ],
+              "tableType": "PairListTable",
+              "id": "Table-2.0.0",
+              "name": "Status",
+              "sha1sum": "b6fd70db9a2545835f58848e53e7d2ab3ef806ef"
+            },
+            {
+              "label": "Model",
+              "desc": "",
+              "u_id": "2059",
+              "url": "",
+              "tooltip": "",
+              "elements": [
+                {
+                  "name": "Num_Tanks",
+                  "u_id": "2060",
+                  "value": "10",
+                  "id": "2060"
+                },
+                {
+                  "name": "Total_Vol",
+                  "u_id": "2061",
+                  "value": "349728",
+                  "id": "2061"
+                },
+                {
+                  "name": "AnVol%",
+                  "u_id": "2062",
+                  "units": "%",
+                  "value": "52.50",
+                  "id": "2062"
+                },
+                {
+                  "name": "AnTankImbalance",
+                  "u_id": "2063",
+                  "units": " inches",
+                  "value": "-0.001",
+                  "id": "2063"
+                },
+                {
+                  "name": "CaTankImbalance",
+                  "u_id": "2064",
+                  "units": " inches",
+                  "value": "-0.001",
+                  "id": "2064"
+                }
+              ],
+              "tableType": "PairListTable",
+              "id": "Table-2.0.1",
+              "name": "Model",
+              "sha1sum": "36dae5279bc02d6d686d467f18b684b02c961cef"
+            },
+            {
+              "label": "FloatVars-0",
+              "desc": "",
+              "u_id": "2064",
+              "url": "",
+              "tooltip": "",
+              "elements": [
+                {
+                  "u_id": "2066",
+                  "value": "0.9",
+                  "command": {
+                    "cmd": "AnolyteTankImbalance",
+                    "desc": "Anolyte tank imbalance in inches.",
+                    "dest": "2-0",
+                    "disabled": "false",
+                    "idnum": "0",
+                    "label": "AnolyteTankImbalance",
+                    "name": "AnolyteTankImbalance",
+                    "u_id": "2067",
+                    "controls": [
+                      {
+                        "desc": "",
+                        "idnum": "0",
+                        "max": "99999.0",
+                        "min": "-99999.0",
+                        "u_id": "2068",
+                        "value": "0.9",
+                        "id": "2068",
+                        "sha1sum": "b08bcb78703a1e9c53fae61f2b1364f08ffc9fd7",
+                        "type": "float",
+                        "label": "Value 1 (-99999.0 .. 99999.0)",
+                        "size": 20,
+                        "cols": 20,
+                        "rows": 1,
+                        "name": "Value-1"
+                      }
+                    ],
+                    "class": "command",
+                    "id": "2067"
+                  },
+                  "name": "",
+                  "id": "2066",
+                  "sha1sums": " 6e50c3c78f01bb454974eff8c9c7efce707d1efa",
+                  "_action": "floatInputDialog",
+                  "sha1sum": "555c36cfdbdf9176f89145165b6bcf8be8ad97cb"
+                },
+                {
+                  "u_id": "2069",
+                  "value": "1.1",
+                  "command": {
+                    "cmd": "CatholyteTankImbalance",
+                    "desc": "Anolyte tank imbalance in inches.",
+                    "dest": "2-0",
+                    "disabled": "false",
+                    "idnum": "0",
+                    "label": "CatholyteTankImbalance",
+                    "name": "CatholyteTankImbalance",
+                    "u_id": "2070",
+                    "controls": [
+                      {
+                        "desc": "",
+                        "idnum": "0",
+                        "max": "99999.0",
+                        "min": "-99999.0",
+                        "u_id": "2071",
+                        "value": "1.1",
+                        "id": "2071",
+                        "sha1sum": "581a129dad650621ded83827c18a24fe39468901",
+                        "type": "float",
+                        "label": "Value 1 (-99999.0 .. 99999.0)",
+                        "size": 20,
+                        "cols": 20,
+                        "rows": 1,
+                        "name": "Value-1"
+                      }
+                    ],
+                    "class": "command",
+                    "id": "2070"
+                  },
+                  "name": "",
+                  "id": "2069",
+                  "sha1sums": " 87403ecd22929c5db27e6277b04441af9ec78acc",
+                  "_action": "floatInputDialog",
+                  "sha1sum": "cf8539cc0939b41a33eb8237305063220add3953"
+                }
+              ],
+              "tableType": "PairListTable",
+              "id": "Table-2.0.2",
+              "name": "FloatVars-0",
+              "sha1sum": "71478cf0484b4c06802ed0c7e7401eacad3ce542"
+            }
+          ]
+        }
+      ],
+      "CmdSet": [],
+      "Fault_List": [],
+      "menuPos": "top",
+      "colCount": 3,
+      "rowCount": 2
+    }
+  ],
+  "status": "0"
+}

@@ -1,0 +1,9 @@
+{"enableUserInput":true
+ ,"timeStamp":"1368111667290"
+ ,"ioData":
+	{"AIN":[{"name":"Dummy_AIn","value":"22.31"}]
+	,"DIN":[{"name":"Dummy_DIn","value":true}]
+	,"DOUT":[{"name":"Dummy_DOut","value":true}
+			,{"name":"Blinky_LED","value":false}]
+		}
+}

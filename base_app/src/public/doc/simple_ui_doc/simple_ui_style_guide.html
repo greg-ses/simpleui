@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Style Guide for the simple_ui application.</title>
+
+    <style type="text/css">
+        #contents {font-size: 14px; background-color: lightgrey; padding: 2px 10px 10px 10px;}
+        .toc-ref {font-size: 11px; background-color: lightblue; padding: 4px; border: 1pt navy solid; vertical-align: middle;}
+        .closed {display: none;}
+        .opened {display: block;}
+        .TODO {color: gray;}
+        body {font-family: sans-serif}
+        code {font-size: larger;}
+        em {font-style: oblique; font-weight: bolder;}
+        hr {border: 2pt solid lightgray;}
+    </style>
+
+    <script type="text/javascript">
+        function toggle(self)
+        {
+            var container = self.parentElement.parentElement.parentElement;
+            if (container)
+            {
+                for (var i=0; i < container.childNodes.length; i++)
+                {
+                    var section = container.childNodes[i];
+                    if (section.tagName === 'DIV' && section.id !== '')
+                    {
+                        if (section.className === 'closed')
+                        {
+                            section.className = 'opened';
+                            self.innerHTML = '&#9660;';
+                            break;
+                        }
+                        else if (section.className === 'opened')
+                        {
+                            section.className = 'closed';
+                            self.innerHTML = '&#9658;';
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        function openSection(id)
+        {
+            var o = document.getElementById(id);
+            if (o) {
+                o.className = o.className === 'closed' ? 'opened' : 'closed';
+                var toggleElem = o.parentElement.children[0].children[0].children[0];
+                if (toggleElem) {
+                    toggleElem.innerHTML = o.className === 'closed' ? '&#9658;' : '&#9660;';
+                    o.parentElement.scrollIntoView(true);
+                }
+            }
+        }
+
+        function onLoad() {
+            var matches = document.location.search.match(/[?&]section=([^?&]+)/);
+            if ( (matches instanceof Array) && (matches.length === 2) ) {
+                openSection(matches[1]);
+            }
+        }
+
+    </script>
+
+</head>
+<body onload="onLoad()">
+
+<h1><em>Style Guide</em> for the <code>simple_ui</code> application.</h1>
+<div>
+    <h2><span><span onclick="toggle(this)">&#9660;</span></span>Contents</h2>
+    <div id="contents" class="opened">
+        <a href="javascript:openSection('what_is_simple_ui')">1. What is simple_ui?</a><br/>
+        <a href="javascript:openSection('getting_started_with_simple_ui')">2. How do I get started with simple_ui.</a><br/>
+        <a href="javascript:openSection('how_to_create_simple_ui_derivative')">3. How can a developer create a simple_ui derivative and configure it using ui.properties?</a><br/>
+        <a href="javascript:openSection('how_to_install_and_use_a_derived_app')" class='TODO'>4. Once I've created a distribution of a simple_ui derivative, how can a user install and use it?</a><br/>
+        <a href="javascript:openSection('simple_ui_themes')">5. What themes can I use with simple_ui?</a><br/>
+        <a href="javascript:openSection('default_UI_model')" class='TODO'>6. How do I use the <em>default</em> UI model <em>(tabular/text-oriented/hierarchical</em>)?</a><br/>
+        <a href="javascript:openSection('overlay_UI_model')">7. How do I use the <em>overlay</em> UI model?</a><br/>
+        <a href="javascript:openSection('working_with_overlays_in_gui')">8. How do I work with <em>overlays</em> using the GUI?</a><br/>
+        <a href="javascript:openSection('overlay_UI_rules')">9. What are the rules for using the <em>overlay</em> UI model?</a><br/>
+        <a href="javascript:openSection('button_related_data_coloring')">9. Button-related Data Coloring</a><br/>
+        <br/>
+        <a href="my-simple-ui-derivative.html" target="_blank">View the documentation for <code><i>my-simple-ui-derivative</i></code></a><br/>
+        &nbsp;<br/>
+    </div>
+</div>
+
+<hr/>
+
+<div>
+    <h2><span><span onclick="toggle(this)">&#9658;</span></span>&nbsp;1. What is simple_ui? [NEEDS UPDATE]</h2>
+    <div  id="what_is_simple_ui" class="closed">
+        <ul>
+            <li><code>simple_ui</code> is a Linux-based tarball software distribution (<code>dist.tgz</code>)</li>
+            <ul>
+                <li><code>Linux (Ubuntu, Debian, or Mint)</code> must be pre-installed (<code>Ubuntu 16.04</code> or <code>Mint 18</code> are preferred)</li>
+                <li><code>Apache2</code>, used to display the web-based UI, must also be pre-installed</li>
+                <li><code>dist.tgz</code> must be <em>unpacked</em> and <em>configured</em> to use</li>
+                <li>the distribution contains a complete sample app used to display an example UI</li>
+                <li>configuration is accomplished by running a script contained in the distribution and editing the <code>ui.properties</code> file</li>
+                <li><code>php7</code> must be pre-installed to run the sample app</li>
+                <li>the config script writes the configuration to <code>/var/www/<em>user-defined-folder</em></code></li>
+                <li>the UI is accessed via a URL of <code>http://<em>hostname</em>/<em>user-defined-folder</em></code></li>
+                <li>the user may utilize advanced features by creating a simple folder structure somewhere outside of <code>/var/www</code></li>
+                <li>such a folder is called the <em>simple_ui derivative folder</em></li>
+                <li>a merge tool merges <em>simple_ui</em> with the <em>simple_ui derivative folder</em> to create <code>/var/www/<em>user-defined-folder</em></code></li>
+                <li></li>
+            </ul>
+            <li><code>simple_ui</code> provides a browser-based user interface to a <em>RESTful backend service</em>
+                <ul>
+                    <li>the UI may contain a <em>single tab</em> or <em>multiple tabs</em></li>
+                    <li>each tab is defined in the <code>ui.properties</code> file, as demonstrated in the sample</li>
+                    <li>each tab has a URL, specified in <code>ui.properties</code>, which requests the XML or JSON from which the UI is automatically generated</li>
+                    <li>the <em>backend service</em> to must answer each <em>URL request</em> with a complete <em>XML</em> or <em>JSON</em> response</li>
+                    <li>the UI automatically refreshes the open tab on a schedule defined in <code>ui.properties</code></li>
+                    <li>the UI automatically maintains a session with the Apache2 web server, and replies with only changes when possible</li>
+                </ul>
+            <li>two styles of browser-based User Interface are supported</li>
+                <ul>
+                    <li>the default style is a tabular/text-oriented, hierarchical display</li>
+                    <li>the advanced style allows a <em>static background image</em> to be <em>overlaid</em>
+                        and <em>dynamically refreshes</em> with text and images based on the latest XML or JSON received</li>
+                </ul>
+        </ul>
+    </div>
+    <hr/>
+</div>
+
+<div>
+    <h2><span><span onclick="toggle(this)">&#9658;</span></span>&nbsp;2. How do I get started with simple_ui?</h2>
+    <div id="getting_started_with_simple_ui" class='closed'>
+        <div>First, you need to install and understand simple_ui:</div>
+        <ul>
+            <li>Create and pull a <code>git</code> branch containing <code>vionx_linux/target/common/web/apps/ng-simple-ui</code></li>
+            <li><code>cd vionx_linux/target/common/web/apps/ng-simple-ui/src/public/deploy</code></li>
+            <li><code>./update_site.sh jks-ubuntu16-dev simpleui</code></li>
+            <li>The steps above create a service named <code><it>ng-simple-ui</it>-web</code></code> that references a new folder <code>/var/www/ng-simple-ui</code></li>
+            <li>Open this url in a browser: <a href="/ng-simple-ui" target="_blank">http://<i>HOSTNAME</i>/ng-simple-ui</a></li>
+        </ul>
+    </div>
+    <hr/>
+</div>
+
+<div>
+    <h2><span><span onclick="toggle(this)">&#9658;</span></span> 3. How can a developer create a simple_ui derivative and configure it using ui.properties?</h2>
+    <div id="how_to_create_simple_ui_derivative" class='closed'>
+        <ul>
+            <li>Develop using a Linux distribution such as Ubuntu or Linux Mint, with Apache installed.</li>
+            <li>Copy and extract the simple_ui distribution <code>simple_ui.tgz</code> (<code>dist.tgz</code> internally)
+                <pre>
+                mkdir /tmp/simple_ui
+                cp ~/Downloads/dist.tgz /tmp/simple_ui/
+                cd /tmp/simple_ui
+                tar xzvf dist.tgz
+                </pre>
+            </li>
+
+            <li>Set up a folder for the the <em>simple_ui derivative</em>
+                <pre>
+                mkdir -p /tmp/<em>MyOverlayApp</em>/simple_ui.derivative
+                cp /tmp/simple_ui/example-overlay.tgz /tmp/<em>MyOverlayApp/simple_ui.derivative/</em>
+                cd /tmp/<em>MyOverlayApp/simple_ui.derivative/</em>
+                tar xzvf example-overlay.tgz
+                mv example-overlay overlay-1
+                cp overlay-1/ui.properties ./ui.properties</em>
+                    cp -r overlay-1/php ./</em>
+                </pre>
+            </li>
+
+            <li>Merge your derived app with <em>simple_ui</em>:
+                <pre>
+                   cd /tmp/simple_ui
+                   sh -x merge-derived-app.sh /tmp/simple_ui/dist.tgz /tmp/MyOverlayApp/simple_ui.derivative /var/www/MyOverlayApp -i
+                </pre>
+            </li>
+
+            <li>Open the URL to your derived app in Google Chrome to make sure it's working :
+                <pre>
+                   http://<em>HOSTNAME</em>/MyOverlayApp
+                </pre>
+            </li>
+
+            <li>To understand how your configuration works, look at the ui.properties file for your derived app.
+                <pre>
+                    vi ui.properties
+                </pre>
+                Scroll down to <code>###### Tab Configuration #######</code>, and look at the lines starting with <code>tab.1</code><br/>
+                <pre>
+                    tab.1.name = MyOverlayApp Dashboard
+                    tab.1.overlayHostName = [HOSTNAME]
+                    tab.1.pageType = overlay
+                    tab.1.overlayImageUrl = /MyOverlayApp/overlay-1/images/overlay.png
+                    tab.1.imageOverlayGroupNames = ExampleOverlay
+                    tab.1.cmdBarNames = commands
+                    tab.1.dataTableNames = DataTable
+                    tab.1.dataUrl = /MyOverlayApp/php/tests/get_mock_xml.php?file=example-overlay.xml&versions=3&Ordered?JSON
+                    tab.1.commandUrl = /MyOverlayApp/php/tests/example-overlay.php
+                </pre>
+            </li>
+    </div>
+    <hr/>
+</div>
+
+<div>
+    <h2><span><span onclick="toggle(this)">&#9658;</span></span>&nbsp;4. Once I've created a distribution of a simple_ui derivative, how can a user install and use it?</h2>
+    <div id="how_to_install_and_use_a_derived_app" class='closed'>
+        [TODO]
+    </div>
+    <hr/>
+</div>
+
+<div>
+    <h2><span><span onclick="toggle(this)">&#9658;</span></span>&nbsp;5. What themes can I use with simple_ui?</h2>
+    <div id="simple_ui_themes" class='closed'>
+        One of the following "themes" must be uncommented in ui.properties by removing the leading "#".
+        <pre>
+            #appTheme.name   = SimpleUiBlue
+            #appTheme.name   = SimpleUiPurple
+            #appTheme.name   = SimpleUiSea
+            #appTheme.name   = SimpleUiPeach
+        </pre>
+    </div>
+    <hr/>
+</div>
+
+<div>
+    <h2><span><span onclick="toggle(this)">&#9658;</span></span>&nbsp;6. How do I use the <em>default</em> UI model <em>(tabular/text-oriented/hierarchical</em>)?</h2>
+    <div id="default_UI_model" class='closed'>[TODO]</div>
+    <hr/>
+</div>
+
+<div>
+    <h2><span><span onclick="toggle(this)">&#9658;</span></span>&nbsp;7. How do I use the <em>overlay</em> UI model?</h2>
+    <div id="overlay_UI_model" class='closed'>
+        <ul>
+            <li>Create a simple_ui derivative, using the steps the section above: <a href="javascript:openSection('how_to_create_simple_ui_derivative')" class='TODO'>2. How can a developer create a simple_ui derivative and configure it using ui.properties?</a></li>
+            <li>Edit <code>/tmp/<em>MyOverlayApp</em>/simple_ui.derivative/ui.properties</code> per your needs (Make sure <code>mode = design</code> is uncommented.)</li>
+            <li>Edit <code>/tmp/<em>MyOverlayApp</em>/simple_ui.derivative/overlay-<em>N</em>/images/overlay.png</code> per your needs</li>
+            <li>Add additional overlay graphics to <code>/tmp/<em>MyOverlayApp</em>/simple_ui.derivative/overlay-<em>N</em>/images/</code> per your needs</li>
+            <li>Tar up your modified folder:
+                <pre>
+                    cd /tmp/<em>MyOverlayApp</em>/simple_ui.derivative
+                    tar czvf overlay.tgz overlay
+                </pre>
+            </li>
+            <li>Merge the overlay with <code>simple_ui</code>, creating <code>/var/www/MyOverlayApp</code>:
+                <pre>
+                    cd /home/<em></em>SomeUser</em>/Downloads/simple_ui
+                    sudo sh merge-derived-app.sh ./dist.tgz /tmp/<em>MyOverlayApp</em>/simple_ui.derivative /var/www/MyOverlayApp -d <em>SomeUser</em>
+                </pre>
+            </li>
+        </ul>
+    </div>
+    <hr/>
+</div>
+
+<div>
+    <h2><span><span onclick="toggle(this)">&#9658;</span></span>&nbsp;8. How do I work with <em>overlays</em> using the GUI?</h2>
+    <div id="working_with_overlays_in_gui" class='closed'>
+        <h3>To use Drag-and-Drop in Design Mode:</h3>
+        <ol>
+            <li>Edit <code>/var/www/<em>MyOverlayApp</em>/ui.properties</code> and un-comment the line: <code>mode = design</code><br/>
+                <em>Not-yet-positioned elements</em> (those not in <code>image-overlays.css</code>) are only visible in the UI if <code>mode = design</code></li>
+            <br/>
+            <li>To make your GUI Session changes stick in source control:
+                <br/>
+                <br>Remove the <i>installed</i> version of the file:
+                <br/><code>rm /var/www/<em>MyOverlayApp</em>/overlay-1/image-overlays.css</code>
+                <br/>
+                <br>Create a link to the <i>source control</i> version:
+                <br/><code>ln -s target/MyOverlayApp/simple-ui.derivative/overlay-1/image-overlays.css /var/www/<em>MyOverlayApp</em>/overlay-1/image-overlays.css</code>
+                <br/><code>chmod 777 target/MyOverlayApp/simple-ui.derivative/overlay-1/image-overlays.css /var/www/<em>MyOverlayApp</em>/overlay-1/image-overlays.css</code>
+            </li>
+            <br/>
+            <li>View your app by entering this URL in Google Chrome <code>http://MyOverlayApp</code>.</li>
+            <br/>
+            <li>If everything worked okay, you should see your overlay page in the browser, with a section at the bottom
+                that looks something like the image below.
+                <br/><br/>
+                <img src="../images/example-overlay-in-design-mode.png">
+            </li>
+            <br/>
+            <li>Pause Page Refresh.<br/>NOTE: Always pause UI updates before starting to drag and drop elements, or your browser may become unresponsive.</li>
+            <br/>
+            <li>Use <code>CTRL-SHIFT-I</code> to launch the Chrome or Edge debugger.
+                <br/>It's usually easiest to have the Chrome debugger in a separate window.
+                <br/>Press &#8942; and select&nbsp;&nbsp;<code>Undock into separate window</code>
+            </li>
+            <br/>
+            <li>To move an unpositioned-element:
+                <ul>
+                    <li>Hover to see the name.</li>
+                    <li>Drag the element by clicking on the <b>⦻</b> icon which is overlaid on it.</li>
+                    <li><code>SHIFT-CLICK</code> can be used to return a moved element to its original position.</li>
+                    <li>Whenever an element is dropped, the file <code>/var/www/my-derived-app/overlay-1/image-overlays.css</code> is updated.</li>
+                    <li>Manually refresh the page to verify that the positions in the <code>image-overlays.css</code> file are correct.</li>
+                </ul>
+            </li>
+            <br/>
+            <li>To move the unpositioned-elements window so you can drop to a place on the image that's currently covered, click on the <b>⦻</b> icon in the title-bar and follow instructions.</li>
+            <br/>
+            <li>In the Chrome debugger
+                <ul>
+                    <li>Select the console tab</li>
+                    <li>Next to the <code>&gt;</code> prompt at the bottom, type <code>window.overlays</code>, then press <code>[ENTER]</code>.</li>
+                    <li>An object is displayed underneath.</li>
+                    <li>Click &#9658; to open the object and again to open the <code>implemented</code> and <code>un-implemented</code> sections.</li>
+                    <li>Open any overlay groups you care to work with.</li>
+                    <li>Once an overlay group is opened, you can hover the right-side of any element in the group to highlight it in the browser.</li>
+                    <li>Use the highlight to verify that an element is positioned in the right place.</li>
+                </ul>
+            </li>
+            <br/>
+            <li>After you've positioned all of the elements in the overlay, edit <code>/var/www/<em>MyOverlayApp</em>/ui.properties</code> and comment the line <code># mode = design</code></li>
+            <br/>
+            <li>Now when you refresh your page in the browser, the <em>Drag and Drop Instructions</em> should be gone.</li>
+        </ol>
+    </div>
+    <hr/>
+</div>
+
+<div>
+    <h2><span><span onclick="toggle(this)">&#9658;</span></span>&nbsp;9. What are the rules for using the <em>overlay</em> UI model?</a><br/></h2>
+    <div id="overlay_UI_rules" class='closed'>
+        <h3>Implementation, and requirements for XML when using Overlays.</h3>
+        <ol>
+            <li><em>Positionable element sections</em> are defined at XML DOM level 2 (the level inside document root).</li>
+            <li><em>Positionable element sections</em> must have a unique XML tag-name.</li>
+            <li>All <em>Positionable element sections</em> must be listed in a section named <code>tab.<i>N</i>imageOverlayGroupNames</code>.<br/>
+            For example, the following makes all elements inside <code>EPO_Control</code> and <code>Anolyte_Tank_2</code> positionable:<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;<code>tab.<i>N</i>imageOverlayGroupNames = EPO_Control,Anolyte_Tank_2</code></li>
+            <li>Any <em>Positionable element sections</em> NOT listed in <code>tab.<i>N</i>imageOverlayGroupNames</code> will be ignored.</li>
+            <li><em>Positionable elements</em> are defined at XML DOM level 3 (the level inside <em>positionable element sections</em>).</li>
+            <li><em>Positionable elements</em> will have a DOM ID constructed from <em>section-tag-name + "." + element-name</em>,<br/>
+            where <em>element-name</em> is the <em>name attribute</em> for <em>&lt;dyn&gt;</em> elements
+                and the <em>element tag-name</em> for all other elements.</li>
+        </ol>
+    </div>
+    <hr/>
+</div>
+
+<div>
+    <h2><span><span onclick="toggle(this)">&#9658;</span></span>&nbsp;9. Button-related Data Coloring</h2>
+    <div id="button_related_data_coloring" class='closed'><img src="../images/button-related-data-coloring.png"></div>
+    <hr/>
+</div>
+
+</body>
+</html>

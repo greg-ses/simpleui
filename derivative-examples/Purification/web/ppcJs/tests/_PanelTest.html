@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>_Panel test</title>
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/soria/soria.css" />
+
+    <script type="text/javascript">
+        // djConfig must be set before any dojo scripts are loaded
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            modulePaths: { 'ppcJs': '../../ppcJs' }
+        };
+    </script>
+
+    <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        dojo.provide("ppcJs.tests.LogControlTestHTML");
+        dojo.require("dojo.parser");
+        dojo.require("doh.runner");
+        dojo.require('ppcJs.tests.TestPanel');
+        //dojo.require('ppcJs.tests.EntryControlFactoryTestUtilities');
+
+        var paramControlUITestTimeout = 7000;
+
+        dojo.addOnLoad(function () {
+            doh.register("ppcJs.tests._PanelTest", [
+                    function testXhrPostArgs(t) {
+                        var hostUrl = 'http://10.0.4.30:5015';
+                        var relPath = '/php/cgicmd.php';
+                        var urlVal = hostUrl + relPath;
+                        var endpoint = 'testFile';
+                        var serverProcess = 'serverProcess';
+                        var testFileName = 'testscript';
+                        var queryTerm1 = 'CGI='+ serverProcess;
+                        var queryTerm2 = 'FILE_NAME=' + testFileName;
+
+                        var queryObj = { FILE_NAME: testFileName };
+
+                        var rootTag = '<cmds>';
+                        var xmlString = rootTag +
+                          '<cmd cmdType="1" uuid="a8e21a20-d040-11e1-9b23-0800200c9a66">' +
+                            '<arg>' +
+                              '<name>time</name>' +
+                              '<value>10</value>' +
+                            '</arg>' +
+                            '<arg>' +
+                              '<name>COMMAND</name>' +
+                              '<value>strip</value>' +
+                            '</arg>' +
+                          '</cmd>' +
+                        '</cmds>';
+
+                        var sut = new ppcJs.tests.TestPanel();
+                        dojo.place(sut.domNode, "sutContainer");
+
+                        sut.load(urlVal, '0', serverProcess);
+                        var postArgs = sut.xhrPost(queryObj, null, null, endpoint, xmlString);
+
+                        //var queryTerm1Correct = postArgs.url.match(queryTerm1).length > 0;
+                        //var queryTerm2Correct = postArgs.url.match(queryTerm2).length > 0;
+                        //t.assertTrue(queryTerm1Correct && queryTerm2Correct, 'incorrect url with endpoint and query string');
+
+                        var dataMatch = postArgs.data.match(rootTag);
+                        t.assertEqual(rootTag, dataMatch[0], 'invalid post data');
+                    },
+
+                ]);
+            //Execute D.O.H. in this remote file.
+            doh.run();
+        });
+    </script>
+</head>
+<body class="soria">
+    <!-- place to insert sut. -->
+    <div id="sutContainer" style="width: 300px">
+    </div>
+    <div id="mouseOutArea" style="width: 300px; height: 100px">
+        <br />
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+    <head>
+        <title>ParamControl Browser Tests</title>
+        <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+        <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/tundra/tundra.css" />
+        <link rel="stylesheet" type="text/css" href="../themes/resourceSummaryPanel/resourceSummaryPanel.css" />
+
+        <script type="text/javascript">
+            // djConfig must be set before any dojo scripts are loaded
+            var djConfig = {
+                isDebug: false,
+                parseOnLoad: true,
+                modulePaths: { 'ppcJs': '../../ppcJs' }
+            };
+        </script>
+
+        <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+        <script type="text/javascript">
+            dojo.provide("ppcJs.tests.ResourceSummaryPanelTestHTML");
+            dojo.require("dojo.parser");
+            dojo.require("doh.runner");
+            dojo.require("dojo.robot");
+            dojo.require("ppcJs.ResourceSummaryPanel");
+            dojo.require("ppcJs.tests.ParamControlTestUtilities");
+
+            var paramControlUITestTimeout = 7000;
+            var paramControlUITestPause = 50;
+
+            dojo.addOnLoad(function () {
+                doh.register("ppcJs.tests.ResourceSummaryPanelUITest", [
+                    function testInitialState(t) {
+                        var sutContainer = dojo.byId("sutContainer");
+                        sutContainer.innerHTML = "";
+
+                        var sut = new ppcJs.ResourceSummaryPanel();
+                        dojo.place(sut.domNode, "sutContainer");
+
+                        var hostUrl = window.location.host;
+                        var cgiPath = 'cgi-bin/cgicmd';
+                        var queryString = 'CGI=FleetController_cmd';
+                        var baseAjaxReq = window.location.protocol + '//' + hostUrl + '/' + cgiPath + '?' + queryString;
+
+                        sut.load(baseAjaxReq);
+                        t.assertTrue(true);
+                    }
+
+
+                ]);
+                //Execute D.O.H. in this remote file.
+                doh.run();
+            });
+        </script>
+    </head>
+    <body>
+        <!-- place to insert sut. -->
+        <div id="sutContainer" style="width:300px"></div>
+        <div id="mouseOutArea" style="width:300px; height:100px"><br /></div>
+    </body>
+</html>
+

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?><Data_Summary u_id="2002">
+	<Title u_id="2003">Watlow WatlowHeaterSimulation</Title>
+	<timeStamp u_id="2004">1573685129246</timeStamp>
+	<dyn name="Version" u_id="2005">Unknown Revision</dyn>
+	<Section name="WatlowSim-1" u_id="2006">
+		<DataSets u_id="2007">
+			<BoolVars-0 u_id="2007">
+				<CommFailure class="on" u_id="2009">
+					<command cmd="CommFailure" confirm="false" desc="Set or Reset Comm failure state" dest="1" disabled="false" idnum="1" label="CommFailure" name="CommFailure" u_id="2010" val="off"/>on</CommFailure>
+				<DummyVar class="off" u_id="2011">
+					<command cmd="DummyVar" confirm="false" desc="na" dest="1" disabled="false" idnum="1" label="DummyVar" name="DummyVar" u_id="2012" val="on"/>off</DummyVar>
+			</BoolVars-0>
+			<FloatVars-0 u_id="2012">
+				<AmbientTemp u_id="2014">
+					<command cmd="AmbientTemp" desc="Set the ambient temperature." dest="1" disabled="false" idnum="1" label="AmbientTemp" name="AmbientTemp" u_id="2015">
+						<_input _type="float" desc="" idnum="0" max="99999.0" min="-99999.0" u_id="2016" value="12.0"/>
+					</command>12.0</AmbientTemp>
+				<TankTemp u_id="2017">
+					<command cmd="TankTemp" desc="Set the tank temperature." dest="1" disabled="false" idnum="1" label="TankTemp" name="TankTemp" u_id="2018">
+						<_input _type="float" desc="" idnum="0" max="99999.0" min="-99999.0" u_id="2019" value="19.0"/>
+					</command>19.0</TankTemp>
+				<OverrideSetpoint u_id="2020">
+					<command cmd="OverrideSetpoint" desc="Override the commanded setpoint." dest="1" disabled="false" idnum="1" label="OverrideSetpoint" name="OverrideSetpoint" u_id="2021">
+						<_input _type="float" desc="" idnum="0" max="99999.0" min="-99999.0" u_id="2022" value="0.0"/>
+					</command>0.0</OverrideSetpoint>
+			</FloatVars-0>
+			<AnalogFeedback-0 u_id="2023">
+				<dyn desc="pReg: 40, vReg: 200, val: 0,0" name="ControlLoop_ControlMode" u_id="2024">0</dyn>
+				<dyn desc="pReg: 42, vReg: 202, val: 0,0" name="ControlLoop_ClosedLoop_SetPoint" u_id="2025">0</dyn>
+				<dyn desc="pReg: 44, vReg: 204, val: 0,0" name="ControlLoop_OpenLoop_SetPoint" u_id="2026">0%</dyn>
+				<dyn desc="pReg: 46, vReg: 206, val: 0,0" name="Alarm1_HighSetPoint" u_id="2027">0</dyn>
+				<dyn desc="pReg: 48, vReg: 208, val: 0,0" name="Alarm1_LowSetPoint" u_id="2028">0</dyn>
+				<dyn desc="pReg: 50, vReg: 210, val: 0,0" name="Alarm2_HighSetPoint" u_id="2029">0</dyn>
+				<dyn desc="pReg: 52, vReg: 212, val: 0,0" name="Alarm2_LowSetPoint" u_id="2030">0</dyn>
+				<dyn desc="pReg: 54, vReg: 214, val: 0,0" name="Alarm3_HighSetPoint" u_id="2031">0</dyn>
+			</AnalogFeedback-0>
+			<AnalogFeedback-1 u_id="2032">
+				<dyn desc="pReg: 56, vReg: 216, val: 0,0" name="Alarm3_LowSetPoint" u_id="2033">0</dyn>
+				<dyn desc="pReg: 58, vReg: 218, val: 0,0" name="MB_ControlLoop_AutotuneRequest" u_id="2034">0</dyn>
+				<dyn desc="pReg: 60, vReg: 220, val: 0,0" name="Alarm4_LowSetPoint" u_id="2035">0</dyn>
+				<dyn desc="pReg: 62, vReg: 222, val: 0,0" name="ProfileStatus_ProfileActionRequest" u_id="2036">0</dyn>
+				<dyn desc="pReg: 64, vReg: 224, val: 0,0" name="ProfileStatus_ProfileStart" u_id="2037">0 - Min</dyn>
+				<dyn desc="pReg: 66, vReg: 226, val: 0,0" name="ControlLoop_HeatProportionalBand" u_id="2038">0</dyn>
+				<dyn desc="pReg: 68, vReg: 228, val: 0,0" name="ControlLoop_CoolProportionalBand" u_id="2039">0</dyn>
+				<dyn desc="pReg: 70, vReg: 230, val: 0,0" name="ControlLoop_TimeIntegral" u_id="2040">0</dyn>
+			</AnalogFeedback-1>
+			<AnalogFeedback-2 u_id="2041">
+				<dyn desc="pReg: 72, vReg: 232, val: 0,0" name="ControlLoop_TimeDerivative" u_id="2042">0</dyn>
+				<dyn desc="pReg: 74, vReg: 234, val: 0,0" name="ControlLoop_HeatHysteresis" u_id="2043">0</dyn>
+				<dyn desc="pReg: 76, vReg: 236, val: 0,0" name="ControlLoop_CoolHysteresis" u_id="2044">0</dyn>
+				<dyn desc="pReg: 78, vReg: 238, val: 0,0" name="ControlLoop_DeadBand" u_id="2045">0</dyn>
+				<dyn desc="pReg: 80, vReg: 240, val: 16696,3087" name="AnalogInput_1_ProcessValue" u_id="2046">11.502944</dyn>
+				<dyn desc="pReg: 82, vReg: 242, val: 0,0" name="AnalogInput_1_ErrorStatus" u_id="2047">0</dyn>
+				<dyn desc="pReg: 84, vReg: 244, val: 0,0" name="AnalogInput_2_ProcessValue" u_id="2048">0</dyn>
+				<dyn desc="pReg: 86, vReg: 246, val: 0,0" name="AnalogInput_2_ErrorStatus" u_id="2049">0</dyn>
+			</AnalogFeedback-2>
+			<AnalogFeedback-3 u_id="2050">
+				<dyn desc="pReg: 88, vReg: 248, val: 0,0" name="Alarm1_State" u_id="2051">0</dyn>
+				<dyn desc="pReg: 90, vReg: 250, val: 0,0" name="Alarm2_State" u_id="2052">0</dyn>
+				<dyn desc="pReg: 92, vReg: 252, val: 0,0" name="Alarm3_State" u_id="2053">0</dyn>
+				<dyn desc="pReg: 94, vReg: 254, val: 0,0" name="Alarm4_State" u_id="2054">0</dyn>
+				<dyn desc="pReg: 96, vReg: 256, val: 0,0" name="Digital_Input1_Status" u_id="2055">0</dyn>
+				<dyn desc="pReg: 98, vReg: 258, val: 0,0" name="Digital_Input2_Status" u_id="2056">0</dyn>
+				<dyn desc="pReg: 100, vReg: 260, val: 0,0" name="Monitor_ControlModeActive" u_id="2057">0</dyn>
+				<dyn desc="pReg: 102, vReg: 262, val: 0,0" name="Monitor_HeatPower" u_id="2058">0</dyn>
+			</AnalogFeedback-3>
+			<AnalogFeedback-4 u_id="2059">
+				<dyn desc="pReg: 104, vReg: 264, val: 0,0" name="Monitor_CoolPower" u_id="2060">0</dyn>
+				<dyn desc="pReg: 106, vReg: 266, val: 0,0" name="Limit_State" u_id="2061">0</dyn>
+				<dyn desc="pReg: 108, vReg: 268, val: 0,0" name="ProfileStatus_ProfileStart_dup" u_id="2062">0 - Min</dyn>
+				<dyn desc="pReg: 110, vReg: 270, val: 0,0" name="ProfileStatus_ProfileActionRequest_dup" u_id="2063">0</dyn>
+				<dyn desc="pReg: 112, vReg: 272, val: 0,0" name="Profile_CurrentFile" u_id="2064">0</dyn>
+				<dyn desc="pReg: 114, vReg: 274, val: 0,0" name="Profile_CurrentStep" u_id="2065">0 - Min</dyn>
+				<dyn desc="pReg: 116, vReg: 276, val: 0,0" name="ActiveSetPoint" u_id="2066">0</dyn>
+				<dyn desc="pReg: 118, vReg: 278, val: 0,0" name="Profile_StepTimeRemaining" u_id="2067">0</dyn>
+			</AnalogFeedback-4>
+		</DataSets>
+	</Section>
+	<Section name="WatlowSim-2" u_id="2068">
+		<DataSets u_id="2069">
+			<BoolVars-0 u_id="2069">
+				<CommFailure class="on" u_id="2071">
+					<command cmd="CommFailure" confirm="false" desc="Set or Reset Comm failure state" dest="2" disabled="false" idnum="2" label="CommFailure" name="CommFailure" u_id="2072" val="off"/>on</CommFailure>
+				<DummyVar class="off" u_id="2073">
+					<command cmd="DummyVar" confirm="false" desc="na" dest="2" disabled="false" idnum="2" label="DummyVar" name="DummyVar" u_id="2074" val="on"/>off</DummyVar>
+			</BoolVars-0>
+			<FloatVars-0 u_id="2074">
+				<AmbientTemp u_id="2076">
+					<command cmd="AmbientTemp" desc="Set the ambient temperature." dest="2" disabled="false" idnum="2" label="AmbientTemp" name="AmbientTemp" u_id="2077">
+						<_input _type="float" desc="" idnum="0" max="99999.0" min="-99999.0" u_id="2078" value="12.0"/>
+					</command>12.0</AmbientTemp>
+				<TankTemp u_id="2079">
+					<command cmd="TankTemp" desc="Set the tank temperature." dest="2" disabled="false" idnum="2" label="TankTemp" name="TankTemp" u_id="2080">
+						<_input _type="float" desc="" idnum="0" max="99999.0" min="-99999.0" u_id="2081" value="19.0"/>
+					</command>19.0</TankTemp>
+				<OverrideSetpoint u_id="2082">
+					<command cmd="OverrideSetpoint" desc="Override the commanded setpoint." dest="2" disabled="false" idnum="2" label="OverrideSetpoint" name="OverrideSetpoint" u_id="2083">
+						<_input _type="float" desc="" idnum="0" max="99999.0" min="-99999.0" u_id="2084" value="0.0"/>
+					</command>0.0</OverrideSetpoint>
+			</FloatVars-0>
+			<AnalogFeedback-0 u_id="2085">
+				<dyn desc="pReg: 40, vReg: 200, val: 0,0" name="ControlLoop_ControlMode" u_id="2086">0</dyn>
+				<dyn desc="pReg: 42, vReg: 202, val: 0,0" name="ControlLoop_ClosedLoop_SetPoint" u_id="2087">0</dyn>
+				<dyn desc="pReg: 44, vReg: 204, val: 0,0" name="ControlLoop_OpenLoop_SetPoint" u_id="2088">0%</dyn>
+				<dyn desc="pReg: 46, vReg: 206, val: 0,0" name="Alarm1_HighSetPoint" u_id="2089">0</dyn>
+				<dyn desc="pReg: 48, vReg: 208, val: 0,0" name="Alarm1_LowSetPoint" u_id="2090">0</dyn>
+				<dyn desc="pReg: 50, vReg: 210, val: 0,0" name="Alarm2_HighSetPoint" u_id="2091">0</dyn>
+				<dyn desc="pReg: 52, vReg: 212, val: 0,0" name="Alarm2_LowSetPoint" u_id="2092">0</dyn>
+				<dyn desc="pReg: 54, vReg: 214, val: 0,0" name="Alarm3_HighSetPoint" u_id="2093">0</dyn>
+			</AnalogFeedback-0>
+			<AnalogFeedback-1 u_id="2094">
+				<dyn desc="pReg: 56, vReg: 216, val: 0,0" name="Alarm3_LowSetPoint" u_id="2095">0</dyn>
+				<dyn desc="pReg: 58, vReg: 218, val: 0,0" name="MB_ControlLoop_AutotuneRequest" u_id="2096">0</dyn>
+				<dyn desc="pReg: 60, vReg: 220, val: 0,0" name="Alarm4_LowSetPoint" u_id="2097">0</dyn>
+				<dyn desc="pReg: 62, vReg: 222, val: 0,0" name="ProfileStatus_ProfileActionRequest" u_id="2098">0</dyn>
+				<dyn desc="pReg: 64, vReg: 224, val: 0,0" name="ProfileStatus_ProfileStart" u_id="2099">0 - Min</dyn>
+				<dyn desc="pReg: 66, vReg: 226, val: 0,0" name="ControlLoop_HeatProportionalBand" u_id="2100">0</dyn>
+				<dyn desc="pReg: 68, vReg: 228, val: 0,0" name="ControlLoop_CoolProportionalBand" u_id="2101">0</dyn>
+				<dyn desc="pReg: 70, vReg: 230, val: 0,0" name="ControlLoop_TimeIntegral" u_id="2102">0</dyn>
+			</AnalogFeedback-1>
+			<AnalogFeedback-2 u_id="2103">
+				<dyn desc="pReg: 72, vReg: 232, val: 0,0" name="ControlLoop_TimeDerivative" u_id="2104">0</dyn>
+				<dyn desc="pReg: 74, vReg: 234, val: 0,0" name="ControlLoop_HeatHysteresis" u_id="2105">0</dyn>
+				<dyn desc="pReg: 76, vReg: 236, val: 0,0" name="ControlLoop_CoolHysteresis" u_id="2106">0</dyn>
+				<dyn desc="pReg: 78, vReg: 238, val: 0,0" name="ControlLoop_DeadBand" u_id="2107">0</dyn>
+				<dyn desc="pReg: 80, vReg: 240, val: 16696,3087" name="AnalogInput_1_ProcessValue" u_id="2108">11.502944</dyn>
+				<dyn desc="pReg: 82, vReg: 242, val: 0,0" name="AnalogInput_1_ErrorStatus" u_id="2109">0</dyn>
+				<dyn desc="pReg: 84, vReg: 244, val: 0,0" name="AnalogInput_2_ProcessValue" u_id="2110">0</dyn>
+				<dyn desc="pReg: 86, vReg: 246, val: 0,0" name="AnalogInput_2_ErrorStatus" u_id="2111">0</dyn>
+			</AnalogFeedback-2>
+			<AnalogFeedback-3 u_id="2112">
+				<dyn desc="pReg: 88, vReg: 248, val: 0,0" name="Alarm1_State" u_id="2113">0</dyn>
+				<dyn desc="pReg: 90, vReg: 250, val: 0,0" name="Alarm2_State" u_id="2114">0</dyn>
+				<dyn desc="pReg: 92, vReg: 252, val: 0,0" name="Alarm3_State" u_id="2115">0</dyn>
+				<dyn desc="pReg: 94, vReg: 254, val: 0,0" name="Alarm4_State" u_id="2116">0</dyn>
+				<dyn desc="pReg: 96, vReg: 256, val: 0,0" name="Digital_Input1_Status" u_id="2117">0</dyn>
+				<dyn desc="pReg: 98, vReg: 258, val: 0,0" name="Digital_Input2_Status" u_id="2118">0</dyn>
+				<dyn desc="pReg: 100, vReg: 260, val: 0,0" name="Monitor_ControlModeActive" u_id="2119">0</dyn>
+				<dyn desc="pReg: 102, vReg: 262, val: 0,0" name="Monitor_HeatPower" u_id="2120">0</dyn>
+			</AnalogFeedback-3>
+			<AnalogFeedback-4 u_id="2121">
+				<dyn desc="pReg: 104, vReg: 264, val: 0,0" name="Monitor_CoolPower" u_id="2122">0</dyn>
+				<dyn desc="pReg: 106, vReg: 266, val: 0,0" name="Limit_State" u_id="2123">0</dyn>
+				<dyn desc="pReg: 108, vReg: 268, val: 0,0" name="ProfileStatus_ProfileStart_dup" u_id="2124">0 - Min</dyn>
+				<dyn desc="pReg: 110, vReg: 270, val: 0,0" name="ProfileStatus_ProfileActionRequest_dup" u_id="2125">0</dyn>
+				<dyn desc="pReg: 112, vReg: 272, val: 0,0" name="Profile_CurrentFile" u_id="2126">0</dyn>
+				<dyn desc="pReg: 114, vReg: 274, val: 0,0" name="Profile_CurrentStep" u_id="2127">0 - Min</dyn>
+				<dyn desc="pReg: 116, vReg: 276, val: 0,0" name="ActiveSetPoint" u_id="2128">0</dyn>
+				<dyn desc="pReg: 118, vReg: 278, val: 0,0" name="Profile_StepTimeRemaining" u_id="2129">0</dyn>
+			</AnalogFeedback-4>
+		</DataSets>
+	</Section>
+<status>0</status></Data_Summary>

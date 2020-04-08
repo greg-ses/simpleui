@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><Data_Summary u_id="2002">
+	<Title u_id="2003">Sendyne</Title>
+	<timeStamp u_id="2004">1573844972813</timeStamp>
+	<Version u_id="2005">Name: mordor Build: BMS build info or get VEC build info from dataset? | OS Release 4.4.0-166-generic #195-Ubuntu SMP Tue Oct 1 09:35:25 UTC 2019</Version>
+	<Section u_id="2006">
+		<DataSets u_id="2007">
+			<Device_1 u_id="2008">
+				<ClearCoulombCount u_id="2009">
+					<command cmd="Clear_CoulombCount" confirm="true" desc="Do you wish to clear all counts for this device?" disabled="false" idnum="0" label="Clear Coulomb Count" name="Clear_CoulombCount" u_id="2010"/>
+				</ClearCoulombCount>
+				<Set_Charge_Threshold u_id="2011">
+					<command cmd="Set_Charge_Threshold" desc="Set Charge Threshold (A)" disabled="false" idnum="0" label="Set_Charge_Threshold" name="Set_Charge_Threshold" u_id="2012">
+						<_input _type="float" desc="Set Charge Threshold (A)" idnum="0" max="100.000" min="-100.000" u_id="2013" value="0.000"/>
+					</command>0.000</Set_Charge_Threshold>
+				<Set_Discharge_Threshold u_id="2014">
+					<command cmd="Set_Discharge_Threshold" desc="Set Discharge Threshold (A)" disabled="false" idnum="0" label="Set_Discharge_Threshold" name="Set_Discharge_Threshold" u_id="2015">
+						<_input _type="float" desc="Set Discharge Threshold (A)" idnum="0" max="100.000" min="-100.000" u_id="2016" value="0.000"/>
+					</command>0.000</Set_Discharge_Threshold>
+				<dyn class="Fault" name="Current_Dev1" u_id="2017">Fault</dyn>
+				<dyn class="Fault" name="Voltage0_Dev1" u_id="2018">Fault</dyn>
+				<dyn class="Fault" name="Temperature_Dev1" u_id="2019">Fault</dyn>
+				<dyn class="Fault" name="Charge_Dev1" u_id="2020">Fault</dyn>
+				<dyn class="Fault" name="Discharge_Dev1" u_id="2021">Fault</dyn>
+				<dyn class="Fault" name="Voltage1_Dev1" u_id="2022">Fault</dyn>
+				<dyn class="Fault" name="Voltage2_Dev1" u_id="2023">Fault</dyn>
+			</Device_1>
+			<Device_2 u_id="2024">
+				<ClearCoulombCount u_id="2025">
+					<command cmd="Clear_CoulombCount" confirm="true" desc="Do you wish to clear all counts for this device?" disabled="false" idnum="1" label="Clear Coulomb Count" name="Clear_CoulombCount" u_id="2026"/>
+				</ClearCoulombCount>
+				<Set_Charge_Threshold u_id="2027">
+					<command cmd="Set_Charge_Threshold" desc="Set Charge Threshold (A)" disabled="false" idnum="1" label="Set_Charge_Threshold" name="Set_Charge_Threshold" u_id="2028">
+						<_input _type="float" desc="Set Charge Threshold (A)" idnum="1" max="100.000" min="-100.000" u_id="2029" value="0.000"/>
+					</command>0.000</Set_Charge_Threshold>
+				<Set_Discharge_Threshold u_id="2030">
+					<command cmd="Set_Discharge_Threshold" desc="Set Discharge Threshold (A)" disabled="false" idnum="1" label="Set_Discharge_Threshold" name="Set_Discharge_Threshold" u_id="2031">
+						<_input _type="float" desc="Set Discharge Threshold (A)" idnum="1" max="100.000" min="-100.000" u_id="2032" value="0.000"/>
+					</command>0.000</Set_Discharge_Threshold>
+				<dyn class="Fault" name="Current_Dev2" u_id="2033">Fault</dyn>
+				<dyn class="Fault" name="Voltage0_Dev2" u_id="2034">Fault</dyn>
+				<dyn class="Fault" name="Temperature_Dev2" u_id="2035">Fault</dyn>
+				<dyn class="Fault" name="Charge_Dev2" u_id="2036">Fault</dyn>
+				<dyn class="Fault" name="Discharge_Dev2" u_id="2037">Fault</dyn>
+				<dyn class="Fault" name="Voltage1_Dev2" u_id="2038">Fault</dyn>
+				<dyn class="Fault" name="Voltage2_Dev2" u_id="2039">Fault</dyn>
+			</Device_2>
+			<Device_3 u_id="2040">
+				<ClearCoulombCount u_id="2041">
+					<command cmd="Clear_CoulombCount" confirm="true" desc="Do you wish to clear all counts for this device?" disabled="false" idnum="2" label="Clear Coulomb Count" name="Clear_CoulombCount" u_id="2042"/>
+				</ClearCoulombCount>
+				<Set_Charge_Threshold u_id="2043">
+					<command cmd="Set_Charge_Threshold" desc="Set Charge Threshold (A)" disabled="false" idnum="2" label="Set_Charge_Threshold" name="Set_Charge_Threshold" u_id="2044">
+						<_input _type="float" desc="Set Charge Threshold (A)" idnum="2" max="100.000" min="-100.000" u_id="2045" value="0.000"/>
+					</command>0.000</Set_Charge_Threshold>
+				<Set_Discharge_Threshold u_id="2046">
+					<command cmd="Set_Discharge_Threshold" desc="Set Discharge Threshold (A)" disabled="false" idnum="2" label="Set_Discharge_Threshold" name="Set_Discharge_Threshold" u_id="2047">
+						<_input _type="float" desc="Set Discharge Threshold (A)" idnum="2" max="100.000" min="-100.000" u_id="2048" value="0.000"/>
+					</command>0.000</Set_Discharge_Threshold>
+				<dyn class="Fault" name="Current_Dev3" u_id="2049">Fault</dyn>
+				<dyn class="Fault" name="Voltage0_Dev3" u_id="2050">Fault</dyn>
+				<dyn class="Fault" name="Temperature_Dev3" u_id="2051">Fault</dyn>
+				<dyn class="Fault" name="Charge_Dev3" u_id="2052">Fault</dyn>
+				<dyn class="Fault" name="Discharge_Dev3" u_id="2053">Fault</dyn>
+				<dyn class="Fault" name="Voltage1_Dev3" u_id="2054">Fault</dyn>
+				<dyn class="Fault" name="Voltage2_Dev3" u_id="2055">Fault</dyn>
+			</Device_3>
+			<Device_4 u_id="2056">
+				<ClearCoulombCount u_id="2057">
+					<command cmd="Clear_CoulombCount" confirm="true" desc="Do you wish to clear all counts for this device?" disabled="false" idnum="3" label="Clear Coulomb Count" name="Clear_CoulombCount" u_id="2058"/>
+				</ClearCoulombCount>
+				<Set_Charge_Threshold u_id="2059">
+					<command cmd="Set_Charge_Threshold" desc="Set Charge Threshold (A)" disabled="false" idnum="3" label="Set_Charge_Threshold" name="Set_Charge_Threshold" u_id="2060">
+						<_input _type="float" desc="Set Charge Threshold (A)" idnum="3" max="100.000" min="-100.000" u_id="2061" value="0.000"/>
+					</command>0.000</Set_Charge_Threshold>
+				<Set_Discharge_Threshold u_id="2062">
+					<command cmd="Set_Discharge_Threshold" desc="Set Discharge Threshold (A)" disabled="false" idnum="3" label="Set_Discharge_Threshold" name="Set_Discharge_Threshold" u_id="2063">
+						<_input _type="float" desc="Set Discharge Threshold (A)" idnum="3" max="100.000" min="-100.000" u_id="2064" value="0.000"/>
+					</command>0.000</Set_Discharge_Threshold>
+				<dyn class="Fault" name="Current_Dev4" u_id="2065">Fault</dyn>
+				<dyn class="Fault" name="Voltage0_Dev4" u_id="2066">Fault</dyn>
+				<dyn class="Fault" name="Temperature_Dev4" u_id="2067">Fault</dyn>
+				<dyn class="Fault" name="Charge_Dev4" u_id="2068">Fault</dyn>
+				<dyn class="Fault" name="Discharge_Dev4" u_id="2069">Fault</dyn>
+				<dyn class="Fault" name="Voltage1_Dev4" u_id="2070">Fault</dyn>
+				<dyn class="Fault" name="Voltage2_Dev4" u_id="2071">Fault</dyn>
+			</Device_4>
+		</DataSets>
+		<DataSets u_id="2072">
+			<Metrics u_id="2073">
+				<dyn name="DigitalElapseTime" u_id="2074" units="ms">236</dyn>
+				<dyn name="DigitalTimestamp" u_id="2075">1573844972384</dyn>
+				<dyn name="TotalTime" u_id="2076" units="ms">236</dyn>
+				<dyn name="AvgTime" u_id="2077" units="ms">236</dyn>
+				<dyn name="WorstTime" u_id="2078" units="ms">247</dyn>
+				<dyn name="LastViolationTime" u_id="2079" units="ms">0</dyn>
+				<dyn name="TimeViolations" u_id="2080">0</dyn>
+			</Metrics>
+		</DataSets>
+	</Section>
+<status>0</status></Data_Summary>

@@ -1,0 +1,29 @@
+﻿/* layout for ThreeSigmaDataConnector */
+/* release path 
+@import url("../../../dojox/grid/resources/Grid.css");
+@import url("../../../dojox/grid/resources/soriaGrid.css");
+*/
+
+/* dev path 
+@import url("../../../themes/basePanel/basePanel.css");
+@import url("../../../widget/iPhoneButton/css/iPhoneButton.css");*/
+@import url("../../../widget/fadeoutAlertBox/css/fadeoutAlertBox.css");
+
+div.threeSigmaDataConnectorPanel
+{
+    height: 100%;
+    width: 100%;
+    margin:0px;
+    padding:0px;
+}
+
+div.btrcChild
+{
+    margin:10px 5px 10px 5px;
+}
+
+div.btrcBatterySelect
+{
+    margin-top:5px;
+}
+

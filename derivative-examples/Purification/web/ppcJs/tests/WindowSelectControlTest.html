@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AjaxStatusControl test</title>
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/soria/soria.css" />
+    <link rel="stylesheet" type="text/css" href="../control/windowSelect/css/windowSelect.css" />
+    <script type="text/javascript">
+        // djConfig must be set before any dojo scripts are loaded
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            modulePaths: { 'ppcJs': '../../ppcJs' }
+        };
+    </script>
+    <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        dojo.provide('ppcJs.tests.WindowSelectControlTestHTML');
+        dojo.require('dojo.parser');
+        dojo.require('doh.runner');
+        dojo.require('ppcJs.Enum');
+        dojo.require('ppcJs.control.WindowSelect');
+        dojo.require('ppcJs.control.windowSelect.wsDto');
+
+        dojo.addOnLoad(function () {
+            doh.register('ppcJs.tests.WindowSelectControlTest', [
+                    function testCloneState(t) {
+                        // set up reference testState
+                        // NOTE: ref times in round minutes; seconds are not cloned
+                        var refStartTime = 1341288000000;   // 7/3/12 12:00:00:000 am EDT (GMT-4), ms
+                        var refEndTime = 1341291600000;     // 7/3/12 1:00:00:000 am EDT (GMT-4), ms
+                        var testState = new ppcJs.control.windowSelect.wsDto.State(ppcJs.Enum.WindowData.Fixed, 0, refStartTime, refEndTime);
+
+                        var sut = dijit.byId("sut");
+                        sut._selectedWindowType = ppcJs.Enum.WindowData.Fixed;  // only clone from fixed window
+                        sut.setState(dojo.clone(testState));
+
+                        var trigger = sut.getTrigger();
+                        t.assertEqual(refStartTime, trigger.time, 'incorrect default trigger time');
+                        t.assertEqual(ppcJs.Enum.TriggerType.V, trigger.type, 'incorrect default trigger type');
+                        t.assertEqual(100, trigger.value, 'incorrect default trigger value');
+                    },
+
+                    function testCloneStateSmallWindowLength(t) {
+                        // set up reference testState
+                        // NOTE: ref times in round minutes; seconds are not cloned
+                        var refStartTime = 1341288000000;   // 7/3/12 12:00:00:000 am EDT (GMT-4), ms
+                        var refEndTime = 1341288300000;     // 7/3/12 12:05:00:000 am EDT (GMT-4), ms
+                        var testState = new ppcJs.control.windowSelect.wsDto.State(ppcJs.Enum.WindowData.Fixed, 0, refStartTime, refEndTime);
+
+                        var sut = dijit.byId("sut");
+                        sut._selectedWindowType = ppcJs.Enum.WindowData.Fixed;  // only clone from fixed window
+                        sut.setState(dojo.clone(testState));
+
+                        var trigger = sut.getTrigger();
+                        t.assertEqual(refStartTime, trigger.time, 'incorrect default trigger time');
+                        t.assertEqual(ppcJs.Enum.TriggerType.V, trigger.type, 'incorrect default trigger type');
+                        t.assertEqual(100, trigger.value, 'incorrect default trigger value');
+                    }
+
+                ]);
+            //Execute D.O.H. in this remote file.
+            doh.run();
+        });
+    </script>
+</head>
+<body class="soria">
+    <!-- place to insert sut. -->
+    <div id="sutContainer" style="width: 300px; height: 400px">
+        <div id="sut" dojotype="ppcJs.control.WindowSelect" 
+        data-dojo-props="windowSizeMap:[{key: 3600, value: '1 hour'},
+                                        {key: 18000, value: '5 hours'},
+                                        {key: 86400, value: '24 hours'},
+                                        {key: 432000, value: '5 days'} ], 
+                        triggerEnabled:true" >
+        </div>
+    </div>
+    <div id="mouseOutArea" style="width: 300px; height: 100px">
+        <br />
+    </div>
+</body>
+</html>

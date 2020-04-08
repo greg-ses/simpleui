@@ -1,0 +1,1145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2001">
+    <Title u_id="2002">BMS</Title>
+    <timeStamp u_id="2003">1505746015167</timeStamp>
+    <XXXPopupDialogComponent title="System Warning" text="The VEC will restart without warning at any time within the next 3 minutes." />
+    <Section name="Tanks" u_id="2004">
+        <DataSets u_id="2005">
+            <Anolyte_Tank_1 u_id="2006">
+                <ValveOpen class="Transitioning" u_id="2008"><command cmd="ValveOpen" confirm="false"
+                                                                       desc="Open tank supply valve. [GM-SimDoe-Mod5-VALVECTRL-1:]"
+                                                                       dest="39" disabled="false" idnum="0"
+                                                                       label="Open:Supply_Valve" name="ValveOpen"
+                                                                       u_id="2009" val="1"/>Transitioning
+                </ValveOpen>
+                <ValveOpen class="Transitioning" u_id="2010"><command cmd="ValveOpen" confirm="false"
+                                                                       desc="Open tank return valve. [GM-SimDoe-Mod5-VALVECTRL-1:]"
+                                                                       dest="39" disabled="false" idnum="1"
+                                                                       label="Open:Return_Valve" name="ValveOpen"
+                                                                       u_id="2011" val="1"/>Transitioning
+                </ValveOpen>
+                <dyn desc="Tank level reading. [GM-SimDoe-Mod6-SENSEMON-1:AIN0]" name="Level_Transducer" u_id="2012"
+                     units="L">5.5
+                </dyn>
+                <dyn desc="Tank leak level reading. [GM-SimDoe-Mod6-SENSEMON-1:Tank_Leak_Sensor_1]" name="Leak_Sensor"
+                     u_id="2013">0.0
+                </dyn>
+                <dyn class="off" desc="Tank overfill bit. [GM-SimDoe-Mod6-SENSEMON-1:OVER_FILL_1]"
+                     name="Overfill_Switch" u_id="2014">off
+                </dyn>
+            </Anolyte_Tank_1>
+            <Anolyte_Tank_2 u_id="2014">
+                <ValveClose class="Open" u_id="2016"><command cmd="ValveClose" confirm="false"
+                                                              desc="Open tank supply valve. [GM-SimDoe-Mod5-VALVECTRL-1:CV102]"
+                                                              dest="42" disabled="false" idnum="0"
+                                                              label="Close:Supply_Valve" name="ValveClose" u_id="2017"
+                                                              val="0"/>Open
+                </ValveClose>
+                <ValveClose class="Open" u_id="2018"><command cmd="ValveClose" confirm="false"
+                                                              desc="Open tank return valve. [GM-SimDoe-Mod5-VALVECTRL-1:CV112]"
+                                                              dest="42" disabled="false" idnum="1"
+                                                              label="Close:Return_Valve" name="ValveClose" u_id="2019"
+                                                              val="0"/>Open
+                </ValveClose>
+                <dyn desc="Tank level reading. [GM-SimDoe-Mod6-SENSEMON-1:AIN1]" name="Level_Transducer" u_id="2020"
+                     units="L">5.5
+                </dyn>
+                <dyn desc="Tank leak level reading. [GM-SimDoe-Mod6-SENSEMON-1:Tank_Leak_Sensor_2]" name="Leak_Sensor"
+                     u_id="2021">0.0
+                </dyn>
+                <dyn class="off" desc="Tank overfill bit. [GM-SimDoe-Mod6-SENSEMON-1:OVER_FILL_2]"
+                     name="Overfill_Switch" u_id="2022">off
+                </dyn>
+            </Anolyte_Tank_2>
+            <Anolyte_Tank_3 u_id="2022">
+                <ValveOpen class="Closed" u_id="2024"><command cmd="ValveOpen" confirm="false"
+                                                               desc="Open tank supply valve. [GM-SimDoe-Mod5-VALVECTRL-1:CV103]"
+                                                               dest="45" disabled="false" idnum="0"
+                                                               label="Open:Supply_Valve" name="ValveOpen" u_id="2025"
+                                                               val="1"/>Closed
+                </ValveOpen>
+                <ValveClose class="Open" u_id="2026"><command cmd="ValveClose" confirm="false"
+                                                              desc="Open tank return valve. [GM-SimDoe-Mod5-VALVECTRL-1:CV113]"
+                                                              dest="45" disabled="false" idnum="1"
+                                                              label="Close:Return_Valve" name="ValveClose" u_id="2027"
+                                                              val="0"/>Open
+                </ValveClose>
+                <dyn desc="Tank level reading. [GM-SimDoe-Mod6-SENSEMON-1:AIN2]" name="Level_Transducer" u_id="2028"
+                     units="L">5.6
+                </dyn>
+                <dyn desc="Tank leak level reading. [GM-SimDoe-Mod6-SENSEMON-1:Tank_Leak_Sensor_3]" name="Leak_Sensor"
+                     u_id="2029">0.0
+                </dyn>
+                <dyn class="off" desc="Tank overfill bit. [GM-SimDoe-Mod6-SENSEMON-1:OVER_FILL_3]"
+                     name="Overfill_Switch" u_id="2030">off
+                </dyn>
+            </Anolyte_Tank_3>
+            <Anolyte_Tank_4 u_id="2030">
+                <ValveOpen class="Closed" u_id="2032"><command cmd="ValveOpen" confirm="false"
+                                                               desc="Open tank supply valve. [GM-SimDoe-Mod5-VALVECTRL-1:CV104]"
+                                                               dest="48" disabled="false" idnum="0"
+                                                               label="Open:Supply_Valve" name="ValveOpen" u_id="2033"
+                                                               val="1"/>Closed
+                </ValveOpen>
+                <ValveClose class="Open" u_id="2034"><command cmd="ValveClose" confirm="false"
+                                                              desc="Open tank return valve. [GM-SimDoe-Mod5-VALVECTRL-1:CV114]"
+                                                              dest="48" disabled="false" idnum="1"
+                                                              label="Close:Return_Valve" name="ValveClose" u_id="2035"
+                                                              val="0"/>Open
+                </ValveClose>
+                <dyn desc="Tank level reading. [GM-SimDoe-Mod6-SENSEMON-1:AIN3]" name="Level_Transducer" u_id="2036"
+                     units="L">5.7
+                </dyn>
+                <dyn desc="Tank leak level reading. [GM-SimDoe-Mod6-SENSEMON-1:Tank_Leak_Sensor_4]" name="Leak_Sensor"
+                     u_id="2037">0.0
+                </dyn>
+                <dyn class="off" desc="Tank overfill bit. [GM-SimDoe-Mod6-SENSEMON-1:OVER_FILL_4]"
+                     name="Overfill_Switch" u_id="2038">off
+                </dyn>
+            </Anolyte_Tank_4>
+            <Anolyte_Tank_5 u_id="2038">
+                <ValveOpen class="Transitioning" u_id="2040"><command cmd="ValveOpen" confirm="false"
+                                                                       desc="Open tank supply valve. [GM-SimDoe-Mod5-VALVECTRL-1:]"
+                                                                       dest="51" disabled="false" idnum="0"
+                                                                       label="Open:Supply_Valve" name="ValveOpen"
+                                                                       u_id="2041" val="1"/>Transitioning
+                </ValveOpen>
+                <ValveOpen class="Transitioning" u_id="2042"><command cmd="ValveOpen" confirm="false"
+                                                                       desc="Open tank return valve. [GM-SimDoe-Mod5-VALVECTRL-1:]"
+                                                                       dest="51" disabled="false" idnum="1"
+                                                                       label="Open:Return_Valve" name="ValveOpen"
+                                                                       u_id="2043" val="1"/>Transitioning
+                </ValveOpen>
+                <dyn desc="Tank level reading. [GM-SimDoe-Mod6-SENSEMON-1:AIN4]" name="Level_Transducer" u_id="2044"
+                     units="L">5.8
+                </dyn>
+                <dyn desc="Tank leak level reading. [GM-SimDoe-Mod6-SENSEMON-1:Tank_Leak_Sensor_VSense]"
+                     name="Leak_Sensor" u_id="2045">0.0
+                </dyn>
+                <dyn class="off" desc="Tank overfill bit. [GM-SimDoe-Mod6-SENSEMON-2:OVER_FILL_1]"
+                     name="Overfill_Switch" u_id="2046">off
+                </dyn>
+            </Anolyte_Tank_5>
+        </DataSets>
+        <DataSets u_id="2046">
+            <Catholyte_Tank_1 u_id="2047">
+                <ValveOpen class="Transitioning" u_id="2049"><command cmd="ValveOpen" confirm="false"
+                                                                       desc="Open tank supply valve. [GM-SimDoe-Mod5-VALVECTRL-2:]"
+                                                                       dest="54" disabled="false" idnum="0"
+                                                                       label="Open:Supply_Valve" name="ValveOpen"
+                                                                       u_id="2050" val="1"/>Transitioning
+                </ValveOpen>
+                <ValveOpen class="Transitioning" u_id="2051"><command cmd="ValveOpen" confirm="false"
+                                                                       desc="Open tank return valve. [GM-SimDoe-Mod5-VALVECTRL-2:]"
+                                                                       dest="54" disabled="false" idnum="1"
+                                                                       label="Open:Return_Valve" name="ValveOpen"
+                                                                       u_id="2052" val="1"/>Transitioning
+                </ValveOpen>
+                <dyn desc="Tank level reading. [GM-SimDoe-Mod6-SENSEMON-2:AIN0]" name="Level_Transducer" u_id="2053"
+                     units="L">5.5
+                </dyn>
+                <dyn desc="Tank leak level reading. [GM-SimDoe-Mod6-SENSEMON-2:Tank_Leak_Sensor_1]" name="Leak_Sensor"
+                     u_id="2054">0.0
+                </dyn>
+                <dyn class="off" desc="Tank overfill bit. [GM-SimDoe-Mod6-SENSEMON-2:OVER_FILL_2]"
+                     name="Overfill_Switch" u_id="2055">off
+                </dyn>
+            </Catholyte_Tank_1>
+            <Catholyte_Tank_2 u_id="2055">
+                <ValveClose class="Open" u_id="2057"><command cmd="ValveClose" confirm="false"
+                                                              desc="Open tank supply valve. [GM-SimDoe-Mod5-VALVECTRL-2:CV202]"
+                                                              dest="57" disabled="false" idnum="0"
+                                                              label="Close:Supply_Valve" name="ValveClose" u_id="2058"
+                                                              val="0"/>Open
+                </ValveClose>
+                <ValveClose class="Open" u_id="2059"><command cmd="ValveClose" confirm="false"
+                                                              desc="Open tank return valve. [GM-SimDoe-Mod5-VALVECTRL-2:CV212]"
+                                                              dest="57" disabled="false" idnum="1"
+                                                              label="Close:Return_Valve" name="ValveClose" u_id="2060"
+                                                              val="0"/>Open
+                </ValveClose>
+                <dyn desc="Tank level reading. [GM-SimDoe-Mod6-SENSEMON-2:AIN1]" name="Level_Transducer" u_id="2061"
+                     units="L">5.5
+                </dyn>
+                <dyn desc="Tank leak level reading. [GM-SimDoe-Mod6-SENSEMON-2:Tank_Leak_Sensor_2]" name="Leak_Sensor"
+                     u_id="2062">0.0
+                </dyn>
+                <dyn class="off" desc="Tank overfill bit. [GM-SimDoe-Mod6-SENSEMON-2:OVER_FILL_3]"
+                     name="Overfill_Switch" u_id="2063">off
+                </dyn>
+            </Catholyte_Tank_2>
+            <Catholyte_Tank_3 u_id="2063">
+                <ValveOpen class="Closed" u_id="2065"><command cmd="ValveOpen" confirm="false"
+                                                               desc="Open tank supply valve. [GM-SimDoe-Mod5-VALVECTRL-2:CV203]"
+                                                               dest="60" disabled="false" idnum="0"
+                                                               label="Open:Supply_Valve" name="ValveOpen" u_id="2066"
+                                                               val="1"/>Closed
+                </ValveOpen>
+                <ValveOpen class="Closed" u_id="2067"><command cmd="ValveOpen" confirm="false"
+                                                               desc="Open tank return valve. [GM-SimDoe-Mod5-VALVECTRL-2:CV213]"
+                                                               dest="60" disabled="false" idnum="1"
+                                                               label="Open:Return_Valve" name="ValveOpen" u_id="2068"
+                                                               val="1"/>Closed
+                </ValveOpen>
+                <dyn desc="Tank level reading. [GM-SimDoe-Mod6-SENSEMON-2:AIN2]" name="Level_Transducer" u_id="2069"
+                     units="L">5.6
+                </dyn>
+                <dyn desc="Tank leak level reading. [GM-SimDoe-Mod6-SENSEMON-2:Tank_Leak_Sensor_3]" name="Leak_Sensor"
+                     u_id="2070">0.0
+                </dyn>
+                <dyn class="off" desc="Tank overfill bit. [GM-SimDoe-Mod6-SENSEMON-2:OVER_FILL_4]"
+                     name="Overfill_Switch" u_id="2071">off
+                </dyn>
+            </Catholyte_Tank_3>
+            <Catholyte_Tank_4 u_id="2071">
+                <ValveOpen class="Closed" u_id="2073"><command cmd="ValveOpen" confirm="false"
+                                                               desc="Open tank supply valve. [GM-SimDoe-Mod5-VALVECTRL-2:CV204]"
+                                                               dest="63" disabled="false" idnum="0"
+                                                               label="Open:Supply_Valve" name="ValveOpen" u_id="2074"
+                                                               val="1"/>Closed
+                </ValveOpen>
+                <ValveOpen class="Closed" u_id="2075"><command cmd="ValveOpen" confirm="false"
+                                                               desc="Open tank return valve. [GM-SimDoe-Mod5-VALVECTRL-2:CV214]"
+                                                               dest="63" disabled="false" idnum="1"
+                                                               label="Open:Return_Valve" name="ValveOpen" u_id="2076"
+                                                               val="1"/>Closed
+                </ValveOpen>
+                <dyn desc="Tank level reading. [GM-SimDoe-Mod6-SENSEMON-2:AIN3]" name="Level_Transducer" u_id="2077"
+                     units="L">5.7
+                </dyn>
+                <dyn desc="Tank leak level reading. [GM-SimDoe-Mod6-SENSEMON-2:Tank_Leak_Sensor_4]" name="Leak_Sensor"
+                     u_id="2078">0.0
+                </dyn>
+                <dyn class="off" desc="Tank overfill bit. [GM-SimDoe-Mod6-SENSEMON-3:OVER_FILL_1]"
+                     name="Overfill_Switch" u_id="2079">off
+                </dyn>
+            </Catholyte_Tank_4>
+            <Catholyte_Tank_5 u_id="2079">
+                <ValveOpen class="Transitioning" u_id="2081"><command cmd="ValveOpen" confirm="false"
+                                                                       desc="Open tank supply valve. [GM-SimDoe-Mod5-VALVECTRL-2:]"
+                                                                       dest="66" disabled="false" idnum="0"
+                                                                       label="Open:Supply_Valve" name="ValveOpen"
+                                                                       u_id="2082" val="1"/>Transitioning
+                </ValveOpen>
+                <ValveClose class="Transitioning" u_id="2083"><command cmd="ValveClose" confirm="false"
+                                                                        desc="Open tank return valve. [GM-SimDoe-Mod5-VALVECTRL-2:]"
+                                                                        dest="66" disabled="false" idnum="1"
+                                                                        label="Close:Return_Valve" name="ValveClose"
+                                                                        u_id="2084" val="0"/>Transitioning
+                </ValveClose>
+                <dyn desc="Tank level reading. [GM-SimDoe-Mod6-SENSEMON-2:AIN4]" name="Level_Transducer" u_id="2085"
+                     units="L" class="Transitioning">5.8
+                </dyn>
+                <dyn desc="Tank leak level reading. [GM-SimDoe-Mod6-SENSEMON-2:Tank_Leak_Sensor_VSense]"
+                     name="Leak_Sensor" u_id="2086">0.0
+                </dyn>
+                <dyn class="off" desc="Tank overfill bit. [GM-SimDoe-Mod6-SENSEMON-3:OVER_FILL_2]"
+                     name="Overfill_Switch" u_id="2087">off
+                </dyn>
+            </Catholyte_Tank_5>
+        </DataSets>
+    </Section>
+    <Section name="A_Side_Stacks" u_id="2087">
+        <DataSets u_id="2088">
+            <SCU_A1 u_id="2089">
+                <SetDigital class="on" u_id="2091"><command cmd="SetDigital" confirm="false"
+                                                            desc="DC Bus selected when off. [GM-SimDoe-Mod1-STACKCTRL-1:BUS_MODE_SELECT]"
+                                                            dest="1" disabled="false" idnum="0" label="Bus_Mode_Select"
+                                                            name="SetDigital" u_id="2092" val="off"/>on
+                </SetDigital>
+                <SetDigital class="off" u_id="2093"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus contactors enabled. [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTORS_ENABLE]"
+                                                             dest="1" disabled="false" idnum="1"
+                                                             label="Bus_Contactors_enable" name="SetDigital" u_id="2094"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="on" u_id="2095"><command cmd="SetDigital" confirm="false"
+                                                            desc="Discharge contactors enabled. [GM-SimDoe-Mod1-STACKCTRL-1:DISCHARGE_CONTACTORS_ENABLE]"
+                                                            dest="1" disabled="false" idnum="2"
+                                                            label="Discharge_Contactors_enable" name="SetDigital"
+                                                            u_id="2096" val="off"/>on
+                </SetDigital>
+                <dyn class="off"
+                     desc="Discharge contactor power has faulted. [GM-SimDoe-Mod1-STACKCTRL-1:DISCHARGE_CONTACTOR_POWER_FAULT]"
+                     name="Discharge_Contact_Pwr_Flt" u_id="2097">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge contactor power is on. [GM-SimDoe-Mod1-STACKCTRL-1:DISCHARGE_CONTACTOR_POWER_PRESENT]"
+                     name="Discharge_Contact_Pwr_Present" u_id="2098">on
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus contactor power is on. [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTOR_POWER_PRESENT]"
+                     name="Bus_Contactor_Pwr_Present" u_id="2099">off
+                </dyn>
+                <dyn class="off" desc="Stack Controller Unit is enabled [GM-SimDoe-Mod1-STACKCTRL-1:SCU_ENABLED]"
+                     name="SCU_Enabled" u_id="2100">off
+                </dyn>
+            </SCU_A1>
+            <SCU_A1_Stack_1 u_id="2100">
+                <SetDigital class="off" u_id="2102"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTOR_1_CLOSE]"
+                                                             dest="2" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2103"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2104"><command cmd="SetDigital" confirm="false"
+                                                             desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod1-STACKCTRL-1:DISCHARGE_CONTACTOR_1_CLOSE]"
+                                                             dest="2" disabled="false" idnum="1"
+                                                             label="Discharge_Contact_Close" name="SetDigital"
+                                                             u_id="2105" val="on"/>off
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTOR_1_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2106">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTOR_1_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2107">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod1-STACKCTRL-1:DISCHARGE_CONTACTOR_1_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2108">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod1-STACKCTRL-1:LEAK_SENSOR_FAULT_LS1]"
+                     name="Leak_Sense_Flt" u_id="2109">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod1-STACKCTRL-1:LEAK_DETECTED_LS1]"
+                     name="Leak_Detected" u_id="2110">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod1-SENDYNE:Current_Dev1]" name="Batt_Current"
+                     u_id="2111" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod1-SENDYNE:Voltage0_Dev1]" name="Batt_Voltage"
+                     u_id="2112" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod1-SENDYNE:Temperature_Dev1]" name="Sendyne_Temp"
+                     u_id="2113" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod1-SENDYNE:Voltage1_Dev1]" name="Fuse_Voltage" u_id="2114"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod1-SENDYNE:Voltage2_Dev1]" name="Contact_Votage" u_id="2115"
+                     units="V">0.0
+                </dyn>
+            </SCU_A1_Stack_1>
+            <SCU_A1_Stack_2 u_id="2115">
+                <SetDigital class="on" u_id="2117"><command cmd="SetDigital" confirm="false"
+                                                            desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTOR_2_CLOSE]"
+                                                            dest="4" disabled="false" idnum="0"
+                                                            label="Bus_Contact_Close" name="SetDigital" u_id="2118"
+                                                            val="off"/>on
+                </SetDigital>
+                <SetDigital class="off" u_id="2119"><command cmd="SetDigital" confirm="false"
+                                                             desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod1-STACKCTRL-1:DISCHARGE_CONTACTOR_2_CLOSE]"
+                                                             dest="4" disabled="false" idnum="1"
+                                                             label="Discharge_Contact_Close" name="SetDigital"
+                                                             u_id="2120" val="on"/>off
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTOR_2_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2121">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTOR_2_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2122">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod1-STACKCTRL-1:DISCHARGE_CONTACTOR_2_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2123">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod1-STACKCTRL-1:LEAK_SENSOR_FAULT_LS2]"
+                     name="Leak_Sense_Flt" u_id="2124">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod1-STACKCTRL-1:LEAK_DETECTED_LS2]"
+                     name="Leak_Detected" u_id="2125">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod1-SENDYNE:Current_Dev2]" name="Batt_Current"
+                     u_id="2126" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod1-SENDYNE:Voltage0_Dev2]" name="Batt_Voltage"
+                     u_id="2127" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod1-SENDYNE:Temperature_Dev2]" name="Sendyne_Temp"
+                     u_id="2128" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod1-SENDYNE:Voltage1_Dev2]" name="Fuse_Voltage" u_id="2129"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod1-SENDYNE:Voltage2_Dev2]" name="Contact_Votage" u_id="2130"
+                     units="V">0.0
+                </dyn>
+            </SCU_A1_Stack_2>
+            <SCU_A1_Stack_3 u_id="2130">
+                <SetDigital class="off" u_id="2132"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTOR_3_CLOSE]"
+                                                             dest="6" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2133"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2134"><command cmd="SetDigital" confirm="false"
+                                                             desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod1-STACKCTRL-1:DISCHARGE_CONTACTOR_3_CLOSE]"
+                                                             dest="6" disabled="false" idnum="1"
+                                                             label="Discharge_Contact_Close" name="SetDigital"
+                                                             u_id="2135" val="on"/>off
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTOR_3_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2136">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTOR_3_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2137">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod1-STACKCTRL-1:DISCHARGE_CONTACTOR_3_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2138">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod1-STACKCTRL-1:LEAK_SENSOR_FAULT_LS3]"
+                     name="Leak_Sense_Flt" u_id="2139">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod1-STACKCTRL-1:LEAK_DETECTED_LS3]"
+                     name="Leak_Detected" u_id="2140">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod1-SENDYNE:Current_Dev3]" name="Batt_Current"
+                     u_id="2141" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod1-SENDYNE:Voltage0_Dev3]" name="Batt_Voltage"
+                     u_id="2142" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod1-SENDYNE:Temperature_Dev3]" name="Sendyne_Temp"
+                     u_id="2143" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod1-SENDYNE:Voltage1_Dev3]" name="Fuse_Voltage" u_id="2144"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod1-SENDYNE:Voltage2_Dev3]" name="Contact_Votage" u_id="2145"
+                     units="V">0.0
+                </dyn>
+            </SCU_A1_Stack_3>
+            <SCU_A1_Stack_4 u_id="2145">
+                <SetDigital class="off" u_id="2147"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTOR_4_CLOSE]"
+                                                             dest="8" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2148"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="on" u_id="2149"><command cmd="SetDigital" confirm="false"
+                                                            desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod1-STACKCTRL-1:DISCHARGE_CONTACTOR_4_CLOSE]"
+                                                            dest="8" disabled="false" idnum="1"
+                                                            label="Discharge_Contact_Close" name="SetDigital"
+                                                            u_id="2150" val="off"/>on
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTOR_4_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2151">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod1-STACKCTRL-1:BUS_CONTACTOR_4_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2152">off
+                </dyn>
+                <dyn class="off"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod1-STACKCTRL-1:DISCHARGE_CONTACTOR_4_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2153">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod1-STACKCTRL-1:LEAK_SENSOR_FAULT_LS4]"
+                     name="Leak_Sense_Flt" u_id="2154">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod1-STACKCTRL-1:LEAK_DETECTED_LS4]"
+                     name="Leak_Detected" u_id="2155">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod1-SENDYNE:Current_Dev4]" name="Batt_Current"
+                     u_id="2156" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod1-SENDYNE:Voltage0_Dev4]" name="Batt_Voltage"
+                     u_id="2157" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod1-SENDYNE:Temperature_Dev4]" name="Sendyne_Temp"
+                     u_id="2158" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod1-SENDYNE:Voltage1_Dev4]" name="Fuse_Voltage" u_id="2159"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod1-SENDYNE:Voltage2_Dev4]" name="Contact_Votage" u_id="2160"
+                     units="V">0.0
+                </dyn>
+            </SCU_A1_Stack_4>
+        </DataSets>
+        <DataSets u_id="2160">
+            <SCU_A2 u_id="2161">
+                <SetDigital class="on" u_id="2163"><command cmd="SetDigital" confirm="false"
+                                                            desc="DC Bus selected when off. [GM-SimDoe-Mod2-STACKCTRL-1:BUS_MODE_SELECT]"
+                                                            dest="10" disabled="false" idnum="0" label="Bus_Mode_Select"
+                                                            name="SetDigital" u_id="2164" val="off"/>on
+                </SetDigital>
+                <SetDigital class="off" u_id="2165"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus contactors enabled. [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTORS_ENABLE]"
+                                                             dest="10" disabled="false" idnum="1"
+                                                             label="Bus_Contactors_enable" name="SetDigital" u_id="2166"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="on" u_id="2167"><command cmd="SetDigital" confirm="false"
+                                                            desc="Discharge contactors enabled. [GM-SimDoe-Mod2-STACKCTRL-1:DISCHARGE_CONTACTORS_ENABLE]"
+                                                            dest="10" disabled="false" idnum="2"
+                                                            label="Discharge_Contactors_enable" name="SetDigital"
+                                                            u_id="2168" val="off"/>on
+                </SetDigital>
+                <dyn class="off"
+                     desc="Discharge contactor power has faulted. [GM-SimDoe-Mod2-STACKCTRL-1:DISCHARGE_CONTACTOR_POWER_FAULT]"
+                     name="Discharge_Contact_Pwr_Flt" u_id="2169">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge contactor power is on. [GM-SimDoe-Mod2-STACKCTRL-1:DISCHARGE_CONTACTOR_POWER_PRESENT]"
+                     name="Discharge_Contact_Pwr_Present" u_id="2170">on
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus contactor power is on. [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTOR_POWER_PRESENT]"
+                     name="Bus_Contactor_Pwr_Present" u_id="2171">off
+                </dyn>
+                <dyn class="off" desc="Stack Controller Unit is enabled [GM-SimDoe-Mod2-STACKCTRL-1:SCU_ENABLED]"
+                     name="SCU_Enabled" u_id="2172">off
+                </dyn>
+            </SCU_A2>
+            <SCU_A2_Stack_1 u_id="2172">
+                <SetDigital class="off" u_id="2174"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTOR_1_CLOSE]"
+                                                             dest="11" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2175"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2176"><command cmd="SetDigital" confirm="false"
+                                                             desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod2-STACKCTRL-1:DISCHARGE_CONTACTOR_1_CLOSE]"
+                                                             dest="11" disabled="false" idnum="1"
+                                                             label="Discharge_Contact_Close" name="SetDigital"
+                                                             u_id="2177" val="on"/>off
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTOR_1_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2178">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTOR_1_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2179">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod2-STACKCTRL-1:DISCHARGE_CONTACTOR_1_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2180">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod2-STACKCTRL-1:LEAK_SENSOR_FAULT_LS1]"
+                     name="Leak_Sense_Flt" u_id="2181">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod2-STACKCTRL-1:LEAK_DETECTED_LS1]"
+                     name="Leak_Detected" u_id="2182">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod2-SENDYNE:Current_Dev1]" name="Batt_Current"
+                     u_id="2183" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod2-SENDYNE:Voltage0_Dev1]" name="Batt_Voltage"
+                     u_id="2184" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod2-SENDYNE:Temperature_Dev1]" name="Sendyne_Temp"
+                     u_id="2185" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod2-SENDYNE:Voltage1_Dev1]" name="Fuse_Voltage" u_id="2186"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod2-SENDYNE:Voltage2_Dev1]" name="Contact_Votage" u_id="2187"
+                     units="V">0.0
+                </dyn>
+            </SCU_A2_Stack_1>
+            <SCU_A2_Stack_2 u_id="2187">
+                <SetDigital class="off" u_id="2189"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTOR_2_CLOSE]"
+                                                             dest="13" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2190"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2191"><command cmd="SetDigital" confirm="false"
+                                                             desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod2-STACKCTRL-1:DISCHARGE_CONTACTOR_2_CLOSE]"
+                                                             dest="13" disabled="false" idnum="1"
+                                                             label="Discharge_Contact_Close" name="SetDigital"
+                                                             u_id="2192" val="on"/>off
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTOR_2_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2193">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTOR_2_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2194">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod2-STACKCTRL-1:DISCHARGE_CONTACTOR_2_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2195">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod2-STACKCTRL-1:LEAK_SENSOR_FAULT_LS2]"
+                     name="Leak_Sense_Flt" u_id="2196">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod2-STACKCTRL-1:LEAK_DETECTED_LS2]"
+                     name="Leak_Detected" u_id="2197">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod2-SENDYNE:Current_Dev2]" name="Batt_Current"
+                     u_id="2198" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod2-SENDYNE:Voltage0_Dev2]" name="Batt_Voltage"
+                     u_id="2199" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod2-SENDYNE:Temperature_Dev2]" name="Sendyne_Temp"
+                     u_id="2200" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod2-SENDYNE:Voltage1_Dev2]" name="Fuse_Voltage" u_id="2201"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod2-SENDYNE:Voltage2_Dev2]" name="Contact_Votage" u_id="2202"
+                     units="V">0.0
+                </dyn>
+            </SCU_A2_Stack_2>
+            <SCU_A2_Stack_3 u_id="2202">
+                <SetDigital class="off" u_id="2204"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTOR_3_CLOSE]"
+                                                             dest="15" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2205"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2206"><command cmd="SetDigital" confirm="false"
+                                                             desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod2-STACKCTRL-1:DISCHARGE_CONTACTOR_3_CLOSE]"
+                                                             dest="15" disabled="false" idnum="1"
+                                                             label="Discharge_Contact_Close" name="SetDigital"
+                                                             u_id="2207" val="on"/>off
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTOR_3_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2208">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTOR_3_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2209">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod2-STACKCTRL-1:DISCHARGE_CONTACTOR_3_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2210">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod2-STACKCTRL-1:LEAK_SENSOR_FAULT_LS3]"
+                     name="Leak_Sense_Flt" u_id="2211">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod2-STACKCTRL-1:LEAK_DETECTED_LS3]"
+                     name="Leak_Detected" u_id="2212">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod2-SENDYNE:Current_Dev3]" name="Batt_Current"
+                     u_id="2213" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod2-SENDYNE:Voltage0_Dev3]" name="Batt_Voltage"
+                     u_id="2214" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod2-SENDYNE:Temperature_Dev3]" name="Sendyne_Temp"
+                     u_id="2215" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod2-SENDYNE:Voltage1_Dev3]" name="Fuse_Voltage" u_id="2216"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod2-SENDYNE:Voltage2_Dev3]" name="Contact_Votage" u_id="2217"
+                     units="V">0.0
+                </dyn>
+            </SCU_A2_Stack_3>
+            <SCU_A2_Stack_4 u_id="2217">
+                <SetDigital class="off" u_id="2219"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTOR_4_CLOSE]"
+                                                             dest="17" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2220"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2221"><command cmd="SetDigital" confirm="false"
+                                                             desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod2-STACKCTRL-1:DISCHARGE_CONTACTOR_4_CLOSE]"
+                                                             dest="17" disabled="false" idnum="1"
+                                                             label="Discharge_Contact_Close" name="SetDigital"
+                                                             u_id="2222" val="on"/>off
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTOR_4_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2223">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod2-STACKCTRL-1:BUS_CONTACTOR_4_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2224">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod2-STACKCTRL-1:DISCHARGE_CONTACTOR_4_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2225">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod2-STACKCTRL-1:LEAK_SENSOR_FAULT_LS4]"
+                     name="Leak_Sense_Flt" u_id="2226">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod2-STACKCTRL-1:LEAK_DETECTED_LS4]"
+                     name="Leak_Detected" u_id="2227">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod2-SENDYNE:Current_Dev4]" name="Batt_Current"
+                     u_id="2228" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod2-SENDYNE:Voltage0_Dev4]" name="Batt_Voltage"
+                     u_id="2229" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod2-SENDYNE:Temperature_Dev4]" name="Sendyne_Temp"
+                     u_id="2230" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod2-SENDYNE:Voltage1_Dev4]" name="Fuse_Voltage" u_id="2231"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod2-SENDYNE:Voltage2_Dev4]" name="Contact_Votage" u_id="2232"
+                     units="V">0.0
+                </dyn>
+            </SCU_A2_Stack_4>
+        </DataSets>
+    </Section>
+    <Section name="B_Side_Stacks" u_id="2232">
+        <DataSets u_id="2233">
+            <SCU_B1 u_id="2234">
+                <SetDigital class="off" u_id="2236"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus selected when off. [GM-SimDoe-Mod3-STACKCTRL-1:BUS_MODE_SELECT]"
+                                                             dest="19" disabled="false" idnum="0"
+                                                             label="Bus_Mode_Select" name="SetDigital" u_id="2237"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2238"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus contactors enabled. [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTORS_ENABLE]"
+                                                             dest="19" disabled="false" idnum="1"
+                                                             label="Bus_Contactors_enable" name="SetDigital" u_id="2239"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="on" u_id="2240"><command cmd="SetDigital" confirm="false"
+                                                            desc="Discharge contactors enabled. [GM-SimDoe-Mod3-STACKCTRL-1:DISCHARGE_CONTACTORS_ENABLE]"
+                                                            dest="19" disabled="false" idnum="2"
+                                                            label="Discharge_Contactors_enable" name="SetDigital"
+                                                            u_id="2241" val="off"/>on
+                </SetDigital>
+                <dyn class="off"
+                     desc="Discharge contactor power has faulted. [GM-SimDoe-Mod3-STACKCTRL-1:DISCHARGE_CONTACTOR_POWER_FAULT]"
+                     name="Discharge_Contact_Pwr_Flt" u_id="2242">off
+                </dyn>
+                <dyn class="off"
+                     desc="Discharge contactor power is on. [GM-SimDoe-Mod3-STACKCTRL-1:DISCHARGE_CONTACTOR_POWER_PRESENT]"
+                     name="Discharge_Contact_Pwr_Present" u_id="2243">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus contactor power is on. [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTOR_POWER_PRESENT]"
+                     name="Bus_Contactor_Pwr_Present" u_id="2244">off
+                </dyn>
+                <dyn class="off" desc="Stack Controller Unit is enabled [GM-SimDoe-Mod3-STACKCTRL-1:SCU_ENABLED]"
+                     name="SCU_Enabled" u_id="2245">off
+                </dyn>
+            </SCU_B1>
+            <SCU_B1_Stack_1 u_id="2245">
+                <SetDigital class="on" u_id="2247"><command cmd="SetDigital" confirm="false"
+                                                            desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTOR_1_CLOSE]"
+                                                            dest="20" disabled="false" idnum="0"
+                                                            label="Bus_Contact_Close" name="SetDigital" u_id="2248"
+                                                            val="off"/>on
+                </SetDigital>
+                <SetDigital class="on" u_id="2249"><command cmd="SetDigital" confirm="false"
+                                                            desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod3-STACKCTRL-1:DISCHARGE_CONTACTOR_1_CLOSE]"
+                                                            dest="20" disabled="false" idnum="1"
+                                                            label="Discharge_Contact_Close" name="SetDigital"
+                                                            u_id="2250" val="off"/>on
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTOR_1_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2251">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTOR_1_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2252">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod3-STACKCTRL-1:DISCHARGE_CONTACTOR_1_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2253">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod3-STACKCTRL-1:LEAK_SENSOR_FAULT_LS1]"
+                     name="Leak_Sense_Flt" u_id="2254">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod3-STACKCTRL-1:LEAK_DETECTED_LS1]"
+                     name="Leak_Detected" u_id="2255">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod3-SENDYNE:Current_Dev1]" name="Batt_Current"
+                     u_id="2256" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod3-SENDYNE:Voltage0_Dev1]" name="Batt_Voltage"
+                     u_id="2257" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod3-SENDYNE:Temperature_Dev1]" name="Sendyne_Temp"
+                     u_id="2258" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod3-SENDYNE:Voltage1_Dev1]" name="Fuse_Voltage" u_id="2259"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod3-SENDYNE:Voltage2_Dev1]" name="Contact_Votage" u_id="2260"
+                     units="V">0.0
+                </dyn>
+            </SCU_B1_Stack_1>
+            <SCU_B1_Stack_2 u_id="2260">
+                <SetDigital class="off" u_id="2262"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTOR_2_CLOSE]"
+                                                             dest="22" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2263"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="on" u_id="2264"><command cmd="SetDigital" confirm="false"
+                                                            desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod3-STACKCTRL-1:DISCHARGE_CONTACTOR_2_CLOSE]"
+                                                            dest="22" disabled="false" idnum="1"
+                                                            label="Discharge_Contact_Close" name="SetDigital"
+                                                            u_id="2265" val="off"/>on
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTOR_2_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2266">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTOR_2_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2267">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod3-STACKCTRL-1:DISCHARGE_CONTACTOR_2_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2268">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod3-STACKCTRL-1:LEAK_SENSOR_FAULT_LS2]"
+                     name="Leak_Sense_Flt" u_id="2269">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod3-STACKCTRL-1:LEAK_DETECTED_LS2]"
+                     name="Leak_Detected" u_id="2270">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod3-SENDYNE:Current_Dev2]" name="Batt_Current"
+                     u_id="2271" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod3-SENDYNE:Voltage0_Dev2]" name="Batt_Voltage"
+                     u_id="2272" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod3-SENDYNE:Temperature_Dev2]" name="Sendyne_Temp"
+                     u_id="2273" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod3-SENDYNE:Voltage1_Dev2]" name="Fuse_Voltage" u_id="2274"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod3-SENDYNE:Voltage2_Dev2]" name="Contact_Votage" u_id="2275"
+                     units="V">0.0
+                </dyn>
+            </SCU_B1_Stack_2>
+            <SCU_B1_Stack_3 u_id="2275">
+                <SetDigital class="off" u_id="2277"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTOR_3_CLOSE]"
+                                                             dest="24" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2278"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2279"><command cmd="SetDigital" confirm="false"
+                                                             desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod3-STACKCTRL-1:DISCHARGE_CONTACTOR_3_CLOSE]"
+                                                             dest="24" disabled="false" idnum="1"
+                                                             label="Discharge_Contact_Close" name="SetDigital"
+                                                             u_id="2280" val="on"/>off
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTOR_3_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2281">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTOR_3_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2282">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod3-STACKCTRL-1:DISCHARGE_CONTACTOR_3_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2283">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod3-STACKCTRL-1:LEAK_SENSOR_FAULT_LS3]"
+                     name="Leak_Sense_Flt" u_id="2284">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod3-STACKCTRL-1:LEAK_DETECTED_LS3]"
+                     name="Leak_Detected" u_id="2285">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod3-SENDYNE:Current_Dev3]" name="Batt_Current"
+                     u_id="2286" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod3-SENDYNE:Voltage0_Dev3]" name="Batt_Voltage"
+                     u_id="2287" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod3-SENDYNE:Temperature_Dev3]" name="Sendyne_Temp"
+                     u_id="2288" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod3-SENDYNE:Voltage1_Dev3]" name="Fuse_Voltage" u_id="2289"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod3-SENDYNE:Voltage2_Dev3]" name="Contact_Votage" u_id="2290"
+                     units="V">0.0
+                </dyn>
+            </SCU_B1_Stack_3>
+            <SCU_B1_Stack_4 u_id="2290">
+                <SetDigital class="off" u_id="2292"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTOR_4_CLOSE]"
+                                                             dest="26" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2293"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2294"><command cmd="SetDigital" confirm="false"
+                                                             desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod3-STACKCTRL-1:DISCHARGE_CONTACTOR_4_CLOSE]"
+                                                             dest="26" disabled="false" idnum="1"
+                                                             label="Discharge_Contact_Close" name="SetDigital"
+                                                             u_id="2295" val="on"/>off
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTOR_4_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2296">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod3-STACKCTRL-1:BUS_CONTACTOR_4_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2297">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod3-STACKCTRL-1:DISCHARGE_CONTACTOR_4_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2298">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod3-STACKCTRL-1:LEAK_SENSOR_FAULT_LS4]"
+                     name="Leak_Sense_Flt" u_id="2299">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod3-STACKCTRL-1:LEAK_DETECTED_LS4]"
+                     name="Leak_Detected" u_id="2300">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod3-SENDYNE:Current_Dev4]" name="Batt_Current"
+                     u_id="2301" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod3-SENDYNE:Voltage0_Dev4]" name="Batt_Voltage"
+                     u_id="2302" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod3-SENDYNE:Temperature_Dev4]" name="Sendyne_Temp"
+                     u_id="2303" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod3-SENDYNE:Voltage1_Dev4]" name="Fuse_Voltage" u_id="2304"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod3-SENDYNE:Voltage2_Dev4]" name="Contact_Votage" u_id="2305"
+                     units="V">0.0
+                </dyn>
+            </SCU_B1_Stack_4>
+        </DataSets>
+        <DataSets u_id="2305">
+            <SCU_B2 u_id="2306">
+                <SetDigital class="off" u_id="2308"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus selected when off. [GM-SimDoe-Mod4-STACKCTRL-1:BUS_MODE_SELECT]"
+                                                             dest="28" disabled="false" idnum="0"
+                                                             label="Bus_Mode_Select" name="SetDigital" u_id="2309"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2310"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus contactors enabled. [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTORS_ENABLE]"
+                                                             dest="28" disabled="false" idnum="1"
+                                                             label="Bus_Contactors_enable" name="SetDigital" u_id="2311"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="on" u_id="2312"><command cmd="SetDigital" confirm="false"
+                                                            desc="Discharge contactors enabled. [GM-SimDoe-Mod4-STACKCTRL-1:DISCHARGE_CONTACTORS_ENABLE]"
+                                                            dest="28" disabled="false" idnum="2"
+                                                            label="Discharge_Contactors_enable" name="SetDigital"
+                                                            u_id="2313" val="off"/>on
+                </SetDigital>
+                <dyn class="off"
+                     desc="Discharge contactor power has faulted. [GM-SimDoe-Mod4-STACKCTRL-1:DISCHARGE_CONTACTOR_POWER_FAULT]"
+                     name="Discharge_Contact_Pwr_Flt" u_id="2314">off
+                </dyn>
+                <dyn class="off"
+                     desc="Discharge contactor power is on. [GM-SimDoe-Mod4-STACKCTRL-1:DISCHARGE_CONTACTOR_POWER_PRESENT]"
+                     name="Discharge_Contact_Pwr_Present" u_id="2315">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus contactor power is on. [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTOR_POWER_PRESENT]"
+                     name="Bus_Contactor_Pwr_Present" u_id="2316">off
+                </dyn>
+                <dyn class="off" desc="Stack Controller Unit is enabled [GM-SimDoe-Mod4-STACKCTRL-1:SCU_ENABLED]"
+                     name="SCU_Enabled" u_id="2317">off
+                </dyn>
+            </SCU_B2>
+            <SCU_B2_Stack_1 u_id="2317">
+                <SetDigital class="off" u_id="2319"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTOR_1_CLOSE]"
+                                                             dest="29" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2320"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2321"><command cmd="SetDigital" confirm="false"
+                                                             desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod4-STACKCTRL-1:DISCHARGE_CONTACTOR_1_CLOSE]"
+                                                             dest="29" disabled="false" idnum="1"
+                                                             label="Discharge_Contact_Close" name="SetDigital"
+                                                             u_id="2322" val="on"/>off
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTOR_1_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2323">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTOR_1_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2324">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod4-STACKCTRL-1:DISCHARGE_CONTACTOR_1_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2325">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod4-STACKCTRL-1:LEAK_SENSOR_FAULT_LS1]"
+                     name="Leak_Sense_Flt" u_id="2326">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod4-STACKCTRL-1:LEAK_DETECTED_LS1]"
+                     name="Leak_Detected" u_id="2327">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod4-SENDYNE:Current_Dev1]" name="Batt_Current"
+                     u_id="2328" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod4-SENDYNE:Voltage0_Dev1]" name="Batt_Voltage"
+                     u_id="2329" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod4-SENDYNE:Temperature_Dev1]" name="Sendyne_Temp"
+                     u_id="2330" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod4-SENDYNE:Voltage1_Dev1]" name="Fuse_Voltage" u_id="2331"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod4-SENDYNE:Voltage2_Dev1]" name="Contact_Votage" u_id="2332"
+                     units="V">0.0
+                </dyn>
+            </SCU_B2_Stack_1>
+            <SCU_B2_Stack_2 u_id="2332">
+                <SetDigital class="off" u_id="2334"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTOR_2_CLOSE]"
+                                                             dest="31" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2335"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2336"><command cmd="SetDigital" confirm="false"
+                                                             desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod4-STACKCTRL-1:DISCHARGE_CONTACTOR_2_CLOSE]"
+                                                             dest="31" disabled="false" idnum="1"
+                                                             label="Discharge_Contact_Close" name="SetDigital"
+                                                             u_id="2337" val="on"/>off
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTOR_2_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2338">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTOR_2_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2339">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod4-STACKCTRL-1:DISCHARGE_CONTACTOR_2_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2340">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod4-STACKCTRL-1:LEAK_SENSOR_FAULT_LS2]"
+                     name="Leak_Sense_Flt" u_id="2341">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod4-STACKCTRL-1:LEAK_DETECTED_LS2]"
+                     name="Leak_Detected" u_id="2342">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod4-SENDYNE:Current_Dev2]" name="Batt_Current"
+                     u_id="2343" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod4-SENDYNE:Voltage0_Dev2]" name="Batt_Voltage"
+                     u_id="2344" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod4-SENDYNE:Temperature_Dev2]" name="Sendyne_Temp"
+                     u_id="2345" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod4-SENDYNE:Voltage1_Dev2]" name="Fuse_Voltage" u_id="2346"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod4-SENDYNE:Voltage2_Dev2]" name="Contact_Votage" u_id="2347"
+                     units="V">0.0
+                </dyn>
+            </SCU_B2_Stack_2>
+            <SCU_B2_Stack_3 u_id="2347">
+                <SetDigital class="off" u_id="2349"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTOR_3_CLOSE]"
+                                                             dest="33" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2350"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2351"><command cmd="SetDigital" confirm="false"
+                                                             desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod4-STACKCTRL-1:DISCHARGE_CONTACTOR_3_CLOSE]"
+                                                             dest="33" disabled="false" idnum="1"
+                                                             label="Discharge_Contact_Close" name="SetDigital"
+                                                             u_id="2352" val="on"/>off
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTOR_3_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2353">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTOR_3_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2354">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod4-STACKCTRL-1:DISCHARGE_CONTACTOR_3_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2355">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod4-STACKCTRL-1:LEAK_SENSOR_FAULT_LS3]"
+                     name="Leak_Sense_Flt" u_id="2356">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod4-STACKCTRL-1:LEAK_DETECTED_LS3]"
+                     name="Leak_Detected" u_id="2357">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod4-SENDYNE:Current_Dev3]" name="Batt_Current"
+                     u_id="2358" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod4-SENDYNE:Voltage0_Dev3]" name="Batt_Voltage"
+                     u_id="2359" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod4-SENDYNE:Temperature_Dev3]" name="Sendyne_Temp"
+                     u_id="2360" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod4-SENDYNE:Voltage1_Dev3]" name="Fuse_Voltage" u_id="2361"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod4-SENDYNE:Voltage2_Dev3]" name="Contact_Votage" u_id="2362"
+                     units="V">0.0
+                </dyn>
+            </SCU_B2_Stack_3>
+            <SCU_B2_Stack_4 u_id="2362">
+                <SetDigital class="off" u_id="2364"><command cmd="SetDigital" confirm="false"
+                                                             desc="DC Bus Contactor Close Cmd [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTOR_4_CLOSE]"
+                                                             dest="35" disabled="false" idnum="0"
+                                                             label="Bus_Contact_Close" name="SetDigital" u_id="2365"
+                                                             val="on"/>off
+                </SetDigital>
+                <SetDigital class="off" u_id="2366"><command cmd="SetDigital" confirm="false"
+                                                             desc="Discharge Contactor Close Cmd [GM-SimDoe-Mod4-STACKCTRL-1:DISCHARGE_CONTACTOR_4_CLOSE]"
+                                                             dest="35" disabled="false" idnum="1"
+                                                             label="Discharge_Contact_Close" name="SetDigital"
+                                                             u_id="2367" val="on"/>off
+                </SetDigital>
+                <dyn class="off"
+                     desc="DC Bus Contactor power fault. [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTOR_4_POWER_FAULT]"
+                     name="Bus_Contact_Flt" u_id="2368">off
+                </dyn>
+                <dyn class="off"
+                     desc="DC Bus Contactor cmd mismatch [GM-SimDoe-Mod4-STACKCTRL-1:BUS_CONTACTOR_4_CMD_MISMATCH]"
+                     name="Bus_Contact_msmtch" u_id="2369">off
+                </dyn>
+                <dyn class="on"
+                     desc="Discharge Contactor Opened Feedback [GM-SimDoe-Mod4-STACKCTRL-1:DISCHARGE_CONTACTOR_4_OPEN]"
+                     name="Discharge_Contact_Open" u_id="2370">on
+                </dyn>
+                <dyn class="off" desc="Stack Leak sensor fault. [GM-SimDoe-Mod4-STACKCTRL-1:LEAK_SENSOR_FAULT_LS4]"
+                     name="Leak_Sense_Flt" u_id="2371">off
+                </dyn>
+                <dyn class="off" desc="Stack Leak Detected [GM-SimDoe-Mod4-STACKCTRL-1:LEAK_DETECTED_LS4]"
+                     name="Leak_Detected" u_id="2372">off
+                </dyn>
+                <dyn class="priority" desc="Battery Current [GM-SimDoe-Mod4-SENDYNE:Current_Dev4]" name="Batt_Current"
+                     u_id="2373" units="A">0.0
+                </dyn>
+                <dyn class="priority" desc="Battery Voltage [GM-SimDoe-Mod4-SENDYNE:Voltage0_Dev4]" name="Batt_Voltage"
+                     u_id="2374" units="V">0.0
+                </dyn>
+                <dyn desc="Battery Temperature [GM-SimDoe-Mod4-SENDYNE:Temperature_Dev4]" name="Sendyne_Temp"
+                     u_id="2375" units="C">0.0
+                </dyn>
+                <dyn desc="Fuse Voltage [GM-SimDoe-Mod4-SENDYNE:Voltage1_Dev4]" name="Fuse_Voltage" u_id="2376"
+                     units="V">0.0
+                </dyn>
+                <dyn desc="Contactor Voltage [GM-SimDoe-Mod4-SENDYNE:Voltage2_Dev4]" name="Contact_Votage" u_id="2377"
+                     units="V">0.0
+                </dyn>
+            </SCU_B2_Stack_4>
+        </DataSets>
+    </Section>
+    <status>0</status>
+</Data_Summary>

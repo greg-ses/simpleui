@@ -1,0 +1,562 @@
+{
+  "Data_Summary": {
+    "u_id": "2001",
+    "Title": {
+      "u_id": "2002",
+      "value": "BSC"
+    },
+    "timeStamp": {
+      "u_id": "2003",
+      "value": "1517606566234"
+    },
+    "Version": {
+      "u_id": "2004",
+      "value": "JKS-BSCServer: 13137M, Jan 25 2018:"
+    },
+    "Section": [
+      {
+        "name": "Battery System",
+        "u_id": "2005",
+        "CmdSet": {
+          "u_id": "2006",
+          "command": {
+            "cmd": "Local",
+            "confirm": "true",
+            "desc": "desc",
+            "dest": "dProcCtrl",
+            "disabled": "false",
+            "idnum": "0",
+            "label": "Local",
+            "name": "Local",
+            "u_id": "2008"
+          }
+        },
+        "DataSets": {
+          "u_id": "2008",
+          "System_Functions": {
+            "u_id": "2009",
+            "Set_Cycle": {
+              "u_id": "2011",
+              "command": {
+                "cmd": "Set_Cycle",
+                "desc": "Set system cycle, sets all modules as well.",
+                "dest": "dProcCtrl",
+                "disabled": "false",
+                "idnum": "0",
+                "label": "Set Cycle",
+                "name": "Set_Cycle",
+                "u_id": "2012",
+                "_input": {
+                  "_type": "int",
+                  "desc": "Enter cycle number.",
+                  "max": "999999",
+                  "min": "0",
+                  "u_id": "2013",
+                  "value": "1"
+                }
+              },
+              "value": "0"
+            }
+          },
+          "Configuration": {
+            "u_id": "2013",
+            "dyn": [
+              {
+                "name": "NumModules",
+                "u_id": "2015",
+                "value": "2"
+              },
+              {
+                "name": "NumModules",
+                "u_id": "2016",
+                "value": "2"
+              },
+              {
+                "name": "NumStrings",
+                "u_id": "2017",
+                "value": "1"
+              },
+              {
+                "name": "ThermalType",
+                "u_id": "2018",
+                "value": "DOE"
+              }
+            ]
+          },
+          "SystemLimits": {
+            "u_id": "2018",
+            "dyn": [
+              {
+                "name": "MaxChargeKW",
+                "u_id": "2020",
+                "units": "kW",
+                "value": "0"
+              },
+              {
+                "name": "MaxChargeAmps",
+                "u_id": "2021",
+                "units": "A",
+                "value": "0"
+              },
+              {
+                "name": "MaxDischargeKW",
+                "u_id": "2022",
+                "units": "kW",
+                "value": "0"
+              },
+              {
+                "name": "MaxChargeV",
+                "u_id": "2023",
+                "units": "V",
+                "value": "100000"
+              },
+              {
+                "name": "MaxDischargeAmps",
+                "u_id": "2024",
+                "units": "A",
+                "value": "0"
+              },
+              {
+                "name": "MinDischargeV",
+                "u_id": "2025",
+                "units": "V",
+                "value": "0"
+              }
+            ]
+          },
+          "SystemData": {
+            "u_id": "2025",
+            "dyn": [
+              {
+                "class": "priority",
+                "name": "System_Mode",
+                "u_id": "2027",
+                "value": "Faulted"
+              },
+              {
+                "name": "ChargeSt",
+                "u_id": "2028",
+                "value": "Invalid"
+              },
+              {
+                "class": "off",
+                "disabled": "false",
+                "name": "Local_Mode",
+                "u_id": "2029",
+                "value": "off"
+              },
+              {
+                "name": "DcBattV",
+                "u_id": "2030",
+                "units": "V",
+                "value": "0.0"
+              },
+              {
+                "name": "DcBattAmps",
+                "u_id": "2031",
+                "units": "A",
+                "value": "0.0"
+              },
+              {
+                "name": "DcBattKW",
+                "u_id": "2032",
+                "units": "kW",
+                "value": "0.0"
+              },
+              {
+                "class": "priority",
+                "name": "DcBattSoC",
+                "u_id": "2033",
+                "units": "%",
+                "value": "0.0"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "Battery String 1",
+        "u_id": "2033",
+        "CmdSet": {
+          "u_id": "2034",
+          "command": [
+            {
+              "cmd": "str_Disable",
+              "confirm": "true",
+              "desc": "desc",
+              "dest": "dProcCtrl",
+              "disabled": "false",
+              "idnum": "1",
+              "label": "str_Disable",
+              "name": "str_Disable",
+              "u_id": "2036"
+            },
+            {
+              "cmd": "str_Remote",
+              "confirm": "false",
+              "desc": "desc",
+              "dest": "dProcCtrl",
+              "disabled": "false",
+              "idnum": "1",
+              "label": "str_Remote",
+              "name": "str_Remote",
+              "u_id": "2037"
+            }
+          ]
+        },
+        "DataSets": {
+          "u_id": "2037",
+          "String_1": {
+            "name": "Module String 1",
+            "u_id": "2038",
+            "dyn": [
+              {
+                "class": "priority",
+                "name": "String_Mode",
+                "u_id": "2040",
+                "value": "Faulted"
+              },
+              {
+                "class": "on",
+                "disabled": "false",
+                "name": "Enabled",
+                "u_id": "2041",
+                "value": "on"
+              },
+              {
+                "class": "on",
+                "disabled": "false",
+                "name": "Local_Mode",
+                "u_id": "2042",
+                "value": "on"
+              },
+              {
+                "name": "DcStringV",
+                "u_id": "2043",
+                "units": "V",
+                "value": "0.0"
+              },
+              {
+                "name": "DcStringAmps",
+                "u_id": "2044",
+                "units": "A",
+                "value": "0.0"
+              },
+              {
+                "name": "DcStringKW",
+                "u_id": "2045",
+                "units": "kW",
+                "value": "0.0"
+              },
+              {
+                "class": "priority",
+                "name": "DcStringSoC",
+                "u_id": "2046",
+                "units": "%",
+                "value": "0.0"
+              }
+            ]
+          },
+          "DataMod1": {
+            "name": "Module 1",
+            "u_id": "2046",
+            "url": "http://10.0.5.72:5015/modmgr/",
+            "dyn": [
+              {
+                "class": "priority",
+                "name": "System_Mode",
+                "u_id": "2048",
+                "value": "Disconnected"
+              },
+              {
+                "name": "ChargeSt",
+                "u_id": "2049",
+                "value": "Invalid"
+              },
+              {
+                "class": "on",
+                "disabled": "false",
+                "name": "Local_Mode",
+                "u_id": "2050",
+                "value": "on"
+              },
+              {
+                "name": "DcModV",
+                "u_id": "2051",
+                "units": "V",
+                "value": "0.0"
+              },
+              {
+                "name": "DcModAmps",
+                "u_id": "2052",
+                "units": "A",
+                "value": "0.0"
+              },
+              {
+                "name": "DcModKW",
+                "u_id": "2053",
+                "units": "kW",
+                "value": "0.0"
+              },
+              {
+                "class": "priority",
+                "name": "ElyteSoC",
+                "u_id": "2054",
+                "units": "%",
+                "value": "0.0"
+              },
+              {
+                "name": "ElyteTemp",
+                "u_id": "2055",
+                "units": "C",
+                "value": "0.0"
+              },
+              {
+                "name": "CoolReq",
+                "u_id": "2056",
+                "value": "None"
+              },
+              {
+                "name": "RebalNecessity",
+                "u_id": "2057",
+                "value": "Err"
+              },
+              {
+                "name": "RebaPredSoC",
+                "u_id": "2058",
+                "units": "%",
+                "value": "0.0"
+              },
+              {
+                "name": "Cycle",
+                "u_id": "2059",
+                "value": "0"
+              }
+            ]
+          },
+          "DataMod2": {
+            "name": "Module 2",
+            "u_id": "2059",
+            "url": "http://10.0.5.73:5015/modmgr/",
+            "dyn": [
+              {
+                "class": "priority",
+                "name": "System_Mode",
+                "u_id": "2061",
+                "value": "Disconnected"
+              },
+              {
+                "name": "ChargeSt",
+                "u_id": "2062",
+                "value": "Invalid"
+              },
+              {
+                "class": "on",
+                "disabled": "false",
+                "name": "Local_Mode",
+                "u_id": "2063",
+                "value": "on"
+              },
+              {
+                "name": "DcModV",
+                "u_id": "2064",
+                "units": "V",
+                "value": "0.0"
+              },
+              {
+                "name": "DcModAmps",
+                "u_id": "2065",
+                "units": "A",
+                "value": "0.0"
+              },
+              {
+                "name": "DcModKW",
+                "u_id": "2066",
+                "units": "kW",
+                "value": "0.0"
+              },
+              {
+                "class": "priority",
+                "name": "ElyteSoC",
+                "u_id": "2067",
+                "units": "%",
+                "value": "0.0"
+              },
+              {
+                "name": "ElyteTemp",
+                "u_id": "2068",
+                "units": "C",
+                "value": "0.0"
+              },
+              {
+                "name": "CoolReq",
+                "u_id": "2069",
+                "value": "None"
+              },
+              {
+                "name": "RebalNecessity",
+                "u_id": "2070",
+                "value": "Err"
+              },
+              {
+                "name": "RebaPredSoC",
+                "u_id": "2071",
+                "units": "%",
+                "value": "0.0"
+              },
+              {
+                "name": "Cycle",
+                "u_id": "2072",
+                "value": "0"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "Thermal Controls",
+        "u_id": "2072",
+        "DataSets": [
+          {
+            "u_id": "2073",
+            "ThermalLoop_1": {
+              "name": "Thermal Control Loop1",
+              "u_id": "2074",
+              "Local": {
+                "class": "Remote",
+                "u_id": "2076",
+                "command": {
+                  "cmd": "Local",
+                  "confirm": "false",
+                  "desc": "desc",
+                  "dest": "dWatlow_ThermCtrl",
+                  "disabled": "false",
+                  "idnum": "1",
+                  "label": "Local",
+                  "name": "Local",
+                  "u_id": "2077"
+                },
+                "value": "Remote"
+              },
+              "dyn": [
+                {
+                  "name": "Mode",
+                  "u_id": "2078",
+                  "value": "NoComms"
+                },
+                {
+                  "class": "off",
+                  "disabled": "false",
+                  "name": "Local_Mode",
+                  "u_id": "2079",
+                  "value": "off"
+                },
+                {
+                  "name": "Process",
+                  "u_id": "2080",
+                  "units": "C",
+                  "value": "~~~"
+                }
+              ]
+            }
+          },
+          {
+            "u_id": "2080",
+            "ChillerLoop": {
+              "name": "Thermal Chiller Loop",
+              "u_id": "2081",
+              "Local": {
+                "class": "Remote",
+                "u_id": "2083",
+                "command": {
+                  "cmd": "Local",
+                  "confirm": "false",
+                  "desc": "desc",
+                  "dest": "dCarel_ChillerCtrl",
+                  "disabled": "false",
+                  "idnum": "0",
+                  "label": "Local",
+                  "name": "Local",
+                  "u_id": "2084"
+                },
+                "value": "Remote"
+              },
+              "dyn": [
+                {
+                  "name": "Mode",
+                  "u_id": "2085",
+                  "value": "Idle"
+                },
+                {
+                  "class": "off",
+                  "disabled": "false",
+                  "name": "Local_Mode",
+                  "u_id": "2086",
+                  "value": "off"
+                },
+                {
+                  "name": "Supply",
+                  "u_id": "2087",
+                  "units": "C",
+                  "value": "0.0"
+                },
+                {
+                  "name": "Return",
+                  "u_id": "2088",
+                  "units": "C",
+                  "value": "0.0"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Battery Logs",
+        "u_id": "2088",
+        "DataSets": {
+          "u_id": "2089",
+          "Event_Log": {
+            "u_id": "2090",
+            "Event": [
+              {
+                "timestamp": "09:40:37",
+                "type": "EVENT NOTICE",
+                "u_id": "2091",
+                "value": "Connection failed to Module-2 [10.0.5.73]"
+              },
+              {
+                "timestamp": "09:40:35",
+                "type": "EVENT INFO",
+                "u_id": "2092",
+                "value": "Heater received Idle, deviceId: 1"
+              },
+              {
+                "timestamp": "09:40:34",
+                "type": "EVENT INFO",
+                "u_id": "2093",
+                "value": "Chiller Recieved Idle"
+              },
+              {
+                "timestamp": "09:40:34",
+                "type": "URGENT SERVICE REQUEST",
+                "u_id": "2094",
+                "value": "Lost communications with Module 2"
+              },
+              {
+                "timestamp": "09:40:34",
+                "type": "URGENT SERVICE REQUEST",
+                "u_id": "2095",
+                "value": "Lost communications with Module 1"
+              }
+            ]
+          },
+          "Active_Fault_List": {
+            "u_id": "2096"
+          }
+        }
+      }
+    ],
+    "status": "0"
+  }
+}

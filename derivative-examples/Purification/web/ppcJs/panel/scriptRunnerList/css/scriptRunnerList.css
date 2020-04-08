@@ -1,0 +1,17 @@
+﻿/* layout for ScriptRunnerList */
+/* release path */
+
+/* dev path */
+
+
+@import url("../../../themes/basePanel/basePanel.css");
+@import url("../../../control/scriptRunner/css/scriptRunner.css");
+
+
+div.scriptRunnerList
+{
+    width: 100%;
+    margin:0px;
+}
+
+

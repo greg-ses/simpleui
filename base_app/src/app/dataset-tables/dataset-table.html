@@ -1,0 +1,44 @@
+<table style="border-style: hidden; border-collapse: collapse;" class="L4">
+    <tr class="L4">
+        <td>
+            <div id="data">
+                <table cellspacing="1" style="border-style: hidden; border-collapse: collapse" align="left" valign="top" >
+                    <tr>
+                        <td align="center" valign="top" width="300">
+                            <table>
+                                <thead class="dataSetSizerHead">
+                                <tr>
+                                    <th colspan="2" class="tableTitle" align="center" uid="_dataset.u_id">
+                                        <div [className]="isCollapsed()?'sectionClosed':'sectionOpened'"
+                                             [title]="fixNL(_dataset.desc)"
+                                             (click)="toggle()"
+                                        >&nbsp;</div>
+                                        <span *ngIf="!_dataset.url">{{ getTitle() }}</span
+                                        >&nbsp;<a *ngIf="_dataset.url" target="_blank"  href={{_dataset.url}}
+                                                  title={{fixNL(_dataset.tooltip)}}>{{ getTitle() }}</a>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody [id]="getTableId()" [className]="isCollapsed()?'hiddenBlock dataSetSizerBody':'tableRowGroupBlock dataSetSizerBody'">
+                                <tr *ngFor="let e of _dataset.elements; let elementId=index" id="element-{{elementId}}">
+                                    <th align="right"><span title="{{fixNL(e.desc)}}" id="{{e.name}}-{{_dataset.tableId}}">{{ e.name }}</span>
+                                        <div *ngIf="e.command" [title]="e.sha1sum">
+                                            <app-command-button
+                                                [_uiTab]="_uiTab" [element]="e"
+                                                [_container]="'element'" [_sha1sum]="e.sha1sum"
+                                            ></app-command-button>
+                                        </div>
+                                    </th>
+                                    <td class="{{e.class}} var-wrapper" title="{{fixNL(e.desc)}}"
+                                    ><var id="{{e.u_id}}">{{ e.value }}&nbsp;{{ e.units }}</var>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>

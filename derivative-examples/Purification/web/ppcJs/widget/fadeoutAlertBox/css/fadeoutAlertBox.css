@@ -1,0 +1,32 @@
+﻿.fadeoutAlertBox
+{
+    position:absolute;
+    top:25%;
+    left:25%;
+    
+    height: 25%;
+    width: 25%;
+    min-width:100px;
+    min-height:100px;
+    
+    border-style:solid;
+    border-width:2px;
+    border-color:Orange;
+    padding: 10px;
+    background-color:InfoBackground;
+
+    font-size:larger;
+}
+
+.fabHide
+{
+    /* so won't screen hover/click actions */
+    z-index:-1;
+    visibility:hidden;
+}
+
+.fabShow
+{
+    z-index:1;
+    visibility:visible;
+}

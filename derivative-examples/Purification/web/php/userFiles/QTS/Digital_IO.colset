@@ -1,0 +1,54 @@
+TABLE_NAME=dio
+META_TYPE=DIGITAL
+<COLUMN_DEFINITION>
+	# Name, SQL_TYPE, MetaType, Description
+	rowid,INTEGER,INTEGER,Unique row Unique Row ID
+	timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st, 1970
+	num_points,INTEGER,INTEGER,Number of points in averaged in float values
+	DIN_E-Stop_Inactive,INTEGER,DIGITAL, 
+	DIN_Float_Switch_Inactive,INTEGER,DIGITAL, 
+	DIN_Backup_Battery_Enabled,INTEGER,DIGITAL, 
+	DIN_Valve_Complex_-_Closed,INTEGER,DIGITAL, 
+	DIN_Valve_Complex_-_Open,INTEGER,DIGITAL, 
+	DIN_Valve_Bromine_-_Closed,INTEGER,DIGITAL, 
+	DIN_Valve_Bromine_-_Open,INTEGER,DIGITAL, 
+	DIN_Valve_Neutralize_-_Closed,INTEGER,DIGITAL, 
+	DIN_Valve_Neutralize_-_Open,INTEGER,DIGITAL, 
+	DOUT_DCDC_Power,INTEGER,DIGITAL, 
+	DOUT_Pump_Drives_Enable,INTEGER,DIGITAL, 
+	DOUT_System_Lamp,INTEGER,DIGITAL, 
+	DOUT_Valve_Complex,INTEGER,DIGITAL, 
+	DOUT_Valve_Bromine,INTEGER,DIGITAL, 
+	DOUT_Valve_Neutralize,INTEGER,DIGITAL, 
+	DOUT_Backup_Battery_Enable,INTEGER,DIGITAL, 
+	DOUT_E-Stop,INTEGER,DIGITAL, 
+</COLUMN_DEFINITION>
+<VARS>
+	LASTID
+	BEGIN
+	END
+	MAXNUMPTS
+</VARS>
+<SQL>
+	SELECT  rowid, timestamp, num_points
+		, DIN_01 as `DIN_E-Stop_Inactive`
+		, DIN_02 as `DIN_Float_Switch_Inactive`
+		, DIN_03 as `DIN_Backup_Battery_Enabled`
+		, DIN_04 as `DIN_Valve_Complex_-_Closed`
+		, DIN_05 as `DIN_Valve_Complex_-_Open`
+		, DIN_06 as `DIN_Valve_Bromine_-_Closed`
+		, DIN_07 as `DIN_Valve_Bromine_-_Open`
+		, DIN_08 as `DIN_Valve_Neutralize_-_Closed`
+		, DIN_09 as `DIN_Valve_Neutralize_-_Open`
+		, DOUT_01 as `DOUT_DCDC_Power`
+		, DOUT_02 as `DOUT_Pump_Drives_Enable`
+		, DOUT_03 as `DOUT_System_Lamp`
+		, DOUT_04 as `DOUT_Valve_Complex`
+		, DOUT_05 as `DOUT_Valve_Bromine`
+		, DOUT_06 as `DOUT_Valve_Neutralize`
+		, DOUT_07 as `DOUT_Backup_Battery_Enable`
+		, DOUT_08 as `DOUT_E-Stop`
+	FROM dio 
+	WHERE rowid > `LASTID` AND timestamp > `BEGIN` AND timestamp <= `END` 
+	ORDER BY rowid ASC LIMIT `MAXNUMPTS`;
+</SQL>

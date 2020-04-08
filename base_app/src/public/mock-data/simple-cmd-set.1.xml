@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2002">
+    <Title u_id="2002">BSC</Title>
+    <timeStamp u_id="2003">1554235176901</timeStamp>
+    <Version u_id="2004">simple-cmd-set.1.xml - 1 button: Remote</Version>
+    <Section name="Battery System 1" u_id="2006">
+        <CmdSet u_id="2007">
+            <command cmd="Remote" confirm="true" desc="desc" dest="0-0" disabled="false" idnum="0" label="Remote"
+                     name="Remote" u_id="2008"/>
+        </CmdSet>
+    </Section>
+    <status>0</status>
+</Data_Summary>

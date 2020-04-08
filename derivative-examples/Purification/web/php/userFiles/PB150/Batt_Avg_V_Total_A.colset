@@ -1,0 +1,30 @@
+TABLE_NAME=analog
+META_TYPE=FLOAT
+<COLUMN_DEFINITION>
+	# Name, SQL_TYPE, MetaType, Description
+	rowid,INTEGER,INTEGER,Unique row Unique Row ID
+	timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st, 1970
+	num_points,INTEGER,INTEGER,Number of points in averaged in float values
+	Avg_Batt_V,REAL,FLOAT,Average DC Voltage
+	Total_Batt_A,REAL,FLOAT,Total DC Current
+</COLUMN_DEFINITION>
+<VARS>
+	LASTID
+	BEGIN
+	END
+	MAXNUMPTS
+</VARS>
+<SQL>
+	SELECT  rowid, timestamp, num_points
+		, avg_Avg_Batt_Voltage AS Total_Batt_A
+		, avg_Total_Batt_Current AS Avg_Batt_V
+	FROM analog 
+	WHERE rowid > `LASTID` AND timestamp > `BEGIN` AND timestamp <= `END` 
+	ORDER BY timestamp ASC LIMIT `MAXNUMPTS`;
+</SQL>
+<CHART_CONFIG>
+	Y_MIN=-350		# Expected Graph y axis min
+	Y_MAX=280		# Expected Graph y axis max
+	Y_PIX=25		# Y Graniluarity of the filtered data, the higher the number the more points.
+	X_PIX=500		# X Graniluarity of the filtered data, the higher the number the more points.
+</CHART_CONFIG>

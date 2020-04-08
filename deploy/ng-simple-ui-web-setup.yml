@@ -1,0 +1,28 @@
+# Notes:
+#   1. Does not use Parameters, and hence has the variable
+#      copy_params_app: false
+---
+- hosts: all
+  vars:
+    app_config_props_file: MockServer.bms.properties
+    copy_params_app: false
+    ng_simple_ui_derivative_folder: ./simple_ui.derivative/
+    nodejs_port: 2079
+    web_app_name: ng-simple-ui
+    web_service_apps_list: "{{ web_app_name }}"
+    #The following are from var/common-vars.yml in other deploy directories
+    archive_dir: /vionx
+    unique_suffix: "{{ ansible_facts['date_time']['date'] }}-{{ ansible_facts['date_time']['hour'] }}-{{ ansible_facts['date_time']['minute'] }}--{{ ansible_facts['date_time']['second'] }}"
+    common_web: ../../../../../../../common/web
+    ng_simple_ui_deploy: .
+
+  remote_user: service
+  tasks:
+    - include_vars:
+        file: "{{ ng_simple_ui_deploy }}/common-vars.yml"
+
+    - include_tasks:
+        file: "{{ ng_simple_ui_deploy }}/build-derived-app-bundle.yml"
+
+    - include_tasks:
+        file: "{{ ng_simple_ui_deploy }}/install-derived-app-bundle.yml"

@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>DateTimeControl test</title>
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/soria/soria.css" />
+    <link rel="stylesheet" type="text/css" href="../control/dateTime/css/dateTime.css" />
+
+    <script type="text/javascript">
+        // djConfig must be set before any dojo scripts are loaded
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            modulePaths: { 'ppcJs': '../../ppcJs' }
+        };
+    </script>
+
+    <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        dojo.provide("ppcJs.tests.DateTimeControlTestHTML");
+        dojo.require("dojo.parser");
+        dojo.require("doh.runner");
+        dojo.require("dojo.robot");
+        dojo.require("ppcJs.control.DateTime");
+
+        var testCaseTimeout = 5000;
+        var perActionPause = 100;
+        var assertPause = 2000;
+
+        dojo.addOnLoad(function () {
+            doh.register("ppcJs.tests.DateTimeControlTest", [
+                    function testUpdateAndGetValue(t) {
+                        sut = new ppcJs.control.DateTime();
+
+                        dojo.place(sut.domNode, "sutContainer");
+                        // 1976278800 = Monday, August 16, 2032 10:20:09 AM EDT (GMT - 4) (seconds zeroed)
+                        var refTimeStamp = 1976278800;
+                        sut.update(refTimeStamp);
+                        result = sut.getValue();
+                        t.assertEqual(refTimeStamp, result);
+                    }
+                ]);
+            //Execute D.O.H. in this remote file.
+            doh.run();
+        });
+    </script>
+</head>
+<body class="soria">
+    <!-- place to insert sut. -->
+    <div id="sutContainer" style="width: 300px">
+    </div>
+    <div id="mouseOutArea" style="width: 300px; height: 100px">
+        <br />
+    </div>
+</body>
+</html>

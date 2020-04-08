@@ -1,0 +1,7 @@
+
+[PURE_SIMS]
+Sim-SitePur01
+
+[PURE_PRODUCTION]
+PURE-01 ansible_ssh_port=9022
+sitesvc01

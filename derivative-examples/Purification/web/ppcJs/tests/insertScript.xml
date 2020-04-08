@@ -1,0 +1,1 @@
+<cmds xmlns="http://www.premiumpower.com"><cmd cmdname="Label" cmdtype="0" uuid="4cfe4225-96f4-4b7f-84b0-59773ecff776"><arg id="1"><name>label</name><value>insertScriptStart</value></arg></cmd><cmd cmdname="CustomAction" cmdtype="10" uuid="95ed934b-b53a-4c9c-8e84-600afd2892fa"><arg id="1"><name>custom name</name><value>custom action</value></arg></cmd></cmds>

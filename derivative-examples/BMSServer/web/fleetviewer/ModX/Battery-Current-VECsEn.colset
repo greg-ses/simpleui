@@ -1,0 +1,71 @@
+TABLE_NAME=VNX1000_IO
+META_TYPE=FLOAT
+NO_TABLE_PREFIX=true
+<COLUMN_DEFINITION>
+	# Name, SQL_TYPE, MetaType, Description
+	timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st, 1970
+	num_points,INTEGER,INTEGER,Hint
+    A1-1_Batt_Current,DOUBLE,DOUBLE,TBD
+    A1-2_Batt_Current,DOUBLE,DOUBLE,TBD
+    A1-3_Batt_Current,DOUBLE,DOUBLE,TBD
+    A1-4_Batt_Current,DOUBLE,DOUBLE,TBD
+    A2-1_Batt_Current,DOUBLE,DOUBLE,TBD
+    A2-2_Batt_Current,DOUBLE,DOUBLE,TBD
+    A2-3_Batt_Current,DOUBLE,DOUBLE,TBD
+    A2-4_Batt_Current,DOUBLE,DOUBLE,TBD
+    B1-1_Batt_Current,DOUBLE,DOUBLE,TBD
+    B1-2_Batt_Current,DOUBLE,DOUBLE,TBD
+    B1-3_Batt_Current,DOUBLE,DOUBLE,TBD
+    B1-4_Batt_Current,DOUBLE,DOUBLE,TBD
+    B2-1_Batt_Current,DOUBLE,DOUBLE,TBD
+    B2-2_Batt_Current,DOUBLE,DOUBLE,TBD
+    B2-3_Batt_Current,DOUBLE,DOUBLE,TBD
+    B2-4_Batt_Current,DOUBLE,DOUBLE,TBD
+    VEC_Enabled_VCU,BINARY,TINYINT,TBD
+    VEC_Enabled_SMU,BINARY,TINYINT,TBD
+    VEC_Enabled_SCU_A1,BINARY,TINYINT,TBD
+    VEC_Enabled_SCU_A2,BINARY,TINYINT,TBD
+    VEC_Enabled_SCU_B1,BINARY,TINYINT,TBD
+    VEC_Enabled_SCU_B2,BINARY,TINYINT,TBD
+</COLUMN_DEFINITION>
+<VARS>
+	LASTID
+	BEGIN
+	END
+	MACHINE_NAME
+	MAXNUMPTS
+</VARS>
+<SQL>
+	SELECT  timestamp, num_points
+        , `A1-1_Batt_Current`
+        , `A1-2_Batt_Current`
+        , `A1-3_Batt_Current`
+        , `A1-4_Batt_Current`
+        , `A2-1_Batt_Current`
+        , `A2-2_Batt_Current`
+        , `A2-3_Batt_Current`
+        , `A2-4_Batt_Current`
+        , `B1-1_Batt_Current`
+        , `B1-2_Batt_Current`
+        , `B1-3_Batt_Current`
+        , `B1-4_Batt_Current`
+        , `B2-1_Batt_Current`
+        , `B2-2_Batt_Current`
+        , `B2-3_Batt_Current`
+        , `B2-4_Batt_Current`
+        , `VEC_Enabled_VCU`
+        , `VEC_Enabled_SMU`
+        , `VEC_Enabled_SCU_A1`
+        , `VEC_Enabled_SCU_A2`
+        , `VEC_Enabled_SCU_B1`
+        , `VEC_Enabled_SCU_B2`
+	FROM `VNX1000_IO`
+	WHERE resource = `MACHINE_NAME` AND timestamp >= `BEGIN` AND timestamp <= `END`
+	ORDER BY timestamp ASC LIMIT `MAXNUMPTS`;
+</SQL>
+<CHART_CONFIG>
+ Y_MIN=0   # Expected Graph y axis min
+ Y_MAX=1000  # Expected Graph y axis max
+ Y_PIX=25  # Y Graniluarity of the filtered data, the higher the number the more points.
+ X_PIX=500  # X Graniluarity of the filtered data, the higher the number the more points.
+</CHART_CONFIG>

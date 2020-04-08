@@ -1,0 +1,233 @@
+/* Master Styles */
+/*
+@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+@import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
+@import '~@angular/material/core/theming/prebuilt/pink-bluegrey.css';
+@import '~@angular/material/core/theming/prebuilt/purple-green.css';
+*/
+
+
+/* Colors set by this.app._props['appTheme.name'] */
+.SimpleUiBlue            { background-color: whitesmoke; }
+.SimpleUiPurple          { background-color: #d1c4e9; }
+.SimpleUiSea             { background-color: #d2fff0; }
+.SimpleUiPeach           { background-color: peachpuff; }
+
+h1 {
+    color: #369;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 250%;
+}
+h2, h3 {
+    color: #444;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+}
+a {
+    cursor: pointer;
+    cursor: hand;
+}
+button {
+    font-family: Arial;
+    width: auto;
+    background-color: #eee;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    cursor: hand;
+}
+button:hover {
+    background-color: #cfd8dc;
+}
+button:disabled {
+    background-color: #eee;
+    color: #aaa;
+    cursor: auto;
+}
+input.pending {
+    background-color:darkgray;
+    position: relative;
+    top: 0;
+    right: 0;
+    border: 3px solid #000;
+    height:40px;
+    width:40px;
+    font-size: 8px;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+}
+
+
+/* everywhere else */
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+html {
+    background: #ecf2f9;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    font-family: Verdana, Cambria, Georgia;
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+    padding: 0px;
+    overflow: hidden;
+}
+
+div.tabScrollRegion {
+    font-family: Verdana, Cambria, Georgia;
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+    padding: 0px;
+    overflow: auto;
+}
+
+div.tabBody {
+    overflow: visible;
+}
+
+input[text], button {
+    color: #888;
+    font-family: Verdana, Cambria, Georgia;
+}
+
+
+/*h1 {font-size: 18px; border: 1px solid #ccc; background: #EEE;} */
+h1 {font-size: 18px; /*border: 1px solid #ccc; */ background: #ecf2f9;}
+h2 {font-size: 16px; font-family: Georgia; font-style: italic; letter-spacing: 0.2em; background: #EEE;
+    border: 1px solid #ccc; font-weight: normal;}
+h3 {font-size: 15px; margin-bottom: 0px;}
+p {margin-left: 2em;}
+dl {margin-left: 2em;}
+dt {margin-bottom: 0px;}
+dd {margin-left: 1em; margin-top: 0px;}
+dd p {margin-top: 0px;}
+dl p {margin-bottom: 0.5em;}
+h1 span, h3 span {font-family: 'Courier New'; font-weight: normal; font-style: italic;}
+var {font-weight: bold; color: #244797;}
+label {font-weight: bold; display: block;}
+img {padding-left: 8px; padding-top: 8px;}
+div {border: none; empty-cells: hide;}
+/*  These control most of the text in the app.         */
+table, td {text-align: left; font-family: Verdana; font-size: 11px; border-collapse: collapse;
+    border: 1px solid grey; padding:2px;}
+.tableTop { vertical-align: top; padding:0; border-style: hidden }
+th {text-align: left; font-family: Verdana; font-size: 11px; background-color: #8cb1d9; color: black; border: 1px solid grey;
+    border-collapse: collapse; padding: 2px;}
+.thTop { font-size: 16px; justify-content: flex-end}
+td.modified {border: 1px solid black;  outline: 5px dotted red;}
+
+input {font-family: Verdana; font-size: 12px; border-collapse: collapse;  padding: 2px; width: 100px;}
+select {font-family: Verdana; font-size: 10px; padding: 5px;}
+.paramStyle {width: 275px;}
+.paramRow  { background-color: #ecf2f9; font-size: 16px;}
+
+
+.catLike {color: white; background-color: #4080bf; font-size: 16px; padding: 15px 15px;}
+
+a{font-family: Verdana; font-size: 12px}
+a.ppcHw{font-family: Verdana; font-size: 12px}
+a.ppcQl{font-family: Verdana; font-size: 13px; font-style: italic}
+
+.veTooltip {
+    position: relative;
+}
+.veTooltip .veTooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #d9e6f2;
+    color:  black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 2px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+.veTooltip:hover .veTooltiptext {
+    visibility: visible;
+}
+.veTooltip .veTooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 5%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #d9e6f2 transparent transparent transparent;
+}
+/*  ************************************  */
+
+
+#demo {margin: 0px auto; width: 500px; border: 2px solid #ccc;}
+#demo tr th {width: 250px; background: #eee;}
+#demo tr td {width: 250px; vertical-align: top;}
+#demo tr > td {white-space: pre;}
+
+.var_type {}
+.var_name {}
+.prop_type {}
+.prop_name {}
+.param_type {}
+.param_name {}
+.func_type {}
+.func_name {}
+
+.param_type, .prop_type, .var_type, .func_type {font-style: italic; font-family: 'Courier New'; color: #962424;}
+.param_name, .prop_name, .var_name, .func_name {font-weight: bold;}
+
+
+/* TimeEntry styles */
+.timeEntry_control {
+    vertical-align: middle;
+    margin-left: 2px;
+}
+* html .timeEntry_control { /* IE only */
+    margin-top: -4px;
+}
+
+
+/* Objects for the GUI */
+label.process_var {
+    width:50px;height:18px;
+    background-color:Ivory;
+    text-align:center;
+    border-style:ridge;
+}
+
+label.draggable_process_var, div.draggable_process_var {
+    width:100px;
+    height:18px;
+    background: url(/ng-simple-ui/images/drag-back.png) center top repeat lightgray;
+    text-align:center;
+    border-style:solid;
+    box-sizing: border-box;
+}
+
+img.draggable_process_var {
+    background: url(/ng-simple-ui/images/drag-back.png) center top no-repeat lightgray;
+    text-align:center;
+    border-style:solid;
+    box-sizing: border-box;
+}
+
+.XXXdraggable {
+    cursor: move;
+    user-select: none;
+}
+
+.XXXmovable:not(.dragging) {
+    transition: transform 300ms ease-in-out;
+}
+

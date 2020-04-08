@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?><Data_Summary u_id="2002">
+	<Title u_id="2003">Module Simulation</Title>
+	<timeStamp u_id="2004">1573685123627</timeStamp>
+	<Version u_id="2005">debug-SimVNX1000Server: develop-zeromq-for-nodejs-dirty, 2019-</Version>
+	<Section name="VEC Simulation Status" u_id="2006">
+		<DataSets u_id="2007">
+			<Thread_Rate u_id="2008">
+				<dyn name="LastTime" u_id="2009" units="ms">11</dyn>
+				<dyn name="AvgTime" u_id="2010" units="ms">11</dyn>
+				<dyn name="RecentWorst" u_id="2011" units="ms">21</dyn>
+				<dyn name="WorstTime" u_id="2012" units="ms">42</dyn>
+				<dyn name="TimeViolations" u_id="2013">19</dyn>
+			</Thread_Rate>
+			<Command_Sub u_id="2014">
+				<dyn name="LastTime" u_id="2015" units="ms">0</dyn>
+				<dyn name="AvgTime" u_id="2016" units="ms">1</dyn>
+				<dyn name="RecentWorst" u_id="2017" units="ms">10</dyn>
+				<dyn name="WorstTime" u_id="2018" units="ms">25</dyn>
+				<dyn name="TimeViolations" u_id="2019">0</dyn>
+			</Command_Sub>
+			<Simulation_Response u_id="2020">
+				<dyn name="LastTime" u_id="2021" units="ms">0</dyn>
+				<dyn name="AvgTime" u_id="2022" units="ms">1</dyn>
+				<dyn name="RecentWorst" u_id="2023" units="ms">2</dyn>
+				<dyn name="WorstTime" u_id="2024" units="ms">27</dyn>
+				<dyn name="TimeViolations" u_id="2025">1</dyn>
+			</Simulation_Response>
+		</DataSets>
+	</Section>
+	<Section name="VEC 1-19 : c1-vcu" u_id="2026">
+		<DataSets u_id="2027">
+			<Status u_id="2028">
+				<dyn name="Status" u_id="2029">connected</dyn>
+				<dyn name="Last ts" u_id="2030">17:45:23</dyn>
+				<dyn name="LastTime" u_id="2031" units="ms">56</dyn>
+				<dyn name="AvgTime" u_id="2032" units="ms">57</dyn>
+				<dyn name="RecentWorst" u_id="2033" units="ms">67</dyn>
+				<dyn name="WorstTime" u_id="2034" units="ms">115</dyn>
+				<dyn name="TimeViolations" u_id="2035">4359</dyn>
+			</Status>
+			<BoolVars-0 u_id="2035">
+				<DisableSimResponse class="off" u_id="2037">
+					<command cmd="DisableSimResponse" confirm="false" desc="Disable simulation model response." dest="1-19" disabled="false" idnum="0" label="DisableSimResponse" name="DisableSimResponse" u_id="2038" val="on"/>off</DisableSimResponse>
+			</BoolVars-0>
+			<BoolVars-1 u_id="2038">
+				<Pump1_Ch1_FB_Fault class="on" u_id="2040">
+					<command cmd="Pump1_Ch1_FB_Fault" confirm="false" desc="Replicate a circuit fault in Ch1 feedback" dest="1-19" disabled="false" idnum="0" label="Pump1_Ch1_FB_Fault" name="Pump1_Ch1_FB_Fault" u_id="2041" val="off"/>on</Pump1_Ch1_FB_Fault>
+				<Pump1_Ch2_FB_Fault class="off" u_id="2042">
+					<command cmd="Pump1_Ch2_FB_Fault" confirm="false" desc="Replicate a circuit fault in Ch2 feedback" dest="1-19" disabled="false" idnum="0" label="Pump1_Ch2_FB_Fault" name="Pump1_Ch2_FB_Fault" u_id="2043" val="on"/>off</Pump1_Ch2_FB_Fault>
+				<Pump1_Fault_FB_Set class="off" u_id="2044">
+					<command cmd="Pump1_Fault_FB_Set" confirm="false" desc="Set the drive fault feedback bit" dest="1-19" disabled="false" idnum="0" label="Pump1_Fault_FB_Set" name="Pump1_Fault_FB_Set" u_id="2045" val="on"/>off</Pump1_Fault_FB_Set>
+				<Pump2_Ch1_FB_Fault class="off" u_id="2046">
+					<command cmd="Pump2_Ch1_FB_Fault" confirm="false" desc="Replicate a circuit fault in Ch1 feedback" dest="1-19" disabled="false" idnum="0" label="Pump2_Ch1_FB_Fault" name="Pump2_Ch1_FB_Fault" u_id="2047" val="on"/>off</Pump2_Ch1_FB_Fault>
+				<Pump2_Ch2_FB_Fault class="off" u_id="2048">
+					<command cmd="Pump2_Ch2_FB_Fault" confirm="false" desc="Replicate a circuit fault in Ch2 feedback" dest="1-19" disabled="false" idnum="0" label="Pump2_Ch2_FB_Fault" name="Pump2_Ch2_FB_Fault" u_id="2049" val="on"/>off</Pump2_Ch2_FB_Fault>
+			</BoolVars-1>
+			<BoolVars-6 u_id="2049">
+				<Pump2_Fault_FB_Set class="on" u_id="2051">
+					<command cmd="Pump2_Fault_FB_Set" confirm="false" desc="Set the drive fault feedback bit" dest="1-19" disabled="false" idnum="0" label="Pump2_Fault_FB_Set" name="Pump2_Fault_FB_Set" u_id="2052" val="off"/>on</Pump2_Fault_FB_Set>
+				<Pump3_Ch1_FB_Fault class="off" u_id="2053">
+					<command cmd="Pump3_Ch1_FB_Fault" confirm="false" desc="Replicate a circuit fault in Ch1 feedback" dest="1-19" disabled="false" idnum="0" label="Pump3_Ch1_FB_Fault" name="Pump3_Ch1_FB_Fault" u_id="2054" val="on"/>off</Pump3_Ch1_FB_Fault>
+				<Pump3_Ch2_FB_Fault class="off" u_id="2055">
+					<command cmd="Pump3_Ch2_FB_Fault" confirm="false" desc="Replicate a circuit fault in Ch2 feedback" dest="1-19" disabled="false" idnum="0" label="Pump3_Ch2_FB_Fault" name="Pump3_Ch2_FB_Fault" u_id="2056" val="on"/>off</Pump3_Ch2_FB_Fault>
+				<Pump3_Fault_FB_Set class="off" u_id="2057">
+					<command cmd="Pump3_Fault_FB_Set" confirm="false" desc="Set the drive fault feedback bit" dest="1-19" disabled="false" idnum="0" label="Pump3_Fault_FB_Set" name="Pump3_Fault_FB_Set" u_id="2058" val="on"/>off</Pump3_Fault_FB_Set>
+			</BoolVars-6>
+			<BoolVars-10 u_id="2058">
+				<Safe_In_1_2_Bypass class="off" u_id="2060">
+					<command cmd="Safe_In_1_2_Bypass" confirm="false" desc="Set safety inputs 1 &amp; 2 bypass input" dest="1-19" disabled="false" idnum="0" label="Safe_In_1_2_Bypass" name="Safe_In_1_2_Bypass" u_id="2061" val="on"/>off</Safe_In_1_2_Bypass>
+				<ZS301A_Switch_Door_Side_A class="on" u_id="2062">
+					<command cmd="ZS301A_Switch_Door_Side_A" confirm="false" desc="Set safe input bit on or of" dest="1-19" disabled="false" idnum="0" label="ZS301A_Switch_Door_Side_A" name="ZS301A_Switch_Door_Side_A" u_id="2063" val="off"/>on</ZS301A_Switch_Door_Side_A>
+				<ZS301B_Switch_Door_Side_B class="on" u_id="2064">
+					<command cmd="ZS301B_Switch_Door_Side_B" confirm="false" desc="Set safe input bit on or of" dest="1-19" disabled="false" idnum="0" label="ZS301B_Switch_Door_Side_B" name="ZS301B_Switch_Door_Side_B" u_id="2065" val="off"/>on</ZS301B_Switch_Door_Side_B>
+				<LS317A_Switch_Leak_Stack_Container_Side_A class="on" u_id="2066">
+					<command cmd="LS317A_Switch_Leak_Stack_Container_Side_A" confirm="false" desc="Set safe input bit on or of" dest="1-19" disabled="false" idnum="0" label="LS317A_Switch_Leak_Stack_Container_Side_A" name="LS317A_Switch_Leak_Stack_Container_Side_A" u_id="2067" val="off"/>on</LS317A_Switch_Leak_Stack_Container_Side_A>
+				<PS403_Switch_PAD_Over_Pressure class="on" u_id="2068">
+					<command cmd="PS403_Switch_PAD_Over_Pressure" confirm="false" desc="Set safe input bit on or of" dest="1-19" disabled="false" idnum="0" label="PS403_Switch_PAD_Over_Pressure" name="PS403_Switch_PAD_Over_Pressure" u_id="2069" val="off"/>on</PS403_Switch_PAD_Over_Pressure>
+			</BoolVars-10>
+			<BoolVars-16 u_id="2069">
+				<EPO_Mushroom_Button_VCU class="on" u_id="2071">
+					<command cmd="EPO_Mushroom_Button_VCU" confirm="false" desc="Set safe input bit on or of" dest="1-19" disabled="false" idnum="0" label="EPO_Mushroom_Button_VCU" name="EPO_Mushroom_Button_VCU" u_id="2072" val="off"/>on</EPO_Mushroom_Button_VCU>
+				<Safety_Interlock_VCU_SMU_Alive class="on" u_id="2073">
+					<command cmd="Safety_Interlock_VCU_SMU_Alive" confirm="false" desc="Set safe input bit on or of" dest="1-19" disabled="false" idnum="0" label="Safety_Interlock_VCU_SMU_Alive" name="Safety_Interlock_VCU_SMU_Alive" u_id="2074" val="off"/>on</Safety_Interlock_VCU_SMU_Alive>
+			</BoolVars-16>
+			<BoolVars-18 u_id="2074">
+				<VEC_Enabled_InFault class="off" u_id="2076">
+					<command cmd="VEC_Enabled_InFault" confirm="false" desc="Create a A-B safety input fault" dest="1-19" disabled="false" idnum="0" label="VEC_Enabled_InFault" name="VEC_Enabled_InFault" u_id="2077" val="on"/>off</VEC_Enabled_InFault>
+				<K1_Response_Fault class="off" u_id="2078">
+					<command cmd="K1_Response_Fault" confirm="false" desc="Create a K1 response fault." dest="1-19" disabled="false" idnum="0" label="K1_Response_Fault" name="K1_Response_Fault" u_id="2079" val="on"/>off</K1_Response_Fault>
+				<WD_FLT class="off" u_id="2080">
+					<command cmd="WD_FLT" confirm="false" desc="Set or reset WD_FLT input" dest="1-19" disabled="false" idnum="0" label="WD_FLT" name="WD_FLT" u_id="2081" val="on"/>off</WD_FLT>
+				<ESTOP_FB class="off" u_id="2082">
+					<command cmd="ESTOP_FB" confirm="false" desc="Set or reset the customer estop input" dest="1-19" disabled="false" idnum="0" label="ESTOP_FB" name="ESTOP_FB" u_id="2083" val="on"/>off</ESTOP_FB>
+			</BoolVars-18>
+			<IntVars-0 u_id="2083">
+				<POST_Status u_id="2085">
+					<command cmd="POST_Status" desc="0:Offline 1:PreStart 2:Run 3:Complete 4:Warn 5:Fault" dest="1-19" disabled="false" idnum="0" label="POST_Status" name="POST_Status" u_id="2086">
+						<_input _type="int" desc="" max="99999" min="-99999" u_id="2087" value="3"/>
+					</command>3</POST_Status>
+			</IntVars-0>
+		</DataSets>
+	</Section>
+	<Section name="VEC 1-13 : c1-smu" u_id="2088">
+		<DataSets u_id="2089">
+			<Status u_id="2090">
+				<dyn name="Status" u_id="2091">connected</dyn>
+				<dyn name="Last ts" u_id="2092">17:45:23</dyn>
+				<dyn name="LastTime" u_id="2093" units="ms">57</dyn>
+				<dyn name="AvgTime" u_id="2094" units="ms">57</dyn>
+				<dyn name="RecentWorst" u_id="2095" units="ms">66</dyn>
+				<dyn name="WorstTime" u_id="2096" units="ms">167</dyn>
+				<dyn name="TimeViolations" u_id="2097">4252</dyn>
+			</Status>
+			<BoolVars-0 u_id="2097">
+				<DisableSimResponse class="off" u_id="2099">
+					<command cmd="DisableSimResponse" confirm="false" desc="Disable simulation model response." dest="1-13" disabled="false" idnum="0" label="DisableSimResponse" name="DisableSimResponse" u_id="2100" val="on"/>off</DisableSimResponse>
+			</BoolVars-0>
+			<BoolVars-1 u_id="2100">
+				<Pump1_Ch1_FB_Fault class="off" u_id="2102">
+					<command cmd="Pump1_Ch1_FB_Fault" confirm="false" desc="Replicate a circuit fault in Ch1 feedback" dest="1-13" disabled="false" idnum="0" label="Pump1_Ch1_FB_Fault" name="Pump1_Ch1_FB_Fault" u_id="2103" val="on"/>off</Pump1_Ch1_FB_Fault>
+				<Pump1_Ch2_FB_Fault class="off" u_id="2104">
+					<command cmd="Pump1_Ch2_FB_Fault" confirm="false" desc="Replicate a circuit fault in Ch2 feedback" dest="1-13" disabled="false" idnum="0" label="Pump1_Ch2_FB_Fault" name="Pump1_Ch2_FB_Fault" u_id="2105" val="on"/>off</Pump1_Ch2_FB_Fault>
+				<Pump1_Fault_FB_Set class="off" u_id="2106">
+					<command cmd="Pump1_Fault_FB_Set" confirm="false" desc="Set the drive fault feedback bit" dest="1-13" disabled="false" idnum="0" label="Pump1_Fault_FB_Set" name="Pump1_Fault_FB_Set" u_id="2107" val="on"/>off</Pump1_Fault_FB_Set>
+				<Pump2_Ch1_FB_Fault class="off" u_id="2108">
+					<command cmd="Pump2_Ch1_FB_Fault" confirm="false" desc="Replicate a circuit fault in Ch1 feedback" dest="1-13" disabled="false" idnum="0" label="Pump2_Ch1_FB_Fault" name="Pump2_Ch1_FB_Fault" u_id="2109" val="on"/>off</Pump2_Ch1_FB_Fault>
+				<Pump2_Ch2_FB_Fault class="off" u_id="2110">
+					<command cmd="Pump2_Ch2_FB_Fault" confirm="false" desc="Replicate a circuit fault in Ch2 feedback" dest="1-13" disabled="false" idnum="0" label="Pump2_Ch2_FB_Fault" name="Pump2_Ch2_FB_Fault" u_id="2111" val="on"/>off</Pump2_Ch2_FB_Fault>
+			</BoolVars-1>
+			<BoolVars-6 u_id="2111">
+				<Pump2_Fault_FB_Set class="off" u_id="2113">
+					<command cmd="Pump2_Fault_FB_Set" confirm="false" desc="Set the drive fault feedback bit" dest="1-13" disabled="false" idnum="0" label="Pump2_Fault_FB_Set" name="Pump2_Fault_FB_Set" u_id="2114" val="on"/>off</Pump2_Fault_FB_Set>
+				<Pump3_Ch1_FB_Fault class="off" u_id="2115">
+					<command cmd="Pump3_Ch1_FB_Fault" confirm="false" desc="Replicate a circuit fault in Ch1 feedback" dest="1-13" disabled="false" idnum="0" label="Pump3_Ch1_FB_Fault" name="Pump3_Ch1_FB_Fault" u_id="2116" val="on"/>off</Pump3_Ch1_FB_Fault>
+				<Pump3_Ch2_FB_Fault class="off" u_id="2117">
+					<command cmd="Pump3_Ch2_FB_Fault" confirm="false" desc="Replicate a circuit fault in Ch2 feedback" dest="1-13" disabled="false" idnum="0" label="Pump3_Ch2_FB_Fault" name="Pump3_Ch2_FB_Fault" u_id="2118" val="on"/>off</Pump3_Ch2_FB_Fault>
+				<Pump3_Fault_FB_Set class="off" u_id="2119">
+					<command cmd="Pump3_Fault_FB_Set" confirm="false" desc="Set the drive fault feedback bit" dest="1-13" disabled="false" idnum="0" label="Pump3_Fault_FB_Set" name="Pump3_Fault_FB_Set" u_id="2120" val="on"/>off</Pump3_Fault_FB_Set>
+			</BoolVars-6>
+			<BoolVars-12 u_id="2120">
+				<Safety_Interlock_SMU_VCU_Enabled class="on" u_id="2122">
+					<command cmd="Safety_Interlock_SMU_VCU_Enabled" confirm="false" desc="Set safe input bit on or of" dest="1-13" disabled="false" idnum="0" label="Safety_Interlock_SMU_VCU_Enabled" name="Safety_Interlock_SMU_VCU_Enabled" u_id="2123" val="off"/>on</Safety_Interlock_SMU_VCU_Enabled>
+				<LS317B_Switch_Leak_Stack_Container_Side_B class="on" u_id="2124">
+					<command cmd="LS317B_Switch_Leak_Stack_Container_Side_B" confirm="false" desc="Set safe input bit on or of" dest="1-13" disabled="false" idnum="0" label="LS317B_Switch_Leak_Stack_Container_Side_B" name="LS317B_Switch_Leak_Stack_Container_Side_B" u_id="2125" val="off"/>on</LS317B_Switch_Leak_Stack_Container_Side_B>
+				<LS318_Switch_Leak_Stack_Container_Ref_Cell class="on" u_id="2126">
+					<command cmd="LS318_Switch_Leak_Stack_Container_Ref_Cell" confirm="false" desc="Set safe input bit on or of" dest="1-13" disabled="false" idnum="0" label="LS318_Switch_Leak_Stack_Container_Ref_Cell" name="LS318_Switch_Leak_Stack_Container_Ref_Cell" u_id="2127" val="off"/>on</LS318_Switch_Leak_Stack_Container_Ref_Cell>
+				<EPO_Mushroom_Button_SMU class="on" u_id="2128">
+					<command cmd="EPO_Mushroom_Button_SMU" confirm="false" desc="Set safe input bit on or of" dest="1-13" disabled="false" idnum="0" label="EPO_Mushroom_Button_SMU" name="EPO_Mushroom_Button_SMU" u_id="2129" val="off"/>on</EPO_Mushroom_Button_SMU>
+				<LS401_Switch_Leak_Stack_Container_PAD class="on" u_id="2130">
+					<command cmd="LS401_Switch_Leak_Stack_Container_PAD" confirm="false" desc="Set safe input bit on or of" dest="1-13" disabled="false" idnum="0" label="LS401_Switch_Leak_Stack_Container_PAD" name="LS401_Switch_Leak_Stack_Container_PAD" u_id="2131" val="off"/>on</LS401_Switch_Leak_Stack_Container_PAD>
+			</BoolVars-12>
+			<BoolVars-18 u_id="2131">
+				<VEC_Enabled_InFault class="off" u_id="2133">
+					<command cmd="VEC_Enabled_InFault" confirm="false" desc="Create a A-B safety input fault" dest="1-13" disabled="false" idnum="0" label="VEC_Enabled_InFault" name="VEC_Enabled_InFault" u_id="2134" val="on"/>off</VEC_Enabled_InFault>
+				<K1_Response_Fault class="off" u_id="2135">
+					<command cmd="K1_Response_Fault" confirm="false" desc="Create a K1 response fault." dest="1-13" disabled="false" idnum="0" label="K1_Response_Fault" name="K1_Response_Fault" u_id="2136" val="on"/>off</K1_Response_Fault>
+				<WD_FLT class="off" u_id="2137">
+					<command cmd="WD_FLT" confirm="false" desc="Set or reset WD_FLT input" dest="1-13" disabled="false" idnum="0" label="WD_FLT" name="WD_FLT" u_id="2138" val="on"/>off</WD_FLT>
+				<ESTOP_FB class="off" u_id="2139">
+					<command cmd="ESTOP_FB" confirm="false" desc="Set or reset the customer estop input" dest="1-13" disabled="false" idnum="0" label="ESTOP_FB" name="ESTOP_FB" u_id="2140" val="on"/>off</ESTOP_FB>
+			</BoolVars-18>
+			<IntVars-0 u_id="2140">
+				<POST_Status u_id="2142">
+					<command cmd="POST_Status" desc="0:Offline 1:PreStart 2:Run 3:Complete 4:Warn 5:Fault" dest="1-13" disabled="false" idnum="0" label="POST_Status" name="POST_Status" u_id="2143">
+						<_input _type="int" desc="" max="99999" min="-99999" u_id="2144" value="3"/>
+					</command>3</POST_Status>
+			</IntVars-0>
+		</DataSets>
+	</Section>
+	<Section name="VEC 1-1 : c1-scu-a1" u_id="2145">
+		<DataSets u_id="2146">
+			<Status u_id="2147">
+				<dyn name="Status" u_id="2148">connected</dyn>
+				<dyn name="Last ts" u_id="2149">17:45:23</dyn>
+				<dyn name="LastTime" u_id="2150" units="ms">57</dyn>
+				<dyn name="AvgTime" u_id="2151" units="ms">57</dyn>
+				<dyn name="RecentWorst" u_id="2152" units="ms">70</dyn>
+				<dyn name="WorstTime" u_id="2153" units="ms">126</dyn>
+				<dyn name="TimeViolations" u_id="2154">4354</dyn>
+			</Status>
+			<BoolVars-0 u_id="2154">
+				<DisableSimResponse class="off" u_id="2156">
+					<command cmd="DisableSimResponse" confirm="false" desc="Disable simulation model response." dest="1-1" disabled="false" idnum="0" label="DisableSimResponse" name="DisableSimResponse" u_id="2157" val="on"/>off</DisableSimResponse>
+			</BoolVars-0>
+			<BoolVars-13 u_id="2157">
+				<Safety_Interlock_SCU_A1_VCU_Enabled class="on" u_id="2159">
+					<command cmd="Safety_Interlock_SCU_A1_VCU_Enabled" confirm="false" desc="Set safe input bit on or of" dest="1-1" disabled="false" idnum="0" label="Safety_Interlock_SCU_A1_VCU_Enabled" name="Safety_Interlock_SCU_A1_VCU_Enabled" u_id="2160" val="off"/>on</Safety_Interlock_SCU_A1_VCU_Enabled>
+				<EPO_Mushroom_Button_SCU_A1 class="on" u_id="2161">
+					<command cmd="EPO_Mushroom_Button_SCU_A1" confirm="false" desc="Set safe input bit on or of" dest="1-1" disabled="false" idnum="0" label="EPO_Mushroom_Button_SCU_A1" name="EPO_Mushroom_Button_SCU_A1" u_id="2162" val="off"/>on</EPO_Mushroom_Button_SCU_A1>
+			</BoolVars-13>
+			<BoolVars-18 u_id="2162">
+				<VEC_Enabled_InFault class="off" u_id="2164">
+					<command cmd="VEC_Enabled_InFault" confirm="false" desc="Create a A-B safety input fault" dest="1-1" disabled="false" idnum="0" label="VEC_Enabled_InFault" name="VEC_Enabled_InFault" u_id="2165" val="on"/>off</VEC_Enabled_InFault>
+				<K1_Response_Fault class="off" u_id="2166">
+					<command cmd="K1_Response_Fault" confirm="false" desc="Create a K1 response fault." dest="1-1" disabled="false" idnum="0" label="K1_Response_Fault" name="K1_Response_Fault" u_id="2167" val="on"/>off</K1_Response_Fault>
+				<WD_FLT class="off" u_id="2168">
+					<command cmd="WD_FLT" confirm="false" desc="Set or reset WD_FLT input" dest="1-1" disabled="false" idnum="0" label="WD_FLT" name="WD_FLT" u_id="2169" val="on"/>off</WD_FLT>
+				<ESTOP_FB class="off" u_id="2170">
+					<command cmd="ESTOP_FB" confirm="false" desc="Set or reset the customer estop input" dest="1-1" disabled="false" idnum="0" label="ESTOP_FB" name="ESTOP_FB" u_id="2171" val="on"/>off</ESTOP_FB>
+			</BoolVars-18>
+			<IntVars-0 u_id="2171">
+				<POST_Status u_id="2173">
+					<command cmd="POST_Status" desc="0:Offline 1:PreStart 2:Run 3:Complete 4:Warn 5:Fault" dest="1-1" disabled="false" idnum="0" label="POST_Status" name="POST_Status" u_id="2174">
+						<_input _type="int" desc="" max="99999" min="-99999" u_id="2175" value="3"/>
+					</command>3</POST_Status>
+			</IntVars-0>
+		</DataSets>
+	</Section>
+	<Section name="VEC 1-4 : c1-scu-a2" u_id="2176">
+		<DataSets u_id="2177">
+			<Status u_id="2178">
+				<dyn name="Status" u_id="2179">connected</dyn>
+				<dyn name="Last ts" u_id="2180">17:45:23</dyn>
+				<dyn name="LastTime" u_id="2181" units="ms">56</dyn>
+				<dyn name="AvgTime" u_id="2182" units="ms">57</dyn>
+				<dyn name="RecentWorst" u_id="2183" units="ms">67</dyn>
+				<dyn name="WorstTime" u_id="2184" units="ms">147</dyn>
+				<dyn name="TimeViolations" u_id="2185">4228</dyn>
+			</Status>
+			<BoolVars-0 u_id="2185">
+				<DisableSimResponse class="off" u_id="2187">
+					<command cmd="DisableSimResponse" confirm="false" desc="Disable simulation model response." dest="1-4" disabled="false" idnum="0" label="DisableSimResponse" name="DisableSimResponse" u_id="2188" val="on"/>off</DisableSimResponse>
+			</BoolVars-0>
+			<BoolVars-13 u_id="2188">
+				<Safety_Interlock_SCU_A2_VCU_Enabled class="on" u_id="2190">
+					<command cmd="Safety_Interlock_SCU_A2_VCU_Enabled" confirm="false" desc="Set safe input bit on or of" dest="1-4" disabled="false" idnum="0" label="Safety_Interlock_SCU_A2_VCU_Enabled" name="Safety_Interlock_SCU_A2_VCU_Enabled" u_id="2191" val="off"/>on</Safety_Interlock_SCU_A2_VCU_Enabled>
+				<EPO_Mushroom_Button_SCU_A2 class="on" u_id="2192">
+					<command cmd="EPO_Mushroom_Button_SCU_A2" confirm="false" desc="Set safe input bit on or of" dest="1-4" disabled="false" idnum="0" label="EPO_Mushroom_Button_SCU_A2" name="EPO_Mushroom_Button_SCU_A2" u_id="2193" val="off"/>on</EPO_Mushroom_Button_SCU_A2>
+			</BoolVars-13>
+			<BoolVars-18 u_id="2193">
+				<VEC_Enabled_InFault class="off" u_id="2195">
+					<command cmd="VEC_Enabled_InFault" confirm="false" desc="Create a A-B safety input fault" dest="1-4" disabled="false" idnum="0" label="VEC_Enabled_InFault" name="VEC_Enabled_InFault" u_id="2196" val="on"/>off</VEC_Enabled_InFault>
+				<K1_Response_Fault class="off" u_id="2197">
+					<command cmd="K1_Response_Fault" confirm="false" desc="Create a K1 response fault." dest="1-4" disabled="false" idnum="0" label="K1_Response_Fault" name="K1_Response_Fault" u_id="2198" val="on"/>off</K1_Response_Fault>
+				<WD_FLT class="off" u_id="2199">
+					<command cmd="WD_FLT" confirm="false" desc="Set or reset WD_FLT input" dest="1-4" disabled="false" idnum="0" label="WD_FLT" name="WD_FLT" u_id="2200" val="on"/>off</WD_FLT>
+				<ESTOP_FB class="off" u_id="2201">
+					<command cmd="ESTOP_FB" confirm="false" desc="Set or reset the customer estop input" dest="1-4" disabled="false" idnum="0" label="ESTOP_FB" name="ESTOP_FB" u_id="2202" val="on"/>off</ESTOP_FB>
+			</BoolVars-18>
+			<IntVars-0 u_id="2202">
+				<POST_Status u_id="2204">
+					<command cmd="POST_Status" desc="0:Offline 1:PreStart 2:Run 3:Complete 4:Warn 5:Fault" dest="1-4" disabled="false" idnum="0" label="POST_Status" name="POST_Status" u_id="2205">
+						<_input _type="int" desc="" max="99999" min="-99999" u_id="2206" value="3"/>
+					</command>3</POST_Status>
+			</IntVars-0>
+		</DataSets>
+	</Section>
+	<Section name="VEC 1-7 : c1-scu-b1" u_id="2207">
+		<DataSets u_id="2208">
+			<Status u_id="2209">
+				<dyn name="Status" u_id="2210">connected</dyn>
+				<dyn name="Last ts" u_id="2211">17:45:23</dyn>
+				<dyn name="LastTime" u_id="2212" units="ms">56</dyn>
+				<dyn name="AvgTime" u_id="2213" units="ms">57</dyn>
+				<dyn name="RecentWorst" u_id="2214" units="ms">67</dyn>
+				<dyn name="WorstTime" u_id="2215" units="ms">189</dyn>
+				<dyn name="TimeViolations" u_id="2216">4275</dyn>
+			</Status>
+			<BoolVars-0 u_id="2216">
+				<DisableSimResponse class="off" u_id="2218">
+					<command cmd="DisableSimResponse" confirm="false" desc="Disable simulation model response." dest="1-7" disabled="false" idnum="0" label="DisableSimResponse" name="DisableSimResponse" u_id="2219" val="on"/>off</DisableSimResponse>
+			</BoolVars-0>
+			<BoolVars-13 u_id="2219">
+				<Safety_Interlock_SCU_B1_SMU_Enabled class="on" u_id="2221">
+					<command cmd="Safety_Interlock_SCU_B1_SMU_Enabled" confirm="false" desc="Set safe input bit on or of" dest="1-7" disabled="false" idnum="0" label="Safety_Interlock_SCU_B1_SMU_Enabled" name="Safety_Interlock_SCU_B1_SMU_Enabled" u_id="2222" val="off"/>on</Safety_Interlock_SCU_B1_SMU_Enabled>
+				<EPO_Mushroom_Button_SCU_B1 class="on" u_id="2223">
+					<command cmd="EPO_Mushroom_Button_SCU_B1" confirm="false" desc="Set safe input bit on or of" dest="1-7" disabled="false" idnum="0" label="EPO_Mushroom_Button_SCU_B1" name="EPO_Mushroom_Button_SCU_B1" u_id="2224" val="off"/>on</EPO_Mushroom_Button_SCU_B1>
+			</BoolVars-13>
+			<BoolVars-18 u_id="2224">
+				<VEC_Enabled_InFault class="off" u_id="2226">
+					<command cmd="VEC_Enabled_InFault" confirm="false" desc="Create a A-B safety input fault" dest="1-7" disabled="false" idnum="0" label="VEC_Enabled_InFault" name="VEC_Enabled_InFault" u_id="2227" val="on"/>off</VEC_Enabled_InFault>
+				<K1_Response_Fault class="off" u_id="2228">
+					<command cmd="K1_Response_Fault" confirm="false" desc="Create a K1 response fault." dest="1-7" disabled="false" idnum="0" label="K1_Response_Fault" name="K1_Response_Fault" u_id="2229" val="on"/>off</K1_Response_Fault>
+				<WD_FLT class="off" u_id="2230">
+					<command cmd="WD_FLT" confirm="false" desc="Set or reset WD_FLT input" dest="1-7" disabled="false" idnum="0" label="WD_FLT" name="WD_FLT" u_id="2231" val="on"/>off</WD_FLT>
+				<ESTOP_FB class="off" u_id="2232">
+					<command cmd="ESTOP_FB" confirm="false" desc="Set or reset the customer estop input" dest="1-7" disabled="false" idnum="0" label="ESTOP_FB" name="ESTOP_FB" u_id="2233" val="on"/>off</ESTOP_FB>
+			</BoolVars-18>
+			<IntVars-0 u_id="2233">
+				<POST_Status u_id="2235">
+					<command cmd="POST_Status" desc="0:Offline 1:PreStart 2:Run 3:Complete 4:Warn 5:Fault" dest="1-7" disabled="false" idnum="0" label="POST_Status" name="POST_Status" u_id="2236">
+						<_input _type="int" desc="" max="99999" min="-99999" u_id="2237" value="3"/>
+					</command>3</POST_Status>
+			</IntVars-0>
+		</DataSets>
+	</Section>
+	<Section name="VEC 1-10 : c1-scu-b2" u_id="2238">
+		<DataSets u_id="2239">
+			<Status u_id="2240">
+				<dyn name="Status" u_id="2241">connected</dyn>
+				<dyn name="Last ts" u_id="2242">17:45:23</dyn>
+				<dyn name="LastTime" u_id="2243" units="ms">56</dyn>
+				<dyn name="AvgTime" u_id="2244" units="ms">57</dyn>
+				<dyn name="RecentWorst" u_id="2245" units="ms">66</dyn>
+				<dyn name="WorstTime" u_id="2246" units="ms">115</dyn>
+				<dyn name="TimeViolations" u_id="2247">4232</dyn>
+			</Status>
+			<BoolVars-0 u_id="2247">
+				<DisableSimResponse class="off" u_id="2249">
+					<command cmd="DisableSimResponse" confirm="false" desc="Disable simulation model response." dest="1-10" disabled="false" idnum="0" label="DisableSimResponse" name="DisableSimResponse" u_id="2250" val="on"/>off</DisableSimResponse>
+			</BoolVars-0>
+			<BoolVars-13 u_id="2250">
+				<Safety_Interlock_SCU_B2_SMU_Enabled class="on" u_id="2252">
+					<command cmd="Safety_Interlock_SCU_B2_SMU_Enabled" confirm="false" desc="Set safe input bit on or of" dest="1-10" disabled="false" idnum="0" label="Safety_Interlock_SCU_B2_SMU_Enabled" name="Safety_Interlock_SCU_B2_SMU_Enabled" u_id="2253" val="off"/>on</Safety_Interlock_SCU_B2_SMU_Enabled>
+				<EPO_Mushroom_Button_SCU_B2 class="on" u_id="2254">
+					<command cmd="EPO_Mushroom_Button_SCU_B2" confirm="false" desc="Set safe input bit on or of" dest="1-10" disabled="false" idnum="0" label="EPO_Mushroom_Button_SCU_B2" name="EPO_Mushroom_Button_SCU_B2" u_id="2255" val="off"/>on</EPO_Mushroom_Button_SCU_B2>
+			</BoolVars-13>
+			<BoolVars-18 u_id="2255">
+				<VEC_Enabled_InFault class="off" u_id="2257">
+					<command cmd="VEC_Enabled_InFault" confirm="false" desc="Create a A-B safety input fault" dest="1-10" disabled="false" idnum="0" label="VEC_Enabled_InFault" name="VEC_Enabled_InFault" u_id="2258" val="on"/>off</VEC_Enabled_InFault>
+				<K1_Response_Fault class="off" u_id="2259">
+					<command cmd="K1_Response_Fault" confirm="false" desc="Create a K1 response fault." dest="1-10" disabled="false" idnum="0" label="K1_Response_Fault" name="K1_Response_Fault" u_id="2260" val="on"/>off</K1_Response_Fault>
+				<WD_FLT class="off" u_id="2261">
+					<command cmd="WD_FLT" confirm="false" desc="Set or reset WD_FLT input" dest="1-10" disabled="false" idnum="0" label="WD_FLT" name="WD_FLT" u_id="2262" val="on"/>off</WD_FLT>
+				<ESTOP_FB class="off" u_id="2263">
+					<command cmd="ESTOP_FB" confirm="false" desc="Set or reset the customer estop input" dest="1-10" disabled="false" idnum="0" label="ESTOP_FB" name="ESTOP_FB" u_id="2264" val="on"/>off</ESTOP_FB>
+			</BoolVars-18>
+			<IntVars-0 u_id="2264">
+				<POST_Status u_id="2266">
+					<command cmd="POST_Status" desc="0:Offline 1:PreStart 2:Run 3:Complete 4:Warn 5:Fault" dest="1-10" disabled="false" idnum="0" label="POST_Status" name="POST_Status" u_id="2267">
+						<_input _type="int" desc="" max="99999" min="-99999" u_id="2268" value="3"/>
+					</command>3</POST_Status>
+			</IntVars-0>
+		</DataSets>
+	</Section>
+<status>0</status></Data_Summary>

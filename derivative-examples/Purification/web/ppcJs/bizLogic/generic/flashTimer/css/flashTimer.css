@@ -1,0 +1,11 @@
+﻿/* overlay classes for FlashTimer */
+
+.flashTimerUpdated
+{
+    color: Green;
+}
+
+.flashTimerFault
+{
+    color:Red;
+}

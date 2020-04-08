@@ -1,0 +1,19 @@
+﻿<div class="mainSystemPanel" dojoattachpoint="containerNode">
+    <div class="mspBorder" dojotype="dijit.layout.BorderContainer" design="sidebar">
+        <div dojoattachpoint="blocksPane" class="mspLeftPane" dojotype="dijit.layout.ContentPane"
+            region="left" splitter="false">
+            <div dojoattachpoint="faultDiv" class="mpsFaultDiv">
+                <div dojoattachpoint="logControl" dojotype="ppcJs.LogControl">
+                </div>
+            </div>
+        </div>
+        <div class="mspRightPane" dojotype="dijit.layout.ContentPane" region="center">
+            <div dojoattachpoint="controlDiv" class="mspControlDiv">
+            </div>
+            <div class="mspGridDiv">
+                <div dojotype="ppcJs.SystemDataGridControl" dojoattachpoint="dataGridControl">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿<div data-dojo-attach-point="containerNode">
+    <div data-dojo-attach-point="viewModeStatus" class="basePanelHighlightBg _controlBorder">
+        <div data-dojo-attach-point="variableStatusTable" class="basePanelTable"></div>
+    </div>
+    <div data-dojo-attach-point="editControlBox" class="ecStaticControlBox">
+        <div class="ecInlineBlock">
+            <div data-dojo-attach-point="insertMenuControl" data-dojo-type="ppcJs/control/InsertCommandMenu"
+                data-dojo-attach-event="onSelectCommand:_onInsertEntryAtStart, onSelectScript:_onInsertScriptAtStart">
+            </div>
+        </div>
+        <button data-dojo-attach-point="expandAllButton" data-dojo-type="dijit/form/Button" type="button" data-dojo-attach-event="onClick:_onExpandAllClick" title="Expand all entries">
+            + All</button>
+        <button data-dojo-attach-point="collapseAllButton" data-dojo-type="dijit/form/Button" type="button" data-dojo-attach-event="onClick:_onCollapseAllClick" title="Collapse all entries">
+            - All</button>
+    </div>
+    <div class="ecEntryContainer">
+        <div data-dojo-attach-point="entryContainer" class="basePanelTable">
+        </div>
+    </div>
+</div>

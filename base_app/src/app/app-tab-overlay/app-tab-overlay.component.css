@@ -1,0 +1,151 @@
+
+
+html {background: #EEE; margin: 0px; padding: 0px;}
+body {font-family: Verdana; font-size: 12px; padding: 10px;}
+h1 {font-size: 18px; border: 1px solid #ccc; background: #EEE;}
+h2 {font-size: 16px; font-family: Georgia; font-style: italic; letter-spacing: 0.2em; background: #EEE; border: 1px solid #ccc; font-weight: normal;}
+h3 {font-size: 15px; margin-bottom: 0px;}
+p {margin-left: 2em;}
+dl {margin-left: 2em;}
+dt {margin-bottom: 0px;}
+dd {margin-left: 1em; margin-top: 0px;}
+dd p {margin-top: 0px;}
+dl p {margin-bottom: 0.5em;}
+h1 span, h3 span {font-family: 'Courier New'; font-weight: normal; font-style: italic;}
+var {font-weight: bold; color: #244797;}
+label {font-weight: bold; display: block;}
+
+/*  These control most of the text in the app.         */
+td{font-family: Verdana; font-size: 11px; border-collapse: collapse; padding-left: 2px; padding-right: 5px;}
+td.fault-trip{font-family: Verdana; font-weight: bold; color: red;font-size: 11px; border-collapse: collapse; padding-left: 1px; padding-right: 5px;}
+td.fault-warning{font-family: Verdana; font-weight: bold; color: gold;font-size: 11px; border-collapse: collapse; padding-left: 1px; padding-right: 5px;}
+th{font-family: Verdana; font-size: 11px; border-collapse: collapse; padding-left: 2px; padding-right: 5px}
+th.tableTitle {font-family: Verdana; font-size: 12px; font-weight: bold; border-collapse: collapse; padding-left: 2px; padding-right: 5px; background-color: lightgrey}
+table, tr {border-collapse: collapse; border: hidden }
+
+select {font-family: Verdana; font-size: 10px}
+input {font-family: Verdana; font-size: 10px}
+
+input.command {background-color: lightgreen;}
+input.emergency_command {background-color: lightskyblue;}
+input.service_command {background-color: lightsalmon;}
+
+input.indicatorOn {
+	background-color:lime;
+	position: relative;
+	top: 0;
+	right: 0;
+	border: 3px solid #000;
+	height:40px;
+	width:40px;
+	font-size: 8px;
+	-webkit-border-radius:20px;
+	-moz-border-radius:20px;
+}
+input.indicatorOff {
+	background-color:red;
+	position: relative;
+	top: 0;
+	right: 0;
+	border: 3px solid #000;
+	height:40px;
+	width:40px;
+	font-size: 8px;
+	-webkit-border-radius:20px;
+	-moz-border-radius:20px;
+}
+input.pending {
+	background-color:darkgray;
+	position: relative;
+	top: 0;
+	right: 0;
+	border: 3px solid #000;
+	height:40px;
+	width:40px;
+	font-size: 8px;
+	-webkit-border-radius:20px;
+	-moz-border-radius:20px;
+}
+
+a{font-family: "Tahoma"; font-size: 12px}
+a.appLink{font-family: "Tahoma"; font-size: 12px; padding-right: 10px;}
+a.ppcQl{font-family: "Tahoma"; font-size: 13px; font-style: italic}
+
+/* img {color: black; border: .1mm solid gray; } */
+#overlayImageId { border: none; }
+/*  ************************************  */
+
+#demo {margin: 0px auto; width: 500px; border: 2px solid #ccc;}
+#demo tr th {width: 250px; background: #eee;}
+#demo tr td {width: 250px; vertical-align: top;}
+#demo tr > td {white-space: pre;}
+
+td.overlay-cmd-bar {position: absolute; top: 50px; left:350px; white-space: nowrap; vertical-align: top; padding-right: 20px;}
+
+.var_type {}
+.var_name {}
+.prop_type {}
+.prop_name {}
+.param_type {}
+.param_name {}
+.func_type {}
+.func_name {}
+
+.param_type, .prop_type, .var_type, .func_type {font-style: italic; font-family: 'Courier New'; color: #962424;}
+.param_name, .prop_name, .var_name, .func_name {font-weight: bold;}
+
+
+/* TimeEntry styles */
+.timeEntry_control {
+	vertical-align: middle;
+	margin-left: 2px;
+}
+* html .timeEntry_control { /* IE only */
+	margin-top: -4px;
+}
+
+label.valve_state_closed {
+	width: 45px;
+	height: 15px;
+	padding: 3px;
+	background-color: red;
+	text-align: center;
+	border-style: solid;
+	color: black;}
+
+label.valve_state_open {
+	width: 45px;
+	height: 15px;
+	padding: 3px;
+	background-color: lightgreen;
+	text-align: center;
+	border-style: solid;
+	color: black;}
+
+/* Objects for the GUI */
+label.process_var {
+	position: absolute;
+	width:50px;
+	height:18px;
+	color: #003399;
+	background-color: lightyellow;
+	text-align: center;
+	font-size: 15px;
+	border: 1px solid #c4c4c4;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	box-shadow: 2px 2px 2px #d9d9d9;
+	-moz-box-shadow: 2px 2px 2px #d9d9d9;
+	-webkit-box-shadow: 2px 2px 8px #d9d9d9;
+	padding-left: 2px;
+}
+
+b,i {
+	color: purple;
+}
+
+pre {
+	color: black;
+	margin-top: 0;
+}

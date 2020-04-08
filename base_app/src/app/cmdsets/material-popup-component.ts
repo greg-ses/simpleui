@@ -1,0 +1,153 @@
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+    selector: 'app-material-popup',
+    styleUrls: ['./material-popup-component.css'],
+    templateUrl: './material-popup-component.html'
+})
+
+export class MaterialPopupComponent implements OnInit {
+
+    form: FormGroup;
+    cmd: string;
+    noControls: boolean;
+    commandData: any;
+    /*
+    mockControls = [
+        {name: 'Boolean Example 1',  id: '1001', desc: 'Sample Boolean Field 1', type: 'boolean'},
+        {name: 'Boolean Example 2',  id: '1002', desc: 'Sample Boolean Field 2', type: 'boolean'},
+
+        {name: 'Date Example 1',    id: '1003', desc: 'Sample Date Field 1', type: 'date'},
+        {name: 'Date Example 2',    id: '1004', desc: 'Sample Date Field 2', type: 'date'},
+
+        {name: 'Dropdown Example 1', id: '1005', desc: 'Sample Dropdown Field 1', type: 'dropdown',
+            choices: ['Choice 1', 'Choice 2', 'Choice 3']},
+        {name: 'Dropdown Example 2', id: '1006', desc: 'Sample Dropdown Field 2', type: 'dropdown',
+            choices: ['Choice 1', 'Choice 2', 'Choice 3']},
+
+        {name: 'Float Example 1',    id: '1007', desc: 'Sample Float Field 1', type: 'float'},
+        {name: 'Float Example 2',    id: '1008', desc: 'Sample Float Field 2', type: 'float'},
+
+        {name: 'Text Example 1',     id: '1009', desc: 'Sample Text Field 1', type: 'text'},
+        {name: 'Text Example 2',     id: '1010', desc: 'Sample Text Field 2', type: 'text'}
+    ];
+    */
+
+
+    @HostListener('keypress', ['$event'])
+    onEnter(event: KeyboardEvent): void {
+        if ( (event.key === 'Enter') && (!event.altKey && !event.ctrlKey && !event.shiftKey)) {
+            event.stopPropagation();
+            this.onOK();
+        }
+    }
+
+    constructor(
+        private fb: FormBuilder,
+        private dialogRef: MatDialogRef<MaterialPopupComponent>,
+        @Inject(MAT_DIALOG_DATA) commandData: any ) {
+
+        this.commandData = commandData;
+
+        this.cmd = this.getCommand();
+        this.noControls = (  (!(commandData.element.command.controls instanceof Array))
+                           ||  (commandData.element.command.controls.length === 0) );
+
+        this.form = fb.group({
+            commandData: [this.commandData]
+        });
+    }
+
+    ngOnInit() {
+    }
+
+    onOK() {
+        if (this.commandData.callbackSource && typeof this.commandData.callbackSource === 'object') {
+            if (this.validateInputs(this.commandData.element.command.controls) === 0) {
+
+                if (this.commandData.clientOnlyCallback) {
+                    if (typeof this.commandData.clientOnlyCallback === 'function') {
+                        this.commandData.clientOnlyCallback();
+                    }
+                } else {
+                    this.commandData.callbackSource.sendCommand(this.commandData.element.command.controls);
+                }
+                this.dialogRef.close(this.form.value);
+            } else {
+                alert('Invalid Value(s)');
+            }
+        } else {
+            alert('Invalid callbackSource');
+        }
+    }
+
+    onCancel() {
+        this.commandData.callbackSource.restoreClass();
+        this.dialogRef.close(true);
+    }
+
+    validateInputs(controls: Array<any>): number {
+        let errCount = 0;
+        if (controls) {
+            for (const e of controls) {
+                const o = document.getElementById('popup-control-' + e.id);
+                if (typeof o !== 'undefined' && o !== null) {
+                    if (typeof e.type === 'string') {
+                        // UG - Replicate 'type' attribute to '_type' for backend processing.
+                        e['_type'] = e.type;
+                    }
+                    switch (e.type) {
+                        case 'text':
+                            e.value = o['value'];
+                            if (e.value.length > e.size) {
+                                errCount += 1;
+                            } else {
+                                o['value'] = e.value;
+                            }
+                            break;
+                        case 'float':
+                            e.value = Number.parseFloat(o['value']);
+                            if (e.value < e.min || e.value > e.max || isNaN(e.value)) {
+                                errCount += 1;
+                            } else {
+                                o['value'] = e.value;
+                            }
+                            break;
+                        case 'int':
+                            e.value = Number.parseInt(o['value'], 10);
+                            if (e.value < e.min || e.value > e.max || isNaN(e.value)) {
+                                errCount += 1;
+                            } else {
+                                o['value'] = e.value;
+                            }
+                            break;
+                        case 'bool':
+                            e.value = o['checked'];
+                            break;
+                    }
+                }
+            }
+        }
+        return errCount;
+    }
+
+    getDescription(): string {
+        let description = '';
+        if (this.commandData.element.command.desc !== '') {
+
+            description = this.commandData.element.command.desc;
+        }
+
+        return description;
+    }
+
+    getCommand(): string {
+        let value = 'UNKNOWN COMMAND';
+        if (typeof this.commandData.element.command.cmd === 'string') {
+            value = this.commandData.element.command.cmd;
+        }
+        return value;
+    }
+}

@@ -1,0 +1,71 @@
+﻿/* layout for SystemDiagramPanel */
+/* dev path 
+
+/* universally applicable relative paths */
+@import url("../../../themes/basePanel/basePanel.css");
+@import url("../../../widget/collapseToggle/css/collapseToggle.css");
+@import url("../../../control/ajaxStatus/css/ajaxStatus.css");
+@import url("../../../control/diagramBlock/css/diagramBlock.css");
+
+div.systemDiagramPanel
+{
+    height: 100%;
+    width: 100%;
+    margin:0px;
+    padding:0px;
+    overflow-x:hidden;
+    overflow-y:auto;
+}
+
+div.sdpConfigButton
+{
+    position:absolute;
+    bottom:1px;
+    right:1px;
+    /*height:30px;*/
+}
+
+.sdpRootContainer
+{
+    margin-bottom:5px;
+    position:relative;
+}
+
+.sdpToggle
+{
+    position:absolute;
+    right:1px;
+    top:1px;
+    z-index:1;
+}
+
+.sdpConfigPane
+{
+    position: absolute; 
+    bottom: 23px;
+    right:5px; 
+    width:180px;
+    height: 220px;
+    overflow-y:auto;
+    padding:5px;
+}
+
+.sdpConfigPaneTitle
+{
+    font-weight:bold;
+}
+
+.sdpConfigTable-table
+{
+    margin:5px;
+}
+
+.diagramResourceCell
+{
+    padding-top: 10px;
+}
+
+
+
+
+

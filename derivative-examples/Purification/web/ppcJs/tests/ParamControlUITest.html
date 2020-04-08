@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+    <head>
+        <title>ParamControl Browser Tests</title>
+        <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+        <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/tundra/tundra.css" />
+        <link rel="stylesheet" type="text/css" href="../control/param/css/param.css" />
+
+        <script type="text/javascript">
+            // djConfig must be set before any dojo scripts are loaded
+            var djConfig = {
+                isDebug: false,
+                parseOnLoad: true,
+                modulePaths: { 'ppcJs': '../../ppcJs' }
+            };
+        </script>
+
+        <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+        <script type="text/javascript">
+            dojo.provide("ppcJs.tests.ParamControlTestHTML");
+            dojo.require("dojo.parser");
+            dojo.require("doh.runner");
+            dojo.require("dojo.robot");
+            dojo.require("ppcJs.control.Param");
+            dojo.require("ppcJs.control._control._cDto");
+            dojo.require("ppcJs.utilities.Store");
+            dojo.require("ppcJs.tests.ParamControlTestUtilities");
+
+            var paramControlUITestTimeout = 7000;
+            var paramControlUITestPause = 100;
+
+            dojo.addOnLoad(function () {
+                doh.register("ppcJs.tests.ParamControlUITest", [
+                    function testInitialState(t) {
+                        var sutContainer = dojo.byId("sutContainer");
+                        sutContainer.innerHTML = "";
+
+                        var item = ppcJs.tests.ParamControlTestUtilities.getIntXmlItem();
+                        var sut = new ppcJs.control.Param({ _item: item });
+                        var urlInfo = ppcJs.utilities.Store.getUrlInfo(item['store'].url);
+                        var dto = new ppcJs.control._control._cDto.Ctor(urlInfo);
+                        sut.configure(dto);
+
+                        dojo.place(sut.domNode, "sutContainer");
+                        t.assertTrue(sut._viewState === sut.viewStateEnum.Initial);
+                    },
+
+                    {
+                        name: "IncNumberChangesStateToEdited",
+                        timeout: paramControlUITestTimeout,
+
+                        setUp: function () {
+                            var sutContainer = dojo.byId("sutContainer");
+                            sutContainer.innerHTML = "";
+                        },
+
+                        runTest: function () {
+                            var d = new doh.Deferred();
+
+                            var item = ppcJs.tests.ParamControlTestUtilities.getIntXmlItem();
+                            var sut = new ppcJs.control.Param({ _item: item });
+                            var urlInfo = ppcJs.utilities.Store.getUrlInfo(item['store'].url);
+                            var dto = new ppcJs.control._control._cDto.Ctor(urlInfo);
+                            sut.configure(dto);
+
+                            dojo.place(sut.domNode, "sutContainer");
+
+                            // select number spinner, edit value, and deselect
+                            doh.robot.mouseMoveAt(sut._inputBox.domNode, paramControlUITestPause);
+                            doh.robot.mouseClick({ left: true }, paramControlUITestPause);
+                            doh.robot.typeKeys("0\r", paramControlUITestPause);
+                            doh.robot.mouseMoveAt(dojo.byId("mouseOutArea"), paramControlUITestPause);
+                            doh.robot.mouseClick({ left: true }, paramControlUITestPause);
+
+                            doh.robot.sequence(function () {
+                                // verify state changed to Edited and button is visible
+                                var stateChanged = (sut._viewState === sut.viewStateEnum.Edited);
+                                var buttonVisible = (dojo.style(sut.actionButton.domNode, "visibility") === "visible");
+                                var buttonLabelCorrect = (sut.actionButton.get('label') === "Set");
+                                if (stateChanged && buttonVisible && buttonLabelCorrect) {
+                                    d.callback(true);
+                                }
+                                else {
+                                    d.errback(new Error("incorrect state:" + sut._viewState));
+                                }
+                            }, 600);
+
+                            return d;
+                        }
+                    },
+
+                    {
+                        name: "ButtonClickInEditedStateChangesStateToActiveSet",
+                        timeout: paramControlUITestTimeout,
+
+                        setUp: function () {
+                            var sutContainer = dojo.byId("sutContainer");
+                            sutContainer.innerHTML = "";
+                        },
+
+                        runTest: function () {
+                            var d = new doh.Deferred();
+
+                            // create sut and transition to Edited state
+                            var item = ppcJs.tests.ParamControlTestUtilities.getIntXmlItem();
+                            var sut = new ppcJs.control.Param({ _item: item });
+                            var urlInfo = ppcJs.utilities.Store.getUrlInfo(item['store'].url);
+                            var dto = new ppcJs.control._control._cDto.Ctor(urlInfo);
+                            sut.configure(dto);
+
+                            dojo.place(sut.domNode, "sutContainer");
+                            sut._setView(sut.viewArcEnum.EditValue);
+
+                            // select and click Set button
+                            doh.robot.mouseMoveAt(sut.actionButton.domNode, paramControlUITestPause);
+                            doh.robot.mouseClick({ left: true }, paramControlUITestPause);
+
+                            doh.robot.sequence(function () {
+                                // verify state changed to ActiveSet and button settings are correct
+                                var stateChanged = (sut._viewState === sut.viewStateEnum.ActiveSet);
+                                var buttonVisible = (dojo.style(sut.actionButton.domNode, "visibility") === "visible");
+                                var buttonLabelCorrect = (sut.actionButton.get('label') === "Save");
+                                if (stateChanged && buttonVisible && buttonLabelCorrect) {
+                                    d.callback(true);
+                                }
+                                else {
+                                    d.errback(new Error("state:" + sut._viewState + ", button visible:" + buttonVisible + ", label correct:" + buttonLabelCorrect));
+                                }
+                            }, 500);
+
+                            return d;
+                        }
+                    },
+
+                    {
+                        name: "ButtonClickInEditedState4xxResponseKeepsStateInEditedState",
+                        timeout: paramControlUITestTimeout,
+
+                        setUp: function () {
+                            var sutContainer = dojo.byId("sutContainer");
+                            sutContainer.innerHTML = "";
+                        },
+
+                        runTest: function () {
+                            var d = new doh.Deferred();
+
+                            // change store url to invalid url to force 404 response
+                            var item = ppcJs.tests.ParamControlTestUtilities.getIntXmlItem();
+                            item['store'].url = '/invalidLocation?COMMAND=EXPORT_PARAM_DATA_XML&CGI=PBsqreader';
+
+                            // create sut and set to Edited state
+                            var sut = new ppcJs.control.Param({ _item: item });
+                            var urlInfo = ppcJs.utilities.Store.getUrlInfo(item['store'].url);
+                            var dto = new ppcJs.control._control._cDto.Ctor(urlInfo);
+                            sut.configure(dto);
+
+                            dojo.place(sut.domNode, "sutContainer");
+                            sut._setView(sut.viewArcEnum.EditValue);
+
+                            // select and click Set button
+                            doh.robot.mouseMoveAt(sut.actionButton.domNode, paramControlUITestPause);
+                            doh.robot.mouseClick({ left: true }, paramControlUITestPause);
+
+                            doh.robot.sequence(function () {
+                                // verify state changed to ActiveSet and button settings are correct
+                                var stateUnchanged = (sut._viewState === sut.viewStateEnum.Edited);
+                                var buttonVisible = (dojo.style(sut.actionButton.domNode, "visibility") === "visible");
+                                var buttonLabelCorrect = (sut.actionButton.get('label') === "Set");
+                                if (stateUnchanged && buttonVisible && buttonLabelCorrect) {
+                                    d.callback(true);
+                                }
+                                else {
+                                    d.errback(new Error("state:" + sut._viewState + ", button visible:" + buttonVisible + ", button label:" + sut.actionButton.get('label')));
+                                }
+                            }, 500);
+
+                            return d;
+                        }
+                    },
+
+                    {
+                        name: "ButtonClickInActiveSetStateChangesStateToInitial",
+                        timeout: paramControlUITestTimeout,
+
+                        setUp: function () {
+                            var sutContainer = dojo.byId("sutContainer");
+                            sutContainer.innerHTML = "";
+                        },
+
+                        runTest: function () {
+                            var d = new doh.Deferred();
+
+                            // create sut and transition to ActiveSet state
+                            var item = ppcJs.tests.ParamControlTestUtilities.getIntXmlItem();
+                            var sut = new ppcJs.control.Param({ _item: item });
+                            var urlInfo = ppcJs.utilities.Store.getUrlInfo(item['store'].url);
+                            var dto = new ppcJs.control._control._cDto.Ctor(urlInfo);
+                            sut.configure(dto);
+
+                            dojo.place(sut.domNode, "sutContainer");
+                            sut._setView(sut.viewArcEnum.EditValue);
+                            sut._setView(sut.viewArcEnum.SetActive);
+
+                            // select and click Set button
+                            doh.robot.mouseMoveAt(sut.actionButton.domNode, paramControlUITestPause);
+                            doh.robot.mouseClick({ left: true }, paramControlUITestPause);
+
+                            doh.robot.sequence(function () {
+                                // verify state changed to ActiveSet
+                                if (sut._viewState === sut.viewStateEnum.Initial) {
+                                    d.callback(true);
+                                }
+                                else {
+                                    d.errback(new Error("incorrect state:" + sut._viewState));
+                                }
+                            }, 500);
+
+                            return d;
+                        }
+                    },
+
+                    {
+                        name: "ButtonClickInActiveSetState4xxResponseKeepsStateInActiveSetState",
+                        timeout: paramControlUITestTimeout,
+
+                        setUp: function () {
+                            var sutContainer = dojo.byId("sutContainer");
+                            sutContainer.innerHTML = "";
+                        },
+
+                        runTest: function () {
+                            var d = new doh.Deferred();
+
+                            // change store url to invalid url to force 404 response
+                            var item = ppcJs.tests.ParamControlTestUtilities.getIntXmlItem();
+                            item['store'].url = '/invalidLocation?COMMAND=EXPORT_PARAM_DATA_XML&CGI=PBsqreader';
+
+                            // create sut and set to ActiveSet state
+                            var sut = new ppcJs.control.Param({ _item: item });
+                            var urlInfo = ppcJs.utilities.Store.getUrlInfo(item['store'].url);
+                            var dto = new ppcJs.control._control._cDto.Ctor(urlInfo);
+                            sut.configure(dto);
+
+                            dojo.place(sut.domNode, "sutContainer");
+                            sut._setView(sut.viewArcEnum.EditValue);
+                            sut._setView(sut.viewArcEnum.SetActive);
+
+                            // select and click Set button
+                            doh.robot.mouseMoveAt(sut.actionButton.domNode, paramControlUITestPause);
+                            doh.robot.mouseClick({ left: true }, paramControlUITestPause);
+
+                            doh.robot.sequence(function () {
+                                // verify state changed to ActiveSet
+                                if (sut._viewState === sut.viewStateEnum.ActiveSet) {
+                                    d.callback(true);
+                                }
+                                else {
+                                    d.errback(new Error("incorrect state:" + sut._viewState));
+                                }
+                            }, 500);
+
+                            return d;
+                        }
+                    },
+
+                    {
+                        name: "BoolButtonClickInEditedStateChangesStateToActiveSet",
+                        timeout: paramControlUITestTimeout,
+
+                        setUp: function () {
+                            var sutContainer = dojo.byId("sutContainer");
+                            sutContainer.innerHTML = "";
+                        },
+
+                        runTest: function () {
+                            var d = new doh.Deferred();
+
+                            // create sut and transition to Edited state
+                            var item = ppcJs.tests.ParamControlTestUtilities.getBoolXmlItem();
+                            var sut = new ppcJs.control.Param({ _item: item });
+                            var urlInfo = ppcJs.utilities.Store.getUrlInfo(item['store'].url);
+                            var dto = new ppcJs.control._control._cDto.Ctor(urlInfo);
+                            sut.configure(dto);
+
+                            dojo.place(sut.domNode, "sutContainer");
+                            sut._setView(sut.viewArcEnum.EditValue);
+
+                            // uncheck checkbox
+                            doh.robot.mouseMoveAt(sut._inputBox.domNode, paramControlUITestPause);
+                            doh.robot.mouseClick({ left: true }, paramControlUITestPause);
+
+                            // select and click Set button
+                            doh.robot.mouseMoveAt(sut.actionButton.domNode, paramControlUITestPause);
+                            doh.robot.mouseClick({ left: true }, paramControlUITestPause);
+
+                            doh.robot.sequence(function () {
+                                // verify state changed to ActiveSet and button settings are correct
+                                var stateChanged = (sut._viewState === sut.viewStateEnum.ActiveSet);
+                                var buttonVisible = (dojo.style(sut.actionButton.domNode, "visibility") === "visible");
+                                var buttonLabelCorrect = (sut.actionButton.get('label') === "Save");
+                                if (stateChanged && buttonVisible && buttonLabelCorrect) {
+                                    d.callback(true);
+                                }
+                                else {
+                                    d.errback(new Error("state:" + sut._viewState + ", button visible:" + buttonVisible + ", label correct:" + buttonLabelCorrect));
+                                }
+                            }, 600);
+
+                            return d;
+                        }
+                    },
+
+                ]);
+                //Execute D.O.H. in this remote file.
+                doh.run();
+            });
+        </script>
+    </head>
+    <body>
+        <!-- place to insert sut. -->
+        <div id="sutContainer" style="width:300px"></div>
+        <div id="mouseOutArea" style="width:300px; height:100px"><br /></div>
+    </body>
+</html>

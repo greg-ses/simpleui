@@ -1,0 +1,57 @@
+<table #_sectionTable class="L3">
+
+    <tr class="L3">
+        <th (click)="toggle(_sectionIndex)"
+            [title]="'Last updated at ' + _section['updateTime'] + ', ' + _section['sha1sum']"
+            [className]="getThClassName(_sectionIndex)"
+            [attr.colspan]="_section?.colCount"
+        >{{ _section.name }}&nbsp;
+            <a *ngIf="_section?.url" target="_blank" href="_section.url" title="_section.tooltip">&#x2600;</a>
+        </th>
+    </tr>
+
+    <tr *ngIf="_section?.CmdSet.length && ('top' === _section?.menuPos)" [className]="isCollapsed(_sectionIndex)?'hiddenBlock L3':'tableRowGroupBlock L3'" >
+        <td [id]="'CmdSet-' + _sectionIndex" class="cmdset-wrapper L3" [attr.colspan]="_section?.colCount">
+            <table *ngFor="let cmdset of _section.CmdSet" style="border-style: hidden; border-collapse: collapse;" class="L3">
+                <tr class="L3"><td class="L3"><span>{{ cmdset.desc }}</span></td></tr>
+                <tr class="L3">
+                    <td class="L3">
+                        <cmdset [_cmdset]="cmdset" [_uiTab]="_uiTab"><!-- horizontal cmdset--></cmdset>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    <tr *ngIf="_section?.CmdSet.length && ('left' === _section?.menuPos)" [className]="isCollapsed(_sectionIndex)?'hiddenBlock L3':'tableRowGroupBlock L3'" >
+        <td [id]="'CmdSet-' + _sectionIndex" [attr.rowspan]="_section?.rowCount" [className]="'cmdset-wrapper left-vertical-cmdset L3'">
+            <section *ngFor="let cmdset of _section.CmdSet" class="L3">
+                <cmdset [_cmdset]="cmdset" [_uiTab]="_uiTab"><!-- vertical cmdset--></cmdset>
+            </section>
+        </td>
+    </tr>
+
+
+    <tr *ngFor="let datasets_instance of _section?.DataSets; let dataSetIdx = index"
+        id="DataSet-{{_sectionIndex}}-{{dataSetIdx}}"
+        [className]="isCollapsed(_sectionIndex) ? 'hiddenBlock L3' : 'tableRowGroupBlock dataset-wrapper L3'"
+    >
+        <td *ngFor="let dsItem of datasets_instance['dsItems']; let tableIdx = index"
+            id="Table-{{_sectionIndex}}-{{dataSetIdx}}-{{tableIdx}}" [title]="fixNL(dsItem.desc)" class="L3"
+        >
+            <dataset-table *ngIf="getTableType(dsItem) === 'PairListTable'"
+                           [_dataset]="dsItem"
+                            [_uiTab]="_uiTab"
+                            [id]="dsItem.id"
+                            [_hidden]="false">
+            </dataset-table>
+            <prop-defined-table *ngIf="getTableType(dsItem) === 'PropDefinedTable'"
+                                [_dataset]="dsItem"
+                                [_uiTab]="_uiTab"
+                                [id]="dsItem.id"
+                                [_hidden]="false">
+            </prop-defined-table>
+        </td>
+    </tr>
+
+</table>

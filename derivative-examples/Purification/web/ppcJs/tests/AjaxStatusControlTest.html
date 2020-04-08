@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AjaxStatusControl test</title>
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dojo/resources/dojo.css" />
+    <link rel="stylesheet" type="text/css" href="../../dojo-toolkit/dijit/themes/soria/soria.css" />
+    <link rel="stylesheet" type="text/css" href="../control/ajaxStatus/css/ajaxStatus.css" />
+
+    <script type="text/javascript">
+        // djConfig must be set before any dojo scripts are loaded
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            modulePaths: { 'ppcJs': '../../ppcJs' }
+        };
+    </script>
+
+    <script type="text/javascript" src="../../dojo-toolkit/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        dojo.provide("ppcJs.tests.AjaxStatusControlTestHTML");
+        dojo.require("dojo.parser");
+        dojo.require('dojox.xml.parser');
+        dojo.require("doh.runner");
+        dojo.require('ppcJs.PubSub');
+        dojo.require('ppcJs.utilities.DataFormat');
+        dojo.require('ppcJs.control.AjaxStatus');
+
+        dojo.addOnLoad(function () {
+            doh.register("ppcJs.tests.AjaxStatusControlTest", [
+                    function testCreateAjaxStatusControl(t) {
+                        var sutContainer = dojo.byId("sutContainer");
+
+                        var sut = new ppcJs.control.AjaxStatus();
+                        dojo.place(sut.domNode, "sutContainer");
+
+                        var timestamp = 1327838520000;   // 1/29/12 12:02:00 UTC, ms
+                        var pubName = 'test container';
+                        var topic = require('dojo/topic');
+                        topic.publish(ppcJs.PubSub.timeUpdate, timestamp, pubName);
+                        topic.publish(ppcJs.PubSub.commTimeout, pubName);
+                        topic.publish(ppcJs.PubSub.commFault, pubName);
+                        t.assertTrue(true);
+                    }
+
+                ]);
+            //Execute D.O.H. in this remote file.
+            doh.run();
+        });
+    </script>
+</head>
+<body class="soria">
+    <!-- place to insert sut. -->
+    <div id="sutContainer" style="width: 300px">
+    </div>
+    <div id="mouseOutArea" style="width: 300px; height: 100px">
+        <br />
+    </div>
+</body>
+</html>

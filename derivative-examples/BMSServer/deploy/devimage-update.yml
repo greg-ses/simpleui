@@ -1,0 +1,63 @@
+---
+- hosts: all
+  vars:
+    app_name: vecpackage-image
+  remote_user: root
+  tasks:
+  - include_vars:
+      file: commonvars.yml
+  - name: Prep VEC Staging Area
+    file:
+      path: "{{ vec_stage_dir }}"
+      state: absent
+  - file:
+      path: "{{ vec_stage_dir }}"
+      state: directory
+      mode: 0755
+
+  - name: Transfer Archive To VEC Target
+    copy: src={{ bms_stage_dir }}/{{ app_name }}.tar.gz dest={{ vec_stage_dir }}/{{ app_name }}.tar.gz
+  - name: Decompress Archive On VEC Target
+    command: tar -xzf {{ vec_stage_dir }}/{{ app_name }}.tar.gz -C {{ vec_stage_dir }}
+  - file:
+      path: "{{ vec_stage_dir }}/{{ app_name }}.tar.gz"
+      state: absent
+
+  - name: Remove Existing Poco Libraries
+    shell: rm -f /usr/lib/libPoco*
+  - name: Distribute VEC Root Filesystem Updates
+    #Not using the copy command because it doesn't support recursive copy yet
+    shell: cp -rv {{ vec_stage_dir }}/* /
+    register: cpoutput
+  - debug: msg="{{ cpoutput.stdout }}"
+
+  - name: Reload the systemd daemons
+    command: systemctl daemon-reload
+  - name: Linking System File To Web Directory
+    command: mkdir -p /media/card/sys_data
+  - command: ln -sf /media/card/sys_data /usr/share/apache2/htdocs/sys_data
+  - name: Rebooting target, this will take over a minute
+    command: shutdown -r now
+    async: 2
+    poll: 0
+    # Now wait for an ssh connection response after reboot
+  - name: Waiting for target to respond
+    local_action: wait_for host={{ ansible_default_ipv4.address }} port=22 state=started delay=45 timeout=60
+    become: false
+    # Pause here to give the app time to start
+  - pause:
+      seconds: 20
+    # Make sure the device service app has started
+  - name: Confirm DeviceService is running
+    command: systemctl is-active device_service
+    register: agent_status
+    failed_when: "'failed' in agent_status.stdout"
+    changed_when: False
+
+  - name: Install system health monitor service
+    command: systemctl enable sys-health
+  - name: Reload daemons
+    command: systemctl daemon-reload
+  - name: Start system health monitor service
+    command: systemctl start sys-health
+

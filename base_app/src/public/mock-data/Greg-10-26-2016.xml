@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2001">
+    <Title u_id="2002">BSC</Title>
+    <timeStamp u_id="2003">1477512769122</timeStamp>
+    <Version u_id="2004">BSCServer SFW11727 V11: 11182, Oct 26 2016</Version>
+    <Section name="Battery System" u_id="2005">
+        <CmdSet u_id="2006">
+            <command confirm="true" dest="dProcCtrl" name="Remote" u_id="2007"/>
+            <command confirm="true" dest="dProcCtrl" name="Offline" u_id="2008"/>
+            <command confirm="false" dest="dProcCtrl" name="Standby" u_id="2009"/>
+            <command confirm="false" dest="dProcCtrl" name="Float" u_id="2010"/>
+            <command desc="Execute's a Anolyte Mole balance sequence." name="Auto Rebal" u_id="2011">
+                <_input _type="float" desc="Enter Target SOC" max="80" min="0" u_id="2012" value="0"/>
+            </command>
+        </CmdSet>
+        <DataSets u_id="2013">
+            <Configuration u_id="2014">
+                <NumModules u_id="2015">8</NumModules>
+                <NumStrings u_id="2016">2</NumStrings>
+                <ThermalType u_id="2017">Cerl</ThermalType>
+            </Configuration>
+            <SystemLimits u_id="2018">
+                <NamePlateCapacity u_id="2019" units="kW">0</NamePlateCapacity>
+                <MaxChargeKW u_id="2020" units="kW">8</MaxChargeKW>
+                <MaxChargeAmps u_id="2021" units="A">400</MaxChargeAmps>
+                <MaxChargeV u_id="2022" units="V">1600</MaxChargeV>
+                <MaxDischargeKW u_id="2023" units="kW">6400</MaxDischargeKW>
+                <MaxDischargeAmps u_id="2024" units="A">600</MaxDischargeAmps>
+                <MinDischargeV u_id="2025" units="V">600</MinDischargeV>
+            </SystemLimits>
+            <SystemData u_id="2026">
+                <System_Mode u_id="2027">Active</System_Mode>
+                <Local_Mode u_id="2028">true</Local_Mode>
+                <DcBattV u_id="2029" units="V">632.0</DcBattV>
+                <DcBattAmps u_id="2030" units="A">718.2</DcBattAmps>
+                <DcBattKW u_id="2031" units="kW">447.7</DcBattKW>
+                <DcBattSoC u_id="2032" units="%">2.8</DcBattSoC>
+            </SystemData>
+        </DataSets>
+    </Section>
+    <Section name="Battery String 1" u_id="2033">
+        <DataSets u_id="2034">
+            <String_1 name="Module String 1" u_id="2035">
+                <String_Mode u_id="2036">Active</String_Mode>
+                <DcStringV u_id="2037" units="V">631.0</DcStringV>
+                <DcStringAmps u_id="2038" units="A">359.8</DcStringAmps>
+                <DcStringKW u_id="2039" units="kW">223.8</DcStringKW>
+                <DcStringSoC u_id="2040" units="%">23.5</DcStringSoC>
+            </String_1>
+            <DataMod1 u_id="2041">
+                <System_Mode u_id="2042">Active</System_Mode>
+                <ChargeSt u_id="2043" units="">Discharging</ChargeSt>
+                <Local_Mode u_id="2044">false</Local_Mode>
+                <DcModV u_id="2045" units="V">162.0</DcModV>
+                <DcModAmps u_id="2046" units="A">458.8</DcModAmps>
+                <DcModKW u_id="2047" units="kW">74.3</DcModKW>
+                <ElyteSoC u_id="2048" units="%">41.9</ElyteSoC>
+                <ElyteTemp u_id="2049" units="C">32.6</ElyteTemp>
+                <CoolReq u_id="2050" units="">None</CoolReq>
+                <RebalNecessity u_id="2051" units="">Must</RebalNecessity>
+                <RebaPredSoC u_id="2052" units="%">25.3</RebaPredSoC>
+            </DataMod1>
+            <DataMod2 u_id="2053">
+                <System_Mode u_id="2054">Active</System_Mode>
+                <ChargeSt u_id="2055" units="">Discharging</ChargeSt>
+                <Local_Mode u_id="2056">false</Local_Mode>
+                <DcModV u_id="2057" units="V">152.0</DcModV>
+                <DcModAmps u_id="2058" units="A">490.2</DcModAmps>
+                <DcModKW u_id="2059" units="kW">74.5</DcModKW>
+                <ElyteSoC u_id="2060" units="%">17.5</ElyteSoC>
+                <ElyteTemp u_id="2061" units="C">32.8</ElyteTemp>
+                <CoolReq u_id="2062" units="">None</CoolReq>
+                <RebalNecessity u_id="2063" units="">Must</RebalNecessity>
+                <RebaPredSoC u_id="2064" units="%">5.1</RebaPredSoC>
+            </DataMod2>
+            <DataMod3 u_id="2065">
+                <System_Mode u_id="2066">Active</System_Mode>
+                <ChargeSt u_id="2067" units="">Discharging</ChargeSt>
+                <Local_Mode u_id="2068">false</Local_Mode>
+                <DcModV u_id="2069" units="V">164.0</DcModV>
+                <DcModAmps u_id="2070" units="A">2.0</DcModAmps>
+                <DcModKW u_id="2071" units="kW">0.3</DcModKW>
+                <ElyteSoC u_id="2072" units="%">16.2</ElyteSoC>
+                <ElyteTemp u_id="2073" units="C">32.3</ElyteTemp>
+                <CoolReq u_id="2074" units="">None</CoolReq>
+                <RebalNecessity u_id="2075" units="">Must</RebalNecessity>
+                <RebaPredSoC u_id="2076" units="%">4.1</RebaPredSoC>
+            </DataMod3>
+            <DataMod4 u_id="2077">
+                <System_Mode u_id="2078">Active</System_Mode>
+                <ChargeSt u_id="2079" units="">Discharging</ChargeSt>
+                <Local_Mode u_id="2080">false</Local_Mode>
+                <DcModV u_id="2081" units="V">153.0</DcModV>
+                <DcModAmps u_id="2082" units="A">488.4</DcModAmps>
+                <DcModKW u_id="2083" units="kW">74.7</DcModKW>
+                <ElyteSoC u_id="2084" units="%">18.7</ElyteSoC>
+                <ElyteTemp u_id="2085" units="C">32.2</ElyteTemp>
+                <CoolReq u_id="2086" units="">Chill</CoolReq>
+                <RebalNecessity u_id="2087" units="">Must</RebalNecessity>
+                <RebaPredSoC u_id="2088" units="%">6.1</RebaPredSoC>
+            </DataMod4>
+        </DataSets>
+    </Section>
+    <Section name="Battery String 2" u_id="2089">
+        <DataSets u_id="2090">
+            <String_2 name="Module String 2" u_id="2091">
+                <String_Mode u_id="2092">Active</String_Mode>
+                <DcStringV u_id="2093" units="V">633.0</DcStringV>
+                <DcStringAmps u_id="2094" units="A">358.3</DcStringAmps>
+                <DcStringKW u_id="2095" units="kW">223.8</DcStringKW>
+                <DcStringSoC u_id="2096" units="%">24.8</DcStringSoC>
+            </String_2>
+            <DataMod5 u_id="2097">
+                <System_Mode u_id="2098">Active</System_Mode>
+                <ChargeSt u_id="2099" units="">Discharging</ChargeSt>
+                <Local_Mode u_id="2100">false</Local_Mode>
+                <DcModV u_id="2101" units="V">164.0</DcModV>
+                <DcModAmps u_id="2102" units="A">2.0</DcModAmps>
+                <DcModKW u_id="2103" units="kW">0.3</DcModKW>
+                <ElyteSoC u_id="2104" units="%">16.5</ElyteSoC>
+                <ElyteTemp u_id="2105" units="C">32.7</ElyteTemp>
+                <CoolReq u_id="2106" units="">Pumps</CoolReq>
+                <RebalNecessity u_id="2107" units="">Must</RebalNecessity>
+                <RebaPredSoC u_id="2108" units="%">4.3</RebaPredSoC>
+            </DataMod5>
+            <DataMod6 u_id="2109">
+                <System_Mode u_id="2110">Active</System_Mode>
+                <ChargeSt u_id="2111" units="">Discharging</ChargeSt>
+                <Local_Mode u_id="2112">false</Local_Mode>
+                <DcModV u_id="2113" units="V">152.0</DcModV>
+                <DcModAmps u_id="2114" units="A">490.6</DcModAmps>
+                <DcModKW u_id="2115" units="kW">74.5</DcModKW>
+                <ElyteSoC u_id="2116" units="%">17.4</ElyteSoC>
+                <ElyteTemp u_id="2117" units="C">32.9</ElyteTemp>
+                <CoolReq u_id="2118" units="">None</CoolReq>
+                <RebalNecessity u_id="2119" units="">Must</RebalNecessity>
+                <RebaPredSoC u_id="2120" units="%">5.0</RebaPredSoC>
+            </DataMod6>
+            <DataMod7 u_id="2121">
+                <System_Mode u_id="2122">Active</System_Mode>
+                <ChargeSt u_id="2123" units="">Discharging</ChargeSt>
+                <Local_Mode u_id="2124">false</Local_Mode>
+                <DcModV u_id="2125" units="V">153.0</DcModV>
+                <DcModAmps u_id="2126" units="A">486.9</DcModAmps>
+                <DcModKW u_id="2127" units="kW">74.4</DcModKW>
+                <ElyteSoC u_id="2128" units="%">19.7</ElyteSoC>
+                <ElyteTemp u_id="2129" units="C">32.6</ElyteTemp>
+                <CoolReq u_id="2130" units="">None</CoolReq>
+                <RebalNecessity u_id="2131" units="">Must</RebalNecessity>
+                <RebaPredSoC u_id="2132" units="%">6.9</RebaPredSoC>
+            </DataMod7>
+            <DataMod8 u_id="2133">
+                <System_Mode u_id="2134">Active</System_Mode>
+                <ChargeSt u_id="2135" units="">Discharging</ChargeSt>
+                <Local_Mode u_id="2136">false</Local_Mode>
+                <DcModV u_id="2137" units="V">164.0</DcModV>
+                <DcModAmps u_id="2138" units="A">453.9</DcModAmps>
+                <DcModKW u_id="2139" units="kW">74.4</DcModKW>
+                <ElyteSoC u_id="2140" units="%">45.8</ElyteSoC>
+                <ElyteTemp u_id="2141" units="C">32.2</ElyteTemp>
+                <CoolReq u_id="2142" units="">None</CoolReq>
+                <RebalNecessity u_id="2143" units="">Must</RebalNecessity>
+                <RebaPredSoC u_id="2144" units="%">28.2</RebaPredSoC>
+            </DataMod8>
+        </DataSets>
+    </Section>
+    <Section name="Chiller" u_id="2145">
+        <CmdSet u_id="2146">
+            <command confirm="false" dest="dThermCtrl" name="Therm_Remote" u_id="2147"/>
+            <command confirm="false" dest="dThermCtrl" name="Idle" u_id="2148"/>
+            <command confirm="false" dest="dThermCtrl" name="Run_Pump" u_id="2149"/>
+            <command confirm="false" dest="dThermCtrl" name="Cooling" u_id="2150"/>
+            <command confirm="false" dest="dThermCtrl" name="Heating" u_id="2151"/>
+        </CmdSet>
+        <DataSets u_id="2152">
+            <DigitalFeedback u_id="2153">
+                <ChillerOn u_id="2154">0</ChillerOn>
+                <PumpOn u_id="2155">0</PumpOn>
+                <PumpOL_Trip u_id="2156">0</PumpOL_Trip>
+                <CompressorOn u_id="2157">0</CompressorOn>
+                <HeaterOn u_id="2158">0</HeaterOn>
+                <HighTempAlarm u_id="2159">0</HighTempAlarm>
+                <LowTempAlarm u_id="2160">0</LowTempAlarm>
+                <LowFlowAlarm u_id="2161">0</LowFlowAlarm>
+                <HighConductivityAlarm u_id="2162">0</HighConductivityAlarm>
+                <TempSensorAlarm u_id="2163">0</TempSensorAlarm>
+            </DigitalFeedback>
+            <DigitalCommands u_id="2164">
+                <PumpStart u_id="2165">1</PumpStart>
+                <Heating_CoolingOff u_id="2166">0</Heating_CoolingOff>
+                <Heating_CoolingAuto u_id="2167">0</Heating_CoolingAuto>
+                <CoolingOnly u_id="2168">0</CoolingOnly>
+                <HeatingOnly u_id="2169">0</HeatingOnly>
+            </DigitalCommands>
+            <AnalogFeedback u_id="2170">
+                <ReturnTemperature u_id="2171" units="C">-18</ReturnTemperature>
+                <DischargeTemperature u_id="2172" units="C">-18</DischargeTemperature>
+                <TankTemperature u_id="2173" units="C">-18</TankTemperature>
+                <CoolingSetpoint u_id="2174" units="C">-18</CoolingSetpoint>
+                <HeatingSetpoint u_id="2175" units="C">-18</HeatingSetpoint>
+                <HighTempAlarmSet u_id="2176" units="C">-18</HighTempAlarmSet>
+                <LowTempAlarmSet u_id="2177" units="C">-18</LowTempAlarmSet>
+                <ConductivityReading u_id="2178" units="">0</ConductivityReading>
+            </AnalogFeedback>
+            <AnalogSettings u_id="2179">
+                <CoolingSetpointInput u_id="2180" units="C">10</CoolingSetpointInput>
+                <CoolingDiffInput u_id="2181" units="C">5</CoolingDiffInput>
+                <HeaterSetpointInput u_id="2182" units="C">40</HeaterSetpointInput>
+                <HeaterDiffInput u_id="2183" units="C">0</HeaterDiffInput>
+                <HighTempSetpointInput u_id="2184" units="C">40</HighTempSetpointInput>
+                <HighTempDiffInput u_id="2185" units="C">0</HighTempDiffInput>
+                <LowTempSetpointInput u_id="2186" units="C">5</LowTempSetpointInput>
+                <HighCond_SetpointInput u_id="2187" units="">50</HighCond_SetpointInput>
+                <HighCond_DiffInput u_id="2188" units="">20</HighCond_DiffInput>
+            </AnalogSettings>
+        </DataSets>
+    </Section>
+    <status>0</status>
+</Data_Summary>

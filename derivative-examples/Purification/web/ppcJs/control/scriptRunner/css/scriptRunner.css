@@ -1,0 +1,46 @@
+﻿/* layout for ScriptRunner */
+/* release path */
+
+/* dev path */
+
+
+@import url("../../../themes/basePanel/basePanel.css");
+@import url("../../_control/css/_control.css");
+@import url("../../../widget/playBack/css/playBack.css");
+
+div.scriptRunner
+{
+    height: 100%;
+    width: 100%;
+    margin-top:0px;
+    margin-bottom:3px;
+    margin-left:0px;
+    margin-right:0px;
+    padding:0px;
+    overflow:hidden;
+}
+
+.srResourceName
+{
+    font-size:14px;
+}
+
+.srSelectFont
+{
+    /* dodgerblue 1 */
+    color:#1E90FF;
+}
+
+.srViewStateFont
+{
+    font-weight:bold;
+}
+
+.srComponent
+{
+    margin-top:5px;
+    margin-bottom:5px;
+    margin-left:10px;
+    margin-right:10px;
+}
+

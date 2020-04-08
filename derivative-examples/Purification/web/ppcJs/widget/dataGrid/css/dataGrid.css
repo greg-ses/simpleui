@@ -1,0 +1,13 @@
+﻿/* layout classes for ppcJs.DataGrid */
+
+/* release path 
+@import url("../../../../dojox/grid/resources/Grid.css");
+@import url("../../../../dojox/grid/resources/soriaGrid.css");
+@import url("../../../../dojox/grid/enhanced/resources/EnhancedGrid.css");
+*/
+
+/* dev path */
+@import url("../../../../dojo-toolkit/dojox/grid/resources/Grid.css");
+@import url("../../../../dojo-toolkit/dojox/grid/resources/soriaGrid.css");
+@import url("../../../../dojo-toolkit/dojox/grid/enhanced/resources/EnhancedGrid.css");
+

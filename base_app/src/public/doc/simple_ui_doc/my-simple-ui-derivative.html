@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Style Guide for the simple_ui application.</title>
+
+    <style type="text/css">
+        #contents {font-size: 14px; background-color: lightgrey; padding: 2px 10px 10px 10px;}
+        .toc-ref {font-size: 11px; background-color: lightblue; padding: 4px; border: 1pt navy solid; vertical-align: middle;}
+        .closed {display: none;}
+        .opened {display: block;}
+        .TODO {color: gray;}
+        body {font-family: sans-serif}
+        code {font-size: larger;}
+        em {font-style: oblique; font-weight: bolder;}
+        hr {border: 2pt solid lightgray;}
+    </style>
+
+    <script type="text/javascript">
+        function toggle(self)
+        {
+            var container = self.parentElement.parentElement.parentElement;
+            if (container)
+            {
+                for (var i=0; i < container.childNodes.length; i++)
+                {
+                    var section = container.childNodes[i];
+                    if (section.tagName === 'DIV' && section.id !== '')
+                    {
+                        if (section.className === 'closed')
+                        {
+                            section.className = 'opened';
+                            self.innerHTML = '&#9660;';
+                            break;
+                        }
+                        else if (section.className === 'opened')
+                        {
+                            section.className = 'closed';
+                            self.innerHTML = '&#9658;';
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        function openSection(id)
+        {
+            var o = document.getElementById(id);
+            if (o) {
+                o.className = o.className === 'closed' ? 'opened' : 'closed';
+                var toggleElem = o.parentElement.children[0].children[0].children[0];
+                if (toggleElem) {
+                    toggleElem.innerHTML = o.className === 'closed' ? '&#9658;' : '&#9660;';
+                    o.parentElement.scrollIntoView(true);
+                }
+            }
+        }
+
+        function onLoad() {
+            var versionFileLinkElement = document.getElementById('versionFileLink');
+            versionFileLinkElement.src = document['baseURI'].replace('doc/simple_ui_doc/my-simple-ui-derivative.html', 'version.txt');
+        }
+    </script>
+
+</head>
+<body onload="onLoad()">
+
+<h1>Documentation for <code><i>my-simple-ui-derivative</i></code></h1>
+<div>
+    <h2><span><span onclick="toggle(this)">&#9660;</span></span>Contents</h2>
+    <div id="contents" class="opened">
+        <a href="simple_ui_style_guide.html" target="_blank">View the <code><i>simple-ui-derivative</i></code> base documentation.</a><br/>
+        <br/>
+        <a href="javascript:openSection('current_version')">1. <code><i>simple-ui</code> version</a><br/>
+        <a href="javascript:openSection('my_simple_ui_derivative_specializations')">2. What is special about <code><i>my-simple-ui-derivative</i></code>?</a><br/>
+        &nbsp;<br/>
+    </div>
+    <hr/>
+</div>
+
+<div>
+    <h2><span><span onclick="toggle(this)">&#9660;</span></span>Current Version of simple_ui</h2>
+    <div  id="current_version" class="opened">
+        <div id="current_version_description">This section displays the version.txt file of the <i>simple_ui distribution</i> used to build your derivative.</div>
+        <embed id="versionFileLink" type="text/text" src="version.txt" width="1200" height="500">
+    </div>
+    <hr/>
+</div>
+
+<div>
+    <h2><span><span onclick="toggle(this)">&#9658;</span></span>1. What is special about <code><i>my-simple-ui-derivative</i></code>?</h2>
+    <div  id="my_simple_ui_derivative_specializations" class="closed">
+        TODO: Put your specializations to <code>simple_ui</code> here.
+    </div>
+    <hr/>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+reference response to SCRIPT_TEMPLATE GET command
+ex: GET ~/cgi-bin/cgicmd?COMMAND=SCRIPT_TEMPLATE&CGI=sqreader...
+
+  
+uses incrementing fixed enums where:
+       >> used to classify command wait type
+  <cmdTypes> = ~/script/EntryEnum.CommandType: {
+    Label: 0,
+    WaitRelative: 1,
+    WaitDateTime: 2,
+    GoTo: 3,
+    WaitLessThan: 4,
+    WaitGreaterThan: 5,
+    WaitState: 6,
+    WaitTimeOfDay: 7,
+    WaitNextDay: 8,
+    Action: 9,
+    CustomAction: 10,
+	  IfDateTimeGoto: 11,
+	  SendPage: 12,
+    RunSystemCommand: 13,
+    RunDataFile: 14,
+    SetVariable: 15,
+    ForLoop: 16
+  }
+  
+  valuetype = ~/script/EntryEnum.ValueType: {
+      Select: 0,
+      Float: 1,
+      Int: 2,
+      String: 3,
+      Substitution: 4,    // substitute with ref block
+      Bool: 5,
+      TimeOfDay: 6,   // sec, since midnight
+      TimeSpan: 7,    // sec, relative
+      TimeStamp: 8    // sec, since epoch (1/1/70)
+  }
+  
+  changeeventtype = ~/script/EntryEnum.EventArgType: {
+        None: 0,
+        DataFile: 1,
+        ScriptFile: 2
+    }
+    
+  filetype =  ~/panel/fileManager/fmDto.FileType: {
+        Script: 0,
+        Data: 1
+    }
+    
+arg attributes:
+- id: unique number per command (required)
+- name: unique per command (required)
+- valuetype: see above enum (required)
+- changeeventtype: see above enum
+- initialvalue
+- ref: tag of extension section under <refs>
+- min: minimum value (requires max)
+- max: maximum value (requires min)
+- hide: hide widget
+- read: read-only widget
+- label: entry info-header label text, overrides name
+- hidelabel: hide entry info-header label
+-->
+
+<autoCycleTemplate>
+  <fileExtensions>
+    <fileExtension filetype="0">xml</fileExtension>
+    <fileExtension filetype="1">csv</fileExtension>
+  </fileExtensions>
+  <editOnPause>1</editOnPause>
+  
+  <!-- script entry composition definitions, by cmdtype-->
+  <cmdTypes>
+    <cmd cmdtype="0">
+      <arg id="1" name="label" valuetype="string" changeeventtype="3" hidelabel="true">
+      </arg>     
+    </cmd>
+    <cmd cmdtype="1" category="Wait">
+      <arg id="1" name="time" valuetype="timespan"></arg>
+      <arg id="2"  name="monitor" valuetype="select" initialvalue="off" ref="fault_monitor"></arg>
+    </cmd>
+    <cmd cmdtype="2" category="Wait">
+      <arg id="1" name="time" valuetype="timestamp" hidelabel="true"></arg>
+      <arg id="2"  name="monitor" valuetype="select" ref="fault_monitor"></arg>
+    </cmd>
+    <cmd cmdtype="3">
+      <arg id="1"  name="label" valuetype="string" hidelabel="true">
+      </arg>
+      <arg id="2"  name="count" valuetype="int" min="0" max="100">
+      </arg>
+    </cmd>
+    <cmd cmdtype="4" category="Wait">
+      <arg id="2" name="threshold" valuetype="string" initialvalue="0" hidelabel="true"></arg>
+      <arg id="1" name="units" valuetype="select" hidelabel="true">
+        <argOption valuetype="string">Avg_Batt_AH</argOption>
+      </arg>
+      <arg id="3"  name="monitor" valuetype="select" ref="fault_monitor"></arg>
+    </cmd>
+    <cmd cmdtype="5" category="Wait">
+      <arg id="2" name="threshold" valuetype="string"  initialvalue="0" hidelabel="true"></arg>
+      <arg id="1" name="units" valuetype="select" hidelabel="true">
+        <argOption valuetype="string">Avg_Batt_AH</argOption>
+      </arg>
+      <arg id="3"  name="monitor" valuetype="select" ref="fault_monitor"></arg>
+    </cmd>
+    <cmd cmdtype="6" category="Wait">
+      <arg id="1" name="mode" valuetype="select" ref="mode">
+      </arg>
+      <arg id="2" name="submode" valuetype="select">
+        <argOption valuetype="string"></argOption>
+        <argOption valuetype="string">Strip Complete</argOption>
+      </arg>
+      <arg id="3"  name="monitor" valuetype="select" ref="fault_monitor"></arg>
+    </cmd>
+    <cmd cmdtype="7" category="Wait">
+      <arg id="1" name="time" valuetype="timeofday" hidelabel="true"></arg>
+      <arg id="2"  name="monitor" valuetype="select" ref="fault_monitor"></arg>
+    </cmd>
+    <cmd cmdtype="8" category="Wait">
+      <arg id="1"  name="monitor" valuetype="select" ref="fault_monitor"></arg>
+    </cmd>
+    <cmd cmdtype="9">
+      <arg id="1"  name="COMMAND" valuetype="select" ref="cmd" hidelabel="true">
+      </arg>
+    </cmd>
+    <cmd cmdtype="10">
+      <arg id="1"  name="*" valuetype="substitution" ref="customCmd">
+      </arg>
+      <!--arg id="2"  name="name2" valuetype="substitution" ref="customCmd">
+      </arg>
+      <arg id="3"  name="name3" valuetype="substitution" ref="customCmd">
+      </arg-->
+    </cmd>
+    <cmd cmdtype="11">
+      <arg id="1" name="time" valuetype="timestamp" hidelabel="true"></arg>
+      <arg id="2" name="label" valuetype="string"></arg>
+    </cmd>
+    <cmd cmdtype="12">
+      <arg id="1" name="text" valuetype="string"></arg>
+    </cmd>
+    <cmd cmdtype="13">
+      <arg id="1" name="command" valuetype="string"></arg>
+      <arg id="2" name="arguments" valuetype="string" label="args"></arg>
+      <arg id="3" name="timeout" valuetype="timespan" initialvalue="5"></arg>
+    </cmd>
+    <cmd cmdtype="14">
+      <arg id="1" name="file" valuetype="string" changeeventtype="1"></arg>
+      <arg id="2" name="timeout" valuetype="timespan" initialvalue="36000"></arg>
+    </cmd>
+    <cmd cmdtype="15">
+      <arg id="1" name="variable" valuetype="string" label="var"></arg>
+      <arg id="2" name="function" valuetype="select" hidelabel="true">
+        <argOption valuetype="string">=</argOption>
+        <argOption valuetype="string">+=</argOption>
+        <argOption valuetype="string">-=</argOption>
+      </arg>
+      <arg id="3" name="value" valuetype="float" initialvalue="0" hidelabel="true"></arg>
+    </cmd>
+    <cmd cmdtype="16">
+      <arg id="1" name="variable" valuetype="string" initialvalue="indexA" hidelabel="true"></arg>
+      <arg id="2" name="initial_value" valuetype="float" initialvalue="0" min="0" max="100000" hidelabel="true"></arg>
+      <arg id="3" name="incrementer" valuetype="select" hidelabel="true">
+        <argOption valuetype="string">+=</argOption>
+        <argOption valuetype="string">-=</argOption>
+      </arg>
+      <arg id="4" name="increment" valuetype="float" initialvalue="1" hidelabel="true"></arg>
+      <arg id="5" name="while" valuetype="select">
+        <argOption valuetype="string">&gt;</argOption>
+        <argOption valuetype="string">&gt;=</argOption>
+        <argOption valuetype="string">&lt;</argOption>
+        <argOption valuetype="string">&lt;=</argOption>
+      </arg>
+      <arg id="6" name="threshold" valuetype="float" min="0" max="100000" hidelabel="true"></arg>
+      <arg id="7" name="end_label" valuetype="string" read="true" label="endLabel"></arg>
+      <arg id="8" name="label_uuid" valuetype="string" read="true" hide="true"></arg>
+      <updateSequence>
+        <updateArgId once="true">8</updateArgId>
+        <updateArgId>7</updateArgId>
+      </updateSequence>
+    </cmd>
+  </cmdTypes>
+  
+  <!-- linked by 'ref' attribute -->
+  <refs>
+    <!-- command, mode select options -->
+    <cmd>
+      <argOption valuetype="string">charge</argOption>
+      <argOption valuetype="string">strip</argOption>
+      <argOption valuetype="string">float</argOption>
+      <argOption valuetype="string">standby</argOption>
+      <argOption valuetype="string" ref="discharge">Set_Discharge_Rate</argOption>
+      <argOption valuetype="string" ref="param">PARAM_UPDATE</argOption>
+      <argOption valuetype="string" ref="param_save">PARAM_SAVE</argOption>
+    </cmd>
+
+    <mode>
+      <argOption valuetype="string">Charge</argOption>
+      <argOption valuetype="string">Discharge</argOption>
+      <argOption valuetype="string">Float</argOption>
+      <argOption valuetype="string">Standby</argOption>
+      <argOption valuetype="string">UPS</argOption>      
+    </mode>
+    
+    <!-- parameter components -->
+    <param>
+      <!--arg id="r0" name="PTYPE" valuetype="select">
+        <argOption valuetype="string">bool</argOption>
+        <argOption valuetype="string">float</argOption>
+        <argOption valuetype="string">int</argOption>
+        <argOption valuetype="string" selected="true">string</argOption>
+      </arg-->
+      <arg id="r1" name="PSTR" valuetype="string"></arg>
+      <arg id="r2" name="VALUE" valuetype="string"></arg>
+    </param>
+
+	  <param_save>
+      <arg id="r3" name="PSTR" valuetype="string"></arg>
+    </param_save>
+
+    <!-- custom command -->
+    <customCmd>
+      <arg id="r4" name="name" valuetype="string"></arg>
+      <arg id="r5" name="value" valuetype="string"></arg>
+    </customCmd>
+
+    <!-- discharge rate -->
+    <discharge>
+      <arg id="r10" name="VALUE" valuetype="string"></arg>
+    </discharge>
+
+    <!-- fault monitor expando options -->
+    <fault_monitor>
+      <argOption valuetype="string">off</argOption>
+      <argOption valuetype="string" ref="monitor_data">on</argOption>
+    </fault_monitor>
+    <monitor_data>
+      <arg id="r11" name="fault_mode" valuetype="select" ref="mode"></arg>
+      <arg id="r12" name="fault_period" valuetype="timespan"></arg>
+      <arg id="r13" name="fault_label" valuetype="string"></arg>
+    </monitor_data>
+  </refs>
+
+</autoCycleTemplate>

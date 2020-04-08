@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2001">
+    <Title u_id="2002">BMS</Title>
+    <timeStamp u_id="2003">1550695280015</timeStamp>
+    <Section name="Battery System" u_id="2004">
+        <DataSets u_id="2005">
+            <Configuration u_id="2006">
+                <dyn name="Number of Modules" u_id="2008">1</dyn>
+            </Configuration>
+        </DataSets>
+    </Section>
+    <Section name="Module 1" u_id="2008">
+        <DataSets u_id="2009">
+            <SCU_A1_c1-scu-a1 name="SCU_A1_c1-scu-a1" u_id="2010"
+                              url="http://SiteShir:5015/c1-scu-a1/device/proxy-index.php">
+                <dyn name=" []" u_id="2012">UNKNOWN</dyn>
+                <dyn name=" []" u_id="2013">UNKNOWN</dyn>
+                <dyn name=" []" u_id="2014">UNKNOWN</dyn>
+                <dyn name="VEC-up_time" u_id="2015">~~~</dyn>
+                <dyn name="VEC-post" u_id="2016">~~~</dyn>
+                <dyn desc="VEC board temperature. [c1-scu-a1-VEC:Temperature]" name="VEC_Temperature_SCU_A1" u_id="2017"
+                     units="C">~~~
+                </dyn>
+                <dyn desc="VEC board humidity. [c1-scu-a1-VEC:RelativeHumidity]" name="VEC_Humidity_SCU_A1" u_id="2018"
+                     units="%">~~~
+                </dyn>
+                <dyn desc="VEC board acceleration X axis. [c1-scu-a1-VEC:AccelX]" name="VEC_X_accel_SCU_A1" u_id="2019"
+                     units="g">~~~
+                </dyn>
+                <dyn desc="VEC board acceleration Y axis. [c1-scu-a1-VEC:AccelY]" name="VEC_Y_accel_SCU_A1" u_id="2020"
+                     units="g">~~~
+                </dyn>
+                <dyn desc="VEC board acceleration Z axis. [c1-scu-a1-VEC:AccelZ]" name="VEC_Z_accel_SCU_A1" u_id="2021"
+                     units="g">~~~
+                </dyn>
+            </SCU_A1_c1-scu-a1>
+            <SCU_A2_c1-scu-a2 name="SCU_A2_c1-scu-a2" u_id="2021"
+                              url="http://SiteShir:5015/c1-scu-a2/device/proxy-index.php">
+                <dyn name=" []" u_id="2023">UNKNOWN</dyn>
+                <dyn name=" []" u_id="2024">UNKNOWN</dyn>
+                <dyn name=" []" u_id="2025">UNKNOWN</dyn>
+                <dyn name="VEC-up_time" u_id="2026">~~~</dyn>
+                <dyn name="VEC-post" u_id="2027">~~~</dyn>
+                <dyn desc="VEC board temperature. [c1-scu-a2-VEC:Temperature]" name="VEC_Temperature_SCU_A2" u_id="2028"
+                     units="C">~~~
+                </dyn>
+                <dyn desc="VEC board humidity. [c1-scu-a2-VEC:RelativeHumidity]" name="VEC_Humidity_SCU_A2" u_id="2029"
+                     units="%">~~~
+                </dyn>
+                <dyn desc="VEC board acceleration X axis. [c1-scu-a2-VEC:AccelX]" name="VEC_X_accel_SCU_A2" u_id="2030"
+                     units="g">~~~
+                </dyn>
+                <dyn desc="VEC board acceleration Y axis. [c1-scu-a2-VEC:AccelY]" name="VEC_Y_accel_SCU_A2" u_id="2031"
+                     units="g">~~~
+                </dyn>
+                <dyn desc="VEC board acceleration Z axis. [c1-scu-a2-VEC:AccelZ]" name="VEC_Z_accel_SCU_A2" u_id="2032"
+                     units="g">~~~
+                </dyn>
+            </SCU_A2_c1-scu-a2>
+            <SCU_B1_c1-scu-b1 name="SCU_B1_c1-scu-b1" u_id="2032"
+                              url="http://SiteShir:5015/c1-scu-b1/device/proxy-index.php">
+                <dyn name=" []" u_id="2034">UNKNOWN</dyn>
+                <dyn name=" []" u_id="2035">UNKNOWN</dyn>
+                <dyn name=" []" u_id="2036">UNKNOWN</dyn>
+                <dyn name="VEC-up_time" u_id="2037">~~~</dyn>
+                <dyn name="VEC-post" u_id="2038">~~~</dyn>
+                <dyn desc="VEC board temperature. [c1-scu-b1-VEC:Temperature]" name="VEC_Temperature_SCU_B1" u_id="2039"
+                     units="C">~~~
+                </dyn>
+                <dyn desc="VEC board humidity. [c1-scu-b1-VEC:RelativeHumidity]" name="VEC_Humidity_SCU_B1" u_id="2040"
+                     units="%">~~~
+                </dyn>
+                <dyn desc="VEC board acceleration X axis. [c1-scu-b1-VEC:AccelX]" name="VEC_X_accel_SCU_B1" u_id="2041"
+                     units="g">~~~
+                </dyn>
+                <dyn desc="VEC board acceleration Y axis. [c1-scu-b1-VEC:AccelY]" name="VEC_Y_accel_SCU_B1" u_id="2042"
+                     units="g">~~~
+                </dyn>
+                <dyn desc="VEC board acceleration Z axis. [c1-scu-b1-VEC:AccelZ]" name="VEC_Z_accel_SCU_B1" u_id="2043"
+                     units="g">~~~
+                </dyn>
+            </SCU_B1_c1-scu-b1>
+            <SCU_B2_c1-scu-b2 name="SCU_B2_c1-scu-b2" u_id="2043"
+                              url="http://SiteShir:5015/c1-scu-b2/device/proxy-index.php">
+                <dyn name=" []" u_id="2045">UNKNOWN</dyn>
+                <dyn name=" []" u_id="2046">UNKNOWN</dyn>
+                <dyn name=" []" u_id="2047">UNKNOWN</dyn>
+                <dyn name="VEC-up_time" u_id="2048">~~~</dyn>
+                <dyn name="VEC-post" u_id="2049">~~~</dyn>
+                <dyn desc="VEC board temperature. [c1-scu-b2-VEC:Temperature]" name="VEC_Temperature_SCU_B2" u_id="2050"
+                     units="C">~~~
+                </dyn>
+                <dyn desc="VEC board humidity. [c1-scu-b2-VEC:RelativeHumidity]" name="VEC_Humidity_SCU_B2" u_id="2051"
+                     units="%">~~~
+                </dyn>
+                <dyn desc="VEC board acceleration X axis. [c1-scu-b2-VEC:AccelX]" name="VEC_X_accel_SCU_B2" u_id="2052"
+                     units="g">~~~
+                </dyn>
+                <dyn desc="VEC board acceleration Y axis. [c1-scu-b2-VEC:AccelY]" name="VEC_Y_accel_SCU_B2" u_id="2053"
+                     units="g">~~~
+                </dyn>
+                <dyn desc="VEC board acceleration Z axis. [c1-scu-b2-VEC:AccelZ]" name="VEC_Z_accel_SCU_B2" u_id="2054"
+                     units="g">~~~
+                </dyn>
+            </SCU_B2_c1-scu-b2>
+        </DataSets>
+        <DataSets u_id="2054">
+            <VCU_c1-vcu name="VCU_c1-vcu" u_id="2055" url="http://SiteShir:5015/c1-vcu/device/proxy-index.php">
+                <dyn name="VEC [vec-0006]" u_id="2057">Connected</dyn>
+                <dyn name="Valve [vec-0006-1]" u_id="2058">Connected</dyn>
+                <dyn name="Valve [vec-0006-2]" u_id="2059">Connected</dyn>
+                <dyn name="VECPumps [vec-0006-/dev/ttyO5]" u_id="2060">Connected</dyn>
+                <dyn name="VEC-up_time" u_id="2061">12:05:21:27</dyn>
+                <dyn name="VEC-post" u_id="2062">Faulted</dyn>
+                <dyn desc="VEC board temperature. [c1-vcu-VEC:Temperature]" name="VEC_Temperature_VCU" u_id="2063"
+                     units="C">0.6
+                </dyn>
+                <dyn desc="VEC board humidity. [c1-vcu-VEC:RelativeHumidity]" name="VEC_Humidity_VCU" u_id="2064"
+                     units="%">71.9
+                </dyn>
+                <dyn desc="VEC board acceleration X axis. [c1-vcu-VEC:AccelX]" name="VEC_X_accel_VCU" u_id="2065"
+                     units="g">0.019
+                </dyn>
+                <dyn desc="VEC board acceleration Y axis. [c1-vcu-VEC:AccelY]" name="VEC_Y_accel_VCU" u_id="2066"
+                     units="g">-0.008
+                </dyn>
+                <dyn desc="VEC board acceleration Z axis. [c1-vcu-VEC:AccelZ]" name="VEC_Z_accel_VCU" u_id="2067"
+                     units="g">1.006
+                </dyn>
+            </VCU_c1-vcu>
+            <SMU_c1-smu name="SMU_c1-smu" u_id="2067" url="http://SiteShir:5015/c1-smu/device/proxy-index.php">
+                <dyn name="VEC [vec-0010]" u_id="2069">Connected</dyn>
+                <dyn name="Sense [vec-0010-1]" u_id="2070">Connected</dyn>
+                <dyn name="Sense [vec-0010-2]" u_id="2071">Connected</dyn>
+                <dyn name="Sense [vec-0010-3]" u_id="2072">Connected</dyn>
+                <dyn name="VECPumps [vec-0010-/dev/ttyO5]" u_id="2073">Connected</dyn>
+                <dyn name="VEC-up_time" u_id="2074">12:05:21:26</dyn>
+                <dyn name="VEC-post" u_id="2075">Complete</dyn>
+                <dyn desc="VEC board temperature. [c1-smu-VEC:Temperature]" name="VEC_Temperature_SMU" u_id="2076"
+                     units="C">1.9
+                </dyn>
+                <dyn desc="VEC board humidity. [c1-smu-VEC:RelativeHumidity]" name="VEC_Humidity_SMU" u_id="2077"
+                     units="%">62.1
+                </dyn>
+                <dyn desc="VEC board acceleration X axis. [c1-smu-VEC:AccelX]" name="VEC_X_accel_SMU" u_id="2078"
+                     units="g">0.029
+                </dyn>
+                <dyn desc="VEC board acceleration Y axis. [c1-smu-VEC:AccelY]" name="VEC_Y_accel_SMU" u_id="2079"
+                     units="g">-0.005
+                </dyn>
+                <dyn desc="VEC board acceleration Z axis. [c1-smu-VEC:AccelZ]" name="VEC_Z_accel_SMU" u_id="2080"
+                     units="g">1.018
+                </dyn>
+            </SMU_c1-smu>
+        </DataSets>
+    </Section>
+    <status>0</status>
+</Data_Summary>

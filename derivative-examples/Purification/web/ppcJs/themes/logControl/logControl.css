@@ -1,0 +1,36 @@
+﻿/* layout for LogControl */
+
+@import url("../basePanel/basePanel.css");
+@import url("../baseControl/baseControl.css");
+
+div.logControl
+{
+}
+
+div.lcHomeView
+{
+    height:100px;
+}
+
+div.lcContentDiv
+{
+    padding:5px;
+}
+
+.lcRow
+{
+}
+
+.lcIconCell
+{
+    width: 20px;
+    height: 20px;
+}
+
+.lcTextCell
+{
+    padding-top:2px;
+    padding-bottom:2px;
+    padding-left:10px;
+    padding-right:auto;
+}

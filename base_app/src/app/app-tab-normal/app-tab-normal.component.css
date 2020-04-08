@@ -1,0 +1,399 @@
+[class*='col-'] {
+    float: left;
+}
+*, *:after, *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+h3 {
+    text-align: center; margin-bottom: 0;
+}
+[class*='col-'] {
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+[class*='col-']:last-of-type {
+    padding-right: 0;
+}
+.grid {
+    margin: 0;
+}
+.col-1-4 {
+    width: 25%;
+}
+.module {
+    text-align: center;
+    color: #eee;
+    max-height: 120px;
+    min-width: 120px;
+    background-color: #607D8B;
+    border-radius: 2px;
+}
+h4 {
+    position: relative;
+}
+.module:hover {
+    background-color: #EEE;
+    cursor: pointer;
+    color: #607d8b;
+}
+.grid-pad {
+    padding: 10px 0;
+}
+.grid-pad > [class*='col-']:last-of-type {
+    padding-right: 20px;
+}
+@media (max-width: 600px) {
+    .module {
+        font-size: 10px;
+        max-height: 75px; }
+}
+@media (max-width: 1024px) {
+    .grid {
+        margin: 0;
+    }
+    .module {
+        min-width: 60px;
+    }
+}
+.spacer {
+    height: 10px;
+}
+
+.hspacer20 {
+    width: 20px;
+}
+
+.site-link {
+    color: #004488;
+    text-decoration: underline;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.hiddenBlock {
+    display:none;
+}
+
+.tableRowGroupBlock {
+    display:table-row;
+    border-collapse: collapse;
+    border: none;
+
+}
+
+.dataSetSizerBody {
+}
+
+th.sectionClosed::before { content: '► Section: '; }
+th.sectionOpened::before { content: '▼ Section: '; }
+
+th.sectionClosed { cursor:zoom-in; }
+th.sectionOpened { cursor:zoom-out; }
+
+th.odd-SimpleUiBlue { background-color: #aacffa; }
+th.even-SimpleUiBlue { background-color: #789dc5; }
+
+th.odd-SimpleUiPurple { background-color: #aacffa; }
+th.even-SimpleUiPurple { background-color: #789dc5; }
+
+th.odd-SimpleUiSea { background-color: #aacffa; }
+th.even-SimpleUiSea { background-color: #789dc5; }
+
+th.odd-SimpleUiPeach { background-color: #aacffa; }
+th.even-SimpleUiPeach { background-color: #789dc5; }
+
+
+span.sectionClosed::before, div.sectionClosed::before { content: '►'; }
+span.sectionOpened::before, div.sectionOpened::before { content: '▼'; }
+
+span.sectionClosed, div.sectionClosed { cursor:zoom-in; float:left }
+span.sectionOpened, div.sectionOpened { cursor:zoom-out; float:left }
+
+table, tbody {
+    padding-bottom: 1px;
+    padding-top: 1px;
+    border-collapse: collapse;
+    border: 1px solid #808080;
+    font: 12px sans-serif;
+}
+
+th {
+    padding: 2px;
+    padding: 2px;
+    text-align: left;
+    border-collapse: collapse;
+    border: 1px solid #808080;
+    background-color: #8cb1d9;
+    color: #212121;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    font-size: 11px;
+    font-family: Tahoma, sans-serif;
+    vertical-align: top;
+    /* width: auto; */
+    /* min-width: 50px; */
+}
+
+th.section {
+    font-size: 12px;
+    padding: 2px;
+    text-align: left;
+    color: black;
+}
+
+tr, td, td.normal {
+    /* background-color: #BBBBBB; */
+    padding: 2px;
+    border: none;
+    color: #244797;
+    font-style: italic;
+    font-variant: normal;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    vertical-align: top;
+    text-align: left;
+    white-space: nowrap;
+    /* width: auto; */
+    /* min-width: 50px; */
+}
+
+td.priority, td.Priority, td.skyBlue {
+    background-color: skyblue;
+    color: darkblue;
+}
+
+.blinkSkyBlueNormal {
+    background-color: skyblue;
+    color: #244797;
+    animation-name: BlinkSkyBlueNormal;
+    animation-duration: 0.4s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+}
+
+@keyframes BlinkSkyBlueNormal {
+    from {color: #244797;}
+    to {color: white;}
+}
+
+td.open, td.Open, td.transfer, td.Transfer, td.Running, td.darkRed {
+    background-color: darkred;
+    color: wheat;
+}
+
+td.closed, td.Closed, td.on, td.On, td.process, td.Process, td.lightGreen {
+    background-color: lightgreen;
+    color: black;
+}
+
+td.orangeRedOnOrange {
+    background-color: orange;
+    color: orangered;
+}
+
+.transitioning, .Transitioning, .transit, .Transit, .trans, .Trans, .starting, .Starting, .blinkOrangeToOrangeRed {
+    background-color: orange;
+    color: orangered;
+    animation-name: BlinkOrangeToOrangeRed;
+    animation-duration: 0.4s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+}
+
+@keyframes BlinkOrangeToOrangeRed {
+    from {color: #962424;}
+    to {color: white;}
+}
+
+td.orangeOnOrangeRed {
+    background-color: orangered;
+    color: orange;
+}
+
+.stopping, .Stopping, .blinkOrangeRedToOrange {
+    background-color: orangered;
+    color: orange;
+    animation-name: BlinkOrangeRedToOrange;
+    animation-duration: 0.4s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+}
+
+@keyframes BlinkOrangeRedToOrange {
+    from {color: orange;}
+    to {color: white;}
+}
+
+td.off, td.Off, td.gray {
+    background-color: gray;
+    color: black;
+}
+
+td.fault, td.Fault, td.trip, td.Trip, td.busClosed, td.red {
+    background-color: red;
+    color: black;
+}
+
+td.ssStateDischarging, td.pumpStateStopped, td.green {
+    background-color: green;
+    color: black;
+}
+
+td.ssStateOpen, td.orange {
+    background-color: orange;
+    color: black;
+}
+
+td.warning, td.Warning, td.yellow {
+    background-color: yellow;
+    color: black;
+}
+
+table.layout {
+    border: none;
+    font: 12px sans-serif;
+}
+tr.layout, td.layout {
+    border: none;
+    font: 12px sans-serif;
+    vertical-align: top;
+}
+
+.top-wrapper {
+    border-collapse: collapse;
+    border: 2px solid #808080;
+}
+
+.cmdset-wrapper, .dataset-wrapper, .var-wrapper {
+    border-collapse: collapse;
+    border: 1px solid #808080;
+}
+
+.section-odd-SimpleUiBlue {
+    background-color: #bcd1e9;
+}
+
+.section-even-SimpleUiBlue {
+    background-color: #9eb3cb;
+}
+
+.section-odd-SimpleUiPurple {
+    background-color: #d1c4e9;
+}
+
+.section-even-SimpleUiPurple {
+    background-color: #b3a6cb;
+}
+
+.section-odd-SimpleUiSea {
+    background-color: #d2fff0;
+}
+
+.section-even-SimpleUiSea {
+    background-color: #b4e1d2;
+}
+
+.section-odd-SimpleUiPeach {
+    background-color: #ffdab9;
+}
+
+.section-even-SimpleUiPeach {
+    background-color: #ffbc9b;
+}
+
+
+.left-vertical-cmdset {
+    padding: 10px;
+}
+
+div.spacer20 {
+    height: 20px;
+    padding: 5px;
+}
+
+var {
+    font-style: italic;
+    font-variant: normal;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: inherit;
+}
+
+.center {
+    margin: auto;
+    width: 60%;
+}
+
+.width300 {
+    width: 300px;
+}
+
+.command {
+    color: black;
+    font-size: 12px;
+}
+
+button, input[type=button], html input[type=button], input[type=reset], input[type=submit] {
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    width: auto;
+    min-width: 125px;
+    background-color: #EEEEEE;
+    border-left-color: #FFFFFF;
+    border-right-color: #B8B8B8;
+    border-top-color: #FFFFFF;
+    border-bottom-width: 1px;
+    -webkit-appearance: none;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+    box-sizing: border-box;
+}
+
+.overlay-control {
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 8px;
+    display: inline-block;
+    cursor: pointer;
+    width: auto;
+    min-width: 80px;
+    background-color: #EEEEEE;
+    border-left-color: #FFFFFF;
+    border-right-color: #B8B8B8;
+    border-top-color: #FFFFFF;
+    border-bottom-width: 1px;
+    -webkit-appearance: none;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+    box-sizing: border-box;
+}
+
+.inProgress, .disabled, button[disabled], input[disabled], html input[disabled] {
+    color: #D8D8D8;
+    background-color: #AAAAAA;
+    border-bottom-width: 1px;
+    border-left-color: #BBBBBB;
+    border-top-color: #BBBBBB;
+    font-size: 12px;
+    font-style: italic;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: default;
+    width: auto;
+    min-width: 125px;
+}

@@ -1,0 +1,68 @@
+<button mat-button [className]='getClassName()'
+    *ngIf='_action == simpleCommand'
+       [attr.u_id]='_element?.command?.u_id'
+       [id]='_element?.command?.id'
+       [name]='_element?.command?.name'
+       [attr.disabled]='isDisabled()'
+       [title]='_element?.command?.desc'
+       (click)='onClick($event)' (dblclick)='onClick($event)'
+>{{_element?.command?.label}}</button>
+
+<button mat-button [className]='getClassName()'
+    *ngIf='_action == confirmDialog'
+       [attr.u_id]='_element?.command?.u_id'
+       [id]='_element?.command?.id'
+       [name]='_element?.command?.name'
+       [attr.disabled]='isDisabled()'
+       [title]='_element?.command?.desc'
+       (click)='onClick($event)' (dblclick)='onClick($event)'
+>{{_element?.command?.label}}</button>
+
+<button mat-button [className]='getClassName()'
+ *ngIf='_action == textInputDialog'
+       [attr.u_id]='_element?.command?.u_id'
+       [id]='_element?.command?.id'
+       [name]='_element?.command?.name'
+       [attr.disabled]='isDisabled()'
+       [title]='_element?.command?.desc'
+       (click)='onClick($event)' (dblclick)='onClick($event)'
+>{{_element?.command?.label}}</button>
+
+<button mat-button [className]='getClassName()'
+ *ngIf='_action == boolInputDialog'
+       [attr.u_id]='_element?.command?.u_id'
+       [id]='_element?.command?.u_id'
+       [name]='_element?.command?.name'
+       [attr.disabled]='isDisabled()'
+       [title]='_element?.command?.desc'
+       (click)='onClick($event)' (dblclick)='onClick($event)'
+>{{_element?.command?.label}}</button>
+
+<button mat-button [className]='getClassName()'
+ *ngIf='_action == floatInputDialog'
+       [attr.u_id]='_element?.command?.u_id'
+       [id]='_element?.command?.u_id'
+       [name]='_element?.command?.name'
+       [attr.disabled]='isDisabled()'
+       [title]='_element?.command?.desc'
+       (click)='onClick($event)' (dblclick)='onClick($event)'
+>{{_element?.command?.label}}</button>
+
+<button mat-button [className]='getClassName()'
+ *ngIf='_action == intInputDialog'
+       [attr.u_id]='_element?.command?.u_id'
+       [id]='_element?.command?.u_id'
+       [name]='_element?.command?.name'
+       [attr.disabled]='isDisabled()'
+       [title]='_element?.command?.desc'
+       (click)='onClick($event)' (dblclick)='onClick($event)'
+>{{_element?.command?.label}}</button>
+
+<button mat-button [className]='getClassName()'
+    *ngIf='_action == disabled'
+       [attr.u_id]='_element?.command?.u_id'
+       ng-disabled='true'
+       [id]='_element?.command?.u_id'
+       [name]='_element?.command?.name'
+       [title]='_element?.command?.desc'
+>{{_element?.command?.label}}</button>

@@ -1,0 +1,95 @@
+---
+- hosts: all
+
+  vars:
+    archive_dir: /vionx
+    bundle_file: bms-web-setup-bundle.tgz
+    local_stage_dir: /tmp/bms-staging-area
+    remote_stage_dir: /tmp/bms-staging-remote
+    web_deploy_dir: /var/www/bms
+
+  remote_user: service
+  tasks:
+  - name: "Make sure ng-simple-ui distributions is UP-TO-DATE."
+    local_action: command ../../../common/web/apps/ng-simple-ui/is_dist_stale.bash
+
+  - name: "Remove {{ local_stage_dir }}"
+    local_action: command rm -r {{ local_stage_dir }}
+    ignore_errors: True
+    become: true
+
+  - name: 'Create local web packaging application'
+    local_action: script create-bms-web-setup-bundle.sh {{ local_stage_dir }} quiet
+
+  - name: 'Verify that installed node is installed'
+    file:
+      path: "/usr/bin/node"
+      state: file
+
+  - name: 'Create archive folder'
+    file:
+      path: "{{ archive_dir }}"
+      state: directory
+    become: true
+
+  - name: Backup remote {{ web_deploy_dir }}
+    command: cp -rf {{ web_deploy_dir }} {{ archive_dir }}
+    ignore_errors: True
+    become: true
+
+  - name: Backup remote fstab
+    command: cp /etc/fstab {{ archive_dir }}/fstab_bak_bms
+    become: true
+
+  - name: 'Remove old remote staging area folder'
+    file:
+      path: "{{ remote_stage_dir }}"
+      state: absent
+    become: true
+
+  - name: 'Create remote staging area folder'
+    file:
+      path: "{{ remote_stage_dir }}"
+      state: directory
+    become: true
+
+  - name: 'Copy bundle'
+    copy: src=/tmp/{{ bundle_file }} dest=/tmp/remote-{{ bundle_file }}
+
+  - name: 'Untar bundle into remote stage directory'
+    shell: tar xzf /tmp/remote-{{ bundle_file }} -C {{ remote_stage_dir }}
+
+  - name: 'Remove previous deployed web directory'
+    file:
+      path: "{{ web_deploy_dir }}"
+      state: absent
+    become: true
+
+  - name: 'Execute remote setup script'
+    shell: cd {{ remote_stage_dir }}/bms-staging-area && ./bms-web-setup.sh {{ remote_stage_dir }}/bms-staging-area
+    become: true
+
+  - name: "Restart apache2"
+    service:
+      name: apache2
+      state: restarted
+    become: true
+
+  - name: "Start the bms-web service"
+    service:
+      name: bms-web
+      state: restarted
+    become: true
+
+    # Cleanup, remove remote staging directory and files
+  - name: 'Remove remote staging area folder'
+    file:
+      path: "{{ remote_stage_dir }}"
+      state: absent
+    become: true
+
+  - name: 'Remove tar file'
+    file:
+      path: /tmp/remote-{{ bundle_file }}
+      state: absent
+    become: true

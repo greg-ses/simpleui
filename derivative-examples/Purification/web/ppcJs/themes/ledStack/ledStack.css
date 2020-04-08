@@ -1,0 +1,22 @@
+﻿div.ledStack
+{
+    padding: 1px;
+    text-align:center;
+    /*width: 100%;*/
+}
+
+.unselectedLed
+{
+    padding: 1px;
+    background-color: InactiveCaption;
+    color: InactiveCaptionText;
+    font-size: 85%;
+}
+
+.selectedLed
+{
+    padding: 2px;
+    background-color: Lime;
+    font-weight: bold;
+    font-size: 110%;
+}

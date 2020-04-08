@@ -1,0 +1,66 @@
+﻿/* layout for WindowGridPanel */
+
+@import url("../../../../dojo-toolkit/dojox/grid/resources/Grid.css");
+@import url("../../../../dojo-toolkit/dojox/grid/resources/soriaGrid.css");
+@import url("../../../../dojo-toolkit/dojox/grid/enhanced/resources/EnhancedGrid.css");
+
+@import url("../../../control/baseControl/css/baseControl.css");
+@import url("../../download/css/download.css");
+@import url("../../../control/windowSelect/css/windowSelect.css");
+@import url("../../../widget/fadeoutAlertBox/css/fadeoutAlertBox.css");
+
+div.windowGridPanel 
+{
+    height: 100%;
+    width: 100%;
+    margin:0px;
+    padding:0px;
+}
+
+div.wgpBorder
+{
+    height: 100%;
+    width: 100%;
+}
+
+div.wgpLeftPane
+{
+    position:relative;
+    height: 100%;
+    width: 197px;
+}
+
+div.wgpButtonsDiv
+{
+    position:absolute;
+    left:5px;
+    right:5px;
+
+    height: 25px;
+    padding:10px;
+}
+
+div.wgpRegisterBox
+{
+    position:absolute;
+    top:10px;
+    right:10px;
+}
+
+div.wgpWindowSelectorDiv
+{
+    /* Conflicting Absolute Positions pattern to stretch height to fill parent */
+    position:absolute;
+    top:50px;
+    left:5px;
+    right:5px;
+    bottom:5px;
+}
+
+div.wgpGridDiv
+{
+    height: 100%;
+    width: 100%;
+}
+
+

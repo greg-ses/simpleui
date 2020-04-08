@@ -1,0 +1,47 @@
+TABLE_NAME=ModuleMetrics
+META_TYPE=FLOAT
+NO_TABLE_PREFIX=true
+<COLUMN_DEFINITION>
+	# Name, SQL_TYPE, MetaType, Description
+	timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st, 1970
+	num_points,INTEGER,INTEGER,Hint
+    Battery_Power_kW,DOUBLE,DOUBLE,TBD
+    Battery_Voltage,DOUBLE,DOUBLE,TBD
+    Battery_Current,DOUBLE,DOUBLE,TBD
+    String_Voltage_Side_A,DOUBLE,DOUBLE,TBD
+    String_Current_Side_A,DOUBLE,DOUBLE,TBD
+    String_Voltage_Side_B,DOUBLE,DOUBLE,TBD
+    String_Current_Side_B,DOUBLE,DOUBLE,TBD
+    DcBattSoC,DOUBLE,DOUBLE,TBD
+    elyteSoc,DOUBLE,DOUBLE,TBD
+    ElyteTemperature,DOUBLE,DOUBLE,TBD
+</COLUMN_DEFINITION>
+<VARS>
+	LASTID
+	BEGIN
+	END
+	MACHINE_NAME
+	MAXNUMPTS
+</VARS>
+<SQL>
+	SELECT  timestamp, num_points
+      , ((`String_Current_Side_A` + `String_Current_Side_B`) * (`String_Voltage_Side_A` + `String_Voltage_Side_B`) / 2) / 1000  as 'Battery_Power_kW'
+      , (`String_Voltage_Side_A` + `String_Voltage_Side_B`) / 2 as 'Battery_Voltage'
+      , (`String_Current_Side_A` + `String_Current_Side_B`) as 'Battery_Current'
+      , `String_Voltage_Side_A`
+      , `String_Current_Side_A`
+      , `String_Voltage_Side_B`
+      , `String_Current_Side_B`
+      , 100 * ((100 * `RefSOC`) - 18) / 57 as 'DcBattSoC'
+      , (100 * `RefSOC`) as 'elyteSoc'
+      , `ElyteTemperature`
+	FROM `ModuleMetrics`
+	WHERE resource = `MACHINE_NAME` AND timestamp >= `BEGIN` AND timestamp <= `END` 
+	ORDER BY timestamp ASC LIMIT `MAXNUMPTS`;
+</SQL>
+<CHART_CONFIG>
+ Y_MIN=0   # Expected Graph y axis min
+ Y_MAX=1000  # Expected Graph y axis max
+ Y_PIX=25  # Y Graniluarity of the filtered data, the higher the number the more points.
+ X_PIX=500  # X Graniluarity of the filtered data, the higher the number the more points.
+</CHART_CONFIG>

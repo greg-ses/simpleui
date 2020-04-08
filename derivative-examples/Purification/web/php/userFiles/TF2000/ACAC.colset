@@ -1,0 +1,44 @@
+TABLE_NAME=sys_analog
+META_TYPE=FLOAT
+<COLUMN_DEFINITION>
+	# Name, SQL_TYPE, MetaType, Description
+	rowid,INTEGER,INTEGER,Unique row Unique Row ID
+	timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st, 1970
+	num_points,INTEGER,INTEGER,Number of points in averaged in float values
+	avg_Net_AC_Current_A_int,REAL,FLOAT,Net internal AC Phase Current A
+	avg_Net_AC_Current_B_int,REAL,FLOAT,Net internal AC Phase Current B
+	avg_Net_AC_Current_C_int,REAL,FLOAT,Net internal AC Phase Current C
+	avg_Avg_AC_Voltage_A_int,REAL,FLOAT,Average internal AC Voltage A
+	avg_Avg_AC_Voltage_B_int,REAL,FLOAT,Average internal AC Voltage B
+	avg_Avg_AC_Voltage_C_int,REAL,FLOAT,Average internal AC Voltage C
+	avg_Net_AC_Power_int,REAL,FLOAT,Net internal AC Power
+	avg_Net_AC_Current_A_ext,REAL,FLOAT,Net external AC Phase Current A
+	avg_Net_AC_Current_B_ext,REAL,FLOAT,Net external AC Phase Current B
+	avg_Net_AC_Current_C_ext,REAL,FLOAT,Net external AC Phase Current C
+	avg_Avg_AC_Voltage_A_ext,REAL,FLOAT,Average external AC Voltage A
+	avg_Avg_AC_Voltage_B_ext,REAL,FLOAT,Average external AC Voltage B
+	avg_Avg_AC_Voltage_C_ext,REAL,FLOAT,Average external AC Voltage C
+	avg_Net_AC_Power_ext,REAL,FLOAT,Net external AC Power
+</COLUMN_DEFINITION>
+<VARS>
+	LASTID
+	BEGIN
+	END
+	MAXNUMPTS
+</VARS>
+<SQL>
+	SELECT  rowid, timestamp, num_points
+		, avg_Net_AC_Current_A_int, avg_Net_AC_Current_B_int, avg_Net_AC_Current_C_int
+		, avg_Avg_AC_Voltage_A_int, avg_Avg_AC_Voltage_B_int, avg_Avg_AC_Voltage_C_int, avg_Net_AC_Power_int
+		, avg_Net_AC_Current_A_ext, avg_Net_AC_Current_B_ext, avg_Net_AC_Current_C_ext
+		, avg_Avg_AC_Voltage_A_ext, avg_Avg_AC_Voltage_B_ext, avg_Avg_AC_Voltage_C_ext, avg_Net_AC_Power_ext
+	FROM sys_analog 
+	WHERE rowid > `LASTID` AND timestamp > `BEGIN` AND timestamp <= `END` 
+	ORDER BY timestamp ASC LIMIT `MAXNUMPTS`;
+</SQL>
+<CHART_CONFIG>
+	Y_MIN=-125		# Expected Graph y axis min
+	Y_MAX=485		# Expected Graph y axis max
+	Y_PIX=25		# Y Graniluarity of the filtered data, the higher the number the more points.
+	X_PIX=500		# X Graniluarity of the filtered data, the higher the number the more points.
+</CHART_CONFIG>

@@ -1,0 +1,56 @@
+﻿/* layout for TestRunConfigurator */
+/* release path 
+@import url("../../../dojox/grid/resources/Grid.css");
+@import url("../../../dojox/grid/resources/soriaGrid.css");
+*/
+
+/* universally applicable relative paths */
+@import url("../../../themes/loadOverlay.css");
+@import url("../../../themes/basePanel/basePanel.css");
+@import url("../../../control/chemistryDataEditor/css/chemistryDataEditor.css");
+@import url("../../../control/testRunFilteringSelect/css/testRunFilteringSelect.css");
+
+div.testRunConfiguratorPanel
+{
+    position:absolute;
+    margin:0px;
+    padding:5px;
+}
+
+div.trcTestRunContainer
+{   
+    position:relative;
+    margin:5px;
+    overflow:hidden;
+    width:auto;
+
+}
+
+div.trcLinkDiv
+{
+    margin:10px 5px 5px 5px;
+}
+
+div.trcNewChemLogButton
+{
+}
+
+div.trcNewChemistryDataButtonDiv
+{
+    margin:20px;
+}
+
+div.trcLeftPane
+{
+    float:left;
+    padding:5px;
+    margin-right:10px;
+}
+
+div.trcRightPane
+{
+    float:left;
+    width:400px;
+}
+
+

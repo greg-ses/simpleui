@@ -1,0 +1,31 @@
+﻿/* layout for UpDown */
+
+/*@import url("../../../control/baseControl/css/baseControl.css");*/
+
+.upDown
+{
+    margin:0px;
+    padding:0px;
+    width:18px;
+}
+
+.udUpIcon
+{
+    height:12px;
+    width:12px;
+    background: url(../images/up.gif) no-repeat right 0;
+}
+
+.udDownIcon
+{
+    height:12px;
+    width:12px;
+    background: url(../images/down.gif) no-repeat right 0;
+}
+
+
+.udButton .dijitToggleButton, .dijitButton, .dijitDropDownButton, .dijitComboButton 
+{
+    margin: 0;
+    vertical-align: middle;
+}

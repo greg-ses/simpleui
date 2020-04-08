@@ -1,0 +1,42 @@
+TABLE_NAME=analog_in
+META_TYPE=FLOAT
+<COLUMN_DEFINITION>
+	# Name, SQL_TYPE, MetaType, Description
+	rowid,INTEGER,INTEGER,Unique row Unique Row ID
+	timestamp,INTEGER,TIMESTAMP,Milliseconds Since Jan 1st, 1970
+	num_points,INTEGER,INTEGER,Hint
+	Pressure_-_Zn_Pump,REAL,FLOAT,Hint
+	Pressure_-_Zn_Input,REAL,FLOAT,Hint
+	Pressure_-_Zn_Return,REAL,FLOAT,Hint
+	Pressure_-_Br_Pump,REAL,FLOAT,Hint
+	Pressure_-_Br_Input,REAL,FLOAT,Hint
+	Pressure_-_Br_Return,REAL,FLOAT,Hint
+	Flow_-_Zn,REAL,FLOAT,Hint
+	Flow_-_Br,REAL,FLOAT,Hint
+	Temp_-_Zn,REAL,FLOAT,Hint
+	Temp_-_Br_In,REAL,FLOAT,Hint
+	Temp_-_Br_Out,REAL,FLOAT,Hint
+</COLUMN_DEFINITION>
+<VARS>
+	LASTID
+	BEGIN
+	END
+	MAXNUMPTS
+</VARS>
+<SQL>
+	SELECT  rowid, timestamp, num_points
+		, avg_AIN_01 as `Pressure_-_Zn_Pump`
+		, avg_AIN_05 as `Pressure_-_Zn_Input`
+		, avg_AIN_03 as `Pressure_-_Zn_Return`
+		, avg_AIN_02 as `Pressure_-_Br_Pump`
+		, avg_AIN_08 as `Pressure_-_Br_Input`
+		, avg_AIN_04 as `Pressure_-_Br_Return`
+		, avg_AIN_06 as `Flow_-_Zn`
+		, avg_AIN_07 as `Flow_-_Br`
+		, avg_AIN_11 as `Temp_-_Zn`
+		, avg_AIN_09 as `Temp_-_Br_In`
+		, avg_AIN_10 as `Temp_-_Br_Out`
+	FROM analog_in      
+	WHERE rowid > `LASTID` AND timestamp >= `BEGIN` AND timestamp <= `END` 
+	ORDER BY rowid ASC LIMIT `MAXNUMPTS`;
+</SQL>

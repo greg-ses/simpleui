@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2001">
+    <Title u_id="2002">BSC</Title>
+    <timeStamp u_id="2003">1543947334445</timeStamp>
+    <Version u_id="2004">debug-BSCServer: develop-dirty, 2018-11-20 16:21 EST:</Version>
+    <Section name="Battery System" u_id="2005">
+        <CmdSet u_id="2006">
+            <command cmd="Local" confirm="true" desc="desc" dest="dProcCtrl" disabled="false" idnum="0" label="Local"
+                     name="Local" u_id="2008"/>
+            <command cmd="Clear Fault" confirm="false" desc="Reset any active faults in the system." dest="dProcCtrl"
+                     disabled="false" idnum="0" label="Clear Fault" name="Clear Fault" u_id="2009"/>
+        </CmdSet>
+        <DataSets u_id="2009">
+            <System_Information u_id="2010">
+                <dyn name="Cycle_Num" u_id="2012">0</dyn>
+                <dyn name="Grid_Modbus_Active" u_id="2013">yes</dyn>
+                <dyn name="Last_Rebal" u_id="2014">Dec, 31 19:00</dyn>
+            </System_Information>
+            <Configuration u_id="2014">
+                <dyn name="NumStrings" u_id="2016">2</dyn>
+                <dyn name="NumModules" u_id="2017">8</dyn>
+                <dyn name="ThermalType" u_id="2018">DOE</dyn>
+            </Configuration>
+            <SystemLimits u_id="2018">
+                <dyn name="MaxChargeKW" u_id="2020" units="kW">0</dyn>
+                <dyn name="MaxChargeAmps" u_id="2021" units="A">0</dyn>
+                <dyn name="MaxDischargeKW" u_id="2022" units="kW">0</dyn>
+                <dyn name="MaxChargeV" u_id="2023" units="V">100000</dyn>
+                <dyn name="MaxDischargeAmps" u_id="2024" units="A">0</dyn>
+                <dyn name="MinDischargeV" u_id="2025" units="V">0</dyn>
+            </SystemLimits>
+            <SystemData u_id="2025">
+                <dyn class="priority" name="System_Mode" u_id="2027">Faulted</dyn>
+                <dyn name="ChargeSt" u_id="2028">Invalid</dyn>
+                <dyn class="off" disabled="false" name="Local_Mode" u_id="2029">off</dyn>
+                <dyn name="DcBattV" u_id="2030" units="V">0.0</dyn>
+                <dyn name="DcBattAmps" u_id="2031" units="A">0.0</dyn>
+                <dyn name="DcBattKW" u_id="2032" units="kW">0.0</dyn>
+                <dyn class="priority" name="DcBattSoC" u_id="2033" units="%">0.0</dyn>
+            </SystemData>
+        </DataSets>
+    </Section>
+    <Section name="Battery Logs" u_id="2191">
+        <DataSets u_id="2192">
+            <Event_Log u_id="2193">
+                <Event timestamp="13:12:23" type="EVENT INFO" u_id="2194">Battery Received Fault_Offline [0]</Event>
+                <Event timestamp="13:12:23" type="URGENT SERVICE REQUEST" u_id="2195">Coolant-Level : trip, value 20.70
+                    &lt;= 410.0
+                </Event>
+                <Event timestamp="13:11:32" type="SERVICE REQUEST" u_id="2196">Coolant-Level : warning, value 20.58 &lt;=
+                    450.0
+                </Event>
+                <Event timestamp="13:11:27" type="EVENT INFO" u_id="2197">Chiller register r14_MaxCoolingSetPoint (97)
+                    parameter change from 80.00 to 45.00.
+                </Event>
+                <Event timestamp="13:11:27" type="EVENT INFO" u_id="2198">Chiller register r13_MinCoolingSetPoint (96)
+                    parameter change from -40.00 to 5.00.
+                </Event>
+            </Event_Log>
+            <Active_Fault_List u_id="2199">
+                <Fault fault_code="THERM-5" idx="26" name="Coolant-Level" timestamp="13:12:23" u_id="2200">trip</Fault>
+                <Fault fault_code="THERM-6" idx="27" name="Coolant-Level" timestamp="13:12:23" u_id="2200">trip</Fault>
+                <Fault fault_code="THERM-8" idx="29" name="Coolant-Level" timestamp="13:12:23" u_id="2200">trip</Fault>
+                <Fault fault_code="THERM-10" idx="31" name="Coolant-Level" timestamp="13:12:23" u_id="2200">trip</Fault>
+                <Fault fault_code="THERM-11" idx="33" name="Coolant-Level" timestamp="13:12:23" u_id="2200">trip</Fault>
+            </Active_Fault_List>
+        </DataSets>
+    </Section>
+    <status>0</status>
+</Data_Summary>

@@ -1,0 +1,19 @@
+﻿/* Layout for inverter-converter summary page. Extends basePage.css */
+
+#stack
+{
+    padding-top: 5px; 
+}
+
+
+#projectSummaryTab 
+{
+    height: 100%;
+    width: 100%;
+}
+
+#projectPanel 
+{
+    height: 100%;
+    width: 100%;
+}
