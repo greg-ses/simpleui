@@ -1,0 +1,40 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "./",
+    "outDir": "../dist",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es5", "es2015", "es2016",
+      "dom"
+    ]
+  },
+  "files": [
+    "command-json-normalizer.ts",
+    "interfaces.ts",
+    "json-string-normalizer.ts",
+    "props-file-reader.ts",
+    "server-logger.ts",
+    "server-util.ts",
+    "simpleui-server.ts",
+    "sui_data.ts",
+  ],
+  "include": [
+    "node_modules/@angular-devkit/core/node/*.ts",
+    "node_modules/microtime",
+    "./sha1/sha1.js",
+    "./crypt/crypt.js",
+    "./charenc.js"
+  ]
+}

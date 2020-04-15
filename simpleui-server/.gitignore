@@ -1,0 +1,4 @@
+# exclude built files
+dist/*
+node_modules/*
+

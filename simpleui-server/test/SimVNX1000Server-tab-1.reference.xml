@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><Data_Summary u_id="2002">
+	<Title u_id="2003">Module Simulation</Title>
+	<timeStamp u_id="2004">1573685122994</timeStamp>
+	<Version u_id="2005">debug-SimVNX1000Server: develop-zeromq-for-nodejs-dirty, 2019-</Version>
+	<Section name="Sendyne Board Simulation Status" u_id="2006">
+		<DataSets u_id="2007">
+			<Thread_Rate u_id="2008">
+				<dyn name="LastTime" u_id="2009" units="ms">11</dyn>
+				<dyn name="AvgTime" u_id="2010" units="ms">11</dyn>
+				<dyn name="RecentWorst" u_id="2011" units="ms">16</dyn>
+				<dyn name="WorstTime" u_id="2012" units="ms">37</dyn>
+				<dyn name="TimeViolations" u_id="2013">16</dyn>
+			</Thread_Rate>
+			<Command_Sub u_id="2014">
+				<dyn name="LastTime" u_id="2015" units="ms">0</dyn>
+				<dyn name="AvgTime" u_id="2016" units="ms">1</dyn>
+				<dyn name="RecentWorst" u_id="2017" units="ms">5</dyn>
+				<dyn name="WorstTime" u_id="2018" units="ms">27</dyn>
+				<dyn name="TimeViolations" u_id="2019">2</dyn>
+			</Command_Sub>
+			<Simulation_Response u_id="2020">
+				<dyn name="LastTime" u_id="2021" units="ms">0</dyn>
+				<dyn name="AvgTime" u_id="2022" units="ms">2</dyn>
+				<dyn name="RecentWorst" u_id="2023" units="ms">2</dyn>
+				<dyn name="WorstTime" u_id="2024" units="ms">15</dyn>
+				<dyn name="TimeViolations" u_id="2025">0</dyn>
+			</Simulation_Response>
+		</DataSets>
+	</Section>
+	<Section name="Container 1" u_id="2026">
+		<DataSets u_id="2027">
+			<Status u_id="2028">
+				<dyn name="Status" u_id="2029">connected</dyn>
+				<dyn name="Last ts" u_id="2030">17:45:22</dyn>
+				<dyn name="LastTime" u_id="2031" units="ms">0</dyn>
+				<dyn name="AvgTime" u_id="2032" units="ms">0</dyn>
+				<dyn name="RecentWorst" u_id="2033" units="ms">0</dyn>
+				<dyn name="WorstTime" u_id="2034" units="ms">0</dyn>
+				<dyn name="TimeViolations" u_id="2035">0</dyn>
+			</Status>
+			<Model u_id="2036">
+				<dyn name="Num_Tanks" u_id="2037">6</dyn>
+				<dyn name="Total_Vol" u_id="2038">349728</dyn>
+				<dyn name="AnVol%" u_id="2039" units="%">52.27</dyn>
+				<dyn name="AnTankImbalance" u_id="2040" units=" inches">0.000</dyn>
+				<dyn name="CaTankImbalance" u_id="2041" units=" inches">0.000</dyn>
+			</Model>
+			<Electrolyte u_id="2042">
+				<dyn name="RefV" u_id="2043">1.4</dyn>
+				<dyn name="AnSoC" u_id="2044">26.9</dyn>
+				<dyn name="RefSoC" u_id="2045">34.3</dyn>
+				<dyn name="CaSoC" u_id="2046">41.6</dyn>
+				<dyn name="AnConc" u_id="2047">1.516</dyn>
+				<dyn name="CaConc" u_id="2048">1.697</dyn>
+				<dyn name="AnVolPct" u_id="2049">54.8</dyn>
+				<dyn name="AnMolPct" u_id="2050">52.0</dyn>
+				<dyn name="V2" u_id="2051">5075</dyn>
+				<dyn name="V3" u_id="2052">13798</dyn>
+				<dyn name="V4" u_id="2053">10169</dyn>
+				<dyn name="V5" u_id="2054">7253</dyn>
+			</Electrolyte>
+			<FloatVars-0 u_id="2054">
+				<Set_AnVolPerc u_id="2056">
+					<command cmd="Set_AnVolPerc" desc="Set the anolyte volume percentage." dest="1-0" disabled="false" idnum="0" label="Set_AnVolPerc" name="Set_AnVolPerc" u_id="2057">
+						<_input _type="float" desc="" idnum="0" max="99999.0" min="-99999.0" u_id="2058" value="0.5"/>
+					</command>0.500</Set_AnVolPerc>
+				<Set_RefVoltage u_id="2059">
+					<command cmd="Set_RefVoltage" desc="For the moment, this is the actual value." dest="1-0" disabled="false" idnum="0" label="Set_RefVoltage" name="Set_RefVoltage" u_id="2060">
+						<_input _type="float" desc="" idnum="0" max="99999.0" min="-99999.0" u_id="2061" value="1.4"/>
+					</command>1.396</Set_RefVoltage>
+				<Set_ElyteSoC u_id="2062">
+					<command cmd="Set_ElyteSoC" desc="Set the electrolyte State of Charge." dest="1-0" disabled="false" idnum="0" label="Set_ElyteSoC" name="Set_ElyteSoC" u_id="2063">
+						<_input _type="float" desc="" idnum="0" max="99999.0" min="-99999.0" u_id="2064" value="0.4"/>
+					</command>0.355</Set_ElyteSoC>
+				<AmbientTemp u_id="2065">
+					<command cmd="AmbientTemp" desc="Use the RefCellTrigger to update the ref cell to this value" dest="1-0" disabled="false" idnum="0" label="AmbientTemp" name="AmbientTemp" u_id="2066">
+						<_input _type="float" desc="" idnum="0" max="99999.0" min="-99999.0" u_id="2067" value="23.0"/>
+					</command>23.0</AmbientTemp>
+			</FloatVars-0>
+			<FloatVars-4 u_id="2067">
+				<ElectrolyteTemp u_id="2069">
+					<command cmd="ElectrolyteTemp" desc="Use the RefCellTrigger to update the ref cell to this value" dest="1-0" disabled="false" idnum="0" label="ElectrolyteTemp" name="ElectrolyteTemp" u_id="2070">
+						<_input _type="float" desc="" idnum="0" max="99999.0" min="-99999.0" u_id="2071" value="27.5"/>
+					</command>27.5</ElectrolyteTemp>
+				<AnolyteTankImbalance u_id="2072">
+					<command cmd="AnolyteTankImbalance" desc="Anolyte tank imbalance in inches." dest="1-0" disabled="false" idnum="0" label="AnolyteTankImbalance" name="AnolyteTankImbalance" u_id="2073">
+						<_input _type="float" desc="" idnum="0" max="99999.0" min="-99999.0" u_id="2074" value="2.3"/>
+					</command>2.3</AnolyteTankImbalance>
+				<CatholyteTankImbalance u_id="2075">
+					<command cmd="CatholyteTankImbalance" desc="Anolyte tank imbalance in inches." dest="1-0" disabled="false" idnum="0" label="CatholyteTankImbalance" name="CatholyteTankImbalance" u_id="2076">
+						<_input _type="float" desc="" idnum="0" max="99999.0" min="-99999.0" u_id="2077" value="0.8"/>
+					</command>0.8</CatholyteTankImbalance>
+			</FloatVars-4>
+		</DataSets>
+	</Section>
+<status>0</status></Data_Summary>

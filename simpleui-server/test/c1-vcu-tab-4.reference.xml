@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><Data_Summary u_id="2002">
+	<Title u_id="2003">Pumps</Title>
+	<timeStamp u_id="2004">1573844986304</timeStamp>
+	<Version u_id="2005"/>
+	<Section name="Communications Metrics" u_id="2006">
+		<DataSets u_id="2007">
+			<Metrics u_id="2008">
+				<dyn name="Timestamp" u_id="2009">0</dyn>
+				<dyn name="TotalTime" u_id="2010" units="ms">0</dyn>
+				<dyn name="AvgTime" u_id="2011" units="ms">0</dyn>
+				<dyn name="WorstTime" u_id="2012" units="ms">0</dyn>
+				<dyn name="LastViolationTime" u_id="2013" units="ms">0</dyn>
+				<dyn name="TimeViolations" u_id="2014">0</dyn>
+			</Metrics>
+		</DataSets>
+	</Section>
+<status>0</status></Data_Summary>

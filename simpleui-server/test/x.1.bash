@@ -1,0 +1,6 @@
+wget -O c1-scu-a1-tab-1.reference.xml       "http://mordor/device/vec/data/c1-scu-a1/0?ti=4&hash=99999&xml"
+wget -O c1-scu-a1-tab-2.reference.xml       "http://mordor/device/vec/data/c1-scu-a1/1?ti=4&hash=99999&xml"
+wget -O c1-scu-a1-tab-3.reference.xml       "http://mordor/device/vec/data/c1-scu-a1/5?ti=4&hash=99999&xml"
+wget -O c1-vcu-tab-1.reference.xml       "http://mordor/device/vec/data/c1-vcu/0?ti=4&hash=99999&xml"
+wget -O c1-vcu-tab-2.reference.xml       "http://mordor/device/vec/data/c1-vcu/1?ti=4&hash=99999&xml"
+wget -O c1-vcu-tab-3.reference.xml       "http://mordor/device/vec/data/c1-vcu/2?ti=4&hash=99999&xml"

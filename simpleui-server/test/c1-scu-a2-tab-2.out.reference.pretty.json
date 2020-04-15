@@ -1,0 +1,1044 @@
+{
+    "Data_Summary": {
+        "u_id": "2002",
+        "Title": {
+            "u_id": "2003",
+            "value": "Stack Control Board"
+        },
+        "timeStamp": {
+            "u_id": "2004",
+            "value": "1573844972685"
+        },
+        "Version": {
+            "u_id": "2005",
+            "value": "Name: mordor Build: BMS build info or get VEC build info from dataset? | OS Release 4.4.0-166-generic #195-Ubuntu SMP Tue Oct 1 09:35:25 UTC 2019"
+        },
+        "Section": [
+            {
+                "u_id": "2006",
+                "DataSets": [
+                    {
+                        "u_id": "2007",
+                        "id": "DataSet-0.0",
+                        "className": "tableRowGroupBlock dataset-wrapper L3",
+                        "sha1sums": " 0484a1624debbc9f2ae2ecb73b2d551134c7a563 cd1405bd98fcc65cebafcc0c942191bc008565cc 6110bb99f4e638ad6e9e9e5675890186684beddf 22a876cc1dee86749f76059809edac6de036a6bd d09b8aab4f018960f377097781e6abdaee21dfd2 6665eb2d0e44b86ce0827696297b102ae31ec3d7",
+                        "dsItems": [
+                            {
+                                "label": "U1Inputs",
+                                "desc": "",
+                                "u_id": "2008",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "class": "off",
+                                        "desc": "U1.GPA0: Status of the Power Good pin on U29",
+                                        "disabled": "false",
+                                        "name": "BUS_CONTACTOR_1_PWR_FLT",
+                                        "u_id": "2009",
+                                        "value": "off",
+                                        "id": "2009"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U1.GPA1: Status of the Power Good pin on U30",
+                                        "disabled": "false",
+                                        "name": "BUS_CONTACTOR_2_PWR_FLT",
+                                        "u_id": "2010",
+                                        "value": "off",
+                                        "id": "2010"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U1.GPA2: Status of the Power Good pin on U31",
+                                        "disabled": "false",
+                                        "name": "BUS_CONTACTOR_3_PWR_FLT",
+                                        "u_id": "2011",
+                                        "value": "off",
+                                        "id": "2011"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U1.GPA3: Status of the Power Good pin on U32",
+                                        "disabled": "false",
+                                        "name": "BUS_CONTACTOR_4_PWR_FLT",
+                                        "u_id": "2012",
+                                        "value": "off",
+                                        "id": "2012"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U1.GPA4: Compares the commanded state to the RY1 coil state",
+                                        "disabled": "false",
+                                        "name": "BUS_CONTACTOR_1_CMD_FLT",
+                                        "u_id": "2013",
+                                        "value": "off",
+                                        "id": "2013"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U1.GPA5: Compares the commanded state to the RY2 coil state",
+                                        "disabled": "false",
+                                        "name": "BUS_CONTACTOR_2_CMD_FLT",
+                                        "u_id": "2014",
+                                        "value": "off",
+                                        "id": "2014"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U1.GPA6: Compares the commanded state to the RY3 coil state",
+                                        "disabled": "false",
+                                        "name": "BUS_CONTACTOR_3_CMD_FLT",
+                                        "u_id": "2015",
+                                        "value": "off",
+                                        "id": "2015"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U1.GPA7: Compares the commanded state to the RY4 coil state",
+                                        "disabled": "false",
+                                        "name": "BUS_CONTACTOR_4_CMD_FLT",
+                                        "u_id": "2016",
+                                        "value": "off",
+                                        "id": "2016"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U1.GPB0: Status of the Power Good pin on U15",
+                                        "disabled": "false",
+                                        "name": "DISCHARGE_PWR_FLT",
+                                        "u_id": "2017",
+                                        "value": "off",
+                                        "id": "2017"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U1.GPB1: 24V power present for discharge circuitry",
+                                        "disabled": "false",
+                                        "name": "DISCHARGE_24V_PRESENT",
+                                        "u_id": "2018",
+                                        "value": "off",
+                                        "id": "2018"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U1.GPB2: 24V power present for bus circuitry",
+                                        "disabled": "false",
+                                        "name": "BUS_24V_PRESENT",
+                                        "u_id": "2019",
+                                        "value": "off",
+                                        "id": "2019"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U1.GPB3: SCU Enabled status",
+                                        "disabled": "false",
+                                        "name": "SCU_ENABLED",
+                                        "u_id": "2020",
+                                        "value": "off",
+                                        "id": "2020"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-0.0.0",
+                                "name": "U1Inputs",
+                                "sha1sum": "0484a1624debbc9f2ae2ecb73b2d551134c7a563"
+                            },
+                            {
+                                "label": "U1Outputs",
+                                "desc": "",
+                                "u_id": "2021",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "class": "off",
+                                        "u_id": "2022",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "disabled": "true",
+                                            "idnum": "12",
+                                            "label": "NotUsed U1GPB4",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2023",
+                                            "val": "on",
+                                            "sha1sum": "4c6605a162314e9cd3e31a37a71a337c5a1f4783",
+                                            "class": "command",
+                                            "id": "2023"
+                                        },
+                                        "name": "",
+                                        "id": "2022",
+                                        "sha1sums": " 4c6605a162314e9cd3e31a37a71a337c5a1f4783",
+                                        "_action": "disabled",
+                                        "sha1sum": "e121f4de506ddb873b115071079c2c3e58d8e514"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2024",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "desc": "U1.GPB5: Switches 24V power to the bus circuitry",
+                                            "disabled": "true",
+                                            "idnum": "13",
+                                            "label": "BUS MODE SELECT",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2025",
+                                            "val": "on",
+                                            "sha1sum": "c7c3140aadcf701694a57ed00698fd9396f2218f",
+                                            "class": "command",
+                                            "id": "2025"
+                                        },
+                                        "name": "",
+                                        "id": "2024",
+                                        "sha1sums": " c7c3140aadcf701694a57ed00698fd9396f2218f",
+                                        "_action": "disabled",
+                                        "sha1sum": "c2c3c0cc6fb88dd5743603d2656c4d2d75a92a92"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2026",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "desc": "U1.GPB6: Enable 24V power to the bus contactors",
+                                            "disabled": "true",
+                                            "idnum": "14",
+                                            "label": "BUS CONTACTOR PWR EN",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2027",
+                                            "val": "on",
+                                            "sha1sum": "e735e1f634fdac8bef50b213bcde8384543b77dc",
+                                            "class": "command",
+                                            "id": "2027"
+                                        },
+                                        "name": "",
+                                        "id": "2026",
+                                        "sha1sums": " e735e1f634fdac8bef50b213bcde8384543b77dc",
+                                        "_action": "disabled",
+                                        "sha1sum": "16bd8408f65b852b5d4b2a7b2cc59ac6916c2428"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2028",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "desc": "U1.GPB7: Enable 24V power to the discharge contactors",
+                                            "disabled": "true",
+                                            "idnum": "15",
+                                            "label": "DICHARGE CONTACTOR PWR EN",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2029",
+                                            "val": "on",
+                                            "sha1sum": "dfe1168b98087ca57fcb52fd57a73c173f398015",
+                                            "class": "command",
+                                            "id": "2029"
+                                        },
+                                        "name": "",
+                                        "id": "2028",
+                                        "sha1sums": " dfe1168b98087ca57fcb52fd57a73c173f398015",
+                                        "_action": "disabled",
+                                        "sha1sum": "a2e445a53216690934102373233a569c7cc5cbab"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-0.0.1",
+                                "name": "U1Outputs",
+                                "sha1sum": "cd1405bd98fcc65cebafcc0c942191bc008565cc"
+                            },
+                            {
+                                "label": "U4Inputs",
+                                "desc": "",
+                                "u_id": "2030",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "class": "off",
+                                        "desc": "U4.GPB4: RY5 contactor state feedback via aux contacts",
+                                        "disabled": "false",
+                                        "name": "DISCHARGE_CONTACTOR_1_OPEN",
+                                        "u_id": "2031",
+                                        "value": "off",
+                                        "id": "2031"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U4.GPB5: RY6 contactor state feedback via aux contacts",
+                                        "disabled": "false",
+                                        "name": "DISCHARGE_CONTACTOR_2_OPEN",
+                                        "u_id": "2032",
+                                        "value": "off",
+                                        "id": "2032"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U4.GPB6: RY7 contactor state feedback via aux contacts",
+                                        "disabled": "false",
+                                        "name": "DISCHARGE_CONTACTOR_3_OPEN",
+                                        "u_id": "2033",
+                                        "value": "off",
+                                        "id": "2033"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "desc": "U4.GPB7: RY8 contactor state feedback via aux contacts",
+                                        "disabled": "false",
+                                        "name": "DISCHARGE_CONTACTOR_4_OPEN",
+                                        "u_id": "2034",
+                                        "value": "off",
+                                        "id": "2034"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-0.0.2",
+                                "name": "U4Inputs",
+                                "sha1sum": "6110bb99f4e638ad6e9e9e5675890186684beddf"
+                            },
+                            {
+                                "label": "U4Outputs",
+                                "desc": "",
+                                "u_id": "2035",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "class": "off",
+                                        "u_id": "2036",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "desc": "U4.GPA0: Turn ON low side switch of RY1 coil",
+                                            "disabled": "true",
+                                            "idnum": "16",
+                                            "label": "BUS CONTACTOR 1 CLOSE",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2037",
+                                            "val": "on",
+                                            "sha1sum": "cf8a96ebc882bec8b20fb72e9c8a9ff86813e0e8",
+                                            "class": "command",
+                                            "id": "2037"
+                                        },
+                                        "name": "",
+                                        "id": "2036",
+                                        "sha1sums": " cf8a96ebc882bec8b20fb72e9c8a9ff86813e0e8",
+                                        "_action": "disabled",
+                                        "sha1sum": "3e115289d43f0b039ef9bfc61ded171a137df41a"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2038",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "desc": "U4.GPA1: Turn ON low side switch of RY2 coil",
+                                            "disabled": "true",
+                                            "idnum": "17",
+                                            "label": "BUS CONTACTOR 2 CLOSE",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2039",
+                                            "val": "on",
+                                            "sha1sum": "14137d692a1b794c114524da7b9559e7ab2432cb",
+                                            "class": "command",
+                                            "id": "2039"
+                                        },
+                                        "name": "",
+                                        "id": "2038",
+                                        "sha1sums": " 14137d692a1b794c114524da7b9559e7ab2432cb",
+                                        "_action": "disabled",
+                                        "sha1sum": "eabccac5e4a5daeeb2921568119c1844134fb138"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2040",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "desc": "U4.GPA2: Turn ON low side switch of RY3 coil",
+                                            "disabled": "true",
+                                            "idnum": "18",
+                                            "label": "BUS CONTACTOR 3 CLOSE",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2041",
+                                            "val": "on",
+                                            "sha1sum": "34ea507f3596b88295f64fb7dfa4e0ce5a0bee13",
+                                            "class": "command",
+                                            "id": "2041"
+                                        },
+                                        "name": "",
+                                        "id": "2040",
+                                        "sha1sums": " 34ea507f3596b88295f64fb7dfa4e0ce5a0bee13",
+                                        "_action": "disabled",
+                                        "sha1sum": "6387405a53e3afc9b008201049aaebe9b1bc1407"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2042",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "desc": "U4.GPA3: Turn ON low side switch of RY4 coil",
+                                            "disabled": "true",
+                                            "idnum": "19",
+                                            "label": "BUS CONTACTOR 4 CLOSE",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2043",
+                                            "val": "on",
+                                            "sha1sum": "0b693e89a34309fda8e850aebf258d59bcb74cdd",
+                                            "class": "command",
+                                            "id": "2043"
+                                        },
+                                        "name": "",
+                                        "id": "2042",
+                                        "sha1sums": " 0b693e89a34309fda8e850aebf258d59bcb74cdd",
+                                        "_action": "disabled",
+                                        "sha1sum": "b48a7b3bd044fb3b6c039a6ca78e9021d7472e51"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2044",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "desc": "U4.GPA4: Turn ON low side switch of RY5 coil",
+                                            "disabled": "true",
+                                            "idnum": "20",
+                                            "label": "DISCHARGE CONTACTOR 1 CLOSE",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2045",
+                                            "val": "on",
+                                            "sha1sum": "0e537d05e1b92e24dcac72c7898d60fc5a2fb094",
+                                            "class": "command",
+                                            "id": "2045"
+                                        },
+                                        "name": "",
+                                        "id": "2044",
+                                        "sha1sums": " 0e537d05e1b92e24dcac72c7898d60fc5a2fb094",
+                                        "_action": "disabled",
+                                        "sha1sum": "e0d192f5d2e4ac19371f3f43b9c760b178a9b644"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2046",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "desc": "U4.GPA5: Turn ON low side switch of RY6 coil",
+                                            "disabled": "true",
+                                            "idnum": "21",
+                                            "label": "DISCHARGE CONTACTOR 2 CLOSE",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2047",
+                                            "val": "on",
+                                            "sha1sum": "6949d719e009e454b177140ea9ce91e2042fb445",
+                                            "class": "command",
+                                            "id": "2047"
+                                        },
+                                        "name": "",
+                                        "id": "2046",
+                                        "sha1sums": " 6949d719e009e454b177140ea9ce91e2042fb445",
+                                        "_action": "disabled",
+                                        "sha1sum": "7693115c80b21ec3f385e76abd6a59296c2b8aa9"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2048",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "desc": "U4.GPA6: Turn ON low side switch of RY7 coil",
+                                            "disabled": "true",
+                                            "idnum": "22",
+                                            "label": "DISCHARGE CONTACTOR 3 CLOSE",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2049",
+                                            "val": "on",
+                                            "sha1sum": "9d30f362ce20fbcddfc3e465ccee1f0883c69df8",
+                                            "class": "command",
+                                            "id": "2049"
+                                        },
+                                        "name": "",
+                                        "id": "2048",
+                                        "sha1sums": " 9d30f362ce20fbcddfc3e465ccee1f0883c69df8",
+                                        "_action": "disabled",
+                                        "sha1sum": "93cddf2890f05f1325832f6be91df75a234b3a4a"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2050",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "desc": "U4.GPA7: Turn ON low side switch of RY8 coil",
+                                            "disabled": "true",
+                                            "idnum": "23",
+                                            "label": "DISCHARGE CONTACTOR 4 CLOSE",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2051",
+                                            "val": "on",
+                                            "sha1sum": "7b28c94f76b1aee1107847b92adacd778cce4db2",
+                                            "class": "command",
+                                            "id": "2051"
+                                        },
+                                        "name": "",
+                                        "id": "2050",
+                                        "sha1sums": " 7b28c94f76b1aee1107847b92adacd778cce4db2",
+                                        "_action": "disabled",
+                                        "sha1sum": "3e5bc4acc3809b65de92fabfa35e4f390c41c23c"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2052",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "disabled": "true",
+                                            "idnum": "24",
+                                            "label": "NotUsed U4GPB0",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2053",
+                                            "val": "on",
+                                            "sha1sum": "cdc830c14ea51d755183a540bc85ebb2761647b2",
+                                            "class": "command",
+                                            "id": "2053"
+                                        },
+                                        "name": "",
+                                        "id": "2052",
+                                        "sha1sums": " cdc830c14ea51d755183a540bc85ebb2761647b2",
+                                        "_action": "disabled",
+                                        "sha1sum": "181c79945f2e3253577a590634eaf1c721490223"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2054",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "disabled": "true",
+                                            "idnum": "25",
+                                            "label": "NotUsed U4GPB1",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2055",
+                                            "val": "on",
+                                            "sha1sum": "e6277a6183e0d48de01e9ef206476477afa67616",
+                                            "class": "command",
+                                            "id": "2055"
+                                        },
+                                        "name": "",
+                                        "id": "2054",
+                                        "sha1sums": " e6277a6183e0d48de01e9ef206476477afa67616",
+                                        "_action": "disabled",
+                                        "sha1sum": "8fa3e6ff732c285e6b8749efe9e5283140f13118"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2056",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "disabled": "true",
+                                            "idnum": "26",
+                                            "label": "NotUsed U4GPB2",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2057",
+                                            "val": "on",
+                                            "sha1sum": "21fda40ba005aa9a48988854c33884b0fa217c9b",
+                                            "class": "command",
+                                            "id": "2057"
+                                        },
+                                        "name": "",
+                                        "id": "2056",
+                                        "sha1sums": " 21fda40ba005aa9a48988854c33884b0fa217c9b",
+                                        "_action": "disabled",
+                                        "sha1sum": "22360ea8006286d5c75aa7c7adee0d7388a4ae8a"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2058",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "disabled": "true",
+                                            "idnum": "27",
+                                            "label": "NotUsed U4GPB3",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2059",
+                                            "val": "on",
+                                            "sha1sum": "3dbbb13e16e4ef784bf48c67b17cd618280ff00e",
+                                            "class": "command",
+                                            "id": "2059"
+                                        },
+                                        "name": "",
+                                        "id": "2058",
+                                        "sha1sums": " 3dbbb13e16e4ef784bf48c67b17cd618280ff00e",
+                                        "_action": "disabled",
+                                        "sha1sum": "4340a292728c5fbc546c66cf523539f4c09929dc"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-0.0.3",
+                                "name": "U4Outputs",
+                                "sha1sum": "22a876cc1dee86749f76059809edac6de036a6bd"
+                            },
+                            {
+                                "label": "U36Inputs",
+                                "desc": "",
+                                "u_id": "2060",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "class": "off",
+                                        "disabled": "false",
+                                        "name": "LEAK_SENSOR_FAULT_LS1",
+                                        "u_id": "2061",
+                                        "value": "off",
+                                        "id": "2061"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "disabled": "false",
+                                        "name": "LEAK_SENSOR_FAULT_LS2",
+                                        "u_id": "2062",
+                                        "value": "off",
+                                        "id": "2062"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "disabled": "false",
+                                        "name": "LEAK_SENSOR_FAULT_LS3",
+                                        "u_id": "2063",
+                                        "value": "off",
+                                        "id": "2063"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "disabled": "false",
+                                        "name": "LEAK_SENSOR_FAULT_LS4",
+                                        "u_id": "2064",
+                                        "value": "off",
+                                        "id": "2064"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "disabled": "false",
+                                        "name": "LEAK_DETECTED_LS1",
+                                        "u_id": "2065",
+                                        "value": "off",
+                                        "id": "2065"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "disabled": "false",
+                                        "name": "LEAK_DETECTED_LS2",
+                                        "u_id": "2066",
+                                        "value": "off",
+                                        "id": "2066"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "disabled": "false",
+                                        "name": "LEAK_DETECTED_LS3",
+                                        "u_id": "2067",
+                                        "value": "off",
+                                        "id": "2067"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "disabled": "false",
+                                        "name": "LEAK_DETECTED_LS4",
+                                        "u_id": "2068",
+                                        "value": "off",
+                                        "id": "2068"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-0.0.4",
+                                "name": "U36Inputs",
+                                "sha1sum": "d09b8aab4f018960f377097781e6abdaee21dfd2"
+                            },
+                            {
+                                "label": "U36Outputs",
+                                "desc": "",
+                                "u_id": "2069",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "class": "off",
+                                        "u_id": "2070",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "disabled": "true",
+                                            "idnum": "36",
+                                            "label": "NotUsed U36GPA4",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2071",
+                                            "val": "on",
+                                            "sha1sum": "833366a3c5a968131b0dda433eff244ae905f696",
+                                            "class": "command",
+                                            "id": "2071"
+                                        },
+                                        "name": "",
+                                        "id": "2070",
+                                        "sha1sums": " 833366a3c5a968131b0dda433eff244ae905f696",
+                                        "_action": "disabled",
+                                        "sha1sum": "8565143e1526d6543c8e45dcd2e684f112c1dbef"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2072",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "disabled": "true",
+                                            "idnum": "37",
+                                            "label": "NotUsed U36GPA5",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2073",
+                                            "val": "on",
+                                            "sha1sum": "3badbb73b6df496566e4ed73c9f0332ab4d37447",
+                                            "class": "command",
+                                            "id": "2073"
+                                        },
+                                        "name": "",
+                                        "id": "2072",
+                                        "sha1sums": " 3badbb73b6df496566e4ed73c9f0332ab4d37447",
+                                        "_action": "disabled",
+                                        "sha1sum": "3b7cb8fda53c163031820390a465406dbd55bf48"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2074",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "disabled": "true",
+                                            "idnum": "38",
+                                            "label": "NotUsed U36GPA6",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2075",
+                                            "val": "on",
+                                            "sha1sum": "0da7ab1f20f9431bcd8251c6591e4d837b1e78d0",
+                                            "class": "command",
+                                            "id": "2075"
+                                        },
+                                        "name": "",
+                                        "id": "2074",
+                                        "sha1sums": " 0da7ab1f20f9431bcd8251c6591e4d837b1e78d0",
+                                        "_action": "disabled",
+                                        "sha1sum": "d6a1e54b50e967a663ca32321851dd11d012084b"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2076",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "disabled": "true",
+                                            "idnum": "39",
+                                            "label": "NotUsed U36GPA7",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2077",
+                                            "val": "on",
+                                            "sha1sum": "11bd2eb297edbe41ae7d1c6bdd65b2fafc7e520b",
+                                            "class": "command",
+                                            "id": "2077"
+                                        },
+                                        "name": "",
+                                        "id": "2076",
+                                        "sha1sums": " 11bd2eb297edbe41ae7d1c6bdd65b2fafc7e520b",
+                                        "_action": "disabled",
+                                        "sha1sum": "21f02d937bf5277fc67247e6adff46eafa6c4741"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2078",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "disabled": "true",
+                                            "idnum": "44",
+                                            "label": "NotUsed U36GPB4",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2079",
+                                            "val": "on",
+                                            "sha1sum": "bd415a2d6daef62bc8bcd5c1c240e3c58005c59a",
+                                            "class": "command",
+                                            "id": "2079"
+                                        },
+                                        "name": "",
+                                        "id": "2078",
+                                        "sha1sums": " bd415a2d6daef62bc8bcd5c1c240e3c58005c59a",
+                                        "_action": "disabled",
+                                        "sha1sum": "347c668485935b225edfb3c6cc24ca67cb135049"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2080",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "disabled": "true",
+                                            "idnum": "45",
+                                            "label": "NotUsed U36GPB5",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2081",
+                                            "val": "on",
+                                            "sha1sum": "749e9029380fb9833db6123492a3b0d2d5f5205c",
+                                            "class": "command",
+                                            "id": "2081"
+                                        },
+                                        "name": "",
+                                        "id": "2080",
+                                        "sha1sums": " 749e9029380fb9833db6123492a3b0d2d5f5205c",
+                                        "_action": "disabled",
+                                        "sha1sum": "6d70b0ac04fad364cf3cc132d5d84cbf0c234423"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2082",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "disabled": "true",
+                                            "idnum": "46",
+                                            "label": "NotUsed U36GPB6",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2083",
+                                            "val": "on",
+                                            "sha1sum": "c2df3578ff62ad7763ec1ebd0f4c01669c60fa57",
+                                            "class": "command",
+                                            "id": "2083"
+                                        },
+                                        "name": "",
+                                        "id": "2082",
+                                        "sha1sums": " c2df3578ff62ad7763ec1ebd0f4c01669c60fa57",
+                                        "_action": "disabled",
+                                        "sha1sum": "5eff2c73b1cb627896b52aae16c0798ae105c4b6"
+                                    },
+                                    {
+                                        "class": "off",
+                                        "u_id": "2084",
+                                        "value": "off",
+                                        "command": {
+                                            "cmd": "TOGGLE_DIGITAL",
+                                            "confirm": "false",
+                                            "disabled": "true",
+                                            "idnum": "47",
+                                            "label": "NotUsed U36GPB7",
+                                            "name": "TOGGLE_DIGITAL",
+                                            "u_id": "2085",
+                                            "val": "on",
+                                            "sha1sum": "26db24227af76b5991843034c28ac9daea1b99a1",
+                                            "class": "command",
+                                            "id": "2085"
+                                        },
+                                        "name": "",
+                                        "id": "2084",
+                                        "sha1sums": " 26db24227af76b5991843034c28ac9daea1b99a1",
+                                        "_action": "disabled",
+                                        "sha1sum": "0921c5d830666344fd145d3a1bb2ee5296e263bf"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-0.0.5",
+                                "name": "U36Outputs",
+                                "sha1sum": "6665eb2d0e44b86ce0827696297b102ae31ec3d7"
+                            }
+                        ]
+                    }
+                ],
+                "CmdSet": [],
+                "Fault_List": [],
+                "menuPos": "top",
+                "colCount": 6,
+                "rowCount": 2
+            },
+            {
+                "u_id": "2086",
+                "DataSets": [
+                    {
+                        "u_id": "2087",
+                        "id": "DataSet-1.0",
+                        "className": "tableRowGroupBlock dataset-wrapper L3",
+                        "sha1sums": " 8dc6963847f82f65d9c6f9aea6e532618b62c4b3 ec1e2e5dcdfe101318a9b7557b2d2f3c06b39db4",
+                        "dsItems": [
+                            {
+                                "label": "Metrics",
+                                "desc": "",
+                                "u_id": "2088",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "name": "DigitalElapseTime",
+                                        "u_id": "2089",
+                                        "units": "ms",
+                                        "value": "0",
+                                        "id": "2089"
+                                    },
+                                    {
+                                        "name": "DigitalTimestamp",
+                                        "u_id": "2090",
+                                        "value": "1573844972666",
+                                        "id": "2090"
+                                    },
+                                    {
+                                        "name": "TotalTime",
+                                        "u_id": "2091",
+                                        "units": "ms",
+                                        "value": "0",
+                                        "id": "2091"
+                                    },
+                                    {
+                                        "name": "AvgTime",
+                                        "u_id": "2092",
+                                        "units": "ms",
+                                        "value": "0",
+                                        "id": "2092"
+                                    },
+                                    {
+                                        "name": "WorstTime",
+                                        "u_id": "2093",
+                                        "units": "ms",
+                                        "value": "5",
+                                        "id": "2093"
+                                    },
+                                    {
+                                        "name": "LastViolationTime",
+                                        "u_id": "2094",
+                                        "units": "ms",
+                                        "value": "0",
+                                        "id": "2094"
+                                    },
+                                    {
+                                        "name": "TimeViolations",
+                                        "u_id": "2095",
+                                        "value": "0",
+                                        "id": "2095"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-1.0.0",
+                                "name": "Metrics",
+                                "sha1sum": "8dc6963847f82f65d9c6f9aea6e532618b62c4b3"
+                            },
+                            {
+                                "label": "NvData",
+                                "desc": "",
+                                "u_id": "2095",
+                                "url": "",
+                                "tooltip": "",
+                                "elements": [
+                                    {
+                                        "u_id": "2096",
+                                        "value": "No Data",
+                                        "command": {
+                                            "cmd": "SET_COMMON_EEPROM_STR",
+                                            "desc": "Set_Serial_Number",
+                                            "dest": "Set manufacturing serial number",
+                                            "disabled": "true",
+                                            "idnum": "0",
+                                            "label": "Set Serial Number",
+                                            "name": "SET_COMMON_EEPROM_STR",
+                                            "u_id": "2098",
+                                            "controls": [
+                                                {
+                                                    "_type": "text",
+                                                    "desc": "Set manufacturing serial number",
+                                                    "idnum": "0",
+                                                    "max": "32",
+                                                    "u_id": "2099",
+                                                    "value": "No Data",
+                                                    "id": "2099",
+                                                    "sha1sum": "451d6e0bfd4e12ad1c28f1ffabf1785a260b6c15"
+                                                }
+                                            ],
+                                            "class": "command",
+                                            "id": "2098"
+                                        },
+                                        "name": "",
+                                        "id": "2096",
+                                        "sha1sums": " 451d6e0bfd4e12ad1c28f1ffabf1785a260b6c15",
+                                        "_action": "disabled",
+                                        "sha1sum": "507744bab3b5385ee57d257ad6d9bc38afae9ff0"
+                                    },
+                                    {
+                                        "u_id": "2099",
+                                        "value": "No Data",
+                                        "command": {
+                                            "cmd": "SET_COMMON_EEPROM_STR",
+                                            "desc": "Set_Mfg_Date",
+                                            "dest": "Set manufacturing date",
+                                            "disabled": "true",
+                                            "idnum": "0",
+                                            "label": "Set Mfg Date",
+                                            "name": "SET_COMMON_EEPROM_STR",
+                                            "u_id": "2101",
+                                            "controls": [
+                                                {
+                                                    "_type": "text",
+                                                    "desc": "Set manufacturing date",
+                                                    "idnum": "0",
+                                                    "max": "32",
+                                                    "u_id": "2102",
+                                                    "value": "No Data",
+                                                    "id": "2102",
+                                                    "sha1sum": "8ae0464fb4c3a2657ab5586b981a958823e435b4"
+                                                }
+                                            ],
+                                            "class": "command",
+                                            "id": "2101"
+                                        },
+                                        "name": "",
+                                        "id": "2099",
+                                        "sha1sums": " 8ae0464fb4c3a2657ab5586b981a958823e435b4",
+                                        "_action": "disabled",
+                                        "sha1sum": "02a96ad8e2677860c0eedc5488120e60a0ec5400"
+                                    }
+                                ],
+                                "tableType": "PairListTable",
+                                "id": "Table-1.0.1",
+                                "name": "NvData",
+                                "sha1sum": "ec1e2e5dcdfe101318a9b7557b2d2f3c06b39db4"
+                            }
+                        ]
+                    }
+                ],
+                "CmdSet": [],
+                "Fault_List": [],
+                "menuPos": "top",
+                "colCount": 2,
+                "rowCount": 2
+            }
+        ],
+        "status": "0"
+    }
+}
