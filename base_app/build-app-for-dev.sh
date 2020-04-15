@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BASE_DIR=ng-simple-ui
+BASE_DIR=simpleui
 
 if (($#<3)); then
     printf "\nERROR - missing arguments - expected 4 but saw $#\n"
@@ -60,7 +60,7 @@ if (($#>3)); then
     username="$4"
 fi
 
-# Merge the derived app with ng-simple-ui
+# Merge the derived app with simpleui
 sh -x src/public/merge-derived-app.sh ./dist.tgz ${APP_DERIVATIVE_DIR} /var/www/${app} -i -d ${username}
 
 # Create a link to the mock files we test with
@@ -79,7 +79,7 @@ fi
 if $( (test -L /var/www/${app}/ui.properties) || (test -f /var/www/${app}/ui.properties)); then rm /var/www/${app}/ui.properties; fi
 ln -s ${NG_SIMPLE_UI_DIR}/src/public/mock-data/ui.${app}.mock.properties   /var/www/${app}/ui.properties
 
-# Link to ng-simple-ui mock-data files
+# Link to simpleui mock-data files
 for f in $(ls -1 ${NG_SIMPLE_UI_DIR}/src/public/mock-data/*.*); do
     rm /var/www/${BASE_DIR}/mock-data/$(basename ${f});
     ln -s ${f} /var/www/${BASE_DIR}/mock-data/$(basename ${f});
@@ -92,7 +92,7 @@ for f in $(ls -1 /var/www/${app}/nodejs/*.*); do
     rm ${f};
 done
 
-# Link to ng-simple-ui php scripts
+# Link to simpleui php scripts
 for f in $(ls -1 ${NG_SIMPLE_UI_DIR}/dist/nodejs/*); do
     ln -s ${f} /var/www/${app}/nodejs/$(basename ${f});
 done
@@ -105,7 +105,7 @@ for f in $(ls -1 /var/www/${app}/php/*.*); do
     rm ${f};
 done
 
-# Link to ng-simple-ui php scripts
+# Link to simpleui php scripts
 for f in $(ls -1 ${NG_SIMPLE_UI_DIR}/src/public/php/*.*); do
     ln -s ${f} /var/www/${app}/php/$(basename ${f});
 done

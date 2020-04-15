@@ -1,0 +1,21 @@
+---
+- hosts: all
+  vars:
+    app_config_props_file: PurificationServer.properties
+    copy_params_app: false
+    simpleui_derivative_folder: ../web/simple_ui.derivative/
+    nodejs_port: 2082
+    web_app_name: purification
+    web_service_apps_list: "{{ web_app_name }}"
+  remote_user: "{{ lookup('env', 'REMOTE_WEB_USER') }}"
+  tasks:
+    - include_vars:
+        file: commonvars.yml
+    - include_vars:
+        file: "{{ simpleui_root }}/deploy/common-vars.yml"
+    - include_tasks:
+        file: "{{ simpleui_root }}/deploy/build-derived-app-bundle.yml"
+    - include_tasks:
+        file: "{{ simpleui_root }}/deploy/install-derived-app-bundle.yml"
+#    - include_tasks:
+#        file: "{{ simpleui_root }}/deploy/install-legacy-module-derivative-app.yml"

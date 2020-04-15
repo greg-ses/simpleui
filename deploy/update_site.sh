@@ -13,13 +13,13 @@ export ANSIBLE_NOCOWS=1
 
 case "$2" in
   "simpleui")
-    echo Updating ng-simple-ui User Interface
-    ansible-playbook ng-simple-ui-web-setup.yml -K --limit $1 --extra-vars "include_mock_data=-i"
+    echo Updating simpleui User Interface
+    ansible-playbook simpleui-web-setup.yml -K --limit $1 --extra-vars "include_mock_data=-i"
 
     ;;
   "all")
-    echo Updating ng-simple-ui User Interface
-    ansible-playbook ng-simple-ui-web-setup.yml -K --limit $1
+    echo Updating simpleui User Interface
+    ansible-playbook simpleui-web-setup.yml -K --limit $1
     ;;
   *)
     echo "You have failed to specify what to do correctly."

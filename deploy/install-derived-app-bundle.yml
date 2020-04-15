@@ -49,8 +49,8 @@
     path: "{{ remote_stage_dir }}"
     state: directory
     mode: 0755
-    owner: service
-    group: service
+    owner: "{{ remote_web_user }}"
+    group: "{{ remote_web_user }}"
   become: true
 
 - name: "Copy bundle to remote"
@@ -104,7 +104,7 @@
   when: copy_params_app is defined and copy_params_app
 
 - name: "Change ownership of {{ web_root }}/{{ web_app_name}} to service"
-  command: chown -R service:service "{{ web_root }}/{{ web_app_name }}"
+  command: chown -R {{remote_web_group}}:{{remote_web_user}} "{{ web_root }}/{{ web_app_name }}"
   become: true
 
 - name: "Change protection {{ web_root }}/{{ web_app_name}} to 755"

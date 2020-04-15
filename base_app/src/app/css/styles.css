@@ -209,14 +209,14 @@ label.process_var {
 label.draggable_process_var, div.draggable_process_var {
     width:100px;
     height:18px;
-    background: url(/ng-simple-ui/images/drag-back.png) center top repeat lightgray;
+    background: url(/simpleui/images/drag-back.png) center top repeat lightgray;
     text-align:center;
     border-style:solid;
     box-sizing: border-box;
 }
 
 img.draggable_process_var {
-    background: url(/ng-simple-ui/images/drag-back.png) center top no-repeat lightgray;
+    background: url(/simpleui/images/drag-back.png) center top no-repeat lightgray;
     text-align:center;
     border-style:solid;
     box-sizing: border-box;

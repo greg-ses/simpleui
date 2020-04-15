@@ -3,7 +3,7 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: '/ng-simple-ui/',
+    basePath: '/simpleui/',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),

@@ -4,7 +4,7 @@
     b. When updating src/public/php/xml-diff-tool.php.
 
 1. From the "npm" Tool Window, double-click "test-nodejs-javascript",
-   or from the command line in the ng-simple-ui folder, execute the command below:
+   or from the command line in the simpleui folder, execute the command below:
 
            bash src/test/normalizeJSON.unit-test.bash
 

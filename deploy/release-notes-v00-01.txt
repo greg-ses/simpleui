@@ -1,0 +1,6 @@
+Find every instance of "jscarsdale" under simpleui-git and replace
+with user or group "service" or appropriate directory.
+
+Must create environment variables SERVICE_WEB_GROUOP and SERVICE_WEB_USER that contains
+the name of the remote group and user - for Vionx, it's "service" and "service".
+

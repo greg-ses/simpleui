@@ -29,21 +29,21 @@
         "index": "0",
         "id": "macro-1",
         "token": "BMS_MYSQL_HOST",
-        "source": "\/var\/www\/ng-simple-ui\/mock-config\/MOCKServer.properties",
+        "source": "\/var\/www\/simpleui\/mock-config\/MOCKServer.properties",
         "property": "DatabaseMgr.MYSQL_HOST"
       },
       {
         "index": "1",
         "id": "macro-2",
         "token": "BMS_MYSQL_DB",
-        "source": "\/var\/www\/ng-simple-ui\/mock-config\/MOCKServer.properties",
+        "source": "\/var\/www\/simpleui\/mock-config\/MOCKServer.properties",
         "property": "DatabaseMgr.MYSQL_DB"
       },
       {
         "index": "2",
         "id": "macro-3",
         "token": "BMS_RESOURCE",
-        "source": "\/var\/www\/ng-simple-ui\/mock-config\/MOCKServer.properties",
+        "source": "\/var\/www\/simpleui\/mock-config\/MOCKServer.properties",
         "property": "DatabaseMgr.RESOURCE_ID"
       }
     ],

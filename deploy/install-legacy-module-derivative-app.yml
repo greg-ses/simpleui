@@ -5,34 +5,34 @@
 - name: "Create local legacy library archive '/tmp/{{ legacy_module_derivative_web_app_bundle }}' if it does not already exist."
   archive:
     path:
-      - "{{ common_web }}/../module_derivative/web/appJs"
-      - "{{ common_web }}/../module_derivative/web/config.js"
-      - "{{ common_web }}/../module_derivative/web/css"
-      - "{{ common_web }}/../module_derivative/web/favicon.ico"
-      - "{{ common_web }}/../module_derivative/web/images"
-      - "{{ common_web }}/../module_derivative/web/io.html"
-      - "{{ common_web }}/../module_derivative/web/js"
-      - "{{ common_web }}/../module_derivative/web/php/"
-      - "{{ common_web }}/../module_derivative/web/ppcJs"
-      - "{{ common_web }}/../module_derivative/web/pumps.html"
+      - "{{ common_web_src }}/../module_derivative/web/appJs"
+      - "{{ common_web_src }}/../module_derivative/web/config.js"
+      - "{{ common_web_src }}/../module_derivative/web/css"
+      - "{{ common_web_src }}/../module_derivative/web/favicon.ico"
+      - "{{ common_web_src }}/../module_derivative/web/images"
+      - "{{ common_web_src }}/../module_derivative/web/io.html"
+      - "{{ common_web_src }}/../module_derivative/web/js"
+      - "{{ common_web_src }}/../module_derivative/web/php/"
+      - "{{ common_web_src }}/../module_derivative/web/ppcJs"
+      - "{{ common_web_src }}/../module_derivative/web/pumps.html"
     dest: "/tmp/{{ legacy_module_derivative_web_app_bundle }}"
     format: "gz"
   delegate_to: localhost
 
-- name: "Extract the files from the legacy library archive '{{ common_web }}/dojo-release-1.9.0.tar.gz' to /var/www/{{ web_app_name }}/dojo-release-1.9.0"
+- name: "Extract the files from the legacy library archive '{{ common_web_src }}/dojo-release-1.9.0.tar.gz' to /var/www/{{ web_app_name }}/dojo-release-1.9.0"
   unarchive:
-    src:  "{{ common_web }}/dojo-release-1.9.0.tar.gz"
+    src:  "{{ common_web_src }}/dojo-release-1.9.0.tar.gz"
     dest: "/var/www/{{ web_app_name }}/"
-    owner: service
-    group: service
+    owner: "{{ remote_web_user }}"
+    group: "{{ remote_web_group }}"
   become: true
 
 - name: "Create a symbolic link from '/var/www/{{ web_app_name }}/dojo-release-1.9.0' to '/var/www/{{ web_app_name }}/dojo-toolkit' if it doesn't exist"
   file:
     src: "/var/www/{{ web_app_name }}/dojo-release-1.9.0"
     dest: /var/www/{{ web_app_name }}/dojo-toolkit
-    owner: service
-    group: service
+    owner: "{{ remote_web_user }}"
+    group: "{{ remote_web_group }}"
     state: link
   become: true
 
@@ -40,8 +40,8 @@
   file:
     src: "/var/www/{{ web_app_name }}/dojo-release-1.9.0"
     dest: /var/www/dojo-toolkit
-    owner: service
-    group: service
+    owner: "{{ remote_web_user }}"
+    group: "{{ remote_web_group }}"
     state: link
   become: true
 
@@ -49,8 +49,8 @@
   file:
     src: "/var/www/{{ web_app_name }}/php"
     dest: /var/www/php
-    owner: service
-    group: service
+    owner: "{{ remote_web_user }}"
+    group: "{{ remote_web_group }}"
     state: link
   become: true
 
@@ -58,16 +58,16 @@
   unarchive:
     src: "/tmp/{{ legacy_module_derivative_web_app_bundle }}"
     dest: "/var/www/{{ web_app_name }}/"
-    owner: service
-    group: service
+    owner: "{{ remote_web_user }}"
+    group: "{{ remote_web_group }}"
   become: true
 
 - name: "Create a symbolic link from '/var/www/{{ web_app_name }}/ppcJs' to '/var/www/ppcJs' if it doesn't exist"
   file:
     src: "/var/www/{{ web_app_name }}/ppcJs"
     dest: /var/www/ppcJs
-    owner: service
-    group: service
+    owner: "{{ remote_web_user }}"
+    group: "{{ remote_web_group }}"
     state: link
   become: true
 
@@ -75,34 +75,34 @@
 #  file:
 #    src: "/var/www/{{ web_app_name }}/php"
 #    dest: /var/www/php
-#    owner: service
-#    group: service
+#    owner: "{{ remote_web_user }}"
+#    group: "{{ remote_web_group }}"
 #    state: link
 #  become: true
 
 
 - name: "Copy legacy module derivative app file 'io.html' to '/var/www/{{ web_app_name }}/'"
   copy:
-    src:  "{{ common_web }}/../module_derivative/web/io.html"
+    src:  "{{ common_web_src }}/../module_derivative/web/io.html"
     dest: "/var/www/{{ web_app_name }}/"
-    group: service
-    owner: service
+    group: "{{ remote_web_group }}"
+    owner: "{{ remote_web_user }}"
   become: true
 #
 #- name: "Copy legacy module derivative app file 'pumps.html' to '/var/www/{{ web_app_name }}/'"
 #  copy:
-#    src: "{{ common_web }}/../module_derivative/web/pumps.html"
+#    src: "{{ common_web_src }}/../module_derivative/web/pumps.html"
 #    dest: "/var/www/{{ web_app_name }}/"
-#    group: service
-#    owner: service
+#    group: "{{ remote_web_group }}"
+#    owner: "{{ remote_web_user }}"
 #  become: true
 #
 
 - name: "Create folder /var/log/ppcData if it doesn't exist"
   file:
     path: "/var/log/ppcData"
-    owner: service
-    group: service
+    owner: "{{ remote_web_user }}"
+    group: "{{ remote_web_group }}"
     state: directory
     mode: '0766'
   become: true
@@ -110,8 +110,8 @@
 - name: "Create file /var/log/bsc-command.log if it doesn't exist"
   file:
     path: "/var/log/bsc-command.log"
-    owner: service
-    group: service
+    owner: "{{ remote_web_user }}"
+    group: "{{ remote_web_group }}"
     state: touch
     mode: '0777'
   become: true
@@ -119,8 +119,8 @@
 - name: "Create file /var/log/sui-data.log if it doesn't exist"
   file:
     path: "/var/log/sui-data.log"
-    owner: service
-    group: service
+    owner: "{{ remote_web_user }}"
+    group: "{{ remote_web_group }}"
     state: touch
     mode: '0777'
   become: true
@@ -129,8 +129,8 @@
   file:
     src:  "/var/www/{{ web_app_name }}/php/sLogger.php"
     dest: "/var/www/{{ web_app_name }}/php/modules/sLogger.php"
-    owner: service
-    group: service
+    owner: "{{ remote_web_user }}"
+    group: "{{ remote_web_group }}"
     state: link
   become: true
 

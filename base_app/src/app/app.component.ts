@@ -31,7 +31,7 @@ import { UTIL } from '../tools/utility';
 
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'app-ng-simple-ui',
+    selector: 'app-simpleui',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
@@ -158,7 +158,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         if (pos > -1) {
             path = window.location.pathname.substr(pos);
         } else if (window.location.pathname === '/' || window.location.pathname === '/context.html') {
-            path = '/ng-simple-ui/';
+            path = '/simpleui/';
         } else {
             path = window.location.pathname;
         }

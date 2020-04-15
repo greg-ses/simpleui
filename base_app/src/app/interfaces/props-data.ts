@@ -63,7 +63,7 @@ export class TitleBarProperties {
 
     constructor () {
         return {
-            _appPath: '/ng-simple-ui/',
+            _appPath: '/simpleui/',
             _autoRefreshLabel: 'Pause',
             _eventMsg: '',
             _appTitle: 'App Title',
@@ -96,7 +96,7 @@ export class AppProperties {
 
     constructor( propsIn: any ) {
         this.tab = [];
-        this.appURI = '/ng-simple-ui/';
+        this.appURI = '/simpleui/';
         this.appVersion = 'App Version';
         this.uiVersionLong = 'UI Version Long';
         this.uiVersionShort = 'UI Version Short';

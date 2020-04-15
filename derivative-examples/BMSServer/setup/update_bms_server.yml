@@ -1,8 +1,0 @@
----
-- hosts: '{{ hosts }}' 
-  remote_user: service
-  tasks:
-  - shell: /opt/bin/stop.sh
-  - copy: src=../bin/BMSServer dest=/opt/bin/BMSServer
-#  - copy: src=../../bms/bin/EvQueDBServer dest=/opt/bin/EvQueDBServer
-  - shell: /opt/bin/start.sh

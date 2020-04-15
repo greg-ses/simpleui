@@ -77,31 +77,31 @@ appLink.4.tooltip = View the web browser of the device ${HOSTNAME}
 tab.1.name = MOCK Dashboard Overlay Prototype
 tab.1.overlayHostName = ${HOSTNAME}
 tab.1.pageType = debug-panel
-tab.1.overlayImageUrl = /ng-simple-ui/overlay-1/images/overlay.png
+tab.1.overlayImageUrl = /simpleui/overlay-1/images/overlay.png
 
 tab.2.name = MOCK Dashboard Overlay Prototype
 tab.2.overlayHostName = ${HOSTNAME}
 tab.2.pageType = overlay
-tab.2.overlayImageUrl = /ng-simple-ui/overlay-1/images/overlay.png
+tab.2.overlayImageUrl = /simpleui/overlay-1/images/overlay.png
 
 tab.3.imageOverlayGroupNames = ValvesOverview, ElectrolyteOverview
 tab.3.cmdBarNames = emergency_commands,commands,service_commands
 tab.3.dataTableNames = ValvesDataTable,ElectrolyteDataTable
 
-tab.4.dataUrl = /ng-simple-ui/php/get_mock_data.php?file=/var/www/ng-simple-ui/mock-data/mock-dashboard-overlay-data.xml&versions=3
-tab.4.commandUrl = /ng-simple-ui/php/mock-dashboard-overlay-cmd.php
+tab.4.dataUrl = /simpleui/php/get_mock_data.php?file=/var/www/simpleui/mock-data/mock-dashboard-overlay-data.xml&versions=3
+tab.4.commandUrl = /simpleui/php/mock-dashboard-overlay-cmd.php
 
 tab.5.name = MOCK Server
-tab.5.dataUrl = /ng-simple-ui/php/get_mock_data.php?file=/var/www/ng-simple-ui/mock-data/mock-data.xml&versions=3
-tab.5.commandUrl = /ng-simple-ui/php/mock-cmd.php
+tab.5.dataUrl = /simpleui/php/get_mock_data.php?file=/var/www/simpleui/mock-data/mock-data.xml&versions=3
+tab.5.commandUrl = /simpleui/php/mock-cmd.php
 
 tab.6.name = MOCK Chillers
-tab.6.dataUrl = /ng-simple-ui/php/mock-chiller-data.php
-tab.6.commandUrl = /ng-simple-ui/php/mock-chiller-cmd.php
+tab.6.dataUrl = /simpleui/php/mock-chiller-data.php
+tab.6.commandUrl = /simpleui/php/mock-chiller-cmd.php
 
 tab.7.name = MOCK-VEC at ${HOSTNAME} (${IP_ADDR})
-tab.7.dataUrl = /ng-simple-ui/mock-data/mock-data.php
-tab.7.commandUrl = /ng-simple-ui/php/mock-cmd.php
+tab.7.dataUrl = /simpleui/mock-data/mock-data.php
+tab.7.commandUrl = /simpleui/php/mock-cmd.php
 
 #####################################
 ###### Props-Defined Tables #######

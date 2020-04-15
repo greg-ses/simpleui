@@ -1,17 +1,28 @@
-/** THIS FILE IS AUTO-GENERATED, DO NOT EDIT **/
-#pragma once
+BUILD_COMMAND: build-client-dev
+BUILD_TIME: Tue, 14 Apr 2020 23:55:05 -0400
+STATUS_AT_BUILD_TIME:
+1586450090 commit b9f9289c091b39634707505254c12f5c86977218
+Author: Jim Scarsdale <jscarsdale@outlook.com>
+Date:   Thu Apr 9 12:34:50 2020 -0400
 
-#include "core/GitInfo.h"
-#define GIT_REVSTR "efffd46d0932f80a65d38824e1121a457a91ceb5"
-#define GIT_REVSTR "efffd46d0932f80a65d38824e1121a457a91ceb5"
-#define GIT_REVDATE "2020-03-05 12:56:32 -0500"
-#define GIT_BRANCH "develop-zeromq-for-nodejs"
-#define GIT_STATUS ""
-#define GIT_DIRTY_STATUS "clean"
-#define GIT_TAG_INFO ""
-#define GIT_REVSTR_SHORT "dev efffd46"
-#define GIT_USER "jscarsdale"
-#define GIT_REV_SUMMARY "build-dev efffd46 develop-zeromq-for-nodejs clean 2020-03-05 12:56:32 -0500"
-#define CREATION_DATE "2020-03-05 12:58 EST"
+    Ignore more built files.
 
-const tGitData GITDATA = {GIT_REVSTR, GIT_REVDATE, GIT_BRANCH, GIT_STATUS, GIT_DIRTY_STATUS, GIT_TAG_INFO, GIT_REVSTR_SHORT, GIT_USER, GIT_REV_SUMMARY};
+1586449871 commit cfb79e5094bb029d95b26369fe3fa9ad23ab408b
+Author: Jim Scarsdale <jscarsdale@outlook.com>
+Date:   Thu Apr 9 12:31:11 2020 -0400
+
+    Add derivative-examples/BMSServer/sample-backend.
+    Rename make-version-txt.sh to .bash and refactor.
+
+1586389205 commit 63eac30c8f9890be315d6e55ea81ea014a1bb5ed
+Author: Jim Scarsdale <jscarsdale@outlook.com>
+Date:   Wed Apr 8 19:40:05 2020 -0400
+
+    Initial Commit
+
+GIT_DIRTY_STATUS: dirty
+GIT_FILES_ADDED: 3
+GIT_FILES_STAGED_MODIFIED: 0
+GIT_FILES_STAGED_NOT_MODIFIED: 33
+GIT_FILES_UNTRACKED: 7
+GIT_TOTAL_DIRTY_FILES: 43

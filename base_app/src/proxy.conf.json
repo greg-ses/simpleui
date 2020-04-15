@@ -1,17 +1,17 @@
 {
   "/images": {
-    "target": "http://localhost:80/ng-simple-ui/images",
+    "target": "http://localhost:80/simpleui/images",
     "secure": false,
     "pathRewrite": {
-      "^/images": "/ng-simple-ui/images"
+      "^/images": "/simpleui/images"
     },
     "changeOrigin": true
   },
   "/php": {
-    "target": "http://localhost:80/ng-simple-ui/php",
+    "target": "http://localhost:80/simpleui/php",
     "secure": false,
     "pathRewrite": {
-      "^/php": "/ng-simple-ui/php"
+      "^/php": "/simpleui/php"
     },
     "changeOrigin": true
   },

@@ -1,5 +1,5 @@
 #!/bin/sh
-PROJ=ng-simple-ui
+PROJ=simpleui
 
 echo "------------------ Starting post-build-step -----------------------"
 
@@ -19,14 +19,14 @@ cp src/app/cmdsets/popup-dialog.css dist/css/
 cp -rv src/public/doc dist
 cp -rv src/public/images dist
 cp -rv src/public/php dist
-cp -rv src/public/deploy/setup-helpers dist
+cp -rv ../deploy/setup-helpers dist
 
 cp src/public/version.txt dist/
 
 cp src/public/example-overlay.tgz dist/
 cp src/public/proxy-index.php dist/
 cp src/public/collect-apache-coredumps.bash dist/
-cp src/public/merge-derived-app.sh dist/
+cp ../deploy/merge-derived-app.sh dist/
 cp src/public/sample_ui.properties.txt dist/
 cp src/public/service-worker.js dist/
 cp src/public/LoggingFeatures.js dist/
@@ -53,7 +53,7 @@ if (($# > 0)) && [[ "$1" == "--include-mocks" ]]; then
 fi
 
 # Fix names of javascript files
-cat dist/ng-simple-ui/index.html | \
+cat dist/simpleui/index.html | \
   awk -v JS_FOLDER="/${PROJ}/js/" -v CSS_FOLDER="/${PROJ}/css/" \
         '{ s=$0; \
          cssPrefix="<link rel=\"stylesheet\" href=\""; \
@@ -75,7 +75,7 @@ ln -s /var/www/${PROJ}/mock-data/ui.bms.mock.properties /var/www/${PROJ}/ui.prop
 
 # Create dist.tgz
 cd dist
-tar czvf ../dist.tgz * --exclude="${PROJ}"
+tar czvf ../dist.tgz --exclude="${PROJ}"  *
 cd ..
 
 echo "------------------ Finished post-build-step at $(date) -----------------------"
