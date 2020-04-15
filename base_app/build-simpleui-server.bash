@@ -12,10 +12,9 @@ cp node_modules/sha1/sha1.js dist/simpleui-server/
 cp node_modules/crypt/crypt.js src/public/simpleui-server/
 cp node_modules/charenc/charenc.js src/public/simpleui-server/
 cp node_modules/sha1/sha1.js src/public/simpleui-server/
-replace  \
-    "require('crypt')" "require('./crypt')" \
-    "require('charenc')" "require('./charenc')" \
-      -- node_modules/sha1/sha1.js
+
+sed -i "1,\$s^require('crypt')^require('./crypt')^" node_modules/sha1/sha1.js
+sed -i "1,\$s^require('charenc')^require('./charenc')^" node_modules/sha1/sha1.js
 
 #node_modules/.bin/ts-node --transpile-only --project src/public/simpleui-server/tsconfig.json --cache-directory dist/simpleui-server src/public/simpleui-server/json-string-normalizer.ts --compile-only
 #if $(test "$?" -eq "0"); then printf "[json-string-normalizer.ts] ts-node transpile succeeded\n"; else "ERROR: ts-node transpile failed\n"; fi
