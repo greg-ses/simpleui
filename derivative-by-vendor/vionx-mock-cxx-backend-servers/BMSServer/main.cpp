@@ -7,9 +7,13 @@
 // #include <boost>
 #include <string>
 #include <boost/program_options.hpp>
+#include <ctime>
+#include <chrono>
 #include <iostream>
 #include <sstream>
 #include "config.h"
+#include "logger.h"
+#include "SimState.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -18,27 +22,28 @@
 #include <unistd.h>
 #endif
 
-std::string parseRequest(zmq::message_t& request) {
-    std::cout << "Received request: " << request.str() << std::endl;
+using namespace std;
 
-    return request.str();
+string parseRequest(zmq::message_t& request, SimState& simState) {
+    cout << logger::getLogTime() << "Received request: " << request.str() << "\n";
+    return simState.getXmlStr();
 }
 
-[[noreturn]] void processZmqMessages(config::data &theConfig) {
-    //  Prepare our context and socket
+[[noreturn]] void processZmqMessages(config::data &theConfig, SimState& simState) {
+    //  Prepare our context and socketq
     zmq::context_t context(1);
     zmq::socket_t socket(context, ZMQ_REP);
-    std::string address = "tcp://*:";
-    const std::string dataPortName = "BMSDataService.data.port";
+    string address = "tcp://*:";
+    const string dataPortName = "BMSDataService.data.port";
 
     if (!theConfig.hasKey((dataPortName))) {
-        std::ostringstream errMsg;
-        errMsg << "ERROR - missing property " << dataPortName << " in " << theConfig["InFile"] << std::endl;
-        throw std::runtime_error (errMsg.str().c_str());
+        ostringstream errMsg;
+        errMsg << "ERROR - missing property " << dataPortName << " in " << theConfig["InFile"] << endl;
+        throw runtime_error (errMsg.str().c_str());
     }
 
-    int dataPort = std::stoi(theConfig[dataPortName]);
-    address += std::to_string(dataPort);
+    int dataPort = stoi(theConfig[dataPortName]);
+    address += to_string(dataPort);
     //socket.bind("tcp://*:5555");
     socket.bind(address.c_str());
 
@@ -47,7 +52,7 @@ std::string parseRequest(zmq::message_t& request) {
 
         //  Wait for next request from client
         socket.recv(request);
-        std::string replyString = parseRequest(request);
+        string replyString = parseRequest(request, simState);
 
         //  Send reply back to client
         zmq::message_t reply(replyString.length());
@@ -60,12 +65,32 @@ std::string parseRequest(zmq::message_t& request) {
     }
 }
 
+int initSim(SimState& simState)
+{
+    try
+    {
+        string xmlInputFileNameTemplate = "/var/www/bms/mock-data/gm-bms-dashboard-sample-a.{{index}}.xml";
+        simState.initXmlTemplate(xmlInputFileNameTemplate, 3);
+    }
+    catch (exception &e)
+    {
+        cerr << "Error: " << e.what() << "\n";
+    }
+    return 0;
+}
+
+
 int main () {
 
-    const std::string configFile = "/opt/config/BMSServer.properties";
+    SimState simState;
+    initSim(simState);
+    //  cout << "XML Read:\n" << simState.getXmlStr() << "\n";
+
+    const string configFile = "/opt/config/BMSServer.properties";
+
     config::data theConfig;
     config::readConfigFile(configFile.c_str(), theConfig);
-    processZmqMessages(theConfig);
+    processZmqMessages(theConfig, simState);
 
     return 0;
 }
