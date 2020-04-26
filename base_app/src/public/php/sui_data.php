@@ -232,12 +232,11 @@ function suiRequest($slogger, $fileName, $DataPortPrefix, $cmd = "EXPORT_DATA")
 
     $props = loadPropsFile($fileName);
 
-    if (array_key_exists("xml", $_REQUEST) || array_key_exists("XML", $_REQUEST)) {
-        echo '<?xml version="1.0" encoding="UTF-8"?>';
-    }
 
     $DataServiceEnabled = propOrDefault($props, $DataPortPrefix . ".enabled", "1");
     if (strcmp("0",  $DataServiceEnabled) == 0) {
+
+        echo('<?xml version="1.0" encoding="UTF-8"?>');
         echo("<Data_Summary>");
         echo(errorToXml("1005", "suiRequest"));
         echo("</Data_Summary>");
