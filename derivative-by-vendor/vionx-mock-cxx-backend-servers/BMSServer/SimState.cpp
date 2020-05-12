@@ -3,6 +3,7 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
+#include "time.h"
 #include "SimState.h"
 
 using namespace std;
@@ -66,7 +67,8 @@ bool SimState::init(const std::string &xmlSimFile) {
                     v.second.get<std::string>("type"),
                     v.second.get<std::string>("num-files"),
                     v.second.get<std::string>("file-template-update-algorithm"),
-                    v.second.get<std::string>("file-template")
+                    v.second.get<std::string>("file-template"),
+                    1
             };
             backendMessageSims.emplace_back(sim);
         }
@@ -199,16 +201,39 @@ std::string SimState::getSimulatedResponse(const std::string& port, const std::s
     return response;
 }
 
+std::string SimState::getSimIndex(BackendMessageSim& sim) {
+    char buf[10];
+    int maxIndex = stoi(sim.numFiles) - 1;
+    int numFiles = stoi(sim.numFiles);
 
-std::string SimState::getXmlStr(const BackendMessageSim& sim) const {
+    if (sim.fileTemplateUpdateAlgorithm == "sequential") {
+        sim.nextFileIndex++;
+    }
+
+    if (sim.fileTemplateUpdateAlgorithm == "random") {
+        time_t t = time(NULL);
+        sim.nextFileIndex = t % numFiles;
+    }
+
+    if (sim.nextFileIndex < 1 || sim.nextFileIndex > maxIndex) {
+        sim.nextFileIndex = 1;
+    }
+
+    sprintf(buf, "%d", sim.nextFileIndex);
+    string index = buf;
+
+    return index;
+}
+
+
+std::string SimState::getXmlStr(BackendMessageSim& sim) {
     std::stringstream ss;
     try
     {
         std::string fileName = sim.fileTemplate;
-        // if (nthFile > 1) {
-            fileName = std::regex_replace(sim.fileTemplate, std::regex("\\{\\{index}}"), "0");
-        // }
-        pt::ptree* xmlTree = XmlReader::loadXmlTree(sim.fileTemplate);
+        fileName = std::regex_replace(sim.fileTemplate, std::regex("\\{\\{index}}"), getSimIndex(sim));
+
+        pt::ptree* xmlTree = XmlReader::loadXmlTree(fileName);
 
         std::ostringstream timeStamp;
         auto timeSinceEpoch = std::chrono::system_clock::now().time_since_epoch();

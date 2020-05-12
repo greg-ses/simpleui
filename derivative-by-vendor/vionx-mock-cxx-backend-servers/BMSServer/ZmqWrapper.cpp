@@ -28,7 +28,6 @@ string ZmqWrapper::parseRequest(zmq::message_t& request) {
     //  Prepare our context and socketq
     zmq::context_t context(1);
     zmq::socket_t socket(context, ZMQ_REP);
-    string address = "tcp://*:";
 
     std::string dataPort = simState->getDataPort();
     if (dataPort == "-1") {
@@ -37,7 +36,9 @@ string ZmqWrapper::parseRequest(zmq::message_t& request) {
         throw runtime_error (errMsg.str().c_str());
     }
 
-    socket.bind(dataPort.c_str());
+    string address = "tcp://*:";
+    address += dataPort;
+    socket.bind(address.c_str());
 
     while (true) {
         zmq::message_t request;

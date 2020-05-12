@@ -20,6 +20,7 @@ public:
         std::string numFiles;
         std::string fileTemplateUpdateAlgorithm;
         std::string fileTemplate;
+        int nextFileIndex;
     };
 
 public:
@@ -34,7 +35,8 @@ public:
     std::string getBackendConfigFileName() const;
     std::string getDataPort() const;
     std::string getSimulatedResponse(const std::string& , const std::string& sType);
-    std::string getXmlStr(const BackendMessageSim& backendMessageSim) const;
+    std::string getXmlStr(BackendMessageSim& backendMessageSim);
+    std::string getSimIndex(BackendMessageSim& sim);
 
 protected:
     void setFileNameTemplate(const std::string& port, const std::string& fileTemplate, const std::string& numFiles = "1");
