@@ -1,79 +1,231 @@
 //
 // Created by jscarsdale on 4/16/20.
 //
+#include <stdio.h>
+#include <stdlib.h>
 #include "SimState.h"
-#include <regex>
 
-SimState::SimState() {
-}
+using namespace std;
+namespace fs = boost::filesystem;
 
-void SimState::initXmlTemplate(std::string fileTemplate, int numFiles = 1) {
+/*
+ *
+int initSim(SimState& simState, const char *xmlInputFileName)
+{
     try
     {
-        _numFiles = numFiles;
-        _fileTemplate = fileTemplate;
-        std::string fileName = fileTemplate;
-        if (numFiles > 1) {
-            fileName = std::regex_replace(fileName, std::regex("\\{\\{index}}"), "0");
+        string sXmlInputFileName = xmlInputFileName;
+        simState.initXmlTemplate(sXmlInputFileName, 3);
+    }
+    catch (exception &e)
+    {
+        cerr << "Error: " << e.what() << "\n";
+    }
+    return 0;
+}
+
+ */
+SimState::SimState() {
+    xmlReader = new XmlReader();
+}
+
+SimState::~SimState() {
+    delete xmlReader;
+}
+
+bool SimState::init(const std::string &xmlSimFile) {
+    xmlFileName = xmlSimFile;
+    stateXmlTree = XmlReader::loadXmlTree(xmlFileName);
+    auto initOK = false;
+    try {
+        if (stateXmlTree != nullptr) {
+            backendConfigFileName = stateXmlTree->get<string>("state.backend-config-file");
+            if (backendConfigFileName.empty()) {
+                ostringstream errMsg;
+                errMsg << "ERROR - missing property \"backend-config-file\" in " << getXmlFileName() << "\n";
+                throw runtime_error(errMsg.str().c_str());
+            } else {
+                pt::ini_parser::read_ini(backendConfigFileName, backendConfig);
+            }
         }
-        loadXml(fileName);
+    } catch(boost::exception &e) {
+        std::cerr << "Error: " << boost::diagnostic_information(e) << "\n";
+    } catch(std::exception &e) {
+        std::cerr << "Error: " << e.what() << "\n";
+    }
+
+    try {
+        // auto sims = stateXmlTree->get_child("state.backend-message-sims");
+        for (auto v: stateXmlTree->get_child("state.backend-message-sims")) {
+            if (v.first != "backend-message-sim") {
+                continue;
+            }
+            SimState::BackendMessageSim sim = {
+                    // v.second.get<std::string>("backend-message-sim.port"),
+                    v.second.get<std::string>("port"),
+                    v.second.get<std::string>("type"),
+                    v.second.get<std::string>("num-files"),
+                    v.second.get<std::string>("file-template-update-algorithm"),
+                    v.second.get<std::string>("file-template")
+            };
+            backendMessageSims.emplace_back(sim);
+        }
+    } catch(std::exception &e) {
+        std::cerr << "Error: " << e.what() << "\n";
+    }
+
+    for (auto sim : backendMessageSims) {
+        setFileNameTemplate(sim.port, sim.fileTemplate, sim.numFiles);
+    }
+
+    return stateXmlTree != nullptr;
+}
+
+std::string SimState::getXmlFileName() const {
+    return xmlFileName;
+}
+
+std::string SimState::getBackendConfigValue(const std::string& key) const {
+    // auto retVal = backendConfig.get<string>(key);
+    std::string retVal;
+    for (auto v: backendConfig.get_child("")) {
+        if (v.first == key) {
+            retVal = v.second.data();
+            break;
+        }
+    }
+    return retVal;
+}
+
+pt::ptree* SimState::getXmlTree() {
+    return XmlReader::getXmlTree(xmlFileName);
+}
+
+std::string SimState::getDataPort() const {
+    std::string dataPort = "-1";
+    const std::string dataPortName = stateXmlTree->get<string>("state.zmq-listener-port-property-name");
+    if (dataPortName.empty()) {
+        ostringstream errMsg;
+        errMsg << "ERROR - missing property \"zmq-listener-port-property-name\" in " << getXmlFileName() << "\n";
+        throw runtime_error(errMsg.str().c_str());
+    } else {
+        dataPort = getBackendConfigValue(dataPortName);
+        if (dataPort.empty()) {
+            ostringstream errMsg;
+            errMsg << "ERROR - missing property \"" << dataPortName << "\" in " << getBackendConfigFileName() << "\n";
+            throw runtime_error(errMsg.str().c_str());
+        }
+    }
+
+    return dataPort;
+}
+
+/*
+std::string SimState::getNthTemplateFileName(int nthTemplate, int nthFile) const {
+    std::string fileName = "";
+    std::pair<std::string, int> pair = fileNameTemplates.get<find(nthTemplate);
+    if (itr != fileNameTemplates.end) {
+        auto pair = itr.second;
+        fileName = pair.first.replace("{{index}}", stoa(nthFile));
+    }
+
+    return fileName;
+}
+*/
+
+void SimState::setFileNameTemplate(const std::string& port, const std::string& fileTemplate, const std::string& numFiles /* = "1" */) {
+    try {
+        char buf[10];
+        std::string fileName;
+        int nFiles = atoi(numFiles.c_str());
+        for (int i = 0; i < nFiles; i++) {
+            sprintf(buf, "%d", i);
+            std::string s = buf;
+            fileName = std::regex_replace(fileTemplate, std::regex("\\{\\{index}}"), s);
+            if (! fs::is_regular_file(fileName)) {
+                cerr << "In SimState::setFileNameTemplate(port: " << port << ", fileTemplate: " << fileTemplate << ", numFiles: " << numFiles << ", fileTemplate:" << fileTemplate << "," << numFiles << ")\n"
+                    << "  file #" << i << ", " << fileName << " was NOT FOUND.\n";
+                return;
+            }
+            XmlReader::loadXmlTree(fileName);
+        }
+    } catch(std::exception &e) {
+        std::cerr << "Error: " << e.what() << "\n";
+    }
+
+}
+
+/*
+std::string SimState::getNextXmlFileName(int index) {
+    auto sNumFiles = backendConfig.get<string>("template");
+    if (key ==
+    <num-files>1</num-files>
+                  <template-update-algorithm>sequential</template-update-algorithm>
+                                                                 <template>/var/www/bms/mock-data/gm-bms-dashboard-sample-a.{{index}}.xml</template>
+}
+*/
+
+SimState::BackendMessageSim * SimState::findBackendMessageSim(const std::string& port) {
+    SimState::BackendMessageSim *sim = nullptr;
+    for (auto s : backendMessageSims) {
+        if (s.port == port) {
+            sim = &s;
+        }
+    }
+    return sim;
+}
+
+std::string SimState::getSimulatedResponse(const std::string& port, const std::string& sType) {
+    BackendMessageSim sim;
+    std::string response;
+
+    for (const auto& s : backendMessageSims) {
+        if (s.port == port && s.type == sType) {
+            sim = s;
+            break;
+        }
+    }
+
+    if (sim.port == "0") {
+        cerr << "Undefined BackendMessageSim - no port in SimState.xml matched port " << port << "\n";
+    } else {
+        if (sim.type == "data" || sim.type == "cmd") {
+            response = getXmlStr(sim);
+        } else {
+            cerr << "Invalid value \"" << sim.type << "\" for BackendMessageSim with port " << sim.port << "\n";
+        }
+    }
+
+    return response;
+}
+
+
+std::string SimState::getXmlStr(const BackendMessageSim& sim) const {
+    std::stringstream ss;
+    try
+    {
+        std::string fileName = sim.fileTemplate;
+        // if (nthFile > 1) {
+            fileName = std::regex_replace(sim.fileTemplate, std::regex("\\{\\{index}}"), "0");
+        // }
+        pt::ptree* xmlTree = XmlReader::loadXmlTree(sim.fileTemplate);
+
+        std::ostringstream timeStamp;
+        auto timeSinceEpoch = std::chrono::system_clock::now().time_since_epoch();
+        timeStamp  << std::chrono::duration_cast<std::chrono::milliseconds>(timeSinceEpoch).count();
+
+        xmlTree->put("Data_Summary.timeStamp", timeStamp.str());
+
+        pt::write_xml(ss, *xmlTree);
     }
     catch (std::exception &e)
     {
         std::cerr << "Error: " << e.what() << "\n";
     }
-}
 
-void SimState::loadXml(const std::string &filename)
-{
-    // Parse the XML into the property tree.
-    pt::read_xml(filename, _xmlTree);
-
-    /*
-    // Use the throwing version of get to find the debug filename.
-    // If the path cannot be resolved, an exception is thrown.
-    m_file = tree.get<std::string>("debug.filename");
-
-    // Use the default-value version of get to find the debug level.
-    // Note that the default value is used to deduce the target type.
-    m_level = tree.get("debug.level", 0);
-
-    // Use get_child to find the node containing the modules, and iterate over
-    // its children. If the path cannot be resolved, get_child throws.
-    // A C++11 for-range loop would also work.
-    BOOST_FOREACH(pt::ptree::value_type &v, tree.get_child("debug.modules")) {
-                    // The data function is used to access the data stored in a node.
-                    m_modules.insert(v.second.data());
-                }
-    */
-}
-
-std::string SimState::getXmlStr() const {
-    std::stringstream ss;
-    pt::write_xml(ss, _xmlTree);
     return ss.str();
 }
 
-/*
-void SimState::save()
-{
-    // Create an empty property tree object.
-    pt::ptree tree;
-
-    // Put the simple values into the tree. The integer is automatically
-    // converted to a string. Note that the "debug" node is automatically
-    // created if it doesn't exist.
-    tree.put("debug.filename", m_file);
-    tree.put("debug.level", m_level);
-
-    // Add all the modules. Unlike put, which overwrites existing nodes, add
-    // adds a new node at the lowest level, so the "modules" node will have
-    // multiple "module" children.
-    BOOST_FOREACH(const std::string &name, m_modules)
-                    tree.add("debug.modules.module", name);
-
-    // Write property tree to XML file
-    pt::write_xml(currentStateFilename, tree);
+std::string SimState::getBackendConfigFileName() const {
+    return backendConfigFileName;
 }
-*/
-

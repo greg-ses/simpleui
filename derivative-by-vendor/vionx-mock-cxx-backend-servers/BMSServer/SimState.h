@@ -1,32 +1,52 @@
 //
 // Created by jscarsdale on 4/16/20.
 //
-#pragma once
+#ifndef BMSSERVER_SIMSTATE_H
+#define BMSSERVER_SIMSTATE_H
 
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/xml_parser.hpp>
-#include <boost/foreach.hpp>
-#include <string>
-#include <set>
-#include <exception>
-#include <iostream>
+#include <vector>
+#include "XmlReader.h"
+#include "boost/filesystem/operations.hpp"
+#include <boost/property_tree/ini_parser.hpp>
 
-namespace pt = boost::property_tree;
+typedef std::pair< std::string, std::string > StringStringPair;
 
 class SimState
 {
 public:
+    struct BackendMessageSim {
+        std::string port;
+        std::string type;
+        std::string numFiles;
+        std::string fileTemplateUpdateAlgorithm;
+        std::string fileTemplate;
+    };
+
+public:
     SimState();
-    void initXmlTemplate(std::string fileTemplate, int numFiles);
-    std::string getXmlStr() const;
+    ~SimState();
+    bool init(const std::string& xmlSimFile);
+    pt::ptree* getXmlTree();
+    // std::string getNthTemplateFileName(int nthTemplate, int nthFile) const;
+    BackendMessageSim * findBackendMessageSim(const std::string& port);
+    std::string getXmlFileName() const;
+    std::string getBackendConfigValue(const std::string& key) const;
+    std::string getBackendConfigFileName() const;
+    std::string getDataPort() const;
+    std::string getSimulatedResponse(const std::string& , const std::string& sType);
+    std::string getXmlStr(const BackendMessageSim& backendMessageSim) const;
 
 protected:
-    void loadXml(const std::string &filename);
+    void setFileNameTemplate(const std::string& port, const std::string& fileTemplate, const std::string& numFiles = "1");
 
 private:
-    int _numUpdates;
-    std::string _fileTemplate; // filename containing "{{index}}"
-    int _fileIndex;
-    int _numFiles;
-    pt::ptree _xmlTree;
+    XmlReader* xmlReader;
+    pt::ptree* stateXmlTree;
+    std::string xmlFileName;
+    std::string backendConfigFileName;
+    pt::ptree backendConfig;
+    std::map<int, std::pair<std::string, int>> fileNameTemplates;
+    std::vector<SimState::BackendMessageSim> backendMessageSims;
 };
+
+#endif //BMSSERVER_SIMSTATE_H
