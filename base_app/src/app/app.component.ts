@@ -902,4 +902,12 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         return dVersion;
     }
 
+    hasProps() {
+        return (this._props instanceof Object);
+    }
+
+    hasProp(key: string) {
+        return ((this._props instanceof Object) && (typeof this._props[key] !== 'undefined'));
+    }
+
 }

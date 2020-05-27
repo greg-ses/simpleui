@@ -1,6 +1,43 @@
 BUILD_COMMAND: build-client-dev
-BUILD_TIME: Tue, 14 Apr 2020 23:55:05 -0400
+BUILD_TIME: Sun, 03 May 2020 23:10:54 -0400
 STATUS_AT_BUILD_TIME:
+1587918121 commit d5adf7ed992025a4c1267665d7ac99f74b93f46c
+Author: Jim Scarsdale <jscarsdale@outlook.com>
+Date:   Sun Apr 26 12:22:01 2020 -0400
+
+    Prototype BMSServer c++ code is now returning data for requests.
+
+1587918073 commit ea46826a75ea2c15214f043ffd01c9d2dee15bd4
+Author: Jim Scarsdale <jscarsdale@outlook.com>
+Date:   Sun Apr 26 12:21:13 2020 -0400
+
+    Don't set '<?xml ...' header for xml output -- should be contained in incoming XML stream.
+
+1587066856 commit 62f038c583641030149dd1082a19f192b047c716
+Author: Jim Scarsdale <jscarsdale@outlook.com>
+Date:   Thu Apr 16 15:54:16 2020 -0400
+
+    Working prototype of BMSServer c++ code.
+
+1586986573 commit 249f6b43afa6a0f3ff70de247380de86739b12b1
+Author: Jim Scarsdale <jscarsdale@outlook.com>
+Date:   Wed Apr 15 17:36:13 2020 -0400
+
+    Turn simpleui-server into a self-contained project.
+
+1586959056 commit 401f605ee7f0fa8abb47e6d2a7dd9b995583ab08
+Author: Jim Scarsdale <jscarsdale@outlook.com>
+Date:   Wed Apr 15 09:57:36 2020 -0400
+
+    Use sed instead of replace, which is only available when mariadb has been installed.
+
+1586951788 commit f61e9e8d8e7f69cb292971be2cdb90a615093b8b
+Author: Jim Scarsdale <jscarsdale@outlook.com>
+Date:   Wed Apr 15 07:56:28 2020 -0400
+
+    Moved simpleui deploy folder parallel to base_app.
+    Refactored out most usage of "service" user, replacing with REMOTE_WEB_GROUP and REMOTE_WEB_USER.
+
 1586450090 commit b9f9289c091b39634707505254c12f5c86977218
 Author: Jim Scarsdale <jscarsdale@outlook.com>
 Date:   Thu Apr 9 12:34:50 2020 -0400
@@ -21,8 +58,8 @@ Date:   Wed Apr 8 19:40:05 2020 -0400
     Initial Commit
 
 GIT_DIRTY_STATUS: dirty
-GIT_FILES_ADDED: 3
+GIT_FILES_ADDED: 0
 GIT_FILES_STAGED_MODIFIED: 0
-GIT_FILES_STAGED_NOT_MODIFIED: 33
-GIT_FILES_UNTRACKED: 7
-GIT_TOTAL_DIRTY_FILES: 43
+GIT_FILES_STAGED_NOT_MODIFIED: 17
+GIT_FILES_UNTRACKED: 11
+GIT_TOTAL_DIRTY_FILES: 28

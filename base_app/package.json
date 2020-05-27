@@ -1,6 +1,10 @@
 {
   "name": "simpleui",
   "version": "0.1.0",
+  "description": "base_app is the client component of the simpleui web ui library.",
+  "keywords": ["simpleui", "client", "typescript"],
+  "author": "Jim Scarsdale",
+  "license": "ISC",
   "scripts": {
     "ng": "ng",
     "build-client-only": "bash make-version-txt.bash build-client-only && ng build --output-hashing all --extract-css --source-map && sh post-build-step.sh --include-mocks",

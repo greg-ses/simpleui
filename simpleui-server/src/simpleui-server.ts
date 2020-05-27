@@ -221,7 +221,7 @@ export class SimpleUIServer {
             const displayName =
                 (cmdVars.appName.indexOf(',') > -1)
                     ? `(${cmdVars.appName.replace(',', ' | ')})`
-                    : `${cmdVars.appName}}`;
+                    : `${cmdVars.appName}`;
 
             Logger.log(LogLevel.INFO, `\n==> /var/www/${displayName}`);
 
