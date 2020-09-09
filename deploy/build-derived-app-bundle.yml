@@ -1,6 +1,6 @@
   # DO NOT CALL DIRECTLY - use include-task to consume this module
 
-  - name: Make sure simpleui distributions is UP-TO-DATE.
+  - name: Make sure simpleui-git distributions is UP-TO-DATE.
     local_action: command bash "{{ simpleui_root }}/deploy/is_dist_stale.bash"
 
   - name: "Remove Web Staging Folder {{ local_stage_dir }} web"

@@ -1,6 +1,30 @@
-BUILD_COMMAND: build-client-dev
-BUILD_TIME: Sun, 03 May 2020 23:10:54 -0400
+BUILD_COMMAND: build-client-prod
+BUILD_TIME: Wed, 09 Sep 2020 10:30:07 -0400
 STATUS_AT_BUILD_TIME:
+1590571556 commit aa428de20d6e2709ba86a2e36f283cece0816c21
+Author: Jim Scarsdale <jscarsdale@outlook.com>
+Date:   Wed May 27 05:25:56 2020 -0400
+
+    Updates
+
+1589296589 commit d301389663d4b660d247a555c9a99b42d865e403
+Author: Jim Scarsdale <jscarsdale@outlook.com>
+Date:   Tue May 12 11:16:29 2020 -0400
+
+    Vendor-neutral backend sim.
+
+1589293667 commit fe41bb36b929973a5e7c30475dea5a0a61d463ab
+Author: Jim Scarsdale <jscarsdale@outlook.com>
+Date:   Tue May 12 10:27:47 2020 -0400
+
+    Currently working for port 16901
+
+1589290459 commit 3ed7e9790da8dd59b7877ce1fd89a046a6cd458d
+Author: Jim Scarsdale <jscarsdale@outlook.com>
+Date:   Tue May 12 09:34:19 2020 -0400
+
+    Prototype BMSServer c++ code is refactored and now compiling.  Still debugging.
+
 1587918121 commit d5adf7ed992025a4c1267665d7ac99f74b93f46c
 Author: Jim Scarsdale <jscarsdale@outlook.com>
 Date:   Sun Apr 26 12:22:01 2020 -0400
@@ -60,6 +84,6 @@ Date:   Wed Apr 8 19:40:05 2020 -0400
 GIT_DIRTY_STATUS: dirty
 GIT_FILES_ADDED: 0
 GIT_FILES_STAGED_MODIFIED: 0
-GIT_FILES_STAGED_NOT_MODIFIED: 17
-GIT_FILES_UNTRACKED: 11
-GIT_TOTAL_DIRTY_FILES: 28
+GIT_FILES_STAGED_NOT_MODIFIED: 4
+GIT_FILES_UNTRACKED: 15
+GIT_TOTAL_DIRTY_FILES: 19

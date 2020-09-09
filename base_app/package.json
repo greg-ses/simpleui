@@ -2,7 +2,11 @@
   "name": "simpleui",
   "version": "0.1.0",
   "description": "base_app is the client component of the simpleui web ui library.",
-  "keywords": ["simpleui", "client", "typescript"],
+  "keywords": [
+    "simpleui",
+    "client",
+    "typescript"
+  ],
   "author": "Jim Scarsdale",
   "license": "ISC",
   "scripts": {

@@ -7,28 +7,28 @@
             <type>cmd</type>
             <num-files>1</num-files>
             <file-template-update-algorithm>sequential</file-template-update-algorithm>
-            <file-template>/var/www/backend/mock-data/gm-backend-dashboard-sample-a.{{index}}.xml</file-template>
+            <file-template>/var/www/bms/mock-data/gm-bms-dashboard-sample-a.{{index}}.xml</file-template>
         </backend-message-sim>
         <backend-message-sim>
             <port>20901</port>
             <type>data</type>
             <num-files>1</num-files>
             <file-template-update-algorithm>sequential</file-template-update-algorithm>
-            <file-template>/var/www/backend/mock-data/gm-backend-dashboard-sample-a.{{index}}.xml</file-template>
+            <file-template>/var/www/bms/mock-data/gm-bms-dashboard-sample-a.{{index}}.xml</file-template>
         </backend-message-sim>
         <backend-message-sim>
             <port>20902</port>
             <type>cmd</type>
             <num-files>1</num-files>
             <file-template-update-algorithm>sequential</file-template-update-algorithm>
-            <file-template>/var/www/backend/mock-data/backend.{{index}}.xml</file-template>
+            <file-template>/var/www/bms/mock-data/bms.{{index}}.xml</file-template>
         </backend-message-sim>
         <backend-message-sim>
             <port>20902</port>
             <type>data</type>
             <num-files>1</num-files>
             <file-template-update-algorithm>sequential</file-template-update-algorithm>
-            <file-template>/var/www/backend/mock-data/backend.{{index}}.xml</file-template>
+            <file-template>/var/www/bms/mock-data/bms.{{index}}.xml</file-template>
         </backend-message-sim>
     </backend-message-sims>
 </state>
