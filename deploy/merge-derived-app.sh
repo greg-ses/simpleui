@@ -108,10 +108,11 @@ else
       awk -v newdir="$basedir" -v linksAtEndOfHead="$linksAtEndOfHead" -v web_port="$web_port"\
           '{ s=$0; \
              gsub("simple_ui", newdir, s); \
+             gsub("simpleui", newdir, s); \
              gsub("WEB_PORT", web_port, s); \
              gsub("NgSimpleUi", newdir, s); \
              gsub("ng-simple-ui", newdir, s); \
-             gsub("app-" newdir ">", "app-ng-simple-ui>", s); \
+             gsub("app-" newdir ">", "app-simpleui>", s); \
              gsub("</head>", linksAtEndOfHead, s); \
              print s;}' > index.html
   cd ${saveDir}
