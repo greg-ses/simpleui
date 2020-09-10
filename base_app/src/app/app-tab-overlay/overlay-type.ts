@@ -9,6 +9,9 @@ export enum OverlayType {
     ImplementedImages,
     UnImplementedImages,
 
+    ImplementedAnimations,
+    UnImplementedAnimations,
+
     ImplementedDataTables,
     UnImplementedDataTables
 }

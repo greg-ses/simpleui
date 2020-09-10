@@ -1,11 +1,13 @@
 // import CommandJsonNormalizer from 'command-json-normalizer';
 // import 'node';
 import * as fs from 'fs';
-import { CommandJsonNormalizer } from './command-json-normalizer';
+import {CommandJsonNormalizer} from './command-json-normalizer';
 // import { sha1 } from '@angular/compiler/src/i18n/digest';
 import * as crypt from './crypt';
 import * as charenc from './charenc';
 import * as sha1 from './sha1';
+import {hasOwnProperty} from 'tslint/lib/utils';
+import {element} from 'protractor';
 
 export class JsonStringNormalizer {
 
@@ -40,7 +42,7 @@ export class JsonStringNormalizer {
                     clonedObject[allKeys[i]] = JsonStringNormalizer.deepCopy(clonedObject[allKeys[i]]);
                 } else if (clonedObject[allKeys[i]] instanceof Date) {
                     clonedObject[allKeys[i]] = new Date(clonedObject[allKeys[i]].valueOf());
-                } else if (clonedObject[allKeys[i]] instanceof Object){
+                } else if (clonedObject[allKeys[i]] instanceof Object) {
                     clonedObject[allKeys[i]] = JsonStringNormalizer.deepCopy(clonedObject[allKeys[i]]);
                 }
             }
@@ -48,35 +50,36 @@ export class JsonStringNormalizer {
         }
     }
 
-    static normalizeJSON($json, $propsJson)
-    {
+    static normalizeJSON($json, $propsJson) {
         if (typeof $json === 'object') {
 
-            if (typeof $json['Data_Summary'] !== 'object') {
-                const new_json = { 'Data_Summary': $json };
-                $json = new_json;
-            }
-
-            if (typeof $json.Data_Summary.Section === 'object') {
-
-                // Convert single Section object into array if necessary
-                if (!($json.Data_Summary.Section instanceof Array)) {
-                    $json.Data_Summary.Section = [$json.Data_Summary.Section];
+            if (typeof $json['Data_Summary'] === 'object') {
+                if (typeof $json['Data_Summary'] !== 'object') {
+                    const new_json = {'Data_Summary': $json};
+                    $json = new_json;
                 }
 
-                // Assure that every Section has a normalized version of its required children:
-                //     CmdSet, DataSets, Fault_List, geometry
-                for (let sectionIndex = 0; sectionIndex < $json.Data_Summary.Section.length; sectionIndex++) {
-                    let childList = '';
-                    childList += JsonStringNormalizer.normalizeCmdSet($json, sectionIndex);
-                    childList += JsonStringNormalizer.normalizeDataSets($json, sectionIndex, $propsJson);
-                    childList += JsonStringNormalizer.normalizeSectionChild($json, sectionIndex, 'Fault_List');
-                    JsonStringNormalizer.setSectionGeometryAndUpdateTime($json.Data_Summary.Section[sectionIndex]);
-                    $json.Data_Summary.Section[sectionIndex]['sha1sum'] = sha1(childList);
-                }
+                if (typeof $json['Data_Summary'] === 'object' && typeof $json.Data_Summary.Section === 'object') {
 
-                if (typeof $json.Data_Summary.timeStamp === 'undefined') {
-                    $json.Data_Summary.timeStamp = {u_id: '0000', value: new Date().getTime()};
+                    // Convert single Section object into array if necessary
+                    if (!($json.Data_Summary.Section instanceof Array)) {
+                        $json.Data_Summary.Section = [$json.Data_Summary.Section];
+                    }
+
+                    // Assure that every Section has a normalized version of its required children:
+                    //     CmdSet, DataSets, Fault_List, geometry
+                    for (let sectionIndex = 0; sectionIndex < $json.Data_Summary.Section.length; sectionIndex++) {
+                        let childList = '';
+                        childList += JsonStringNormalizer.normalizeCmdSet($json, sectionIndex);
+                        childList += JsonStringNormalizer.normalizeDataSets($json, sectionIndex, $propsJson);
+                        childList += JsonStringNormalizer.normalizeSectionChild($json, sectionIndex, 'Fault_List');
+                        JsonStringNormalizer.setSectionGeometryAndUpdateTime($json.Data_Summary.Section[sectionIndex]);
+                        $json.Data_Summary.Section[sectionIndex]['sha1sum'] = sha1(childList);
+                    }
+
+                    if (typeof $json.Data_Summary.timeStamp === 'undefined') {
+                        $json.Data_Summary.timeStamp = {u_id: '0000', value: new Date().getTime()};
+                    }
                 }
             }
         }
@@ -84,18 +87,17 @@ export class JsonStringNormalizer {
         // $json = $json.toString().replace(/(\"value\"[ \t]*:[ \t]*\")([^ \t]*)(\\n| |\t)+\"/g, '$1\"');
     }
 
-    static  NON_OBJECT_ATTRS = ['colCount', 'desc', 'id', 'label', 'length', 'name', 'rowCount', 'tooltip', 'u_id', 'url', 'value'];
+    static NON_OBJECT_ATTRS = ['colCount', 'desc', 'id', 'label', 'length', 'name', 'rowCount', 'tooltip', 'u_id', 'url', 'value'];
 
     // getSubObjectAccessorArray -- get an accessor list for either an array or an object that can be used
     // to iterate across the list like this:
     //     for(const key of getSubObjectAccessorArray(obj) {
     //         console.log('key:', key, ' value:', obj[key]);
     //     }
-    static getSubObjectAccessorArray(o)
-    {
+    static getSubObjectAccessorArray(o) {
         const normalKeys = [];
         for (const key of Object.keys(o)) {
-            if (o.hasOwnProperty(key) && (JsonStringNormalizer.NON_OBJECT_ATTRS.indexOf(key) === -1) ) {
+            if (o.hasOwnProperty(key) && (JsonStringNormalizer.NON_OBJECT_ATTRS.indexOf(key) === -1)) {
                 normalKeys.push(key);
             }
         }
@@ -105,14 +107,14 @@ export class JsonStringNormalizer {
     static normalizeTableCommandItems($jsonTableObject) {
 
         if ($jsonTableObject.elements instanceof Array) {
-            $jsonTableObject.elements.forEach( (element, index) => {
+            $jsonTableObject.elements.forEach((element, index) => {
                 element.id = element.u_id;
 
                 if (element.command instanceof Object) {
                     const commandJsonNormalizer = new CommandJsonNormalizer(element);
                     $jsonTableObject.elements[index] = commandJsonNormalizer.getNormalCommandJSON();
                 }
-            } );
+            });
         }
 
         $jsonTableObject['sha1sum'] = sha1(JSON.stringify($jsonTableObject));
@@ -126,7 +128,7 @@ export class JsonStringNormalizer {
         if (section instanceof Object) {
             if (section.hasOwnProperty(DATA_SETS)) {
                 if (section[DATA_SETS] instanceof Object) {
-                    if (! (section[DATA_SETS] instanceof Array)) {
+                    if (!(section[DATA_SETS] instanceof Array)) {
                         const tempDataSets = JsonStringNormalizer.deepCopy(section[DATA_SETS]);
                         section[DATA_SETS] = [];
                         section[DATA_SETS].push(tempDataSets);
@@ -152,7 +154,7 @@ export class JsonStringNormalizer {
 
                         let tableIdx = 0;
                         for (const container of dsItemArray) {
-                            container['id'] = 'Table-'  + sectIdx + '.' + dataSetIdx + '.' + tableIdx;
+                            container['id'] = 'Table-' + sectIdx + '.' + dataSetIdx + '.' + tableIdx;
                             if (typeof container['name'] === 'undefined') {
                                 container['name'] = container['label'] || 'Table-' + tableIdx;
                             }
@@ -220,18 +222,18 @@ export class JsonStringNormalizer {
     }
 
     static getTableInfo(tableName: string, propsJsonIn: any): any {
-        const pair = {'tableType': 'PairListTable', 'props': {} };
+        const pair = {'tableType': 'PairListTable', 'props': {}};
         const propsJson = (propsJsonIn instanceof Array) ? propsJsonIn : [propsJsonIn];
 
-        if (   (propsJson.length > 0)
+        if ((propsJson.length > 0)
             && (propsJson[0] instanceof Object)
-            && (typeof propsJson[0].table !== 'undefined') ) {
+            && (typeof propsJson[0].table !== 'undefined')) {
 
             // Determine if dsItem is in the "propDefinedTable" list
             for (const table of propsJson[0].table) {
-                if (   typeof table === 'object'
+                if (typeof table === 'object'
                     && typeof table['element'] === 'string'
-                    && (table['element'] === tableName) ) {
+                    && (table['element'] === tableName)) {
 
                     pair['tableType'] = 'PropDefinedTable';
                     pair['props'] = table;
@@ -314,15 +316,15 @@ export class JsonStringNormalizer {
                 const parts = column.split(':');
                 switch (parts.length) {
                     case 3:
-                        columns.push ([parts[0].trim(), parts[1].trim(), parts[2].trim()]);
+                        columns.push([parts[0].trim(), parts[1].trim(), parts[2].trim()]);
                         break;
 
                     case 2:
-                        columns.push ([parts[0].trim(), parts[1].trim()]);
+                        columns.push([parts[0].trim(), parts[1].trim()]);
                         break;
 
                     case 1:
-                        columns.push ([parts[0].trim(), parts[0].trim()]);
+                        columns.push([parts[0].trim(), parts[0].trim()]);
                         break;
 
                     default:
@@ -372,9 +374,8 @@ export class JsonStringNormalizer {
         return tableObject;
     }
 
-    static normalizeSectionChild($json, sectIdx, childName)
-    {
-        let dataSection = $json.Data_Summary.Section[ sectIdx ];
+    static normalizeSectionChild($json, sectIdx, childName) {
+        let dataSection = $json.Data_Summary.Section[sectIdx];
 
         if (dataSection instanceof Object) {
             if (dataSection.hasOwnProperty(childName)) {
@@ -407,13 +408,12 @@ export class JsonStringNormalizer {
     }
     */
 
-    static normalizeCmdSet($json, sectIdx)
-    {
+    static normalizeCmdSet($json, sectIdx) {
         let childDescList = '';
         const CMD_SET = 'CmdSet';
-        let dataSection = $json.Data_Summary.Section[ sectIdx ];
+        let dataSection = $json.Data_Summary.Section[sectIdx];
 
-        if (! (dataSection instanceof Object) ) {
+        if (!(dataSection instanceof Object)) {
             return childDescList;
         }
 
@@ -482,7 +482,7 @@ export class JsonStringNormalizer {
 
     static setSectionGeometryAndUpdateTime(section) {
 
-        if ( ! (section instanceof Object)) {
+        if (!(section instanceof Object)) {
             return;
         }
 
@@ -500,7 +500,7 @@ export class JsonStringNormalizer {
             cmdSetCount = section.CmdSet.length;
         }
 
-        if ( section.DataSets instanceof Array) {
+        if (section.DataSets instanceof Array) {
 
             // Top-aligned cmdset
             for (let i = 0; i < section.DataSets.length; i++) {

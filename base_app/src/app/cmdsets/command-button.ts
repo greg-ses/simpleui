@@ -7,16 +7,16 @@ import {
     ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef, Inject,
     Input, OnChanges, OnDestroy, SimpleChanges
 } from '@angular/core';
-import { AppComponent } from '../app.component';
-import { CommandService } from '../services/command.service';
-import { CommandButtonChangeService } from '../services/command-button-change.service';
-import { Subscription } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http';
-import { ClientLogger } from '../../tools/logger';
-import { UTIL } from '../../tools/utility';
-import { MatDialog, MatDialogConfig } from '@angular/material';
-import { MaterialPopupComponent } from './material-popup-component';
-import { TabUI } from '../interfaces/props-data';
+import {AppComponent} from '../app.component';
+import {CommandService} from '../services/command.service';
+import {CommandButtonChangeService} from '../services/command-button-change.service';
+import {Subscription} from 'rxjs';
+import {HttpClientModule} from '@angular/common/http';
+import {ClientLogger} from '../../tools/logger';
+import {UTIL} from '../../tools/utility';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MaterialPopupComponent} from './material-popup-component';
+import {TabUI} from '../interfaces/props-data';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,7 +47,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
         } else {
             this._element = UTIL.deepCopy(newCmdObject);
         }
-        if (   (newCmdObject  instanceof Object)
+        if ((newCmdObject instanceof Object)
             && (newCmdObject.command instanceof Object)
             && (newCmdObject.command.disabled === 'true')) {
             this.domElementRef.nativeElement.setAttribute('disabled', true);
@@ -55,6 +55,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
             this.domElementRef.nativeElement.removeAttribute('disabled');
         }
     }
+
     get element() {
         return this._element;
     }
@@ -93,16 +94,18 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
 
     getClassName(): string {
         let className = '';
-        if (   this._element instanceof Object
+        if (this._element instanceof Object
             && this._element instanceof Object
-            && (typeof this._element.command.class === 'string') ) {
+            && (typeof this._element.command.class === 'string')) {
             className += this._element.command.class;
         }
 
         if (this.domElementRef.nativeElement.className !== '') {
             const inheritedClass = this.domElementRef.nativeElement.className.replace(/[ ]*ng-star-inserted/, '');
             if (inheritedClass.length > 0) {
-                if (className.length > 0) { className += ' '; }
+                if (className.length > 0) {
+                    className += ' ';
+                }
                 className += inheritedClass;
             }
         }
@@ -148,10 +151,10 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
 
         try {
             for (let path of paths) {
-                if (   path && typeof path === 'object'
+                if (path && typeof path === 'object'
                     && path[attr] && typeof path[attr] === 'string') {
-                        value = path[attr];
-                        break;
+                    value = path[attr];
+                    break;
                 }
             }
 
@@ -190,14 +193,18 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
             this._action = this.simpleCommand;
         }
 
-        if ( (this._action !== this.simpleCommand) && (this._action !== this.disabled) ) {
+        if ((this._action !== this.simpleCommand) && (this._action !== this.disabled)) {
             if (typeof this._element.command.controls !== 'undefined') {
                 for (const c of this._element.command.controls) {
                     switch (c.type) {
-                        case 'float': break;
-                        case 'int':   break;
-                        case 'bool':  break;
-                        case 'text':  break;
+                        case 'float':
+                            break;
+                        case 'int':
+                            break;
+                        case 'bool':
+                            break;
+                        case 'text':
+                            break;
                         default:
                             break;
                     }
@@ -223,13 +230,12 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
         private _moduleCommandService: CommandService,
         private _changeDetectorRef: ChangeDetectorRef,
         @Inject(forwardRef(() => AppComponent)) public app: AppComponent,
-        ) {
-            this.commandButtonChangeSubscription = commandButtonChangeService.changeAnnounced$.subscribe(
+    ) {
+        this.commandButtonChangeSubscription = commandButtonChangeService.changeAnnounced$.subscribe(
             dataChange => {
-                if (   (dataChange.tabId === this._uiTab.id)
+                if ((dataChange.tabId === this._uiTab.id)
                     && (this._element.u_id === dataChange.updatedElement.u_id)
-                    && (JSON.stringify(this._element) !== JSON.stringify(dataChange.updatedElement) ) )
-                {
+                    && (JSON.stringify(this._element) !== JSON.stringify(dataChange.updatedElement))) {
                     this._element = dataChange.updatedElement;
                     this._changeDetectorRef.detectChanges();
                 }
@@ -247,10 +253,10 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
         if (typeof extraAttribute['u_id'] === 'string') {
 
             for (let i = 0; i < formParams['cmd']['values'].length; i++) {
-                if (   (typeof formParams['cmd']['values'][i]['u_id'] === 'string')
-                    && (formParams['cmd']['values'][i]['u_id'] === extraAttribute['u_id']) ) {
+                if ((typeof formParams['cmd']['values'][i]['u_id'] === 'string')
+                    && (formParams['cmd']['values'][i]['u_id'] === extraAttribute['u_id'])) {
 
-                        found = true;
+                    found = true;
                 }
             }
         }
@@ -264,8 +270,8 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
 
     getExtraAttributes(formParams: any) {
         let ignoredAttrs: any = ['name', 'confirm', 'u_id', 'controls'];
-        let attrKeys = Object.keys( this._element.command );
-        for ( let a of attrKeys ) {
+        let attrKeys = Object.keys(this._element.command);
+        for (let a of attrKeys) {
 
             // Skip any extra attributes that are ignored
             if (ignoredAttrs.indexOf(a) > -1) {
@@ -315,20 +321,25 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
             }
 
             // If we made it here, we need to add the extra attribute
-                formParams[a] = <string> this._element.command[a];
-            }
+            formParams[a] = <string> this._element.command[a];
         }
+    }
 
     buildJsonToPost(valueObjectsFromPopup: any): any {
-        let json = {
+        let cmd_name = this._element.command.name;
+        if (typeof this._element.command.cmd === 'string'
+            && this._element.command.cmd !== '') {
+            cmd_name = this._element.command.cmd;
+        }
+        const json = {
             'cmd':
-            {
-                'name': this._element.command.name,
-                'values': []
-            }
+                {
+                    'name': cmd_name,
+                    'values': []
+                }
         };
 
-        for ( let key of Object.keys( valueObjectsFromPopup )) {
+        for (const key of Object.keys(valueObjectsFromPopup)) {
             if (valueObjectsFromPopup.hasOwnProperty(key)) {
                 switch (typeof valueObjectsFromPopup[key]) {
                     case 'string': {
@@ -388,7 +399,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
     onJSONError(self: CommandButtonComponent, response: any) {
         self.restoreClass();
         let msg = 'Error on ajaxPost()';
-        if ( (typeof response === 'object') && (typeof response.status === 'string') ) {
+        if ((typeof response === 'object') && (typeof response.status === 'string')) {
             msg += `{response.status}`;
         }
         alert(msg);
@@ -421,7 +432,9 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
         dialogConfig.autoFocus = true;
 
         dialogConfig.data = {
-            'clientOnlyCallback': () => {CommandButtonComponent.resumeUpdates(this._uiTab)},
+            'clientOnlyCallback': () => {
+                CommandButtonComponent.resumeUpdates(this._uiTab);
+            },
             'element':
                 {
                     'name': 'Updates are Paused Warning',
@@ -505,7 +518,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
         try {
             switch (propName) {
                 case '_props':
-                    propChanged = ( ! (this.app._props.instance.name === newValue.instance.name) );
+                    propChanged = (!(this.app._props.instance.name === newValue.instance.name));
                     break;
 
                 case '_element':
@@ -516,22 +529,22 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
                     break;
 
                 case '_uiTab':
-                    propChanged = ( ! ( (this._uiTab.commandUrl === newValue.commandUrl)
-                    && (this._uiTab.dataUrl === newValue.dataUrl)
-                    && (this._uiTab.name === newValue.name)
-                    && (this._uiTab.id === newValue.id) ) );
+                    propChanged = (!((this._uiTab.commandUrl === newValue.commandUrl)
+                        && (this._uiTab.dataUrl === newValue.dataUrl)
+                        && (this._uiTab.name === newValue.name)
+                        && (this._uiTab.id === newValue.id)));
                     break;
 
                 case '_disabled':
-                    propChanged = ( ! (this._disabled === newValue) );
+                    propChanged = (!(this._disabled === newValue));
                     break;
 
                 case '_container':
-                    propChanged = ( ! (this._container === newValue) );
+                    propChanged = (!(this._container === newValue));
                     break;
 
                 case '_sha1sum':
-                    propChanged = ( ! (this._sha1sum === newValue) );
+                    propChanged = (!(this._sha1sum === newValue));
                     break;
 
                 default:

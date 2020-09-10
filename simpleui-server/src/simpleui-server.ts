@@ -172,8 +172,8 @@ export class SimpleUIServer {
             // MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGINT listeners added.
             // This error happens because ZMQ requests are stalling / taking too long.
             // But it's possible to experiments with upping the limit from the default of 10 as shown below.
-            // const maxListeners = 200;
-            // process.setMaxListeners(maxListeners);
+            const maxListeners = 200;
+            process.setMaxListeners(maxListeners);
 
             // --------------------------------------------------------------------------------------------
             // IMPORTANT NOTE ABOUT HANDLERS:

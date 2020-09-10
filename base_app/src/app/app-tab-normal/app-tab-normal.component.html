@@ -5,7 +5,9 @@
                 <tr *ngFor="let sect of _uiTab?._DataSummary?.Section; let sectionIndex = index;" [className]="getSectionClassName(sectionIndex)">
                     <td class="L2">
                         <app-section
-                                [_section]="sect" [_sectionIndex]="sectionIndex" [_uiTab]="_uiTab"
+                                [_section]="sect"
+                                [_sectionIndex]="sectionIndex"
+                                [_uiTab]="_uiTab"
                                 [detectSectionChanges]="checkSectionUpdate(sect, sectionIndex)"
                         ></app-section>
                     </td>

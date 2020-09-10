@@ -6,7 +6,7 @@ button, input[type=button], html input[type=button], input[type=reset], input[ty
     display: inline-block;
     cursor: pointer;
     width: auto;
-    min-width: 125px;
+    min-width: 80px;
 }
 
 .mat-form-field {

@@ -289,8 +289,8 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     }
 
     onDataUpdate(response: any) {
-        if (typeof response['Data_Summary'] === 'object') {
-            this._uiTab._DataSummary = response['Data_Summary'];
+        if (typeof response['Overlay_Summary'] === 'object') {
+            this._uiTab._DataSummary = response['Overlay_Summary'];
         } else {
             this._uiTab._DataSummary = response;
             }

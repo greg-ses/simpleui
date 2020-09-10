@@ -1,6 +1,18 @@
 BUILD_COMMAND: build-client-prod
-BUILD_TIME: Wed, 09 Sep 2020 10:30:07 -0400
+BUILD_TIME: Thu, 10 Sep 2020 10:31:58 -0400
 STATUS_AT_BUILD_TIME:
+1599745647 commit 46a3e3e98a72128d8b4283e00c75787643fb5f79
+Author: gmorehead <gmorehead@vionxenergy.com>
+Date:   Thu Sep 10 09:47:27 2020 -0400
+
+    Adding new names to the search/replace process in the merge script.
+
+1599678486 commit 5e9a9cf4bfa8a83846b05e0ab9b0149f49228a6b
+Author: gmorehead <gmorehead@vionxenergy.com>
+Date:   Wed Sep 9 15:08:06 2020 -0400
+
+    First local build under PHPStorm
+
 1590571556 commit aa428de20d6e2709ba86a2e36f283cece0816c21
 Author: Jim Scarsdale <jscarsdale@outlook.com>
 Date:   Wed May 27 05:25:56 2020 -0400
@@ -82,8 +94,8 @@ Date:   Wed Apr 8 19:40:05 2020 -0400
     Initial Commit
 
 GIT_DIRTY_STATUS: dirty
-GIT_FILES_ADDED: 0
+GIT_FILES_ADDED: 2
 GIT_FILES_STAGED_MODIFIED: 0
-GIT_FILES_STAGED_NOT_MODIFIED: 4
-GIT_FILES_UNTRACKED: 15
-GIT_TOTAL_DIRTY_FILES: 19
+GIT_FILES_STAGED_NOT_MODIFIED: 22
+GIT_FILES_UNTRACKED: 17
+GIT_TOTAL_DIRTY_FILES: 41

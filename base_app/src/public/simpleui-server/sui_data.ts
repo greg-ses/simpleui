@@ -1,5 +1,6 @@
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
 import {JsonStringNormalizer} from './json-string-normalizer';
+import {JsonOverlayNormalizer} from './json-overlay-normalizer';
 import {Logger, LogLevel} from './server-logger';
 import * as fastXmlParser from 'fast-xml-parser';
 import * as he from 'he';
@@ -727,6 +728,8 @@ export class SuiData {
 
         if (docRootName === 'Data_Summary') {
             JsonStringNormalizer.normalizeJSON(json, props);
+        } else if (docRootName === 'Overlay_Summary') {
+            JsonOverlayNormalizer.normalizeJSON(json, props);
         } else {
             json = `{ '${docRootName}': ${json} }`;
         }

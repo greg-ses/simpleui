@@ -1,15 +1,15 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Optional, Output } from '@angular/core';
-import { DataSummary } from '../interfaces/data-summary';
-import { ClientLogger } from '../../tools/logger';
-import { OverlayType } from './overlay-type';
-import { SiteIndex } from '../interfaces/site-index';
+import {ChangeDetectorRef, Component, EventEmitter, Input, Optional, Output} from '@angular/core';
+import {DataSummary} from '../interfaces/data-summary';
+import {ClientLogger} from '../../tools/logger';
+import {OverlayType} from './overlay-type';
+import {SiteIndex} from '../interfaces/site-index';
 // import { CssUpdateService } from '../services/css-update-service';
-import { AppComponent } from '../app.component';
-import { UTIL } from '../../tools/utility';
+import {AppComponent} from '../app.component';
+import {UTIL} from '../../tools/utility';
 
 @Component({
     selector: 'overlay-page',
-    styleUrls: [ './app-tab-overlay.component.css'],
+    styleUrls: ['./app-tab-overlay.component.css'],
     templateUrl: './overlay-page.html'
 })
 
@@ -30,10 +30,14 @@ export class OverlayPageComponent {
 
     _autoRefreshLabel = 'Pause Auto Refresh';
 
+    _commandList = [];
+    _imageList = [];
+    _animationList = [];
+
     TODO__hide_graphs_and_data = false;
 
     static writeOverlayDebugInfo(overlayGroupName: string, idList: any, overlayType: OverlayType): void {
-        const implKey = OverlayType[OverlayType[overlayType]] ||  'Unimplemented';
+        const implKey = OverlayType[OverlayType[overlayType]] || 'Unimplemented';
 
         if (typeof window['overlays'] === 'undefined') {
             window['overlays'] = {};
@@ -94,7 +98,7 @@ export class OverlayPageComponent {
     showQuickLinks(): boolean {
         let retVal = false;
 
-        if (   typeof this._DataSummary === 'object'
+        if (typeof this._DataSummary === 'object'
             && typeof this._DataSummary.Access === 'object'
             && typeof this._DataSummary.Access.value === 'string') {
             if (this._DataSummary.Access.value > 2 || !this.TODO__hide_graphs_and_data) {
@@ -110,26 +114,38 @@ export class OverlayPageComponent {
 
     filterBy(overlayType: OverlayType, overlayNode: any, fullOverlayName: string, tag: string): boolean {
 
-        const isImageOverlay = OverlayPageComponent.isImage(overlayNode);
-
-        if ( isImageOverlay
-            && ( (overlayType === OverlayType.ImplementedDyns)
-              || (overlayType === OverlayType.UnImplementedDyns) ) ) { return false; }
-
-        if ( !isImageOverlay
-            && ( (overlayType === OverlayType.ImplementedImages)
-              || (overlayType === OverlayType.UnImplementedImages) ) ) { return false; }
-
         if (this.isImplemented(fullOverlayName)) {
-            if ( (overlayType === OverlayType.ImplementedDyns) && (tag === 'dyn')) { return true; }
-            if ( (overlayType === OverlayType.ImplementedImages) && (tag === 'img')) { return true; }
-            if ( (overlayType === OverlayType.ImplementedCommands) && (tag === 'command')) { return true; }
-            if ( (overlayType === OverlayType.ImplementedDataTables) && (tag === 'table')) { return true; }
+            if ((overlayType === OverlayType.ImplementedDyns) && (tag === 'dyn')) {
+                return true;
+            }
+            if ((overlayType === OverlayType.ImplementedImages) && (tag === 'img')) {
+                return true;
+            }
+            if ((overlayType === OverlayType.ImplementedAnimations) && (tag === 'animation')) {
+                return true;
+            }
+            if ((overlayType === OverlayType.ImplementedCommands) && (tag === 'command')) {
+                return true;
+            }
+            if ((overlayType === OverlayType.ImplementedDataTables) && (tag === 'prop-def-table')) {
+                return true;
+            }
         } else {
-            if ( (overlayType === OverlayType.UnImplementedDyns) && (tag === 'dyn')) { return true; }
-            if ( (overlayType === OverlayType.UnImplementedImages) && (tag === 'img')) { return true; }
-            if ( (overlayType === OverlayType.UnImplementedCommands) && (tag === 'command')) { return true; }
-            if ( (overlayType === OverlayType.UnImplementedDataTables) && (tag === 'table')) { return true; }
+            if ((overlayType === OverlayType.UnImplementedDyns) && (tag === 'dyn')) {
+                return true;
+            }
+            if ((overlayType === OverlayType.UnImplementedImages) && (tag === 'img')) {
+                return true;
+            }
+            if ((overlayType === OverlayType.UnImplementedAnimations) && (tag === 'animation')) {
+                return true;
+            }
+            if ((overlayType === OverlayType.UnImplementedCommands) && (tag === 'command')) {
+                return true;
+            }
+            if ((overlayType === OverlayType.UnImplementedDataTables) && (tag === 'prop-def-table')) {
+                return true;
+            }
         }
 
         return false;
@@ -140,7 +156,7 @@ export class OverlayPageComponent {
         const node = this._DataSummary[overlayGroupName];
         const elemList = [];
         if (node && typeof node !== 'undefined') {
-            for (const key of Object.keys(node) ) {
+            for (const key of Object.keys(node)) {
                 if (key === tag) {
                     if (Array.isArray(node[key])) {
                         for (let i = 0; i < node[key].length; i++) {
@@ -148,8 +164,8 @@ export class OverlayPageComponent {
                                 // to uncode fullOverlayName, use .replace(/≪[^≫]*≫/, '')
                                 const fullOverlayName = UTIL.addContextPrefix(overlayGroupName, node[key][i]['name']);
                                 const e = this.getElemInfo(tag, overlayGroupName, node[key][i]['name']);
-                                if (   this.filterBy(overlayType, node[key][i], e.id, tag)
-                                    || this.filterBy(overlayType, node[key][i], fullOverlayName, tag) ) {
+                                if (this.filterBy(overlayType, node[key][i], e.id, tag)
+                                    || this.filterBy(overlayType, node[key][i], fullOverlayName, tag)) {
                                     elemList.push(e);
                                 }
                             }
@@ -157,13 +173,18 @@ export class OverlayPageComponent {
                     } else {
                         const fullOverlayName = UTIL.addContextPrefix(overlayGroupName, node[key]['name']);
                         const e = this.getElemInfo(tag, overlayGroupName, node[key]['name']);
-                        if (   this.filterBy(overlayType, node[key], e.id, tag)
-                            || this.filterBy(overlayType, node[key], fullOverlayName, tag) ) {
+                        if (this.filterBy(overlayType, node[key], e.id, tag)
+                            || this.filterBy(overlayType, node[key], fullOverlayName, tag)) {
                             elemList.push(e);
                         }
                     }
-                } else if (['dyn', 'command', 'img', 'label', 'table', 'u_id', 'value'].indexOf(key) === -1) {
+                } else if (['dyn', 'command', 'img', 'animation', 'label', 'table', 'u_id', 'value'].indexOf(key) === -1) {
 
+                    // todo: find out what this else acuatlly does!!!  Might be "dead" code
+                    // todo: update 5/22/20, not deleting yet,
+                    //                       but all actually defined values should be handled (and appear to be handled) in the if above.
+                    //
+                    //
                     // Each tagName is unique - interpret as 'dyn' or 'valToImg'
 
                     if ((typeof node[key]['type'] === 'string') && (node[key]['type'] === 'valToImg')) {
@@ -176,14 +197,10 @@ export class OverlayPageComponent {
                         }
                     }
 
-                    /*
-                    if (typeof node[key]['command'] === 'object') { tag = 'command'; }
-                    */
-
                     const fullOverlayName = UTIL.addContextPrefix(overlayGroupName, key);
                     let e = this.getElemInfo(tag, overlayGroupName, key);
-                    if (   this.filterBy(overlayType, node[key], e.id, tag)
-                        || this.filterBy(overlayType, node[key], fullOverlayName, tag) ) {
+                    if (this.filterBy(overlayType, node[key], e.id, tag)
+                        || this.filterBy(overlayType, node[key], fullOverlayName, tag)) {
                         elemList.push(e);
                     }
                 }
@@ -200,16 +217,26 @@ export class OverlayPageComponent {
         return elemList;
     }
 
+    getTableColumnHeaders(tableIdStr: string) {
+        let colHeaders = [];
+        colHeaders[0] = 'Time';
+        colHeaders[1] = 'Type';
+        colHeaders[2] = 'Description';
+        return colHeaders;
+    }
+
     elemListToIdList(elemList: any): any {
         let idList = [];
-        for (let e of elemList) { idList.push(e.id); }
+        for (let e of elemList) {
+            idList.push(e.id);
+        }
 
         return idList;
     }
 
     getLabelId(arg: any) {
         if (arg instanceof Object) {
-            if (   (arg.command instanceof Object)
+            if ((arg.command instanceof Object)
                 && (typeof arg.command.id === 'string')) {
 
                 return arg.command.id + '_label';
@@ -239,12 +266,41 @@ export class OverlayPageComponent {
         return elemList;
     }
 
+    elements_are_equal(deep: number, el1: any, el2: any): boolean {
+        for (const key of Object.keys(el1)) {
+            if (typeof el1[key] === 'object' && typeof el2[key] === 'object') {
+                if ((deep > 4)
+                    || (!this.elements_are_equal(deep + 1, el1[key], el2[key]))) {
+                    return false;
+                }
+            } else if (el1[key] !== el2[key]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // ----------------------
     get_implemented_commands_in_group(overlayGroupName: string): any {
         const elemList = this.getGroupMembers(OverlayType.ImplementedCommands, overlayGroupName, 'command');
-        /* ClientLogger.log('LogOverlayList_commands', 'ImplementedCommands (' + Object.keys(elemList).length + ') for group "'
-            + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']'); */
-        return elemList;
+
+        // ClientLogger.log('LogOverlayList_commands', 'ImplementedCommands (' + Object.keys(elemList).length + ') for group "'
+        //     + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
+
+        if (!this.isArray(this._commandList[overlayGroupName])) {
+            this._commandList[overlayGroupName] = [];
+        }
+
+        if (elemList.length !== this._commandList[overlayGroupName].length) {
+            this._commandList[overlayGroupName] = UTIL.deepCopy(elemList);
+        } else {
+            for (let idx = 0; idx < elemList.length; ++idx) {
+                if (!this.elements_are_equal(0, this._commandList[overlayGroupName][idx], elemList[idx])) {
+                    this._commandList[overlayGroupName][idx] = UTIL.deepCopy(elemList[idx]);
+                }
+            }
+        }
+        return this._commandList[overlayGroupName];
     }
 
     get_un_implemented_commands_in_group(overlayGroupName: string): any {
@@ -259,7 +315,22 @@ export class OverlayPageComponent {
         const elemList = this.getGroupMembers(OverlayType.ImplementedImages, overlayGroupName, 'img');
         // ClientLogger.log('LogOverlayList', 'ImplementedDataTableIDs (' + Object.keys(elemList).length + ') for group "'
         //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
-        return elemList;
+
+        if (!this.isArray(this._imageList[overlayGroupName])) {
+            this._imageList[overlayGroupName] = [];
+        }
+
+        if (elemList.length !== this._imageList[overlayGroupName].length) {
+            this._imageList[overlayGroupName] = UTIL.deepCopy(elemList);
+        } else {
+            for (let idx = 0; idx < elemList.length; ++idx) {
+                if (!this.elements_are_equal(0, this._imageList[overlayGroupName][idx], elemList[idx])) {
+                    this._imageList[overlayGroupName][idx] = UTIL.deepCopy(elemList[idx]);
+                }
+            }
+        }
+        return this._imageList[overlayGroupName];
+
     }
 
     get_un_implemented_images_in_group(overlayGroupName: string): any {
@@ -269,16 +340,60 @@ export class OverlayPageComponent {
         return elemList;
     }
 
+    get_implemented_animations_in_group(overlayGroupName: string): any {
+        const elemList = this.getGroupMembers(OverlayType.ImplementedAnimations, overlayGroupName, 'animation');
+        // ClientLogger.log('LogOverlayList', 'ImplementedDataTableIDs (' + Object.keys(elemList).length + ') for group "'
+        //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
+
+        if (!this.isArray(this._animationList[overlayGroupName])) {
+            this._animationList[overlayGroupName] = [];
+        }
+
+        if (elemList.length !== this._animationList[overlayGroupName].length) {
+            this._animationList[overlayGroupName] = UTIL.deepCopy(elemList);
+        } else {
+            for (let idx = 0; idx < elemList.length; ++idx) {
+                if (!this.elements_are_equal(0, this._animationList[overlayGroupName][idx], elemList[idx])) {
+                    this._animationList[overlayGroupName][idx] = UTIL.deepCopy(elemList[idx]);
+                }
+            }
+        }
+        return this._animationList[overlayGroupName];
+
+    }
+
+    get_un_implemented_animations_in_group(overlayGroupName: string): any {
+        const elemList = this.getGroupMembers(OverlayType.UnImplementedAnimations, overlayGroupName, 'animation');
+        // ClientLogger.log('LogOverlayList', 'UnImplementedOverlayImageIDs (' + Object.keys(elemList).length + ') for group "'
+        //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
+        return elemList;
+    }
+
+
     // ----------------------
-    get_implemented_data_tables_in_group(overlayGroupName: string): any {
-        const elemList = this.getGroupMembers(OverlayType.ImplementedDataTables, overlayGroupName, 'table');
+    get_implemented_defined_table_in_group(overlayGroupName: string, tableName: string): any {
+        const elemList = this.getGroupMembers(OverlayType.ImplementedDataTables, overlayGroupName, 'prop-def-table');
+        // ClientLogger.log('LogOverlayList', 'ImplementedOverlayDataTableIDs (' + Object.keys(elemList).length + ') for group "'
+        //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
+        for (const key of elemList) {
+            if (key.name === tableName) {
+                return key;
+            }
+        }
+        return null;
+    }
+
+
+    // ----------------------
+    get_implemented_prop_defined_tables_in_group(overlayGroupName: string): any {
+        const elemList = this.getGroupMembers(OverlayType.ImplementedDataTables, overlayGroupName, 'prop-def-table');
         // ClientLogger.log('LogOverlayList', 'ImplementedOverlayDataTableIDs (' + Object.keys(elemList).length + ') for group "'
         //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
         return elemList;
     }
 
-    get_un_implemented_data_tables_in_group(overlayGroupName: string): any {
-        const elemList = this.getGroupMembers(OverlayType.UnImplementedDataTables, overlayGroupName, 'table');
+    get_un_implemented_prop_defined_tables_in_group(overlayGroupName: string): any {
+        const elemList = this.getGroupMembers(OverlayType.UnImplementedDataTables, overlayGroupName, 'prop-def-table');
         // ClientLogger.log('LogOverlayList', 'UnImplementedOverlayDataTableIDs (' + Object.keys(elemList).length + ') for group "'
         //     + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
         return elemList;
@@ -310,10 +425,10 @@ export class OverlayPageComponent {
         const shortName = UTIL.removeContextPrefix(longName);
         ClientLogger.log('LogOverlayList_JSON',
             'Found Element: overlayGroupName: ' + overlayGroupName
-               + ', longName: ' + longName
-               + ', shortName: ' + shortName
-               + ', tagName: '
-               + tagName);
+            + ', longName: ' + longName
+            + ', shortName: ' + shortName
+            + ', tagName: '
+            + tagName);
 
         return this.getJsonElement1(overlayGroupName, shortName, tagName);
     }
@@ -323,8 +438,8 @@ export class OverlayPageComponent {
         let retObj = {'name': shortName, 'id': UTIL.addContextPrefix(overlayGroupName, shortName)};
 
         let e: any = (typeof this._DataSummary[overlayGroupName] === 'object')
-            && (  this._DataSummary[overlayGroupName][shortName]
-                || this._DataSummary[overlayGroupName][tagName] );
+            && (this._DataSummary[overlayGroupName][shortName]
+                || this._DataSummary[overlayGroupName][tagName]);
 
         if (typeof e === 'object') {
             if (Array.isArray(e)) {
@@ -351,14 +466,14 @@ export class OverlayPageComponent {
             'In getJsonElement1: '
             + 'o.id: ' + (typeof retObj.id === 'string') ? retObj.id : 'unknown'
             + ', o.command: '
-                + (typeof retObj['command'] === 'string')
-                   ? retObj['command']
-                   : (typeof retObj['command'] === 'object')
-                     ? '(object)'
-                     : 'unknown'
-            + ', o.label: ' + (typeof retObj['label'] === 'string') ? retObj['label'] : 'unknown'
-            + ', o.Name: '   + (typeof retObj.name === 'string') ? retObj.name : 'value'
-            + tagName);
+            + (typeof retObj['command'] === 'string')
+                ? retObj['command']
+                : (typeof retObj['command'] === 'object')
+                    ? '(object)'
+                    : 'unknown'
+                    + ', o.label: ' + (typeof retObj['label'] === 'string') ? retObj['label'] : 'unknown'
+                    + ', o.Name: ' + (typeof retObj.name === 'string') ? retObj.name : 'value'
+                        + tagName);
 
         return retObj;
     }
@@ -369,7 +484,7 @@ export class OverlayPageComponent {
             return '';
         }
 
-        let label = ( (typeof e === 'object') && (typeof e['label'] === 'string') && e['label']) || defaultLabel;
+        let label = ((typeof e === 'object') && (typeof e['label'] === 'string') && e['label']) || defaultLabel;
 
         return label;
     }
@@ -388,17 +503,24 @@ export class OverlayPageComponent {
             'name': shortName,
             'id': UTIL.addContextPrefix(overlayGroupName, shortName),
             'commandLabel': '',
+            'class': '',
             'value': '',
-            'command': ( (typeof j['command'] === 'object') ? j['command'] : null)
+            'desc': UTIL.addContextPrefix(overlayGroupName, shortName),
+            'command': ((typeof j['command'] === 'object') ? j['command'] : null)
         };
+
+        if (typeof j['desc'] === 'string') {
+            info.desc = info.desc + '\n  - ' + j['desc'];
+        }
 
         if (tag === 'dyn') {
             if (j && (typeof j === 'object')) {
-                info.label = ( (typeof j['label'] === 'string') && j['label']) || '';
-                info.value = ( (typeof j['value'] === 'string') && j['value']) || '';
+                info.label = ((typeof j['label'] === 'string') && j['label']) || '';
+                info.value = ((typeof j['value'] === 'string') && j['value']) || '';
+                info.class = ((typeof j['class'] === 'string') && j['class']) || '';
 
                 if (typeof j['command'] === 'object') {
-                    info.commandLabel = ( (typeof j['command']['label'] === 'string') && j['command']['label']) || '';
+                    info.commandLabel = ((typeof j['command']['label'] === 'string') && j['command']['label']) || '';
                     info.command = {
                         'id': info.id + '_cmd',
                         'position': 'left',
@@ -410,30 +532,72 @@ export class OverlayPageComponent {
             }
         } else if (tag === 'command') {
             if (j && (typeof j === 'object')) {
-                info.label = ( (typeof j['label'] === 'string') && j['label']) || '';
-                info.value = ( (typeof j['value'] === 'string') && j['value']) || '';
+                info.label = ((typeof j['label'] === 'string') && j['label']) || '';
+                info.value = ((typeof j['value'] === 'string') && j['value']) || '';
                 info['disabled'] = false;
 
-                if (typeof j['command'] === 'object') {
-                    info.commandLabel = ( (typeof j['command']['label'] === 'string') && j['command']['label']) || '';
-                    info.command = j['command'];
-                    /*
-                    info.command = {
-                        'position': 'left',
-                        'label': info.commandLabel,
-                        'name': info.name
-                    };
-                    */
+                info.commandLabel = ((typeof j['cmd'] === 'string') && j['cmd']) || '';
+                info.command = j;
+                info['_action'] = ((typeof j['_action'] === 'string') && j['_action']) || '';
                 }
-
-            }
         } else if (tag === 'img') {
-            // Do some stuff?
-        } else if (tag === 'table') {
-            // Do some stuff?
+            info.class = ((typeof j['class'] === 'string') && j['class']) || '';
+            info.value = ((typeof j['value'] === 'string') && j['value']) || '';
+            info.desc = UTIL.addContextPrefix(overlayGroupName, shortName) + ' : ' + info.value;
+            if (typeof j['desc'] === 'string') {
+                info.desc = info.desc + '\n  - ' + j['desc'];
+            }
+        } else if (tag === 'animation') {
+            info.class = ((typeof j['class'] === 'string') && j['class']) || '';
+            if (typeof j['speed_rpm'] === 'string') {
+                if (j['speed_rpm'] < 1.0) {
+                    info.class = info.class + ' stop_rotate';
+                } else if (j['speed_rpm'] < 5.0) {
+                    info.class = info.class + ' rotate_5rpm';
+                } else if (j['speed_rpm'] < 10.0) {
+                    info.class = info.class + ' rotate_10rpm';
+                } else if (j['speed_rpm'] < 15.0) {
+                    info.class = info.class + ' rotate_15rpm';
+                } else if (j['speed_rpm'] < 20.0) {
+                    info.class = info.class + ' rotate_20rpm';
+                } else if (j['speed_rpm'] < 25.0) {
+                    info.class = info.class + ' rotate_25rpm';
+                } else if (j['speed_rpm'] < 30.0) {
+                    info.class = info.class + ' rotate_30rpm';
+                } else if (j['speed_rpm'] < 35.0) {
+                    info.class = info.class + ' rotate_35rpm';
+                } else if (j['speed_rpm'] < 40.0) {
+                    info.class = info.class + ' rotate_40rpm';
+                } else if (j['speed_rpm'] < 45.0) {
+                    info.class = info.class + ' rotate_45rpm';
+                } else if (j['speed_rpm'] < 50.0) {
+                    info.class = info.class + ' rotate_50rpm';
+                } else if (j['speed_rpm'] < 55.0) {
+                    info.class = info.class + ' rotate_55rpm';
+                } else if (j['speed_rpm'] < 60.0) {
+                    info.class = info.class + ' rotate_60rpm';
+                } else {
+                    info.class = info.class + ' rotate_70rpm';
+                }
+            }
+        } else if (tag === 'prop-def-table') {
+            if (j && (typeof j === 'object')) {
+                if (this.isArray(j['label'])) {
+                    info.label = ((typeof j['label'][0]['value'] === 'string') && j['label'][0]['value']) || '';
+                }
+                info['disabled'] = false;
+            }
         }
 
         return info;
+    }
+
+    hasCommandLabel(commandInfo: any) {
+        return (typeof commandInfo.json.commandLabel === 'string' && commandInfo.json.commandLabel !== '');
+    }
+
+    isArray(test_object: any) {
+        return Array.isArray(test_object);
     }
 
     formatValue(overlayGroupName: string, varName: string, isImplemented: boolean) {
@@ -448,29 +612,14 @@ export class OverlayPageComponent {
 
             let value = e.value || '';
             let units = e.units || '';
-
-            if (isImplemented) {
-                css = this.getImpOverlayCssDef(varName);
-                if (css.length > 0) {
-                    let cmd = 'var e=document.getElementById("' + varName + '");' +
-                              'var e_val=document.getElementById("' + varName + '_value");' +
-                              'if (e) {e.style="' + css + '";}';
-
-                        let val_css = this.getImpOverlayCssDef(varName + '_value');
-                        if (val_css.length > 0) {
-                            cmd += 'if (e_val) {e_val.style="' + val_css + '";}';
-                        }
-                    // console.log(cmd);
-                    setTimeout(cmd, 50);
-                }
-            }
-
             let pat = css && (css.length > 0) && css.match(/--format:[ \t]*['"]([^']+)*['"]/);
             let fmt = (pat && pat.length === 2 && pat[1]) || '';
 
             if (fmt === '') {
                 return value + (units ? (' ' + units) : '');
             }
+
+            // This code handles the --format tag if defined in the css for this object.  Not test in purification implementation.
 
             let prefix = '';
             let arr: any = fmt.split(/:[ \t]*/);
@@ -493,7 +642,7 @@ export class OverlayPageComponent {
                 return prefix + value + (units ? (' ' + units) : '');
             }
         } catch (err) {
-            console.log (err);
+            console.log(err);
         }
         return v;
     }
@@ -505,7 +654,6 @@ export class OverlayPageComponent {
         }
         return retVal;
     }
-
 
     getImplOverlayImageCssDef(eName: string, eValue: string): string {
         let retVal = '';
@@ -525,51 +673,53 @@ export class OverlayPageComponent {
     getImgLabel(overlayGroupName: string, varName: string): string {
         const shortName = UTIL.removeContextPrefix(varName);
 
-        return (   typeof this._DataSummary === 'object'
+        return (typeof this._DataSummary === 'object'
             && typeof this._DataSummary[overlayGroupName] === 'object'
             && typeof this._DataSummary[overlayGroupName][shortName] === 'object'
             && typeof this._DataSummary[overlayGroupName][shortName].value === 'string'
-            && this._DataSummary[overlayGroupName][shortName].value ) || '';
+            && this._DataSummary[overlayGroupName][shortName].value) || '';
     }
 
-    getImgClass(overlayGroupName: string, varName: string): string {
-        const shortName = UTIL.removeContextPrefix(varName);
-
-        return (   typeof this._DataSummary === 'object'
-            && typeof this._DataSummary[overlayGroupName] === 'object'
-            && typeof this._DataSummary[overlayGroupName][shortName] === 'object'
-            && typeof this._DataSummary[overlayGroupName][shortName].value === 'string'
-            && this._DataSummary[overlayGroupName][shortName].value ) || '';
-    }
-
-    getImgSrc(overlayGroupName: string, varName: string): string {
+    getImgSrc(overlayGroupName: string, imgInfo: object): string {
+        const varName = imgInfo['id'];
         let s = 'invalid-filename.png';
         let value = 'default';
         let fileType = 'png';
         let url = 'badURL';
         const shortName = UTIL.removeContextPrefix(varName);
 
-        if (  typeof this._uiTab === 'object'
+        if (typeof this._uiTab === 'object'
             && typeof this._uiTab['overlayImageUrl'] === 'string'
-            && typeof this._DataSummary === 'object'
-            && typeof this._DataSummary[overlayGroupName] === 'object'
-            && typeof this._DataSummary[overlayGroupName][shortName] === 'object'
-            && typeof this._DataSummary[overlayGroupName][shortName]['value'] === 'string'
-            && typeof this._DataSummary[overlayGroupName][shortName]['fileType'] === 'string') {
+            && typeof imgInfo['json']['value'] === 'string'
+            && typeof imgInfo['json']['fileType'] === 'string') {
 
-            value = this._DataSummary[overlayGroupName][shortName]['value'];
-            fileType = this._DataSummary[overlayGroupName][shortName]['fileType'];
+            value = imgInfo['json']['value'];
+            fileType = imgInfo['json']['fileType'];
             url = this._uiTab['overlayImageUrl'];
 
             s = url.substring(0, url.lastIndexOf('/'))
                 + '/' + shortName + '.' + value + '.' + fileType;
+        }
 
-            // SideEffect - apply any pre-defined style for the image (primarily to allow size different than full-size)
-            let css = this.getImplOverlayImageCssDef(varName, value);
-            if (css.length > 0) {
-                let cmd = 'var e=document.getElementById("' + varName + '"); if (e) {e.style="' + css + '";}';
-                setTimeout(cmd, 100);
-            }
+        return s;
+    }
+
+    getAnimationSrc(overlayGroupName: string, imgInfo: object): string {
+        const varName = imgInfo['id'];
+        let s = 'invalid-filename.png';
+        const shortName = UTIL.removeContextPrefix(varName);
+
+        if (typeof this._uiTab === 'object'
+            && typeof this._uiTab['overlayImageUrl'] === 'string'
+            && typeof imgInfo['json']['fileType'] === 'string'
+            && typeof imgInfo['json']['class'] === 'string') {
+
+            const url = this._uiTab['overlayImageUrl'];
+            const baseName = imgInfo['json']['class'];
+            const fileType = imgInfo['json']['fileType'];
+
+            s = url.substring(0, url.lastIndexOf('/'))
+                + '/' + baseName + '.' + fileType;
         }
 
         return s;

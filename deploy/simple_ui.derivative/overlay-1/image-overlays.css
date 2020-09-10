@@ -52,6 +52,15 @@ div.dataTable {
     user-select: none;
 }
 
+.overlayimage {
+    position: absolute;
+    left: 200px;
+    top: 10px;
+    white-space: nowrap;
+    #width:1900px;
+    #height:800px;
+}
+
 #≪EPO_Control≫Cont_EnableEpo {position: absolute; top: 60px; left: 20px; width:75px; height: 16px;} #≪EPO_Control≫Cont_EnableEpo_value {width:75px; height: 16px; --format:'';}
 #≪EPO_Control≫Door_Bypass {position: absolute; top: 80px; left: 20px; width:75px; height: 16px;} #≪EPO_Control≫Door_Bypass_value {width:75px; height: 16px; --format:'';}
 #≪EPO_Control≫ZS301A_Switch_Door_Side_A {position: absolute; top: 100px; left: 20px; width:75px; height: 16px;} #≪EPO_Control≫ZS301A_Switch_Door_Side_A_value {width:75px; height: 16px; --format:'';}
@@ -88,6 +97,11 @@ div.dataTable {
 #≪Catholyte_Tank_4≫CV214_Return {position: absolute; top: 520px; left:  955px; width:75px; height: 16px;} #≪Catholyte_Tank_4≫CV214_Return_value {width:75px; height: 16px; --format:'';}  #≪Catholyte_Tank_4≫CV214_Return_cmd {position:absolute; top:18px;}
 #≪Catholyte_Tank_5≫CV215_Return {position: absolute; top: 520px; left: 1180px; width:75px; height: 16px;} #≪Catholyte_Tank_5≫CV215_Return_value {width:75px; height: 16px; --format:'';} #≪Catholyte_Tank_5≫CV215_Return_cmd {position:absolute; top:18px;}
 
+#≪Anolyte_Tank_1≫CV101_Supply {position: absolute; top: 225px; left:  395px; width:100px; height: 20px;} #≪Anolyte_Tank_1≫CV101_Supply_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_1≫CV101_Supply_value {width:75px; height: 16px; --format:'';} #≪Anolyte_Tank_1≫CV101_Supply_cmd {position:absolute; top:18px;}
+#≪Anolyte_Tank_2≫CV102_Supply {position: absolute; top: 180px; left:  610px; width:100px; height: 20px;} #≪Anolyte_Tank_2≫CV102_Supply_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_2≫CV102_Supply_value {width:75px; height: 16px; --format:'';} #≪Anolyte_Tank_2≫CV102_Supply_cmd {position:absolute; top:18px;}
+#≪Anolyte_Tank_3≫CV103_Supply {position: absolute; top: 225px; left:  845px; width:100px; height: 20px;} #≪Anolyte_Tank_3≫CV103_Supply_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_3≫CV103_Supply_value {width:75px; height: 16px; --format:'';} #≪Anolyte_Tank_3≫CV103_Supply_cmd {position:absolute; top:18px;}
+#≪Anolyte_Tank_4≫CV104_Supply {position: absolute; top: 225px; left: 1070px; width:100px; height: 20px;} #≪Anolyte_Tank_4≫CV104_Supply_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_4≫CV104_Supply_value {width:75px; height: 16px; --format:'';} #≪Anolyte_Tank_4≫CV104_Supply_cmd {position:absolute; top:18px;}
+#≪Anolyte_Tank_5≫CV105_Supply {position: absolute; top: 225px; left: 1295px; width:100px; height: 20px;} #≪Anolyte_Tank_5≫CV105_Supply_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_5≫CV105_Supply_value {width:75px; height: 16px; --format:'';} #≪Anolyte_Tank_5≫CV105_Supply_cmd {position:absolute; top:18px;}
 
 #≪Anolyte_Tank_1≫LT101_Level_Transducer {position: absolute; top: 85px; left:  190px; width:75px; height: 16px;} #≪Anolyte_Tank_1≫LT101_Level_Transducer_value {width:75px; height: 16px; --format:'';}
 #≪Anolyte_Tank_2≫LT102_Level_Transducer {position: absolute; top: 85px; left:  415px; width:75px; height: 16px;} #≪Anolyte_Tank_2≫LT102_Level_Transducer_value {width:75px; height: 16px; --format:'';}

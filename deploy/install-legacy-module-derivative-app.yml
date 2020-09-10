@@ -3,7 +3,9 @@
 #+ Start install legacy module-derivative-app (functionality from Purification/setup/ - create-web-setup-OBSOLETE.sh and web-setup-OBSOLETE.sh)
 
 - name: "Create local legacy library archive '/tmp/{{ legacy_module_derivative_web_app_bundle }}' if it does not already exist."
-  archive:
+  connection: local
+  local_action:
+    module: archive
     path:
       - "{{ common_web_src }}/../module_derivative/web/appJs"
       - "{{ common_web_src }}/../module_derivative/web/config.js"
@@ -17,7 +19,15 @@
       - "{{ common_web_src }}/../module_derivative/web/pumps.html"
     dest: "/tmp/{{ legacy_module_derivative_web_app_bundle }}"
     format: "gz"
-  delegate_to: localhost
+
+- name: "Create local legacy library archive '/tmp/fleetviewer_bundle.tgz' if it does not already exist."
+  connection: local
+  local_action:
+    module: archive
+    path:
+      - "{{ common_web_src }}/../module_derivative/web/fleetviewer"
+    dest: "/tmp/fleetviewer_bundle.tgz"
+    format: "gz"
 
 - name: "Extract the files from the legacy library archive '{{ common_web_src }}/dojo-release-1.9.0.tar.gz' to /var/www/{{ web_app_name }}/dojo-release-1.9.0"
   unarchive:
@@ -104,7 +114,7 @@
     owner: "{{ remote_web_user }}"
     group: "{{ remote_web_group }}"
     state: directory
-    mode: '0766'
+    mode: '0777'
   become: true
 
 - name: "Create file /var/log/bsc-command.log if it doesn't exist"
@@ -134,3 +144,18 @@
     state: link
   become: true
 
+- name: "Extract the files from the legacy library archive '/tmp/fleetviewer_bundle.tgz' to /var/www/"
+  unarchive:
+    src: "/tmp/fleetviewer_bundle.tgz"
+    dest: "/var/www/"
+    owner: service
+    group: service
+  become: true
+
+- name: "Extract the files from the legacy library archive '/tmp/fleetviewer_bundle.tgz' to /var/www/"
+  unarchive:
+    src: "/tmp/fleetviewer_bundle.tgz"
+    dest: "/var/www/"
+    owner: service
+    group: service
+  become: true

@@ -2,6 +2,7 @@
     *ngIf='_action == simpleCommand'
        [attr.u_id]='_element?.command?.u_id'
        [id]='_element?.command?.id'
+        style='position:static;'
        [name]='_element?.command?.name'
        [attr.disabled]='isDisabled()'
        [title]='_element?.command?.desc'

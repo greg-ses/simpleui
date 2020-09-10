@@ -19,14 +19,15 @@ import {
 } from '@angular/core';
 
 import './css/styles.css';
-import { AppProperties, SubscriptionState, TitleBarProperties } from './interfaces/props-data';
-import { ajax } from 'rxjs/ajax';
-import { MatTabGroup, MatTabChangeEvent } from '@angular/material';
-import { interval } from 'rxjs';
-import { ClientLogger } from '../tools/logger';
-import { TabUI } from './interfaces/props-data';
-import { DataSummary } from './interfaces/data-summary';
-import { UTIL } from '../tools/utility';
+import {AppProperties, SubscriptionState, TitleBarProperties} from './interfaces/props-data';
+import {ajax} from 'rxjs/ajax';
+import {MatTabGroup, MatTabChangeEvent} from '@angular/material';
+import {interval} from 'rxjs';
+import {ClientLogger} from '../tools/logger';
+import {TabUI} from './interfaces/props-data';
+import {DataSummary} from './interfaces/data-summary';
+import {UTIL} from '../tools/utility';
+
 // import {Subscriber} from 'rxjs/src/internal/Subscriber';
 
 @Component({
@@ -48,7 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     static _mouseDownSuspendsUpdates = false;
     static _autoRefreshExpirationDefault = 240; // 4 hours * (60 min / hour)
 
-    _props = new AppProperties( {} );
+    _props = new AppProperties({});
     _appHash = AppComponent.getUniqueHash();
     _tBarProps = new TitleBarProperties();
     _refreshCycle = 0;
@@ -66,15 +67,15 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _selectedTabIndex = 0;
     _autoRefreshEnabled = false;
     _propsSubscriptionState = SubscriptionState.Idle;
-/*
-    // appOptions is normally hidden - can be enabled for development
-    _appOptionsVisible = false;
-    _appOptions = [
-        { name: 'mouseDownSuspendsUpdates', description: 'Mouse Down Suspends Updates', value: true},
-        { name: 'trackMouseClicks', description: 'Track Mouse Clicks', value: false}
-    ];
-*/
-    _detectChanges: {'name': string, 'value': boolean};
+    /*
+        // appOptions is normally hidden - can be enabled for development
+        _appOptionsVisible = false;
+        _appOptions = [
+            { name: 'mouseDownSuspendsUpdates', description: 'Mouse Down Suspends Updates', value: true},
+            { name: 'trackMouseClicks', description: 'Track Mouse Clicks', value: false}
+        ];
+    */
+    _detectChanges: { 'name': string, 'value': boolean };
 
     @ViewChild('_tabGroup') _tabGroup: MatTabGroup;
 
@@ -88,7 +89,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             e.innerHTML += event.target['tagName'];
         }
 
-        if ( (typeof event.target['className'] === 'string') && event.target['className']) {
+        if ((typeof event.target['className'] === 'string') && event.target['className']) {
             e.innerHTML += ' / ' + event.target['className'];
         }
         e.style.display = 'block';
@@ -108,10 +109,10 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             let e: EventTarget = event.target;
             eventMsgObj.innerText = '';
             for (let i = 0; i < 10; i++) {
-                    if (e instanceof HTMLElement) {
-                        eventMsgObj.innerText +=
-                            e['nodeName'] + (typeof e['id'] === 'string' ? (' ' + e['id']) + ' < ' : ' < ');
-                        e = e.parentElement;
+                if (e instanceof HTMLElement) {
+                    eventMsgObj.innerText +=
+                        e['nodeName'] + (typeof e['id'] === 'string' ? (' ' + e['id']) + ' < ' : ' < ');
+                    e = e.parentElement;
                 }
             }
             eventMsgObj.title = eventMsgObj.innerText;
@@ -193,13 +194,14 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
 
     static doResizeTabScrollRegion(evt: any, timeout = 10) {
-        if (evt) { }
-        setTimeout( () => {
+        if (evt) {
+        }
+        setTimeout(() => {
             AppComponent.resizeTabScrollRegion();
         }, timeout);
     }
 
-    static  getActualScrollElement(): HTMLElement {
+    static getActualScrollElement(): HTMLElement {
         let actualScrollElement = null;
         const tabScrollRegion = document.getElementsByClassName('tabScrollRegion');
         if (typeof tabScrollRegion === 'object' && tabScrollRegion.hasOwnProperty('0')) {
@@ -208,7 +210,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         return actualScrollElement;
     }
 
-    static resizeTabScrollRegion () {
+    static resizeTabScrollRegion() {
         console.log('called AppComponent.resizeTabScrollRegion');
         const actualScrollElement = AppComponent.getActualScrollElement();
         if (actualScrollElement) {
@@ -218,7 +220,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 document.body['onscroll'](new UIEvent('fix-layout'));
             }
 
-            if ( ! (actualScrollElement['onscroll'] instanceof Function) ) {
+            if (!(actualScrollElement['onscroll'] instanceof Function)) {
 
                 actualScrollElement['onscroll'] = function (event) {
                     try {
@@ -261,24 +263,33 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     constructor(
         // private _changeDetectorRef: ChangeDetectorRef,
         private renderer: Renderer2
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         const base = document.getElementsByTagName('base')[0];
 
         this.getProps(base['uiProp']);
 
-        window.addEventListener('click', function(event: MouseEvent) { AppComponent.onWindowClick(event); } );
-        window.addEventListener('mousedown', function(event: MouseEvent) { AppComponent.onMouseDown(event); } );
-        window.addEventListener('mouseup', function(event: MouseEvent) { AppComponent.onMouseUp(event); } );
-        window.addEventListener('resize', function() { AppComponent.doResizeTabScrollRegion(event); });
+        window.addEventListener('click', function (event: MouseEvent) {
+            AppComponent.onWindowClick(event);
+        });
+        window.addEventListener('mousedown', function (event: MouseEvent) {
+            AppComponent.onMouseDown(event);
+        });
+        window.addEventListener('mouseup', function (event: MouseEvent) {
+            AppComponent.onMouseUp(event);
+        });
+        window.addEventListener('resize', function () {
+            AppComponent.doResizeTabScrollRegion(event);
+        });
 
         AppComponent.doResizeTabScrollRegion(null, 100);
     }
 
     ngAfterViewInit() {
         if (parseInt(sessionStorage.selectedTab, 10) === this._tabGroup.selectedIndex) {
-            setTimeout( () => this.configureTabBar(), 1);
+            setTimeout(() => this.configureTabBar(), 1);
             AppComponent.doResizeTabScrollRegion({}, 10);
         } else {
             const scrollChangeWait = 1500;
@@ -286,8 +297,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 let rememberedTab = parseInt(sessionStorage.selectedTab, 10);
                 rememberedTab = Math.max(0, rememberedTab);
                 this._tabGroup.selectedIndex = rememberedTab;
-                this.selectedTabChange.emit({ index: rememberedTab, tab: null});
-                setTimeout( () => {
+                this.selectedTabChange.emit({index: rememberedTab, tab: null});
+                setTimeout(() => {
                     if (typeof sessionStorage[`tab${rememberedTab}ScrollTop`] === 'string') {
                         const actualScrollElement = AppComponent.getActualScrollElement();
                         if (actualScrollElement) {
@@ -334,6 +345,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         </mat-tab>
         */
     }
+
     /*
     ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
             this._changeDetectorRef.markForCheck();
@@ -406,7 +418,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 // SHIFT-ALT-CLICK
             } else {
                 const container = document.getElementById('unimplementedOverlaysContainer');
-                const newPos=window.prompt(
+                const newPos = window.prompt(
                     'Enter the new TOP,LEFT for unimplementedOverlaysContainer',
                     `${parseInt(getComputedStyle(container)['top'], 10)}, ${parseInt(getComputedStyle(container)['left'], 10)}`);
                 const arr = newPos.split(',');
@@ -458,37 +470,38 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         };
         const propsData$ = ajax(ajaxRequest);
         propsData$.subscribe(
-    res => {
+            res => {
                 this._propsSubscriptionState = SubscriptionState.ProcessingAsyncResponse;
                 if (res.status === 200 && typeof res.response === 'object' && typeof res.response.props === 'object') {
                     this.onPropsUpdate(res.response.props);
                     this._propsSubscriptionState = SubscriptionState.Idle;
                 } else {
                     console.log(`${this._propsURL} failed`);
-                    alert( this._errorMessage + '\n\nPress F5 or REFRESH BUTTON to retry.');
+                    alert(this._errorMessage + '\n\nPress F5 or REFRESH BUTTON to retry.');
                     this._propsSubscriptionState = SubscriptionState.ErrorFromAsyncResponse;
                 }
             },
-    err => {
-            console.log(`Error in getProps() ajax subscribe callback.`);
-            try {
-                console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
-            } catch (err1) { }
-        });
+            err => {
+                console.log(`Error in getProps() ajax subscribe callback.`);
+                try {
+                    console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
+                } catch (err1) {
+                }
+            });
         this._propsSubscriptionState = SubscriptionState.AwaitingAsyncResponse;
     }
 
     onPropsUpdate(propsIn: any) {
         this._props = propsIn;
-        if (     typeof this._props.instance === 'object'
-              && typeof this._props.instance['name'] === 'string') {
+        if (typeof this._props.instance === 'object'
+            && typeof this._props.instance['name'] === 'string') {
             this._theAppTitle = this._props.instance['name'];
         } else {
             this._theAppTitle = 'DEFAULT-APP-TITLE';
         }
 
         this._props.appURI = this._appURI;
-       this._props.GLOBAL = this;
+        this._props.GLOBAL = this;
 
         this.initTabDataUpdates();
     }
@@ -500,7 +513,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         const TAB_TOP = '';
 
         const matTabGroups = document.getElementsByTagName('mat-tab-group');
-        if (   typeof matTabGroups === 'object'
+        if (typeof matTabGroups === 'object'
             && typeof matTabGroups[0] === 'object'
             && ('children' in matTabGroups[0])
             && matTabGroups[0].children.length > 0) {
@@ -573,31 +586,38 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
 
         let autoRefreshTimeout = AppComponent._autoRefreshExpirationDefault;
-        if (   (this._props['autoRefreshTimeout'] instanceof Object)
-            && (typeof this._props['autoRefreshTimeout'].value === 'string') ) {
+        if ((this._props['autoRefreshTimeout'] instanceof Object)
+            && (typeof this._props['autoRefreshTimeout'].value === 'string')) {
             autoRefreshTimeout = parseInt(this._props['autoRefreshTimeout'].value, 10);
-            if (isNaN(autoRefreshTimeout)) { autoRefreshTimeout = AppComponent._autoRefreshExpirationDefault; }
+            if (isNaN(autoRefreshTimeout)) {
+                autoRefreshTimeout = AppComponent._autoRefreshExpirationDefault;
+            }
         }
         autoRefreshTimeout = Math.max(Math.min(autoRefreshTimeout, AppComponent._autoRefreshExpirationDefault), 1); // range (1..30)
         this._autoRefreshExpiration = autoRefreshTimeout * 60 * 1000;
 
         this._refreshRate = 1000;
-        if (   (this._props['refreshRate'] instanceof Object)
-            && (typeof this._props['refreshRate'].value === 'string') ) {
+        if ((this._props['refreshRate'] instanceof Object)
+            && (typeof this._props['refreshRate'].value === 'string')) {
             this._refreshRate = parseInt(this._props['refreshRate'].value, 10);
-            if (isNaN(this._refreshRate)) { this._refreshRate = 1000; }
+            if (isNaN(this._refreshRate)) {
+                this._refreshRate = 1000;
+            }
         }
         this._refreshRate = Math.max(this._refreshRate, 1000); // Don't allow a refreshRate < 1000 ms
 
         const updateTimer = interval(this._refreshRate);
 
         this._updateSubscription = updateTimer.subscribe(
-            cycle => { this.doUpdate(cycle); },
+            cycle => {
+                this.doUpdate(cycle);
+            },
             err => {
                 console.log(`Error in initTabDataUpdates() ajax subscribe callback.`);
                 try {
                     console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
-                } catch (err1) { }
+                } catch (err1) {
+                }
             });
     }
 
@@ -608,7 +628,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         ClientLogger.enableFeature('MiniConsole');
         const miniConsole: HTMLElement = document.getElementById('miniConsole');
         miniConsole.className = 'miniConsoleAnnounce';
-        const paddingTop = ( (window.innerHeight - 30) / 2 ) + 'px';
+        const paddingTop = ((window.innerHeight - 30) / 2) + 'px';
         this.renderer.setStyle(miniConsole, 'padding-top', paddingTop);
         miniConsole.innerText = 'Auto-refresh has paused. Click to resume auto-refresh.';
     }
@@ -638,7 +658,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 for (const tab of this._props.tab) {
                     if (Number(tab.index) === this._selectedTabIndex) {
                         if (tab._autoRefreshEnabled) {
-                            ClientLogger.log( 'LogRefreshCycle', `Tab ${Number(tab.index)}, cycle #${this._refreshCycle} of ${cycle} -` +
+                            ClientLogger.log('LogRefreshCycle', `Tab ${Number(tab.index)}, cycle #${this._refreshCycle} of ${cycle} -` +
                                 `REFRESHING (AutoRefreshEnabled: true.  Tab Selected: true)`);
 
                             let serverSideJsDebugging = false;
@@ -649,7 +669,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                                     // Disable refresh and ServerSideJsDebugging
                                     tab._autoRefreshEnabled = false;
                                     ClientLogger.enableFeature('ServerSideJsDebugging', false);
-                                    ClientLogger.logToMiniConsole('ServerSideJsDebugging has expired.')
+                                    ClientLogger.logToMiniConsole('ServerSideJsDebugging has expired.');
                                     this._debugRefreshCycle = 0;
                                 }
                             } else {
@@ -658,11 +678,11 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
                             this.getRemoteTabData(tab, tab.hash, serverSideJsDebugging);
                         } else {
-                            ClientLogger.log( 'LogRefreshCycle', `Tab ${Number(tab.index)}, cycle #${this._refreshCycle} of ${cycle} - ` +
+                            ClientLogger.log('LogRefreshCycle', `Tab ${Number(tab.index)}, cycle #${this._refreshCycle} of ${cycle} - ` +
                                 `SKIPPED (AutoRefreshEnabled: false.  Tab Selected: true)`);
                         }
                     } else {
-                        ClientLogger.log( 'LogRefreshCycle', `Tab ${Number(tab.index)}, cycle #${this._refreshCycle} of ${cycle} -` +
+                        ClientLogger.log('LogRefreshCycle', `Tab ${Number(tab.index)}, cycle #${this._refreshCycle} of ${cycle} -` +
                             `SKIPPED (AutoRefreshEnabled: ${tab._autoRefreshEnabled}.  Tab Selected: false)`);
                     }
                     this.updateMinColWidths(tab);
@@ -678,7 +698,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             const dsHeads = document.getElementsByClassName('dataSetSizerHead');
             const dsBodies = document.getElementsByClassName('dataSetSizerBody');
 
-            if (   (dsHeads.length > 0) && (dsHeads.length === dsBodies.length) ) {
+            if ((dsHeads.length > 0) && (dsHeads.length === dsBodies.length)) {
 
                 for (let i = 0; i < dsHeads.length; i++) {
                     const firstHead = dsHeads[i].children[0].children[0];
@@ -710,8 +730,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                         const maximum_width = Math.max(firstHeadWidth, (firstLabelWidth + firstValueWidth));
                         const maximum_minWidth = Math.max(firstHeadMinWidth, (firstLabelMinWidth + firstValueMinWidth));
 
-                        if ( (maximum_width > maximum_minWidth)
-                            || (firstHeadWidth > (firstLabelWidth + firstValueWidth)) ) {
+                        if ((maximum_width > maximum_minWidth)
+                            || (firstHeadWidth > (firstLabelWidth + firstValueWidth))) {
 
                             const new_firstLabel_minWidth = Math.max(firstLabelWidth, (firstHeadWidth - firstValueWidth));
                             if (firstLabelWidth > firstLabelMinWidth) {
@@ -726,28 +746,26 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                     }
                 }
             }
-         } catch(e) {
+        } catch (e) {
             console.log(e);
         }
     }
 
 
-
     isDeltaUpdate(tab: TabUI) {
-        return (   tab._DataSummary
-                && typeof tab._DataSummary === 'object'
-                && typeof tab._DataSummary['updateType'] === 'string'
-                && (tab._DataSummary['updateType'] === 'delta') );
+        return (tab._DataSummary
+            && typeof tab._DataSummary === 'object'
+            && typeof tab._DataSummary['updateType'] === 'string'
+            && (tab._DataSummary['updateType'] === 'delta'));
     }
 
-    aboutDialog()
-    {
+    aboutDialog() {
         const aboutMsg =
             'About'
             + '\n\nApp Title: ' + this.getAppTitle()
-            + '\n\nSimple UI Version Short: ' +  this.getProp('uiVersionShort', 'ui version short')
-            + '\n\nSimple UI Version Long: ' +  this.getProp('uiVersionLong', 'ui version long')
-            + '\n\nApp Title: ' +  this.getProp('uiVersionLong', 'app version long');
+            + '\n\nSimple UI Version Short: ' + this.getProp('uiVersionShort', 'ui version short')
+            + '\n\nSimple UI Version Long: ' + this.getProp('uiVersionLong', 'ui version long')
+            + '\n\nApp Title: ' + this.getProp('uiVersionLong', 'app version long');
 
         alert(aboutMsg);
     }
@@ -765,16 +783,16 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this._tBarProps._appTitle = this.getAppTitle();
         this._tBarProps._tabTitle = this.getTabTitle(tab);
         this._tBarProps._appVersion = this.getVersion(tab);
-        this._tBarProps._uiVersionShort =  this.getProp('uiVersionShort', 'app version short');
-        this._tBarProps._uiVersionLong =  this.getProp('uiVersionLong', 'app version long');
+        this._tBarProps._uiVersionShort = this.getProp('uiVersionShort', 'app version short');
+        this._tBarProps._uiVersionLong = this.getProp('uiVersionLong', 'app version long');
         this._tBarProps._updateTime = this.getUpdateTime(tab);
 
         this._refreshCycle++;
 
         if (typeof tab === 'object' && typeof tab.dataUrl === 'string') {
             const now = new Date();
-            if (   (typeof tab._pendingRequestExpiration !== 'number')
-                || (tab._pendingRequestExpiration < now.valueOf()) ) {
+            if ((typeof tab._pendingRequestExpiration !== 'number')
+                || (tab._pendingRequestExpiration < now.valueOf())) {
 
                 // Wait "_pendingRequestWait" milliseconds to before sending another next ajax request
                 tab._pendingRequestExpiration = now.valueOf() + this._pendingRequestWait;
@@ -804,8 +822,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
     }
 
-    onTabDataUpdate(tab: TabUI, response: any ) {
-        if (   typeof response === 'object'
+    onTabDataUpdate(tab: TabUI, response: any) {
+        if (typeof response === 'object'
             && typeof response['Data_Summary'] === 'object'
             && typeof response['Data_Summary']['status'] === 'string'
             && response['Data_Summary']['status'] === '0') {
@@ -813,6 +831,12 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             this._detectChanges = {'name': tab.name, 'value': true};
             this.updateData(tab, response['Data_Summary']);
             ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');
+        } else if (typeof response === 'object'
+            && typeof response['Overlay_Summary'] === 'object') {
+            this._detectChanges = {'name': tab.name, 'value': true};
+            this.updateData(tab, response['Overlay_Summary']);
+            ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');
+
         } else {
             ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed with error (EMPTY RESPONSE).');
         }
@@ -833,19 +857,19 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this._tBarProps._appTitle = this.getAppTitle();
         this._tBarProps._tabTitle = this.getTabTitle(tab);
         this._tBarProps._appVersion = this.getVersion(tab);
-        this._tBarProps._uiVersionShort =  this.getProp('uiVersionShort', 'app version short');
-        this._tBarProps._uiVersionLong =  this.getProp('uiVersionLong', 'app version long');
+        this._tBarProps._uiVersionShort = this.getProp('uiVersionShort', 'app version short');
+        this._tBarProps._uiVersionLong = this.getProp('uiVersionLong', 'app version long');
         this._tBarProps._updateTime = this.getUpdateTime(tab);
         this._tBarProps._serverStatus = 'Server connection okay';
         this._tBarProps._refreshState = 'indicatorOn';
 
-/*
-        if ((sessionStorage.autoReload === 'true') && (this._refreshCycle > 2) ) {
-            setTimeout(() => this.displayRefreshPausedMessage(), 1);
-            sessionStorage.autoReload = 'false';
-        }
+        /*
+                if ((sessionStorage.autoReload === 'true') && (this._refreshCycle > 2) ) {
+                    setTimeout(() => this.displayRefreshPausedMessage(), 1);
+                    sessionStorage.autoReload = 'false';
+                }
 
-*/
+        */
         // this._changeDetectorRef.markForCheck();
         // this._changeDetectorRef.detectChanges();
         // this._changeDetectorRef.detach();
@@ -866,9 +890,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
     getProp(propName: string, defaultValue: any = 'default') {
         let value = defaultValue;
-        if (   typeof this._props === 'object'
+        if (typeof this._props === 'object'
             && typeof this._props[propName] === 'object'
-            && typeof this._props[propName]['value'] === 'string' ) {
+            && typeof this._props[propName]['value'] === 'string') {
             value = this._props[propName]['value'];
         }
         return value;
@@ -876,9 +900,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
     getAppTitle() {
         let dTitle = '';
-        if (   typeof this._props === 'object'
+        if (typeof this._props === 'object'
             && typeof this._props.instance === 'object'
-            && typeof this._props.instance.name === 'string' ) {
+            && typeof this._props.instance.name === 'string') {
             dTitle = this._props.instance.name;
         }
         return dTitle;
@@ -894,9 +918,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
     getVersion(tab: TabUI) {
         let dVersion = 'App Version';
-        if (   (typeof tab._DataSummary === 'object')
+        if ((typeof tab._DataSummary === 'object')
             && (typeof tab._DataSummary.Version === 'object')
-            && (typeof tab._DataSummary.Version.value === 'string') ) {
+            && (typeof tab._DataSummary.Version.value === 'string')) {
             dVersion = tab._DataSummary.Version.value;
         }
         return dVersion;

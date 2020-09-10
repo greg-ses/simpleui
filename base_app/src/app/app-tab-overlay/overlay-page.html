@@ -1,88 +1,163 @@
 <!-- Implemented Overlays -->
-<div *ngFor='let overlayGroupName of _imageOverlayGroupNames' class='implemented_overlays' valign='top' creator='overlayGroups-ngFor'>
-    <div *ngFor='let varInfo of get_implemented_dyns_in_group(overlayGroupName)' [id]='varInfo.id'
-         [title]='"process_var: " + varInfo.id' creator='impl-dyn-ngFor'>
+<div *ngFor='let overlayGroupName of _imageOverlayGroupNames' class='implemented_overlays' valign='top'
+     creator='overlayGroups-ngFor'>
+
+    <div *ngFor='let varInfo of get_implemented_dyns_in_group(overlayGroupName)'
+         [id]='varInfo.id'
+         [title]='varInfo.desc' creator='impl-dyn-ngFor'>
         <span *ngIf='varInfo.label'
               [id]='varInfo.id + "_label"'
               class='var_label'>{{this.splitPrefix(varInfo.label)}}</span>
         <span *ngIf='varInfo.value !== ""'
-              class='process_var' [id]='varInfo.id + "_value"'>{{ formatValue(overlayGroupName, varInfo.id, true) }}</span>
+              [class]='"process_var " + varInfo.class' [id]='varInfo.id + "_value"'>{{ formatValue(overlayGroupName, varInfo.id, true) }}</span>
         <app-command-button *ngIf='varInfo.command' [id]='varInfo.command.id' class="overlay-control"
-                        [_uiTab]='_uiTab' [element]='getElement(varInfo)'
-                        [_container]='varInfo.id' [_sha1sum]="varInfo.sha1sum?varInfo.sha1sum:0"
-                         >
+                            [_uiTab]='_uiTab' [element]='getElement(varInfo)'
+                            [_container]='varInfo.id' [_sha1sum]="varInfo.sha1sum?varInfo.sha1sum:0"
+        >
         </app-command-button>
     </div>
 
     <div *ngFor='let commandInfo of get_implemented_commands_in_group(overlayGroupName)'
-         [id]='commandInfo.json.id'
-         [title]='"command: " + commandInfo.json.id'  creator='impl-commands-ngFor'>
-        <div *ngIf='commandInfo.json.commandLabel !== ""'
+         [id]="commandInfo.json.id"
+         [title]='commandInfo.desc' creator='impl-commands-ngFor'>
+        <div *ngIf='hasCommandLabel(commandInfo)'
              [id]="commandInfo.json.id + '_label'"
-             class='var_label'>{{this.splitPrefix(commandInfo.json.id)}}</div>
-        <app-command-button [id]='commandInfo.json.id' class="overlay-control"
-                        [_uiTab]='_uiTab' [element]='getElement(commandInfo)'
-                        [_container]='commandInfo.json.id' [_sha1sum]="commandInfo.sha1sum?commandInfo.sha1sum:0"
-                        >
-        </app-command-button>
+             class='var_label'>{{this.splitPrefix(commandInfo.json.id)}}
+        </div>
+            <app-command-button [id]="commandInfo.json.id + '_button'"
+                                class="overlay-control"
+                                [_uiTab]='_uiTab'
+                                [element]='getElement(commandInfo)'
+                                [_container]='commandInfo.json.id'
+                                [_sha1sum]="commandInfo.sha1sum?commandInfo.sha1sum:0"
+            >
+            </app-command-button>
     </div>
 
     <div *ngFor='let imgInfo of get_implemented_images_in_group(overlayGroupName)'
          creator='impl-images-ngFor'>
         <img [id]='imgInfo.id'
-             [title]='"img: " + imgInfo.id'
-             [className]='getImgClass(overlayGroupName, imgInfo.id)'
-             [src]='getImgSrc(overlayGroupName, imgInfo.id)'
+             [title]='imgInfo.desc'
+             [class]='imgInfo.class'
+             [src]='getImgSrc(overlayGroupName, imgInfo)'
         >
     </div>
 
-    <div *ngFor='let tableInfo of get_implemented_data_tables_in_group(overlayGroupName)'
+    <div *ngFor='let imgInfo of get_implemented_animations_in_group(overlayGroupName)'>
+        <img [id]='imgInfo.id'
+             [title]='imgInfo.desc'
+             [class]='imgInfo.class'
+             [src]='getAnimationSrc(overlayGroupName, imgInfo)'
+        >
+    </div>
+
+    <div *ngIf="get_implemented_defined_table_in_group(overlayGroupName, 'Event_Log') as tableInfo"
+         [id]='tableInfo.id'
+         [title]='"tableName: " + tableInfo.id'>
+        <p *ngIf="tableInfo.label!==''" class="tableTitle">{{tableInfo.label}}</p>
+        <table [id]='tableInfo.id + "_table"' class='dataTable'>
+            <tr>
+                <th *ngFor="let rowHeader of tableInfo.json.Col;" class='dataTableTH'>{{rowHeader.value}}</th>
+            </tr>
+            <tr *ngFor="let tblRD of tableInfo.json.Row; let even = even; let odd = odd"
+                [ngClass]="{ odd: odd, even: even }">
+                <td *ngFor="let dataElement of tblRD.Col;" class='dataTableTD'>{{dataElement.value}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div *ngIf="get_implemented_defined_table_in_group(overlayGroupName, 'Active_Faults') as tableInfo"
+         [id]='tableInfo.id'
+         [title]='"tableName: " + tableInfo.id' creator='impl-tables-ngIf'>
+        <p class="tableTitle">Active Faults & Warnings</p>
+        <table [id]='tableInfo.id + "_table"' class='dataTable'>
+            <tr>
+                <th class='dataTableTH'>Time</th>
+                <th class='dataTableTH'>Type</th>
+                <th class='dataTableTH'>Description</th>
+            </tr>
+            <tr *ngFor="let tblRD of tableInfo.json.Fault let even = even; let odd = odd"
+                [ngClass]="{ odd: odd, even: even }">
+                <td class='dataTableTD'>{{tblRD.timestamp}}</td>
+                <td class='dataTableTD'>{{tblRD.fault_code}} : {{tblRD.name}}</td>
+                <td [ngClass]='"dataTableTD " + tblRD.class'>{{tblRD.value}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div *ngIf="get_implemented_defined_table_in_group(overlayGroupName, 'NonExhistant') as tableInfo"
          [id]='tableInfo.id'
          class='dataTable'
-         [title]='"command: " + tableInfo.id' creator='impl-tables-ngFor'>
-        {{tableInfo.id}}
+         [title]='"tableName: " + tableInfo.id' creator='impl-tables-ngIf'>
+        <table [id]='tableInfo.id + "_table"'>
+            <tr>
+                <th>ShouldNotBe</th>
+                <th>JustToTest function of ngIf</th>
+                <th>TO BE REMOVED AT A LATER DATE ONCE THE TWO TABLES ABOVE ARE MADE GENERIC SOMEHOW</th>
+            </tr>
+            <tr>
+                <td>{{tableInfo.json.Event.timestamp}}</td>
+                <td>{{tableInfo.json.Event.type}}</td>
+                <td>{{tableInfo.json.Event.value}}</td>
+            </tr>
+        </table>
     </div>
-</div>
 
 
-<!-- UnImplemented Overlays -->
-<div id='unimplementedOverlaysContainer' [hidden]='getMode() !== "design"'
-     title='Click ⦻ in the title bar to move this window'
-     style='position:absolute; opacity:75; background-color:lightgray; left: 200px; top: 400px; border:3px solid black; padding: 0 0 0 0;'>
+    <!--<div *ngFor="let tableInfo of get_implemented_prop_defined_tables_in_group(overlayGroupName)"-->
+    <!--[id]='tableInfo.id'-->
+    <!--class='dataTable'-->
+    <!--[title]='"tableName: " + tableInfo.id' creator='impl-tables-ngFor'>-->
+    <!--<prop-defined-table-->
+    <!--[_dataset]="tableInfo"-->
+    <!--[_uiTab]="_uiTab"-->
+    <!--[id]="tableInfo.id"-->
+    <!--[_hidden]="false">-->
+    <!--</prop-defined-table>-->
+    <!--</div>-->
 
-    <div id='unimplementedOverlaysContainer_Sub' style='height: 20px; padding: 2px 5px 5px 2px; color: black; background-color: darkgray;'>
-        <span style='float:left; padding-left: 10px; font-size:14px;'>Unimplemented Overlays</span>
-        <span id='moveLogger' style='float:left; left: 100px; font-size:10pt;'></span>
-        <span id='dnd-instructions' style='float:right; padding: 2px 5px 5px 2px; font-size:14px;'>
-            <a [href]='app._appURI + "doc/simple_ui_doc/simple_ui_style_guide.html?hash=" + app._appHash + "&section=overlay_UI_rules"' target="_blank" >Overlay Help</a>
+
+    <!-- UnImplemented Overlays -->
+    <div *ngIf="isDesignEnabled()" id='unimplementedOverlaysContainer' [hidden]='getMode() !== "design"'
+         title='Click ⦻ in the title bar to move this window'
+         style='position:absolute; opacity:75; background-color:lightgray; left: 1500px; top: 400px; border:3px solid black; padding: 0 0 0 0;'>
+
+        <div id='unimplementedOverlaysContainer_Sub'
+             style='height: 20px; padding: 2px 5px 5px 2px; color: black; background-color: darkgray;'>
+            <span style='float:left; padding-left: 10px; font-size:14px;'>Unimplemented Overlays</span>
+            <span id='moveLogger' style='float:left; left: 100px; font-size:10pt;'></span>
+            <span id='dnd-instructions' style='float:right; padding: 2px 5px 5px 2px; font-size:14px;'>
+            <a [href]='app._appURI + "doc/simple_ui_doc/simple_ui_style_guide.html?hash=" + app._appHash + "&section=overlay_UI_rules"'
+               target="_blank">Overlay Help</a>
         </span>
+        </div>
+
+        <table id='overlayTable'>
+            <tr>
+                <td *ngFor='let overlayGroupName of _imageOverlayGroupNames' valign='top'
+                    creator='impl-unimp-groupNames-ngFor'>
+                    <image-overlays [_implementedOverlays]='_all_implemented_overlays'
+                                    [_groupName]='overlayGroupName'
+                                    [_uiObjList]='_DataSummary[overlayGroupName]'
+                                    [_overlayImage]='_overlayImage'
+                                    [_uiTab]='_uiTab'
+
+                                    [_count_implemented_dyns_in_group]='get_implemented_dyns_in_group(overlayGroupName).length'
+                                    [_un_implemented_dyns_in_group]='get_un_implemented_dyns_in_group(overlayGroupName)'
+
+                                    [_count_implemented_commands_in_group]='get_implemented_commands_in_group(overlayGroupName).length'
+                                    [_un_implemented_commands_in_group]='get_un_implemented_commands_in_group(overlayGroupName)'
+
+                                    [_count_implemented_images_in_group]='get_implemented_images_in_group(overlayGroupName).length'
+                                    [_un_implemented_images_in_group]='get_un_implemented_images_in_group(overlayGroupName)'
+
+                                    [_count_implemented_data_tables_in_group]='get_implemented_prop_defined_tables_in_group(overlayGroupName).length'
+                                    [_un_implemented_data_tables_in_group]="get_un_implemented_prop_defined_tables_in_group(overlayGroupName)"
+
+                                    [_props]='_props'
+                    >
+                    </image-overlays>
+                </td>
+            </tr>
+        </table>
     </div>
-
-    <table id='overlayTable'>
-     <tr>
-      <td *ngFor='let overlayGroupName of _imageOverlayGroupNames' valign='top' creator='impl-unimp-groupNames-ngFor'>
-        <image-overlays [_implementedOverlays]='_all_implemented_overlays'
-                        [_groupName]='overlayGroupName'
-                        [_uiObjList]='_DataSummary[overlayGroupName]'
-                        [_overlayImage]='_overlayImage'
-                        [_uiTab]='_uiTab'
-
-                        [_count_implemented_dyns_in_group]='get_implemented_dyns_in_group(overlayGroupName).length'
-                        [_un_implemented_dyns_in_group]='get_un_implemented_dyns_in_group(overlayGroupName)'
-
-                        [_count_implemented_commands_in_group]='get_implemented_commands_in_group(overlayGroupName).length'
-                        [_un_implemented_commands_in_group]='get_un_implemented_commands_in_group(overlayGroupName)'
-
-                        [_count_implemented_images_in_group]='get_implemented_images_in_group(overlayGroupName).length'
-                        [_un_implemented_images_in_group]='get_un_implemented_images_in_group(overlayGroupName)'
-
-                        [_count_implemented_data_tables_in_group]='get_implemented_data_tables_in_group(overlayGroupName).length'
-                        [_un_implemented_data_tables_in_group]='get_un_implemented_data_tables_in_group(overlayGroupName)'
-
-                        [_props]='_props'
-        >
-        </image-overlays>
-      </td>
-     </tr>
-    </table>
-</div>

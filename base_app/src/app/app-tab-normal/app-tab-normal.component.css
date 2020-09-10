@@ -351,7 +351,7 @@ button, input[type=button], html input[type=button], input[type=reset], input[ty
     display: inline-block;
     cursor: pointer;
     width: auto;
-    min-width: 125px;
+    min-width: 30px;
     background-color: #EEEEEE;
     border-left-color: #FFFFFF;
     border-right-color: #B8B8B8;
@@ -370,7 +370,7 @@ button, input[type=button], html input[type=button], input[type=reset], input[ty
     display: inline-block;
     cursor: pointer;
     width: auto;
-    min-width: 80px;
+    min-width: 30px;
     background-color: #EEEEEE;
     border-left-color: #FFFFFF;
     border-right-color: #B8B8B8;
@@ -395,5 +395,5 @@ button, input[type=button], html input[type=button], input[type=reset], input[ty
     display: inline-block;
     cursor: default;
     width: auto;
-    min-width: 125px;
+    min-width: 30px;
 }
