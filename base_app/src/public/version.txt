@@ -1,6 +1,18 @@
 BUILD_COMMAND: build-client-prod
-BUILD_TIME: Thu, 10 Sep 2020 14:09:22 -0400
+BUILD_TIME: Fri, 11 Sep 2020 13:48:00 -0400
 STATUS_AT_BUILD_TIME:
+1599846189 commit 2416d993482700ce8e4ee56998a5ccf022f255ec
+Author: gmorehead <gmorehead@vionxenergy.com>
+Date:   Fri Sep 11 13:43:09 2020 -0400
+
+    Adding in the legacy parameters app...
+
+1599836942 commit 223cb0b575986c0a91fb0a18c6304fca9b49832a
+Author: gmorehead <gmorehead@vionxenergy.com>
+Date:   Fri Sep 11 11:09:02 2020 -0400
+
+    Removed the yml for installing the legacy html code.
+
 1599761235 commit 0bc8fd750363d1db268d7938552aa634074366b6
 Author: gmorehead <gmorehead@vionxenergy.com>
 Date:   Thu Sep 10 14:07:15 2020 -0400
@@ -103,5 +115,5 @@ GIT_DIRTY_STATUS: dirty
 GIT_FILES_ADDED: 0
 GIT_FILES_STAGED_MODIFIED: 0
 GIT_FILES_STAGED_NOT_MODIFIED: 0
-GIT_FILES_UNTRACKED: 17
-GIT_TOTAL_DIRTY_FILES: 17
+GIT_FILES_UNTRACKED: 9
+GIT_TOTAL_DIRTY_FILES: 9

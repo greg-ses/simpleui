@@ -8,10 +8,10 @@
     "simpleui",
     "server"
   ],
-  "author": "Jim Scarsdale",
+  "author": "Greg Morehead",
   "license": "ISC",
   "scripts": {
-    "build": "sh -x build-simpleui-server.bash",
+    "build": "sh -x build-simpleui-server.bash && sh post-build-step.sh",
     "start": "node dist/simpleui-server.js --appName=bms --uiProp=ui.nodejs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "unit-test": "test/__simpleui-server.unit-test.bash"
@@ -34,6 +34,7 @@
     "@types/express": "^4.17.1",
     "@types/node": "^12.12.3",
     "babel-core": "^7.0.0-bridge.0",
+    "protractor": "^5.4.2",
     "serve-static": "^1.14.1",
     "ts-node": "^7.0.1",
     "tslint": "~5.11.0",
