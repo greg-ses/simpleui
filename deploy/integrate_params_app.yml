@@ -1,0 +1,38 @@
+  # DO NOT CALL DIRECTLY - use include-task to consume this module
+
+  - name: "Copy Parameters app src=\"{{simpleui_root}}/web/html\"  dest=\"{{local_stage_dir}}/web/{{web_app_name}}/\""
+    local_action: "copy src=\"{{simpleui_root}}/web/html\"  dest=\"{{local_stage_dir}}/web/{{web_app_name}}/\""
+    connection: local
+    when: copy_params_app is defined and copy_params_app
+    become: true
+
+  - name: "Create {{ simpleui_root }}/web/angularjs1-dist.tgz if it doesn't already exist."
+    local_action: archive path="{{ simpleui_root }}/web/angularjs" dest="{{ simpleui_root }}/web/angularjs1-dist.tgz"
+    connection: local
+
+  - name: "Copy Parameters App dependency"
+    local_action: copy src="{{ simpleui_root }}/web/angularjs1-dist.tgz"  dest="{{ local_stage_dir }}/web/{{ web_app_name }}/"
+    connection: local
+    when: copy_params_app is defined and copy_params_app
+    become: true
+
+  - name: "Set name of embedded properties-file-name inside Parameters App file 1 to {{ app_config_props_file }}"
+    local_action: replace path="{{ local_stage_dir }}/web/{{ web_app_name }}/html/ParamsApp/Parameters.properties" regexp="BSCServer.properties" replace="{{ app_config_props_file }}"
+    connection: local
+    when: copy_params_app is defined and copy_params_app and app_config_props_file is defined and app_config_props_file
+    become: true
+
+  - name: "Set name of embedded properties-file-name inside Parameters App file 2 to {{ app_config_props_file }}"
+    local_action: replace path="{{ local_stage_dir }}/web/{{ web_app_name }}/html/ParamsApp/php/ParamHelper.php" regexp='BSCServer.properties' replace="{{ app_config_props_file }}"
+    connection: local
+    when: copy_params_app is defined and copy_params_app and app_config_props_file is defined and app_config_props_file
+    become: true
+
+  - name: "Set name of embedded web folder name inside Parameters App file 2 to {{ app_config_props_file }}"
+    local_action: replace path="{{ local_stage_dir }}/web/{{ web_app_name }}/html/ParamsApp/php/ParamHelper.php" regexp='\/var\/www\/bsc' replace="/var/www/{{ web_app_name }}"
+    connection: local
+    when: copy_params_app is defined and copy_params_app and app_config_props_file is defined and app_config_props_file
+    become: true
+
+    # -
+    # END SECTION - CREATE_LOCAL_ARCHIVE

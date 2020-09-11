@@ -1,0 +1,255 @@
+<HTML>
+<HEAD>
+<TITLE>Vionx Cross-Module Parameter Settings</TITLE>
+<script src="../../angularjs/1.5.3/angular.js"></script>
+<script src="js/controllers/param_input_validator.js"></script>
+<script src="js/controllers/get_unique_categories.js"></script>
+<script src="js/controllers/get_unique_subsystems.js"></script>
+<script src="../../angularjs/1.5.3/angular-animate.min.js"></script>
+<script src="../../angularjs/1.5.3/angular-aria.min.js"></script>
+<script src="../../angularjs/1.5.5/angular-material.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/Parameters.css"/>
+<link rel="stylesheet" type="text/css" href="../../angularjs/1.5.5/angular-material.min.css">
+</HEAD>
+
+<BODY>
+    <h1><img src="img/vionx-energy-logo-2.png" alt="Vionx logo" height="43" width="166">Cross-Module Parameter Manager</h1>
+    <div ng-app="paramsApp" ng-controller="paramsCtrl">
+        <span style="padding-left:8px"> Select subsystem: </span>
+        <select  ng-model="SubsysSel" ng-options="subsys for subsys in subsystems" ></select>
+        <table>
+            <tr ng-repeat="cat in categories | filter : { 'subsystem' : SubsysSel }" ng-controller="catController as catCtrl" >
+                <td  ng-style="catLike">{{ cat.category }} <span ng-click="catShow()">{{showSelector}}</span>
+                    <table  ng-show = "showMe">
+                        <tr >
+                            <th></th>
+                            <th ng-show="{{debug}}">Idx</th>
+                            <th ng-style="paramStyle">Parameter</th>
+                            <th ng-show="{{debug}}">Type</th>
+                            <th ng-show="{{debug}}">Min</th>
+                            <th ng-repeat="rh in cat.resHeaders">{{ rh }}</th>
+                        </tr>
+
+                        <tr ng-style="paramRow" ng-repeat="p in params | filter :{'subsystem' : SubsysSel, 'category': cat.category}:true">
+                            <td><button ng-click="setAllRowValues(p, params)">Set All</button></td>
+                            <td ng-show="{{debug}}">{{ p.paramDisplayOrder }}</td>
+                            <td ng-style="paramStyle" ng-attr-title="{{p.description}} {{p.type}}: {{p.min}}-{{p.max}}" >{{ p.paramName }}</td>
+                            <td ng-show="{{debug}}">{{ p.type }}</td>
+                            <td ng-show="{{debug}}">{{ p.min }}</td>
+                            <td ng-show="{{debug}}">{{ p.max }}</td>
+                            <td ng-show="{{debug}}">{{ p.description }}</td>
+                            <td ng-show="{{debug}}">{{ p.detail }}</td>
+                            <td ng-repeat="pr in p.resources track by $index"><input type="text" required ng-model="pr.resVal" ng-init="makeBackup(p, pr)" ng-model-options="{updateOn: 'change'}" ng-change="checkSave( p, params, pr )"/></td>
+                       </tr>
+                    </table> <!--params-->
+                </td>
+            </tr>  <!--unique categories-->
+        </table>
+
+        </div>
+        
+        <script>
+            var app = angular.module('paramsApp', ['ngMaterial']);
+            app.controller('paramsCtrl', function ($scope, $http, $mdDialog) {
+
+                $scope.debug = false;
+
+                $http.get( "php/NewParams.php" )
+                       .then (function ( response )  {
+                            $scope.params = response.data.records;
+                            $scope.subsystems = get_unique_subsystems( response.data.records );
+                            $scope.SubsysSel = $scope.subsystems[0];
+                            $scope.categories = get_unique_categories(response.data.records);
+                        });
+
+                $scope.paramRow = {
+                    "background-color": "#ecf2f9"
+                };
+
+                $scope.paramStyle = {
+                    "width": "275px"
+                };
+
+                $scope.showParam = function (p, params) {};
+
+                $scope.setAllRowValues = function (p, params) {
+                    var date = new Date();
+                    var ev;
+                    var cmd;
+                    var resIdx=0;
+                    var postStatus;
+                    var confirm = $mdDialog.prompt()
+                            .title('Enter ' + p.paramName + ':')
+                            .textContent(p.description + ' type: ' + p.type + ' '+ p.min + '-' + p.max)
+                            //   .placeholder('')
+                            //   .ariaLabel('')
+                            //   .targetEvent(ev)
+                            .ok('Accept')
+                            .cancel('Cancel');
+                    var newParamValues = [];
+                    var changeDate = (new Date()).valueOf();
+
+                    $mdDialog.show(confirm).then(function(allVal) {
+                        if (allVal)  {
+                            if (inputValidated(allVal, p.type, p.min, p.max)) {
+                                for (ri in p.resources) {
+                                    newParamValues.push({
+                                        'name': p.paramName,
+                                        'resource': p.resources[ri].resource,
+                                        'subsystem': $scope.SubsysSel,
+                                        'category': p.category,
+                                        'timestamp': changeDate,
+                                        'Value': allVal,
+                                        'user': 'Web User'
+                                    });
+                                }  // for  all resources
+                                postStatus = $scope.addNewParamValues( newParamValues );
+      //                          if (postStatus == 0) {   //reset model for all parameters after save
+                                    for (ri in p.resources) {
+                                            cmd = 'ri.resVal = "' + allVal + '"';
+                                            eval( cmd );
+                                            p.resources[ri].resVal = allVal;
+                                    }
+                                //}
+                                return (p, params);
+                            }
+                            else {
+                                $scope.showAlertInvalid();
+                                return(1);   //error
+                            }
+                        }
+                    });
+            };// end function setAllRowValues
+
+                $scope.showAlertInvalid = function() {
+                    var ev;
+                    $mdDialog.show ($mdDialog.alert()
+                        .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                        .title( '' )
+                        .textContent('Invalid Type or Range')
+                        .ok( 'Okay')
+                        .targetEvent(ev)
+                    );
+                };
+           
+                $scope.addNewParamValues = function (newParamValues)  {
+                    var postStatus;
+	                data = { 'newParamValues': newParamValues };
+	                /*
+	                post fails, but get "succeeds" below
+	                $http.get('php/InsertParamValues.php', data)
+	                */
+	                var config={'responseType':'json'};
+	                $http.post('php/InsertParamValues.php', data, config)
+	                .then(function (data, status, headers, config) {
+	                    $scope.content = status + ' - ' + data;
+                        postStatus = 0;
+	                }, function (data, status, headers, config) {
+	                    $scope.content = 'error';
+                        postStatus = 1;
+	                });
+                    return( postStatus );
+                };  // end function addNewParamValues
+
+               $scope.makeBackup = function(p, pr) {
+                   var resourceNum = pr.resourceIndex;
+                   if (!pr.resVal) {
+                       pr.resVal = pr.history[0].value;
+                   };
+                   if (!p.BackupValue){
+                        p.BackupValue = []
+                   };
+                   p.BackupValue[resourceNum] = pr.resVal;
+               };  // end function makeBackup
+
+                $scope.checkSave = function (p, params, pr) {
+                    var resourceNum = pr.resourceIndex;
+                    var ev;
+                    var cmd;
+                    var newValue;
+                    var newParamValues = [];
+                    var changeDate = (new Date()).valueOf();
+                    var confirm = $mdDialog.confirm()
+                            .title('')
+                            .textContent( 'Save change to ' + p.paramName + '?' )
+                            .ariaLabel('')
+                            .targetEvent(ev)
+                            .ok('Accept')
+                            .cancel('Cancel');
+                    newValue = pr.resVal;
+                    if (inputValidated( newValue, p.type, p.min, p.max )) {
+                        $mdDialog.show( confirm ).then( function () {
+                            $scope.status = true;
+                            newParamValues.push({
+                                'name': p.paramName,
+                                'resource': pr.resource,
+                                'subsystem': $scope.SubsysSel,
+                                'category': p.category,
+                                'timestamp': changeDate,
+                                'Value': newValue,
+                                'user': 'Web User'
+                            });
+                            this.status = $scope.addNewParamValues( newParamValues );
+                            p.BackupValue[ resourceNum ] = newValue;
+                        }, function () {
+                            $scope.status = false;
+                            cmd = 'pr.resVal = "' + p.BackupValue[ resourceNum ] + '"';
+                            eval( cmd );
+                        }
+                        );
+                    }
+                    else {
+                        cmd = 'pr.resVal = "' + p.BackupValue[ resourceNum ] + '"';
+                        eval( cmd );
+                        $scope.showAlertInvalid();
+                        return (0);
+                    }
+                }; // end function $scope.checkSave
+
+              /*  $http.get("php/CreateDbPreReqs.php")
+                .then(function (response) {
+                    $scope.params = response.data.records;
+                    if (response.data.records && response.data.records.length > 0) {
+                        $scope.paramHeaders = [response.data.records[0]];
+                    }
+                */
+
+            });   // end controller ParamsCtrl
+
+
+           /* app.controller('changeCtrl', function($scope){
+                $scope.testModel = p.params.Res1Val;
+                $scope.change = function(){
+                    console.log($scope.testModel);
+                };
+                console.log($scope.testModel);
+            });
+            */
+
+            app.controller('catController', function ($scope) {
+                rightArrow = '\u25B8';
+                downArrow = '\u25BE';
+                $scope.showMe = false;
+                $scope.showSelector = rightArrow;
+                $scope.catShow = function () {
+                    $scope.showMe = !$scope.showMe;
+                    if ($scope.showMe) {
+                        $scope.showSelector = downArrow;
+                    } else   $scope.showSelector = rightArrow;
+                };
+                $scope.catLike = {
+                    "color": "white",
+                    "background-color": "#4080bf",
+                    "font-size": "16px",
+                    "padding": "15px 15px"
+                };
+
+
+            }); //end controller catController
+           </script>
+
+
+       
+</BODY>
+</HTML>

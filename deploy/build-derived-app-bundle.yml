@@ -34,39 +34,10 @@
   #- name: 'Create local web packaging application'
   #  local_action: script create-bms-web-setup-bundle.sh {{ local_stage_dir }} quiet
 
-  - name: "Copy Parameters app src=\"{{common_web_src}}/html\"  dest=\"{{local_stage_dir}}/web/{{web_app_name}}/\""
-    local_action: "copy src=\"{{common_web_src}}/html\"  dest=\"{{local_stage_dir}}/web/{{web_app_name}}/\""
-    connection: local
+  - name: "Integrate the parameters app if requested ( copy_params_app : {{ copy_params_app }} )"
+    include_tasks:
+        file: integrate_params_app.yml
     when: copy_params_app is defined and copy_params_app
-    become: true
-
-  - name: "Create common/web/angularjs1-dist.tgz if it doesn't already exist."
-    local_action: archive path="{{ common_web_src }}/angularjs" dest="{{ common_web_src }}/angularjs1-dist.tgz"
-    connection: local
-
-  - name: "Copy Parameters App dependency from common/web/angularjs"
-    local_action: copy src="{{ common_web_src }}/angularjs1-dist.tgz"  dest="{{ local_stage_dir }}/web/{{ web_app_name }}/"
-    connection: local
-    when: copy_params_app is defined and copy_params_app
-    become: true
-
-  - name: "Set name of embedded properties-file-name inside Parameters App file 1 to {{ app_config_props_file }}"
-    local_action: replace path="{{ local_stage_dir }}/web/{{ web_app_name }}/html/ParamsApp/Parameters.properties" regexp="BSCServer.properties" replace="{{ app_config_props_file }}"
-    connection: local
-    when: copy_params_app is defined and copy_params_app and app_config_props_file is defined and app_config_props_file
-    become: true
-
-  - name: "Set name of embedded properties-file-name inside Parameters App file 2 to {{ app_config_props_file }}"
-    local_action: replace path="{{ local_stage_dir }}/web/{{ web_app_name }}/html/ParamsApp/php/ParamHelper.php" regexp='BSCServer.properties' replace="{{ app_config_props_file }}"
-    connection: local
-    when: copy_params_app is defined and copy_params_app and app_config_props_file is defined and app_config_props_file
-    become: true
-
-  - name: "Set name of embedded web folder name inside Parameters App file 2 to {{ app_config_props_file }}"
-    local_action: replace path="{{ local_stage_dir }}/web/{{ web_app_name }}/html/ParamsApp/php/ParamHelper.php" regexp='\/var\/www\/bsc' replace="/var/www/{{ web_app_name }}"
-    connection: local
-    when: copy_params_app is defined and copy_params_app and app_config_props_file is defined and app_config_props_file
-    become: true
 
   - name: "Set custom web-app list for service (if required)"
     local_action: replace path="{{ local_stage_dir }}/web/{{ web_app_name }}/simpleui-server/{{ web_app_name }}-web.service" regexp='--appName={{ web_app_name }}' replace="--appName={{ web_service_apps_list }}"
