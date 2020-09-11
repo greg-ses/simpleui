@@ -1,8 +1,0 @@
-﻿{
-	'name': 'Premium Power Corp',
-	'version':'1.0',
-	'dependencies': {
-		'dojo': 'current'
-	},
-	'dojoBuild': 'ppcJs.profile.js'
-}

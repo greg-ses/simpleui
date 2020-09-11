@@ -1,6 +1,5 @@
 # Web-app installation files - all embedded variables are passed in via the vars/APPNAME-web-vars.yml file, passed via --extra-vars
 local_stage_dir: /tmp/{{ web_app_name }}-staging-area
-legacy_module_derivative_web_app_bundle: "{{ web_app_name }}-legacy-module-derivative-web-app-bundle.tgz"
 remote_stage_dir: /tmp/{{ web_app_name }}-staging-remote
 web_bundle_file: "{{ web_app_name }}-web-setup-bundle-{{ unique_suffix }}.tgz"
 web_bundle_file_remote: "{{ web_app_name }}-web-setup-bundle-{{ unique_suffix }}-remote.tgz"

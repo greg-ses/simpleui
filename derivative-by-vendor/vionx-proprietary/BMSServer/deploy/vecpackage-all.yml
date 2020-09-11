@@ -1,9 +1,0 @@
----
-- name: Update Critical OS Image Changes
-  include: vecpackage-image.yml
-- name: Update Application And Configuration Files
-  include: vecpackage-devapp.yml
-- name: Update User Interface
-  include: vecpackage-ui.yml
-- name: Update Unit Configuration Script
-  include: vecpackage-unitconfig.yml

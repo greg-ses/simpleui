@@ -1,8 +1,0 @@
-{"ioTemplate" : 
-	{"AIN" : [{"name":"Dummy_AIn","type":0,"write":false,"description":"Test dummy analog input resource point"}]
-	, "DIN" : [{"name":"Dummy_DIn","type":2,"write":false,"description":"Test dummy resource point"}]
-	, "DOUT" : [{"name":"Dummy_DOut","type":3,"write":false,"description":"Test dummy output point"}
-			,{"name":"Blinky_LED","type":3,"write":false,"description":"Development board LED"}]
-	}
-}
-

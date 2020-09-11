@@ -1,6 +1,12 @@
 BUILD_COMMAND: build-client-prod
-BUILD_TIME: Thu, 10 Sep 2020 10:31:58 -0400
+BUILD_TIME: Thu, 10 Sep 2020 14:09:22 -0400
 STATUS_AT_BUILD_TIME:
+1599761235 commit 0bc8fd750363d1db268d7938552aa634074366b6
+Author: gmorehead <gmorehead@vionxenergy.com>
+Date:   Thu Sep 10 14:07:15 2020 -0400
+
+    Integrated new custom overlay work.
+
 1599745647 commit 46a3e3e98a72128d8b4283e00c75787643fb5f79
 Author: gmorehead <gmorehead@vionxenergy.com>
 Date:   Thu Sep 10 09:47:27 2020 -0400
@@ -94,8 +100,8 @@ Date:   Wed Apr 8 19:40:05 2020 -0400
     Initial Commit
 
 GIT_DIRTY_STATUS: dirty
-GIT_FILES_ADDED: 2
+GIT_FILES_ADDED: 0
 GIT_FILES_STAGED_MODIFIED: 0
-GIT_FILES_STAGED_NOT_MODIFIED: 22
+GIT_FILES_STAGED_NOT_MODIFIED: 0
 GIT_FILES_UNTRACKED: 17
-GIT_TOTAL_DIRTY_FILES: 41
+GIT_TOTAL_DIRTY_FILES: 17

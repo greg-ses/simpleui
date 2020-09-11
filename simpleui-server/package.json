@@ -11,7 +11,7 @@
   "author": "Jim Scarsdale",
   "license": "ISC",
   "scripts": {
-    "build": "sh -x scripts/build.bash",
+    "build": "sh -x build-simpleui-server.bash",
     "start": "node dist/simpleui-server.js --appName=bms --uiProp=ui.nodejs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "unit-test": "test/__simpleui-server.unit-test.bash"

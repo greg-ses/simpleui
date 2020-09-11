@@ -1,9 +1,0 @@
-pur_ansible_dir: /opt/deploy
-archive_dir: /vionx
-unique_suffix: "{{ ansible_facts['date_time']['date'] }}-{{ ansible_facts['date_time']['hour'] }}-{{ ansible_facts['date_time']['minute'] }}--{{ ansible_facts['date_time']['second'] }}"
-
-# path to common_web_src and ng-simple-ui
-common_web_src: /home/jscarsdale/vionx_linux/target/common/web
-
-# path to parent folder of [simpleui-git]/base_app
-simpleui_root: /home/jscarsdale/simpleui-git

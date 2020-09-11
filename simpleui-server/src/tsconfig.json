@@ -24,6 +24,7 @@
     "command-json-normalizer.ts",
     "interfaces.ts",
     "json-string-normalizer.ts",
+    "json-overlay-normalizer.ts",
     "props-file-reader.ts",
     "server-logger.ts",
     "server-util.ts",
