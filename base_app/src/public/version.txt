@@ -1,6 +1,12 @@
 BUILD_COMMAND: build-client-prod
-BUILD_TIME: Fri, 11 Sep 2020 13:48:00 -0400
+BUILD_TIME: Fri, 11 Sep 2020 16:08:38 -0400
 STATUS_AT_BUILD_TIME:
+1599850177 commit 67cabdb7642a7eef520625379e76de812e7a4c1e
+Author: gmorehead <gmorehead@vionxenergy.com>
+Date:   Fri Sep 11 14:49:37 2020 -0400
+
+    Standalone simpleui-server is compiling.
+
 1599846189 commit 2416d993482700ce8e4ee56998a5ccf022f255ec
 Author: gmorehead <gmorehead@vionxenergy.com>
 Date:   Fri Sep 11 13:43:09 2020 -0400
@@ -114,6 +120,6 @@ Date:   Wed Apr 8 19:40:05 2020 -0400
 GIT_DIRTY_STATUS: dirty
 GIT_FILES_ADDED: 0
 GIT_FILES_STAGED_MODIFIED: 0
-GIT_FILES_STAGED_NOT_MODIFIED: 0
-GIT_FILES_UNTRACKED: 9
-GIT_TOTAL_DIRTY_FILES: 9
+GIT_FILES_STAGED_NOT_MODIFIED: 2
+GIT_FILES_UNTRACKED: 10
+GIT_TOTAL_DIRTY_FILES: 12

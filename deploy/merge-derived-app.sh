@@ -3,7 +3,7 @@
 if $(test "$#" \< "3"); then
   printf "\n    merge-derived-app.sh - Create a ng-simple-ui app, merging custom ui.properties and php folder\n"
   printf "\n    Usage: (only the given argument order is supported)\n"
-  printf "\n      merge-derived-app.sh  simple_ui_dist  merge_from_folder  output_folder  [-d] [-i]\n"
+  printf "\n      merge-derived-app.sh  simpleui_root_folder  derived_merge_folder  output_folder  [-d] [-i]\n"
   printf "\n"
   printf "      where 'simple_ui_dist' is the location of the built ng-simple-ui distribution 'dist.tgz'.\n"
   printf "            'merge_from_folder' is the folder to be merged with ng-simple-ui.\n"
@@ -17,7 +17,10 @@ if $(test "$#" \< "3"); then
   printf "           sh ../../common/web/apps/ng-simple-ui/src/public/merge-derived-app.sh ../../common/web/apps/ng-simple-ui/dist.tgz ../web/simple_ui.derivative  /var/www/bsc -d\n"
 
 else
-  simple_ui_dist="$1"
+
+  simple_ui_dist="$1/base_app/dist.tgz"
+  simpleui_server_dist="$1/simpleui-server/dist.tgz"
+
   merge_from_folder="$2"
   output_folder="$3"
   basedir="$(basename ${output_folder})"
@@ -40,6 +43,8 @@ else
   mkdir "${output_folder}"
 
   tar xzf "${simple_ui_dist}" -C "${output_folder}"  --exclude=mock-data --exclude=example-overlay.tgz --exclude=example-overlay --exclude=examples
+
+  tar xzf "${simpleui_server_dist}" -C "${output_folder}"
 
   mv ${output_folder}/simpleui-server/SERVICE-TEMPLATE.service ${output_folder}/simpleui-server/${basedir}-web.service
   sed -i \

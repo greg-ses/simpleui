@@ -16,7 +16,7 @@ done
 
 # Create dist.tgz
 cd dist
-tar czvf ../dist.tgz --exclude="${PROJ}"  *
+tar czvf ../dist.tgz *
 cd ..
 
 echo "------------------ Finished post-build-step at $(date) -----------------------"

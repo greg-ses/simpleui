@@ -36,15 +36,6 @@ cp dist/${PROJ}/*.css.map dist/css/
 cp dist/${PROJ}/*.js dist/js/
 cp dist/${PROJ}/*.js.map dist/js/
 
-if $(! test -d dist/simpleui-server/node_modules); then
-    mkdir dist/simpleui-server/node_modules
-fi
-
-for d in $(cat src/public/simpleui-server/node_modules-dirs-to-copy.txt); do
-    if $(! test -d dist/simpleui-server/node_modules/${d}); then
-        cp -r ${d} dist/simpleui-server/node_modules;
-    fi
-done
 
 if (($# > 0)) && [[ "$1" == "--include-mocks" ]]; then
     cp -rv src/public/mock-config dist
