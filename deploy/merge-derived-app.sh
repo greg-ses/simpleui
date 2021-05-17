@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if $(test "$#" \< "3"); then
   printf "\n    merge-derived-app.sh - Create a ng-simple-ui app, merging custom ui.properties and php folder\n"
@@ -26,12 +26,12 @@ else
   basedir="$(basename ${output_folder})"
 
   web_port="2080"
-  if [[ "$4" == "-p" ]]; then web_port="$5"; fi
-  if [[ "$5" == "-p" ]]; then web_port="$6"; fi
-  if [[ "$6" == "-p" ]]; then web_port="$7"; fi
+  if [ "$4" == "-p" ]; then web_port="$5"; fi
+  if [ "$5" == "-p" ]; then web_port="$6"; fi
+  if [ "$6" == "-p" ]; then web_port="$7"; fi
 
   if $(test -d "${output_folder}"); then
-      if [[ "$4" == "-d" ]] || [[ "$5" == "-d" ]] || [[ "$6" == "-d" ]]; then
+      if [ "$4" == "-d" ] || [ "$5" == "-d" ] || [ "$6" == "-d" ]; then
         rm -rf "${output_folder}"
       else
         printf "\nError: Folder \"${output_folder}\" already exists.  Use \"-d\" to remove it first.\n\n"
@@ -54,13 +54,13 @@ else
     ${output_folder}/simpleui-server/${basedir}-web.service
 
   # Include mock-data if -i was passed
-  if [[ "$4" == "-i" ]] || [[ "$5" == "-i" ]] || [[ "$6" == "-i" ]] || [[ "$7" == "-i" ]]; then
+  if [ "$4" == "-i" ] || [ "$5" == "-i" ] || [ "$6" == "-i" ] || [ "$7" == "-i" ]; then
     printf " + Add simple_ui mock-data, mock-config, and mock-php folders due to -i flag\n"
     tar xzf "${simple_ui_dist}" -C "${output_folder}" mock-config mock-data mock-php
   fi
 
   # Include example-overlay.tgz and example-overlay folder if -e was passed
-  if [[ "$4" == "-e" ]] || [[ "$5" == "-e" ]] || [[ "$6" == "-e" ]]; then
+  if [ "$4" == "-e" ] || [ "$5" == "-e" ] || [ "$6" == "-e" ]; then
     printf " + Add simple_ui example-overlay.tgz and folder due to -e flag\n"
     tar xzf "${simple_ui_dist}" -C "${output_folder}" example-overlay.tgz
     tar xzf "${output_folder}/example-overlay.tgz" -C "${output_folder}"

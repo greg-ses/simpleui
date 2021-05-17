@@ -18,6 +18,7 @@
   },
   "private": true,
   "dependencies": {
+    "array-flatten": "^3.0.0",
     "core-js": "^2.6.10",
     "cors": "^2.8.5",
     "express": "^4.17.1",
