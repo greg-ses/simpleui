@@ -5,6 +5,10 @@
 /tmp
 /out-tsc
 
+/src/public/version.txt
+dist.tgz
+0
+
 # dependencies
 /node_modules
 

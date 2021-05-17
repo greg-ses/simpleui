@@ -7,3 +7,5 @@ base_app/src/public/version.txt
 derivative-examples/BMSServer/sample-backend/cmake-build-debug/
 derivative-examples/BMSServer/sample-backend/cmake-build-release/
 derivative-examples/BMSServer/sample-backend/lib/libtest_library.a
+
+web/angularjs1-dist.tgz
