@@ -129,16 +129,6 @@ export class SuiData {
         if (uiProps && (typeof uiProps['dependsOnApp'] === 'string') ) {
             const processInfo = {};
             await ServerUtil.getProcessInfo(uiProps['dependsOnApp'], processInfo);
-            if (!processInfo['isRunning']) {
-                const message = ServerUtil.getServerError('MISSING_DEPEND_ON_PROCESS', '{{PROCESS}}',
-                    uiProps['dependsOnApp']);
-
-                SuiData.sendResponse(req, res, uiProps, message);
-                Logger.log(LogLevel.ERROR,
-                    `Request #${SuiData.requestNum}: ` +
-                    `${message.substr(0, 105).replace(/[ \t]*\n[ \t]*/g, '')}`);
-                return;
-            }
         }
 
         /*
@@ -221,15 +211,6 @@ export class SuiData {
         if (uiProps && (typeof uiProps['dependsOnApp'] === 'string') ) {
             const processInfo = {};
             await ServerUtil.getProcessInfo(uiProps['dependsOnApp'], processInfo);
-            if (!processInfo['isRunning']) {
-                const message = ServerUtil.getServerError('MISSING_DEPEND_ON_PROCESS', '{{PROCESS}}',
-                    uiProps['dependsOnApp']);
-                SuiData.sendResponse(req, res, uiProps, message);
-                Logger.log(LogLevel.ERROR,
-                    `Request #${SuiData.requestNum}: ` +
-                    `${message.substr(0, 105).replace(/[ \t]*\n[ \t]*/g, '')}`);
-                return;
-            }
         }
 
         /* if (SuiData.propOrDefault(uiProps, `${tab.dataServiceEnabled}`, 1) === 0) {
