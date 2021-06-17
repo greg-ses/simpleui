@@ -84,7 +84,7 @@ function zmqRequest($props, $DataPortPrefix, $cmd, $valueName, $expectedResponse
 
     try {
         $context = new ZMQContext();
-        $zmqConnect = sprintf("tcp://127.0.0.1:%s", propOrDefault($props, $DataPortPrefix . ".data.port", "5560"));
+        $zmqConnect = sprintf("tcp://svcmachineapps:%s", propOrDefault($props, $DataPortPrefix . ".data.port", "5560"));
 
         $log->logData(LOG_VERBOSE, "ZMQ Connect: %s", $zmqConnect);
         $client = new ZMQSocket($context, ZMQ::SOCKET_REQ);
