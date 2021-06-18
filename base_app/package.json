@@ -55,7 +55,7 @@
     "sha1": "^1.1.1",
     "then-request": "^6.0.2",
     "tslib": "^1.10.0",
-    "zeromq": "^4.6.0",
+    "zeromq": "^5.2.8",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
