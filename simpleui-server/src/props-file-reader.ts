@@ -454,19 +454,6 @@ export class PropsFileReader {
     }
 
     static async propsFileRequest(request, response, props) {
-        if (props && (typeof props['dependsOnApp'] === 'string') ) {
-            const processInfo = {};
-            await ServerUtil.getProcessInfo(props['dependsOnApp'], processInfo);
-            if (!processInfo['isRunning']) {
-                const message = ServerUtil.getServerError('MISSING_DEPEND_ON_PROCESS', '{{PROCESS}}',
-                    props['dependsOnApp']);
-                response.send(message);
-                Logger.log(LogLevel.ERROR, `Props Request Error: ` +
-                    `${message.substr(0, 105).replace(/[ \t]*\n[ \t]*/g, '')}`);
-                return;
-            }
-        }
-
 
         if ((typeof request.query.xml === 'string')
             || (typeof request.query.XML === 'string')) {

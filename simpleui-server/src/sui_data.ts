@@ -6,7 +6,6 @@ import * as fastXmlParser from 'fast-xml-parser';
 import * as he from 'he';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
-import {microtime} from 'microtime';
 import * as fs from 'fs';
 
 import * as child_process from 'child_process';
@@ -126,28 +125,13 @@ export class SuiData {
             'suiDataRequest', '/query/data/zmq', cmd);
 
 
-        if (uiProps && (typeof uiProps['dependsOnApp'] === 'string') ) {
-            const processInfo = {};
-            await ServerUtil.getProcessInfo(uiProps['dependsOnApp'], processInfo);
-            if (!processInfo['isRunning']) {
-                const message = ServerUtil.getServerError('MISSING_DEPEND_ON_PROCESS', '{{PROCESS}}',
-                    uiProps['dependsOnApp']);
-
-                SuiData.sendResponse(req, res, uiProps, message);
-                Logger.log(LogLevel.ERROR,
-                    `Request #${SuiData.requestNum}: ` +
-                    `${message.substr(0, 105).replace(/[ \t]*\n[ \t]*/g, '')}`);
-                return;
-            }
-        }
-
         /*
         if (SuiData.propOrDefault(uiProps, `${tab.dataServiceEnabled}`, 1) === 0) {
             Logger.log(LogLevel.INFO, `Service is disabled for ${tab.tabName}`);
             const errorXml = `<Data_Summary>${SuiData.errorToXml('1005', 'suiRequest')}</Data_Summary>`;
             response.send(errorXml);
         } else */ {
-
+            Logger.log(LogLevel.DEBUG, `Getting properties data.`);
             const timeout = SuiData.propOrDefault(uiProps, 'zmqTimeout', 1000);
             const zmqDataRequester = SuiData.zmq.socket('req');
             zmqDataRequester.connect_timeout = timeout;
@@ -180,9 +164,10 @@ export class SuiData {
             });
 
             // Synchronous processing that occurs PRIOR TO the callbacks above
-            zmqDataRequester.connect(`tcp://0.0.0.0:${SuiData.getZmqPort(req)}`);
+            zmqDataRequester.connect(`tcp://svcmachineapps:${SuiData.getZmqPort(req)}`);
             const xmlDataRequestForZmq = `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
-            Logger.log(LogLevel.VERBOSE, `Send Request: ${xmlDataRequestForZmq}`);
+            Logger.log(LogLevel.DEBUG, `Send Request: ${xmlDataRequestForZmq}`);
+            Logger.log(LogLevel.DEBUG, `Port number of request: ${SuiData.getZmqPort(req)}`);
             zmqDataRequester.send(xmlDataRequestForZmq);
 
             // Callback invoked after SIGINT
@@ -221,15 +206,6 @@ export class SuiData {
         if (uiProps && (typeof uiProps['dependsOnApp'] === 'string') ) {
             const processInfo = {};
             await ServerUtil.getProcessInfo(uiProps['dependsOnApp'], processInfo);
-            if (!processInfo['isRunning']) {
-                const message = ServerUtil.getServerError('MISSING_DEPEND_ON_PROCESS', '{{PROCESS}}',
-                    uiProps['dependsOnApp']);
-                SuiData.sendResponse(req, res, uiProps, message);
-                Logger.log(LogLevel.ERROR,
-                    `Request #${SuiData.requestNum}: ` +
-                    `${message.substr(0, 105).replace(/[ \t]*\n[ \t]*/g, '')}`);
-                return;
-            }
         }
 
         /* if (SuiData.propOrDefault(uiProps, `${tab.dataServiceEnabled}`, 1) === 0) {
@@ -322,7 +298,7 @@ export class SuiData {
                 // process.exit(0);
             });
 
-            zmqCmdRequester.connect(`tcp://0.0.0.0:${SuiData.getZmqPort(req)}`);
+            zmqCmdRequester.connect(`tcp://svcmachineapps:${SuiData.getZmqPort(req)}`);
             Logger.log(LogLevel.VERBOSE, `Send Request: ${xmlCmdRequestForZmq}`);
             zmqCmdRequester.send(xmlCmdRequestForZmq);
 

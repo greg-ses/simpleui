@@ -142,6 +142,13 @@ export class SimpleUIServer {
 
             const originsWhiteList = [
                 `http://localhost`,
+                `http://svcapache`,
+                `http://svcmariadb`,
+                `http://svcnode-vts`,
+                `http://svcnode-simvts`,
+                `http://svcnode-ems`,
+                `http://svcnode-bms`,
+                `http://svcnode-simvnx1000`,
                 `http://${os.hostname()}`,
                 `http://127.0.0.1`,
                 `http://${SimpleUIServer.getExternalIP()}`,

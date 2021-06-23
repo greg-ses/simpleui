@@ -473,9 +473,9 @@ class SimpleUIRequest
         {
             $context = new ZMQContext();
             if ($portNum === null) {
-                $zmqConnect = sprintf("tcp://127.0.0.1:%d", propOrDefault($this->_props, $this->DataPortPrefix . ".data.port", "5560"));
+                $zmqConnect = sprintf("tcp://svcmachineapps:%d", propOrDefault($this->_props, $this->DataPortPrefix . ".data.port", "5560"));
             } else {
-                $zmqConnect = "tcp://127.0.0.1:" . $portNum;
+                $zmqConnect = "tcp://svcmachineapps:" . $portNum;
             }
 
             $this->_log->logData(LOG_DEBUG, "ZMQ Connect: " . $zmqConnect);
