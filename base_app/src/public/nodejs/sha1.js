@@ -1,7 +1,7 @@
 (function() {
-  var crypt = require('crypt'),
-      utf8 = require('charenc').utf8,
-      bin = require('charenc').bin,
+  var crypt = require('./crypt'),
+      utf8 = require('./charenc').utf8,
+      bin = require('./charenc').bin,
 
   // The core
   sha1 = function (message) {
