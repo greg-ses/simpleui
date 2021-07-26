@@ -149,6 +149,15 @@
   become: true
   when: web_service_apps_list is defined and web_service_apps_list
 
+- pause:
+    seconds: 15
+  # Make sure the web app has actually started
+- name: "Confirm {{ web_app_name }} is running"
+  command: systemctl is-active "{{ web_app_name }}-web"
+  register: agent_status
+  failed_when: "'failed' in agent_status.stdout"
+  changed_when: False
+
   # Cleanup, remove remote staging Folder and files
 - name: "Remove remote staging area folder"
   file:
