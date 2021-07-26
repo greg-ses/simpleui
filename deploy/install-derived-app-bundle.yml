@@ -158,6 +158,12 @@
   failed_when: "'failed' in agent_status.stdout"
   changed_when: False
 
+- name: "Confirm {{ web_app_name }} is running"
+  command: systemctl is-active "{{ web_app_name }}-web"
+  register: agent_status
+  failed_when: "'activating' in agent_status.stdout"
+  changed_when: False
+
   # Cleanup, remove remote staging Folder and files
 - name: "Remove remote staging area folder"
   file:
