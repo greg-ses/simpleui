@@ -3,6 +3,9 @@
 
 [Unit]
 Description=SimpleUI Server for App {{APP_NAME}}
+#Interval is setup to try to start 5 times at 10 sec intervals.
+StartLimitInterval=60
+StartLimitBurst=5
 
 [Service]
 Type=simple
@@ -11,6 +14,8 @@ WorkingDirectory=/var/www/{{APP_NAME}}/simpleui-server
 
 User=service
 Group=service
+Restart=on-failure
+RestartSec=10
 
 # Environment variables:
 Environment=NODE_ENV=production
@@ -24,7 +29,6 @@ LimitCORE=infinity
 StandardInput=null
 StandardOutput=syslog
 StandardError=syslog
-Restart=always
 
 [Install]
 WantedBy=multi-user.target

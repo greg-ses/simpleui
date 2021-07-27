@@ -8,6 +8,8 @@ cp src/SERVICE-TEMPLATE.service dist/simpleui-server/
 cp node_modules/crypt/crypt.js dist/simpleui-server/
 cp node_modules/charenc/charenc.js dist/simpleui-server/
 cp node_modules/sha1/sha1.js dist/simpleui-server/
+cp package.json dist/simpleui-server/
+cp package-lock.json dist/simpleui-server/
 
 cp node_modules/crypt/crypt.js src/
 cp node_modules/charenc/charenc.js src/

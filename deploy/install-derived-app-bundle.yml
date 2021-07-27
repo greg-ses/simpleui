@@ -23,6 +23,15 @@
     dest: "{{ archive_dir }}/{{ web_app_name }}-pre-{{ unique_suffix }}.tgz"
   when: WEB_DEPLOY_DIR.stat.isdir is defined and WEB_DEPLOY_DIR.stat.isdir
   become: true
+  ignore_errors: yes
+
+- name: "Remove previous remote deployment of {{ web_deploy_dir }}"
+  file:
+    path: "{{ web_deploy_dir }}"
+    state: absent
+    force: yes
+  become: true
+  ignore_errors: true
 
 - name: "Backup remote /etc/fstab"
   copy:
@@ -74,12 +83,6 @@
 - name: "Update /etc/apache2/apache2.conf {{ web_app_name }} {{ nodejs_port }}"
   shell:
     bash "{{ remote_stage_dir }}/{{ web_app_name }}-staging-area/web/{{ web_app_name }}/setup-helpers/update-apache-conf.sh" "{{ web_app_name }}" "{{nodejs_port}}"
-  become: true
-
-- name: "Remove previous deployed web directory"
-  file:
-    path: "{{ web_deploy_dir }}"
-    state: absent
   become: true
 
 #- name: "Copy/deploy web files to target {{ web_root }}"
@@ -145,6 +148,21 @@
     state: restarted
   become: true
   when: web_service_apps_list is defined and web_service_apps_list
+
+- pause:
+    seconds: 15
+  # Make sure the web app has actually started
+- name: "Confirm {{ web_app_name }} is running"
+  command: systemctl is-active "{{ web_app_name }}-web"
+  register: agent_status
+  failed_when: "'failed' in agent_status.stdout"
+  changed_when: False
+
+- name: "Confirm {{ web_app_name }} is running"
+  command: systemctl is-active "{{ web_app_name }}-web"
+  register: agent_status
+  failed_when: "'activating' in agent_status.stdout"
+  changed_when: False
 
   # Cleanup, remove remote staging Folder and files
 - name: "Remove remote staging area folder"
