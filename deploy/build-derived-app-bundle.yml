@@ -1,10 +1,5 @@
   # DO NOT CALL DIRECTLY - use include-task to consume this module
 
-  - name: Make sure simpleui-git distributions is UP-TO-DATE.
-    local_action: command bash "{{ simpleui_root }}/deploy/is_dist_stale.bash"
-    connection: local
-    become: true
-#    ignore_errors: yes
 
   - name: "password test {{ ansible_become_password }}"
     local_action: command echo "test"
@@ -24,7 +19,7 @@
     become: true
 
   - name: "Merge ng-simpleui into derived app {{ web_app_name }}"
-    local_action: command "{{ simpleui_root }}/deploy/merge-derived-app.sh" "{{ simpleui_root }}" "{{ simpleui_derivative_folder }}"  "{{ local_stage_dir }}/web/{{ web_app_name }}" -d {{ include_mock_data }} -p "{{ nodejs_port }}"
+    local_action: command "{{ simpleui_root }}/deploy/merge-derived-app.sh" "{{ simpleui_package_folder }}" "{{ simpleui_derivative_folder }}"  "{{ local_stage_dir }}/web/{{ web_app_name }}" -d {{ include_mock_data }} -p "{{ nodejs_port }}"
     connection: local
     become: true
     register: merge_script_out

@@ -1,4 +1,4 @@
-TO UPDATE USING ANSIBLE 2.7.1:
+# TO UPDATE USING ANSIBLE 2.7.1:
 
     Make sure you can log into Crystal device or VM to be updated without password using ssh.
     To do this do:
