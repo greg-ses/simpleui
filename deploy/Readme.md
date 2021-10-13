@@ -1,4 +1,4 @@
-TO UPDATE USING ANSIBLE 2.7.1:
+# TO UPDATE USING ANSIBLE 2.7.1:
 
     Make sure you can log into Crystal device or VM to be updated without password using ssh.
     To do this do:
@@ -19,3 +19,9 @@ TO UPDATE USING ANSIBLE 2.7.1:
 
     OR, USE THE SHORTCUT SCRIPT
     ./site_update BMS_HOSTNAME bmsui
+
+# Using build-base-web-packages.sh
+
+This script will compile node_modules and dist.tgz files needed for application specific packaging and place them in the specified output folder. This script is useful in
+conjunction with application specific build scripts to prepare build artifacts which can then be used by a deployment tool, such as ansible.
+
