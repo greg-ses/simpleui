@@ -28,6 +28,7 @@ export class SuiData {
     static zmq = require('zeromq');
     static ram_disk_folder = '/var/volatile/tmp/apache2';
     static requestNum = 0;
+    static mockRequestNum = 0;
     static mockDataFileIndex = [];
 
     static propOrDefault(props: any, prop: string, defaultValue): any {
@@ -140,11 +141,8 @@ export class SuiData {
 
             // Callback invoked after zmqDataRequester.send() completes
             zmqDataRequester.on('message', function (reply) {
-                const zmqResponse = reply.toString().replace(
-                    '</Data_Summary>',
-                    '<status>0</status></Data_Summary>');
+                const zmqResponse = SuiData.addXmlStatus(reply.toString());
                 zmqDataRequester.close();
-
                 SuiData.sendResponse(req, res, uiProps, zmqResponse);
 
                 Logger.log((SuiData.requestNum <= 5) ? LogLevel.INFO : LogLevel.DEBUG,
@@ -285,9 +283,7 @@ export class SuiData {
 
             // Callback invoked after zmqCmdRequester.send() completes
             zmqCmdRequester.on('message', function (reply) {
-                const zmqResponse = reply.toString().replace(
-                    '</Data_Summary>',
-                    '<status>0</status></Data_Summary>');
+                const zmqResponse = SuiData.addXmlStatus(reply.toString());
                 zmqCmdRequester.close();
                 SuiData.sendResponse(req, res, uiProps, zmqResponse);
 
@@ -307,6 +303,20 @@ export class SuiData {
             });
         }
         return;
+    }
+
+    static addXmlStatus(xmlString): string {
+        // Inject a status if the XML didn't contain one.
+        let tagNames = "(Data_Summary|Overlay_Summary)";
+        let endTagRegExp = new RegExp(`<\/${tagNames}>`);
+        let endTagContainingStatusRegExp = new RegExp(`\<status\>[0-9]+\<\/status\>\n*\<\/${tagNames}\>`);
+        const matches = xmlString.match(endTagContainingStatusRegExp);
+        if (!matches) {
+            xmlString = xmlString.replace(
+                endTagRegExp,
+                '<status>0</status></$1>');
+        }
+        return xmlString
     }
 
     static getContentType(req): string {
@@ -718,7 +728,6 @@ export class SuiData {
 
         return sJson;
     }
-
     static mockSuiRequest(cmdArgs: CommandArgs, props: any, req: any = null, res: Response = null)
     {
         if (!props) {
@@ -732,6 +741,9 @@ export class SuiData {
         }
 
         const xmlInFile = cmdArgs.xmlInFile.replace('.0.', `.${SuiData.mockDataFileIndex[cmdArgs.xmlInFile]}.`);
+        ServerUtil.logRequestDetails(LogLevel.DEBUG, req,
+            `Starting MOCK request # ${++SuiData.mockRequestNum}`,
+            'suiMockRequest', '/mock/data?file=', xmlInFile);
 
 
         let xmlString = fs.readFileSync(xmlInFile, 'utf8');
@@ -741,13 +753,7 @@ export class SuiData {
             return msg;
         }
 
-        // Inject a status if the XML didn't contain one.
-        const matches = xmlString.match(/\<status\>[0-9]+\<\/status\>\n*\<\/Data_Summary\>/);
-        if (!matches) {
-            xmlString = xmlString.replace(
-                '</Data_Summary>',
-                '<status>0</status></Data_Summary>');
-        }
+        xmlString = SuiData.addXmlStatus(xmlString);
 
         // let versionString = "V.xxx";
 
@@ -772,10 +778,10 @@ export class SuiData {
             fs.writeFileSync(jsonOutFile, sJson);
             console.log(`Created test output file: ${jsonOutFile}.`);
         }
+
         if (res) {
             res.send(sJson);
         }
         return;
     }
-
 }
