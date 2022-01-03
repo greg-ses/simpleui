@@ -586,9 +586,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
 
         let autoRefreshTimeout = AppComponent._autoRefreshExpirationDefault;
-        if ((this._props['autoRefreshTimeout'] instanceof Object)
-            && (typeof this._props['autoRefreshTimeout'].value === 'string')) {
-            autoRefreshTimeout = parseInt(this._props['autoRefreshTimeout'].value, 10);
+        if ((this._props instanceof Object)
+            && (typeof this._props['autoRefreshTimeout'] === 'string')) {
+            autoRefreshTimeout = parseInt(this._props['autoRefreshTimeout'], 10);
             if (isNaN(autoRefreshTimeout)) {
                 autoRefreshTimeout = AppComponent._autoRefreshExpirationDefault;
             }
@@ -597,9 +597,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this._autoRefreshExpiration = autoRefreshTimeout * 60 * 1000;
 
         this._refreshRate = 1000;
-        if ((this._props['refreshRate'] instanceof Object)
-            && (typeof this._props['refreshRate'].value === 'string')) {
-            this._refreshRate = parseInt(this._props['refreshRate'].value, 10);
+        if ((this._props instanceof Object)
+            && (typeof this._props['refreshRate'] === 'string')) {
+            this._refreshRate = parseInt(this._props['refreshRate'], 10);
             if (isNaN(this._refreshRate)) {
                 this._refreshRate = 1000;
             }

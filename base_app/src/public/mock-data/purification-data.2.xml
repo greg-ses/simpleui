@@ -1,169 +1,211 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XmlQueryData u_id="2001">
-    <timeStamp u_id="2002">1487006935932</timeStamp>
-    <Version u_id="2004">PurificationServer someuser V8765: 4321, Jan 1, 2002</Version>
-    <Access u_id="2003">1</Access>
-    <status value="0" />
-    <StatusOverview u_id="2004">
-        <Title u_id="2005">System Status</Title>
-        <Build_Number u_id="2006">11865</Build_Number>
-        <Module_Cycle u_id="2007">0</Module_Cycle>
-        <System_Mode u_id="2008">POST</System_Mode>
-        <System_SubMode u_id="2009">Offline</System_SubMode>
-        <Thermal_State u_id="2010">Offline</Thermal_State>
-        <Rebalance_State u_id="2011">Offline</Rebalance_State>
-        <Fault_Condition u_id="2012">trip</Fault_Condition>
-        <Rebalance_Necessity u_id="2013">Disabled, 0</Rebalance_Necessity>
-        <An_to_Ca_L u_id="2014">0 L</An_to_Ca_L>
-        <Ca_to_An_L u_id="2015">0 L</Ca_to_An_L>
-        <Final_SoC_An_ref_Ca u_id="2016">-100.0 -100.0 -100.0</Final_SoC_An_ref_Ca>
-    </StatusOverview>
-    <emergency_commands u_id="2017">
-        <command cmd="Stop_System" confirm="true" disabled="false" idnum="0" label="Stop_System" name="Stop_System" u_id="2019"/>
-        <command desc="Enter a log message" max="256" name="User_Log_Text" type="text" u_id="2019"/>
-    </emergency_commands>
-    <commands u_id="2020">
-        <command cmd="Local_Mode" confirm="true" disabled="false" idnum="0" label="Local_Mode" name="Local_Mode" u_id="2022"/>
-        <command cmd="Clear_Fault" confirm="false" disabled="false" idnum="0" label="Clear_Fault" name="Clear_Fault" u_id="2023"/>
-    </commands>
-    <ElectrolyteOverview u_id="2023">
-        <PT101_An_Stack_Inlet u_id="2024" units="PSI">3.18315025</PT101_An_Stack_Inlet>
-        <PT201_Ca_Stack_Inlet u_id="2025" units="PSI">3.1846765</PT201_Ca_Stack_Inlet>
-        <PT111_An_HEX_Input u_id="2026" units="PSI">3.18620275</PT111_An_HEX_Input>
-        <PT211_Ca_HEX_Input u_id="2027" units="PSI">3.187729</PT211_Ca_HEX_Input>
-        <PT311_Coolant_HEX_Inlet u_id="2028" units="PSI">3.18925525</PT311_Coolant_HEX_Inlet>
-        <PT402_N2_PAD u_id="2029" units="mbar">3.26307836</PT402_N2_PAD>
-        <PT403_N2_Feed u_id="2030" units="PSI">3.1538461</PT403_N2_Feed>
-        <PT404_N2_Tank_1 u_id="2031" units="PSI">18.383394</PT404_N2_Tank_1>
-        <PT405_N2_Tank_2 u_id="2032" units="PSI">18.53602</PT405_N2_Tank_2>
-        <TT101_An_Stack_Inlet u_id="2033" units="C">3.3998779</TT101_An_Stack_Inlet>
-        <TT111_An_HEX_Outlet u_id="2034" units="C">3.4059829</TT111_An_HEX_Outlet>
-        <TT201_Ca_Stack_Inlet u_id="2035" units="C">3.4029304</TT201_Ca_Stack_Inlet>
-        <TT211_Ca_HEX_Outlet u_id="2036" units="C">3.4090354</TT211_Ca_HEX_Outlet>
-        <TT301_Ambient u_id="2037" units="C">3.41819292</TT301_Ambient>
-        <TT311_Coolant_HEX_Inlet u_id="2038" units="C">3.41208792</TT311_Coolant_HEX_Inlet>
-        <TT321_Coolant_HEX_Outlet u_id="2039" units="C">3.41514042</TT321_Coolant_HEX_Outlet>
-        <FT101_An_Process u_id="2040" units="LPM">51.923077</FT101_An_Process>
-        <FT201_Ca_Process u_id="2041" units="LPM">51.936813</FT201_Ca_Process>
-        <FT102_An_Utility u_id="2042" units="LPM">7.4464593</FT102_An_Utility>
-        <FT202_Ca_Utility u_id="2043" units="LPM">7.449603</FT202_Ca_Utility>
-        <LT101_An_Tank_1 u_id="2044" units="L">-521.64575</LT101_An_Tank_1>
-        <LT104_An_Tank_4 u_id="2045" units="L">-521.5224</LT104_An_Tank_4>
-        <LT201_Ca_Tank_1 u_id="2046" units="L">-521.3991</LT201_Ca_Tank_1>
-        <LT204_Ca_Tank_4 u_id="2047" units="L">-521.27576</LT204_Ca_Tank_4>
-        <OT101_An_V2 u_id="2048" units="">0</OT101_An_V2>
-        <OT102_An_V_TOTAL u_id="2049" units="">0</OT102_An_V_TOTAL>
-        <Stack_1_Voltage u_id="2050" units="V">-247.61955</Stack_1_Voltage>
-        <Stack_2_Voltage u_id="2051" units="V">-247.58904</Stack_2_Voltage>
-        <Stack_1_Current u_id="2052" units="A">396.16687</Stack_1_Current>
-        <Stack_2_Current u_id="2053" units="A">396.11804</Stack_2_Current>
-        <Reference_Voltage u_id="2054" units="V">3.02441488</Reference_Voltage>
-        <CV101_An_Tank_Open_FB u_id="2055">false</CV101_An_Tank_Open_FB>
-        <CV101_An_Tank_Closed_FB u_id="2056">false</CV101_An_Tank_Closed_FB>
-        <CV201_Ca_Tank_Open_FB u_id="2057">false</CV201_Ca_Tank_Open_FB>
-        <CV201_Ca_Tank_Closed_FB u_id="2058">false</CV201_Ca_Tank_Closed_FB>
-        <CV111_An_Utility_Transfer_FB u_id="2059">false</CV111_An_Utility_Transfer_FB>
-        <CV211_Ca_Utility_Transfer_FB u_id="2060">false</CV211_Ca_Utility_Transfer_FB>
-        <CV111_An_Utility_Stir_FB u_id="2061">false</CV111_An_Utility_Stir_FB>
-        <CV211_Ca_Utility_Stir_FB u_id="2062">false</CV211_Ca_Utility_Stir_FB>
-        <ESTOP_Released u_id="2063">false</ESTOP_Released>
-        <ESM_Disabled u_id="2064">false</ESM_Disabled>
-        <No_Leaks_Detected u_id="2065">false</No_Leaks_Detected>
-        <N2_PAD_Not_Overpressure u_id="2066">false</N2_PAD_Not_Overpressure>
-        <N2_Blanket_Release_Control_Active u_id="2067">false</N2_Blanket_Release_Control_Active>
-        <Normal_State_Active u_id="2068">false</Normal_State_Active>
-        <Reverse_State_Active u_id="2069">false</Reverse_State_Active>
-        <HVDC_Contactor_Drive_Normal u_id="2070">false</HVDC_Contactor_Drive_Normal>
-        <HVDC_Contactor_Drive_Reverse u_id="2071">false</HVDC_Contactor_Drive_Reverse>
-        <HVDC_Disconnect_Open u_id="2072">false</HVDC_Disconnect_Open>
-        <HVDC_Disconnect_Closed u_id="2073">false</HVDC_Disconnect_Closed>
-        <HVDC_Contactors_Normal u_id="2074">false</HVDC_Contactors_Normal>
-        <HVDC_Contactors_Reverse u_id="2075">false</HVDC_Contactors_Reverse>
-        <AC_Aux_Enclosure_Door_Closed u_id="2076">false</AC_Aux_Enclosure_Door_Closed>
-        <HVDC_Enclosure_Door_Closed u_id="2077">false</HVDC_Enclosure_Door_Closed>
-        <Container_Doors_Closed u_id="2078">false</Container_Doors_Closed>
-        <Service_Switch_Run u_id="2079">false</Service_Switch_Run>
-        <Optical_Converter_Active u_id="2080">false</Optical_Converter_Active>
-        <AC_Aux_Ethernet_Active u_id="2081">false</AC_Aux_Ethernet_Active>
-        <Container_Bypass_Disabled u_id="2082">false</Container_Bypass_Disabled>
-        <LVDC_Power_Supply_Active u_id="2083">false</LVDC_Power_Supply_Active>
-        <CV101_An_Tank_Open u_id="2084">true</CV101_An_Tank_Open>
-        <CV201_Ca_Tank_Open u_id="2085">true</CV201_Ca_Tank_Open>
-        <CV111_An_Utility_Transfer u_id="2086">false</CV111_An_Utility_Transfer>
-        <CV211_Ca_Utility_Transfer u_id="2087">false</CV211_Ca_Utility_Transfer>
-        <Process_Pumps_Enable u_id="2088">false</Process_Pumps_Enable>
-        <An_Utility_Pump_Enable u_id="2090">false</An_Utility_Pump_Enable>
-        <Ca_Utility_Pump_Enable u_id="2091">false</Ca_Utility_Pump_Enable>
-        <Normal_Contactors_Enable u_id="2092">false</Normal_Contactors_Enable>
-        <Reverse_Contactors_Enable u_id="2093">false</Reverse_Contactors_Enable>
-        <Stack_1_Contactor_1_Enable u_id="2094">false</Stack_1_Contactor_1_Enable>
-        <Stack_1_Contactor_2_Enable u_id="2095">false</Stack_1_Contactor_2_Enable>
-        <Stack_2_Contactor_1_Enable u_id="2096">false</Stack_2_Contactor_1_Enable>
-        <Stack_2_Contactor_2_Enable u_id="2097">false</Stack_2_Contactor_2_Enable>
-        <Exhaust_Fan_Enable u_id="2098">true</Exhaust_Fan_Enable>
-        <Air_Hex_Enable u_id="2099">false</Air_Hex_Enable>
-        <UPS_Enable u_id="2100">true</UPS_Enable>
-        <ESM_Enable u_id="2102">true</ESM_Enable>
-        <ESM_STOP_Reset u_id="2103">false</ESM_STOP_Reset>
-        <Stack_Cycle_1 u_id="2104">0</Stack_Cycle_1>
-        <Stack_SN_1 u_id="2105">0001</Stack_SN_1>
-        <Stack_Cycle_2 u_id="2106">0</Stack_Cycle_2>
-        <Stack_SN_2 u_id="2107">0002</Stack_SN_2>
-    </ElectrolyteOverview>
-    <ValvesOverview u_id="2108">
-        <valve_item name="An Tank Out" u_id="2109">unknown</valve_item>
-        <valve_item name="Ca Tank Out" u_id="2110">unknown</valve_item>
-        <valve_item name="An Utility Valve" u_id="2111">unknown</valve_item>
-        <valve_item name="Ca Utility Valve" u_id="2112">unknown</valve_item>
-    </ValvesOverview>
-    <DerivedSummary u_id="2113">
-        <Cycle_Count u_id="2114" units="">0</Cycle_Count>
-        <Cycle_Count2 u_id="2115" units="">0</Cycle_Count2>
-        <Cycle_Count_Sys u_id="2116" units="">0</Cycle_Count_Sys>
-        <Cycle_Count_El u_id="2117" units="">0</Cycle_Count_El>
-        <End_Cycle u_id="2118" units="">0</End_Cycle>
-        <Rebal_Necessity u_id="2119" units="">0</Rebal_Necessity>
-        <Speed_Ca u_id="2120" units="Hz">0</Speed_Ca>
-        <Speed_An u_id="2121" units="Hz">0</Speed_An>
-        <Speed_Ca_Utility u_id="2122" units="Hz">0</Speed_Ca_Utility>
-        <Speed_An_Utility u_id="2123" units="Hz">0</Speed_An_Utility>
-        <Module_I u_id="2124" units="A">792.2849</Module_I>
-        <Module_V u_id="2125" units="V">-247.6043</Module_V>
-        <Module_P u_id="2126" units="kW">-196.17314</Module_P>
-        <Avg_SOC u_id="2127" units="%">0</Avg_SOC>
-        <Avg_AnVolume u_id="2128" units="L">-2086.3364</Avg_AnVolume>
-        <Avg_CaVolume u_id="2129" units="L">-2085.3496</Avg_CaVolume>
-        <Vol_AnRebalTarg u_id="2130" units="L">3.5</Vol_AnRebalTarg>
-        <Vol_CaRebalTarg u_id="2131" units="L">3.5</Vol_CaRebalTarg>
-        <Vol_AnRebalMove u_id="2132" units="L">3.5</Vol_AnRebalMove>
-        <Vol_CaRebalMove u_id="2133" units="L">3.5</Vol_CaRebalMove>
-        <Max_ChargeI u_id="2134" units="A">0</Max_ChargeI>
-        <Max_DischargeI u_id="2135" units="A">0</Max_DischargeI>
-        <Max_ChargeV u_id="2136" units="V">140.55186</Max_ChargeV>
-        <Min_DischargeV u_id="2137" units="V">75</Min_DischargeV>
-        <Max_ChargeKW u_id="2138" units="kW">0</Max_ChargeKW>
-        <Max_DischargeKW u_id="2139" units="kW">0</Max_DischargeKW>
-        <AnSOC u_id="2140" units="%">0</AnSOC>
-        <CaSOC u_id="2141" units="%">0</CaSOC>
-        <Va u_id="2142" units="">0</Va>
-        <Vc u_id="2143" units="">0</Vc>
-        <AnVolPct u_id="2144" units="%">0</AnVolPct>
-        <AnMolPct u_id="2145" units="%">0</AnMolPct>
-        <Valance u_id="2146" units="">-1</Valance>
-        <Pred_An_SoC u_id="2147" units="%">-1</Pred_An_SoC>
-        <Pred_Ref_SoC u_id="2148" units="%">-1</Pred_Ref_SoC>
-        <Pred_Ca_SoC u_id="2149" units="%">-1</Pred_Ca_SoC>
-        <An_to_Ca_Vol u_id="2150" units="L">0</An_to_Ca_Vol>
-        <Ca_to_An_Vol u_id="2151" units="L">0</Ca_to_An_Vol>
-        <Pump_Load_Ca u_id="2152" units="%">0</Pump_Load_Ca>
-        <Pump_Load_An u_id="2153" units="%">0</Pump_Load_An>
-        <Pump_Load_Ca_Util u_id="2154" units="%">0</Pump_Load_Ca_Util>
-        <Pump_Load_An_Util u_id="2155" units="%">0</Pump_Load_An_Util>
-    </DerivedSummary>
-    <ActiveFaultList u_id="2156">
-        <SYS desc="Leak Detected Fault" idx="7" timestamp="1487005228">trip</SYS>
-    </ActiveFaultList>
-    <LayeredImages u_id="2200">
-        <System_Operational_State u_id="2201" type="valToImg" fileType="png">Hardware</System_Operational_State>
-    </LayeredImages>
-</XmlQueryData>
+<Data_Summary u_id="2002">
+    <Title u_id="2003">Purification</Title>
+    <timeStamp u_id="2004">1640901877064</timeStamp>
+    <Version u_id="2005">PurificationServer: develop-dirty, 2021-11-03 14:42 EDT</Version>
+    <Section name="Purification Station Overview" u_id="2006">
+        <CmdSet u_id="2007">
+            <command cmd="Enable" confirm="false" desc="desc" disabled="false" idnum="0" label="Enable" name="Enable"
+                     u_id="2008"/>
+            <command cmd="Service" confirm="false" desc="desc" disabled="false" idnum="0" label="Service" name="Service"
+                     u_id="2009"/>
+            <command cmd="Clear_Fault" confirm="false" desc="desc" disabled="false" idnum="0" label="Clear_Fault"
+                     name="Clear_Fault" u_id="2010"/>
+        </CmdSet>
+        <DataSets u_id="2011">
+            <SystemData u_id="2012">
+                <System_Mode u_id="2013">Offline</System_Mode>
+                <Sub_Mode u_id="2014">--</Sub_Mode>
+                <Last_Purification_Mode u_id="2015">Offline</Last_Purification_Mode>
+                <Total_Pure_Elyte u_id="2016" units="L">0.00</Total_Pure_Elyte>
+                <Elyte_Turnover_Progress u_id="2017" units="">0.00</Elyte_Turnover_Progress>
+                <Elapsed_ReCharge_Dwell u_id="2018" units="min">0.00</Elapsed_ReCharge_Dwell>
+                <Calculated_Residence_Flow u_id="2019" units="LPM">4.60</Calculated_Residence_Flow>
+            </SystemData>
+            <Power_System u_id="2020">
+                <Stack_1_Voltage u_id="2021" units="V">-246.6</Stack_1_Voltage>
+                <Stack_1_Current u_id="2022" units="A">394.5</Stack_1_Current>
+                <Stack_2_Voltage u_id="2023" units="V">-246.6</Stack_2_Voltage>
+                <Stack_2_Current u_id="2024" units="A">394.4</Stack_2_Current>
+                <Stack_Pressure_Differential u_id="2025" units="PSI">0.78</Stack_Pressure_Differential>
+            </Power_System>
+            <Utilities_Overview u_id="2026">
+                <FT301_Coolant_Flow u_id="2027" units="LPM">0</FT301_Coolant_Flow>
+                <Coolant_Temp u_id="2028" units="C">21.0</Coolant_Temp>
+                <Coolant_Return u_id="2029" units="C">21.0</Coolant_Return>
+                <CT301_Coolant u_id="2030" units="uSiem">7.5</CT301_Coolant>
+                <CV302_AnCooling class="green" desc="Anolyte_Cooling_Control" u_id="2031">closed</CV302_AnCooling>
+                <CV301_CaCooling class="green" desc="Catholyte_Cooling_Control" u_id="2032">closed</CV301_CaCooling>
+                <CV303_CoolingBypass class="darkRed" desc="Cooling_Bypass_Control" u_id="2033">open
+                </CV303_CoolingBypass>
+            </Utilities_Overview>
+            <Gasses_Overview u_id="2034">
+                <HS101_Container_Pos_1 u_id="2035" units="% LEL">15.35</HS101_Container_Pos_1>
+                <HS102_Container_Pos_2 u_id="2036" units="% LEL">15.36</HS102_Container_Pos_2>
+                <HS103_Container_Pos_3 u_id="2037" units="% LEL">15.05</HS103_Container_Pos_3>
+                <HS104_Container_Pos_4 u_id="2038" units="% LEL">15.46</HS104_Container_Pos_4>
+                <HS105_An_Exhaust u_id="2039" units="% LEL">15.45</HS105_An_Exhaust>
+                <N2_Pad_Pressure u_id="2040" units="mbar">10.49</N2_Pad_Pressure>
+                <N2_Tank_1 u_id="2041" units="PSI">2500.00</N2_Tank_1>
+                <N2_Tank_2 u_id="2042" units="PSI">2500.00</N2_Tank_2>
+            </Gasses_Overview>
+        </DataSets>
+        <DataSets u_id="2043">
+            <Incomming_Elyte u_id="2044">
+                <Raw_Elyte_Buffer_Tank_Level class="priority" u_id="2045" units="L">3001.2</Raw_Elyte_Buffer_Tank_Level>
+                <START_RAW_TOTE_PUMPS class="off" u_id="2046"><command cmd="START_RAW_TOTE_PUMPS" confirm="true"
+                                                                       desc="desc" disabled="true" idnum="0"
+                                                                       label="START_RAW_TOTE_PUMPS"
+                                                                       name="START_RAW_TOTE_PUMPS" u_id="2047"/>off
+                </START_RAW_TOTE_PUMPS>
+                <CV106_RawTankOut class="green" desc="Raw_Tank_Outlet_Valve" u_id="2048">closed</CV106_RawTankOut>
+                <CV104_RawTankOut3Way class="green" desc="Raw_Material_Transfer_Control" u_id="2049">Raw_to_An
+                </CV104_RawTankOut3Way>
+                <PMP103_Raw_Elyte_Speed class="green" u_id="2050" units="Hz">0.0</PMP103_Raw_Elyte_Speed>
+                <PMP103_Raw_Elyte_Flow u_id="2051" units="LPM">0.0</PMP103_Raw_Elyte_Flow>
+            </Incomming_Elyte>
+            <Anolyte u_id="2052">
+                <Anolyte_Tank_Level class="priority" u_id="2053" units="L">552.4</Anolyte_Tank_Level>
+                <Anolyte_Valence class="priority" u_id="2054" units="">3.019</Anolyte_Valence>
+                <AnSOC u_id="2055" units="">-1.9</AnSOC>
+                <Anolyte_Inlet_Electrolyte_Temp u_id="2056" units="C">23.3</Anolyte_Inlet_Electrolyte_Temp>
+                <PMP101_Anolyte_Speed class="green" u_id="2057" units="Hz">0.0</PMP101_Anolyte_Speed>
+                <PMP101_Anolyte_Flow u_id="2058" units="LPM">0.9</PMP101_Anolyte_Flow>
+                <Anolyte_Stack_Inlet_Pressure u_id="2059" units="PSI">1.23</Anolyte_Stack_Inlet_Pressure>
+                <CV101_AnTankOut class="green" desc="Anolyte_Process_Tank_Outlet" u_id="2060">closed</CV101_AnTankOut>
+                <CV102_AnTankOut3Way class="green" desc="Anolyte_Tank_Outlet_Control" u_id="2061">An_to_Ca
+                </CV102_AnTankOut3Way>
+            </Anolyte>
+            <Process_Overview u_id="2062">
+                <Ref_Cell_Voltage u_id="2063" units="V">0.035</Ref_Cell_Voltage>
+                <Filter_1A_Pressure_Differential u_id="2064" units="PSI">0.12</Filter_1A_Pressure_Differential>
+                <Filter_1B_Pressure_Differential u_id="2065" units="PSI">0.00</Filter_1B_Pressure_Differential>
+                <Filter_3A_Pressure_Differential u_id="2066" units="PSI">0.15</Filter_3A_Pressure_Differential>
+                <PMP102_An_Transfer_Speed class="green" u_id="2067" units="Hz">0.0</PMP102_An_Transfer_Speed>
+                <PMP102_An_Transfer_Flow u_id="2068" units="LPM">0.0</PMP102_An_Transfer_Flow>
+                <CV105_AnHexOut class="green" desc="Anolyte_Hex_Outlet_Control" u_id="2069">closed</CV105_AnHexOut>
+                <CV103_AnAuxFilt3WayOut class="green" desc="Anolyte_Transfer_Control" u_id="2070">FiltAn_to_Raw
+                </CV103_AnAuxFilt3WayOut>
+            </Process_Overview>
+            <Catholyte u_id="2071">
+                <Catholyte_Tank_Level class="priority" u_id="2072" units="L">550.9</Catholyte_Tank_Level>
+                <Catholyte_Valence class="priority" u_id="2073" units="">2.947</Catholyte_Valence>
+                <Catholyte_800nM u_id="2074" units="">0.023</Catholyte_800nM>
+                <Catholyte_Inlet_Electrolyte_Temp u_id="2075" units="C">23.2</Catholyte_Inlet_Electrolyte_Temp>
+                <PMP201_Catholyte_Speed class="green" u_id="2076" units="Hz">0.0</PMP201_Catholyte_Speed>
+                <PMP201_Catholyte_Flow u_id="2077" units="LPM">0.9</PMP201_Catholyte_Flow>
+                <Catholyte_Stack_Inlet_Pressure u_id="2078" units="PSI">0.45</Catholyte_Stack_Inlet_Pressure>
+                <CV201_CaTankProcessOut class="green" desc="Catholyte_Tank_Process_Outlet" u_id="2079">closed
+                </CV201_CaTankProcessOut>
+                <CV203_CaTankProductOut class="green" desc="Catholyte_Tank_Product_Outlet" u_id="2080">closed
+                </CV203_CaTankProductOut>
+                <CV202_Ca3wayTransOut class="green" desc="Catholyte_Transfer_Control" u_id="2081">Ca_to_Prod
+                </CV202_Ca3wayTransOut>
+                <PMP202_Product_Speed class="green" u_id="2082" units="Hz">0.0</PMP202_Product_Speed>
+                <PMP202_Product_Flow u_id="2083" units="LPM">0.0</PMP202_Product_Flow>
+            </Catholyte>
+            <Product_Elyte u_id="2084">
+                <Product_Tank_Level class="priority" u_id="2085" units="L">2.7</Product_Tank_Level>
+                <Valve_Open class="green" u_id="2086"><command cmd="Valve_Open" confirm="false" disabled="true"
+                                                               idnum="8" label="CV204_ProdTankOut" name="Valve_Open"
+                                                               u_id="2087"/>closed
+                </Valve_Open>
+                <START_PRODUCT_TOTE_PUMP class="off" u_id="2088"><command cmd="START_PRODUCT_TOTE_PUMP" confirm="true"
+                                                                          desc="desc" disabled="true" idnum="0"
+                                                                          label="START_PRODUCT_TOTE_PUMP"
+                                                                          name="START_PRODUCT_TOTE_PUMP" u_id="2089"/>
+                    off
+                </START_PRODUCT_TOTE_PUMP>
+            </Product_Elyte>
+        </DataSets>
+    </Section>
+    <Section name="Recent Events" u_id="2090">
+        <DataSets u_id="2091">
+            <Event_Log u_id="2092">
+                <Event timestamp="12/30 12:35:07" type="SERVICE REQUEST" u_id="2093">WagoModuleStatusWarn : warning
+                </Event>
+            </Event_Log>
+            <Active_Faults u_id="2094">
+                <Fault class="warning" ev_details="" fault_code="PS-79" idx="78" name="WagoModuleStatusWarn"
+                       timestamp="12:35:07" u_id="2094">warning
+                </Fault>
+            </Active_Faults>
+        </DataSets>
+    </Section>
+    <Section name="MagnaPower" u_id="2096">
+        <CmdSet u_id="2097">
+            <command cmd="Power_Enable" confirm="true" desc="Enable power supply" disabled="false" idnum="0"
+                     label="Power_Enable" name="Power_Enable" u_id="2098"/>
+            <command cmd="Power_Disable" confirm="true" desc="Disable power supply" disabled="false" idnum="0"
+                     label="Power_Disable" name="Power_Disable" u_id="2099"/>
+            <command cmd="Power_Clear_Alarms" confirm="true" desc="Clear Supply Alarms" disabled="false" idnum="0"
+                     label="Power_Clear_Alarms" name="Power_Clear_Alarms" u_id="2100"/>
+        </CmdSet>
+        <DataSets u_id="2101">
+            <SettablePowerData u_id="2102">
+                <Power_Mode_Voltage u_id="2103">
+                    <command cmd="Power_Mode_Voltage" desc="" disabled="false" idnum="0" label="Set_Mode_Voltage"
+                             name="Power_Mode_Voltage" u_id="2104">
+                        <_input _type="float" desc="Enter New Value" idnum="0" max="1000.000" min="0.000" u_id="2105"
+                                value="0.000"/>
+                    </command>
+                    0.000
+                </Power_Mode_Voltage>
+                <Power_Level_Voltage_V u_id="2106">
+                    <command cmd="Power_Level_Voltage_V" desc="" disabled="false" idnum="1" label="Set_Level_Voltage_V"
+                             name="Power_Level_Voltage_V" u_id="2107">
+                        <_input _type="float" desc="Enter New Value" idnum="0" max="1000.000" min="0.000" u_id="2108"
+                                value="400.000"/>
+                    </command>
+                    400.000 V
+                </Power_Level_Voltage_V>
+                <Power_Max_Voltage_V u_id="2109">
+                    <command cmd="Power_Max_Voltage_V" desc="" disabled="false" idnum="2" label="Set_Max_Voltage_V"
+                             name="Power_Max_Voltage_V" u_id="2110">
+                        <_input _type="float" desc="Enter New Value" idnum="0" max="1000.000" min="0.000" u_id="2111"
+                                value="400.000"/>
+                    </command>
+                    400.000 V
+                </Power_Max_Voltage_V>
+                <Power_Mode_Current u_id="2112">
+                    <command cmd="Power_Mode_Current" desc="" disabled="false" idnum="3" label="Set_Mode_Current"
+                             name="Power_Mode_Current" u_id="2113">
+                        <_input _type="float" desc="Enter New Value" idnum="0" max="1000.000" min="0.000" u_id="2114"
+                                value="0.000"/>
+                    </command>
+                    0.000
+                </Power_Mode_Current>
+                <Power_Level_Current_A u_id="2115">
+                    <command cmd="Power_Level_Current_A" desc="" disabled="false" idnum="4" label="Set_Level_Current_A"
+                             name="Power_Level_Current_A" u_id="2116">
+                        <_input _type="float" desc="Enter New Value" idnum="0" max="1000.000" min="0.000" u_id="2117"
+                                value="200.000"/>
+                    </command>
+                    200.000 A
+                </Power_Level_Current_A>
+                <Power_Max_Current_A u_id="2118">
+                    <command cmd="Power_Max_Current_A" desc="" disabled="false" idnum="5" label="Set_Max_Current_A"
+                             name="Power_Max_Current_A" u_id="2119">
+                        <_input _type="float" desc="Enter New Value" idnum="0" max="1000.000" min="0.000" u_id="2120"
+                                value="200.000"/>
+                    </command>
+                    200.000 A
+                </Power_Max_Current_A>
+            </SettablePowerData>
+            <PowerData u_id="2121">
+                <PostStat class="on" name="Communications Status" u_id="2121">Good</PostStat>
+                <Measure_Voltage u_id="2122">0</Measure_Voltage>
+                <Measure_Current u_id="2123">0</Measure_Current>
+                <Questionable_Status u_id="2124">0</Questionable_Status>
+                <Operational_Status u_id="2125">0</Operational_Status>
+                <Supply_Enable u_id="2126">false</Supply_Enable>
+                <Supply_Disable u_id="2127">true</Supply_Disable>
+                <Clear_Alarms u_id="2128">false</Clear_Alarms>
+                <dyn class="off" disabled="false" name="Status_Supply_On" u_id="2129">off</dyn>
+                <Op_Status u_id="2130">Simulation</Op_Status>
+                <Quest_Status u_id="2131">None</Quest_Status>
+            </PowerData>
+        </DataSets>
+    </Section>
+    <status>0</status>
+</Data_Summary>
