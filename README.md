@@ -48,16 +48,6 @@ Then type `source ~/.bashrc` to reload it.
 
 **5.)** _[Not a part of simpleui]_ Go to the project's `target/app/deploy` folder and run the appropriate web installation script. For example, `update_site.sh <hostname> pure_ui` 
 will install the `purification-web` web application on the hostname.
-```
-export REMOTE_WEB_GROUP="service"
-export REMOTE_WEB_USER="service"
-```
-
-Then type `source ~/.bashrc` to reload it.
-
-**5.)** _[Not a part of simpleui]_ Go to the project's `target/app/deploy` folder and run the appropriate web installation script. For example, `update_site.sh <hostname> pure_ui` 
-will install the `purification-web` web application on the hostname.
-will install the `purification-web` web application on the hostname.
 
 TODO: Make an example installer script to add to the open source project.
 
