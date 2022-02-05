@@ -27,6 +27,7 @@ import {ClientLogger} from '../tools/logger';
 import {TabUI} from './interfaces/props-data';
 import {DataSummary} from './interfaces/data-summary';
 import {UTIL} from '../tools/utility';
+import {AppEditUiPanelComponent} from './app-tab-overlay/app-edit-ui-panel-component';
 
 // import {Subscriber} from 'rxjs/src/internal/Subscriber';
 
@@ -429,6 +430,11 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             }
             event.preventDefault();
         }
+    }
+
+    onEditUIElements(event: MouseEvent) {
+        const editUiPanel = new AppEditUiPanelComponent();
+        editUiPanel.create();
     }
 
     registerGlobal(objType: string, tabId: string, obj: any) {

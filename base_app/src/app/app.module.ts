@@ -22,6 +22,7 @@ import { SectionComponent } from './section/section.component';
 import { SeparatorBarComponent } from './dataset-tables/separator-bar';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import {CommandButtonChangeService} from './services/command-button-change.service';
+import {AppEditUiPanelComponent} from "./app-tab-overlay/app-edit-ui-panel-component";
 
 const BMSDataService_data_port = 16901;
 const config: SocketIoConfig = {  url: 'http://localhost:' + BMSDataService_data_port, options: {}};
@@ -29,6 +30,7 @@ const config: SocketIoConfig = {  url: 'http://localhost:' + BMSDataService_data
 @NgModule({
   declarations: [
       AppComponent,
+      AppEditUiPanelComponent,
       AppTabNormalComponent,
       AppTabOverlayComponent,
       CmdSetComponent,
