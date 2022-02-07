@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, Optional, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Optional, Output} from '@angular/core';
 import {DataSummary} from '../interfaces/data-summary';
 import {ClientLogger} from '../../tools/logger';
 import {OverlayType} from './overlay-type';
@@ -604,15 +604,18 @@ export class OverlayPageComponent {
         let v = '';
         let css = '';
         try {
-            let e = this.getJsonElement(overlayGroupName, varName);
+            const e = this.getJsonElement(overlayGroupName, varName);
             if (!e) {
-                let msg = '⦻';
-                return msg;
+                return '⦻';
             }
 
-            let value = e.value || '';
-            let units = e.units || '';
-            let pat = css && (css.length > 0) && css.match(/--format:[ \t]*['"]([^']+)*['"]/);
+            const value = e.value || '';
+            const units = e.units || '';
+            if (units === 'bool') {
+                return value;
+            }
+
+            const pat = css && (css.length > 0) && css.match(/--format:[ \t]*['"]([^']+)*['"]/);
             let fmt = (pat && pat.length === 2 && pat[1]) || '';
 
             if (fmt === '') {
@@ -622,7 +625,7 @@ export class OverlayPageComponent {
             // This code handles the --format tag if defined in the css for this object.  Not test in purification implementation.
 
             let prefix = '';
-            let arr: any = fmt.split(/:[ \t]*/);
+            const arr: any = fmt.split(/:[ \t]*/);
             if (arr.length === 1) {
                 fmt = arr[0];
             } else {
@@ -634,7 +637,7 @@ export class OverlayPageComponent {
                 return prefix + '0' + (units ? (' ' + units) : '');
             }
 
-            let nDigits: string = fmt.replace(/%([0-9]+)d/, '$1');
+            const nDigits: string = fmt.replace(/%([0-9]+)d/, '$1');
             if (fmt === ('%' + nDigits + 'd')) {
                 // simple %1d, %2d, etc.
                 return prefix + parseFloat(value).toFixed(parseInt(nDigits, 10)) + (units ? (' ' + units) : '');
