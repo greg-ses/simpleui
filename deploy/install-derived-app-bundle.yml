@@ -130,11 +130,18 @@
   become: true
   when: web_service_apps_list is defined and web_service_apps_list
 
-- name: "Restart apache2"
+- name: "Stop apache2"
   service:
     name: apache2
-    state: restarted
+    state: stopped
   become: true
+
+- name: "Start apache2"
+  service:
+    name: apache2
+    state: Started
+  become: true
+  when: start_apache_service is defined and start_apache_service == 'y'
 
 - name: "Call systemctl daemon-reload"
   command: systemctl daemon-reload
