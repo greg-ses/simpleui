@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 // import { DataSummary } from '../interfaces/data-summary';
 import { DataSetChange, DataSetChangeService} from '../services/dataset-change.service';
+import { OverlayPage } from './overlay-page';
 import {HttpClientModule} from '@angular/common/http';
 import {ClientLogger} from '../../tools/logger';
 import {UiObjList} from '../interfaces/ui-obj-list';
@@ -18,8 +19,6 @@ import {CssUpdateService} from '../services/css-update-service';
 import {TabUI} from '../interfaces/props-data';
 
 import '../css/styles.css';
-// import {Observable, throwError as observableThrowError} from 'rxjs';
-// import {CSSPairList} from '../interfaces/css-pair-list';
 import {ajax} from 'rxjs/ajax';
 import {AppComponent} from '../app.component';
 

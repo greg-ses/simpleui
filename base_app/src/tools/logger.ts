@@ -1,6 +1,3 @@
-import {DataSet} from '../app/interfaces/dataset';
-import {Log} from '@angular/core/testing/src/logger';
-
 export class ClientLogger {
     static _logCount = 0;
     static _initialized = false;
