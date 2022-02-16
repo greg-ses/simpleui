@@ -130,11 +130,18 @@
   become: true
   when: web_service_apps_list is defined and web_service_apps_list
 
-- name: "Restart apache2"
+- name: "Stop apache2"
   service:
     name: apache2
-    state: restarted
+    state: stopped
   become: true
+
+- name: "Start apache2"
+  service:
+    name: apache2
+    state: Started
+  become: true
+  when: start_services_after_install is defined and start_services_after_install == 'y'
 
 - name: "Call systemctl daemon-reload"
   command: systemctl daemon-reload
@@ -147,22 +154,26 @@
     enabled: yes
     state: restarted
   become: true
-  when: web_service_apps_list is defined and web_service_apps_list
+  when: web_service_apps_list is defined and web_service_apps_list and start_services_after_install is defined and start_services_after_install == "y"
 
 - pause:
     seconds: 15
+  when: start_services_after_install is defined and start_services_after_install == "y"
+
   # Make sure the web app has actually started
 - name: "Confirm {{ web_app_name }} is running"
   command: systemctl is-active "{{ web_app_name }}-web"
   register: agent_status
   failed_when: "'failed' in agent_status.stdout"
   changed_when: False
+  when: start_services_after_install is defined and start_services_after_install == "y"
 
 - name: "Confirm {{ web_app_name }} is running"
   command: systemctl is-active "{{ web_app_name }}-web"
   register: agent_status
   failed_when: "'activating' in agent_status.stdout"
   changed_when: False
+  when: start_vts_web_service is defined and start_vts_web_service == "y"
 
   # Cleanup, remove remote staging Folder and files
 - name: "Remove remote staging area folder"
