@@ -15,8 +15,8 @@ cp node_modules/crypt/crypt.js src/
 cp node_modules/charenc/charenc.js src/
 cp node_modules/sha1/sha1.js src/
 
-# sed -i "1,\$s^require('crypt')^require('./crypt')^" node_modules/sha1/sha1.js
-# sed -i "1,\$s^require('charenc')^require('./charenc')^" node_modules/sha1/sha1.js
+sed -i "1,\$s^require('crypt')^require('./crypt')^" node_modules/sha1/sha1.js
+sed -i "1,\$s^require('charenc')^require('./charenc')^" node_modules/sha1/sha1.js
 
 #node_modules/.bin/ts-node --transpile-only --project src/tsconfig.json --cache-directory dist/simpleui-server src/json-string-normalizer.ts --compile-only
 #if $(test "$?" -eq "0"); then printf "[json-string-normalizer.ts] ts-node transpile succeeded\n"; else "ERROR: ts-node transpile failed\n"; fi

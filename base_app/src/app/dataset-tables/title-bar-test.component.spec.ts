@@ -7,7 +7,7 @@ import { CommandButtonComponent } from '../cmdsets/command-button';
 import { DebugElement } from '@angular/core';
 import { ImageOverlaysComponent } from '../app-tab-overlay/image-overlays';
 import { OverlayCmdBarComponent } from '../app-tab-overlay/overlay-cmd-bar';
-import { OverlayPage } from '../app-tab-overlay/overlay-page';
+import { OverlayPageComponent } from '../app-tab-overlay/overlay-page';
 import { DatasetTableComponent } from './dataset-table';
 import { PortalModule } from '@angular/cdk/portal';
 import { MatTabsModule } from '@angular/material';
@@ -148,7 +148,7 @@ describe('TitleBarTest', () => {
                 ImageOverlaysComponent,
                 DatasetTableComponent,
                 OverlayCmdBarComponent,
-                OverlayPage,
+                OverlayPageComponent,
                 PropDefinedTableComponent
             ],
             imports: [

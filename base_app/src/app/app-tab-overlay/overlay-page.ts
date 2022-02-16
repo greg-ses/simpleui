@@ -14,7 +14,7 @@ import {UTIL} from '../../tools/utility';
 })
 
 // The common page layout with id tags for js
-export class OverlayPage {
+export class OverlayPageComponent {
     @Input() _DataSummary: DataSummary;
     @Input() _siteIndex: SiteIndex;
     @Input() _ticks: any;
@@ -208,7 +208,7 @@ export class OverlayPage {
         }
 
         if (this.isDesignEnabled()) {
-            OverlayPage.writeOverlayDebugInfo(overlayGroupName, this.elemListToIdList(elemList), overlayType);
+            OverlayPageComponent.writeOverlayDebugInfo(overlayGroupName, this.elemListToIdList(elemList), overlayType);
         }
 
         // ClientLogger.log('LogOverlayList', 'getGroupMemberIds (' + overlayType + ", " + Object.keys(elemList).length + ') for group "'

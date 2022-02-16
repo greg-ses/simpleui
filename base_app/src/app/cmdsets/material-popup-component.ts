@@ -1,6 +1,6 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-material-popup',
@@ -13,6 +13,7 @@ export class MaterialPopupComponent implements OnInit {
     form: FormGroup;
     cmd: string;
     noControls: boolean;
+    commandData: any;
     /*
     mockControls = [
         {name: 'Boolean Example 1',  id: '1001', desc: 'Sample Boolean Field 1', type: 'boolean'},
@@ -46,7 +47,7 @@ export class MaterialPopupComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<MaterialPopupComponent>,
-        @Inject(MAT_DIALOG_DATA) public commandData: any ) {
+        @Inject(MAT_DIALOG_DATA) commandData: any ) {
 
         this.commandData = commandData;
 
