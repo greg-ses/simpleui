@@ -48,7 +48,7 @@
     "jsontoxml": "^1.0.1",
     "microtime": "^3.0.0",
     "moment": "^2.24.0",
-    "ng-packagr": "^10.1.2",
+    "ng-packagr": "^11.0.3",
     "ngx-socket-io": "^3.0.1",
     "request": "^2.88.0",
     "rxjs": "^6.6.7",
