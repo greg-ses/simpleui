@@ -78,7 +78,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     */
     _detectChanges: { 'name': string, 'value': boolean };
 
-    @ViewChild('_tabGroup') _tabGroup: MatTabGroup;
+    @ViewChild('_tabGroup', {static: false}) _tabGroup !: MatTabGroup;
 
     static onWindowClick(event: MouseEvent) {
         const e = document.getElementById('eventMsg');
