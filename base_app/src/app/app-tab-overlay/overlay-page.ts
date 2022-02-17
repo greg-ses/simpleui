@@ -550,31 +550,34 @@ export class OverlayPageComponent {
         } else if (tag === 'animation') {
             info.class = ((typeof j['class'] === 'string') && j['class']) || '';
             if (typeof j['speed_rpm'] === 'string') {
-                if (j['speed_rpm'] < 1.0) {
+                let speed_rpm = 0;
+                try { speed_rpm = parseInt(j['speed_rpm'], 10); } catch (e) { speed_rpm = 0; }
+
+                if (speed_rpm < 1.0) {
                     info.class = info.class + ' stop_rotate';
-                } else if (j['speed_rpm'] < 5.0) {
+                } else if (speed_rpm < 5.0) {
                     info.class = info.class + ' rotate_5rpm';
-                } else if (j['speed_rpm'] < 10.0) {
+                } else if (speed_rpm < 10.0) {
                     info.class = info.class + ' rotate_10rpm';
-                } else if (j['speed_rpm'] < 15.0) {
+                } else if (speed_rpm < 15.0) {
                     info.class = info.class + ' rotate_15rpm';
-                } else if (j['speed_rpm'] < 20.0) {
+                } else if (speed_rpm < 20.0) {
                     info.class = info.class + ' rotate_20rpm';
-                } else if (j['speed_rpm'] < 25.0) {
+                } else if (speed_rpm < 25.0) {
                     info.class = info.class + ' rotate_25rpm';
-                } else if (j['speed_rpm'] < 30.0) {
+                } else if (speed_rpm < 30.0) {
                     info.class = info.class + ' rotate_30rpm';
-                } else if (j['speed_rpm'] < 35.0) {
+                } else if (speed_rpm < 35.0) {
                     info.class = info.class + ' rotate_35rpm';
-                } else if (j['speed_rpm'] < 40.0) {
+                } else if (speed_rpm < 40.0) {
                     info.class = info.class + ' rotate_40rpm';
-                } else if (j['speed_rpm'] < 45.0) {
+                } else if (speed_rpm < 45.0) {
                     info.class = info.class + ' rotate_45rpm';
-                } else if (j['speed_rpm'] < 50.0) {
+                } else if (speed_rpm < 50.0) {
                     info.class = info.class + ' rotate_50rpm';
-                } else if (j['speed_rpm'] < 55.0) {
+                } else if (speed_rpm < 55.0) {
                     info.class = info.class + ' rotate_55rpm';
-                } else if (j['speed_rpm'] < 60.0) {
+                } else if (speed_rpm < 60.0) {
                     info.class = info.class + ' rotate_60rpm';
                 } else {
                     info.class = info.class + ' rotate_70rpm';
