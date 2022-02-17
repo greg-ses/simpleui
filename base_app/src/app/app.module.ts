@@ -10,7 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ImageOverlaysComponent } from './app-tab-overlay/image-overlays';
 import { MaterialPopupComponent } from './cmdsets/material-popup-component';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { OverlayCmdBarComponent } from './app-tab-overlay/overlay-cmd-bar';

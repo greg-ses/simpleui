@@ -21,7 +21,7 @@ import {
 import './css/styles.css';
 import {AppProperties, SubscriptionState, TitleBarProperties} from './interfaces/props-data';
 import {ajax} from 'rxjs/ajax';
-import {MatTabGroup, MatTabChangeEvent} from '@angular/material';
+import { MatTabGroup, MatTabChangeEvent } from '@angular/material/tabs';
 import {interval} from 'rxjs';
 import {ClientLogger} from '../tools/logger';
 import {TabUI} from './interfaces/props-data';

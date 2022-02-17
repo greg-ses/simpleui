@@ -10,7 +10,7 @@ import { OverlayCmdBarComponent } from '../app-tab-overlay/overlay-cmd-bar';
 import { OverlayPageComponent } from '../app-tab-overlay/overlay-page';
 import { DatasetTableComponent } from './dataset-table';
 import { PortalModule } from '@angular/cdk/portal';
-import { MatTabsModule } from '@angular/material';
+import { MatTabsModule } from '@angular/material/tabs';
 import { PropDefinedTableComponent } from './prop-defined-table';
 
 
