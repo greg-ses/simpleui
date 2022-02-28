@@ -42,7 +42,7 @@
     "clean-webpack-plugin": "^1.0.1",
     "core-js": "^2.6.10",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "find-process": "^1.4.2",
     "jsontoxml": "^1.0.1",
     "microtime": "^3.0.0",
