@@ -139,7 +139,7 @@
 - name: "Start apache2"
   service:
     name: apache2
-    state: Started
+    state: started
   become: true
   when: start_services_after_install is defined and start_services_after_install == 'y'
 

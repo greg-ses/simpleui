@@ -11,6 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ImageOverlaysComponent } from './app-tab-overlay/image-overlays';
 import { MaterialPopupComponent } from './cmdsets/material-popup-component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { OverlayCmdBarComponent } from './app-tab-overlay/overlay-cmd-bar';
@@ -21,8 +25,8 @@ import { PropDefinedTableComponent } from './dataset-tables/prop-defined-table';
 import { SectionComponent } from './section/section.component';
 import { SeparatorBarComponent } from './dataset-tables/separator-bar';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import {CommandButtonChangeService} from './services/command-button-change.service';
-import {AppEditUiPanelComponent} from "./app-tab-overlay/app-edit-ui-panel-component";
+import { CommandButtonChangeService } from './services/command-button-change.service';
+import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-component';
 
 const BMSDataService_data_port = 16901;
 const config: SocketIoConfig = {  url: 'http://localhost:' + BMSDataService_data_port, options: {}};
@@ -54,6 +58,10 @@ const config: SocketIoConfig = {  url: 'http://localhost:' + BMSDataService_data
       FormsModule,
       HttpClientModule,
       MatDialogModule,
+      MatDatepickerModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatTableModule,
       MatTabsModule,
       PortalModule,
       ReactiveFormsModule,
