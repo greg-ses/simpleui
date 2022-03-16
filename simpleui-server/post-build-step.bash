@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 PROJ=simpleui-server
 
 echo "------------------ Starting post-build-step -----------------------"
@@ -18,5 +18,13 @@ done
 cd dist
 tar czvf ../dist.tgz *
 cd ..
+
+
+if [[ $(basename $PWD) != "deploy" ]]; then
+    out_folder=../../../output/simpleui/simpleui-server
+    echo Copy files to ${out_folder} folder;
+    mkdir -p ${out_folder}
+    cp dist.tgz  ${out_folder}
+fi
 
 echo "------------------ Finished post-build-step at $(date) -----------------------"

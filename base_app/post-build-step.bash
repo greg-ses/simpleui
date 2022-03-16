@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 PROJ=simpleui
 
 echo "------------------ Starting post-build-step -----------------------"
@@ -48,7 +48,7 @@ cat dist/simpleui/index.html | \
   awk -v JS_FOLDER="/${PROJ}/js/" -v CSS_FOLDER="/${PROJ}/css/" \
         '{ s=$0; \
          cssPrefix="<link rel=\"stylesheet\" href=\""; \
-         jsPrefix="<script type=\"text/javascript\" src=\""; \
+         jsPrefix="<script src=\""; \
          gsub(cssPrefix, cssPrefix CSS_FOLDER, s); \
          gsub(jsPrefix, jsPrefix JS_FOLDER, s); \
          gsub("</script>", "</script>\n", s); \
@@ -56,17 +56,29 @@ cat dist/simpleui/index.html | \
 
 # -- end: add GUID to js files and fix up index.html --
 
-# Copy files to /var/www
-rm -r /var/www/${PROJ}
-cp -rv dist /var/www/${PROJ}
-rm -r /var/www/${PROJ}/${PROJ}
-replace "simple_ui" "${PROJ}" -- /var/www/${PROJ}/index.html
-#ln -s /var/www/${PROJ}/sample_ui.properties.txt /var/www/${PROJ}/ui.properties
-ln -s /var/www/${PROJ}/mock-data/ui.bms.mock.properties /var/www/${PROJ}/ui.properties
+declare -A true_words_array=( [yes]=true [true]=true [1]=true [t]=true )
+if [[ -v true_words_array[${SUI_BUILD_WILL_UPDATE_LOCAL_VAR_WWW,,}] ]]; then
+    printf "\n------------------ SUI_BUILD_WILL_UPDATE_LOCAL_VAR_WWW is true: Copy files to /var/www ------------------\n"
+    sleep 2
+    rm -r /var/www/${PROJ}
+    cp -rv dist /var/www/${PROJ}
+    rm -r /var/www/${PROJ}/${PROJ}
+    replace "simple_ui" "${PROJ}" -- /var/www/${PROJ}/index.html
+    #ln -s /var/www/${PROJ}/sample_ui.properties.txt /var/www/${PROJ}/ui.properties
+    ln -s /var/www/${PROJ}/mock-data/ui.bms.mock.properties /var/www/${PROJ}/ui.properties
+fi
+unset true_words_array
 
 # Create dist.tgz
 cd dist
 tar czvf ../dist.tgz --exclude="${PROJ}"  *
 cd ..
+
+if [[ $(basename $PWD) != "deploy" ]]; then
+    out_folder=../../../output/simpleui/base_app
+    echo Copy files to ${out_folder} folder;
+    mkdir -p ${out_folder}
+    cp dist.tgz  ${out_folder}
+fi
 
 echo "------------------ Finished post-build-step at $(date) -----------------------"
