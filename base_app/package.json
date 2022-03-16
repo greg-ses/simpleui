@@ -11,8 +11,8 @@
   "license": "ISC",
   "scripts": {
     "ng": "ng",
-    "build-client-dev": "bash make-version-txt.bash build-client-only && rm -rf dist && ng build --output-hashing all --extract-css --source-map && sh post-build-step.sh --include-mocks",
-    "build-client-prod": "bash make-version-txt.bash build-client-prod && rm -rf dist && ng build --aot --output-hashing all --extract-css --no-source-map --no-named-chunks && sh post-build-step.sh --include-mocks",
+    "build-client-dev": "bash make-version-txt.bash build-client-only && rm -rf dist dist.tgz && ng build --output-hashing all --extract-css --source-map && sh post-build-step.sh --include-mocks",
+    "build-client-prod": "bash make-version-txt.bash build-client-prod && rm -rf dist dist.tgz && ng build --aot --output-hashing all --extract-css --no-source-map --no-named-chunks && sh post-build-step.sh --include-mocks",
     "copy-dist-to-output": "mkdir -p ../../../output/simpleui/base_app/ && cp dist.tgz ../../../output/simpleui/base_app/",
     "start-client-dev": "ng serve",
     "start-client-prod": "ng serve --aot",
