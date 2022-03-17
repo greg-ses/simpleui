@@ -46,9 +46,6 @@ const BMSDataService_data_port = 16901;
       SectionComponent,
       SeparatorBarComponent
   ],
-    entryComponents: [
-      MaterialPopupComponent
-  ],
   imports: [
       NoopAnimationsModule,
       BrowserModule,

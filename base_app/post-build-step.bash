@@ -74,11 +74,9 @@ cd dist
 tar czvf ../dist.tgz --exclude="${PROJ}"  *
 cd ..
 
-if [[ $(basename $PWD) != "deploy" ]]; then
-    out_folder=../../../output/simpleui/base_app
-    echo Copy files to ${out_folder} folder;
-    mkdir -p ${out_folder}
-    cp dist.tgz  ${out_folder}
-fi
+out_folder=../../../output/simpleui/base_app
+echo Copy files to ${out_folder} folder;
+mkdir -p ${out_folder}
+cp dist.tgz  ${out_folder}
 
 echo "------------------ Finished post-build-step at $(date) -----------------------"
