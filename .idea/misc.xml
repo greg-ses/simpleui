@@ -3,4 +3,14 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
+  <component name="UnattendedHostPersistenceState">
+    <option name="openedFilesInfos">
+      <list>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="129" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/base_app/src/index.html" />
+        </OpenedFileInfo>
+      </list>
+    </option>
+  </component>
 </project>
