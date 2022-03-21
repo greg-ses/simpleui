@@ -26,12 +26,11 @@ import { SectionComponent } from './section/section.component';
 import { SeparatorBarComponent } from './dataset-tables/separator-bar';
 import { CommandButtonChangeService } from './services/command-button-change.service';
 import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-component';
-import { SimpleTableComponent } from './simple-table/simple-table.component';
 
 const BMSDataService_data_port = 16901;
 
 @NgModule({
-  declarations: [
+    declarations: [
       AppComponent,
       AppEditUiPanelComponent,
       AppTabNormalComponent,
@@ -45,8 +44,7 @@ const BMSDataService_data_port = 16901;
       DatasetTableComponent,
       PropDefinedTableComponent,
       SectionComponent,
-      SeparatorBarComponent,
-      SimpleTableComponent
+      SeparatorBarComponent
   ],
   imports: [
       NoopAnimationsModule,
@@ -64,7 +62,10 @@ const BMSDataService_data_port = 16901;
       ReactiveFormsModule
   ],
   providers: [ CommandButtonChangeService ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+  schemas: [
+      CUSTOM_ELEMENTS_SCHEMA,
+      NO_ERRORS_SCHEMA
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -9,6 +9,7 @@ import { OverlayCmdBarComponent } from './app-tab-overlay/overlay-cmd-bar';
 import { DatasetTableComponent } from './dataset-tables/dataset-table';
 import { PropDefinedTableComponent } from './dataset-tables/prop-defined-table';
 import { SeparatorBarComponent } from './dataset-tables/separator-bar';
+import {OverlayPageComponent} from './app-tab-overlay/overlay-page';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -20,6 +21,7 @@ describe('AppComponent', () => {
         CommandButtonComponent,
         ImageOverlaysComponent,
         OverlayCmdBarComponent,
+        OverlayPageComponent,
         DatasetTableComponent,
         PropDefinedTableComponent,
         SeparatorBarComponent

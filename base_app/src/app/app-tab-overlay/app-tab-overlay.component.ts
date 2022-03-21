@@ -11,6 +11,7 @@ import {
 import { DataSetChange, DataSetChangeService} from '../services/dataset-change.service';
 import {HttpClientModule} from '@angular/common/http';
 import {ClientLogger} from '../../tools/logger';
+import {OverlayPageComponent} from '../app-tab-overlay/overlay-page';
 import {UiObjList} from '../interfaces/ui-obj-list';
 import {SiteIndex} from '../interfaces/site-index';
 

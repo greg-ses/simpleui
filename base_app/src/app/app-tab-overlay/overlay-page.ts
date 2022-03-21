@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Optional, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Directive, EventEmitter, Input, Optional, Output} from '@angular/core';
 import {DataSummary} from '../interfaces/data-summary';
 import {ClientLogger} from '../../tools/logger';
 import {OverlayType} from './overlay-type';
@@ -8,7 +8,9 @@ import {AppComponent} from '../app.component';
 import {UTIL} from '../../tools/utility';
 
 @Component({
+    // tslint:disable-next-line:component-selector
     selector: 'overlay-page',
+    changeDetection: ChangeDetectionStrategy.Default,
     styleUrls: ['./app-tab-overlay.component.css'],
     templateUrl: './overlay-page.html'
 })
@@ -743,4 +745,3 @@ export class OverlayPageComponent {
         }
     }
 }
-
