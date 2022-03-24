@@ -78,6 +78,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
 
     static resumeUpdates(uiTab: TabUI) {
         uiTab._autoRefreshEnabled = true;
+        uiTab._commands_enabled = true;
     }
 
     static fixNL(s: string) {
@@ -376,6 +377,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
 
         if (this.element.id === 'ResumePausedUpdates') {
             this._uiTab._autoRefreshEnabled = true;
+            this._uiTab._commands_enabled = true;
         } else {
             this.updateClass('inProgress');
 
@@ -471,7 +473,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
     onClick(event) {
         // alert('You clicked me!');
         try {
-            if (!this._uiTab._autoRefreshEnabled) {
+            if (!this._uiTab._commands_enabled) {
                 this.showCommandsDisabledWhenUpdatesPausesMessage();
                 return;
             } else {

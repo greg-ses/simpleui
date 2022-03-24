@@ -361,6 +361,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
     onToggleAutoRefresh(event: MouseEvent) {
         if (event) {
+            this._props.tab[this._selectedTabIndex]._commands_enabled = true;
             if (event.ctrlKey && event.shiftKey) {
                 // CTRL-SHIFT-CLICK
                 AppComponent._trackClicks = window.confirm('Enable click tracking?');
@@ -371,7 +372,13 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 // SHIFT-ALT-CLICK
                 ClientLogger.initialize();
                 window['setLoggingFeatures']();
+            } else if (event.shiftKey) {
+                // SHIFT-CLICK - allow commands to be entered despite having refresh paused
+                this._props.tab[this._selectedTabIndex]._autoRefreshEnabled = !this._props.tab[this._selectedTabIndex]._autoRefreshEnabled;
+                // this._changeDetectorRef.detectChanges();
+                this.updateToggleButton();
             } else {
+                this._props.tab[this._selectedTabIndex]._commands_enabled = false;
                 this._props.tab[this._selectedTabIndex]._autoRefreshEnabled = !this._props.tab[this._selectedTabIndex]._autoRefreshEnabled;
                 // this._changeDetectorRef.detectChanges();
                 this.updateToggleButton();
