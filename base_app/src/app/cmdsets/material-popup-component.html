@@ -1,5 +1,5 @@
 <div mat-dialog-content formGroup='form'>
-    <div mat-dialog-title>{{getCommandField('label')}}></div>
+    <div id="popupDialog" mat-dialog-title>{{getCommandField('label')}}</div>
     <table>
         <tbody mat-table>
             <tr mat-row *ngIf="(noControls === false) && getDescription() !== ''">
@@ -42,20 +42,28 @@
                         </td>
                     </label>
                 </mat-form-field>
-    
-                <td mat-cell *ngIf='control.type === "int"'>{{control.label}}:</td>
-                <td mat-cell *ngIf='control.type === "int"'><input [id]='"popup-control-" + control.id'  [value]='control.value'  matInput placeholder='control.name' [title]="control.desc"></td>
-    
-                <td mat-cell *ngIf='control.type === "float"'>{{control.label}}:</td>
-                <td mat-cell *ngIf='control.type === "float"'><input [id]='"popup-control-" + control.id'  [value]='control.value'  matInput placeholder='control.name' [title]="control.desc"></td>
-    
-                <td mat-cell *ngIf='control.type === "text"'>{{control.label}}:</td>
-                <td mat-cell *ngIf='control.type === "text"'><input [id]='"popup-control-" + control.id'  [value]='control.value' matInput placeholder='control.name' [title]="control.desc"></td>
-    
-                <td mat-cell *ngIf='control.type === "textarea"' [attr.colspan]="2">{{control.label}}:<br/>
-                    <textarea [id]='"popup-control-" + control.id'  matInput placeholder='control.desc' [title]="control.desc">{{control.value}}</textarea>
-                </td>
-    
+
+                <mat-form-field *ngIf='control.type === "int"'>
+                    <td mat-cell><label>{{control.label}}:</label></td>
+                    <td mat-cell><input [id]='"popup-control-" + control.id'  [value]='control.value'  matInput placeholder='control.name' [title]="control.desc"></td>
+                </mat-form-field>
+
+                <mat-form-field *ngIf='control.type === "float"'>
+                    <td mat-cell><label>{{control.label}}:</label></td>
+                    <td mat-cell><input [id]='"popup-control-" + control.id'  [value]='control.value'  matInput placeholder='control.name' [title]="control.desc"></td>
+                </mat-form-field>
+
+                <mat-form-field *ngIf='control.type === "text"'>
+                    <td mat-cell><label>{{control.label}}:</label></td>
+                    <td mat-cell><input [id]='"popup-control-" + control.id'  [value]='control.value' matInput placeholder='control.name' [title]="control.desc"></td>
+                </mat-form-field>
+
+                <mat-form-field *ngIf='control.type === "textarea"'>
+                    <td mat-cell [attr.colspan]="2"><label>{{control.label}}:</label><br/>
+                        <textarea [id]='"popup-control-" + control.id'  matInput placeholder='control.desc' [title]="control.desc">{{control.value}}</textarea>
+                    </td>
+                </mat-form-field>
+
             </tr>
         </tbody>
     </table>

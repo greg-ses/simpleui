@@ -1,6 +1,7 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogActions } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ClientLogger } from '../../tools/logger' ;
 
 @Component({
     selector: 'app-material-popup',
@@ -64,12 +65,16 @@ export class MaterialPopupComponent implements OnInit {
     }
 
     getControls(commandData: any) {
-        return (  (typeof commandData === 'object')
-               && (typeof commandData.element === 'object')
-               && (typeof commandData.element.command === 'object')
-               && (commandData.element.command.controls instanceof Array) )
-            ? commandData.element.command.controls
-            : [];
+        let controls = new Array();
+        if ((typeof commandData === 'object')
+            && (typeof commandData.element === 'object')
+            && (typeof commandData.element.command === 'object')
+            && (commandData.element.command.controls instanceof Array))
+        {
+            controls = commandData.element.command.controls;
+        }
+        ClientLogger.log('CommandButtonComponentDetails', `getControls(commandData): ${controls}`);
+        return controls;
     }
 
     getChoices(control: any) {
@@ -162,6 +167,7 @@ export class MaterialPopupComponent implements OnInit {
         if (typeof this.commandData.element.command[fieldName] === 'string') {
             value = this.commandData.element.command[fieldName];
         }
+        ClientLogger.log('CommandButtonComponentDetails', `getCommandField('${fieldName}'): ${value}`);
         return value;
     }
 }
