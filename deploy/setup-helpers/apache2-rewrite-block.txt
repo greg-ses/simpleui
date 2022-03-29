@@ -3,7 +3,10 @@
 		RewriteEngine On
 		RewriteRule "(/XX_APP_NAME/svr-util/.*/.*)"	"http://svcmachineapps:XX_PORT$1"		[P]
 		RewriteRule "(/XX_APP_NAME/.*/query/props)"	"http://svcmachineapps:XX_PORT$1"		[P]
+		RewriteRule "(/XX_APP_NAME/.*/.*/overlay-query/.*/zmq/.*/.*)"	"http://svcmachineapps:XX_PORT$1"	[P]
+		RewriteRule "(/XX_APP_NAME/.*/.*/overlay-query/.*/zmq/.*/.*/.*)"	"http://svcmachineapps:XX_PORT$1"	[P]
 		RewriteRule "(/XX_APP_NAME/.*/.*/query/.*/zmq/.*/.*)"	"http://svcmachineapps:XX_PORT$1"	[P]
 		RewriteRule "(/XX_APP_NAME/.*/.*/query/.*/zmq/.*/.*/.*)"	"http://svcmachineapps:XX_PORT$1"	[P]
 		RewriteRule "(/XX_APP_NAME/.*/.*/mock/data/.*)"	"http://svcmachineapps:XX_PORT$1"		[P]
+		RewriteRule "(/XX_APP_NAME/.*/.*/overlay-mock/data/.*)"	"http://svcmachineapps:XX_PORT$1"		[P]
 	#-- End Rewrite Block: /XX_APP_NAME/ --

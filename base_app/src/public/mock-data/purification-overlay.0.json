@@ -6,11 +6,11 @@
       "u_id": "2003"
     },
     "timeStamp": {
-      "value": "1648501894131",
+      "value": "1648587604312",
       "u_id": "2004"
     },
     "Version": {
-      "value": "PurificationServer: 31-ship-and-tote-tank-control-system-part-",
+      "value": "PurificationServer: develop-dirty, 2022-03-09 16:45 EST",
       "u_id": "2005"
     },
     "SystemData": {
@@ -30,7 +30,7 @@
           "cmd": "Service",
           "confirm": "false",
           "desc": "Enter Service mode.",
-          "disabled": "false",
+          "disabled": "true",
           "idnum": "0",
           "label": "Service",
           "name": "Service",
@@ -41,7 +41,7 @@
           "cmd": "Offline",
           "confirm": "false",
           "desc": "Put the system into Offline mode",
-          "disabled": "true",
+          "disabled": "false",
           "idnum": "0",
           "label": "Offline",
           "name": "Offline",
@@ -80,7 +80,7 @@
       ],
       "dyn": [
         {
-          "value": "Offline",
+          "value": "Service",
           "class": "priority",
           "desc": "System operational mode",
           "label": "Mode",
@@ -88,7 +88,7 @@
           "u_id": "2013"
         },
         {
-          "value": "--",
+          "value": "Start",
           "class": "priority",
           "desc": "System operational sub-state",
           "label": "SubMode",
@@ -118,7 +118,7 @@
           "u_id": "2017"
         },
         {
-          "value": "24.01",
+          "value": "7.89",
           "desc": "Target minimum residence flow",
           "label": "Res. Flow",
           "name": "Calculated_Residence_Flow",
@@ -127,82 +127,189 @@
         }
       ]
     },
-    "Power_System": {
+    "Service_Common_Cmds": {
       "u_id": "2019",
+      "command": [
+        {
+          "cmd": "STOP_PUMPS",
+          "confirm": "false",
+          "desc": "Stop all pumps.",
+          "disabled": "false",
+          "idnum": "0",
+          "label": "STOP_PUMPS",
+          "name": "STOP_PUMPS",
+          "u_id": "2020"
+        },
+        {
+          "cmd": "Open_Cooling_Valves",
+          "confirm": "false",
+          "desc": "Open the electrolyte cooling valves",
+          "disabled": "true",
+          "idnum": "0",
+          "label": "Open_Cooling_Valves",
+          "name": "Open_Cooling_Valves",
+          "u_id": "2021"
+        },
+        {
+          "cmd": "Chiller_On",
+          "confirm": "false",
+          "desc": "Enable the chiller output",
+          "disabled": "true",
+          "idnum": "0",
+          "label": "On",
+          "name": "Chiller_On",
+          "u_id": "2022"
+        }
+      ]
+    },
+    "Service_Device_Cmds": {
+      "u_id": "2023",
+      "command": [
+        {
+          "cmd": "CLOSE_CONTACTORS",
+          "confirm": "false",
+          "desc": "Close the DC contactors",
+          "disabled": "true",
+          "idnum": "0",
+          "label": "Close",
+          "name": "CLOSE_CONTACTORS",
+          "u_id": "2024"
+        },
+        {
+          "cmd": "SET_VALVES_TO_CONTINUOUS_PROCESS",
+          "confirm": "false",
+          "desc": "Move all valves into Purification process state",
+          "disabled": "true",
+          "idnum": "0",
+          "label": "Set Valve to Process",
+          "name": "SET_VALVES_TO_CONTINUOUS_PROCESS",
+          "u_id": "2025"
+        },
+        {
+          "cmd": "RUN_MAIN_PUMPS",
+          "desc": "Start both main electrolyte pumps",
+          "disabled": "true",
+          "idnum": "0",
+          "label": "Start Main Pumps",
+          "name": "RUN_MAIN_PUMPS",
+          "type": "float",
+          "u_id": "2026",
+          "controls": [
+            {
+              "_type": "float",
+              "desc": "Enter Anolyte speed in Hz",
+              "idnum": "0",
+              "max": "60.0",
+              "min": "0.0",
+              "u_id": "2027",
+              "value": "0.0",
+              "id": "2027",
+              "sha1sum": "4b0e100eb37e8727d584bace2982ab89761d157a"
+            },
+            {
+              "_type": "float",
+              "desc": "Enter Catholyte speed in Hz",
+              "idnum": "1",
+              "max": "60.0",
+              "min": "0.0",
+              "u_id": "2028",
+              "value": "0.0",
+              "id": "2028",
+              "sha1sum": "5f3eb84eb3a4a59b092b2399e16071495ee03a9a"
+            }
+          ],
+          "sha1sum": "3d2cd59fb9962e17c136d445987b91fe4200cd55",
+          "class": "command",
+          "_action": "disabled"
+        },
+        {
+          "cmd": "STOP_MAIN_PUMPS",
+          "confirm": "false",
+          "desc": "Stop the main electrolyte pumps",
+          "disabled": "false",
+          "idnum": "0",
+          "label": "Stop Main Pumps",
+          "name": "STOP_MAIN_PUMPS",
+          "u_id": "2029"
+        }
+      ]
+    },
+    "Power_System": {
+      "u_id": "2030",
       "dyn": [
         {
-          "value": "0.4",
+          "value": "-246.3",
           "desc": "Measured battery stack voltage",
           "name": "Stack_1_Voltage",
-          "u_id": "2020",
+          "u_id": "2031",
           "units": "V"
         },
         {
-          "value": "-0.3",
+          "value": "394.0",
           "desc": "Measured battery stack current",
           "name": "Stack_1_Current",
-          "u_id": "2021",
+          "u_id": "2032",
           "units": "A"
         },
         {
-          "value": "-0.4",
+          "value": "-246.3",
           "desc": "Measured battery stack voltage",
           "name": "Stack_2_Voltage",
-          "u_id": "2022",
+          "u_id": "2033",
           "units": "V"
         },
         {
-          "value": "0.4",
+          "value": "393.9",
           "desc": "Measured battery stack current",
           "name": "Stack_2_Current",
-          "u_id": "2023",
+          "u_id": "2034",
           "units": "A"
         },
         {
-          "value": "0.9",
+          "value": "1.4",
           "desc": "Stack input pressure delta",
           "name": "Stack_Pressure_Differential",
-          "u_id": "2024",
+          "u_id": "2035",
           "units": "ΔPSI"
         }
       ]
     },
     "Utilities_Overview": {
-      "u_id": "2025",
+      "u_id": "2036",
       "dyn": [
         {
-          "value": "0",
+          "value": "2",
           "desc": "Coolant flow rate",
           "name": "FT301_Coolant_Flow",
-          "u_id": "2026",
+          "u_id": "2037",
           "units": "LPM"
         },
         {
-          "value": "0",
+          "value": "3",
           "desc": "Coolant inlet pressure",
           "name": "PT301_Coolant_Inlet_Pressure",
-          "u_id": "2027",
+          "u_id": "2038",
           "units": "PSI"
         },
         {
-          "value": "18.9",
+          "value": "21.2",
           "desc": "Coolant input temperature",
           "name": "Coolant_Temp",
-          "u_id": "2028",
+          "u_id": "2039",
           "units": "C"
         },
         {
-          "value": "19.3",
+          "value": "21.0",
           "desc": "Coolant return temperature",
           "name": "Coolant_Return",
-          "u_id": "2029",
+          "u_id": "2040",
           "units": "C"
         },
         {
-          "value": "19.1",
+          "value": "7.5",
           "desc": "Coolant conductivity",
           "name": "CT301_Coolant",
-          "u_id": "2030",
+          "u_id": "2041",
           "units": "uSiem"
         },
         {
@@ -211,15 +318,60 @@
           "desc": "Commanded chiller state",
           "label": "Chiller",
           "name": "CoolingState",
-          "u_id": "2031"
+          "u_id": "2045"
         },
         {
-          "value": "off",
-          "class": "lightGreen",
+          "value": "on",
+          "class": "darkRed",
           "desc": "Commanded vent fan state",
           "label": "Vent Fans",
           "name": "ExhaustFanState",
-          "u_id": "2032"
+          "u_id": "2046"
+        }
+      ],
+      "command": [
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "10",
+          "label": "CV302",
+          "name": "CV302_AnCooling_cmd",
+          "u_id": "2042"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "11",
+          "label": "CV301",
+          "name": "CV301_CaCooling_cmd",
+          "u_id": "2043"
+        },
+        {
+          "class": "darkRed",
+          "cmd": "Valve_Close",
+          "confirm": "false",
+          "desc": "Close Valve",
+          "disabled": "true",
+          "idnum": "12",
+          "label": "CV303",
+          "name": "CV303_CoolingBypass_cmd",
+          "u_id": "2044"
+        },
+        {
+          "cmd": "Turn_Off_Vent_Fans",
+          "confirm": "false",
+          "desc": "Turn off the vent fans.",
+          "disabled": "false",
+          "idnum": "0",
+          "label": "Turn_Off_Vent_Fans",
+          "name": "Turn_Off_Vent_Fans",
+          "u_id": "2047"
         }
       ],
       "img": [
@@ -228,99 +380,87 @@
           "class": "closed",
           "fileType": "gif",
           "name": "CV302_AnCooling",
-          "u_id": "2030"
+          "u_id": "2042"
         },
         {
           "value": "closed",
           "class": "closed",
           "fileType": "gif",
           "name": "CV301_CaCooling",
-          "u_id": "2030"
+          "u_id": "2043"
         },
         {
           "value": "open",
           "class": "open",
           "fileType": "gif",
           "name": "CV303_CoolingBypass",
-          "u_id": "2030"
-        }
-      ],
-      "command": [
-        {
-          "cmd": "Turn_On_Vent_Fans",
-          "confirm": "false",
-          "desc": "Turn on the vent fans.",
-          "disabled": "false",
-          "idnum": "0",
-          "label": "Turn_On_Vent_Fans",
-          "name": "Turn_On_Vent_Fans",
-          "u_id": "2033"
+          "u_id": "2044"
         }
       ]
     },
     "Gasses_Overview": {
-      "u_id": "2034",
+      "u_id": "2048",
       "dyn": [
         {
-          "value": "21",
+          "value": "15",
           "desc": "O2 sensor near high voltage disconnect.",
           "name": "OS101_Container_Pos_1",
-          "u_id": "2035",
+          "u_id": "2049",
           "units": "%"
         },
         {
-          "value": "0",
+          "value": "15",
           "desc": "Hydrogen sensor near the N2 panel",
           "name": "HS103_Container_Pos_3",
-          "u_id": "2036",
+          "u_id": "2050",
           "units": "% LEL"
         },
         {
-          "value": "0",
+          "value": "15",
           "desc": "Hydrogen sensor near raw tank & tote",
           "name": "HS104_Container_Pos_4",
-          "u_id": "2037",
+          "u_id": "2051",
           "units": "% LEL"
         },
         {
-          "value": "0",
+          "value": "15",
           "desc": "Hydrogen sensor near Anolyte tank",
           "name": "HS105_An_Exhaust",
-          "u_id": "2038",
+          "u_id": "2052",
           "units": "% LEL"
         },
         {
-          "value": "0",
+          "value": "10",
           "desc": "N2 blanket PAD pressure",
           "name": "N2_Pad_Pressure",
-          "u_id": "2039",
+          "u_id": "2053",
           "units": "mbar"
         },
         {
-          "value": "1866",
+          "value": "2500",
           "desc": "Tank 1 supply pressure",
           "name": "N2_Tank_1",
-          "u_id": "2040",
+          "u_id": "2054",
           "units": "PSI"
         },
         {
-          "value": "159",
+          "value": "2500",
           "desc": "Tank 2 supply pressure",
           "name": "N2_Tank_2",
-          "u_id": "2041",
+          "u_id": "2055",
           "units": "PSI"
         }
       ]
     },
     "Incoming_Elyte": {
-      "u_id": "2042",
+      "u_id": "2056",
       "dyn": [
         {
-          "value": "1375.3",
+          "value": "1.0",
           "class": "priority",
           "desc": "Raw buffer tank level",
           "name": "Raw_Elyte_Buffer_Tank_Level",
-          "u_id": "2043",
+          "u_id": "2057",
           "units": "L"
         },
         {
@@ -328,14 +468,14 @@
           "class": "lightGreen",
           "desc": "Pump Speed",
           "name": "PMP103_Raw_Elyte_Speed",
-          "u_id": "2045",
+          "u_id": "2061",
           "units": "Hz"
         },
         {
-          "value": "0.0",
+          "value": "124.0",
           "desc": "Flow from the pump",
           "name": "PMP103_Raw_Elyte_Flow",
-          "u_id": "2046",
+          "u_id": "2062",
           "units": "LPM"
         }
       ],
@@ -346,7 +486,7 @@
           "fileType": "png",
           "name": "PMP104_Raw_Tote_Pump",
           "speed_rpm": "0.000000",
-          "u_id": "2043"
+          "u_id": "2057"
         },
         {
           "value": "running",
@@ -354,7 +494,7 @@
           "fileType": "png",
           "name": "PMP103_Raw_Elyte",
           "speed_rpm": "0.000000",
-          "u_id": "2044"
+          "u_id": "2060"
         }
       ],
       "command": [
@@ -366,7 +506,49 @@
           "idnum": "0",
           "label": "Start",
           "name": "Start_Raw_Tote_Pumps",
-          "u_id": "2044"
+          "u_id": "2058"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "1",
+          "label": "CV106",
+          "name": "CV106_RawTankOut_cmd",
+          "u_id": "2059"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "5",
+          "label": "CV104",
+          "name": "CV104_RawTankOut3Way_cmd",
+          "u_id": "2060"
+        },
+        {
+          "cmd": "ENABLE_PUMP",
+          "confirm": "false",
+          "desc": "Enable the pump",
+          "disabled": "true",
+          "idnum": "3",
+          "label": "Enable",
+          "name": "PMP103_Raw_Elyte_run_speed",
+          "u_id": "2063"
+        },
+        {
+          "cmd": "DISABLE_PUMP",
+          "confirm": "false",
+          "desc": "Disable the pump",
+          "disabled": "true",
+          "idnum": "3",
+          "label": "Disable",
+          "name": "PMP103_Raw_Elyte_stop",
+          "u_id": "2064"
         }
       ],
       "img": [
@@ -375,47 +557,47 @@
           "class": "closed",
           "fileType": "gif",
           "name": "CV106_RawTankOut",
-          "u_id": "2044"
+          "u_id": "2059"
         },
         {
           "value": "Raw_to_An",
           "class": "Raw_to_An",
           "fileType": "gif",
           "name": "CV104_RawTankOut3Way",
-          "u_id": "2044"
+          "u_id": "2060"
         }
       ]
     },
     "Anolyte": {
-      "u_id": "2047",
+      "u_id": "2065",
       "dyn": [
         {
-          "value": "2881.6",
+          "value": "946.8",
           "class": "priority",
           "desc": "Anolyte tank level",
           "name": "Anolyte_Tank_Level",
-          "u_id": "2048",
+          "u_id": "2066",
           "units": "L"
         },
         {
-          "value": "1.130",
+          "value": "3.019",
           "class": "priority",
           "desc": "Anolyte oxidation/valence state",
           "name": "Anolyte_Valence",
-          "u_id": "2049"
+          "u_id": "2067"
         },
         {
-          "value": "187.0",
+          "value": "-1.9",
           "desc": "Anolyte state of charge",
           "name": "AnSOC",
-          "u_id": "2050",
+          "u_id": "2068",
           "units": "%"
         },
         {
-          "value": "20.4",
+          "value": "23.5",
           "desc": "Anolyte incoming temperature",
           "name": "Anolyte_Inlet_Electrolyte_Temp",
-          "u_id": "2051",
+          "u_id": "2069",
           "units": "C"
         },
         {
@@ -423,28 +605,28 @@
           "class": "lightGreen",
           "desc": "Pump Speed",
           "name": "PMP101_Anolyte_Speed",
-          "u_id": "2052",
+          "u_id": "2070",
           "units": "Hz"
         },
         {
-          "value": "0.0",
+          "value": "123.0",
           "desc": "Flow from the pump",
           "name": "PMP101_Anolyte_Flow",
-          "u_id": "2053",
+          "u_id": "2071",
           "units": "LPM"
         },
         {
-          "value": "3.7",
+          "value": "1.5",
           "desc": "Anolyte inlet stack pressure",
           "name": "Anolyte_Stack_Inlet_Pressure",
-          "u_id": "2054",
+          "u_id": "2074",
           "units": "PSI"
         },
         {
           "value": "0",
           "desc": "Anolyte HEX inlet pressure",
           "name": "PT104_Anolyte_Stack_Outlet",
-          "u_id": "2055",
+          "u_id": "2075",
           "units": "PSI"
         }
       ],
@@ -455,7 +637,51 @@
           "fileType": "png",
           "name": "PMP101_Anolyte",
           "speed_rpm": "0.000000",
-          "u_id": "2051"
+          "u_id": "2069"
+        }
+      ],
+      "command": [
+        {
+          "cmd": "ENABLE_PUMP",
+          "confirm": "false",
+          "desc": "Enable the pump",
+          "disabled": "true",
+          "idnum": "2",
+          "label": "Enable",
+          "name": "PMP101_Anolyte_run_speed",
+          "u_id": "2072"
+        },
+        {
+          "cmd": "DISABLE_PUMP",
+          "confirm": "false",
+          "desc": "Disable the pump",
+          "disabled": "true",
+          "idnum": "2",
+          "label": "Disable",
+          "name": "PMP101_Anolyte_stop",
+          "u_id": "2073"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "0",
+          "label": "CV101",
+          "name": "CV101_AnTankOut_cmd",
+          "u_id": "2076"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "4",
+          "label": "CV102",
+          "name": "CV102_AnTankOut3Way_cmd",
+          "u_id": "2077"
         }
       ],
       "img": [
@@ -464,95 +690,95 @@
           "class": "closed",
           "fileType": "gif",
           "name": "CV101_AnTankOut",
-          "u_id": "2055"
+          "u_id": "2076"
         },
         {
           "value": "An_to_Ca",
           "class": "An_to_Ca",
           "fileType": "gif",
           "name": "CV102_AnTankOut3Way",
-          "u_id": "2055"
+          "u_id": "2077"
         }
       ]
     },
     "Process_Overview": {
-      "u_id": "2056",
+      "u_id": "2078",
       "dyn": [
         {
-          "value": "0.000",
+          "value": "0.038",
           "desc": "Open Circuit Reference Voltage",
           "name": "Ref_Cell_Voltage",
-          "u_id": "2057",
+          "u_id": "2079",
           "units": "V"
         },
         {
-          "value": "2.2",
+          "value": "0.5",
           "desc": "Filter Inlet Pressure",
           "name": "Filter_101A_Press",
-          "u_id": "2058",
+          "u_id": "2080",
           "units": "PSI"
         },
         {
-          "value": "2.8",
+          "value": "0.3",
           "desc": "Filter Exit Pressure",
           "name": "Filter_102A_Press",
-          "u_id": "2059",
+          "u_id": "2081",
           "units": "PSI"
         },
         {
-          "value": "2.2",
+          "value": "0.3",
           "desc": "Filter Inlet Pressure",
           "name": "Filter_101B_Press",
-          "u_id": "2060",
+          "u_id": "2082",
           "units": "PSI"
         },
         {
-          "value": "2.7",
+          "value": "0.3",
           "desc": "Filter Exit Pressure",
           "name": "Filter_102B_Press",
-          "u_id": "2061",
+          "u_id": "2083",
           "units": "PSI"
         },
         {
-          "value": "0.6",
+          "value": "0.2",
           "desc": "Pressure drop across filter",
           "name": "Filter_1A_Press_Differential",
-          "u_id": "2062",
-          "units": "ΔPSI"
-        },
-        {
-          "value": "0.5",
-          "desc": "Pressure drop across filter",
-          "name": "Filter_1B_Press_Differential",
-          "u_id": "2063",
+          "u_id": "2084",
           "units": "ΔPSI"
         },
         {
           "value": "0.0",
-          "desc": "Filter inlet Pressure delta",
-          "name": "Filter_1A_1B_Press_Differential",
-          "u_id": "2064",
+          "desc": "Pressure drop across filter",
+          "name": "Filter_1B_Press_Differential",
+          "u_id": "2085",
           "units": "ΔPSI"
         },
         {
-          "value": "1.9",
+          "value": "0.2",
+          "desc": "Filter inlet Pressure delta",
+          "name": "Filter_1A_1B_Press_Differential",
+          "u_id": "2086",
+          "units": "ΔPSI"
+        },
+        {
+          "value": "0.4",
           "desc": "Filter Inlet Pressure",
           "name": "Filter_105A_Press",
-          "u_id": "2065",
+          "u_id": "2087",
           "units": "PSI"
         },
         {
-          "value": "2.5",
+          "value": "0.4",
           "desc": "Filter Exit Pressure",
           "name": "Filter_106A_Press",
-          "u_id": "2066",
+          "u_id": "2088",
           "units": "PSI"
         },
         {
-          "value": "0.6",
+          "value": "0.0",
           "desc": "Pressure drop across filter",
           "name": "Filter_3A_Press_Differential",
-          "u_id": "2067",
+          "u_id": "2089",
           "units": "ΔPSI"
         },
         {
@@ -560,14 +786,14 @@
           "class": "lightGreen",
           "desc": "Pump Speed",
           "name": "PMP102_An_Transfer_Speed",
-          "u_id": "2068",
+          "u_id": "2090",
           "units": "Hz"
         },
         {
-          "value": "0.0",
+          "value": "127.0",
           "desc": "Flow from the pump",
           "name": "PMP102_An_Transfer_Flow",
-          "u_id": "2069",
+          "u_id": "2091",
           "units": "LPM"
         }
       ],
@@ -578,7 +804,51 @@
           "fileType": "png",
           "name": "PMP102_An_Transfer",
           "speed_rpm": "0.000000",
-          "u_id": "2067"
+          "u_id": "2089"
+        }
+      ],
+      "command": [
+        {
+          "cmd": "ENABLE_PUMP",
+          "confirm": "false",
+          "desc": "Enable the pump",
+          "disabled": "true",
+          "idnum": "5",
+          "label": "Enable",
+          "name": "PMP102_An_Transfer_run_speed",
+          "u_id": "2092"
+        },
+        {
+          "cmd": "DISABLE_PUMP",
+          "confirm": "false",
+          "desc": "Disable the pump",
+          "disabled": "true",
+          "idnum": "5",
+          "label": "Disable",
+          "name": "PMP102_An_Transfer_stop",
+          "u_id": "2093"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "9",
+          "label": "CV105",
+          "name": "CV105_AnHexOut_cmd",
+          "u_id": "2094"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "6",
+          "label": "CV103",
+          "name": "CV103_AnAuxFilt3WayOut_cmd",
+          "u_id": "2095"
         }
       ],
       "img": [
@@ -587,46 +857,46 @@
           "class": "closed",
           "fileType": "gif",
           "name": "CV105_AnHexOut",
-          "u_id": "2069"
+          "u_id": "2094"
         },
         {
           "value": "FiltAn_to_Raw",
           "class": "FiltAn_to_Raw",
           "fileType": "gif",
           "name": "CV103_AnAuxFilt3WayOut",
-          "u_id": "2069"
+          "u_id": "2095"
         }
       ]
     },
     "Catholyte": {
-      "u_id": "2070",
+      "u_id": "2096",
       "dyn": [
         {
-          "value": "3069.0",
+          "value": "945.3",
           "class": "priority",
           "desc": "Catholyte Tank Level",
           "name": "Catholyte_Tank_Level",
-          "u_id": "2071",
+          "u_id": "2097",
           "units": "L"
         },
         {
-          "value": "3.498",
+          "value": "2.947",
           "class": "priority",
           "desc": "Catholyte oxidation/valence state",
           "name": "Catholyte_Valence",
-          "u_id": "2072"
+          "u_id": "2098"
         },
         {
-          "value": "2.588",
+          "value": "0.024",
           "desc": "Cath Optical 800nM voltage",
           "name": "Catholyte_800nM",
-          "u_id": "2073"
+          "u_id": "2099"
         },
         {
-          "value": "20.9",
+          "value": "23.1",
           "desc": "Catholyte incoming temperature",
           "name": "Catholyte_Inlet_Electrolyte_Temp",
-          "u_id": "2074",
+          "u_id": "2100",
           "units": "C"
         },
         {
@@ -634,28 +904,28 @@
           "class": "lightGreen",
           "desc": "Pump Speed",
           "name": "PMP201_Catholyte_Speed",
-          "u_id": "2075",
+          "u_id": "2101",
           "units": "Hz"
         },
         {
-          "value": "0.0",
+          "value": "122.0",
           "desc": "Flow from the pump",
           "name": "PMP201_Catholyte_Flow",
-          "u_id": "2076",
+          "u_id": "2102",
           "units": "LPM"
         },
         {
-          "value": "2.8",
+          "value": "0.2",
           "desc": "Catholyte inlet stack pressure",
           "name": "Catholyte_Stack_Inlet_Pressure",
-          "u_id": "2077",
+          "u_id": "2105",
           "units": "PSI"
         },
         {
           "value": "0",
           "desc": "Catholyte HEX inlet pressure",
           "name": "PT202_Catholyte_Stack_Outlet",
-          "u_id": "2078",
+          "u_id": "2106",
           "units": "PSI"
         },
         {
@@ -663,14 +933,14 @@
           "class": "lightGreen",
           "desc": "Pump Speed",
           "name": "PMP202_Product_Speed",
-          "u_id": "2079",
+          "u_id": "2110",
           "units": "Hz"
         },
         {
-          "value": "0.0",
+          "value": "126.0",
           "desc": "Flow from the pump",
           "name": "PMP202_Product_Flow",
-          "u_id": "2080",
+          "u_id": "2111",
           "units": "LPM"
         }
       ],
@@ -681,7 +951,7 @@
           "fileType": "png",
           "name": "PMP201_Catholyte",
           "speed_rpm": "0.000000",
-          "u_id": "2074"
+          "u_id": "2100"
         },
         {
           "value": "running",
@@ -689,7 +959,82 @@
           "fileType": "png",
           "name": "PMP202_Product",
           "speed_rpm": "0.000000",
-          "u_id": "2078"
+          "u_id": "2109"
+        }
+      ],
+      "command": [
+        {
+          "cmd": "ENABLE_PUMP",
+          "confirm": "false",
+          "desc": "Enable the pump",
+          "disabled": "true",
+          "idnum": "1",
+          "label": "Enable",
+          "name": "PMP201_Catholyte_run_speed",
+          "u_id": "2103"
+        },
+        {
+          "cmd": "DISABLE_PUMP",
+          "confirm": "false",
+          "desc": "Disable the pump",
+          "disabled": "true",
+          "idnum": "1",
+          "label": "Disable",
+          "name": "PMP201_Catholyte_stop",
+          "u_id": "2104"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "2",
+          "label": "CV201",
+          "name": "CV201_CaTankProcessOut_cmd",
+          "u_id": "2107"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "3",
+          "label": "CV203",
+          "name": "CV203_CaTankProductOut_cmd",
+          "u_id": "2108"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "7",
+          "label": "CV202",
+          "name": "CV202_Ca3wayTransOut_cmd",
+          "u_id": "2109"
+        },
+        {
+          "cmd": "ENABLE_PUMP",
+          "confirm": "false",
+          "desc": "Enable the pump",
+          "disabled": "true",
+          "idnum": "4",
+          "label": "Enable",
+          "name": "PMP202_Product_run_speed",
+          "u_id": "2112"
+        },
+        {
+          "cmd": "DISABLE_PUMP",
+          "confirm": "false",
+          "desc": "Disable the pump",
+          "disabled": "true",
+          "idnum": "4",
+          "label": "Disable",
+          "name": "PMP202_Product_stop",
+          "u_id": "2113"
         }
       ],
       "img": [
@@ -698,33 +1043,33 @@
           "class": "closed",
           "fileType": "gif",
           "name": "CV201_CaTankProcessOut",
-          "u_id": "2078"
+          "u_id": "2107"
         },
         {
           "value": "closed",
           "class": "closed",
           "fileType": "gif",
           "name": "CV203_CaTankProductOut",
-          "u_id": "2078"
+          "u_id": "2108"
         },
         {
           "value": "Ca_to_Prod",
           "class": "Ca_to_Prod",
           "fileType": "gif",
           "name": "CV202_Ca3wayTransOut",
-          "u_id": "2078"
+          "u_id": "2109"
         }
       ]
     },
     "Product_Elyte": {
-      "u_id": "2081",
+      "u_id": "2114",
       "dyn": [
         {
-          "value": "134.4",
+          "value": "0.8",
           "class": "priority",
           "desc": "Product Tank Level",
           "name": "Product_Tank_Level",
-          "u_id": "2082",
+          "u_id": "2115",
           "units": "L"
         }
       ],
@@ -738,7 +1083,7 @@
           "idnum": "8",
           "label": "CV204",
           "name": "CV204_ProdTankOut_cmd",
-          "u_id": "2083"
+          "u_id": "2116"
         },
         {
           "cmd": "START_PRODUCT_TOTE_PUMP",
@@ -748,7 +1093,7 @@
           "idnum": "0",
           "label": "Start",
           "name": "START_PRODUCT_TOTE_PUMP",
-          "u_id": "2084"
+          "u_id": "2117"
         }
       ],
       "img": [
@@ -757,7 +1102,7 @@
           "class": "closed",
           "fileType": "gif",
           "name": "CV204_ProdTankOut",
-          "u_id": "2083"
+          "u_id": "2116"
         }
       ],
       "animation": [
@@ -767,94 +1112,151 @@
           "fileType": "png",
           "name": "PMP203_Product_Tote_Pump",
           "speed_rpm": "0.000000",
-          "u_id": "2083"
+          "u_id": "2116"
         }
       ]
     },
     "Tote_Data": {
-      "u_id": "2085",
+      "u_id": "2118",
       "dyn": [
         {
           "value": "on",
           "class": "darkRed",
           "desc": "",
           "name": "WS501_Pure_Elec_IBC_Over",
-          "u_id": "2086"
+          "u_id": "2119"
         },
         {
-          "value": "on",
+          "value": "off",
           "desc": "",
           "name": "FS501_Raw_Elec_IBC",
-          "u_id": "2087",
+          "u_id": "2120",
           "units": "bool"
         },
         {
-          "value": "on",
+          "value": "off",
           "desc": "",
           "name": "FS502_Raw_Elec_IBC",
-          "u_id": "2088",
+          "u_id": "2121",
           "units": "bool"
         },
         {
           "value": "off",
           "desc": "",
           "name": "WS601_Raw_Elec_Tank",
-          "u_id": "2089",
+          "u_id": "2122",
           "units": "bool"
         },
         {
-          "value": "2.0",
+          "value": "1.7",
           "desc": "",
           "name": "FT104_Raw_Elec_IN",
-          "u_id": "2090",
+          "u_id": "2123",
           "units": "LPM"
         },
         {
-          "value": "0.0",
+          "value": "0.9",
           "desc": "",
           "name": "FT204_Pure_Elec_OUT",
-          "u_id": "2091",
+          "u_id": "2124",
           "units": "LPM"
         }
       ]
     },
     "Ship_Tank": {
-      "u_id": "2092",
+      "u_id": "2125",
+      "command": [
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "13",
+          "label": "CV607",
+          "name": "CV607_RawShipTankVent_cmd",
+          "u_id": "2126"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "14",
+          "label": "CV608",
+          "name": "CV608_ProductShipTankVent_cmd",
+          "u_id": "2127"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "15",
+          "label": "CV609",
+          "name": "CV609_RawShipTankFlow_cmd",
+          "u_id": "2128"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "16",
+          "label": "CV610",
+          "name": "CV610_ProductShipTankFlow_cmd",
+          "u_id": "2129"
+        },
+        {
+          "class": "green",
+          "cmd": "Valve_Open",
+          "confirm": "false",
+          "desc": "Open Valve",
+          "disabled": "true",
+          "idnum": "17",
+          "label": "CV601_CV602",
+          "name": "CV601_CV602_RawShipPressurization_cmd",
+          "u_id": "2130"
+        }
+      ],
       "img": [
         {
           "value": "closed",
           "class": "closed",
           "fileType": "gif",
           "name": "CV607_RawShipTankVent",
-          "u_id": "2092"
+          "u_id": "2126"
         },
         {
           "value": "closed",
           "class": "closed",
           "fileType": "gif",
           "name": "CV608_ProductShipTankVent",
-          "u_id": "2092"
+          "u_id": "2127"
         },
         {
           "value": "closed",
           "class": "closed",
           "fileType": "gif",
           "name": "CV609_RawShipTankFlow",
-          "u_id": "2092"
+          "u_id": "2128"
         },
         {
           "value": "closed",
           "class": "closed",
           "fileType": "gif",
           "name": "CV610_ProductShipTankFlow",
-          "u_id": "2092"
+          "u_id": "2129"
         },
         {
           "value": "closed",
           "class": "closed",
           "fileType": "gif",
           "name": "CV601_CV602_RawShipPressurization",
-          "u_id": "2092"
+          "u_id": "2130"
         }
       ],
       "dyn": [
@@ -862,48 +1264,48 @@
           "value": "0",
           "desc": "",
           "name": "OD601_Ship_Tank_Out_Disable",
-          "u_id": "2093",
+          "u_id": "2131",
           "units": "bool"
         },
         {
-          "value": "0.0",
+          "value": "45.5",
           "desc": "",
           "name": "WI501_Pure_Elec_IBC",
-          "u_id": "2094",
+          "u_id": "2132",
           "units": "lbs"
         },
         {
           "value": "15.4",
           "desc": "",
           "name": "PT602_Comp_Air_Supply",
-          "u_id": "2095",
+          "u_id": "2133",
           "units": "PSI"
         },
         {
           "value": "15.5",
           "desc": "",
           "name": "PT603_Comp_Air_Supply",
-          "u_id": "2096",
+          "u_id": "2134",
           "units": "PSI"
         },
         {
           "value": "15.5",
           "desc": "",
           "name": "PT601_Comp_Air_Supply",
-          "u_id": "2097",
+          "u_id": "2135",
           "units": "PSI"
         },
         {
           "value": "1.8",
           "desc": "",
           "name": "LT601_Pure_Ship_Tank",
-          "u_id": "2098",
+          "u_id": "2136",
           "units": "L"
         }
       ]
     },
     "MagnaPower": {
-      "u_id": "2099",
+      "u_id": "2137",
       "dyn": [
         {
           "value": "Good",
@@ -911,21 +1313,21 @@
           "desc": "Power supply communications status.",
           "label": "Comm. Status",
           "name": "Comm_Status",
-          "u_id": "2100"
+          "u_id": "2138"
         },
         {
           "value": "0",
           "desc": "Measured voltage",
           "label": "Measured",
           "name": "MeasuredVoltage",
-          "u_id": "2101",
+          "u_id": "2139",
           "units": "V"
         },
         {
           "value": "0",
           "desc": "Measured current",
           "name": "MeasuredCurrent",
-          "u_id": "2102",
+          "u_id": "2140",
           "units": "A"
         },
         {
@@ -933,7 +1335,7 @@
           "desc": "Power supply turned on or off.",
           "label": "Supply Status",
           "name": "SupplyOn",
-          "u_id": "2103"
+          "u_id": "2141"
         }
       ],
       "img": [
@@ -941,125 +1343,125 @@
           "value": "false",
           "fileType": "gif",
           "name": "contactor_1_closed",
-          "u_id": "2103"
+          "u_id": "2141"
         },
         {
           "value": "false",
           "fileType": "gif",
           "name": "contactor_2_closed",
-          "u_id": "2103"
+          "u_id": "2141"
         }
       ]
     },
     "Recent_Events": {
-      "u_id": "2104",
+      "u_id": "2142",
       "prop-def-table": [
         {
           "name": "Event_Log",
-          "u_id": "2105",
+          "u_id": "2143",
           "label": [
             {
               "value": "Recent Events",
-              "u_id": "2106"
+              "u_id": "2144"
             }
           ],
           "Col": [
             {
               "value": "Time",
-              "u_id": "2107"
+              "u_id": "2145"
             },
             {
               "value": "Type",
-              "u_id": "2108"
+              "u_id": "2146"
             },
             {
               "value": "Description",
-              "u_id": "2109"
+              "u_id": "2147"
             }
           ],
           "Row": [
             {
-              "u_id": "2110",
+              "u_id": "2148",
               "Col": [
                 {
-                  "value": "3/28 10:56:59",
-                  "u_id": "2111"
+                  "value": "3/29 09:00:00",
+                  "u_id": "2149"
                 },
                 {
                   "value": "SERVICE REQUEST",
-                  "u_id": "2112"
+                  "u_id": "2150"
                 },
                 {
-                  "value": "Filter102APressureFault : warning, value 2.82 >= 1.50",
-                  "u_id": "2113"
+                  "value": "Daily system health message. OS1_LEL:15.50, H3_LEL:15.07, H4_LEL:15.27, H5_LEL:15.12, N2Pad:10.02, N2_Tank1:2500.00, N2_Tank2:2500.00",
+                  "u_id": "2151"
                 }
               ]
             },
             {
-              "u_id": "2114",
+              "u_id": "2152",
               "Col": [
                 {
-                  "value": "3/28 10:56:59",
-                  "u_id": "2115"
+                  "value": "3/28 09:00:00",
+                  "u_id": "2153"
                 },
                 {
                   "value": "SERVICE REQUEST",
-                  "u_id": "2116"
+                  "u_id": "2154"
                 },
                 {
-                  "value": "Filter101APressureFault : warning, value 2.19 >= 1.50",
-                  "u_id": "2117"
+                  "value": "Daily system health message. OS1_LEL:15.43, H3_LEL:15.09, H4_LEL:15.42, H5_LEL:15.42, N2Pad:10.39, N2_Tank1:2500.00, N2_Tank2:2500.00",
+                  "u_id": "2155"
                 }
               ]
             },
             {
-              "u_id": "2118",
+              "u_id": "2156",
               "Col": [
                 {
-                  "value": "3/28 10:56:57",
-                  "u_id": "2119"
+                  "value": "3/25 09:00:54",
+                  "u_id": "2157"
+                },
+                {
+                  "value": "SERVICE REQUEST",
+                  "u_id": "2158"
+                },
+                {
+                  "value": "Daily system health message. OS1_LEL:15.09, H3_LEL:15.22, H4_LEL:15.16, H5_LEL:15.31, N2Pad:10.26, N2_Tank1:2500.00, N2_Tank2:2500.00",
+                  "u_id": "2159"
+                }
+              ]
+            },
+            {
+              "u_id": "2160",
+              "Col": [
+                {
+                  "value": "3/24 14:57:27",
+                  "u_id": "2161"
                 },
                 {
                   "value": "EVENT INFO",
-                  "u_id": "2120"
+                  "u_id": "2162"
                 },
                 {
-                  "value": "Cmd: Clear_Fault",
-                  "u_id": "2121"
+                  "value": "Cmd: Power_Max_Voltage_V",
+                  "u_id": "2163"
                 }
               ]
             },
             {
-              "u_id": "2122",
+              "u_id": "2164",
               "Col": [
                 {
-                  "value": "3/28 09:26:14",
-                  "u_id": "2123"
-                },
-                {
-                  "value": "SERVICE REQUEST",
-                  "u_id": "2124"
-                },
-                {
-                  "value": "OxygenPos1ContainerLevel : warning, value 0.00 <= 19.50",
-                  "u_id": "2125"
-                }
-              ]
-            },
-            {
-              "u_id": "2126",
-              "Col": [
-                {
-                  "value": "3/28 09:26:12",
-                  "u_id": "2127"
+                  "value": "3/24 14:07:18",
+                  "u_id": "2165"
                 },
                 {
                   "value": "EVENT INFO",
-                  "u_id": "2128"
+                  "u_id": "2166"
                 },
                 {
-                  "value": "Cmd: Enable",
-                  "u_id": "2129"
+                  "value": "Cmd: Service",
+                  "u_id": "2167"
                 }
               ]
             }
@@ -1067,27 +1469,27 @@
         },
         {
           "name": "Active_Faults",
-          "u_id": "2130",
+          "u_id": "2168",
           "Fault": [
             {
               "value": "warning",
               "class": "warning",
-              "ev_details": "value 2.19 >= 1.50",
-              "fault_code": "PS-27",
-              "idx": "26",
-              "name": "Filter101APressureFault",
-              "timestamp": "10:56:59",
-              "u_id": "2130"
+              "ev_details": "value 15.36 <= 19.50",
+              "fault_code": "PS-67",
+              "idx": "66",
+              "name": "OxygenPos1ContainerLevel",
+              "timestamp": "14:07:11",
+              "u_id": "2168"
             },
             {
               "value": "warning",
               "class": "warning",
-              "ev_details": "value 2.82 >= 1.50",
-              "fault_code": "PS-28",
-              "idx": "27",
-              "name": "Filter102APressureFault",
-              "timestamp": "10:56:59",
-              "u_id": "2131"
+              "ev_details": "",
+              "fault_code": "PS-78",
+              "idx": "77",
+              "name": "WagoModuleStatusWarn",
+              "timestamp": "14:07:10",
+              "u_id": "2169"
             }
           ]
         }
