@@ -255,9 +255,9 @@ export class SimpleUIServer {
                 }
             });
 
-            // ------------------------------
-            // Handler for data requests
-            // ------------------------------
+            // ----------------------------------------
+            // Handler for app-tab-normal data requests
+            // ----------------------------------------
             // Support path # /APP_NAME/UI_PROP/TAB_NAME/query/data/zmq/PORT/COMMAND_NAME
             const dataQuery = [
                 `/:appName/:propsStub/:tabName/query/data/zmq/:zmqPortExpr/:zmqCmd`,
@@ -283,6 +283,33 @@ export class SimpleUIServer {
                 }
             });
 
+            // -----------------------------------------
+            // Handler for app-tab-overlay data requests
+            // -----------------------------------------
+            // Support path # /APP_NAME/UI_PROP/TAB_NAME/query/data/zmq/PORT/COMMAND_NAME
+            const dataQuery = [
+                `/:appName/:propsStub/:tabName/query/data/zmq/:zmqPortExpr/:zmqCmd`,
+                `/:appName/:propsStub/:tabName/query/data/zmq/:zmqPortExpr/:zmqCmd/:zmqValue`
+            ];
+            displayUrl = `http://${os.hostname()}${webPortString}${dataQuery[1]}`;
+            spacer1 = ' '.repeat(Math.max((105 - displayUrl.length), 1));
+            Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(data)`);
+            app.get(dataQuery, async (req, res) => {
+                // Replies with data from a zeromq request
+                Logger.log(LogLevel.VERBOSE, `data request callback: ${++SimpleUIServer.requestCallbacks}`);
+                try {
+                    const props = PropsFileReader.getProps(
+                        `${req.params.propsStub}.properties`,
+                        `${req.params.appName}`, cmdVars.webPort);
+                    await SuiData.suiDataRequest(req, res, props);
+                } catch (err) {
+
+                    const cmd = SuiData.getCmdFromReq(req);
+                    ServerUtil.logRequestDetails(LogLevel.ERROR, req,
+                        `Err in data request: ${err}`,
+                        'main data handler', '/query/data/zmq', cmd);
+                }
+            });
 
             // ------------------------------
             // Handler for cmd requests
