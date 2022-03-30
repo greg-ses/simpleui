@@ -255,9 +255,9 @@ export class SimpleUIServer {
                 }
             });
 
-            // ----------------------------------------
-            // Handler for app-tab-normal data requests
-            // ----------------------------------------
+            // ------------------------------
+            // Handler for data requests
+            // ------------------------------
             // Support path # /APP_NAME/UI_PROP/TAB_NAME/query/data/zmq/PORT/COMMAND_NAME
             const dataQuery = [
                 `/:appName/:propsStub/:tabName/query/data/zmq/:zmqPortExpr/:zmqCmd`,
@@ -273,7 +273,7 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
-                        await SuiData.suiDataRequest(req, res, props);
+                    await SuiData.suiDataRequest(req, res, props);
                 } catch (err) {
 
                     const cmd = SuiData.getCmdFromReq(req);
@@ -283,33 +283,6 @@ export class SimpleUIServer {
                 }
             });
 
-            // -----------------------------------------
-            // Handler for app-tab-overlay data requests
-            // -----------------------------------------
-            // Support path # /APP_NAME/UI_PROP/TAB_NAME/overlay-query/data/zmq/PORT/COMMAND_NAME
-            const overlayDataQuery = [
-                `/:appName/:propsStub/:tabName/overlay-query/data/zmq/:zmqPortExpr/:zmqCmd`,
-                `/:appName/:propsStub/:tabName/overlay-query/data/zmq/:zmqPortExpr/:zmqCmd/:zmqValue`
-            ];
-            displayUrl = `http://${os.hostname()}${webPortString}${overlayDataQuery[1]}`;
-            spacer1 = ' '.repeat(Math.max((105 - displayUrl.length), 1));
-            Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(data)`);
-            app.get(overlayDataQuery, async (req, res) => {
-                // Replies with data from a zeromq request
-                Logger.log(LogLevel.VERBOSE, `data request callback: ${++SimpleUIServer.requestCallbacks}`);
-                try {
-                    const props = PropsFileReader.getProps(
-                        `${req.params.propsStub}.properties`,
-                        `${req.params.appName}`, cmdVars.webPort);
-                    await SuiData.suiDataRequest(req, res, props);
-                } catch (err) {
-
-                    const cmd = SuiData.getCmdFromReq(req);
-                    ServerUtil.logRequestDetails(LogLevel.ERROR, req,
-                        `Err in data request: ${err}`,
-                        'main data handler', '/overlay-query/data/zmq', cmd);
-                }
-            });
 
             // ------------------------------
             // Handler for cmd requests
@@ -367,36 +340,6 @@ export class SimpleUIServer {
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                         `Err in mock data request: ${err}`,
                         'mock data handler', '/mock/data', `?file=${cmdVars.xmlInFile}`);
-                }
-            });
-
-
-            // --------------------------------------
-            // Handler for overlay-mock data requests
-            // --------------------------------------
-            // Support path # /APP_NAME/UI_PROP/TAB_NAME/overlay-mock/data
-            const overlayMockDataQuery = [
-                `/:appName/:propsStub/:tabName/overlay-mock/data`
-            ];
-            displayUrl = `http://${os.hostname()}${webPortString}${overlayMockDataQuery[0]}`;
-            spacer1 = ' '.repeat(Math.max((104 - displayUrl.length), 1));
-            Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}/${spacer1}(mock data)`);
-            app.get(overlayMockDataQuery, async (req, res) => {
-                // Replies with data from a zeromq request
-                Logger.log(LogLevel.VERBOSE, `data request callback: ${++SimpleUIServer.requestCallbacks}`);
-                try {
-                    const props = PropsFileReader.getProps(
-                        `${req.params.propsStub}.properties`,
-                        `${req.params.appName}`, cmdVars.webPort);
-                    const mockCmdVars = cmdVars;
-                    mockCmdVars.xmlInFile = req.query.file;
-                    mockCmdVars.versions = (typeof req.query.versions === 'string') ? parseInt(req.query.versions, 10) : 1;
-                    await SimpleUIServer.executeMockRequest(mockCmdVars, props, req, res);
-                } catch (err) {
-
-                    ServerUtil.logRequestDetails(LogLevel.ERROR, req,
-                        `Err in mock data request: ${err}`,
-                        'mock data handler', '/overlay-mock/data', `?file=${cmdVars.xmlInFile}`);
                 }
             });
 
