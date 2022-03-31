@@ -169,14 +169,12 @@ td.priority, td.Priority, td.skyBlue {
 .blinkSkyBlueNormal {
     background-color: skyblue;
     color: #244797;
-/*
     animation-name: BlinkSkyBlueNormal;
     animation-duration: 0.4s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
     animation-play-state: running;
- */
 }
 
 @keyframes BlinkSkyBlueNormal {
@@ -202,15 +200,12 @@ td.orangeRedOnOrange {
 .transitioning, .Transitioning, .transit, .Transit, .trans, .Trans, .starting, .Starting, .blinkOrangeToOrangeRed {
     background-color: orange;
     color: orangered;
-/*
     animation-name: BlinkOrangeToOrangeRed;
     animation-duration: 0.4s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
     animation-play-state: running;
-
- */
 }
 
 @keyframes BlinkOrangeToOrangeRed {
@@ -226,14 +221,12 @@ td.orangeOnOrangeRed {
 .stopping, .Stopping, .blinkOrangeRedToOrange {
     background-color: orangered;
     color: orange;
-/*
     animation-name: BlinkOrangeRedToOrange;
     animation-duration: 0.4s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
     animation-play-state: running;
- */
 }
 
 @keyframes BlinkOrangeRedToOrange {
