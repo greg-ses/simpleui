@@ -1,8 +1,13 @@
 # Simple UI
 
-Simple UI is a real-time display framework using Angular for the front end display and nodeJs as a beck end service provider.
+Simple UI is a real-time display framework using `Angular 13` for the front end display
+and `nodeJs` as a back end service provider.  The backend end part of simple (`simpleui-server`)
+creates `.json` responses consumed by the front end by translating `.xml` received from another
+backend server (typically C++) using `ZeroMQ` messaging.   
 
-Project started by James Scarsdale and Greg Morehead.
+Project started by James Scarsdale and Greg Morehead. Karen Cummings created much of the initial
+scaffolding when Angular 2 was in constant flux. Tom Alexander has made very significant
+architectural contributions to the product.
 
 
 ## Prerequisites
@@ -12,6 +17,8 @@ of sudo privlages. Make sure that you can ssh as service to the target without a
 `ssh-copy-id service@<target hostname>`
 
 ## Installation
+**[TODO: Verify consistency of these instructions with the deployments implemented
+in the current "derived" applications.]**
 
 **1.)** First make sure a base set of applications are installed target host machine. Run `os_scripts/web_gui_support.sh`.
 
@@ -55,8 +62,16 @@ TODO: Make an example installer script to add to the open source project.
 
 TBD
 
-## Dependencies
+## Wrappered Components
 
+The following two applications are widely used by `derived` apps.
+Because of this, they are bundled with `simpleui` for convenience.
+
+- Params Editor - a standalone `AngularJS` (Angular 1)
+- Fleetviewer - an application
+
+## Dependencies
+See `base_app/package.json` and `simpleui-server/package.json`.
 
 
 ## Contributing
@@ -66,9 +81,8 @@ Please make sure to update tests as appropriate.
 
 ## Credits
 
-This software uses the following open source packages:
-
-ANGULAR ????
+Many open source packages are used by `Angular` and this project.
+See `base_app/package.json` and `simpleui-server/package.json` for details.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
