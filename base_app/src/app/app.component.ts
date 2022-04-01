@@ -50,6 +50,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _fullUpdateRequired = false;
     _selectedTabIndex = 0;
     _autoRefreshEnabled = false;
+    _commands_enabled = false;
     _propsSubscriptionState = SubscriptionState.Idle;
     /*
         // appOptions is normally hidden - can be enabled for development
@@ -338,6 +339,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             this._tBarProps._autoRefreshLabel = 'Pause';
             this._tBarProps._refreshState = 'indicatorOn';
             this._tBarProps._serverStatus = 'updates enabled';
+            this._props.tab[this._selectedTabIndex]._commands_enabled = true;
             /*
             const miniConsole: HTMLElement = document.getElementById('miniConsole');
             if (miniConsole.className === 'miniConsoleAnnounce') {

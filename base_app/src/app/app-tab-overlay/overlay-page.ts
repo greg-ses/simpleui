@@ -90,7 +90,6 @@ export class OverlayPageComponent {
     toggleAutoRefresh() {
         if (this._autoRefreshLabel === 'Pause Auto Refresh') {
             this._autoRefreshLabel = 'Resume Auto Refresh';
-
         } else {
             this._autoRefreshLabel = 'Pause Auto Refresh';
         }

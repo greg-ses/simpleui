@@ -42,7 +42,7 @@ export class TabUI {
             hash: '00000',
             _DataSummary: new DataSummary(),
             _autoRefreshEnabled: false,
-            _commands_enabled: true,
+            _commands_enabled: false,
             _updateTime: 18000000, // '1970-01-01 00:00.00'
             _pendingRequestExpiration: 0
         };
