@@ -1,68 +1,68 @@
-<div mat-dialog-content formGroup='form'>
-    <div id="popupDialog" mat-dialog-title>{{getCommandField('label')}}</div>
+<div id="popupDialog">{{getCommandField('label')}}</div>
+<div>
     <table>
-        <tbody mat-table>
-            <tr mat-row *ngIf="(noControls === false) && getDescription() !== ''">
-                <mat-form-field>
-                    <td mat-cell [attr.colspan]="2"><i>{{getCommandField('desc')}}</i><br/>&nbsp;</td>
-                </mat-form-field>
+        <tbody>
+            <tr *ngIf="(noControls === false) && getDescription() !== ''">
+                <ng-container>
+                    <td [attr.colspan]="2"><i>{{getCommandField('desc')}}</i><br/>&nbsp;</td>
+                </ng-container>
             </tr>
     
-            <tr mat-row *ngIf='noControls'>
-                <mat-form-field>
-                    <td mat-cell [attr.colspan]="2">Execute command <i>{{cmd}}</i> ?</td>
-                </mat-form-field>
+            <tr *ngIf='noControls'>
+                <ng-container>
+                    <td [attr.colspan]="2">Execute command <i>{{cmd}}</i> ?</td>
+                </ng-container>
             </tr>
     
-            <tr mat-row *ngFor='let control of getControls(commandData)'>
+            <tr *ngFor='let control of getControls(commandData)'>
     
-                <mat-form-field *ngIf='control.type === "date"'>
+                <ng-container *ngIf='control.type === "date"'>
                     <label>
-                        <td mat-cell>{{control.name}}:&nbsp;</td>
-                        <td mat-cell>
+                        <td>{{control.name}}:&nbsp;</td>
+                        <td>
                             <input [id]='"popup-control-" + control.id'   [value]='control.value' matInput [matDatepicker]='myDatepicker' [title]="control.desc">
                             <mat-datepicker-toggle matSuffix [for]='myDatepicker'>
                             </mat-datepicker-toggle>
                             <mat-datepicker #myDatepicker></mat-datepicker>
                         </td>
                     </label>
-                </mat-form-field>
+                </ng-container>
     
-                <mat-form-field *ngIf='control.type === "dropdown"'>
+                <ng-container *ngIf='control.type === "dropdown"'>
                     <label>
-                        <td mat-cell>{{control.label}}:</td>
-                        <td mat-cell><select [id]='"popup-control-" + control.id'><option *ngFor='let choice of getChoices(control)'>{{choice}}</option></select></td>
+                        <td>{{control.label}}:</td>
+                        <td><select [id]='"popup-control-" + control.id'><option *ngFor='let choice of getChoices(control)'>{{choice}}</option></select></td>
                     </label>
-                </mat-form-field>
+                </ng-container>
     
-                <mat-form-field *ngIf='control.type === "bool"'>
+                <ng-container *ngIf='control.type === "bool"'>
                     <label>
-                        <td mat-cell [attr.[attr.colspan]]="2"><input type='checkbox' [id]="'popup-control-' + control.id" [attr.aria-label]="'labelFor-' + control.id"
+                        <td [attr.[attr.colspan]]="2"><input type='checkbox' [id]="'popup-control-' + control.id" [attr.aria-label]="'labelFor-' + control.id"
                              [checked]='control.checked'  name='control.name' matInput placeholder='control.name' [title]="control.desc">{{control.label}}
                         </td>
                     </label>
-                </mat-form-field>
+                </ng-container>
 
-                <mat-form-field *ngIf='control.type === "int"'>
-                    <td mat-cell><label>{{control.label}}:</label></td>
-                    <td mat-cell><input [id]='"popup-control-" + control.id'  [value]='control.value'  matInput placeholder='control.name' [title]="control.desc"></td>
-                </mat-form-field>
+                <ng-container *ngIf='control.type === "int"'>
+                    <td><label>{{control.label}}:</label></td>
+                    <td><input [id]='"popup-control-" + control.id'  [value]='control.value'  matInput placeholder='control.name' [title]="control.desc"></td>
+                </ng-container>
 
-                <mat-form-field *ngIf='control.type === "float"'>
-                    <td mat-cell><label>{{control.label}}:</label></td>
-                    <td mat-cell><input [id]='"popup-control-" + control.id'  [value]='control.value'  matInput placeholder='control.name' [title]="control.desc"></td>
-                </mat-form-field>
+                <ng-container *ngIf='control.type === "float"'>
+                    <td><label>{{control.label}}:</label></td>
+                    <td><input [id]='"popup-control-" + control.id'  [value]='control.value'  matInput placeholder='control.name' [title]="control.desc"></td>
+                </ng-container>
 
-                <mat-form-field *ngIf='control.type === "text"'>
-                    <td mat-cell><label>{{control.label}}:</label></td>
-                    <td mat-cell><input [id]='"popup-control-" + control.id'  [value]='control.value' matInput placeholder='control.name' [title]="control.desc"></td>
-                </mat-form-field>
+                <ng-container *ngIf='control.type === "text"'>
+                    <td><label>{{control.label}}:</label></td>
+                    <td><input [id]='"popup-control-" + control.id'  [value]='control.value' matInput placeholder='control.name' [title]="control.desc"></td>
+                </ng-container>
 
-                <mat-form-field *ngIf='control.type === "textarea"'>
-                    <td mat-cell [attr.colspan]="2"><label>{{control.label}}:</label><br/>
+                <ng-container *ngIf='control.type === "textarea"'>
+                    <td [attr.colspan]="2"><label>{{control.label}}:</label><br/>
                         <textarea [id]='"popup-control-" + control.id'  matInput placeholder='control.desc' [title]="control.desc">{{control.value}}</textarea>
                     </td>
-                </mat-form-field>
+                </ng-container>
 
             </tr>
         </tbody>

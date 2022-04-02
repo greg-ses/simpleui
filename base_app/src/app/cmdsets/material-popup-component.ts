@@ -56,9 +56,11 @@ export class MaterialPopupComponent implements OnInit {
         this.noControls = (  (!(commandData.element.command.controls instanceof Array))
                            ||  (commandData.element.command.controls.length === 0) );
 
-        this.form = fb.group({
+        this.form = this.fb.group({
             commandData: [this.commandData]
         });
+
+        this.form['_updateTreeValidity'] = function() {};
     }
 
     ngOnInit() {
