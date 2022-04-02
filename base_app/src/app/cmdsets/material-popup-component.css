@@ -9,6 +9,10 @@ button, input[type=button], html input[type=button], input[type=reset], input[ty
     min-width: 80px;
 }
 
+#myMatPopupDialog {
+    width: 400px;
+}
+
 .mat-form-field {
     display: block;
     font-size: 14px;
@@ -17,4 +21,23 @@ button, input[type=button], html input[type=button], input[type=reset], input[ty
 textarea {
     height: 100px;
     resize: vertical;
+}
+
+td.fullwidth {
+    min-width: 325px;
+}
+
+td.label, td.dropdown {
+    min-width: 250px;
+}
+
+td.value {
+    min-width: 75px;
+    background-color: lightgray;
+    text-align: right;
+}
+
+.mat-form-field-underline, .mat-form-field-ripple {
+    background-color: white;
+    min-width: 400px;
 }

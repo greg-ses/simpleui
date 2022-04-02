@@ -1,68 +1,67 @@
-<div id="popupDialog">{{getCommandField('label')}}</div>
-<div>
+<div mat-dialog-title>{{getCommandField('label')}}</div>
+<div id="myMatPopupDialog">
     <table>
         <tbody>
             <tr *ngIf="(noControls === false) && getDescription() !== ''">
-                <ng-container>
-                    <td [attr.colspan]="2"><i>{{getCommandField('desc')}}</i><br/>&nbsp;</td>
-                </ng-container>
+                <mat-form-field>
+                <td [attr.colspan]="2"><i>{{commandData.element.command.desc}}</i><br/>&nbsp;</td>
+                </mat-form-field>
             </tr>
     
             <tr *ngIf='noControls'>
-                <ng-container>
-                    <td [attr.colspan]="2">Execute command <i>{{cmd}}</i> ?</td>
-                </ng-container>
+                <mat-form-field>
+                <td [attr.colspan]="2">Execute command <i>{{cmd}}</i> ?</td>
+                </mat-form-field>
             </tr>
     
-            <tr *ngFor='let control of getControls(commandData)'>
+        <tr *ngFor='let control of commandData.element.command.controls'>
     
-                <ng-container *ngIf='control.type === "date"'>
+                <mat-form-field *ngIf='control.type === "date"'>
                     <label>
-                        <td>{{control.name}}:&nbsp;</td>
-                        <td>
+                        <td class="label">{{control.name}}:&nbsp;</td>
+                        <td class="value">
                             <input [id]='"popup-control-" + control.id'   [value]='control.value' matInput [matDatepicker]='myDatepicker' [title]="control.desc">
                             <mat-datepicker-toggle matSuffix [for]='myDatepicker'>
                             </mat-datepicker-toggle>
                             <mat-datepicker #myDatepicker></mat-datepicker>
                         </td>
                     </label>
-                </ng-container>
+                </mat-form-field>
     
-                <ng-container *ngIf='control.type === "dropdown"'>
+                <mat-form-field *ngIf='control.type === "dropdown"'>
                     <label>
-                        <td>{{control.label}}:</td>
-                        <td><select [id]='"popup-control-" + control.id'><option *ngFor='let choice of getChoices(control)'>{{choice}}</option></select></td>
+                        <td class="label">{{control.label}}:</td>
+                        <td class="dropdown"><select [id]='"popup-control-" + control.id'><option *ngFor='let choice of control.choices'>{{choice}}</option></select></td>
                     </label>
-                </ng-container>
+                </mat-form-field>
     
-                <ng-container *ngIf='control.type === "bool"'>
+                <mat-form-field *ngIf='control.type === "bool"'>
                     <label>
-                        <td [attr.[attr.colspan]]="2"><input type='checkbox' [id]="'popup-control-' + control.id" [attr.aria-label]="'labelFor-' + control.id"
+                        <td class="fullwidth" [attr.colspan]="2"><input type='checkbox' [id]="'popup-control-' + control.id" [attr.aria-label]="'labelFor-' + control.id"
                              [checked]='control.checked'  name='control.name' matInput placeholder='control.name' [title]="control.desc">{{control.label}}
                         </td>
                     </label>
-                </ng-container>
+                </mat-form-field>
 
-                <ng-container *ngIf='control.type === "int"'>
-                    <td><label>{{control.label}}:</label></td>
-                    <td><input [id]='"popup-control-" + control.id'  [value]='control.value'  matInput placeholder='control.name' [title]="control.desc"></td>
-                </ng-container>
+                <mat-form-field *ngIf='control.type === "int"'>
+                    <td class="label"><label>{{control.label}}:</label></td>
+                    <td class="value"><input [id]='"popup-control-" + control.id'  [value]='control.value'  matInput placeholder='control.name' [title]="control.desc"></td>
+                </mat-form-field>
 
-                <ng-container *ngIf='control.type === "float"'>
-                    <td><label>{{control.label}}:</label></td>
-                    <td><input [id]='"popup-control-" + control.id'  [value]='control.value'  matInput placeholder='control.name' [title]="control.desc"></td>
-                </ng-container>
+                <mat-form-field *ngIf='control.type === "float"'>
+                    <td class="label"><label>{{control.label}}:</label></td>
+                    <td class="value"><input [id]='"popup-control-" + control.id'  [value]='control.value'  matInput placeholder='control.name' [title]="control.desc"></td>
+                </mat-form-field>
 
-                <ng-container *ngIf='control.type === "text"'>
-                    <td><label>{{control.label}}:</label></td>
-                    <td><input [id]='"popup-control-" + control.id'  [value]='control.value' matInput placeholder='control.name' [title]="control.desc"></td>
-                </ng-container>
+                <mat-form-field *ngIf='control.type === "text"'>
+                    <td class="label"><label>{{control.label}}:</label></td>
+                    <td class="value"><input [id]='"popup-control-" + control.id'  [value]='control.value' matInput placeholder='control.name' [title]="control.desc"></td>
+                </mat-form-field>
 
-                <ng-container *ngIf='control.type === "textarea"'>
-                    <td [attr.colspan]="2"><label>{{control.label}}:</label><br/>
-                        <textarea [id]='"popup-control-" + control.id'  matInput placeholder='control.desc' [title]="control.desc">{{control.value}}</textarea>
-                    </td>
-                </ng-container>
+                <mat-form-field *ngIf='control.type === "textarea"'>
+                    <td class="fullwidth" [attr.colspan]="2"><label>{{control.label}}:</label></td>
+                    <td class="value" [attr.colspan]="2"><textarea [id]='"popup-control-" + control.id'  matInput placeholder='control.desc' [title]="control.desc">{{control.value}}</textarea></td>
+                </mat-form-field>
 
             </tr>
         </tbody>
