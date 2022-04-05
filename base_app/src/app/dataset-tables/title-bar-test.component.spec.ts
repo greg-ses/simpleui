@@ -1,7 +1,6 @@
 import { AppComponent } from '../app.component';
 import { AppTabNormalComponent } from '../app-tab-normal/app-tab-normal.component'
 import { AppTabOverlayComponent } from '../app-tab-overlay/app-tab-overlay.component'
-import { CmdBarComponent } from '../cmdsets/cmd-bar';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommandButtonComponent } from '../cmdsets/command-button';
 import { DebugElement } from '@angular/core';
@@ -143,7 +142,6 @@ describe('TitleBarTest', () => {
                 AppComponent,
                 AppTabNormalComponent,
                 AppTabOverlayComponent,
-                CmdBarComponent,
                 CommandButtonComponent,
                 ImageOverlaysComponent,
                 DatasetTableComponent,

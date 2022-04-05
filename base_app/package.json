@@ -17,8 +17,6 @@
     "start-client-prod": "ng serve --aot",
     "post-build-step--setup-bms-for-dev": "sh build-app-for-dev.sh 0 bms git-workspace-all ${USER}",
     "test": "ng test",
-    "unit-test-nodejs-javascript": "bash src/test/normalizeJSON.unit-test.bash",
-    "unit-test-simpleui-server": "bash src/public/simpleui-server/test/__simpleui-server.unit-test.bash",
     "lint--not-tested": "ng lint",
     "e2e--not-tested": "ng e2e"
   },

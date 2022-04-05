@@ -771,10 +771,19 @@ export class SuiData {
         }
 
         const sJson = SuiData.xmlToJSON(xmlString, cmdArgs.appName, props, <Request<ParamsDictionary>>theReq);
-        if (typeof theReq.query.keepTempFile === 'string') {
-            const jsonOutFile =
-                `${SuiData.ram_disk_folder}`
-                + path.basename(`${xmlInFile}`).replace(/\.xml$/, '.json');
+        let jsonOutFile = "";
+        if (typeof cmdArgs.jsonOutFile !== 'undefined' && cmdArgs.jsonOutFile !== "") {
+            // Use the indexed version
+            jsonOutFile = cmdArgs.jsonOutFile;
+        } else {
+            // No or empty jsonOutFile: follow keepTempFile instruction if passed
+            if (typeof theReq.query.keepTempFile === 'string') {
+                // Use the temp file as the output file
+                SuiData.mockDataFileIndex[cmdArgs.xmlInFile] = 0;
+                jsonOutFile =
+                    `${SuiData.ram_disk_folder}`
+                    + path.basename(`${xmlInFile}`).replace(/\.xml$/, '.json');
+            }
             fs.writeFileSync(jsonOutFile, sJson);
             console.log(`Created test output file: ${jsonOutFile}.`);
         }

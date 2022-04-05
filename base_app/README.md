@@ -47,13 +47,13 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Running unit tests
 
-**[TODO: requires update]**
+See the [Readme for Unit Tests](./src/test/00.readme.unit-tests.md)
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests
 
-**[TODO: requires update]**
+See the [Readme for E2E Tests](./src/test/00.readme.e2e-tests.md)
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 

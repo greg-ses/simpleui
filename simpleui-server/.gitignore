@@ -1,5 +1,6 @@
 # exclude built files
 dist/*
+test/dist/*
 node_modules/*
 
 /dist.tgz
