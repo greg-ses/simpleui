@@ -9,11 +9,11 @@
     <div id='overlayCmdBarContainer'>
         <overlay-cmd-bar
             *ngFor="let e of commaSplit(_cmdBarNames)"
-            [_emergency_commands]="['TODO']"
-            [_commands]="['TODO: _DataSummary[e]']"
-            [_service_commands]="['TODO']"
+            [_emergency_commands]="createUiObjList('TODO')"
+            [_commands]="createUiObjList('TODO: _DataSummary[e]')"
+            [_service_commands]="createUiObjList('TODO')"
             [_cmdBarName]="e"
-            [_props]="['TODO']"
+            [_props]="createUiObjList('TODO')"
         >
         </overlay-cmd-bar>
 

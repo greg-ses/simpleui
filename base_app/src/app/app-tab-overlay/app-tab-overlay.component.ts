@@ -478,5 +478,19 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         const positioner = document.getElementById('moveLogger');
         positioner.innerHTML = '(x: ' + ev.pageX + 'px, y:' + ev.pageY + 'px)';
     }
+
+    createUiObjList(label = "", desc = '', u_id = '', url = '', tooltip = '', elements = []): UiObjList
+    {
+        const uiObjList = new UiObjList();
+        uiObjList.label = label;
+        uiObjList.desc = desc;
+        uiObjList.u_id = u_id;
+        uiObjList.url = url;
+        uiObjList.tooltip = tooltip;
+        uiObjList.elements = elements;
+
+        return uiObjList;
+    }
+
 }
 

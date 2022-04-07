@@ -21,7 +21,7 @@
             <a [href]="e['url']" target="_blank" [title]="e['tooltip']">{{e['name']}}</a>&nbsp;&nbsp;
         </span>
         <a *ngIf='_props?.mode === "design"' id='moveButton' (click)="onMoveElement($event)" title='Click to move the Unimplemented Overlays Window.'>⦻&nbsp;&nbsp;</a>
-        <a *ngIf='_props?.mode !== "design"' id='editUIButton' (click)="onEditUIElements($event)" title='Click to show the position editor.'>⦻&nbsp;&nbsp;</a>
+        <a *ngIf='_props?.mode !== "design"' id='editUIButton' (click)="onEditUIElements()" title='Click to show the position editor.'>⦻&nbsp;&nbsp;</a>
         <a [href]="_appURI + 'doc/simple_ui_doc/my-simple-ui-derivative.html?hash=' + _appHash" target="_blank" title="{{_tBarProps?._appTitle}} Documentation.">⍰</a>&nbsp;&nbsp;
     </span>
 
@@ -75,11 +75,11 @@
                     [_dataTableNames]="t['dataTableNames']" >
             </app-tab-overlay>
 
-            <app-tab-mock
+            <!--app-tab-mock
                     *ngIf="t['pageType'] === 'mock-tab'"
                     [detectChanges]="_detectChanges"
                     [_uiTab]="t" >
-            </app-tab-mock>
+            </app-tab-mock-->
 
             <app-tab-normal
                     *ngIf="((t['pageType'] !== 'overlay') && (t['pageType'] !== 'mock-tab'))"

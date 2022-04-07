@@ -51,7 +51,7 @@ export class ImplementedOverlaysService {
             .map(this.initData)
             .catch(this.handleError);
         */
-        return (null);
+        return null;
     }
 
     private onDataUpdate(response: CSSPairList) {

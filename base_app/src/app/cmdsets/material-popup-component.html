@@ -4,7 +4,7 @@
         <tbody>
             <tr *ngIf="(noControls === false) && getDescription() !== ''">
                 <mat-form-field>
-                <td [attr.colspan]="2"><i>{{commandData.element.command.desc}}</i><br/>&nbsp;</td>
+                <td [attr.colspan]="2"><i>{{commandData.element['command'].desc}}</i><br/>&nbsp;</td>
                 </mat-form-field>
             </tr>
     
@@ -14,7 +14,7 @@
                 </mat-form-field>
             </tr>
     
-        <tr *ngFor='let control of commandData.element.command.controls'>
+        <tr *ngFor='let control of commandData.element["command"].controls'>
     
                 <mat-form-field *ngIf='control.type === "date"'>
                     <label>
@@ -31,7 +31,7 @@
                 <mat-form-field *ngIf='control.type === "dropdown"'>
                     <label>
                         <td class="label">{{control.label}}:</td>
-                        <td class="dropdown"><select [id]='"popup-control-" + control.id'><option *ngFor='let choice of control.choices'>{{choice}}</option></select></td>
+                        <td class="dropdown"><select [id]='"popup-control-" + control.id'><option *ngFor='let choice of control["choices"]'>{{choice}}</option></select></td>
                     </label>
                 </mat-form-field>
     

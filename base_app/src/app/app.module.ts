@@ -6,6 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CmdSetComponent } from './cmdsets/cmdset.component';
 import { CommonModule } from '@angular/common';
 import { CommandButtonComponent } from './cmdsets/command-button';
+import { ErrorPopupComponent } from './cmdsets/error-popup';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ImageOverlaysComponent } from './app-tab-overlay/image-overlays';
@@ -27,8 +28,6 @@ import { SeparatorBarComponent } from './dataset-tables/separator-bar';
 import { CommandButtonChangeService } from './services/command-button-change.service';
 import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-component';
 
-const BMSDataService_data_port = 16901;
-
 @NgModule({
     declarations: [
       AppComponent,
@@ -37,6 +36,7 @@ const BMSDataService_data_port = 16901;
       AppTabOverlayComponent,
       CmdSetComponent,
       CommandButtonComponent,
+      ErrorPopupComponent,
       ImageOverlaysComponent,
       MaterialPopupComponent,
       OverlayCmdBarComponent,

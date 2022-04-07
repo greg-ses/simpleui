@@ -19,10 +19,10 @@
     <div *ngFor='let commandInfo of getCommandList(_un_implemented_commands_in_group);'
          [id]='commandInfo.id'  class='draggable_process_var' draggable="true" (dragstart)='onDragStart($event)'
          [title]='"Drag to position: " + commandInfo.id'>
-        <span *ngIf='commandInfo.commandLabel !== ""' class='var_label'>{{commandInfo.commandLabel}}</span>
-        <app-command-button *ngIf='commandInfo.command' [id]='commandInfo.command.id'
+        <span *ngIf='commandInfo["commandLabel"] !== ""' class='var_label'>{{commandInfo["commandLabel"]}}</span>
+        <app-command-button *ngIf='commandInfo["command"]' [id]='commandInfo["command"].id'
                 [_uiTab]="_uiTab" [element]="commandInfo"
-                [_container]="commandInfo.id" [_sha1sum]="commandInfo.sha1sum"
+                [_container]="commandInfo.id" [_sha1sum]="commandInfo['sha1sum']"
         ></app-command-button>
     </div>
 

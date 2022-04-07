@@ -138,7 +138,7 @@
             <li>Create and pull a <code>git</code> branch containing <code>vionx_linux/target/common/web/apps/simpleui</code></li>
             <li><code>cd vionx_linux/target/common/web/apps/simpleui/src/public/deploy</code></li>
             <li><code>./update_site.sh jks-ubuntu16-dev simpleui</code></li>
-            <li>The steps above create a service named <code><it>simpleui</it>-web</code></code> that references a new folder <code>/var/www/simpleui</code></li>
+            <li>The steps above create a service named <code><it>simpleui</it>-web</code> that references a new folder <code>/var/www/simpleui</code></li>
             <li>Open this url in a browser: <a href="/simpleui" target="_blank">http://<i>HOSTNAME</i>/simpleui</a></li>
         </ul>
     </div>
@@ -166,8 +166,8 @@
                 cd /tmp/<em>MyOverlayApp/simple_ui.derivative/</em>
                 tar xzvf example-overlay.tgz
                 mv example-overlay overlay-1
-                cp overlay-1/ui.properties ./ui.properties</em>
-                    cp -r overlay-1/php ./</em>
+                cp overlay-1/ui.properties ./ui.properties
+                cp -r overlay-1/php ./
                 </pre>
             </li>
 
@@ -201,6 +201,7 @@
                     tab.1.commandUrl = /MyOverlayApp/php/tests/example-overlay.php
                 </pre>
             </li>
+        </ul>
     </div>
     <hr/>
 </div>
@@ -249,7 +250,7 @@
             </li>
             <li>Merge the overlay with <code>simple_ui</code>, creating <code>/var/www/MyOverlayApp</code>:
                 <pre>
-                    cd /home/<em></em>SomeUser</em>/Downloads/simple_ui
+                    cd /home/<em>SomeUser</em>/Downloads/simple_ui
                     sudo sh merge-derived-app.sh ./dist.tgz /tmp/<em>MyOverlayApp</em>/simple_ui.derivative /var/www/MyOverlayApp -d <em>SomeUser</em>
                 </pre>
             </li>
@@ -324,7 +325,7 @@
 </div>
 
 <div>
-    <h2><span><span onclick="toggle(this)">&#9658;</span></span>&nbsp;9. What are the rules for using the <em>overlay</em> UI model?</a><br/></h2>
+    <h2><span><span onclick="toggle(this)">&#9658;</span></span>&nbsp;9. What are the rules for using the <em>overlay</em> UI model?<br/></h2>
     <div id="overlay_UI_rules" class='closed'>
         <h3>Implementation, and requirements for XML when using Overlays.</h3>
         <ol>
