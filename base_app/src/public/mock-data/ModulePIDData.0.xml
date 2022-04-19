@@ -74,9 +74,9 @@
         </animation>
         <command cmd="START_RAW_TOTE_PUMPS" confirm="false" desc="Start incoming Raw tote pump" disabled="true"
                  idnum="0" label="Start" name="START_RAW_TOTE_PUMPS" u_id="2045"/>
-        <img class="closed" fileType="gif" name="CV106_RawTankOut" u_id="2045">closed</img>
-        <img class="Raw_to_An" fileType="gif" name="CV104_RawTankOut3Way" u_id="2045">Raw_to_An</img>
-        <animation class="impeller-right" fileType="png" name="PMP103_Raw_Elyte" speed_rpm="0.000000" u_id="2045">
+        <img class="closed" fileType="gif" name="CV106_RawTankOut" u_id="3045">closed</img>
+        <img class="Raw_to_An" fileType="gif" name="CV104_RawTankOut3Way" u_id="4045">Raw_to_An</img>
+        <animation class="impeller-right" fileType="png" name="PMP103_Raw_Elyte" speed_rpm="0.000000" u_id="5045">
             running
         </animation>
         <dyn class="lightGreen" desc="Pump Speed" name="PMP103_Raw_Elyte_Speed" u_id="2046" units="Hz">0.0</dyn>
