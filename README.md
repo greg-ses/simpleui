@@ -1,9 +1,11 @@
 # Simple UI
 
 Simple UI is a real-time display framework using `Angular 13` for the front end display
-and `nodeJs` as a back end service provider.  The backend end part of simple (`simpleui-server`)
-creates `.json` responses consumed by the front end by translating `.xml` received from another
-backend server (typically C++) using `ZeroMQ` messaging.   
+and `nodeJs` 16 as a back end service provider.  The front-end part of simpleui (`base_app`)
+sends `http requests` to the backend end part of simpleui (`simpleui-server`), which in turn
+sends and receives `ZeroMQ XML` messages to a second backend server (typically C++).
+`simpleui-server` translates the received `.xml` into `.json` responses and sends them
+back to the front end.   
 
 Project started by James Scarsdale and Greg Morehead. Karen Cummings created much of the initial
 scaffolding when Angular 2 was in constant flux. Tom Alexander has made very significant
@@ -20,29 +22,30 @@ of sudo privlages. Make sure that you can ssh as service to the target without a
 **[TODO: Verify consistency of these instructions with the deployments implemented
 in the current "derived" applications.]**
 
-**1.)** First make sure a base set of applications are installed target host machine. Run `os_scripts/web_gui_support.sh`.
+**1.)** First make sure a base set of applications are installed target host machine or docker image - the
+equivalent of running `os_scripts/web_gui_support.sh`.
 
-**2.)** Install the `simple UI server`  
-- In `phpStorm`, open the project `simpleui/simpleui-server/`.
+**2.)** Build and install the `simple UI server`  
+- In a `JetBrains IDE` (`clion`, `webstorm`, or `phpStorm`), open the project `simpleui/simpleui-server/`.
 - Open the `package.json` file, then follow the prompts to run `npm install`.
 - Right-click `package.json`, and click `Show npm Scripts`.
 - In the `npm` window, click `build`.
 - In the `npm` window, click `copy-dist-to-output`.
 
-**3.)** Install the `base_app`  
-- In `phpStorm`, open the project `simpleui/base_app/`.
+**3.)** Build and install the `base_app`  
+- In the `JetBrains IDE`, open the project `simpleui/base_app/`.
 - Open `base_app/package.json`, then follow the prompts to run `npm install`.
 - Right-click `package.json`, and click `Show npm Scripts`.
 
 
 **3a)** **Production Build:**  
-- In the phpstorm `npm` window, click `build-client-prod` to produce a `dist.tgz` file.
-- In the phpstorm `npm` window, click `copy-dist-to-output` to copy the `dist.tgz` file to `../../../output/simpleui/base_app` for consumption by the deploy script.
+- In the JetBrains IDE's `npm` window, click `build-client-prod` to produce a `dist.tgz` file.
+- In the JetBrains IDE's `npm` window, click `copy-dist-to-output` to copy the `dist.tgz` file to `../../../output/simpleui/base_app` for consumption by the deploy script.
 
 **3b)** **Development Build:**  
 - Right-click `base_app/webpack.config.js` and follow the prompts to run it.
-- From the phpstorm `npm` window, select `build-client-dev` to produce a dist.tgz file.
-- In the phpstorm `npm` window, click `copy-dist-to-output` to copy the `dist.tgz` file to `../../../output/simpleui/base_app` for consumption by the deploy script.
+- From the JetBrains IDE's `npm` window, select `build-client-dev` to produce a dist.tgz file.
+- In the JetBrains IDE's `npm` window, click `copy-dist-to-output` to copy the `dist.tgz` file to `../../../output/simpleui/base_app` for consumption by the deploy script.
 
 **4.)** add the following to your `.bashrc` file:
 
