@@ -415,9 +415,11 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
     }
 
-    onEditUIElements() {
-        const editUiPanel = new AppEditUiPanelComponent();
-        editUiPanel.create();
+    onEditUIElements(event) {
+        if (event.shiftKey) {
+            const editUiPanel = new AppEditUiPanelComponent();
+            editUiPanel.create();
+        }
     }
 
     getWindowLocationField(fieldName) {
@@ -557,6 +559,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         for (const tab of this._props.tab) {
             tab._DataSummary = new DataSummary();
             tab._autoRefreshEnabled = true;
+            tab._commands_enabled = true;
             tab.pageType = tab.pageType || 'normal'; // Make 'normal' the default
             tab._lastUpdate = '1970-01-01 00:00.00';
             tab.hash = AppComponent.getUniqueHash();
@@ -622,6 +625,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                                 } else {
                                     // Disable refresh and ServerSideJsDebugging
                                     tab._autoRefreshEnabled = false;
+                                    tab._commands_enabled = false;
                                     ClientLogger.enableFeature('ServerSideJsDebugging', false);
                                     ClientLogger.logToMiniConsole('ServerSideJsDebugging has expired.');
                                     this._debugRefreshCycle = 0;
