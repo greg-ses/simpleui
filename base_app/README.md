@@ -1,4 +1,17 @@
-# NgSimpleUi
+---
+Title: **README for simpleui/base_app (client)**
+
+Updated: 2022-04-27
+
+Author: Jim Scarsdale
+
+*To update:* Modify this file under source control at https://github.com/greg-ses/simpleui/blob/Incremental-improvements/base_app/README.md
+```
+gitlab/wherever.md
+```
+---
+
+[[_TOC_]]
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.1.
 

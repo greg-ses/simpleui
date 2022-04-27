@@ -10,7 +10,7 @@ import { PopupDialogProps } from '../interfaces/popup-dialog-props';
     selector: 'error-popup',
     styleUrls: ['./popup-dialog.css'],
     template: `
-<div id='error_popup' [hidden]='_props["hidden"]' class='popup-dialog-modal'>
+<div id='error_popup-container-{{_tabId}}' hidden='_props["hidden"]' class='popup-dialog-modal'>
   <div class='popup-dialog-modal-content'>
 
     <header>
@@ -18,9 +18,9 @@ import { PopupDialogProps } from '../interfaces/popup-dialog-props';
       <span (click)='close()' class='closeBtn'>&nbsp;&times;&nbsp;</span>
     </header>
     
-    <div id='error-popup-text' class='popup-dialog-text'>{{ _props["text"] }}</div>
-    <div id='error-popup-cmd' class='popup-dialog-text'><pre>{{ _lastCommandXmlSent }}</pre></div>
-    <div id='error-popup-controls'>
+    <div id='error-popup-text-{{_tabId}}' class='popup-dialog-text'>{{ _props["text"] }}</div>
+    <div id='error-popup-cmd-{{_tabId}}' class='popup-dialog-text'><pre>{{ _lastCommandXmlSent }}</pre></div>
+    <div id='error-popup-controls-{{_tabId}}'>
     </div> 
     
     <footer class='error-popup-container'>

@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     static _updatesSuspended = false;
     static _trackClicks = false;
     static _mouseDownSuspendsUpdates = false;
-    static _autoRefreshExpirationDefault = 240; // 4 hours * (60 min / hour)
+    static _minutesBeforeAutoPageReload_Default = 60; // Time until the page auto-refreshes, doing automatic garbage collection
     static _logLevel = LogLevel.CRITICAL;
 
     @Output() selectedTabChange = new EventEmitter<MatTabChangeEvent>();
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _refreshRate = 1000;
     _pendingRequestWait = 10000;
     _updateSubscription = null;
-    _autoRefreshExpiration = AppComponent._autoRefreshExpirationDefault * 60 * 1000; // Default # of minutes before automatic updates stop
+    _milliSecondsBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default * 60 * 1000; // Default # of minutes before automatic updates stop
     _debugRefreshCycle = 0;
     _errorMessage = '';
     _appURI = AppComponent.getServiceURI();
@@ -566,16 +566,16 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             i++;
         }
 
-        let autoRefreshTimeout = AppComponent._autoRefreshExpirationDefault;
+        let minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
         if ((this._props instanceof Object)
-            && (typeof this._props['autoRefreshTimeout'] === 'string')) {
-            autoRefreshTimeout = parseInt(this._props['autoRefreshTimeout'], 10);
-            if (isNaN(autoRefreshTimeout)) {
-                autoRefreshTimeout = AppComponent._autoRefreshExpirationDefault;
+            && (typeof this._props['minutesBeforeAutoPageReload'] === 'string')) {
+            minutesBeforeAutoPageReload = parseInt(this._props['minutesBeforeAutoPageReload'], 10);
+            if (isNaN(minutesBeforeAutoPageReload)) {
+                minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
             }
         }
-        autoRefreshTimeout = Math.max(Math.min(autoRefreshTimeout, AppComponent._autoRefreshExpirationDefault), 1); // range (1..30)
-        this._autoRefreshExpiration = autoRefreshTimeout * 60 * 1000;
+        minutesBeforeAutoPageReload = Math.max(Math.min(minutesBeforeAutoPageReload, AppComponent._minutesBeforeAutoPageReload_Default), 1); // range (1..30)
+        this._milliSecondsBeforeAutoPageReload = minutesBeforeAutoPageReload * 60 * 1000;
 
         this._refreshRate = 1000;
         if ((this._props instanceof Object)
@@ -604,7 +604,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
     doUpdate(cycle: number = 0) {
         try {
-            if ((cycle * this._refreshRate) > this._autoRefreshExpiration) {
+            if ((cycle * this._refreshRate) > this._milliSecondsBeforeAutoPageReload) {
                 sessionStorage.autoReload = 'true';
                 setTimeout(() => {
                     document.location.reload();
