@@ -1,2 +1,6 @@
 # Default ignored files
+/misc.xml
+/modules.xml
+/simpleui-git.iml
+/vcs.xml
 /workspace.xml
