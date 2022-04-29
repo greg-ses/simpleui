@@ -19,11 +19,12 @@ cd dist
 tar czvf ../dist.tgz *
 cd ..
 
-
-out_folder=../../../output/simpleui/simpleui-server
-echo Copy files to ${out_folder} folder;
-mkdir -p ${out_folder}
-cp dist/simpleui-server/SERVICE-TEMPLATE.service ${out_folder}
-cp dist.tgz  ${out_folder}
-
+if [[ "${NPM_COPY_DIST_TO_OUTPUT}" != "false" ]]; then
+    out_folder=../../../output/simpleui/simpleui-server
+    sudo chmod -R 777 ${out_folder}
+    echo Copy files to ${out_folder} folder;
+    mkdir -p ${out_folder}
+    cp dist/simpleui-server/SERVICE-TEMPLATE.service ${out_folder}
+    cp dist.tgz  ${out_folder}
+fi
 echo "------------------ Finished post-build-step at $(date) -----------------------"
