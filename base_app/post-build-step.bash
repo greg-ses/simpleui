@@ -56,27 +56,17 @@ cat dist/simpleui/index.html | \
 
 # -- end: add GUID to js files and fix up index.html --
 
-declare -A true_words_array=( [yes]=true [true]=true [1]=true [t]=true )
-if [[ -v true_words_array[${SUI_BUILD_WILL_UPDATE_LOCAL_VAR_WWW,,}] ]]; then
-    printf "\n------------------ SUI_BUILD_WILL_UPDATE_LOCAL_VAR_WWW is true: Copy files to /var/www ------------------\n"
-    sleep 2
-    rm -r /var/www/${PROJ}
-    cp -rv dist /var/www/${PROJ}
-    rm -r /var/www/${PROJ}/${PROJ}
-    replace "simple_ui" "${PROJ}" -- /var/www/${PROJ}/index.html
-    #ln -s /var/www/${PROJ}/sample_ui.properties.txt /var/www/${PROJ}/ui.properties
-    ln -s /var/www/${PROJ}/mock-data/ui.bms.mock.properties /var/www/${PROJ}/ui.properties
-fi
-unset true_words_array
-
 # Create dist.tgz
 cd dist
 tar czvf ../dist.tgz --exclude="${PROJ}"  *
 cd ..
 
-out_folder=../../../output/simpleui/base_app
-echo Copy files to ${out_folder} folder;
-mkdir -p ${out_folder}
-cp dist.tgz  ${out_folder}
+if [[ "${NPM_COPY_DIST_TO_OUTPUT}" != "false" ]]; then
+    out_folder=../../../output/simpleui/base_app
+    sudo chmod -R 777 ${out_folder}
+    echo Copy files to ${out_folder} folder;
+    mkdir -p ${out_folder}
+    cp dist.tgz  ${out_folder}
+fi
 
 echo "------------------ Finished post-build-step at $(date) -----------------------"
