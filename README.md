@@ -26,26 +26,39 @@ in the current "derived" applications.]**
 equivalent of running `os_scripts/web_gui_support.sh`.
 
 **2.)** Build and install the `simple UI server`  
-- In a `JetBrains IDE` (`clion`, `webstorm`, or `phpStorm`), open the project `simpleui/simpleui-server/`.
-- Open the `package.json` file, then follow the prompts to run `npm install`.
-- Right-click `package.json`, and click `Show npm Scripts`.
-- In the `npm` window, click `build`.
-- In the `npm` window, click `copy-dist-to-output`.
+
+[from `bash terminal` inside `Docker`]
+- `cd /tmp/project` (e.g., `/tmp/purification`)
+- `sh build-all-native.sh` (calls `simpleui/deploy/build-base-web-packages.sh` to build `simpleui`)
+
+[from `bash` on your native OS]
+- `cd simpleui/simpleui-server`
+- `npm install`
+- `npm run build`
+
+[from your `IDE`]
+- open the project `simpleui/simpleui-server/`.
+- Click the `package.json` file, then follow `right-click` (or other) menu to do `npm install`.
+- Use menu equivalent to `right-click package.json` and `click show npm scripts`
+- In the `npm` menu, click `build`.
 
 **3.)** Build and install the `base_app`  
-- In the `JetBrains IDE`, open the project `simpleui/base_app/`.
-- Open `base_app/package.json`, then follow the prompts to run `npm install`.
-- Right-click `package.json`, and click `Show npm Scripts`.
 
+[from `bash terminal` inside `Docker`]
+- `cd /tmp/project` (e.g., `/tmp/purification`)
+- `sh build-all-native.sh` (calls `simpleui/deploy/build-base-web-packages.sh` to build `simpleui`)
 
-**3a)** **Production Build:**  
-- In the JetBrains IDE's `npm` window, click `build-client-prod` to produce a `dist.tgz` file.
-- In the JetBrains IDE's `npm` window, click `copy-dist-to-output` to copy the `dist.tgz` file to `../../../output/simpleui/base_app` for consumption by the deploy script.
+[from `bash` on your native OS]
+- `cd simpleui/base_app`
+- `npm install`
+- `npm run build-client-dev`  (development build)
+- `npm run build-client-prod` (production build)
 
-**3b)** **Development Build:**  
-- Right-click `base_app/webpack.config.js` and follow the prompts to run it.
-- From the JetBrains IDE's `npm` window, select `build-client-dev` to produce a dist.tgz file.
-- In the JetBrains IDE's `npm` window, click `copy-dist-to-output` to copy the `dist.tgz` file to `../../../output/simpleui/base_app` for consumption by the deploy script.
+[from your `IDE`]
+- open the project `simpleui/base_app/`.
+- Click the `package.json` file, then follow `right-click` (or other) menu to do `npm install`.
+- Use menu equivalent to `right-click package.json` and `click show npm scripts`
+- In the `npm` menu, click `build-client-dev` or `build-client-prod`.
 
 **4.)** add the following to your `.bashrc` file:
 
