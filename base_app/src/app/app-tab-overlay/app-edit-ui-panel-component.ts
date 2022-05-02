@@ -15,7 +15,7 @@ import {HttpClientModule} from "@angular/common/http";
 export
 class AppEditUiPanelComponent {
     constructor() {
-        AppEditUiPanelComponent.registerEventHandlers();
+        setTimeout(() => AppEditUiPanelComponent.registerEventHandlers(), 10);
     }
 
     static registerEventHandlers() {

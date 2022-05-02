@@ -21,7 +21,7 @@
             <a [href]="e['url']" target="_blank" [title]="e['tooltip']">{{e['name']}}</a>&nbsp;&nbsp;
         </span>
         <a *ngIf='_props?.mode === "design"' id='moveButton' (click)="onMoveElement($event)" title='Click to move the Unimplemented Overlays Window.'>⦻&nbsp;&nbsp;</a>
-        <a *ngIf='_props?.mode !== "design"' id='editUIButton' (click)="onEditUIElements($event)" title='Shift-click to show the position editor.'>⦻&nbsp;&nbsp;</a>
+        <a *ngIf='_props?.mode !== "design"' id='editUIButton' (click)="onEditUIElements($event)" title='CLICK to show all hover titles.&#010;SHIFT-CLICK to turn off animated gifs when updates are paused.&#010;CTRL-SHIFT-CLICK to show the position editor.'>⦻&nbsp;&nbsp;</a>
         <a [href]="_appURI + 'doc/simple_ui_doc/my-simple-ui-derivative.html?hash=' + _appHash" target="_blank" title="{{_tBarProps?._appTitle}} Documentation.">⍰</a>&nbsp;&nbsp;
     </span>
 
@@ -65,15 +65,25 @@
         <popup-dialog #appPopupDialog></popup-dialog>
         <div [className]="_props['appTheme'].name">
           <div style="width:100%">
-            <app-tab-overlay
-                    *ngIf="t['pageType'] === 'overlay'"
-                    [detectChanges]="_detectChanges"
-                    [_uiTab]="t"
-                    [_imageOverlayGroupNames]="t['imageOverlayGroupNames']"
-                    [_appURI]="_appURI"
-                    [_cmdBarNames]="t['cmdBarNames']"
-                    [_dataTableNames]="t['dataTableNames']" >
-            </app-tab-overlay>
+              <app-tab-dashboard
+                      *ngIf="t['pageType'] === 'dashboard'"
+                      [detectChanges]="_detectChanges"
+                      [_uiTab]="t"
+                      [_imageDashboardGroupNames]="t['imageDashboardGroupNames']"
+                      [_appURI]="_appURI"
+                      [_cmdBarNames]="t['cmdBarNames']"
+                      [_dataTableNames]="t['dataTableNames']" >
+              </app-tab-dashboard>
+
+              <app-tab-overlay
+                      *ngIf="t['pageType'] === 'overlay'"
+                      [detectChanges]="_detectChanges"
+                      [_uiTab]="t"
+                      [_imageOverlayGroupNames]="t['imageOverlayGroupNames']"
+                      [_appURI]="_appURI"
+                      [_cmdBarNames]="t['cmdBarNames']"
+                      [_dataTableNames]="t['dataTableNames']" >
+              </app-tab-overlay>
 
             <!--app-tab-mock
                     *ngIf="t['pageType'] === 'mock-tab'"
@@ -82,7 +92,7 @@
             </app-tab-mock-->
 
             <app-tab-normal
-                    *ngIf="((t['pageType'] !== 'overlay') && (t['pageType'] !== 'mock-tab'))"
+                    *ngIf="((t['pageType'] !== 'overlay') && (t['pageType'] !== 'dashboard') && (t['pageType'] !== 'mock-tab'))"
                     (fullUpdateRequired)="onFullUpdateRequired($event)"
                     (updateModelOfChildDataSet)="onUpdateModelOfChildDataSet($event)"
                     [_uiTab]="t" >

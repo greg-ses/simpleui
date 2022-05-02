@@ -405,10 +405,10 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         console.log('leftOffsetToMouse:' + moveLogger['dragStartInfo']['leftOffsetToMouse'] +
             ',topOffsetToMouse: ' + moveLogger['dragStartInfo']['topOffsetToMouse']);
 
-        const newTop: any = Math.round(ev.pageY - anchorCoords.top + moveLogger['dragStartInfo']['topOffsetToMouse']);
-        const newLeft: any = Math.round(ev.pageX - anchorCoords.left + moveLogger['dragStartInfo']['leftOffsetToMouse']);
+        const newTop: number = Math.round(ev.pageY - anchorCoords.top + moveLogger['dragStartInfo']['topOffsetToMouse']);
+        const newLeft: number = Math.round(ev.pageX - anchorCoords.left + moveLogger['dragStartInfo']['leftOffsetToMouse']);
 
-        let newHeight: any = e && e.children && e.children[1] && e.children[1].offsetHeight || e.offsetHeight;
+        let newHeight: number = e && e.children && e.children[1] && e.children[1].offsetHeight || e.offsetHeight;
         newHeight = Math.round(newHeight);
 
         const defaultFmt  = (e && e.innerHTML && e.innerHTML.match(/[0-9]*[.][0-9]+/)) ? '\'%2d\'' : '\'\'';

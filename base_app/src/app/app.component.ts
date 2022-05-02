@@ -85,6 +85,15 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }, 3000);
     }
 
+    static turnOffAnimatedGifs() {
+        const imageArr = document.getElementsByTagName('img');
+        for (let i = 0; i < imageArr.length; i++) {
+            if (imageArr[i].src.indexOf(".transit.gif") > -1) {
+                imageArr[i].src = imageArr[i].src.replace("transit.gif", "transit0.gif");
+            }
+        }
+    }
+
     static onMouseDown(event: MouseEvent) {
         if (AppComponent._mouseDownSuspendsUpdates) {
             AppComponent._updatesSuspended = true;
@@ -369,16 +378,14 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 AppComponent._trackClicks = window.confirm('Enable click tracking?');
             } else if (event.ctrlKey && event.altKey) {
                 // CTRL-ALT-CLICK
-                AppComponent._mouseDownSuspendsUpdates = window.confirm('Mouse-down suspends updates?');
+                AppComponent._mouseDownSuspendsUpdates = window.confirm('Suspend data/GUI updates while mouse is down?');
             } else if (event.shiftKey && event.altKey) {
                 // SHIFT-ALT-CLICK
                 ClientLogger.initialize();
                 window['setLoggingFeatures']();
-            } else if (event.shiftKey) {
-                // SHIFT-CLICK - allow commands to be entered despite having refresh paused
-                selectedTab._commands_enabled = !selectedTab._commands_enabled;
-                // this._changeDetectorRef.detectChanges();
-                this.updateToggleButton();
+            } else if (event.shiftKey && !selectedTab._autoRefreshEnabled) {
+                // SHIFT-CLICK with updates paused
+                selectedTab._commands_enabled  = window.confirm(`Allow commands even when refresh is paused (normally not allowed)?`);
             } else {
                 let newVal = !selectedTab._autoRefreshEnabled;
                 selectedTab._autoRefreshEnabled = newVal;
@@ -416,9 +423,13 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     }
 
     onEditUIElements(event) {
-        if (event.shiftKey) {
-            const editUiPanel = new AppEditUiPanelComponent();
-            editUiPanel.create();
+        if (event) {
+            if (event.ctrlKey && event.shiftKey) {
+                window['editUiPanel'] = new AppEditUiPanelComponent();
+                setTimeout(() => window['editUiPanel'].create(), 1000);
+            } else if (event.shiftKey) {
+                AppComponent.turnOffAnimatedGifs();
+            }
         }
     }
 
