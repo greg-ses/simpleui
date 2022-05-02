@@ -21,7 +21,9 @@ cd ..
 
 if [[ "${NPM_COPY_DIST_TO_OUTPUT}" != "false" ]]; then
     out_folder=../../../output/simpleui/simpleui-server
-    sudo chmod -R 777 ${out_folder}
+    if [[ "$(stat -c "%a" ${out_folder})" != "777" ]]; then
+        sudo chmod -R 777 ${out_folder}
+    fi
     echo Copy files to ${out_folder} folder;
     mkdir -p ${out_folder}
     cp dist/simpleui-server/SERVICE-TEMPLATE.service ${out_folder}
