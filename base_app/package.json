@@ -10,7 +10,7 @@
   "author": "Jim Scarsdale",
   "license": "ISC",
   "scripts": {
-    "ng": "ng",
+    "ng": "./base_app/node_modules/@angular/cli/bin/ng.js",
     "build-client-dev": "bash make-version-txt.bash build-client-only && rm -rf dist dist.tgz && ng build --output-hashing all --source-map && bash post-build-step.bash --include-mocks",
     "build-client-prod": "bash make-version-txt.bash build-client-prod && rm -rf dist dist.tgz && ng build --aot --output-hashing all --no-source-map --no-named-chunks && bash post-build-step.bash --include-mocks",
     "start-client-dev": "ng serve",

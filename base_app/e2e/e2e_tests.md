@@ -31,15 +31,29 @@ This set of tests is complicated or expensive to automate, and hence are done ma
                 <li>Open app page in <code>Edge</code> or <code>Chrome</code>.
                 <li>`CTRL-SHIFT-I` to start debugger
                 <li>Click `Memory` tab
-                <li>Take 1st snapshot<li>Tank additional snapshot every 10 sec
+                <li>Take 1st snapshot<li>Take additional snapshot every 10 sec
                 <li>Is memory growing?</ol></td>
             </ol>
         <td>2022-04-27</td>
         <td>Jim Scarsdale</td>
-        <td>FAILED</td><br/>Tested with `purification` derived app</td>
+        <td>FAIL</td><br/>Tested with `purification` derived app</td>
     </tr>
     <tr>
-        <td> Override of <code>minutesBeforeAutoPageReload</code></td>
+        <td> Override of <code>refreshRate in <code>ui.properties.</code></code></td>
+        <td>
+            <ol>
+                <li>edit <code>/var/www/appname/ui.properties</code>
+                <br/>Change the value of <code>refreshRate</code> to <code>4000</code> (milliseconds)
+                <li>Open app page in <code>Edge</code> or <code>Chrome</code>.
+                <li>Do you see the page refresh about every 4 seconds (watch the time)?
+            </ol>
+        </td>
+        <td>2022-04-27</td>
+        <td>Jim Scarsdale</td>
+        <td>SUCCESS<br/></td>
+    </tr>                                                                                                     
+    <tr>
+        <td> Override of <code>minutesBeforeAutoPageReload</code> in <code>ui.properties.</code></td>
         <td>
             <ol>
                 <li>edit <code>/var/www/appname/ui.properties</code>
@@ -50,7 +64,30 @@ This set of tests is complicated or expensive to automate, and hence are done ma
         </td>
         <td>2022-04-27</td>
         <td>Jim Scarsdale</td>
-        <td>SUCCESS<br/>Note that <code>minutesBeforeAutoPageReload</code> was renamed from <code>autoRefreshTimeout</code> and will appear with the old name in <code>ui.properties</code>files until they are updated.</td>
+        <td>SUCCESS<br/>Note that <code>minutesBeforeAutoPageReload</code> was renamed from <code>autoRefreshTimeout</code>.
+            Occurrences of the old name in <code>ui.properties</code>files will need to be updated.</td>
+    </tr>                                                                                                     
+    <tr>
+        <td>miniConsole feature: <code>_trackClicks</code></td>
+        <td>
+            <ol>
+                <li>[steps here...]
+            </ol>
+        </td>
+        <td>yyyy-mm-yy</td>
+        <td>[name]</td>
+        <td>[FAIL | SUCCESS]<br/>[comment...]</td>
+    </tr>                                                                                                     
+    <tr>
+        <td><code>[new test]</code></td>
+        <td>
+            <ol>
+                <li>[steps here...]
+            </ol>
+        </td>
+        <td>yyyy-mm-yy</td>
+        <td>[name]</td>
+        <td>[FAIL | SUCCESS]<br/>[comment...]</td>
     </tr>                                                                                                     
 </tbody>
 </table>

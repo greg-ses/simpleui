@@ -1,6 +1,3 @@
-/**
- * Created by jscarsdale on 6/30/16.
- */
 export class PopupDialogProps {
     constructor(
         public callbackSource: any,
