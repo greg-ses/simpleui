@@ -1,0 +1,46 @@
+<!-- START OF BODY -->
+<!--<nav>-->
+<!--<a routerLink="../../dashboard" routerLinkActive="active">Dashboard</a>-->
+<!--<a routerLink="../../site-index" routerLinkActive="active">Site Index</a>-->
+<!--</nav>-->
+
+<div id='dashboardContainer' align="left" style="border:0;" >
+
+    <div id='dashboardCmdBarContainer'>
+        <dashboard-cmd-bar
+            *ngFor="let e of commaSplit(_cmdBarNames)"
+            [_emergency_commands]="createUiObjList('TODO')"
+            [_commands]="createUiObjList('TODO: _DataSummary[e]')"
+            [_service_commands]="createUiObjList('TODO')"
+            [_cmdBarName]="e"
+            [_props]="createUiObjList('TODO')"
+        >
+        </dashboard-cmd-bar>
+
+        <div id="errorString"></div>
+    </div>
+
+    <div id="dashboardAnchor"  (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+        <img [src]="getDashboardImage()" id="dashboardImageId" class="dashboardimage" />
+    </div>
+
+    <div id='draggableDashboards_Container'>
+            <dashboard-page #dashboardPage
+                          [_DataSummary]="_uiTab._DataSummary"
+                          [_siteIndex]="_siteIndex"
+                          [_cmdBarNames] = "commaSplit(_cmdBarNames)"
+                          [_imageDashboardGroupNames] = "commaSplit(_imageDashboardGroupNames)"
+                          [_dataTableNames] = "commaSplit(_dataTableNames)"
+                          [_uiTab]="_uiTab"
+                          [_all_implemented_dashboards]="_implementedDashboards"
+                          [_logLevel]="(app._props && app._props['logLevel']) || 0"
+                          [_ticks]="_ticks"
+            ></dashboard-page>
+    </div>
+
+</div>
+
+<!--
+<label class={{anValveState}} id="An_Tank_Out" style="left: 13.5in; position: absolute;  top: 8.35in; z-index: 1;">{{anTankValveState}}</label>
+<label class={{cathValveState}} id="Cath_Tank_Out" style="left: 6.52in; position: absolute;  top: 8.35in; z-index: 1;">{{cathTankValveState}}</label>
+-->

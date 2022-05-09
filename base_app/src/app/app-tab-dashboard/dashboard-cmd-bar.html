@@ -1,0 +1,27 @@
+<div *ngIf='hasCommands()' id='cmd_bar'>
+    <table border='0' width='100%'>
+        <tbody>
+        <tr>
+            <td class='dashboard-cmd-bar' *ngIf='hasEmergencyCommands()' align='left' width='170'>
+                <app-command-button *ngFor='let commandInfo of _emergency_commands.elements' [id]='commandInfo.command.id'
+                                    [_uiTab]="_uiTab" [element]="commandInfo"
+                                    [_container]="commandInfo.id" [_sha1sum]="commandInfo.sha1sum"
+                ></app-command-button>
+            </td>
+            <td class='dashboard-cmd-bar' *ngIf='hasProcessCommands() || hasServiceCommands()' align='left'>
+                <app-command-button *ngFor='let commandInfo of _commands?.elements'
+                                    [id]='commandInfo.command.id'
+                                    [_uiTab]="_uiTab" [element]="commandInfo"
+                                    [_container]="commandInfo.id" [_sha1sum]="commandInfo.sha1sum"
+                ></app-command-button>
+
+                <app-command-button *ngFor='let commandInfo of _service_commands?.elements'
+                                    [id]='commandInfo.command.id'
+                                    [_uiTab]="_uiTab" [element]="commandInfo"
+                                    [_container]="commandInfo.id" [_sha1sum]="commandInfo.sha1sum"
+                ></app-command-button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

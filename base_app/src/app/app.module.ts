@@ -1,4 +1,5 @@
 import { AppComponent } from './app.component';
+import { AppTabDashboardComponent } from './app-tab-dashboard/app-tab-dashboard.component';
 import { AppTabNormalComponent } from './app-tab-normal/app-tab-normal.component';
 import { AppTabOverlayComponent } from './app-tab-overlay/app-tab-overlay.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -31,6 +32,7 @@ import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-com
 @NgModule({
     declarations: [
       AppComponent,
+      AppTabDashboardComponent,
       AppEditUiPanelComponent,
       AppTabNormalComponent,
       AppTabOverlayComponent,
