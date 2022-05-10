@@ -6,10 +6,10 @@ import * as fastXmlParser from 'fast-xml-parser';
 import * as he from 'he';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
-import * as fs from 'fs';
+import {readFileSync, statSync, writeFileSync} from 'fs';
 
-import * as child_process from 'child_process';
-import * as path from 'path';
+import {spawnSync} from 'child_process';
+import {basename} from 'path';
 
 const SIMPLE_TYPES = ['boolean', 'float', 'integer', 'string'];
 
@@ -569,7 +569,7 @@ export class SuiData {
 
         let apacheTempFolder = '/var/volatile/tmp/apache2/';
 
-        if (!fs.statSync(apacheTempFolder).isDirectory()) {
+        if (!statSync(apacheTempFolder).isDirectory()) {
             apacheTempFolder = '/tmp/';
         }
 
@@ -605,7 +605,7 @@ export class SuiData {
                 filenames.json_receive_file,
                 'keepTempFile'
             ];
-        const retObj = child_process.spawnSync(phpCommand, phpArgs);
+        const retObj = spawnSync(phpCommand, phpArgs);
 
         let retVal = 0;
         if (retObj.signal) {
@@ -647,13 +647,13 @@ export class SuiData {
     }
 
     static readJsonFile(jsonFile) {
-        if (!fs.statSync(jsonFile).isFile()) {
+        if (!statSync(jsonFile).isFile()) {
             const msg = 'ERROR: Input json file does not exist: ' + jsonFile;
             Logger.log(LogLevel.ERROR, msg);
             return msg;
         }
 
-        const sJson = fs.readFileSync(jsonFile, 'utf8');
+        const sJson = readFileSync(jsonFile, 'utf8');
         if (sJson === '') {
             const msg = 'ERROR: empty result reading ' + jsonFile;
             Logger.log(LogLevel.ERROR, msg);
@@ -708,8 +708,8 @@ export class SuiData {
         if (keepIntermediateFile) {
             debugFileNames = SuiData.getDebugFileNames(appName, props, req);
             Logger.log(LogLevel.ERROR, `keepIntermediateFile: true - keeping intermediate files`);
-            fs.writeFileSync(debugFileNames.xml_in_file, xmlString);
-            fs.writeFileSync(debugFileNames.json_initial_file, JSON.stringify(json));
+            writeFileSync(debugFileNames.xml_in_file, xmlString);
+            writeFileSync(debugFileNames.json_initial_file, JSON.stringify(json));
         }
 
         if (docRootName === 'Data_Summary') {
@@ -723,7 +723,7 @@ export class SuiData {
         const sJson = JSON.stringify(json);
 
         if (keepIntermediateFile) {
-            fs.writeFileSync(debugFileNames.json_normal_file, sJson);
+            writeFileSync(debugFileNames.json_normal_file, sJson);
         }
 
         return sJson;
@@ -731,33 +731,34 @@ export class SuiData {
     static mockSuiRequest(cmdArgs: CommandArgs, props: any, req: any = null, res: Response = null)
     {
         if (!props) {
+            Logger.log(LogLevel.VERBOSE, 'MOCK-001 - No response is defined for the root folder "/".');
             return 'No response is defined for the root folder "/".';
         }
 
         if (typeof SuiData.mockDataFileIndex[cmdArgs.xmlInFile] === 'undefined'){
+            Logger.log(LogLevel.VERBOSE, 'MOCK-002 - mockDataFileIndex is "undefined"');
             SuiData.mockDataFileIndex[cmdArgs.xmlInFile] = 0;
         } else {
-            SuiData.mockDataFileIndex[cmdArgs.xmlInFile] = (SuiData.mockDataFileIndex[cmdArgs.xmlInFile] + 1) % req.query.versions;
+            const newMockDataFileIndex = (SuiData.mockDataFileIndex[cmdArgs.xmlInFile] + 1) % req.query.versions;
+            Logger.log(LogLevel.VERBOSE, `MOCK-003 - mockDataFileIndex - newValue: ${newMockDataFileIndex}`);
+            SuiData.mockDataFileIndex[cmdArgs.xmlInFile] = newMockDataFileIndex;
         }
 
         const xmlInFile = cmdArgs.xmlInFile.replace('.0.', `.${SuiData.mockDataFileIndex[cmdArgs.xmlInFile]}.`);
+        Logger.log(LogLevel.VERBOSE, `MOCK-004 - xmlInFile: ${xmlInFile}`);
         ServerUtil.logRequestDetails(LogLevel.DEBUG, req,
             `Starting MOCK request # ${++SuiData.mockRequestNum}`,
             'suiMockRequest', '/mock/data?file=', xmlInFile);
 
-
-        let xmlString = fs.readFileSync(xmlInFile, 'utf8');
+        let xmlString = readFileSync(xmlInFile, 'utf8');
         if (xmlString === '') {
-            const msg = 'ERROR: empty result reading ' + xmlInFile;
+            const msg = 'MOCK-005 - ERROR: empty result reading ' + xmlInFile;
             Logger.log(LogLevel.ERROR, msg);
             return msg;
         }
 
         xmlString = SuiData.addXmlStatus(xmlString);
-
-        // let versionString = "V.xxx";
-
-        // let req = new Request<ParamsDictionary>();
+        Logger.log(LogLevel.VERBOSE, `MOCK-006 - xmlString starts with: ${xmlString.substring(0,60)}`);
         let theReq = req;
         if (theReq === null) {
             theReq = {
@@ -774,6 +775,7 @@ export class SuiData {
         let jsonOutFile = "";
         if (typeof cmdArgs.jsonOutFile !== 'undefined' && cmdArgs.jsonOutFile !== "") {
             // Use the indexed version
+            Logger.log(LogLevel.VERBOSE, `MOCK-007 - jsonOutFile: ${cmdArgs.jsonOutFile}`);
             jsonOutFile = cmdArgs.jsonOutFile;
         } else {
             // No or empty jsonOutFile: follow keepTempFile instruction if passed
@@ -782,9 +784,10 @@ export class SuiData {
                 SuiData.mockDataFileIndex[cmdArgs.xmlInFile] = 0;
                 jsonOutFile =
                     `${SuiData.ram_disk_folder}`
-                    + path.basename(`${xmlInFile}`).replace(/\.xml$/, '.json');
+                    + basename(`${xmlInFile}`).replace(/\.xml$/, '.json');
+                Logger.log(LogLevel.VERBOSE, `MOCK-008 - keepTempFile - using jsonOutFile: ${jsonOutFile}`);
             }
-            fs.writeFileSync(jsonOutFile, sJson);
+            writeFileSync(jsonOutFile, sJson);
             console.log(`Created test output file: ${jsonOutFile}.`);
         }
 

@@ -142,25 +142,36 @@ export class ServerUtil {
         }
         return `${d.getFullYear()}-${sMonth}-${sDay}`;
     }
-
     static logRequestDetails(logLevel: LogLevel, req: Request<ParamsDictionary>,
         message: string, caller: string, cmdType: string, cmd: any) {
+
+        let row = (s1: string, s2: string, s3: string, s4: string): string => {
+            let S1 = s1 || ''; let S2 = s2 || ''; let S3 = s3 || ''; let S4 = s4 || '';
+            let pad1 = ' '.repeat(26).substring(0, Math.max(1, S1.length - 26 + 1));
+            let pad2 = ' '.repeat(20).substring(0, Math.max(1, S2.length - 26 + 1));
+            let pad3 = ' '.repeat(26).substring(0, Math.max(1, S3.length - 26 + 1));
+            return `\n  ${S1}${pad1}${S2}${pad2}${S3}${pad3}${S4}`;
+        };
+
+        let reqQueryCmd = Array.isArray(req?.query?.cmd)
+            ? req.query.cmd.join.toString()
+            : typeof req?.query?.cmd === "string" ? req.query.cmd
+                : `[UNKNOWN - type is ${typeof req.query.cmd}]`;
+
+        let reqQueryFile = Array.isArray(req?.query?.file)
+            ? req.query.file.join.toString()
+            : typeof req?.query?.file === "string" ? req.query.file
+                : `[UNKNOWN - type is ${typeof req.query.file}]`;
 
         Logger.log(logLevel,
             `\n\n${message}` +
             `\n${caller}(` +
-            `\n  req.url:                 ${req.url}` +
-            `\n  req.params.appName:      ${req.params.appName}` +
-            `\n  req.params.propsStub:    ${req.params.propsStub}` +
-            `\n  req.params.tabName:      ${req.params.tabName}` +
-            `\n  command type:            ${cmdType}` +
-            `\n  req.params.zmqPortExpr:  ${req.params.zmqPortExpr}` +
-            `\n  req.query.cmd:           ${req.query.cmd}` +
-            `\n  req.params.zmqCmd:       ${req.params.zmqCmd}` +
-            `\n  req.params.zmqValue:     ${req.params.zmqValue}` +
-            `\n  source used:             ${cmd.source}` +
-            `\n  cmd used:                ${cmd.cmd}\n`
+            `\n  "req.url:" ${req.url}` +
+            row("req.params.appName:", req.params.appName, "req.params.propsStub:", req.params.propsStub) +
+            row("req.params.tabName:", req.params.tabName, "cmdType:", cmdType) +
+            row("req.params.zmqPortExpr:", req.params.zmqPortExpr, "req.params.zmqCmd:", req.params.zmqCmd) +
+            row("req.params.zmqValue:", req.params.zmqValue, "req.query.cmd:", reqQueryCmd) +
+            row("req.query.file:", reqQueryFile, "cmd.source:", cmd.source)
         );
     }
-
 }

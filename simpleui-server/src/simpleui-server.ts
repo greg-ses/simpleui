@@ -347,7 +347,7 @@ export class SimpleUIServer {
                 } catch (err) {
 
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
-                        `Err in mock data request: ${err}`,
+                        `Error in mock data request: ${err}`,
                         'mock data handler', '/mock/data', `?file=${cmdVars.xmlInFile}`);
                 }
             });
