@@ -6,11 +6,16 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CmdSetComponent } from './cmdsets/cmdset.component';
 import { CommonModule } from '@angular/common';
 import { CommandButtonComponent } from './cmdsets/command-button';
+import { ErrorPopupComponent } from './cmdsets/error-popup';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ImageOverlaysComponent } from './app-tab-overlay/image-overlays';
 import { MaterialPopupComponent } from './cmdsets/material-popup-component';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { OverlayCmdBarComponent } from './app-tab-overlay/overlay-cmd-bar';
@@ -20,19 +25,18 @@ import { PortalModule } from '@angular/cdk/portal';
 import { PropDefinedTableComponent } from './dataset-tables/prop-defined-table';
 import { SectionComponent } from './section/section.component';
 import { SeparatorBarComponent } from './dataset-tables/separator-bar';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import {CommandButtonChangeService} from './services/command-button-change.service';
-
-const BMSDataService_data_port = 16901;
-const config: SocketIoConfig = {  url: 'http://localhost:' + BMSDataService_data_port, options: {}};
+import { CommandButtonChangeService } from './services/command-button-change.service';
+import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-component';
 
 @NgModule({
-  declarations: [
+    declarations: [
       AppComponent,
+      AppEditUiPanelComponent,
       AppTabNormalComponent,
       AppTabOverlayComponent,
       CmdSetComponent,
       CommandButtonComponent,
+      ErrorPopupComponent,
       ImageOverlaysComponent,
       MaterialPopupComponent,
       OverlayCmdBarComponent,
@@ -42,9 +46,6 @@ const config: SocketIoConfig = {  url: 'http://localhost:' + BMSDataService_data
       SectionComponent,
       SeparatorBarComponent
   ],
-    entryComponents: [
-      MaterialPopupComponent
-  ],
   imports: [
       NoopAnimationsModule,
       BrowserModule,
@@ -52,16 +53,19 @@ const config: SocketIoConfig = {  url: 'http://localhost:' + BMSDataService_data
       FormsModule,
       HttpClientModule,
       MatDialogModule,
+      MatDatepickerModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatTableModule,
       MatTabsModule,
       PortalModule,
-      ReactiveFormsModule,
-      SocketIoModule.forRoot(config)
+      ReactiveFormsModule
   ],
   providers: [ CommandButtonChangeService ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+  schemas: [
+      CUSTOM_ELEMENTS_SCHEMA,
+      NO_ERRORS_SCHEMA
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
-
-
-// static forRoot(routes: Routes, config?: ExtraOptions): ModuleWithProviders<RouterModule>;

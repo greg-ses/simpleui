@@ -22,6 +22,7 @@ cd ../base_app
 rm -rf node_modules
 rm -f dist.tgz
 npm install
+export NPM_COPY_DIST_TO_OUTPUT=false
 npm run build-client-prod
 cp dist.tgz $1/simpleui/base_app/.
 
@@ -29,6 +30,7 @@ cd ../simpleui-server
 rm -rf node_modules
 rm -f dist.tgz
 npm install
+export NPM_COPY_DIST_TO_OUTPUT=false
 npm run build
 cp dist.tgz $1/simpleui/simpleui-server/.
 

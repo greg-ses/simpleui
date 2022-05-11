@@ -25,17 +25,15 @@ h2, h3 {
 }
 a {
     cursor: pointer;
-    cursor: hand;
 }
 button {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     width: auto;
     background-color: #eee;
     border: none;
     padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
-    cursor: hand;
 }
 button:hover {
     background-color: #cfd8dc;
@@ -71,7 +69,7 @@ html {
 }
 
 body {
-    font-family: Verdana, Cambria, Georgia;
+    font-family: Verdana, Cambria, Georgia, sans-serif;
     font-size: 12px;
     color: #888;
     margin: 0;
@@ -80,7 +78,7 @@ body {
 }
 
 div.tabScrollRegion {
-    font-family: Verdana, Cambria, Georgia;
+    font-family: Verdana, Cambria, Georgia, sans-serif;
     font-size: 12px;
     color: #888;
     margin: 0;
@@ -94,13 +92,13 @@ div.tabBody {
 
 input[text], button {
     color: #888;
-    font-family: Verdana, Cambria, Georgia;
+    font-family: Verdana, Cambria, Georgia, sans-serif;
 }
 
 
 /*h1 {font-size: 18px; border: 1px solid #ccc; background: #EEE;} */
 h1 {font-size: 18px; /*border: 1px solid #ccc; */ background: #ecf2f9;}
-h2 {font-size: 16px; font-family: Georgia; font-style: italic; letter-spacing: 0.2em; background: #EEE;
+h2 {font-size: 16px; font-family: Georgia, sans-serif; font-style: italic; letter-spacing: 0.2em; background: #EEE;
     border: 1px solid #ccc; font-weight: normal;}
 h3 {font-size: 15px; margin-bottom: 0px;}
 p {margin-left: 2em;}
@@ -109,31 +107,31 @@ dt {margin-bottom: 0px;}
 dd {margin-left: 1em; margin-top: 0px;}
 dd p {margin-top: 0px;}
 dl p {margin-bottom: 0.5em;}
-h1 span, h3 span {font-family: 'Courier New'; font-weight: normal; font-style: italic;}
+h1 span, h3 span {font-family: 'Courier New', monospace; font-weight: normal; font-style: italic;}
 var {font-weight: bold; color: #244797;}
 label {font-weight: bold; display: block;}
 img {padding-left: 8px; padding-top: 8px;}
 div {border: none; empty-cells: hide;}
 /*  These control most of the text in the app.         */
-table, td {text-align: left; font-family: Verdana; font-size: 11px; border-collapse: collapse;
+table, td {text-align: left; font-family: Verdana, sans-serif; font-size: 11px; border-collapse: collapse;
     border: 1px solid grey; padding:2px;}
 .tableTop { vertical-align: top; padding:0; border-style: hidden }
-th {text-align: left; font-family: Verdana; font-size: 11px; background-color: #8cb1d9; color: black; border: 1px solid grey;
+th {text-align: left; font-family: Verdana, sans-serif; font-size: 11px; background-color: #8cb1d9; color: black; border: 1px solid grey;
     border-collapse: collapse; padding: 2px;}
 .thTop { font-size: 16px; justify-content: flex-end}
 td.modified {border: 1px solid black;  outline: 5px dotted red;}
 
-input {font-family: Verdana; font-size: 12px; border-collapse: collapse;  padding: 2px; width: 100px;}
-select {font-family: Verdana; font-size: 10px; padding: 5px;}
+input {font-family: Verdana, sans-serif; font-size: 12px; border-collapse: collapse;  padding: 2px; width: 100px;}
+select {font-family: Verdana, sans-serif; font-size: 10px; padding: 5px;}
 .paramStyle {width: 275px;}
 .paramRow  { background-color: #ecf2f9; font-size: 16px;}
 
 
 .catLike {color: white; background-color: #4080bf; font-size: 16px; padding: 15px 15px;}
 
-a{font-family: Verdana; font-size: 12px}
-a.ppcHw{font-family: Verdana; font-size: 12px}
-a.ppcQl{font-family: Verdana; font-size: 13px; font-style: italic}
+a{font-family: Verdana, sans-serif; font-size: 12px}
+a.ppcHw{font-family: Verdana, sans-serif; font-size: 12px}
+a.ppcQl{font-family: Verdana, sans-serif; font-size: 13px; font-style: italic}
 
 .veTooltip {
     position: relative;
@@ -184,7 +182,7 @@ a.ppcQl{font-family: Verdana; font-size: 13px; font-style: italic}
 .func_type {}
 .func_name {}
 
-.param_type, .prop_type, .var_type, .func_type {font-style: italic; font-family: 'Courier New'; color: #962424;}
+.param_type, .prop_type, .var_type, .func_type {font-style: italic; font-family: 'Courier New', monospace; color: #962424;}
 .param_name, .prop_name, .var_name, .func_name {font-weight: bold;}
 
 
@@ -209,25 +207,16 @@ label.process_var {
 label.draggable_process_var, div.draggable_process_var {
     width:100px;
     height:18px;
-    background: url(/simpleui/images/drag-back.png) center top repeat lightgray;
+    background: url(../../public/images/drag-back.png) center top repeat lightgray;
     text-align:center;
     border-style:solid;
     box-sizing: border-box;
 }
 
 img.draggable_process_var {
-    background: url(/simpleui/images/drag-back.png) center top no-repeat lightgray;
+    background: url(../../public/images/drag-back.png) center top no-repeat lightgray;
     text-align:center;
     border-style:solid;
     box-sizing: border-box;
-}
-
-.XXXdraggable {
-    cursor: move;
-    user-select: none;
-}
-
-.XXXmovable:not(.dragging) {
-    transition: transform 300ms ease-in-out;
 }
 

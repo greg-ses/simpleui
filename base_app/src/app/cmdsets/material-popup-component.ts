@@ -1,6 +1,7 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogActions } from '@angular/material/dialog';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ClientLogger } from '../../tools/logger' ;
 
 @Component({
     selector: 'app-material-popup',
@@ -51,16 +52,36 @@ export class MaterialPopupComponent implements OnInit {
 
         this.commandData = commandData;
 
-        this.cmd = this.getCommand();
+        this.cmd = this.getCommandField('cmd');
         this.noControls = (  (!(commandData.element.command.controls instanceof Array))
                            ||  (commandData.element.command.controls.length === 0) );
 
-        this.form = fb.group({
+        this.form = this.fb.group({
             commandData: [this.commandData]
         });
+
+        this.form['_updateTreeValidity'] = function() {};
     }
 
     ngOnInit() {
+    }
+
+    getControls(commandData: any) {
+        let controls = new Array();
+        if ((typeof commandData === 'object')
+            && (typeof commandData.element === 'object')
+            && (typeof commandData.element.command === 'object')
+            && (commandData.element.command.controls instanceof Array))
+        {
+            controls = commandData.element.command.controls;
+        }
+        ClientLogger.log('CommandButtonComponentDetails', `getControls(commandData): ${controls}`);
+        return controls;
+    }
+
+    getChoices(control: any) {
+        return ( (typeof control === 'object') && (typeof(control.choices instanceof Array))
+                ? control.choices : [] );
     }
 
     onOK() {
@@ -143,11 +164,12 @@ export class MaterialPopupComponent implements OnInit {
         return description;
     }
 
-    getCommand(): string {
-        let value = 'UNKNOWN COMMAND';
-        if (typeof this.commandData.element.command.cmd === 'string') {
-            value = this.commandData.element.command.cmd;
+    getCommandField(fieldName): string {
+        let value = `MISSING FIELD ${fieldName}`;
+        if (typeof this.commandData.element.command[fieldName] === 'string') {
+            value = this.commandData.element.command[fieldName];
         }
+        ClientLogger.log('CommandButtonComponentDetails', `getCommandField('${fieldName}'): ${value}`);
         return value;
     }
 }

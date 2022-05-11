@@ -24,6 +24,7 @@ export class SimpleUIServer {
     static BACKLOG = 511;
     static EXTERNAL_IP = SimpleUIServer.getExternalIP();
     static requestCallbacks = 0;
+    static bin_dir = "";
 
     static executeMockRequest(cmdArgs: CommandArgs, props: any, req: Request<ParamsDictionary> = null, res: Response = null) {
         if (props) {
@@ -31,6 +32,11 @@ export class SimpleUIServer {
         } else {
             Logger.log(LogLevel.ERROR, 'invalid config (no props)');
         }
+    }
+
+    static setBinDir(argv1): void {
+        SimpleUIServer.bin_dir = argv1.substr(0, argv1.lastIndexOf('/'));
+        console.log(`bin_dir: ${SimpleUIServer.bin_dir}`);
     }
 
     static getExternalIP(): string {
@@ -47,7 +53,7 @@ export class SimpleUIServer {
 
                 if (alias === 0) {
                     ipAddress = iface.address;
-                    console.log(ifname,);
+                    console.log(`interface: ${ifname}`);
                 } else {
                     // console.log(`${ifname}:${alias}`, iface.address);
                 }
@@ -73,13 +79,15 @@ export class SimpleUIServer {
                 '\n    --mode=test \\' +
                 '\n    --appName=bms \\' +
                 '\n    --webPort=2080 \\' +
-                '\n    --xmlInFile=src/public/simpleui-server/test/bms.reference.xml',
+                '\n    --xmlInFile=src/public/simpleui-server/test/bms.reference.xml \\' +
+                '\n    --jsonOutFile=src/public/simpleui-server/test/bms.reference.json',
 
             errors: 'Invalid command line:\n\n', // Each error is appended when parsing args
             mode: 'daemon',
             appName: '',
             webPort: '2080',
-            xmlInFile: ''
+            xmlInFile: '',
+            jsonOutFile: ''
         };
 
         cmdVars.help += '\n    -m or --mode=     (optional) the mode (daemon or test) - defaults to daemon';
@@ -134,6 +142,7 @@ export class SimpleUIServer {
             Logger.logLevel = LogLevel.INFO;
 
             // Parse input arguments
+            SimpleUIServer.setBinDir(process.argv[1]);
             const cmdVars = SimpleUIServer.parseCommandLine(process.argv.join(' '));
             if (!cmdVars.valid) {
                 Logger.log(LogLevel.ERROR, `${cmdVars.errors}${cmdVars.help}`);
@@ -273,7 +282,7 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
-                        await SuiData.suiDataRequest(req, res, props);
+                    await SuiData.suiDataRequest(req, res, props);
                 } catch (err) {
 
                     const cmd = SuiData.getCmdFromReq(req);
@@ -314,34 +323,34 @@ export class SimpleUIServer {
             });
 
 
-          // ------------------------------
-          // Handler for mock data requests
-          // ------------------------------
-          // Support path # /APP_NAME/UI_PROP/TAB_NAME/mock/data
-          const mockDataQuery = [
-            `/:appName/:propsStub/:tabName/mock/data`
-          ];
-          displayUrl = `http://${os.hostname()}${webPortString}${mockDataQuery[0]}`;
-          spacer1 = ' '.repeat(Math.max((104 - displayUrl.length), 1));
-          Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}/${spacer1}(mock data)`);
-          app.get(mockDataQuery, async (req, res) => {
-            // Replies with data from a zeromq request
-            Logger.log(LogLevel.VERBOSE, `data request callback: ${++SimpleUIServer.requestCallbacks}`);
-            try {
-              const props = PropsFileReader.getProps(
-                `${req.params.propsStub}.properties`,
-                `${req.params.appName}`, cmdVars.webPort);
-              const mockCmdVars = cmdVars;
-              mockCmdVars.xmlInFile = req.query.file;
-              mockCmdVars.versions = (typeof req.query.versions === 'string') ? parseInt(req.query.versions, 10) : 1;
-              await SimpleUIServer.executeMockRequest(mockCmdVars, props, req, res);
-            } catch (err) {
+            // ------------------------------
+            // Handler for mock data requests
+            // ------------------------------
+            // Support path # /APP_NAME/UI_PROP/TAB_NAME/mock/data
+            const mockDataQuery = [
+                `/:appName/:propsStub/:tabName/mock/data`
+            ];
+            displayUrl = `http://${os.hostname()}${webPortString}${mockDataQuery[0]}`;
+            spacer1 = ' '.repeat(Math.max((104 - displayUrl.length), 1));
+            Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}/${spacer1}(mock data)`);
+            app.get(mockDataQuery, async (req, res) => {
+                // Replies with data from a zeromq request
+                Logger.log(LogLevel.VERBOSE, `data request callback: ${++SimpleUIServer.requestCallbacks}`);
+                try {
+                    const props = PropsFileReader.getProps(
+                        `${req.params.propsStub}.properties`,
+                        `${req.params.appName}`, cmdVars.webPort);
+                    const mockCmdVars = cmdVars;
+                    mockCmdVars.xmlInFile = req.query.file;
+                    mockCmdVars.versions = (typeof req.query.versions === 'string') ? parseInt(req.query.versions, 10) : 1;
+                    await SimpleUIServer.executeMockRequest(mockCmdVars, props, req, res);
+                } catch (err) {
 
-              ServerUtil.logRequestDetails(LogLevel.ERROR, req,
-                `Err in mock data request: ${err}`,
-                'mock data handler', '/mock/data', `?file=${cmdVars.xmlInFile}`);
-            }
-          });
+                    ServerUtil.logRequestDetails(LogLevel.ERROR, req,
+                        `Err in mock data request: ${err}`,
+                        'mock data handler', '/mock/data', `?file=${cmdVars.xmlInFile}`);
+                }
+            });
 
             // ------------------------------
             // start the Express server

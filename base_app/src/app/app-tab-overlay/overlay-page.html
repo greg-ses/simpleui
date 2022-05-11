@@ -8,8 +8,10 @@
         <span *ngIf='varInfo.label'
               [id]='varInfo.id + "_label"'
               class='var_label'>{{this.splitPrefix(varInfo.label)}}</span>
-        <span *ngIf='varInfo.value !== ""'
+        <span *ngIf='((varInfo.value !== "") && (varInfo.units !== "bool"))'
               [class]='"process_var " + varInfo.class' [id]='varInfo.id + "_value"'>{{ formatValue(overlayGroupName, varInfo.id, true) }}</span>
+        <span *ngIf='((varInfo.value !== "") && (varInfo.units === "bool"))'
+              [class]='"process_var " + varInfo.class + " ro_bool"' [id]='varInfo.id + "_value"'>{{ formatValue(overlayGroupName, varInfo.id, true) }}</span>
         <app-command-button *ngIf='varInfo.command' [id]='varInfo.command.id' class="overlay-control"
                             [_uiTab]='_uiTab' [element]='getElement(varInfo)'
                             [_container]='varInfo.id' [_sha1sum]="varInfo.sha1sum?varInfo.sha1sum:0"
@@ -139,7 +141,6 @@
                     <image-overlays [_implementedOverlays]='_all_implemented_overlays'
                                     [_groupName]='overlayGroupName'
                                     [_uiObjList]='_DataSummary[overlayGroupName]'
-                                    [_overlayImage]='_overlayImage'
                                     [_uiTab]='_uiTab'
 
                                     [_count_implemented_dyns_in_group]='get_implemented_dyns_in_group(overlayGroupName).length'
@@ -161,3 +162,4 @@
             </tr>
         </table>
     </div>
+</div>

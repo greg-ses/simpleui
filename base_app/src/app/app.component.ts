@@ -1,32 +1,13 @@
-import {
-    AfterViewInit,
-    Component,
-//    ChangeDetectionStrategy,
-//    ChangeDetectorRef,
-//    ElementRef,
-    EventEmitter,
-//    forwardRef,
-//    HostListener,
-//    Inject,
-//    NgZone,
-//    OnChanges,
-    OnInit,
-//    Optional
-    Output,
-    Renderer2,
-//    SimpleChange,
-    ViewChild
-} from '@angular/core';
-
+import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import './css/styles.css';
-import {AppProperties, SubscriptionState, TitleBarProperties} from './interfaces/props-data';
+import {AppProperties, SubscriptionState, TabUI, TitleBarProperties} from './interfaces/props-data';
 import {ajax} from 'rxjs/ajax';
-import {MatTabGroup, MatTabChangeEvent} from '@angular/material';
+import {MatTabChangeEvent, MatTabGroup} from '@angular/material/tabs';
 import {interval} from 'rxjs';
-import {ClientLogger} from '../tools/logger';
-import {TabUI} from './interfaces/props-data';
+import {ClientLogger, LogLevel} from '../tools/logger';
 import {DataSummary} from './interfaces/data-summary';
 import {UTIL} from '../tools/utility';
+import {AppEditUiPanelComponent} from './app-tab-overlay/app-edit-ui-panel-component';
 
 // import {Subscriber} from 'rxjs/src/internal/Subscriber';
 
@@ -47,7 +28,10 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     static _updatesSuspended = false;
     static _trackClicks = false;
     static _mouseDownSuspendsUpdates = false;
-    static _autoRefreshExpirationDefault = 240; // 4 hours * (60 min / hour)
+    static _minutesBeforeAutoPageReload_Default = 30; // Time until the page auto-refreshes, doing automatic garbage collection
+    static _logLevel = LogLevel.CRITICAL;
+
+    @Output() selectedTabChange = new EventEmitter<MatTabChangeEvent>();
 
     _props = new AppProperties({});
     _appHash = AppComponent.getUniqueHash();
@@ -56,7 +40,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _refreshRate = 1000;
     _pendingRequestWait = 10000;
     _updateSubscription = null;
-    _autoRefreshExpiration = AppComponent._autoRefreshExpirationDefault * 60 * 1000; // Default # of minutes before automatic updates stop
+    _milliSecondsBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default * 60 * 1000; // Default # of minutes before automatic updates stop
     _debugRefreshCycle = 0;
     _errorMessage = '';
     _appURI = AppComponent.getServiceURI();
@@ -66,6 +50,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _fullUpdateRequired = false;
     _selectedTabIndex = 0;
     _autoRefreshEnabled = false;
+    _commands_enabled = false;
     _propsSubscriptionState = SubscriptionState.Idle;
     /*
         // appOptions is normally hidden - can be enabled for development
@@ -77,7 +62,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     */
     _detectChanges: { 'name': string, 'value': boolean };
 
-    @ViewChild('_tabGroup') _tabGroup: MatTabGroup;
+    @ViewChild('_tabGroup', {static: false}) _tabGroup !: MatTabGroup;
 
     static onWindowClick(event: MouseEvent) {
         const e = document.getElementById('eventMsg');
@@ -94,9 +79,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
         e.style.display = 'block';
         setTimeout(() => {
-            const e = document.getElementById('eventMsg');
-            e.innerHTML = '';
-            e.style.display = 'none';
+            const e1 = document.getElementById('eventMsg');
+            e1.innerHTML = '';
+            e1.style.display = 'none';
         }, 3000);
     }
 
@@ -141,6 +126,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         const s = Math.random().toString();
         let hash = 0;
         for (let i = 0; i < s.length; i++) {
+            // tslint:disable-next-line:no-bitwise
             hash += Math.imul(31, s.charCodeAt(i) | 0);
         }
         return hash.toString();
@@ -174,8 +160,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
     static getDataTabRelativePath(relativeURL, tab_index, tab_hash, serverSideJsDebugging) {
 
-        // Default assumes relativeURL is complete URL
-        let url = relativeURL;
+        // Default assumes relativeURL is a complete URL
 
         let querySuffix = '?ti=' + tab_index + '&hash=' + tab_hash;
         if (relativeURL.indexOf('?') > -1) {
@@ -187,9 +172,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
 
         // Relative path
-        url = relativeURL + querySuffix;
-
-        return url;
+        return relativeURL + querySuffix;
     }
 
 
@@ -242,8 +225,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
     }
 
-    @Output() selectedTabChange = new EventEmitter<MatTabChangeEvent>();
-
     @Output() onFullUpdateRequired(fullUpdateRequired) {
         this._fullUpdateRequired = fullUpdateRequired;
     }
@@ -261,8 +242,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     }
 
     constructor(
-        // private _changeDetectorRef: ChangeDetectorRef,
-        private renderer: Renderer2
     ) {
     }
 
@@ -280,7 +259,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         window.addEventListener('mouseup', function (event: MouseEvent) {
             AppComponent.onMouseUp(event);
         });
-        window.addEventListener('resize', function () {
+        window.addEventListener('resize', function (event) {
             AppComponent.doResizeTabScrollRegion(event);
         });
 
@@ -316,10 +295,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
     public get globalProps(): any {
         return this._globalProps;
-    }
-
-    public setGlobalProp(name: string, value: any) {
-        this.globalProps[name] = value;
     }
 
     displayBrokenCommsDialog() {
@@ -364,6 +339,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             this._tBarProps._autoRefreshLabel = 'Pause';
             this._tBarProps._refreshState = 'indicatorOn';
             this._tBarProps._serverStatus = 'updates enabled';
+            this._props.tab[this._selectedTabIndex]._commands_enabled = true;
             /*
             const miniConsole: HTMLElement = document.getElementById('miniConsole');
             if (miniConsole.className === 'miniConsoleAnnounce') {
@@ -386,19 +362,25 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     */
 
     onToggleAutoRefresh(event: MouseEvent) {
+        let selectedTab = this._props.tab[this._selectedTabIndex];
         if (event) {
             if (event.ctrlKey && event.shiftKey) {
                 // CTRL-SHIFT-CLICK
                 AppComponent._trackClicks = window.confirm('Enable click tracking?');
             } else if (event.ctrlKey && event.altKey) {
                 // CTRL-ALT-CLICK
-                AppComponent._mouseDownSuspendsUpdates = window.confirm('Mouse-down suspends updates?');
+                AppComponent._mouseDownSuspendsUpdates = window.confirm('Suspend data/GUI updates on MOUSEDOWN?');
             } else if (event.shiftKey && event.altKey) {
                 // SHIFT-ALT-CLICK
                 ClientLogger.initialize();
                 window['setLoggingFeatures']();
+            } else if (event.shiftKey && !selectedTab._autoRefreshEnabled) {
+                // SHIFT-CLICK with updates paused
+                selectedTab._commands_enabled  = window.confirm(`Allow commands even when refresh is paused (developers only)?`);
             } else {
-                this._props.tab[this._selectedTabIndex]._autoRefreshEnabled = !this._props.tab[this._selectedTabIndex]._autoRefreshEnabled;
+                let newVal = !selectedTab._autoRefreshEnabled;
+                selectedTab._autoRefreshEnabled = newVal;
+                selectedTab._commands_enabled = newVal;
                 // this._changeDetectorRef.detectChanges();
                 this.updateToggleButton();
                 // this._changeDetectorRef.detach();
@@ -431,15 +413,17 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
     }
 
-    registerGlobal(objType: string, tabId: string, obj: any) {
-        if (!this[objType]) {
-            this[objType] = [];
+    onEditUIElements(event) {
+        /*
+        if (event) {
+            if (event.ctrlKey && event.shiftKey) {
+                window['editUiPanel'] = new AppEditUiPanelComponent();
+                setTimeout(() => window['editUiPanel'].create(), 1000);
+            } else if (event.shiftKey) {
+                AppComponent.turnOffAnimatedGifs();
+            }
         }
-        this[objType][tabId] = obj;
-    }
-
-    getGlobal(objType: string, tabId: string): any {
-        return this[objType] && this[objType] && this[objType][tabId];
+       */
     }
 
     getWindowLocationField(fieldName) {
@@ -458,8 +442,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             return;
         }
 
-        if (uiProp === null || uiProp === '') {
-            uiProp = 'ui';
+        if (AppComponent._logLevel >= LogLevel.VERBOSE) {
+            console.log(`AppComponent.getProps(${uiProp} initializing...`);
         }
 
         const ajaxRequest = {
@@ -579,22 +563,23 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         for (const tab of this._props.tab) {
             tab._DataSummary = new DataSummary();
             tab._autoRefreshEnabled = true;
+            tab._commands_enabled = true;
             tab.pageType = tab.pageType || 'normal'; // Make 'normal' the default
             tab._lastUpdate = '1970-01-01 00:00.00';
             tab.hash = AppComponent.getUniqueHash();
             i++;
         }
 
-        let autoRefreshTimeout = AppComponent._autoRefreshExpirationDefault;
+        let minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
         if ((this._props instanceof Object)
-            && (typeof this._props['autoRefreshTimeout'] === 'string')) {
-            autoRefreshTimeout = parseInt(this._props['autoRefreshTimeout'], 10);
-            if (isNaN(autoRefreshTimeout)) {
-                autoRefreshTimeout = AppComponent._autoRefreshExpirationDefault;
+            && (typeof this._props['minutesBeforeAutoPageReload'] === 'string')) {
+            minutesBeforeAutoPageReload = parseInt(this._props['minutesBeforeAutoPageReload'], 10);
+            if (isNaN(minutesBeforeAutoPageReload)) {
+                minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
             }
         }
-        autoRefreshTimeout = Math.max(Math.min(autoRefreshTimeout, AppComponent._autoRefreshExpirationDefault), 1); // range (1..30)
-        this._autoRefreshExpiration = autoRefreshTimeout * 60 * 1000;
+        minutesBeforeAutoPageReload = Math.max(Math.min(minutesBeforeAutoPageReload, AppComponent._minutesBeforeAutoPageReload_Default), 1); // range (1..30)
+        this._milliSecondsBeforeAutoPageReload = minutesBeforeAutoPageReload * 60 * 1000;
 
         this._refreshRate = 1000;
         if ((this._props instanceof Object)
@@ -621,33 +606,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             });
     }
 
-    displayRefreshPausedMessage() {
-        this._props.tab[this._selectedTabIndex]._autoRefreshEnabled = false;
-        this.updateToggleButton();
-
-        ClientLogger.enableFeature('MiniConsole');
-        const miniConsole: HTMLElement = document.getElementById('miniConsole');
-        miniConsole.className = 'miniConsoleAnnounce';
-        const paddingTop = ((window.innerHeight - 30) / 2) + 'px';
-        this.renderer.setStyle(miniConsole, 'padding-top', paddingTop);
-        miniConsole.innerText = 'Auto-refresh has paused. Click to resume auto-refresh.';
-    }
-
-    unDisplayRefreshPausedMessage() {
-        this._props.tab[this._selectedTabIndex]._autoRefreshEnabled = true;
-        this.updateToggleButton();
-
-        ClientLogger.enableFeature('MiniConsole', false);
-        const miniConsole: HTMLElement = document.getElementById('miniConsole');
-        miniConsole.className = 'miniConsole';
-        this.renderer.setStyle(miniConsole, 'padding-top', '0');
-        this.renderer.setStyle(miniConsole, 'display', 'none');
-        miniConsole.innerText = 'Auto-refresh has paused. Click to resume auto-refresh.';
-    }
-
     doUpdate(cycle: number = 0) {
         try {
-            if ((cycle * this._refreshRate) > this._autoRefreshExpiration) {
+            if ((cycle * this._refreshRate) > this._milliSecondsBeforeAutoPageReload) {
                 sessionStorage.autoReload = 'true';
                 setTimeout(() => {
                     document.location.reload();
@@ -668,6 +629,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                                 } else {
                                     // Disable refresh and ServerSideJsDebugging
                                     tab._autoRefreshEnabled = false;
+                                    tab._commands_enabled = false;
                                     ClientLogger.enableFeature('ServerSideJsDebugging', false);
                                     ClientLogger.logToMiniConsole('ServerSideJsDebugging has expired.');
                                     this._debugRefreshCycle = 0;
@@ -697,6 +659,11 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         try {
             const dsHeads = document.getElementsByClassName('dataSetSizerHead');
             const dsBodies = document.getElementsByClassName('dataSetSizerBody');
+
+
+            if (AppComponent._logLevel >= LogLevel.VERBOSE) {
+                console.log(`Called AppComponent.updateMinColWidths(${tab.name}`);
+            }
 
             if ((dsHeads.length > 0) && (dsHeads.length === dsBodies.length)) {
 
@@ -770,6 +737,15 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         alert(aboutMsg);
     }
 
+    init_common_props(tab: TabUI) {
+        this._tBarProps._appTitle = this.getAppTitle();
+        this._tBarProps._tabTitle = this.getTabTitle(tab);
+        this._tBarProps._appVersion = this.getVersion(tab);
+        this._tBarProps._uiVersionShort = this.getProp('uiVersionShort', 'app version short');
+        this._tBarProps._uiVersionLong = this.getProp('uiVersionLong', 'app version long');
+        this._tBarProps._updateTime = this.getUpdateTime(tab);
+    }
+
     getRemoteTabData(tab: TabUI, tab_hash, serverSideJsDebugging) {
 
         if (this.isDeltaUpdate(tab)) {
@@ -780,12 +756,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
         this._tBarProps._refreshState = 'indicatorPending';
         this._tBarProps._serverStatus = 'Server connection pending';
-        this._tBarProps._appTitle = this.getAppTitle();
-        this._tBarProps._tabTitle = this.getTabTitle(tab);
-        this._tBarProps._appVersion = this.getVersion(tab);
-        this._tBarProps._uiVersionShort = this.getProp('uiVersionShort', 'app version short');
-        this._tBarProps._uiVersionLong = this.getProp('uiVersionLong', 'app version long');
-        this._tBarProps._updateTime = this.getUpdateTime(tab);
+        this.init_common_props(tab);
 
         this._refreshCycle++;
 
@@ -854,12 +825,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             UTIL.recursiveUpdate(tab._DataSummary, ajaxDataSummary);
         }
 
-        this._tBarProps._appTitle = this.getAppTitle();
-        this._tBarProps._tabTitle = this.getTabTitle(tab);
-        this._tBarProps._appVersion = this.getVersion(tab);
-        this._tBarProps._uiVersionShort = this.getProp('uiVersionShort', 'app version short');
-        this._tBarProps._uiVersionLong = this.getProp('uiVersionLong', 'app version long');
-        this._tBarProps._updateTime = this.getUpdateTime(tab);
+        this.init_common_props(tab);
         this._tBarProps._serverStatus = 'Server connection okay';
         this._tBarProps._refreshState = 'indicatorOn';
 

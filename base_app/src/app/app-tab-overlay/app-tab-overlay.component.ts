@@ -1,17 +1,22 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, Optional } from '@angular/core';
-// import { DataSummary } from '../interfaces/data-summary';
-import { DataSetChange, DataSetChangeService} from '../services/dataset-change.service';
-import { HttpClientModule } from '@angular/common/http';
-import { ClientLogger } from '../../tools/logger';
-import { UiObjList } from '../interfaces/ui-obj-list';
-import { SiteIndex } from '../interfaces/site-index';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Input,
+    OnInit,
+    Optional
+} from '@angular/core';
+import { DataSetChangeService } from '../services/dataset-change.service';
+import {HttpClientModule} from '@angular/common/http';
+import {ClientLogger} from '../../tools/logger';
+import {UiObjList} from '../interfaces/ui-obj-list';
+import {SiteIndex} from '../interfaces/site-index';
 
-import { CssUpdateService } from '../services/css-update-service';
-import { TabUI } from '../interfaces/props-data';
+import {CssUpdateService} from '../services/css-update-service';
+import {TabUI} from '../interfaces/props-data';
 
 import '../css/styles.css';
-// import {Observable, throwError as observableThrowError} from 'rxjs';
-// import {CSSPairList} from '../interfaces/css-pair-list';
 import {ajax} from 'rxjs/ajax';
 import {AppComponent} from '../app.component';
 
@@ -47,7 +52,8 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     _refreshState = 'pending';
 
     static getImgInfoCmd(id, tag) {
-        const cmd =  'var e = document.getElementById("' + id + '");' +
+        let cmd: string;
+        cmd = 'var e = document.getElementById("' + id + '");' +
             'if (e) {var cs = window.getComputedStyle(e);' +
             'if (cs) {' +
             'var msg = "[' + tag + '] id: ' + id +
@@ -105,7 +111,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         this._changeDetectorRef.detach();
     }
 
-    commaSplit(s: string) : any {
+    commaSplit(s: string): any {
         return s.split(/,[ ]*/);
     }
 
@@ -123,7 +129,8 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
 
     getNthOverlayNumber() {
 
-        const nthOverlay = (this._siteIndex && this._siteIndex['props']
+        let nthOverlay: any;
+        nthOverlay = (this._siteIndex && this._siteIndex['props']
             && this._siteIndex['props'].nthOverlay
             && (this._siteIndex['props'].nthOverlay.value)) || 1;
 
@@ -237,7 +244,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         }
 
     }
-
 
     traverseJSONwithPush (pushToArr, root, json, callback) {
         JSON.parse(json, function (key, valueObj) {
@@ -378,7 +384,9 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         const e: any = document.getElementById(id);
         const prevStyle = window.getComputedStyle(e);
 
-        const valueWidth: any = e && e.children && e.children[1] && e.children[1].offsetWidth || '100';
+        let valueWidth: any = e && e.children && e.children[1] && e.children[1].offsetWidth || '100';
+        valueWidth = Math.round(valueWidth);
+
         const eLeft = ev.pageX - (anchorCoords.left + (e.offsetWidth / 2));
         const eTop = ev.pageY - (anchorCoords.top + (e.offsetHeight / 2));
 
@@ -392,16 +400,21 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         console.log('prevStyle["left"]): ' + prevStyle['left'] + ', prevStyle["top"] ' + prevStyle['top']);
         console.log('          ev.pageX: ' + ev.pageX + ', ev.pageY: ' + ev.pageY);
         console.log('          ev.scrollX: ' + ev.scrollX + ', ev.scrollY: ' + ev.scrollY);
-        console.log('           startX:'   + moveLogger['dragStartInfo']['startX'] + ',   startY: ' + moveLogger['dragStartInfo']['startY']);
+        console.log('           startX:'   + moveLogger['dragStartInfo']['startX']
+            + ',   startY: ' + moveLogger['dragStartInfo']['startY']);
         console.log('leftOffsetToMouse:' + moveLogger['dragStartInfo']['leftOffsetToMouse'] +
             ',topOffsetToMouse: ' + moveLogger['dragStartInfo']['topOffsetToMouse']);
 
-        const newHeight: any = e && e.children && e.children[1] && e.children[1].offsetHeight || e.offsetHeight;
+        const newTop: number = Math.round(ev.pageY - anchorCoords.top + moveLogger['dragStartInfo']['topOffsetToMouse']);
+        const newLeft: number = Math.round(ev.pageX - anchorCoords.left + moveLogger['dragStartInfo']['leftOffsetToMouse']);
+
+        let newHeight: number = e && e.children && e.children[1] && e.children[1].offsetHeight || e.offsetHeight;
+        newHeight = Math.round(newHeight);
 
         const defaultFmt  = (e && e.innerHTML && e.innerHTML.match(/[0-9]*[.][0-9]+/)) ? '\'%2d\'' : '\'\'';
         const newStyle = 'position: absolute; ' +
-            'top: '  + (ev.pageY - anchorCoords.top + moveLogger['dragStartInfo']['topOffsetToMouse']) + 'px; '  +
-            'left: ' + (ev.pageX - anchorCoords.left + moveLogger['dragStartInfo']['leftOffsetToMouse']) + 'px; ' +
+            'top: '  + newTop + 'px; '  +
+            'left: ' + newLeft + 'px; ' +
             'width: 200px; ' +
             'height:' + newHeight + 'px; ';
         const newValueStyle = 'width:' + valueWidth + 'px; ' +
@@ -458,12 +471,26 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         console.log(cssDef);
     }
 
-    onDragOver(ev:DragEvent) {
+    onDragOver(ev: DragEvent) {
         // Allow Drop
         ev.preventDefault();
 
         const positioner = document.getElementById('moveLogger');
         positioner.innerHTML = '(x: ' + ev.pageX + 'px, y:' + ev.pageY + 'px)';
     }
+
+    createUiObjList(label = "", desc = '', u_id = '', url = '', tooltip = '', elements = []): UiObjList
+    {
+        const uiObjList = new UiObjList();
+        uiObjList.label = label;
+        uiObjList.desc = desc;
+        uiObjList.u_id = u_id;
+        uiObjList.url = url;
+        uiObjList.tooltip = tooltip;
+        uiObjList.elements = elements;
+
+        return uiObjList;
+    }
+
 }
 

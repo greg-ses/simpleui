@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-base_dir="$(dirname $(dirname $(dirname $(dirname $(dirname $(realpath $0))))))"
+base_dir="$(dirname $(dirname $(dirname $(realpath $0))))"
+data_dir="${base_dir}/test/data"
 test_dir="$(dirname $(realpath $0))"
-dist_simpleui_server_dir="${base_dir}/dist/simpleui-server"
-test_file_list="${test_dir}/__unit-test-files.txt"
+simpleui_server_dist_dir="${base_dir}/dist/simpleui-server"
+test_file_list="${data_dir}/__testfiles-for-unit-test.simpleui-server.txt"
 
 # bash -x "${base_dir}/build-simpleui-server.bash"
 
@@ -20,7 +21,7 @@ while IFS=' ' read -ra line; do
         mode="${line[0]}"
         appName="${line[1]}"
         uiProp="${line[2]}"
-        xmlInFile="${test_dir}/${line[3]}"
+        xmlInFile="${data_dir}/${line[3]}"
         refJsonFile="${xmlInFile/.reference.xml/.out.reference.json}"
         outJsonFile="${xmlInFile/.reference.xml/.out.test.json}"
         refJsonFilePretty="${xmlInFile/.reference.xml/.out.reference.pretty.json}"
@@ -29,7 +30,7 @@ while IFS=' ' read -ra line; do
         if $(test "$mode" == "#test"); then continue; fi
 
         printf "\n============================= Test $((lastTest=lastTest+1)) =============================\n"
-        printf "/usr/bin/node ${dist_simpleui_server_dir}/simpleui-server.js \n"
+        printf "/usr/bin/node ${simpleui_server_dist_dir}/simpleui-server.js \n"
         printf "  --mode:             ${mode}\n"
         printf "  --appName:          ${appName}\n"
         printf "  --uiProp:           ${uiProp}\n"
@@ -41,7 +42,7 @@ while IFS=' ' read -ra line; do
         printf "  refJsonFilePretty:  ${refJsonFilePretty}\n"
         printf "  outJsonFilePretty:  ${outJsonFilePretty}\n\n"
 
-        /usr/bin/node  "${dist_simpleui_server_dir}/simpleui-server.js"  \
+        /usr/bin/node  "${simpleui_server_dist_dir}/simpleui-server.js"  \
         " --mode=test" \
         " --appName=${appName}" \
         " --uiProp=${uiProp}" \

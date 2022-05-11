@@ -19,7 +19,6 @@ export class PropsFileReader {
 
     static PropertySets = [];
 
-
     static getAppPropsFiles(rawAppNameList: string, webPort: string): any
     {
         const appPropsTuples = [];
@@ -28,17 +27,22 @@ export class PropsFileReader {
         for (let appName of appNames) {
             appName = appName.trim();
 
-            if (!fs.existsSync(`/var/www/${appName}`)) {
-                console.log(`Invalid appName: '${appName}'. Missing expected folder '/var/www/${appName}'`);
-                return;
-            }
+            let isMock = (appName.substr(0, 5) === "mock-");
+
+            let propsDir = `/var/www/${appName}`;
+            if (isMock) { propsDir = `${SimpleUIServer.bin_dir}/../../test/data/${appName.replace("mock-", "")}`; }
+
+            if (!fs.existsSync(propsDir)) {
+                    console.log(`Invalid appName: '${appName}'. Missing expected folder '${propsDir}'`);
+                    return;
+                }
 
             const propsFiles =
-                fs.readdirSync(`/var/www/${appName}`).filter( (element, index, array) => { return element.match(/[^\.]\.properties$/); } );
+                fs.readdirSync(propsDir).filter( (element, index, array) => { return element.match(/[^\.]\.properties$/); } );
 
             for (const propsFileName of propsFiles) {
 
-                const props = PropsFileReader.getProps(propsFileName, appName, webPort);
+                const props = PropsFileReader.getProps(propsFileName, appName, webPort, isMock);
                 if (!(props instanceof Object)) {
                     Logger.log(LogLevel.ERROR,
                         `Invalid config (no props for app "${appName}" and uiProp "${propsFileName}")`);
@@ -60,15 +64,17 @@ export class PropsFileReader {
     }
 
     // PropsFileReader.getProps(app expressRequest.protocol, appName, expressRequest.query.uiProp);
-    static getProps(propsFileName: string, appName: string, webPort: string) {
+    static getProps(propsFileName: string, appName: string, webPort: string, isMock=false) {
         if (appName === '/' || appName === '') {
             return null;
         }
 
+        let propsDir = `/var/www/${appName}`;
+        if (isMock) { propsDir = `${SimpleUIServer.bin_dir}/../../test/data/${appName.replace("mock-", "")}`; }
         if (typeof propsFileName !== 'string') { propsFileName = 'ui.properties'; }
 
         const key = `${appName}/${propsFileName}`;
-        const fullPropsFileName = `/var/www/${appName}/${propsFileName}`;
+        const fullPropsFileName = `${propsDir}/${propsFileName}`;
         // TODO: Maybe do this less frequently, instead of on every call???
         const stats = fs.statSync(fullPropsFileName);
         const mtimeMs = stats.mtimeMs.toString();
@@ -168,9 +174,11 @@ export class PropsFileReader {
         const uiProp = path.parse(uiPropsFile).name;
         const props = { 'srcFile': uiPropsFile };
         props['uiProp'] = { 'value': uiProp };
+
         const versionProps = PropsFileReader.getSoftwareVersionStrings(`/var/www/${appName}/version.txt`);
         props['uiVersionLong'] = { 'value': versionProps.uiVersionLong };
         props['uiVersionShort'] = { 'value': versionProps.uiVersionShort };
+
         props['propsUrl'] =  { 'value': `/${appName}/${uiProp}/query/props`};
         props['mtimeMs'] = mtimeMs;
         props['propsLastRefresh'] = ServerUtil.formatDate(new Date(), 'second');
@@ -369,6 +377,9 @@ export class PropsFileReader {
 
         const returnValue = new VersionProps();
 
+        if (!fs.existsSync(versionFile) ) {
+            return returnValue;
+        }
         const userRegEx = /define\W+GIT_USER\W+"([^"]*)"/g;
         const uiVersionShortRegEx = /define\W+GIT_REVSTR_SHORT\W+"([^"]*)"/g;
         const uiVersionLongRegEx = /define\W+GIT_REV_SUMMARY\W+"([^"]*)"/g;

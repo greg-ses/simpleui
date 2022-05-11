@@ -1,6 +1,3 @@
-import {DataSet} from '../app/interfaces/dataset';
-import {Log} from '@angular/core/testing/src/logger';
-
 export class ClientLogger {
     static _logCount = 0;
     static _initialized = false;
@@ -10,7 +7,7 @@ export class ClientLogger {
         if (ClientLogger.isFeatureEnabled(feature)) {
             ClientLogger._logCount++;
             const now = new Date();
-            const ts: string = now.getHours() + 'h ' + now.getMinutes() + 'm ' + now.getSeconds() + 's ' + now.getMilliseconds() + 'ms';
+            // const ts: string = now.getHours() + 'h ' + now.getMinutes() + 'm ' + now.getSeconds() + 's ' + now.getMilliseconds() + 'ms';
             const briefMsg = now.getSeconds() + 's: ' + msg;
             const fullMsgPrefix = 'Feature: ' + feature + ', logCount: ' + ClientLogger._logCount + ', ';
             if (showInMiniConsole) {
@@ -100,7 +97,7 @@ export class ClientLogger {
 
         window['logToMiniConsole'] = function(msg: string) {
             if (window['LoggingFeatures']['MiniConsole']) {
-                let e = document.getElementById('miniConsole');
+                const e = document.getElementById('miniConsole');
                 if (e) {
                     if (typeof e['msgList'] === 'undefined') {
                         e['msgList'] = [];
@@ -114,7 +111,7 @@ export class ClientLogger {
                     e.innerHTML = contents;
                     e.style.display = 'block';
                     setTimeout( () => {
-                            let e1 = document.getElementById('miniConsole');
+                            const e1 = document.getElementById('miniConsole');
                             if (e1['msgList'].length === 1) {
                                 e1['msgList'] = [];
                                 e1.style.display = 'none';
@@ -139,12 +136,12 @@ export class ClientLogger {
 
 export enum LogLevel {
     EMERGENCY,
-    ALERT,
+//    ALERT,
     CRITICAL,
-    ERROR,
-    WARNING,
+//    ERROR,
+//    WARNING,
     NOTICE   ,
     INFO,
-    DEBUG,
+//    DEBUG,
     VERBOSE
 }

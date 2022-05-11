@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, Optional, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Directive, EventEmitter, Input, Optional, Output} from '@angular/core';
 import {DataSummary} from '../interfaces/data-summary';
 import {ClientLogger} from '../../tools/logger';
 import {OverlayType} from './overlay-type';
@@ -8,7 +8,9 @@ import {AppComponent} from '../app.component';
 import {UTIL} from '../../tools/utility';
 
 @Component({
+    // tslint:disable-next-line:component-selector
     selector: 'overlay-page',
+    changeDetection: ChangeDetectionStrategy.Default,
     styleUrls: ['./app-tab-overlay.component.css'],
     templateUrl: './overlay-page.html'
 })
@@ -88,7 +90,6 @@ export class OverlayPageComponent {
     toggleAutoRefresh() {
         if (this._autoRefreshLabel === 'Pause Auto Refresh') {
             this._autoRefreshLabel = 'Resume Auto Refresh';
-
         } else {
             this._autoRefreshLabel = 'Pause Auto Refresh';
         }
@@ -550,31 +551,34 @@ export class OverlayPageComponent {
         } else if (tag === 'animation') {
             info.class = ((typeof j['class'] === 'string') && j['class']) || '';
             if (typeof j['speed_rpm'] === 'string') {
-                if (j['speed_rpm'] < 1.0) {
+                let speed_rpm = 0;
+                try { speed_rpm = parseInt(j['speed_rpm'], 10); } catch (e) { speed_rpm = 0; }
+
+                if (speed_rpm < 1.0) {
                     info.class = info.class + ' stop_rotate';
-                } else if (j['speed_rpm'] < 5.0) {
+                } else if (speed_rpm < 5.0) {
                     info.class = info.class + ' rotate_5rpm';
-                } else if (j['speed_rpm'] < 10.0) {
+                } else if (speed_rpm < 10.0) {
                     info.class = info.class + ' rotate_10rpm';
-                } else if (j['speed_rpm'] < 15.0) {
+                } else if (speed_rpm < 15.0) {
                     info.class = info.class + ' rotate_15rpm';
-                } else if (j['speed_rpm'] < 20.0) {
+                } else if (speed_rpm < 20.0) {
                     info.class = info.class + ' rotate_20rpm';
-                } else if (j['speed_rpm'] < 25.0) {
+                } else if (speed_rpm < 25.0) {
                     info.class = info.class + ' rotate_25rpm';
-                } else if (j['speed_rpm'] < 30.0) {
+                } else if (speed_rpm < 30.0) {
                     info.class = info.class + ' rotate_30rpm';
-                } else if (j['speed_rpm'] < 35.0) {
+                } else if (speed_rpm < 35.0) {
                     info.class = info.class + ' rotate_35rpm';
-                } else if (j['speed_rpm'] < 40.0) {
+                } else if (speed_rpm < 40.0) {
                     info.class = info.class + ' rotate_40rpm';
-                } else if (j['speed_rpm'] < 45.0) {
+                } else if (speed_rpm < 45.0) {
                     info.class = info.class + ' rotate_45rpm';
-                } else if (j['speed_rpm'] < 50.0) {
+                } else if (speed_rpm < 50.0) {
                     info.class = info.class + ' rotate_50rpm';
-                } else if (j['speed_rpm'] < 55.0) {
+                } else if (speed_rpm < 55.0) {
                     info.class = info.class + ' rotate_55rpm';
-                } else if (j['speed_rpm'] < 60.0) {
+                } else if (speed_rpm < 60.0) {
                     info.class = info.class + ' rotate_60rpm';
                 } else {
                     info.class = info.class + ' rotate_70rpm';
@@ -604,15 +608,18 @@ export class OverlayPageComponent {
         let v = '';
         let css = '';
         try {
-            let e = this.getJsonElement(overlayGroupName, varName);
+            const e = this.getJsonElement(overlayGroupName, varName);
             if (!e) {
-                let msg = '⦻';
-                return msg;
+                return '⦻';
             }
 
-            let value = e.value || '';
-            let units = e.units || '';
-            let pat = css && (css.length > 0) && css.match(/--format:[ \t]*['"]([^']+)*['"]/);
+            const value = e.value || '';
+            const units = e.units || '';
+            if (units === 'bool') {
+                return value;
+            }
+
+            const pat = css && (css.length > 0) && css.match(/--format:[ \t]*['"]([^']+)*['"]/);
             let fmt = (pat && pat.length === 2 && pat[1]) || '';
 
             if (fmt === '') {
@@ -622,7 +629,7 @@ export class OverlayPageComponent {
             // This code handles the --format tag if defined in the css for this object.  Not test in purification implementation.
 
             let prefix = '';
-            let arr: any = fmt.split(/:[ \t]*/);
+            const arr: any = fmt.split(/:[ \t]*/);
             if (arr.length === 1) {
                 fmt = arr[0];
             } else {
@@ -634,7 +641,7 @@ export class OverlayPageComponent {
                 return prefix + '0' + (units ? (' ' + units) : '');
             }
 
-            let nDigits: string = fmt.replace(/%([0-9]+)d/, '$1');
+            const nDigits: string = fmt.replace(/%([0-9]+)d/, '$1');
             if (fmt === ('%' + nDigits + 'd')) {
                 // simple %1d, %2d, etc.
                 return prefix + parseFloat(value).toFixed(parseInt(nDigits, 10)) + (units ? (' ' + units) : '');
@@ -737,4 +744,3 @@ export class OverlayPageComponent {
         }
     }
 }
-

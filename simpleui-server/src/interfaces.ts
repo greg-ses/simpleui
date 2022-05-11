@@ -7,6 +7,7 @@ export interface CommandArgs {
     appName: string;
     webPort: string;
     xmlInFile: string;
+    jsonOutFile: string;
 }
 
 export interface ProcessInfo {

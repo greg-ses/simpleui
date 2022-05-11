@@ -1,4 +1,4 @@
-0. ALWAYS EXECUTE THE UNIT TESTS AFTER THESE DEVELOPMENT ACTIVITIES:
+# Unit Tests
 
     a. When updating any file in the  src/public/simpleui-server  folder
     b. When updating the server side of zmq communications.

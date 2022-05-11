@@ -31,6 +31,21 @@ div.process_var, span.process_var, label.process_var {
     user-select: none;
 }
 
+.ro_bool {
+    width: 30px;
+    font-size: 8px;
+}
+
+.ro_bool_off {
+    background-color: lightgray;
+    height: 18px;
+}
+
+.ro_bool_on {
+    background-color: darkred;
+    height: 18px;
+}
+
 b,i {
     color: purple;
 }

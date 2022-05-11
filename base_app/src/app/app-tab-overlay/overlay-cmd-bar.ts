@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { UiObjList } from '../interfaces/ui-obj-list';
 
 @Component({
+    // tslint:disable-next-line:component-selector
     selector: 'overlay-cmd-bar',
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['./app-tab-overlay.component.css'],
