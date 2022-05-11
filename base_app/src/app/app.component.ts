@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     static _updatesSuspended = false;
     static _trackClicks = false;
     static _mouseDownSuspendsUpdates = false;
-    static _autoRefreshExpirationDefault = 240; // 4 hours * (60 min / hour)
+    static _minutesBeforeAutoPageReload_Default = 30; // Time until the page auto-refreshes, doing automatic garbage collection
     static _logLevel = LogLevel.CRITICAL;
 
     @Output() selectedTabChange = new EventEmitter<MatTabChangeEvent>();
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _refreshRate = 1000;
     _pendingRequestWait = 10000;
     _updateSubscription = null;
-    _autoRefreshExpiration = AppComponent._autoRefreshExpirationDefault * 60 * 1000; // Default # of minutes before automatic updates stop
+    _milliSecondsBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default * 60 * 1000; // Default # of minutes before automatic updates stop
     _debugRefreshCycle = 0;
     _errorMessage = '';
     _appURI = AppComponent.getServiceURI();
@@ -369,16 +369,14 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 AppComponent._trackClicks = window.confirm('Enable click tracking?');
             } else if (event.ctrlKey && event.altKey) {
                 // CTRL-ALT-CLICK
-                AppComponent._mouseDownSuspendsUpdates = window.confirm('Mouse-down suspends updates?');
+                AppComponent._mouseDownSuspendsUpdates = window.confirm('Suspend data/GUI updates on MOUSEDOWN?');
             } else if (event.shiftKey && event.altKey) {
                 // SHIFT-ALT-CLICK
                 ClientLogger.initialize();
                 window['setLoggingFeatures']();
-            } else if (event.shiftKey) {
-                // SHIFT-CLICK - allow commands to be entered despite having refresh paused
-                selectedTab._commands_enabled = !selectedTab._commands_enabled;
-                // this._changeDetectorRef.detectChanges();
-                this.updateToggleButton();
+            } else if (event.shiftKey && !selectedTab._autoRefreshEnabled) {
+                // SHIFT-CLICK with updates paused
+                selectedTab._commands_enabled  = window.confirm(`Allow commands even when refresh is paused (developers only)?`);
             } else {
                 let newVal = !selectedTab._autoRefreshEnabled;
                 selectedTab._autoRefreshEnabled = newVal;
@@ -416,10 +414,16 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     }
 
     onEditUIElements(event) {
-        if (event.shiftKey) {
-            const editUiPanel = new AppEditUiPanelComponent();
-            editUiPanel.create();
+        /*
+        if (event) {
+            if (event.ctrlKey && event.shiftKey) {
+                window['editUiPanel'] = new AppEditUiPanelComponent();
+                setTimeout(() => window['editUiPanel'].create(), 1000);
+            } else if (event.shiftKey) {
+                AppComponent.turnOffAnimatedGifs();
+            }
         }
+       */
     }
 
     getWindowLocationField(fieldName) {
@@ -566,16 +570,16 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             i++;
         }
 
-        let autoRefreshTimeout = AppComponent._autoRefreshExpirationDefault;
+        let minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
         if ((this._props instanceof Object)
-            && (typeof this._props['autoRefreshTimeout'] === 'string')) {
-            autoRefreshTimeout = parseInt(this._props['autoRefreshTimeout'], 10);
-            if (isNaN(autoRefreshTimeout)) {
-                autoRefreshTimeout = AppComponent._autoRefreshExpirationDefault;
+            && (typeof this._props['minutesBeforeAutoPageReload'] === 'string')) {
+            minutesBeforeAutoPageReload = parseInt(this._props['minutesBeforeAutoPageReload'], 10);
+            if (isNaN(minutesBeforeAutoPageReload)) {
+                minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
             }
         }
-        autoRefreshTimeout = Math.max(Math.min(autoRefreshTimeout, AppComponent._autoRefreshExpirationDefault), 1); // range (1..30)
-        this._autoRefreshExpiration = autoRefreshTimeout * 60 * 1000;
+        minutesBeforeAutoPageReload = Math.max(Math.min(minutesBeforeAutoPageReload, AppComponent._minutesBeforeAutoPageReload_Default), 1); // range (1..30)
+        this._milliSecondsBeforeAutoPageReload = minutesBeforeAutoPageReload * 60 * 1000;
 
         this._refreshRate = 1000;
         if ((this._props instanceof Object)
@@ -604,7 +608,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
     doUpdate(cycle: number = 0) {
         try {
-            if ((cycle * this._refreshRate) > this._autoRefreshExpiration) {
+            if ((cycle * this._refreshRate) > this._milliSecondsBeforeAutoPageReload) {
                 sessionStorage.autoReload = 'true';
                 setTimeout(() => {
                     document.location.reload();
