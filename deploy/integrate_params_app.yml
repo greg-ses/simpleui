@@ -16,23 +16,8 @@
     when: copy_params_app is defined and copy_params_app
     become: true
 
-  - name: "Set name of embedded properties-file-name inside Parameters App file 1 to {{ app_config_props_file }}"
-    local_action: replace path="{{ local_stage_dir }}/web/{{ web_app_name }}/html/ParamsApp/Parameters.properties" regexp="BSCServer.properties" replace="{{ app_config_props_file }}"
+  - name: "Set application properties filename inside Parameters App config.php to {{ app_config_props_file }}"
+    local_action: replace path="{{ local_stage_dir }}/web/{{ web_app_name }}/html/ParamsApp/php/config.php" regexp='CONFIG_PROPS_FILENAME=NULL' replace="CONFIG_PROPS_FILENAME={{ app_config_props_file }}"
     connection: local
     when: copy_params_app is defined and copy_params_app and app_config_props_file is defined and app_config_props_file
     become: true
-
-  - name: "Set name of embedded properties-file-name inside Parameters App file 2 to {{ app_config_props_file }}"
-    local_action: replace path="{{ local_stage_dir }}/web/{{ web_app_name }}/html/ParamsApp/php/ParamHelper.php" regexp='BSCServer.properties' replace="{{ app_config_props_file }}"
-    connection: local
-    when: copy_params_app is defined and copy_params_app and app_config_props_file is defined and app_config_props_file
-    become: true
-
-  - name: "Set name of embedded web folder name inside Parameters App file 2 to {{ app_config_props_file }}"
-    local_action: replace path="{{ local_stage_dir }}/web/{{ web_app_name }}/html/ParamsApp/php/ParamHelper.php" regexp='\/var\/www\/bsc' replace="/var/www/{{ web_app_name }}"
-    connection: local
-    when: copy_params_app is defined and copy_params_app and app_config_props_file is defined and app_config_props_file
-    become: true
-
-    # -
-    # END SECTION - CREATE_LOCAL_ARCHIVE

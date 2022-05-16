@@ -42,8 +42,8 @@ function isSameParam($prevRow, $currRow) {
 
 /* Main Execution Path */
 $fields = array("catDisplayOrder", "paramDisplayOrder", "category", "paramName",
-                "type", "min", "max", "description", "detail", "subsystem", 
-                "timestamp", 
+                "type", "min", "max", "description", "detail", "subsystem",
+                "timestamp",
                 "Res1Name", "Res1Val", "Res2Name", "Res2Val", "Res3Name", "Res3Val",
                 "Res4Name", "Res4Val", "Res5Name", "Res5Val", "Res6Name", "Res6Val",
                 "Res7Name", "Res7Val", "Res8Name", "Res8Val"/*, "Res9Name", "Res9Val",
@@ -52,7 +52,7 @@ $fields = array("catDisplayOrder", "paramDisplayOrder", "category", "paramName",
                 "Res16Name", "Res16Val"*/);
 $last = "Res8Val";
 
-    
+
 $category = "";
 if (! empty($_GET['category'])) {
     $category = $_GET['category'];
