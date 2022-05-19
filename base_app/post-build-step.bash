@@ -63,9 +63,14 @@ cd ..
 
 if [[ "${NPM_COPY_DIST_TO_OUTPUT}" != "false" ]]; then
     out_folder=../../../output/simpleui/base_app
-    sudo chmod -R 777 ${out_folder}
+
+    # Use sudo as necessary to create / modify out_folder and its two ancestors to make them writeable
+    for d in ../../../output ../../../output/simpleui ../../../output/simpleui/base_app; do
+        if (! $(test -d $d) ); then sudo mkdir -m777 $d; sudo chown service:service $d; fi
+        if (! $(test -w $d) ); then sudo chmod 777 $d; sudo chown service:service $d; fi
+    done
+
     echo Copy files to ${out_folder} folder;
-    mkdir -p ${out_folder}
     cp dist.tgz  ${out_folder}
 fi
 
