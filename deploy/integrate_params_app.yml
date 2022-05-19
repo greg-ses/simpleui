@@ -17,7 +17,7 @@
     become: true
 
   - name: "Set application properties filename inside Parameters App config.php to {{ app_config_props_file }}"
-    local_action: replace path="{{ local_stage_dir }}/web/{{ web_app_name }}/html/ParamsApp/php/config.php" regexp='CONFIG_PROPS_FILENAME=NULL' replace="CONFIG_PROPS_FILENAME={{ app_config_props_file }}"
+    local_action: replace path="{{ local_stage_dir }}/web/{{ web_app_name }}/html/ParamsApp/php/config.php" regexp='CONFIG_PROPS_FILENAME=NULL' replace='CONFIG_PROPS_FILENAME="/opt/config/{{ app_config_props_file }}"'
     connection: local
     when: copy_params_app is defined and copy_params_app and app_config_props_file is defined and app_config_props_file
     become: true
