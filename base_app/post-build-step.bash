@@ -72,6 +72,7 @@ if [[ "${NPM_COPY_DIST_TO_OUTPUT}" != "false" ]]; then
 
     echo Copy files to ${out_folder} folder;
     cp dist.tgz  ${out_folder}
+    chmod 755 ${out_folder}/dist.tgz
 fi
 
 echo "------------------ Finished post-build-step at $(date) -----------------------"
