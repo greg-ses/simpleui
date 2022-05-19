@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jscarsdale
- * Date: 4/11/16
- * Time: 2:04 PM
- */
 
-$PROPS_FILE_REDIRECTOR="/var/www/bsc/html/ParamsApp/Parameters.properties";
-$PROPS_FILE_DEFAULT="/opt/config/BSCServer.properties";
+require_once "config.php";
 
 $SvrErrors = array(
     "1001" => "Empty filename",
@@ -36,8 +29,6 @@ function writeError($statusCode, $errorCode, $errorMsg, $errorContext) {
 
 function loadConfigPropsFromFile($inFile)
 {
-    /* Load the Config Properties file into the global variable $ConfigProperties */
-    global $ConfigProperties;
     $inFile = fopen($inFile, "r") or die("Unable to open file $inFile!");
     $allProps = "";
     while (($line = fgets($inFile, 4096)) !== false) {
@@ -46,23 +37,24 @@ function loadConfigPropsFromFile($inFile)
         }
     }
     fclose($inFile);
-
-    $ConfigProperties = parse_ini_string($allProps, true, INI_SCANNER_RAW);
+    return parse_ini_string($allProps, true, INI_SCANNER_RAW);
 }
 
-function loadBSCProperties()
+function loadAppProperties()
 {
-    /* Load the Base Config Properties file, which contains only a reference
-     * to the actual config file whose properties will be used.
-     */
-    global $PROPS_FILE_REDIRECTOR;
-    global $PROPS_FILE_DEFAULT;
-    global $ConfigProperties;
+    // See config.php
+    global $CONFIG_PROPS_FILENAME;
 
-    loadConfigPropsFromFile($PROPS_FILE_REDIRECTOR);
-    $actualPropsFile = propOrDefault($ConfigProperties, "Properties.filename", $PROPS_FILE_DEFAULT);
+    // If the CONFIG_PROPS_FILENAME hasn't been set we need to grab it from the environment
+    if (empty($CONFIG_PROPS_FILENAME)) {
+        $CONFIG_PROPS_FILENAME = getenv("PARAMSAPP_PROPERTIES_FILENAME", true);
+        // If it's still not defined then throw an error
+        if (empty($CONFIG_PROPS_FILENAME)) {
+            die("PARAMSAPP_PROPERTIES_FILENAME not defined");
+        }
+    }
 
-    loadConfigPropsFromFile($actualPropsFile);
+    $ConfigProperties = loadConfigPropsFromFile($CONFIG_PROPS_FILENAME);
 
     $ControlsParamTable = $GLOBALS["ControlsParamTable"] = propOrDefault($ConfigProperties, "Controls.param.table", "Parameter");
     $ControlsParamAbstractPrefix = $GLOBALS["ControlsParamAbstractPrefix"] = propOrDefault($ConfigProperties, "Controls.param.abstract_prefix", "Abstract");
@@ -75,14 +67,5 @@ function loadBSCProperties()
     $GLOBALS['MYSQL_PWD'] = $ConfigProperties["DatabaseMgr.MYSQL_PWD"];
     $GLOBALS['MYSQL_HOST'] = $ConfigProperties["DatabaseMgr.MYSQL_HOST"];
 }
-loadBSCProperties();
 
-/*
-echo "\nControlsParamTable: " . $ControlsParamTable;
-echo "\nAbstractParameterTable: " . $AbstractParameterTable;
-echo "\nDataParameterTable: " . $DataParameterTable;
-echo "\nMYSQL_DB: '" . $MYSQL_DB . "'";
-echo "\nMYSQL_USER: '" . $MYSQL_USER . "'";
-echo "\nMYSQL_PWD: '" . $MYSQL_PWD . "'";
-echo "\nMYSQL_HOST: '" . $MYSQL_HOST . "'";
-*/
+loadAppProperties();
