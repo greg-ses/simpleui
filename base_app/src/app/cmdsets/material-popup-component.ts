@@ -1,6 +1,6 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogActions } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClientLogger } from '../../tools/logger' ;
 
 @Component({
@@ -10,8 +10,8 @@ import { ClientLogger } from '../../tools/logger' ;
 })
 
 export class MaterialPopupComponent implements OnInit {
-
     form: FormGroup;
+    inputControl: FormControl;
     cmd: string;
     noControls: boolean;
     commandData: any;
@@ -56,14 +56,21 @@ export class MaterialPopupComponent implements OnInit {
         this.noControls = (  (!(commandData.element.command.controls instanceof Array))
                            ||  (commandData.element.command.controls.length === 0) );
 
+        this.inputControl = new FormControl('');
         this.form = this.fb.group({
-            commandData: [this.commandData]
+            commandData: [this.commandData],
+            inputControl: this.inputControl,
+            _updateTreeValidity: () => {}
         });
-
-        this.form['_updateTreeValidity'] = function() {};
     }
 
     ngOnInit() {
+        this.inputControl = new FormControl('');
+        this.form = this.fb.group({
+            commandData: [this.commandData],
+            inputControl: this.inputControl,
+            _updateTreeValidity: () => {}
+        });
     }
 
     getControls(commandData: any) {
