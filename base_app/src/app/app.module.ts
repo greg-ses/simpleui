@@ -12,9 +12,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ImageOverlaysComponent } from './app-tab-overlay/image-overlays';
 import { MaterialPopupComponent } from './cmdsets/material-popup-component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -56,6 +57,7 @@ import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-com
       MatDatepickerModule,
       MatFormFieldModule,
       MatInputModule,
+      MatSelectModule,
       MatTableModule,
       MatTabsModule,
       PortalModule,
