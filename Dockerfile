@@ -52,13 +52,12 @@ RUN git clone https://github.com/mkoppanen/php-zmq.git && \
     cd .. && \
     rm -rf ./php-zmq
 
-# Enable apache modules, set apache config
+# Enable apache modules, set default apache configs
 RUN a2enmod rewrite && \
     a2enmod proxy && \
     a2enmod proxy_http
 COPY deploy_docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY deploy_docker/apache2.conf /etc/apache2/apache2.conf
-#COPY php/php.ini "$PHP_INI_DIR/php.ini"
 
 # Copy params app
 COPY "web/" "/staging/"

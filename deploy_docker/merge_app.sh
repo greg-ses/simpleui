@@ -22,7 +22,7 @@ simple_ui_dist="/tmp/client_dist.tgz"
 simpleui_server_dist="/tmp/server_dist.tgz"
 
 # Unpack the built simpleui client+server into the staging dir
-tar xzf "${simple_ui_dist}" -C "${STAGING_DIR}"  --exclude=mock-data --exclude=example-overlay.tgz --exclude=example-overlay --exclude=examples
+tar xzf "${simple_ui_dist}" -C "${STAGING_DIR}"  --exclude=mock-data --exclude=mock-config --exclude=mock-php --exclude=example-overlay.tgz --exclude=example-overlay --exclude=examples
 tar xzf "${simpleui_server_dist}" -C "${STAGING_DIR}"
 
 # Scans the overlay directory for overlay names, then generates
@@ -59,6 +59,15 @@ linksAtEndOfHead="${linksAtEndOfHead}\n</head>"
     gsub("NgSimpleUi", appname, s); \
     gsub("</head>", linksAtEndOfHead, s); \
     print s;}' > newindex.html && mv newindex.html index.html
+)
+
+# Rewrite apache config
+(
+  cd "/etc/apache2/" || exit 1
+  < apache2.conf awk -v appname="$app_name" \
+  '{ s=$0; \
+    gsub("OVERLAYAPPNAME", appname, s); \
+    print s;}' > new.conf && mv new.conf apache2.conf
 )
 
 # Make sure some staging directories exist
