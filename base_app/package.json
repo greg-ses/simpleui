@@ -17,21 +17,22 @@
     "start-client-prod": "ng serve --aot",
     "post-build-step--setup-bms-for-dev": "sh build-app-for-dev.sh 0 bms git-workspace-all ${USER}",
     "test": "ng test",
+    "test-headless-no-watch": "ng test --browsers ChromeHeadless --watch=false",
     "lint--not-tested": "ng lint",
     "e2e--not-tested": "ng e2e"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^13.3.0",
-    "@angular/cdk": "^13.3.0",
-    "@angular/common": "^13.3.0",
-    "@angular/compiler": "^13.3.0",
-    "@angular/core": "^13.3.0",
-    "@angular/forms": "^13.3.0",
-    "@angular/material": "13.3.0",
-    "@angular/platform-browser": "^13.3.0",
-    "@angular/platform-browser-dynamic": "^13.3.0",
-    "@angular/router": "^13.3.0",
+    "@angular/animations": "^13.3.6",
+    "@angular/cdk": "^13.3.6",
+    "@angular/common": "^13.3.6",
+    "@angular/compiler": "^13.3.6",
+    "@angular/core": "^13.3.6",
+    "@angular/forms": "^13.3.6",
+    "@angular/material": "13.3.6",
+    "@angular/platform-browser": "^13.3.6",
+    "@angular/platform-browser-dynamic": "^13.3.6",
+    "@angular/router": "^13.3.6",
     "@babel/core": "^7.0.0-bridge.0",
     "@babel/polyfill": "^7.6.0",
     "babel-loader": "^8.0.0",
@@ -41,6 +42,7 @@
     "express": "^4.17.3",
     "find-process": "^1.4.2",
     "jsontoxml": "^1.0.1",
+    "karma-coverage": "^2.2.0",
     "microtime": "^3.0.0",
     "moment": "^2.24.0",
     "ng-packagr": "^13.3.0",
@@ -54,10 +56,10 @@
     "zone.js": "~0.11.5"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.3.0",
-    "@angular/cli": "^13.3.0",
-    "@angular/compiler-cli": "^13.3.0",
-    "@angular/language-service": "^13.3.0",
+    "@angular-devkit/build-angular": "~13.3.6",
+    "@angular/cli": "^13.3.6",
+    "@angular/compiler-cli": "^13.3.8",
+    "@angular/language-service": "^13.3.8",
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
@@ -67,16 +69,15 @@
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "^12.11.1",
     "babel-core": "^7.0.0-bridge.0",
-    "codelyzer": "^5.1.2",
+    "codelyzer": "^6.0.2",
     "fast-xml-parser": "^3.14.0",
     "html-webpack-plugin": "^3.2.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.17",
     "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
-    "karma-jasmine-html-reporter": "^1.5.0",
+    "karma-jasmine-html-reporter": "^1.7.0",
     "protractor": "~7.0.0",
     "serve-static": "^1.14.1",
     "ts-node": "^7.0.1",
@@ -87,9 +88,9 @@
     "webpack-cli": "3.3.4"
   },
   "eslintConfig": {
-      "parser": "typescript-eslint-parser",
-      "plugins": [
-          "eslint-plugin-typescript"
+    "parser": "typescript-eslint-parser",
+    "plugins": [
+      "eslint-plugin-typescript"
     ]
   }
 }
