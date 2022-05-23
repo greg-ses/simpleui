@@ -1,6 +1,8 @@
-# This workflow based on:
+# Helpful gitlab action linter:
+# https://rhysd.github.io/actionlint/
+
+# This workflow is based on:
 # https://github.com/docker/metadata-action#semver
-# and
 # https://docs.github.com/en/actions/publishing-packages/publishing-docker-images#publishing-images-to-github-packages
 
 name: Build Docker Image

@@ -10,6 +10,8 @@ fi
 # Parse command line
 app_name="$1"
 
+printf "\nMerging overlay...\n"
+
 INCOMING_DIR="/overlays"
 STAGING_DIR="/staging"
 DEPLOY_DIR="/var/www/$app_name"
@@ -34,17 +36,21 @@ if test -d "$INCOMING_DIR"; then
   i=1
   while test -d "overlay-${i}/";
   do
-    if test -d "${STAGING_DIR}/overlay-${i}/"; then
-      printf "\nRemoving folder ${STAGING_DIR}/overlay-${i}/.\n"
-      rm -rf "${STAGING_DIR}/overlay-${i}/\n"
-    fi
+    printf "Add overlay-${i}/..."
+    cp -r overlay-${i} "${STAGING_DIR}"
 
-    printf "\nAdd overlay-${i}/...\n"
-    tar czf overlay-${i}.tgz overlay-${i}
-    tar xzf overlay-${i}.tgz -C "${STAGING_DIR}"
+    # Handle image symlink creation if the overlay needs it
+    if test -f "${STAGING_DIR}/overlay-${i}/images/create_links.sh"; then
+    (
+      cd "${STAGING_DIR}/overlay-${i}/images/" || exit 1
+      printf "linking images..."
+      source create_links.sh siteshir
+    )
+    fi
 
     linksAtEndOfHead="${linksAtEndOfHead}\n<link href=\"/${app_name}/overlay-${i}/image-overlays.css\" rel=\"stylesheet\">"
     i=$(expr ${i} + 1)
+    printf "done\n"
   done
   popd > /dev/null || exit 1
 fi

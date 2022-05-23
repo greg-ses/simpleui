@@ -11,13 +11,11 @@ fi
 app_name="$1"
 
 # Run the merging script
-# shellcheck source=/dev/null
 source /scripts/merge_app.sh "$app_name"
 
 # Run apache
-apache2ctl start
+#apache2ctl start
+docker-php-entrypoint apache2-foreground &
 
 # Run node
 node /var/www/"$app_name"/simpleui-server/simpleui-server.js --mode=daemon --appName="$app_name" --webPort=2080
-
-bash

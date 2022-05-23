@@ -59,6 +59,12 @@ RUN a2enmod rewrite && \
 COPY deploy_docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY deploy_docker/apache2.conf /etc/apache2/apache2.conf
 
+# Install mysqli
+RUN docker-php-ext-install mysqli
+
+# Php config
+COPY deploy_docker/php.ini "$PHP_INI_DIR/php.ini"
+
 # Copy params app
 COPY "web/" "/staging/"
 
