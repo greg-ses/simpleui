@@ -37,7 +37,13 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['Chrome_small'],
+    customLaunchers: {
+      Chrome_small: {
+        base: 'Chrome',
+        flags: ['--window-size=1900,1000']
+      }
+    },
     singleRun: false,
     restartOnFileChange: true
   });
