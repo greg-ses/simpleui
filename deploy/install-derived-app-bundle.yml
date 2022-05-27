@@ -79,6 +79,7 @@
   shell:
     bash "{{ remote_stage_dir }}/{{ web_app_name }}-staging-area/web/{{ web_app_name }}/php/setup_ram_disk.sh" -f
   become: true
+  when: have_setup_ram_disk_sh is defined and have_setup_ram_disk_sh == 'y'
 
 - name: "Update /etc/apache2/apache2.conf {{ web_app_name }} {{ nodejs_port }}"
   shell:
