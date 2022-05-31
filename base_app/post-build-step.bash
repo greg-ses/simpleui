@@ -70,7 +70,7 @@ if [[ "${NPM_COPY_DIST_TO_OUTPUT}" != "false" ]]; then
         if (! $(test -w $d) ); then sudo chmod 777 $d; sudo chown service:service $d; fi
     done
 
-    echo Copy files to ${out_folder} folder;
+    printf "Copy files \n  from: %s\n  to:   %s\n" ${PWD} ${out_folder}
     cp dist.tgz  ${out_folder}
     chmod 755 ${out_folder}/dist.tgz
 fi
