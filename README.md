@@ -96,7 +96,7 @@ Please make sure to update tests as appropriate.
 
 Project started by James Scarsdale and Greg Morehead. Karen Cummings created much of the initial
 scaffolding when Angular 2 was in constant flux. Tom Alexander has made very significant
-architectural contributions to the product.
+architectural contributions to the product. Docker environment by Nick Tosta.
 
 Many open source packages are used by `Angular` and this project.
 See `base_app/package.json` and `simpleui-server/package.json` for details.
