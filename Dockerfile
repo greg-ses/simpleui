@@ -73,8 +73,8 @@ COPY --from=build_base_client "/base_app/dist.tgz" "/tmp/client_dist.tgz"
 COPY --from=build_base_server "/simpleui-server/dist.tgz" "/tmp/server_dist.tgz"
 
 # Copy the deployment/run scripts
-WORKDIR /scripts
 COPY "deploy_docker/*.sh" "/scripts/"
 
+WORKDIR /
 ENTRYPOINT [ "bash", "/scripts/run.sh" ]
 CMD [ "" ]

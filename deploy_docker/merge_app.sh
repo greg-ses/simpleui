@@ -10,7 +10,7 @@ fi
 # Parse command line
 app_name="$1"
 
-printf "\nMerging overlay...\n"
+printf "\nMerging /overlay into simpleui\n"
 
 INCOMING_DIR="/overlays"
 STAGING_DIR="/staging"
@@ -77,10 +77,7 @@ linksAtEndOfHead="${linksAtEndOfHead}\n</head>"
 )
 
 # Make sure some staging directories exist
-mkdir -p "${STAGING_DIR}/doc"
-mkdir -p "${STAGING_DIR}/images"
-mkdir -p "${STAGING_DIR}/nodejs"
-mkdir -p "${STAGING_DIR}/php"
+mkdir -p "${STAGING_DIR}/doc" "${STAGING_DIR}/images" "${STAGING_DIR}/nodejs" "${STAGING_DIR}/php"
 
 # Copy overlay assets to the staging dir
 if test -d $INCOMING_DIR/doc; then cp $INCOMING_DIR/doc/*.* ${STAGING_DIR}/doc; fi
@@ -92,3 +89,5 @@ cp $INCOMING_DIR/*.properties ${STAGING_DIR}
 
 # Deploy
 cp -a ${STAGING_DIR}/. "$DEPLOY_DIR/"
+
+printf "Merged app deployment complete\n\n"
