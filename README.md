@@ -5,27 +5,23 @@ and `nodeJs` 16 as a back end service provider.  The front-end part of simpleui 
 sends `http requests` to the backend end part of simpleui (`simpleui-server`), which in turn
 sends and receives `ZeroMQ XML` messages to a second backend server (typically C++).
 `simpleui-server` translates the received `.xml` into `.json` responses and sends them
-back to the front end.   
-
-Project started by James Scarsdale and Greg Morehead. Karen Cummings created much of the initial
-scaffolding when Angular 2 was in constant flux. Tom Alexander has made very significant
-architectural contributions to the product.
-
+back to the front end.
 
 ## Prerequisites
 
 Ansible version 2.9 or greater must be installed. Also, the target system must have an ssh server along with service user
-of sudo privlages. Make sure that you can ssh as service to the target without a password by running 
+of sudo privlages. Make sure that you can ssh as service to the target without a password by running
 `ssh-copy-id service@<target hostname>`
 
 ## Installation
+
 **[TODO: Verify consistency of these instructions with the deployments implemented
 in the current "derived" applications.]**
 
 **1.)** First make sure a base set of applications are installed target host machine or docker image - the
 equivalent of running `os_scripts/web_gui_support.sh`.
 
-**2.)** Build and install the `simple UI server`  
+**2.)** Build and install the `simple UI server`
 
 [from `bash terminal` inside `Docker`]
 - `cd /tmp/project` (e.g., `/tmp/purification`)
@@ -42,7 +38,7 @@ equivalent of running `os_scripts/web_gui_support.sh`.
 - Use menu equivalent to `right-click package.json` and `click show npm scripts`
 - In the `npm` menu, click `build`.
 
-**3.)** Build and install the `base_app`  
+**3.)** Build and install the `base_app`
 
 [from `bash terminal` inside `Docker`]
 - `cd /tmp/project` (e.g., `/tmp/purification`)
@@ -69,7 +65,7 @@ export REMOTE_WEB_USER="service"
 
 Then type `source ~/.bashrc` to reload it.
 
-**5.)** _[Not a part of simpleui]_ Go to the project's `target/app/deploy` folder and run the appropriate web installation script. For example, `update_site.sh <hostname> pure_ui` 
+**5.)** _[Not a part of simpleui]_ Go to the project's `target/app/deploy` folder and run the appropriate web installation script. For example, `update_site.sh <hostname> pure_ui`
 will install the `purification-web` web application on the hostname.
 
 TODO: Make an example installer script to add to the open source project.
@@ -87,18 +83,24 @@ Because of this, they are bundled with `simpleui` for convenience.
 - Fleetviewer - an application
 
 ## Dependencies
+
 See `base_app/package.json` and `simpleui-server/package.json`.
 
-
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
 ## Credits
 
+Project started by James Scarsdale and Greg Morehead. Karen Cummings created much of the initial
+scaffolding when Angular 2 was in constant flux. Tom Alexander has made very significant
+architectural contributions to the product. Docker environment by Nick Tosta.
+
 Many open source packages are used by `Angular` and this project.
 See `base_app/package.json` and `simpleui-server/package.json` for details.
 
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)
