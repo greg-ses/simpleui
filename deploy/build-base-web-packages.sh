@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Tom Alexander, 2021
 # This script will build the base dist.tgz files needed to create and deploy other web apps.
@@ -12,10 +12,10 @@ if [ "$#" -lt 1 ] || ! [ -d "$1" ]; then
 fi
 
 sui_client_type="prod"
-if [ "$#" -gt 1 ] && [[ "$2" == "dev" ]]; then sui_client_type="dev"; fi
+if [ "$#" -gt 1 ] && [ "$2" == "dev" ]; then sui_client_type="dev"; fi
 
 skip_install="false"
-if [ "$#" -gt 2 ] && [[ "$3" == "skip_install" ]]; then skip_install="true"; fi
+if [ "$#" -gt 2 ] && [ "$3" == "skip_install" ]; then skip_install="true"; fi
 
 BASEDIR=$(pwd)
 
@@ -26,7 +26,7 @@ mkdir -p $1/simpleui/simpleui-server
 
 cd ../base_app
 rm -f dist.tgz
-if [[ "${skip_install}" == "false" ]]; then
+if [ "${skip_install}" == "false" ]; then
     rm -rf node_modules
     npm install
 fi
@@ -37,7 +37,7 @@ cp dist.tgz $1/simpleui/base_app/.
 
 cd ../simpleui-server
 rm -f dist.tgz
-if [[ "${skip_install}" == "false" ]]; then
+if [ "${skip_install}" == "false" ]; then
     rm -rf node_modules
     npm install
 fi
