@@ -10,16 +10,17 @@
   "author": "Jim Scarsdale",
   "license": "ISC",
   "scripts": {
-    "ng": "./node_modules/.bin/ng",
-    "build-client-dev": "bash make-version-txt.bash build-client-only && rm -rf dist dist.tgz && ng build --output-hashing all --configuration development && bash post-build-step.bash --include-mocks",
-    "build-client-prod": "bash make-version-txt.bash build-client-prod && rm -rf dist dist.tgz && ng build --aot --output-hashing all --no-source-map --no-named-chunks && bash post-build-step.bash --include-mocks",
-    "start-client-dev": "ng serve",
-    "start-client-prod": "ng serve --aot",
+    "ng": "node node_modules/@angular/cli/bin/ng.js",
+    "doit": "bash -c \"echo 'hello' && echo 'goodbye'\"",
+    "build-client-dev": "bash -c \"./make-version-txt.bash build-client-only && rm -rf dist dist.tgz && ng build --output-hashing all --configuration development && ./post-build-step.bash --include-mocks\"",
+    "build-client-prod": "bash -c \"./make-version-txt.bash build-client-prod && rm -rf dist dist.tgz && ng build --aot --output-hashing all --no-source-map --no-named-chunks && ./post-build-step.bash --include-mocks\"",
+    "start-client-dev": "bash -c \"node node_modules/@angular/cli/bin/ng.js serve\"",
+    "start-client-prod": "bash -c \"node node_modules/@angular/cli/bin/ng.js serve --aot\"",
     "post-build-step--setup-bms-for-dev": "sh build-app-for-dev.sh 0 bms git-workspace-all ${USER}",
-    "test": "ng test",
-    "test-headless-once": "ng test --browsers ChromeHeadlessWin --watch=false",
-    "lint--not-tested": "ng lint",
-    "e2e--not-tested": "ng e2e"
+    "test": "bash -c \"node node_modules/@angular/cli/bin/ng.js test\"",
+    "test-headless-once": "bash -c \"node node_modules/@angular/cli/bin/ng.js test --browsers ChromeHeadlessWin --watch=false\"",
+    "lint--not-tested": "bash -c \"node node_modules/@angular/cli/bin/ng.js lint\"",
+    "e2e--not-tested": "bash -c \"node node_modules/@angular/cli/bin/ng.js e2e\""
   },
   "private": true,
   "dependencies": {
