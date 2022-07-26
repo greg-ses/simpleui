@@ -1,0 +1,20 @@
+version: '3.5'
+services:
+  base_app-service:
+    container_name: base_app
+    build: ../base_app
+    volumes:
+      - '../base_app:/usr/src/app'
+    ports:
+      - '4200:4200'
+    command:
+      bash -c "npm install & ng serve --host 0.0.0.0 --port 4200"
+  simpleui-server-service:
+    container_name: base_app
+    build: ../base_app
+    volumes:
+      - '../simpleui-server:/usr/src/app'
+    ports:
+      - '4100:4100'
+    command:
+      bash -c "npm install & ng serve --host 0.0.0.0 --port 4200"
