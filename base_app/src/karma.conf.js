@@ -41,7 +41,7 @@ module.exports = function (config) {
     customLaunchers: {
       Chrome_small: {
         base: 'Chrome',
-        flags: ['--window-size=1900,1000']
+        flags: ['--window-size=1900,1000', '--no-sandbox', '--disable-gpu']
       },
       ChromeHeadless: {
         base: 'Chrome',

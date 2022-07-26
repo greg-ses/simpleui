@@ -17,7 +17,7 @@
     "start-client-dev": "bash -c \"node node_modules/@angular/cli/bin/ng.js serve\"",
     "start-client-prod": "bash -c \"node node_modules/@angular/cli/bin/ng.js serve --aot\"",
     "post-build-step--setup-bms-for-dev": "sh build-app-for-dev.sh 0 bms git-workspace-all ${USER}",
-    "test": "bash -c \"node node_modules/@angular/cli/bin/ng.js test\"",
+    "test": "bash -c \"node node_modules/@angular/cli/bin/ng.js test --browsers ChromeSmall\"",
     "test-headless-once": "bash -c \"node node_modules/@angular/cli/bin/ng.js test --browsers ChromeHeadlessWin --watch=false\"",
     "lint--not-tested": "bash -c \"node node_modules/@angular/cli/bin/ng.js lint\"",
     "e2e--not-tested": "bash -c \"node node_modules/@angular/cli/bin/ng.js e2e\""
