@@ -17,7 +17,7 @@
     "start-client-prod": "ng serve --aot",
     "post-build-step--setup-bms-for-dev": "sh build-app-for-dev.sh 0 bms git-workspace-all ${USER}",
     "test": "ng test",
-    "test-headless-once": "ng test --browsers ChromeHeadless --watch=false",
+    "test-headless-once": "ng test --browsers ChromeHeadlessWin --watch=false",
     "lint--not-tested": "ng lint",
     "e2e--not-tested": "ng e2e"
   },
