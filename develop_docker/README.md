@@ -1,15 +1,15 @@
-# simpleui/develop folder
+# simpleui/develop_docker folder
 
 ## Overview
-This folder contains the files necessary for actively updating the `simpleui` code.
+This folder contains the files necessary for launcher docker containers to support active updates to the `simpleui` code.
 
 ## Usage
 
 ```
 # from bash
-cd simpleui/develop
+cd simpleui/develop_docker
 docker build -t angular-dev-image .
-docker compose up -d .
+docker compose up -d 
 cd ../base_app
 npm run build-client-dev
 code .&
