@@ -37,19 +37,15 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome', 'Chrome_small', 'ChromeHeadless', 'ChromeHeadlessWin'],
+    browsers: ['Chrome_small', 'ChromeHeadless', 'ChromeHeadlessWin'],
     customLaunchers: {
       Chrome_small: {
         base: 'Chrome',
         flags: ['--window-size=1900,1000', '--no-sandbox', '--disable-gpu']
       },
-      ChromeHeadless: {
-        base: 'Chrome',
-        flags: ['--headless']
-      },
       ChromeHeadlessWin: {
         base: 'ChromeHeadless',
-        flags: ['--no-sandbox', '--disable-gpu']
+        flags: ['--headless', '--no-sandbox', '--disable-gpu']
       },
     },
     singleRun: false,
