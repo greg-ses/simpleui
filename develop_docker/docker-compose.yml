@@ -8,6 +8,7 @@ services:
     volumes:
       - '../base_app:/usr/src/app/base_app'
       - '../simpleui-server/test/config:/opt/config'
+      - '.../base_app/dist:/var/www/simpleui'
     ports:
       - '4200:4200'
     command:

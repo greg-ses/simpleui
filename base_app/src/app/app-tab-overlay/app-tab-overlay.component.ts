@@ -21,6 +21,7 @@ import {ajax} from 'rxjs/ajax';
 import {AppComponent} from '../app.component';
 
 @Component({
+    animations: [],
     selector: 'app-tab-overlay',
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './app-tab-overlay.component.html',
@@ -420,7 +421,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         const newValueStyle = 'width:' + valueWidth + 'px; ' +
             'height:' + newHeight + 'px; ' +
             '--format:' + defaultFmt + ';';
-        let cssDef = '';
+        let cssDef: string;
         let cssValueDef = '';
         if (imgData) {
             e.className = imgData.className;
@@ -464,8 +465,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
             console.log('newStyle: ' + newStyle);
             console.log('newValueStyle: ' + newValueStyle);
 
-            const retVal = this.sendCssUpdate('update-css', cssDef, cssValueDef);
-            console.log(retVal);
+            this.sendCssUpdate('update-css', cssDef, cssValueDef);
         }
 
         console.log(cssDef);
@@ -479,8 +479,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         positioner.innerHTML = '(x: ' + ev.pageX + 'px, y:' + ev.pageY + 'px)';
     }
 
-    createUiObjList(label = "", desc = '', u_id = '', url = '', tooltip = '', elements = []): UiObjList
-    {
+    createUiObjList(label = '', desc = '', u_id = '', url = '', tooltip = '', elements = []): UiObjList {
         const uiObjList = new UiObjList();
         uiObjList.label = label;
         uiObjList.desc = desc;

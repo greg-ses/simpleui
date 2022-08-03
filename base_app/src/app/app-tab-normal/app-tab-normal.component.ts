@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, EventEmitter, Inject, Input, OnInit, Optional, Output } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, OnInit, Optional, Output } from '@angular/core';
 import { TabUI } from '../interfaces/props-data';
 
 import '../css/styles.css';
@@ -10,6 +10,7 @@ import { ClientLogger } from '../../tools/logger' ;
 import { SectionChangeList } from '../interfaces/dataset';
 
 @Component({
+    animations: [],
     selector: 'app-tab-normal',
     templateUrl: './app-tab-normal.component.html',
     styleUrls: ['./app-tab-normal.component.css'],
@@ -36,10 +37,10 @@ export class AppTabNormalComponent implements AfterContentInit, OnInit {
     }
 
     getSectionClassName(sectionIndex) {
-        let theme = '';
+        let theme: string;
         try {
             theme = this.app._props['appTheme']['name'] || 'SimpleUiBlue';
-        } catch(e) {
+        } catch (e) {
             theme = 'SimpleUiBlue';
         }
 

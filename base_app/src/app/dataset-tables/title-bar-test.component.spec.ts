@@ -1,6 +1,6 @@
 import { AppComponent } from '../app.component';
-import { AppTabNormalComponent } from '../app-tab-normal/app-tab-normal.component'
-import { AppTabOverlayComponent } from '../app-tab-overlay/app-tab-overlay.component'
+import { AppTabNormalComponent } from '../app-tab-normal/app-tab-normal.component';
+import { AppTabOverlayComponent } from '../app-tab-overlay/app-tab-overlay.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommandButtonComponent } from '../cmdsets/command-button';
 import { DebugElement } from '@angular/core';
@@ -11,6 +11,8 @@ import { DatasetTableComponent } from './dataset-table';
 import { PortalModule } from '@angular/cdk/portal';
 import { MatTabsModule } from '@angular/material/tabs';
 import { PropDefinedTableComponent } from './prop-defined-table';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {TitleBarProperties} from '../interfaces/props-data';
 
 
 /** Button events to pass to `DebugElement.triggerEventHandler` for RouterLink event handler */
@@ -22,8 +24,10 @@ export const ButtonClickEvents = {
 /** Simulate element click. Defaults to mouse left-button click event. */
 export function click(el: DebugElement | HTMLElement, eventObj: any = ButtonClickEvents.left): void {
     if (el instanceof HTMLElement || el instanceof HTMLInputElement) {
+        console.log('in "click", el is instance of HTMLElement or HTMLInputElement');
         el.click();
     } else {
+        console.log('in "click", el is type "' + typeof el + '".');
         el.triggerEventHandler('click', eventObj);
     }
 }
@@ -109,9 +113,11 @@ class Page {
     }
 
     //// query helpers ////
+    /*
     private query<T>(selector: string): T {
         return this.fixture.nativeElement.querySelector(selector);
     }
+     */
 
     private queryAll<T>(selector: string): T[] {
         return this.fixture.nativeElement.querySelectorAll(selector);
@@ -132,7 +138,7 @@ class Page {
 
 describe('TitleBarTest', () => {
     let component: AppComponent = null;
-    let fixture: ComponentFixture<AppComponent> = null;;
+    let fixture: ComponentFixture<AppComponent> = null;
     let page: Page = null;
 
     beforeEach(() => {
@@ -151,7 +157,8 @@ describe('TitleBarTest', () => {
             ],
             imports: [
                 MatTabsModule,
-                PortalModule
+                PortalModule,
+                NoopAnimationsModule
             ]
         });
 
@@ -199,7 +206,9 @@ describe('TitleBarTest', () => {
 
     it('should have  _refreshState set to "indicatorOn"', (done) => {
         waitUntil(function() {
-            return (component._tBarProps && (component._tBarProps._refreshState === 'indicatorOn'));
+            return (  (component instanceof AppComponent)
+                   && (component._tBarProps instanceof TitleBarProperties)
+                   && (component._tBarProps._refreshState === 'indicatorOn') );
         }).then(function() {
             done();
         });
@@ -221,9 +230,9 @@ describe('TitleBarTest', () => {
         // Turn off auto-refresh
         // component.onToggleAutoRefresh();
 
-        // fixture.whenStable().then(() => {
+        fixture.whenStable().then(() => {
             click(page.dbPulseButton);
-        // });
+        });
 
         waitUntil(function() {
             return ( (typeof component._tBarProps === 'object') && (component._tBarProps._refreshState === 'indicatorOff'));

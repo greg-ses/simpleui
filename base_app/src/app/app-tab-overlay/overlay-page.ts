@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Directive, EventEmitter, Input, Optional, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Optional, Output} from '@angular/core';
 import {DataSummary} from '../interfaces/data-summary';
 import {ClientLogger} from '../../tools/logger';
 import {OverlayType} from './overlay-type';
@@ -8,6 +8,7 @@ import {AppComponent} from '../app.component';
 import {UTIL} from '../../tools/utility';
 
 @Component({
+    animations: [],
     // tslint:disable-next-line:component-selector
     selector: 'overlay-page',
     changeDetection: ChangeDetectionStrategy.Default,
@@ -199,7 +200,7 @@ export class OverlayPageComponent {
                     }
 
                     const fullOverlayName = UTIL.addContextPrefix(overlayGroupName, key);
-                    let e = this.getElemInfo(tag, overlayGroupName, key);
+                    const e = this.getElemInfo(tag, overlayGroupName, key);
                     if (this.filterBy(overlayType, node[key], e.id, tag)
                         || this.filterBy(overlayType, node[key], fullOverlayName, tag)) {
                         elemList.push(e);
@@ -218,17 +219,9 @@ export class OverlayPageComponent {
         return elemList;
     }
 
-    getTableColumnHeaders(tableIdStr: string) {
-        let colHeaders = [];
-        colHeaders[0] = 'Time';
-        colHeaders[1] = 'Type';
-        colHeaders[2] = 'Description';
-        return colHeaders;
-    }
-
     elemListToIdList(elemList: any): any {
-        let idList = [];
-        for (let e of elemList) {
+        const idList = [];
+        for (const e of elemList) {
             idList.push(e.id);
         }
 
@@ -438,7 +431,7 @@ export class OverlayPageComponent {
 
         let retObj = {'name': shortName, 'id': UTIL.addContextPrefix(overlayGroupName, shortName)};
 
-        let e: any = (typeof this._DataSummary[overlayGroupName] === 'object')
+        const e: any = (typeof this._DataSummary[overlayGroupName] === 'object')
             && (this._DataSummary[overlayGroupName][shortName]
                 || this._DataSummary[overlayGroupName][tagName]);
 
@@ -451,7 +444,7 @@ export class OverlayPageComponent {
                     }
                 }
             } else {
-                for (let attr of Object.keys(e)) {
+                for (const attr of Object.keys(e)) {
                     if (typeof retObj[attr] === 'undefined') {
                         retObj[attr] = e[attr];
                     }
@@ -480,12 +473,12 @@ export class OverlayPageComponent {
     }
 
     getLabel(overlayGroupName: string, varName: string, defaultLabel = '') {
-        let e = this.getJsonElement(overlayGroupName, varName);
+        const e = this.getJsonElement(overlayGroupName, varName);
         if (!e) {
             return '';
         }
 
-        let label = ((typeof e === 'object') && (typeof e['label'] === 'string') && e['label']) || defaultLabel;
+        const label = ((typeof e === 'object') && (typeof e['label'] === 'string') && e['label']) || defaultLabel;
 
         return label;
     }
@@ -497,8 +490,8 @@ export class OverlayPageComponent {
 
     getElemInfo(tag: string, overlayGroupName: string, shortName: string): any {
 
-        let j = this.getJsonElement(overlayGroupName, shortName, tag);
-        let info = {
+        const j = this.getJsonElement(overlayGroupName, shortName, tag);
+        const info = {
             'json': j,
             'label': '',
             'name': shortName,
@@ -551,7 +544,7 @@ export class OverlayPageComponent {
         } else if (tag === 'animation') {
             info.class = ((typeof j['class'] === 'string') && j['class']) || '';
             if (typeof j['speed_rpm'] === 'string') {
-                let speed_rpm = 0;
+                let speed_rpm: number;
                 try { speed_rpm = parseInt(j['speed_rpm'], 10); } catch (e) { speed_rpm = 0; }
 
                 if (speed_rpm < 1.0) {
@@ -605,8 +598,9 @@ export class OverlayPageComponent {
     }
 
     formatValue(overlayGroupName: string, varName: string, isImplemented: boolean) {
-        let v = '';
-        let css = '';
+        const v = '';
+        const css = '';
+        if (isImplemented) {}
         try {
             const e = this.getJsonElement(overlayGroupName, varName);
             if (!e) {
@@ -714,7 +708,7 @@ export class OverlayPageComponent {
     getAnimationSrc(overlayGroupName: string, imgInfo: object): string {
         const varName = imgInfo['id'];
         let s = 'invalid-filename.png';
-        const shortName = UTIL.removeContextPrefix(varName);
+        // const shortName = UTIL.removeContextPrefix(varName);
 
         if (typeof this._uiTab === 'object'
             && typeof this._uiTab['overlayImageUrl'] === 'string'
@@ -733,8 +727,8 @@ export class OverlayPageComponent {
     }
 
     showHideInstructions() {
-        let e = document.getElementById('dnd-toggle');
-        let instructions = document.getElementById('movedElementInfo');
+        const e = document.getElementById('dnd-toggle');
+        const instructions = document.getElementById('movedElementInfo');
         if (e && e.innerHTML === '►') {
             e.innerHTML = '▼';
             instructions.style.display = 'block';

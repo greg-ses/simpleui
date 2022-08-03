@@ -7,12 +7,12 @@ import {interval} from 'rxjs';
 import {ClientLogger, LogLevel} from '../tools/logger';
 import {DataSummary} from './interfaces/data-summary';
 import {UTIL} from '../tools/utility';
-import {AppEditUiPanelComponent} from './app-tab-overlay/app-edit-ui-panel-component';
-
+// import {AppEditUiPanelComponent} from './app-tab-overlay/app-edit-ui-panel-component';
 // import {Subscriber} from 'rxjs/src/internal/Subscriber';
 
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [],
     selector: 'app-simpleui',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _refreshRate = 1000;
     _pendingRequestWait = 10000;
     _updateSubscription = null;
-    _milliSecondsBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default * 60 * 1000; // Default # of minutes before automatic updates stop
+    _milliSecondsBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default * 60 * 1000;
     _debugRefreshCycle = 0;
     _errorMessage = '';
     _appURI = AppComponent.getServiceURI();
@@ -362,7 +362,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     */
 
     onToggleAutoRefresh(event: MouseEvent) {
-        let selectedTab = this._props.tab[this._selectedTabIndex];
+        const selectedTab = this._props.tab[this._selectedTabIndex];
         if (event) {
             if (event.ctrlKey && event.shiftKey) {
                 // CTRL-SHIFT-CLICK
@@ -378,7 +378,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 // SHIFT-CLICK with updates paused
                 selectedTab._commands_enabled  = window.confirm(`Allow commands even when refresh is paused (developers only)?`);
             } else {
-                let newVal = !selectedTab._autoRefreshEnabled;
+                const newVal = !selectedTab._autoRefreshEnabled;
                 selectedTab._autoRefreshEnabled = newVal;
                 selectedTab._commands_enabled = newVal;
                 // this._changeDetectorRef.detectChanges();
@@ -414,16 +414,16 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     }
 
     onEditUIElements(event) {
-        /*
         if (event) {
-            if (event.ctrlKey && event.shiftKey) {
-                window['editUiPanel'] = new AppEditUiPanelComponent();
-                setTimeout(() => window['editUiPanel'].create(), 1000);
-            } else if (event.shiftKey) {
-                AppComponent.turnOffAnimatedGifs();
+            /*
+                if (event.ctrlKey && event.shiftKey) {
+                    window['editUiPanel'] = new AppEditUiPanelComponent();
+                    setTimeout(() => window['editUiPanel'].create(), 1000);
+                } else if (event.shiftKey) {
+                    AppComponent.turnOffAnimatedGifs();
+                }
+           */
             }
-        }
-       */
     }
 
     getWindowLocationField(fieldName) {
@@ -578,7 +578,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
             }
         }
-        minutesBeforeAutoPageReload = Math.max(Math.min(minutesBeforeAutoPageReload, AppComponent._minutesBeforeAutoPageReload_Default), 1); // range (1..30)
+        // Restrict minutesBeforeAutoPageReload range to (1..30)
+        minutesBeforeAutoPageReload = Math.max(Math.min(minutesBeforeAutoPageReload, AppComponent._minutesBeforeAutoPageReload_Default), 1);
         this._milliSecondsBeforeAutoPageReload = minutesBeforeAutoPageReload * 60 * 1000;
 
         this._refreshRate = 1000;

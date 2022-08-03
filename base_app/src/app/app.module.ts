@@ -48,7 +48,6 @@ import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-com
       SeparatorBarComponent
   ],
   imports: [
-      NoopAnimationsModule,
       BrowserModule,
       CommonModule,
       FormsModule,
@@ -60,6 +59,7 @@ import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-com
       MatSelectModule,
       MatTableModule,
       MatTabsModule,
+      NoopAnimationsModule,
       PortalModule,
       ReactiveFormsModule
   ],

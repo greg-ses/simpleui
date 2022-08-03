@@ -19,6 +19,7 @@ import {MaterialPopupComponent} from './material-popup-component';
 import {TabUI} from '../interfaces/props-data';
 
 @Component({
+    animations: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-command-button',
     styleUrls: ['../app-tab-normal/app-tab-normal.component.css'],
@@ -138,7 +139,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
     }
 
     getQuestionText(): string {
-        let qText = 'Perform unknown action?';
+        let qText: string;
         if (typeof this._element.command['desc'] === 'string') {
             qText = this._element.command['desc'].replace(/\(NL\)/g, '\n');
         } else {
@@ -151,7 +152,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
         let value = '';
 
         try {
-            for (let path of paths) {
+            for (const path of paths) {
                 if (path && typeof path === 'object'
                     && path[attr] && typeof path[attr] === 'string') {
                     value = path[attr];
@@ -270,9 +271,9 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
     }
 
     getExtraAttributes(formParams: any) {
-        let ignoredAttrs: any = ['name', 'confirm', 'u_id', 'controls'];
-        let attrKeys = Object.keys(this._element.command);
-        for (let a of attrKeys) {
+        const ignoredAttrs: any = ['name', 'confirm', 'u_id', 'controls'];
+        const attrKeys = Object.keys(this._element.command);
+        for (const a of attrKeys) {
 
             // Skip any extra attributes that are ignored
             if (ignoredAttrs.indexOf(a) > -1) {
@@ -290,7 +291,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
             if (((a === 'input') || (a === '_input'))
                 && (typeof formParams['cmd']['values'] === 'object')) {
 
-                let inputAttribute = this._element.command[a];
+                const inputAttribute = this._element.command[a];
                 if (typeof inputAttribute === 'object') {
                     if (Array.isArray(inputAttribute)) {
 
@@ -349,8 +350,8 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
                     }
 
                     case 'object': {
-                        let valueInstance = {};
-                        for (let innerKey in valueObjectsFromPopup[key]) {
+                        const valueInstance = {};
+                        for (const innerKey in valueObjectsFromPopup[key]) {
                             if (valueObjectsFromPopup[key].hasOwnProperty(innerKey)) {
                                 valueInstance[innerKey] = valueObjectsFromPopup[key][innerKey];
                             }
