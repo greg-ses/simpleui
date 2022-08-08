@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { CommandButtonComponent } from './cmdsets/command-button';
 import { ErrorPopupComponent } from './cmdsets/error-popup';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ImageOverlaysComponent } from './app-tab-overlay/image-overlays';
 import { MaterialPopupComponent } from './cmdsets/material-popup-component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -63,7 +63,7 @@ import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-com
       PortalModule,
       ReactiveFormsModule
   ],
-  providers: [ CommandButtonChangeService ],
+  providers: [ CommandButtonChangeService, HttpClient ],
   schemas: [
       CUSTOM_ELEMENTS_SCHEMA,
       NO_ERRORS_SCHEMA

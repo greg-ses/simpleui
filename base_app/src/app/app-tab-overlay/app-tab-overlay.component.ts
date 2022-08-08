@@ -113,7 +113,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     }
 
     commaSplit(s: string): any {
-        return s.split(/,[ ]*/);
+        return (s && s.split(/,[ ]*/)) || [];
     }
 
     log(logLevel: number, msg: string) {
@@ -257,7 +257,10 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
 
     normalizeActiveFaultsSection(sectionName: string, sectionLabel: string) {
 
-        if (typeof this._uiTab._DataSummary === 'object' && typeof this._uiTab._DataSummary[sectionName] === 'object') {
+        if (   typeof this._uiTab === 'object'
+            && typeof this._uiTab?._DataSummary === 'object'
+            && typeof this._uiTab._DataSummary[sectionName] === 'object'
+           ) {
             const normalSection: UiObjList = new UiObjList;
             normalSection.label = sectionLabel;
             normalSection.u_id = this._uiTab._DataSummary[sectionName].u_id;
@@ -303,7 +306,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
             }
         this.normalizeSection('StatusOverview', 'Status Overview');
 
-        const groups = this._imageOverlayGroupNames.split(',');
+        const groups = this._imageOverlayGroupNames?.split(',');
         for (const gName in groups) {
             if (groups.hasOwnProperty(gName)) {
                 this.normalizeSection(gName, gName.replace(/([a-z])([A-Z])/g, '$1 $2'));
@@ -318,7 +321,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     }
 
     getOverlayImage() {
-        return this._uiTab['overlayImageUrl'];
+        return this._uiTab && this._uiTab['overlayImageUrl'];
     }
 
     getCoordinates(elem) {

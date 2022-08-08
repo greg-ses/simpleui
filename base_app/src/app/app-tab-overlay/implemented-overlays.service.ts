@@ -9,9 +9,6 @@
 
 import {throwError as observableThrowError,  Observable } from 'rxjs';
 import {Injectable, Optional} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-
 
 import { CSSPairList } from '../interfaces/css-pair-list';
 import {ajax} from 'rxjs/ajax';
@@ -24,13 +21,12 @@ export class ImplementedOverlaysService {
     private _nthOverlay = 1;
 
     constructor (
-        private http: HttpClient,
         @Optional() public app: AppComponent
     ) {     }
 
     /** GET Overlays from the server */
     getOverlays (): Observable<CSSPairList> {
-        let appDir = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+        const appDir = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
         const ajaxRequest = {
             url: appDir +  'php/css_elements_to_json.php?nthOverlay=' + this._nthOverlay++,
             withCredentials: true,
@@ -61,7 +57,7 @@ export class ImplementedOverlaysService {
     }
 
     private handleError(error: any) {
-        let errMsg = error.message || 'Server error';
+        const errMsg = error.message || 'Server error';
         console.log(`getOverlays failed: ${errMsg}`);
         return observableThrowError(errMsg);
     }
