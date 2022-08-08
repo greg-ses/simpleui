@@ -163,7 +163,7 @@ export class OverlayPageComponent {
                     if (Array.isArray(node[key])) {
                         for (let i = 0; i < node[key].length; i++) {
                             if (typeof node[key][i]['name'] === 'string') {
-                                // to uncode fullOverlayName, use .replace(/≪[^≫]*≫/, '')
+                                // to remove ContextPrefix from fullOverlayName, use .replace(/≪[^≫]*≫/, '')
                                 const fullOverlayName = UTIL.addContextPrefix(overlayGroupName, node[key][i]['name']);
                                 const e = this.getElemInfo(tag, overlayGroupName, node[key][i]['name']);
                                 if (this.filterBy(overlayType, node[key][i], e.id, tag)
@@ -182,7 +182,7 @@ export class OverlayPageComponent {
                     }
                 } else if (['dyn', 'command', 'img', 'animation', 'label', 'table', 'u_id', 'value'].indexOf(key) === -1) {
 
-                    // todo: find out what this else acuatlly does!!!  Might be "dead" code
+                    // todo: find out what this else actually does!!!  Might be "dead" code
                     // todo: update 5/22/20, not deleting yet,
                     //                       but all actually defined values should be handled (and appear to be handled) in the if above.
                     //
@@ -598,8 +598,8 @@ export class OverlayPageComponent {
     }
 
     formatValue(overlayGroupName: string, varName: string, isImplemented: boolean) {
-        const v = '';
-        const css = '';
+        const retVal = '';
+        let css = '';
         if (isImplemented) {}
         try {
             const e = this.getJsonElement(overlayGroupName, varName);
@@ -612,6 +612,29 @@ export class OverlayPageComponent {
             if (units === 'bool') {
                 return value;
             }
+
+            /******************************************************************/
+            /* Start of section lost with checkin on 9/10.2020 2:07 PM change
+               Not sure if this code is needed, but without it, "if (fmt === '')"
+               (used below this block) will always evaluate to true.
+             */
+            if (isImplemented) {
+                css = this.getImpOverlayCssDef(varName);
+                if (css.length > 0) {
+                    let cmd = 'var e=document.getElementById("' + varName + '");' +
+                        'var e_val=document.getElementById("' + varName + '_value");' +
+                        'if (e) {e.style="' + css + '";}';
+
+                    const val_css = this.getImpOverlayCssDef(varName + '_value');
+                    if (val_css.length > 0) {
+                        cmd += 'if (e_val) {e_val.style="' + val_css + '";}';
+                    }
+                    // console.log(cmd);
+                    setTimeout(cmd, 50);
+                }
+            }
+            /* End of section lost with checkin on 9/10.2020 2:07 PM change */
+            /******************************************************************/
 
             const pat = css && (css.length > 0) && css.match(/--format:[ \t]*['"]([^']+)*['"]/);
             let fmt = (pat && pat.length === 2 && pat[1]) || '';
@@ -645,7 +668,7 @@ export class OverlayPageComponent {
         } catch (err) {
             console.log(err);
         }
-        return v;
+        return retVal;
     }
 
     getImpOverlayCssDef(eName: string): string {

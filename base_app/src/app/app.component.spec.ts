@@ -12,19 +12,10 @@ import { SeparatorBarComponent } from './dataset-tables/separator-bar';
 import {OverlayPageComponent} from './app-tab-overlay/overlay-page';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeAll(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent,
-        AppTabOverlayComponent,
-        AppTabNormalComponent,
-        CommandButtonComponent,
-        ImageOverlaysComponent,
-        OverlayCmdBarComponent,
-        OverlayPageComponent,
-        DatasetTableComponent,
-        PropDefinedTableComponent,
-        SeparatorBarComponent
+        AppComponent
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     }).compileComponents();

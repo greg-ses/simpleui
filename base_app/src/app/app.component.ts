@@ -470,6 +470,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 try {
                     console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
                 } catch (err1) {
+                    console.log('Error trying to display error');
                 }
             });
         this._propsSubscriptionState = SubscriptionState.AwaitingAsyncResponse;
