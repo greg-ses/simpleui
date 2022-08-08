@@ -1,21 +1,14 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { AppTabNormalComponent } from './app-tab-normal/app-tab-normal.component';
-import { AppTabOverlayComponent } from './app-tab-overlay/app-tab-overlay.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommandButtonComponent } from './cmdsets/command-button';
-import { ImageOverlaysComponent } from './app-tab-overlay/image-overlays';
-import { OverlayCmdBarComponent } from './app-tab-overlay/overlay-cmd-bar';
-import { DatasetTableComponent } from './dataset-tables/dataset-table';
-import { PropDefinedTableComponent } from './dataset-tables/prop-defined-table';
-import { SeparatorBarComponent } from './dataset-tables/separator-bar';
-import {OverlayPageComponent} from './app-tab-overlay/overlay-page';
+import {CommonModule} from '@angular/common';
 
 describe('AppComponent', () => {
   beforeAll(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        CommonModule
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     }).compileComponents();
