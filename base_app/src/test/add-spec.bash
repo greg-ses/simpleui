@@ -5,6 +5,8 @@ if [[ $# = '0' ]]; then
   exit 1
 fi
 
+# Ng=node /mnt/c/Users/jchung/git/vcharge_platform/depend/simpleui/base_app/node_modules/@angular/cli/bin/ng.js
+
 full_file=$1
 
 
@@ -34,7 +36,7 @@ if $(test -f $spec_file); then
 fi
 
 echo generate spec_file $spec_file for full_file $full_file
-ng generate component $component
+node /mnt/c/Users/jchung/git/vcharge_platform/depend/simpleui/base_app/node_modules/@angular/cli/bin/ng.js generate component $component
 mv $component/$component.component.spec.ts ./$spec_file
 sed -i 's/ComponentComponent/Component/g' ./$spec_file
 sed -i 's/\.Component/Component/g' ./$spec_file
