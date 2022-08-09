@@ -2,15 +2,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatasetTableComponent } from './dataset-table';
 
+import {DataSetChangeService} from '../services/dataset-change.service';
+
 describe('DatasetTableComponent', () => {
   let component: DatasetTableComponent;
   let fixture: ComponentFixture<DatasetTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DatasetTableComponent ]
+      declarations: [ DatasetTableComponent ],
+      imports: [ DataSetChangeService ]
     })
     .compileComponents();
+    const datasetChange=new DataSetChangeService();
+
   });
 
   beforeEach(() => {
