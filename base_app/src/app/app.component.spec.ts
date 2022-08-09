@@ -7,11 +7,12 @@ describe('AppComponent', () => {
   beforeAll(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent,
-        CommonModule
+        AppComponent
       ],
+      imports: [ CommonModule ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     }).compileComponents();
+    const commonModule = new CommonModule();
   }));
 
   it('should create the AppComponent', () => {
@@ -20,7 +21,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'INITIAL-APP-TITLE'`, () => {
+  it(`should not have as title 'INITIAL-APP-TITLE'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     // expect(app).isNot(null);
