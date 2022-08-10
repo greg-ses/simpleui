@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CmdSetComponent } from './cmdsets/cmdset.component';
 import { CommonModule } from '@angular/common';
+import { DataSetChangeService } from './services/dataset-change.service';
 import { CommandButtonComponent } from './cmdsets/command-button';
 import { ErrorPopupComponent } from './cmdsets/error-popup';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -63,7 +64,11 @@ import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-com
       PortalModule,
       ReactiveFormsModule
   ],
-  providers: [ CommandButtonChangeService, HttpClient ],
+  providers: [
+      CommandButtonChangeService,
+      DataSetChangeService,
+      HttpClient
+  ],
   schemas: [
       CUSTOM_ELEMENTS_SCHEMA,
       NO_ERRORS_SCHEMA
