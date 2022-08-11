@@ -21,6 +21,7 @@ import {ajax} from 'rxjs/ajax';
 import {AppComponent} from '../app.component';
 
 @Component({
+    animations: [],
     selector: 'app-tab-overlay',
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './app-tab-overlay.component.html',
@@ -112,7 +113,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     }
 
     commaSplit(s: string): any {
-        return s.split(/,[ ]*/);
+        return (s && s.split(/,[ ]*/)) || [];
     }
 
     log(logLevel: number, msg: string) {
@@ -256,7 +257,10 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
 
     normalizeActiveFaultsSection(sectionName: string, sectionLabel: string) {
 
-        if (typeof this._uiTab._DataSummary === 'object' && typeof this._uiTab._DataSummary[sectionName] === 'object') {
+        if (   typeof this._uiTab === 'object'
+            && typeof this._uiTab?._DataSummary === 'object'
+            && typeof this._uiTab._DataSummary[sectionName] === 'object'
+           ) {
             const normalSection: UiObjList = new UiObjList;
             normalSection.label = sectionLabel;
             normalSection.u_id = this._uiTab._DataSummary[sectionName].u_id;
@@ -302,7 +306,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
             }
         this.normalizeSection('StatusOverview', 'Status Overview');
 
-        const groups = this._imageOverlayGroupNames.split(',');
+        const groups = this._imageOverlayGroupNames?.split(',');
         for (const gName in groups) {
             if (groups.hasOwnProperty(gName)) {
                 this.normalizeSection(gName, gName.replace(/([a-z])([A-Z])/g, '$1 $2'));
@@ -317,7 +321,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     }
 
     getOverlayImage() {
-        return this._uiTab['overlayImageUrl'];
+        return this._uiTab && this._uiTab['overlayImageUrl'];
     }
 
     getCoordinates(elem) {
@@ -420,7 +424,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         const newValueStyle = 'width:' + valueWidth + 'px; ' +
             'height:' + newHeight + 'px; ' +
             '--format:' + defaultFmt + ';';
-        let cssDef = '';
+        let cssDef: string;
         let cssValueDef = '';
         if (imgData) {
             e.className = imgData.className;
@@ -464,8 +468,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
             console.log('newStyle: ' + newStyle);
             console.log('newValueStyle: ' + newValueStyle);
 
-            const retVal = this.sendCssUpdate('update-css', cssDef, cssValueDef);
-            console.log(retVal);
+            this.sendCssUpdate('update-css', cssDef, cssValueDef);
         }
 
         console.log(cssDef);
@@ -479,8 +482,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         positioner.innerHTML = '(x: ' + ev.pageX + 'px, y:' + ev.pageY + 'px)';
     }
 
-    createUiObjList(label = "", desc = '', u_id = '', url = '', tooltip = '', elements = []): UiObjList
-    {
+    createUiObjList(label = '', desc = '', u_id = '', url = '', tooltip = '', elements = []): UiObjList {
         const uiObjList = new UiObjList();
         uiObjList.label = label;
         uiObjList.desc = desc;

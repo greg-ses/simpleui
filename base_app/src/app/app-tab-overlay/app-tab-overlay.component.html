@@ -26,14 +26,14 @@
 
     <div id='draggableOverlays_Container'>
             <overlay-page #overlayPage
-                          [_DataSummary]="_uiTab._DataSummary"
+                          [_DataSummary]="_uiTab?._DataSummary"
                           [_siteIndex]="_siteIndex"
                           [_cmdBarNames] = "commaSplit(_cmdBarNames)"
                           [_imageOverlayGroupNames] = "commaSplit(_imageOverlayGroupNames)"
                           [_dataTableNames] = "commaSplit(_dataTableNames)"
                           [_uiTab]="_uiTab"
                           [_all_implemented_overlays]="_implementedOverlays"
-                          [_logLevel]="(app._props && app._props['logLevel']) || 0"
+                          [_logLevel]="(app && app?._props && app._props['logLevel']) || 0"
                           [_ticks]="_ticks"
             ></overlay-page>
     </div>

@@ -1,0 +1,10 @@
+git status
+Refresh index: 100% (1433/1433), done.
+HEAD detached at origin/enhance-tests
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   base_app/package-lock.json
+        modified:   base_app/src/karma.conf.js
+
+no changes added to commit (use "git add" and/or "git commit -a")

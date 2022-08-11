@@ -7,6 +7,7 @@ import { TabUI } from '../interfaces/props-data';
 import { Subscription } from 'rxjs';
 
 @Component({
+    animations: [],
     selector: 'dataset-table',
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['../app-tab-normal/app-tab-normal.component.css'],

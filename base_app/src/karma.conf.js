@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/ng13-example'),
+      dir: require('path').join(__dirname, './coverage/base_app'),
       subdir: '.',
       reporters: [
         { type: 'html' },
@@ -46,7 +46,7 @@ module.exports = function (config) {
       ChromeHeadlessWin: {
         base: 'ChromeHeadless',
         flags: ['--headless', '--no-sandbox', '--disable-gpu']
-},
+      },
     },
     singleRun: false,
     restartOnFileChange: true

@@ -6,6 +6,7 @@ import { TabUI } from '../interfaces/props-data';
 import { Subscription } from 'rxjs';
 
 @Component({
+    animations: [],
     selector: 'prop-defined-table',
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['../app-tab-normal/app-tab-normal.component.css'],
@@ -29,8 +30,8 @@ export class PropDefinedTableComponent implements OnDestroy {
         this.dataSetChangeSubscription = dataSetChangeService.changeAnnounced$.subscribe(
         dataChange => {
             if (   (dataChange.tabId === this._uiTab.id)
-                && (this._dataset.u_id === dataChange.updatedDataSet.u_id) )
-            {
+                && (this._dataset.u_id === dataChange.updatedDataSet.u_id) ) {
+
                 this._updateCount++;
                 this._dataset = <PropDefinedDataSet>dataChange.updatedDataSet;
                 this._changeDetectorRef.detectChanges();
@@ -71,7 +72,7 @@ export class PropDefinedTableComponent implements OnDestroy {
 
     toggle() {
         if (this.app.globalProps && this.app.globalProps._hiddenTables) {
-            let pos = this.app.globalProps._hiddenTables.indexOf(this._id);
+            const pos = this.app.globalProps._hiddenTables.indexOf(this._id);
             if (pos === -1) {
                 this.app.globalProps._hiddenTables.push(this._id);
                 this._hidden = true;
