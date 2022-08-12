@@ -9,6 +9,8 @@ services:
       - '../base_app:/usr/src/app/base_app'
       - '../simpleui-server/test/config:/opt/config'
       - '.../base_app/dist:/var/www/simpleui'
+      - '../simpleui-server/test/data/bms:/var/www/bms'
+      - '../simpleui-server/test/data/dcbatt-data:/var/www/dcbatt-data'
     ports:
       - '4200:4200'
     command:
