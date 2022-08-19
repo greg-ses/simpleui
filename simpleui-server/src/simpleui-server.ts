@@ -151,6 +151,8 @@ export class SimpleUIServer {
 
             const originsWhiteList = [
                 `http://localhost`,
+                "http://localhost:4100",
+                "http://localhost:4200",
                 `http://svcapache`,
                 `http://svcmariadb`,
                 `http://svcnode-vts`,
