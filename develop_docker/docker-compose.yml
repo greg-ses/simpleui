@@ -2,31 +2,19 @@ version: '3.5'
 services:
   frontend-angular-service:
     image: angular-dev-image
-    container_name: base_app_container
-    build: ../base_app
-    working_dir: /usr/src/app/base_app
+    container_name: simpleui_dev_container
+    build: .
+    working_dir: /usr/src/app/
     volumes:
       - '../base_app:/usr/src/app/base_app'
+      - '../base_app/dist:/var/www/simpleui'
+      - '../simpleui-server:/usr/src/app/simpleui-server'
       - '../simpleui-server/test/config:/opt/config'
-      - '.../base_app/dist:/var/www/simpleui'
       - '../simpleui-server/test/data/bms:/var/www/bms'
       - '../simpleui-server/test/data/dcbatt-data:/var/www/dcbatt-data'
-    ports:
-      - '4200:4200'
-    command:
-      #bash -c "npm install & ng serve --host 0.0.0.0 --port 4200"
-      bash -c "ng serve --host 0.0.0.0 --port 4200"
-
-  backend-node-service:
-    image: angular-dev-image
-    container_name: simpleui_server_container
-    build: ../simpleui-server
-    volumes:
       - '.:/usr/src/app/develop_docker'
-      - '../simpleui-server:/usr/src/app/simpleui-server'
-      - '../simpleui-server/test/data/bms:/var/www/bms'
-    working_dir: /usr/src/app/simpleui-server
     ports:
       - '4100:4100'
+      - '4200:4200'
     command:
-          /bin/bash /usr/src/app/develop_docker/install-prereqs-and-start-server.bash
+      /bin/bash /usr/src/app/develop_docker/install-prereqs-and-start-server.bash
