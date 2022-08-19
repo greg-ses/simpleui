@@ -23,8 +23,12 @@
         ldconfig
         popd
 
+        pushd /usr/src/app/base_app
+        npm install -f
+        popd
+
         pushd /usr/src/app/simpleui-server
-        npm install
+        npm install -f
         popd
 
         touch docker-install-complete.txt
@@ -33,7 +37,8 @@
 echo ""
 echo "Building simpleui-server..."
 pushd /usr/src/app/simpleui-server
-NPM_COPY_DIST_TO_OUTPUT=false npm run build
+NPM_COPY_DIST_TO_OUTPUT=false
+npm run build
 popd
 
 echo ""
@@ -42,6 +47,7 @@ ls -la /usr/src/app/simpleui-server/dist/simpleui-server
 # ln -s  /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25 /usr/lib/x86_64-linux-gnu/libstdc++.so.6
 ls -la /usr/lib/x86_64-linux-gnu/libstdc++.so*
 pushd /usr/src/app/base_app
+npm run build-client-dev
 ng serve --host 0.0.0.0 --port 4200&
 popd
 cd /usr/src/app/simpleui-server
