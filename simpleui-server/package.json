@@ -12,7 +12,7 @@
   "license": "ISC",
   "scripts": {
     "build": "bash -x build-simpleui-server.bash && bash post-build-step.bash",
-    "start": "node dist/simpleui-server.js --appName=bms --uiProp=ui.nodejs",
+    "start": "node dist/simpleui-server/simpleui-server.js --appName=bms --uiProp=ui.nodejs",
     "test-all": "bash -x test/script/run-all-tests.bash",
     "unit-test-normalize-json": "bash test/script/unit-test.normalize-json.bash",
     "unit-test-simpleui-server": "bash -x test/script/unit-test.simpleui-server.bash"
@@ -20,27 +20,28 @@
   "private": true,
   "dependencies": {
     "array-flatten": "^3.0.0",
+    "charenc": "^0.0.2",
     "core-js": "^3.22.5",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "crypt": "^0.0.2",
+    "express": "^4.17.3",
     "fast-xml-parser": "^3.14.0",
     "find-process": "^1.4.2",
     "he": "^1.2.0",
     "jsontoxml": "^1.0.1",
     "microtime": "^3.0.0",
     "sha1": "^1.1.1",
-    "tslib": "^1.10.0",
+    "tslib": "^2.0.0",
     "zeromq": "^5.2.8"
   },
   "devDependencies": {
     "@types/express": "^4.17.1",
     "@types/node": "^12.12.3",
     "babel-core": "^7.0.0-bridge.0",
-    "protractor": "^5.4.2",
     "serve-static": "^1.14.1",
     "ts-node": "^7.0.1",
-    "tslint": "~5.11.0",
+    "tslint": "~6.1.0",
     "tslint-loader": "^3.5.4",
-    "typescript": "3.2.4"
+    "typescript": "4.6.2"
   }
 }
