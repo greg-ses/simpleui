@@ -5,18 +5,8 @@ if $(test -d dist/simpleui-server); then rm -r dist/simpleui-server; fi
 
 mkdir -p dist/simpleui-server
 cp src/SERVICE-TEMPLATE.service dist/simpleui-server/
-cp node_modules/crypt/crypt.js dist/simpleui-server/
-cp node_modules/charenc/charenc.js dist/simpleui-server/
-cp node_modules/sha1/sha1.js dist/simpleui-server/
 cp package.json dist/simpleui-server/
 cp package-lock.json dist/simpleui-server/
-
-cp node_modules/crypt/crypt.js src/
-cp node_modules/charenc/charenc.js src/
-cp node_modules/sha1/sha1.js src/
-
-sed -i "1,\$s^require('crypt')^require('./crypt')^" node_modules/sha1/sha1.js
-sed -i "1,\$s^require('charenc')^require('./charenc')^" node_modules/sha1/sha1.js
 
 #node_modules/.bin/ts-node --transpile-only --project src/tsconfig.json --cache-directory dist/simpleui-server src/json-string-normalizer.ts --compile-only
 #if $(test "$?" -eq "0"); then printf "[json-string-normalizer.ts] ts-node transpile succeeded\n"; else "ERROR: ts-node transpile failed\n"; fi
