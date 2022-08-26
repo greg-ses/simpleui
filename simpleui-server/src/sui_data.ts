@@ -728,7 +728,9 @@ export class SuiData {
 
         return sJson;
     }
-    static mockSuiRequest(cmdArgs: CommandArgs, props: any, req: any = null, res: Response = null)
+
+
+    static mockSuiRequest(cmdArgs: CommandArgs, props: any, req: any = null, res: Response = null)                      /////////////////////////////////////
     {
         if (!props) {
             return 'No response is defined for the root folder "/".';
@@ -745,8 +747,8 @@ export class SuiData {
             `Starting MOCK request # ${++SuiData.mockRequestNum}`,
             'suiMockRequest', '/mock/data?file=', xmlInFile);
 
-
         let xmlString = fs.readFileSync(xmlInFile, 'utf8');
+
         if (xmlString === '') {
             const msg = 'ERROR: empty result reading ' + xmlInFile;
             Logger.log(LogLevel.ERROR, msg);
@@ -771,11 +773,12 @@ export class SuiData {
         }
 
         const sJson = SuiData.xmlToJSON(xmlString, cmdArgs.appName, props, <Request<ParamsDictionary>>theReq);
-        let jsonOutFile = "";
+        let jsonOutFile = "test.json";
         if (typeof cmdArgs.jsonOutFile !== 'undefined' && cmdArgs.jsonOutFile !== "") {
             // Use the indexed version
             jsonOutFile = cmdArgs.jsonOutFile;
-        } else {
+        }
+        else {
             // No or empty jsonOutFile: follow keepTempFile instruction if passed
             if (typeof theReq.query.keepTempFile === 'string') {
                 // Use the temp file as the output file
@@ -784,7 +787,18 @@ export class SuiData {
                     `${SuiData.ram_disk_folder}`
                     + path.basename(`${xmlInFile}`).replace(/\.xml$/, '.json');
             }
-            fs.writeFileSync(jsonOutFile, sJson);
+
+            Logger.log(LogLevel.DEBUG, `^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ jsonOutFile : ${typeof jsonOutFile} : ${JSON.stringify(jsonOutFile)}`)
+            // Logger.log(LogLevel.DEBUG, `^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ${JSON.stringify(sJson, null, 4)}`)
+            try {
+                Logger.log(LogLevel.INFO, '-------------------------------------------BEFORE BREAKPOINT')
+                fs.writeFileSync(jsonOutFile, sJson);
+            } catch (err) {
+                Logger.log(LogLevel.DEBUG, err);
+            }
+
+            Logger.log(LogLevel.DEBUG, '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ BOTTOM OF sui_data.ts : mockSuiRequest');
+
             console.log(`Created test output file: ${jsonOutFile}.`);
         }
 

@@ -52,7 +52,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     _autoRefreshLabel = 'Pause';
     _refreshState = 'pending';
 
-    static getImgInfoCmd(id, tag) {
+    static getImgInfoCmd(id, tag): string  {
         let cmd: string;
         cmd = 'var e = document.getElementById("' + id + '");' +
             'if (e) {var cs = window.getComputedStyle(e);' +
@@ -116,7 +116,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         return (s && s.split(/,[ ]*/)) || [];
     }
 
-    log(logLevel: number, msg: string) {
+    log(logLevel: number, msg: string): void {
         if (this._siteIndex && this._siteIndex['props']
             && this._siteIndex['props'].logLevel
             && (this._siteIndex['props'].logLevel.value >= logLevel) ) {
@@ -138,7 +138,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         return nthOverlay;
     }
 
-    getImplementedOverlays(nthOverlay) {
+    getImplementedOverlays(nthOverlay): any {
 
         ClientLogger.log('LogOverlayList', 'getImplementedOverlays(nthOverlay)');
 
@@ -185,7 +185,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
                   + Object.keys(this._implementedOverlays).length);
     }
 
-    sendCssUpdate(cssOperation: string, cssRecord: string, cssValueRecord: string) {
+    sendCssUpdate(cssOperation: string, cssRecord: string, cssValueRecord: string): void {
         ClientLogger.log('LogCssUpdate', 'sendCssUpdate(' + cssOperation + ', ' + cssRecord + ')');
 
         this._cssUpdateService.sendUpdate(this.getNthOverlayNumber(), cssOperation, cssRecord, cssValueRecord);
@@ -213,7 +213,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
                                     'units': valueObj.units ? valueObj.units : ''
                                 };
                                 outArr.push(e);
-
                             }
                         } else {
                             const ee = {
@@ -222,9 +221,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
                                 'units': valueObj.units ? valueObj.units : ''
                             };
                             outArr.push(ee);
-
                         }
-
                     }
                 });
 
@@ -298,7 +295,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         }
     }
 
-    onDataUpdate(response: any) {
+    onDataUpdate(response: any): void {
         if (typeof response['Overlay_Summary'] === 'object') {
             this._uiTab._DataSummary = response['Overlay_Summary'];
         } else {
@@ -326,7 +323,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
 
     getCoordinates(elem) {
         const box = elem.getBoundingClientRect();
-
         return {
             top: Math.round((box.top + pageYOffset) * 10) / 10,
             left: Math.round((box.left + pageXOffset) * 10) / 10
@@ -356,7 +352,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     onDrop(ev: DragEvent) {
         try {
             let id: string = ev.dataTransfer.getData('Text');
-
 
             if (id === 'unimplementedOverlaysContainer') {
                 return false;
@@ -474,7 +469,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         console.log(cssDef);
     }
 
-    onDragOver(ev: DragEvent) {
+    onDragOver(ev: DragEvent): void {
         // Allow Drop
         ev.preventDefault();
 

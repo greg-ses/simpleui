@@ -447,7 +447,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
 
         const ajaxRequest = {
-            url: this._propsURL,
+            url: 'http://localhost:4100/bms/ui/query/props', // this._propsURL,
             withCredentials: true,
             crossDomain: true,
             timeout: 5001
@@ -771,7 +771,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 tab._pendingRequestExpiration = now.valueOf() + this._pendingRequestWait;
 
                 const ajaxRequest = {
-                    url: AppComponent.getDataTabRelativePath(tab.dataUrl, tab.index, tab_hash, serverSideJsDebugging),
+                    url: `http://localhost:4100${AppComponent.getDataTabRelativePath(tab.dataUrl, tab.index, tab_hash, serverSideJsDebugging)}`,
                     withCredentials: true,
                     crossDomain: true,
                     timeout: parseInt(this.getProp('ajaxTimeout', '5001'), 10)
@@ -789,6 +789,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                         try {
                             console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
                         } catch (err1) {
+                            console.log('error logging ajax error in getRemoteTabData()');
                         }
                     });
             }

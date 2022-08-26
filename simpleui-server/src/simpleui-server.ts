@@ -5,7 +5,6 @@ import * as cors from 'cors';
 import * as os from 'os';
 import {PropsFileReader} from './props-file-reader';
 import {CommandArgs} from './interfaces';
-import {microtime} from 'microtime';
 import {ServerUtil} from './server-util';
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
 
@@ -332,20 +331,23 @@ export class SimpleUIServer {
             const mockDataQuery = [
                 `/:appName/:propsStub/:tabName/mock/data`
             ];
-            displayUrl = `http://${os.hostname()}${webPortString}${mockDataQuery[0]}`;
+            // displayUrl = `http://${os.hostname()}${webPortString}${mockDataQuery[0]}`;
+            displayUrl = `http://localhost:4100/${webPortString}${mockDataQuery[0]}`;
             spacer1 = ' '.repeat(Math.max((104 - displayUrl.length), 1));
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}/${spacer1}(mock data)`);
             app.get(mockDataQuery, async (req, res) => {
                 // Replies with data from a zeromq request
                 Logger.log(LogLevel.VERBOSE, `data request callback: ${++SimpleUIServer.requestCallbacks}`);
+
                 try {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
+
                     const mockCmdVars = cmdVars;
                     mockCmdVars.xmlInFile = req.query.file;
                     mockCmdVars.versions = (typeof req.query.versions === 'string') ? parseInt(req.query.versions, 10) : 1;
-                    await SimpleUIServer.executeMockRequest(mockCmdVars, props, req, res);
+                    await SimpleUIServer.executeMockRequest(mockCmdVars, props, req, res);                                      ////////////////////
                 } catch (err) {
 
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,

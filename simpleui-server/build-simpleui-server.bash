@@ -22,4 +22,4 @@ transpileStatus=$?
 #rm src/charenc.js
 #rm src/sha1.js
 
-if $(test "$transpileStatus" -eq "0"); then printf "[simpleui-server.ts] transpile succeeded\n\n"; else "ERROR: simpleui-server.ts transpile failed\n\n"; fi
+if $(test "$transpileStatus" -eq "0"); then printf "[simpleui-server.ts] transpile succeeded\n\n"; else printf "ERROR: simpleui-server.ts transpile failed\n\n"; fi

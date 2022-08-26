@@ -50,7 +50,7 @@ export class ImplementedOverlaysService {
         return null;
     }
 
-    private onDataUpdate(response: CSSPairList) {
+    private onDataUpdate(response: CSSPairList): CSSPairList {
         this._overlays = response;
 
         return this._overlays;

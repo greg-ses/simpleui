@@ -88,7 +88,7 @@ export class OverlayPageComponent {
         return retVal;
     }
 
-    toggleAutoRefresh() {
+    toggleAutoRefresh(): void {
         if (this._autoRefreshLabel === 'Pause Auto Refresh') {
             this._autoRefreshLabel = 'Resume Auto Refresh';
         } else {
@@ -589,11 +589,11 @@ export class OverlayPageComponent {
         return info;
     }
 
-    hasCommandLabel(commandInfo: any) {
+    hasCommandLabel(commandInfo: any): boolean {
         return (typeof commandInfo.json.commandLabel === 'string' && commandInfo.json.commandLabel !== '');
     }
 
-    isArray(test_object: any) {
+    isArray(test_object: any): boolean {
         return Array.isArray(test_object);
     }
 
@@ -749,7 +749,7 @@ export class OverlayPageComponent {
         return s;
     }
 
-    showHideInstructions() {
+    showHideInstructions(): void {
         const e = document.getElementById('dnd-toggle');
         const instructions = document.getElementById('movedElementInfo');
         if (e && e.innerHTML === '►') {

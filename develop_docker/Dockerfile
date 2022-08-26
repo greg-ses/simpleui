@@ -3,7 +3,18 @@ FROM node:16-bullseye
 RUN mkdir -p /usr/src/app/base_app/
 RUN mkdir /usr/src/app/simpleui-server/
 
-# ZMQ
+###### SSH
+RUN apt-get update && apt-get install -y \
+    ssh \
+    openssh-server && \
+    rm -rf /var/lib/apt/lists/*
+RUN apt-get -y clean
+RUN service ssh start && \
+    useradd -m user && yes password | passwd user && \
+    usermod -aG sudo user
+###############################
+
+##### ZMQ
 RUN wget --no-check-certificate --quiet \
     https://github.com/zeromq/libzmq/releases/download/v4.3.2/zeromq-4.3.2.tar.gz && \
     tar -xzf zeromq-4.3.2.tar.gz && \
@@ -14,17 +25,18 @@ RUN wget --no-check-certificate --quiet \
     cd .. && \
     rm -rf ./zeromq-4.3.2 zeromq-4.3.2.tar.gz && \
     ldconfig
+###############################
 
-RUN npm install -g @angular/cli
+#RUN npm install -g @angular/cli
 
 COPY ./base_app/package.json /usr/src/app/base_app/
 COPY ./simpleui-server/package.json /usr/src/app/simpleui-server/
 
 RUN cd /usr/src/app/base_app/ && \
-    bash -c "npm install  --legacy-peer-deps"
+    npm install -f
 
 RUN cd /usr/src/app/simpleui-server && \
-    bash -c "npm install -f"
+    npm install -f
 
 
 
