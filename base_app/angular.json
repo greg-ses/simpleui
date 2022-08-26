@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "simpleui": {
+    "base_app": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "outputPath": "dist/simpleui",
+            "outputPath": "dist/base_app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -70,20 +70,20 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "simpleui:build:development",
+            "browserTarget": "base_app:build:development",
             "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "simpleui:build:production"
+              "browserTarget": "base_app:build:production"
             },
             "development": {
-              "browserTarget": "simpleui:build:development"
+              "browserTarget": "base_app:build:development"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "simpleui"
+  "defaultProject": "base_app"
 }
