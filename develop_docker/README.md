@@ -7,8 +7,8 @@ This folder contains the files necessary for launcher docker containers to suppo
 
 ```
 # from bash
-cd simpleui/develop_docker
-docker build -t angular-dev-image .
+cd simpleui/
+docker build -t angular-dev-image -f develop_docker/Dockerfile .
 docker compose up -d 
 cd ../base_app
 npm run build-client-dev

@@ -13,8 +13,10 @@ services:
       - '../simpleui-server/test/data/bms:/var/www/bms'
       - '../simpleui-server/test/data/dcbatt-data:/var/www/dcbatt-data'
       - '.:/usr/src/app/develop_docker'
+      - '/tmp/apache2:/var/volatile/tmp/apache2'
     ports:
       - '4100:4100'
       - '4200:4200'
+      - '9229:9229'
     command:
       /bin/bash /usr/src/app/develop_docker/install-prereqs-and-start-server.bash
