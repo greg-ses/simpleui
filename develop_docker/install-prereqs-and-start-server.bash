@@ -13,10 +13,11 @@ popd
 #ls -la /usr/lib/x86_64-linux-gnu/libstdc++.so*
 
 pushd /usr/src/app/base_app
+npm install -f
 npm run build-client-dev
 chmod -R 777 /usr/src/app/simpleui-server && chmod -R 777 /usr/src/app/base_app
 echo "Starting ng serve..."
-ng serve --host 0.0.0.0 --port 4200&
+npm run-script ng serve --host 0.0.0.0 --port 4200&
 popd
 cd /usr/src/app/simpleui-server
 

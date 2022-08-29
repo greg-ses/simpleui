@@ -19,5 +19,5 @@ services:
       - '4200:4200'
       - '9229:9229'
       - '2223:22'
-    command:
-      /bin/bash /usr/src/app/develop_docker/install-prereqs-and-start-server.bash
+    #command:
+      #/bin/bash /usr/src/app/develop_docker/install-prereqs-and-start-server.bash

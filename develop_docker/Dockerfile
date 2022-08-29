@@ -6,9 +6,9 @@ RUN mkdir /usr/src/app/simpleui-server/
 ###### SSH
 RUN apt-get update && apt-get install -y \
     ssh \
+    vim \
     openssh-server && \
     rm -rf /var/lib/apt/lists/*
-RUN apt-get -y clean
 RUN service ssh start && \
     useradd -m user && yes password | passwd user && \
     usermod -aG sudo user
@@ -27,13 +27,10 @@ RUN wget --no-check-certificate --quiet \
     ldconfig
 ###############################
 
-#RUN npm install -g @angular/cli
 
 COPY ./base_app/package.json /usr/src/app/base_app/
 COPY ./simpleui-server/package.json /usr/src/app/simpleui-server/
 
-RUN cd /usr/src/app/base_app/ && \
-    npm install -f
 
 RUN cd /usr/src/app/simpleui-server && \
     npm install -f
