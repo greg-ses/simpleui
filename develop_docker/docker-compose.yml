@@ -6,9 +6,9 @@ services:
     build: .
     working_dir: /usr/src/app/
     volumes:
-      - '../base_app:/usr/src/app/base_app'
+      - '../base_app:/usr/src/app/base_app.win'
       - '../base_app/dist:/var/www/simpleui'
-      - '../simpleui-server:/usr/src/app/simpleui-server'
+      - '../simpleui-server:/usr/src/app/simpleui-server.win'
       - '../simpleui-server/test/config:/opt/config'
       - '../simpleui-server/test/data/bms:/var/www/bms'
       - '../simpleui-server/test/data/dcbatt-data:/var/www/dcbatt-data'
@@ -18,4 +18,4 @@ services:
       - '4100:4100'
       - '4200:4200'
     command:
-      /bin/bash NPM_COPY_DIST_TO_OUTPUT}=false /usr/src/app/develop_docker/install-prereqs-and-start-server.bash
+      /usr/src/app/develop_docker/install-prereqs-and-start-server.bash

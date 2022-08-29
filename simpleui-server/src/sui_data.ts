@@ -664,7 +664,7 @@ export class SuiData {
     }
 
     static xmlToJSON(xmlString: string, appName: string, props: any, req: Request<ParamsDictionary>) {
-        let json = '{"error": "Something bad happened."}';
+        let json = '{"error": "Something bad happened inside xmlToJSON."}';
 
         if (xmlString[0] !== '<') {
             xmlString = xmlString.trim();
@@ -728,9 +728,7 @@ export class SuiData {
 
         return sJson;
     }
-
-
-    static mockSuiRequest(cmdArgs: CommandArgs, props: any, req: any = null, res: Response = null)                      /////////////////////////////////////
+    static mockSuiRequest(cmdArgs: CommandArgs, props: any, req: any = null, res: Response = null)
     {
         if (!props) {
             return 'No response is defined for the root folder "/".';
@@ -743,12 +741,14 @@ export class SuiData {
         }
 
         const xmlInFile = cmdArgs.xmlInFile.replace('.0.', `.${SuiData.mockDataFileIndex[cmdArgs.xmlInFile]}.`);
+        const xmlFileExists = fs.existsSync(xmlInFile);
+        Logger.log(LogLevel.INFO, `\n ==>  mockCmdVars.xmlInFile (in mockSuiRequest, exists ${xmlFileExists}): '${xmlInFile}'\n`);
         ServerUtil.logRequestDetails(LogLevel.DEBUG, req,
             `Starting MOCK request # ${++SuiData.mockRequestNum}`,
             'suiMockRequest', '/mock/data?file=', xmlInFile);
 
-        let xmlString = fs.readFileSync(xmlInFile, 'utf8');
 
+        let xmlString = fs.readFileSync(xmlInFile, { 'encoding': 'utf8', 'flag': 'r'} );
         if (xmlString === '') {
             const msg = 'ERROR: empty result reading ' + xmlInFile;
             Logger.log(LogLevel.ERROR, msg);
@@ -773,12 +773,11 @@ export class SuiData {
         }
 
         const sJson = SuiData.xmlToJSON(xmlString, cmdArgs.appName, props, <Request<ParamsDictionary>>theReq);
-        let jsonOutFile = "test.json";
+        let jsonOutFile = "";
         if (typeof cmdArgs.jsonOutFile !== 'undefined' && cmdArgs.jsonOutFile !== "") {
             // Use the indexed version
             jsonOutFile = cmdArgs.jsonOutFile;
-        }
-        else {
+        } else {
             // No or empty jsonOutFile: follow keepTempFile instruction if passed
             if (typeof theReq.query.keepTempFile === 'string') {
                 // Use the temp file as the output file
@@ -787,18 +786,7 @@ export class SuiData {
                     `${SuiData.ram_disk_folder}`
                     + path.basename(`${xmlInFile}`).replace(/\.xml$/, '.json');
             }
-
-            Logger.log(LogLevel.DEBUG, `^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ jsonOutFile : ${typeof jsonOutFile} : ${JSON.stringify(jsonOutFile)}`)
-            // Logger.log(LogLevel.DEBUG, `^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ${JSON.stringify(sJson, null, 4)}`)
-            try {
-                Logger.log(LogLevel.INFO, '-------------------------------------------BEFORE BREAKPOINT')
-                fs.writeFileSync(jsonOutFile, sJson);
-            } catch (err) {
-                Logger.log(LogLevel.DEBUG, err);
-            }
-
-            Logger.log(LogLevel.DEBUG, '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ BOTTOM OF sui_data.ts : mockSuiRequest');
-
+            fs.writeFileSync(jsonOutFile, sJson);
             console.log(`Created test output file: ${jsonOutFile}.`);
         }
 

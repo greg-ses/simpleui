@@ -1,8 +1,8 @@
 FROM node:16-bullseye
 
-RUN mkdir -p /usr/src/app/base_app/
-RUN mkdir /usr/src/app/simpleui-server/
-# ZMQ
+RUN mkdir /output && chmod 777 /output
+
+#---------- ZMQ ---------------
 RUN wget --no-check-certificate --quiet \
     https://github.com/zeromq/libzmq/releases/download/v4.3.2/zeromq-4.3.2.tar.gz && \
     tar -xzf zeromq-4.3.2.tar.gz && \
@@ -13,15 +13,34 @@ RUN wget --no-check-certificate --quiet \
     cd .. && \
     rm -rf ./zeromq-4.3.2 zeromq-4.3.2.tar.gz && \
     ldconfig
-RUN touch /usr/src/app/base_app/idk.txt
 
-RUN touch /usr/src/app/simpleui-server/idk.txt
+#---------- ssh server ---------------
+RUN apt-get update && apt-get install -y \
+    ssh \
+    vim \
+    openssh-server \
+    && rm -rf /var/lib/apt/lists/*
+RUN apt-get -y clean
+RUN service ssh start && \
+    useradd -m user && yes password | passwd user && \
+    usermod -aG sudo user
 
-RUN npm install -g @angular/cli
-
+#---------- base_app (client) ---------------
+RUN mkdir -p /usr/src/app/base_app/
 COPY ./base_app/package.json /usr/src/app/base_app/
+RUN mkdir -p /usr/src/app/base_app/ && \
+    cd /usr/src/app/base_app/ && \
+    npm install -g @angular/cli && \
+    npm install -f && \
+    chmod -R 777 /usr/src/app/base_app
+
+
+#---------- simpleui-server (express app) ---------------
+RUN mkdir /usr/src/app/simpleui-server/
 COPY ./simpleui-server/package.json /usr/src/app/simpleui-server/
-RUN cd /usr/src/app/base_app/ && \
-    bash -c "npm install  --legacy-peer-deps"
 RUN cd /usr/src/app/simpleui-server && \
-    bash -c "npm install -f"
+    npm install -f && \
+    chmod -R 777 /usr/src/app/simpleui-server
+
+# Bottom of dockerfile
+CMD ['usr/sbin/sshd', '-D']

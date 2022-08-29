@@ -26,10 +26,18 @@
     link.href = appURI + '/images/favicon.ico';
     document.head.appendChild(link);
 
+    let debugPrefix = "";
+    if (window.location.port === '4200') {
+      debugPrefix = window.location.protocol + '//' + window.location.hostname + ':4100';
+      console.log(`debugPrefix: ${debugPrefix}`);
+    }
+
     let base = document.getElementsByTagName('base')[0];
     base['appURI'] = appURI ;
     base['uiProp'] = uiProp;
-    base['propsQuery'] = appPath + (uiProp || 'ui') + '/query/props';
+    base['propsQuery'] = debugPrefix + appPath + (uiProp || 'ui') + '/query/props';
+    console.log(`base['propsQuery']: ${base['propsQuery']}`);
+
 
     if (uiProp) {
         document.title = uiProp;

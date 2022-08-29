@@ -1,6 +1,6 @@
 {
   "/images": {
-    "target": "http://localhost:80/simpleui/images",
+    "target": "http://localhost:4200/simpleui/images",
     "secure": false,
     "pathRewrite": {
       "^/images": "/simpleui/images"
@@ -8,7 +8,7 @@
     "changeOrigin": true
   },
   "/php": {
-    "target": "http://localhost:80/simpleui/php",
+    "target": "http://localhost:4200/simpleui/php",
     "secure": false,
     "pathRewrite": {
       "^/php": "/simpleui/php"
@@ -16,7 +16,7 @@
     "changeOrigin": true
   },
   "/bms/images": {
-    "target": "http://localhost:80/bms/images",
+    "target": "http://localhost:4200/bms/images",
     "secure": false,
     "pathRewrite": {
       "^/images": "/bms/images"
@@ -24,7 +24,7 @@
     "changeOrigin": true
   },
   "/bms/php": {
-    "target": "http://localhost:80/bms/php",
+    "target": "http://localhost:4200/bms/php",
     "secure": false,
     "pathRewrite": {
       "^/bms/php": "/bms/php"

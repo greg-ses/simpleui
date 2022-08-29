@@ -439,6 +439,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
         if (this._props && this._props.initialized) {
             // already have properties - don't fetch again
+            console.log('Using cached _props');
             return;
         }
 

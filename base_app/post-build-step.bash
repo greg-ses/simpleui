@@ -44,7 +44,7 @@ if (($# > 0)) && [[ "$1" == "--include-mocks" ]]; then
 fi
 
 # Fix names of javascript files
-cat dist/simpleui/index.html | \
+cat dist/base_app/index.html | \
   awk -v JS_FOLDER="/${PROJ}/js/" -v CSS_FOLDER="/${PROJ}/css/" \
         '{ s=$0; \
          cssPrefix="<link rel=\"stylesheet\" href=\""; \
@@ -61,18 +61,4 @@ cd dist
 tar czvf ../dist.tgz --exclude="${PROJ}"  *
 cd ..
 
-if [[ "${NPM_COPY_DIST_TO_OUTPUT}" != "false" ]]; then
-    out_folder=../../../output/simpleui/base_app
-
-    # Use sudo as necessary to create / modify out_folder and its two ancestors to make them writeable
-    for d in ../../../output ../../../output/simpleui ../../../output/simpleui/base_app; do
-        if (! $(test -d $d) ); then sudo mkdir -m777 $d; sudo chown service:service $d; fi
-        if (! $(test -w $d) ); then sudo chmod 777 $d; sudo chown service:service $d; fi
-    done
-
-    printf "Copy files \n  from: %s\n  to:   %s\n" ${PWD} ${out_folder}
-    cp dist.tgz  ${out_folder}
-    chmod 755 ${out_folder}/dist.tgz
-fi
-
-echo "------------------ Finished post-build-step at $(date) -----------------------"
+echo "------------------ Finished base_app post-build-step at $(date) -----------------------"

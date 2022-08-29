@@ -346,6 +346,7 @@ export class SimpleUIServer {
 
                     const mockCmdVars = cmdVars;
                     mockCmdVars.xmlInFile = req.query.file;
+                    Logger.log(LogLevel.INFO, `\n ==>  mockCmdVars.xmlInFile: '${mockCmdVars.xmlInFile}'\n`);
                     mockCmdVars.versions = (typeof req.query.versions === 'string') ? parseInt(req.query.versions, 10) : 1;
                     await SimpleUIServer.executeMockRequest(mockCmdVars, props, req, res);                                      ////////////////////
                 } catch (err) {
@@ -366,8 +367,13 @@ export class SimpleUIServer {
                         `\n==> Server started at http://${os.hostname()}${webPortString}\n\n==> Handled Requests:`);
                     Logger.log(LogLevel.INFO, `\nNote: Only the first 5 ZMQ responses will be logged at INFO level.`);
                     Logger.log(LogLevel.INFO, `      To see later responses, set the LogLevel to DEBUG with this URL:\n`);
+                    let hostname = `${os.hostname()}`;
+                    if (hostname.match(/[a-z0-9]{12}/)  && !hostname.match(/site/i)) {
+                        // crude attempt to see if this is a docker hostname
+                        hostname = 'localhost';
+                    }
                     Logger.log(LogLevel.INFO, `          ` +
-                        `http://${os.hostname()}${webPortString}/` +
+                        `http://${hostname}${webPortString}/` +
                         `${cmdVars.appName.split(',')[0]}/` +
                         `svr-util/SetLogLevel/DEBUG\n`);
                 });
