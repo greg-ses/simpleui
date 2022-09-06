@@ -247,6 +247,15 @@ export class UTIL {
     }
 
     public static deepCopy(obj: any) {
+        if (typeof obj === 'undefined') {
+            return obj;
+        }
+
+        return structuredClone(obj)
+    }
+
+
+    public static deepCopy_old(obj: any) {
 
         if (typeof obj === 'undefined') {
             // return value is also undefined

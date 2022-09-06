@@ -4,6 +4,14 @@ import * as sha1 from './sha1';
 export class JsonStringNormalizer {
 
     static deepCopy(obj: any) {
+        if (typeof obj === 'undefined') {
+            return obj;
+        }
+
+        return structuredClone(obj)
+    }
+
+    static deepCopy_old(obj: any) {
 
         if (typeof obj === 'undefined') {
             // return value is also undefined

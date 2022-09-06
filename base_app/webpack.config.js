@@ -139,6 +139,12 @@ module.exports = function makeWebpackConfig() {
                 use: ['to-string-loader', 'css-loader']
             },
 
+            {
+                test: /\.css$/,
+                include: root('src', 'app', 'css'),
+                use: ['to-string-loader', 'css-loader']
+            },
+
             // support for .scss files
             // use 'null' loader in test mode (https://github.com/webpack/null-loader)
             // all css in src/style will be bundled in an external css file

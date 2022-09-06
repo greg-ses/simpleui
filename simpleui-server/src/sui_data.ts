@@ -786,8 +786,13 @@ export class SuiData {
                     `${SuiData.ram_disk_folder}`
                     + path.basename(`${xmlInFile}`).replace(/\.xml$/, '.json');
             }
-            fs.writeFileSync(jsonOutFile, sJson);
-            console.log(`Created test output file: ${jsonOutFile}.`);
+            try {
+                fs.writeFileSync(jsonOutFile, sJson);
+                console.log(`Created test output file: ${jsonOutFile}.`);
+            } catch (err) {
+                console.log("Couldn't create output file due to error");
+                console.log(`jsonOutFile = ${jsonOutFile === '' ? 'empty string' : jsonOutFile}`)
+            }
         }
 
         if (res) {

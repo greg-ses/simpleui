@@ -1,4 +1,4 @@
-FROM node:16-bullseye
+FROM node:18-bullseye
 
 RUN mkdir /output && chmod 777 /output
 
@@ -43,4 +43,4 @@ RUN cd /usr/src/app/simpleui-server && \
     chmod -R 777 /usr/src/app/simpleui-server
 
 # Bottom of dockerfile
-CMD ['usr/sbin/sshd', '-D']
+CMD ["/usr/sbin/sshd", "-D"]

@@ -20,6 +20,14 @@ export class ServerUtil {
     private static trackedProcesses = new Array<ProcessInfo>();
 
     static deepCopy(obj: any) {
+        if (typeof obj === 'undefined') {
+            return obj;
+        }
+
+        return structuredClone(obj)
+    }
+
+    static deepCopy_old(obj: any) {
 
         if (typeof obj === 'undefined') {
             // return value is also undefined

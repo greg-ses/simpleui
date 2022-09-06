@@ -806,8 +806,10 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             this._detectChanges = {'name': tab.name, 'value': true};
             this.updateData(tab, response['Data_Summary']);
             ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');
+            
         } else if (typeof response === 'object'
             && typeof response['Overlay_Summary'] === 'object') {
+
             this._detectChanges = {'name': tab.name, 'value': true};
             this.updateData(tab, response['Overlay_Summary']);
             ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');

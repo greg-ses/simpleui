@@ -10,7 +10,7 @@ This folder contains the files necessary for launcher docker containers to suppo
 cd simpleui/
 docker build -t angular-dev-image -f develop_docker/Dockerfile .
 docker compose up -d 
-cd ../base_app
+cd base_app
 npm run build-client-dev
 code .&
 (Use the launched VS Code window to edit the code)
