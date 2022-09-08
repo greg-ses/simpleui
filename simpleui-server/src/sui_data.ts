@@ -449,7 +449,7 @@ export class SuiData {
     }
 
     static getXmlFromJsonArgs(req: Request<ParamsDictionary>, parsedReq) {
-        Logger.log(LogLevel.VERBOSE, '\n==> Inside getXmlFromJsonArgs()\n');
+        //Logger.log(LogLevel.VERBOSE, '\n==> Inside getXmlFromJsonArgs()\n');
 
         if (req.body == null) {
             Logger.log(LogLevel.VERBOSE, 'req.body IS NULL\n');

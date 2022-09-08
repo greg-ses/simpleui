@@ -31,7 +31,7 @@ COPY ./base_app/package.json /usr/src/app/base_app/
 RUN mkdir -p /usr/src/app/base_app/ && \
     cd /usr/src/app/base_app/ && \
     npm install -g @angular/cli && \
-    npm install -f && \
+    npm install && \
     chmod -R 777 /usr/src/app/base_app
 
 

@@ -154,8 +154,9 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
         try {
             for (const path of paths) {
                 if (path && typeof path === 'object'
-                    && path[attr] && typeof path[attr] === 'string') {
-                    value = path[attr];
+                    && path![attr] && typeof path![attr] === 'string'
+                    && path != null) {
+                    value = path![attr];
                     break;
                 }
             }
