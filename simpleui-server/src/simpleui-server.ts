@@ -7,6 +7,8 @@ import {PropsFileReader} from './props-file-reader';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
+import * as fs from 'fs';
+
 
 const app = express();
 
@@ -173,8 +175,8 @@ export class SimpleUIServer {
             };
 
             app.use(cors(corsOptions));
-            app.use(express.json());
-            app.use(express.urlencoded({ extended: true }));
+            app.use(express.json() as express.RequestHandler);
+            app.use(express.urlencoded({ extended: true }) as express.RequestHandler);
 
             const appPropFiles = PropsFileReader.getAppPropsFiles(cmdVars.appName, cmdVars.webPort);
 
@@ -346,9 +348,9 @@ export class SimpleUIServer {
 
                     const mockCmdVars = cmdVars;
                     mockCmdVars.xmlInFile = req.query.file;
-                    Logger.log(LogLevel.INFO, `\n ==>  mockCmdVars.xmlInFile: '${mockCmdVars.xmlInFile}'\n`);
+                    //Logger.log(LogLevel.INFO, `\n ==>  mockCmdVars.xmlInFile: '${mockCmdVars.xmlInFile}'\n`);
                     mockCmdVars.versions = (typeof req.query.versions === 'string') ? parseInt(req.query.versions, 10) : 1;
-                    await SimpleUIServer.executeMockRequest(mockCmdVars, props, req, res);                                      ////////////////////
+                    await SimpleUIServer.executeMockRequest(mockCmdVars, props, req, res);
                 } catch (err) {
 
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
@@ -356,6 +358,40 @@ export class SimpleUIServer {
                         'mock data handler', '/mock/data', `?file=${cmdVars.xmlInFile}`);
                 }
             });
+
+            // -----------------------------
+            // Handler for css_elements_to_json.php call
+            // -----------------------------
+            displayUrl = 'localhost:4100/bms/php/css_elements_to_json';
+            app.get('/bms/php/css_elements_to_json', async (req, res) => {
+                // css_elements.json file in simpleui-server/test/data/bms || /var/www/bms/
+                try{
+                    let filepath = '/var/www/bms/css_elements.json';
+                    let jsonString: string = JSON.stringify(JSON.parse(fs.readFileSync(filepath, 'utf-8')))
+                    await res.send(jsonString)
+                } catch (err) {
+                    Logger.log(LogLevel.ERROR, 'css_elements request failed')
+                }
+            })
+
+
+            // -----------------------------
+            // Handler for misc. call
+            // -----------------------------
+            let mockOverlayData = 0;
+            displayUrl = 'localhost:4100/bms/overlay_items';
+            app.get('/bms/overlay', async (req, res) => {
+                try{
+                    let filepath = '/var/www/bms/overlay_data.'.concat(mockOverlayData.toString(),'.json');
+                    let jsonString: string = JSON.stringify(JSON.parse(fs.readFileSync(filepath, 'utf-8')))
+                    await res.send(jsonString)
+                    mockOverlayData = mockOverlayData === 3 ? 0 : mockOverlayData+1;
+                } catch (err) {
+                    Logger.log(LogLevel.ERROR, 'overlay_data request failed');
+                }
+            })
+
+            
 
             // ------------------------------
             // start the Express server

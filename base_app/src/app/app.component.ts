@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import './css/styles.css';
+//import './css/styles.css';
 import {AppProperties, SubscriptionState, TabUI, TitleBarProperties} from './interfaces/props-data';
 import {ajax} from 'rxjs/ajax';
 import {MatTabChangeEvent, MatTabGroup} from '@angular/material/tabs';
@@ -448,7 +448,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
 
         const ajaxRequest = {
-            url: 'http://localhost:4100/bms/ui/query/props', // this._propsURL,
+            url: this._propsURL,
             withCredentials: true,
             crossDomain: true,
             timeout: 5001

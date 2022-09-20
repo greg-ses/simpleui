@@ -16,24 +16,25 @@
     let url = new URL(window.location.href);
     let uiProp = url.searchParams.get("uiProp");
 
-    let webpackURI = appURI + 'js/';
     document.title = appURI;
 
     console.log("appURI : ", appURI );
     let link = document.createElement('link');
     link.setAttribute('rel', 'icon');
     link.type = 'image/x-icon';
-    link.href = appURI + '/images/favicon.ico';
+    link.href = appURI + 'assets/favicon.ico';
     document.head.appendChild(link);
 
+    // this condition is specifically for ng serve dev env
     let debugPrefix = "";
     if (window.location.port === '4200') {
       debugPrefix = window.location.protocol + '//' + window.location.hostname + ':4100';
+      link.href = window.origin + '/bms/assets/favicon.ico';
       console.log(`debugPrefix: ${debugPrefix}`);
     }
 
     let base = document.getElementsByTagName('base')[0];
-    base['appURI'] = appURI ;
+    base['appURI'] = appURI;
     base['uiProp'] = uiProp;
     base['propsQuery'] = debugPrefix + appPath + (uiProp || 'ui') + '/query/props';
     console.log(`base['propsQuery']: ${base['propsQuery']}`);
@@ -45,6 +46,7 @@
 
   </script>
   <base href=appURI />
+  <link href="/bms/assets/image-overlays.css" rel="stylesheet" />
 </head>
 <body style="margin:0;overflow:hidden">
   <app-simpleui>Loading...</app-simpleui>

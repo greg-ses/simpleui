@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, EventEmitter, Input, OnInit, Optional, Output } from '@angular/core';
 import { TabUI } from '../interfaces/props-data';
 
-import '../css/styles.css';
+//import '../css/styles.css';
 import { AppComponent } from '../app.component';
 import { DataSetChange, DataSetChangeService} from '../services/dataset-change.service';
 import { DataSetChangeList } from '../interfaces/dataset';

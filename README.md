@@ -1,7 +1,7 @@
 # Simple UI
 
-Simple UI is a real-time display framework using `Angular 13` for the front end display
-and `nodeJs` 16 as a back end service provider.  The front-end part of simpleui (`base_app`)
+Simple UI is a real-time display framework using `Angular 14` for the front end display
+and `nodeJs` 18 as a back end service provider.  The front-end part of simpleui (`base_app`)
 sends `http requests` to the backend end part of simpleui (`simpleui-server`), which in turn
 sends and receives `ZeroMQ XML` messages to a second backend server (typically C++).
 `simpleui-server` translates the received `.xml` into `.json` responses and sends them

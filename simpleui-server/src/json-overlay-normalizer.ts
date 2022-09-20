@@ -3,20 +3,16 @@ import {CommandJsonNormalizer} from './command-json-normalizer';
 export class JsonOverlayNormalizer {
 
     static deepCopy(obj: any) {
-        let flag = true;
-
         if (typeof obj === 'undefined') {
             // return value is also undefined
             return obj;
         }
 
-        if (flag) {
-            let clone = structuredClone(obj);
-            return clone;
-        }
+        return structuredClone(obj);
+        
     }
 
-    static deepCopy_old(obj: any) {
+    static deepCopy_(obj: any) {
 
         if (typeof obj === 'undefined') {
             // return value is also undefined

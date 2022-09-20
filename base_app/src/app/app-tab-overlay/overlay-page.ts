@@ -261,6 +261,11 @@ export class OverlayPageComponent {
     }
 
     elements_are_equal(deep: number, el1: any, el2: any): boolean {
+        try {
+            let _ = Object.keys(el1); 
+        } catch (err) {
+            return false
+        }
         for (const key of Object.keys(el1)) {
             if (typeof el1[key] === 'object' && typeof el2[key] === 'object') {
                 if ((deep > 4)

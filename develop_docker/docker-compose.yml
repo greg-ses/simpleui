@@ -7,7 +7,8 @@ services:
     working_dir: /usr/src/app/
     volumes:
       - '../base_app:/usr/src/app/base_app.win'
-      - '../base_app/dist:/var/www/simpleui'
+      #- '../simpleui-server/test/data/bms/overlay-1/images/:/usr/src/app/base_app.win/src/assets'
+      #- '../base_app/dist:/var/www/simpleui'
       - '../simpleui-server:/usr/src/app/simpleui-server.win'
       - '../simpleui-server/test/config:/opt/config'
       - '../simpleui-server/test/data/bms:/var/www/bms'

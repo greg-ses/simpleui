@@ -27,7 +27,7 @@ export class ServerUtil {
         return structuredClone(obj)
     }
 
-    static deepCopy_old(obj: any) {
+    static deepCopy_(obj: any) {
 
         if (typeof obj === 'undefined') {
             // return value is also undefined

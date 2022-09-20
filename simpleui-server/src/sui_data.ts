@@ -493,7 +493,7 @@ export class SuiData {
 
         let attributes = '';
 
-        if (req.query !== {}) {
+        if (typeof req.query !== 'object') {
             Object.keys(req.query).forEach(key => {
                 if (typeof req.query[key] === 'string') {
                     if (key === 'cmd') {
@@ -669,13 +669,6 @@ export class SuiData {
         if (xmlString[0] !== '<') {
             xmlString = xmlString.trim();
         }
-        let docRootName = '';
-        const matches = xmlString.match(/(<\?xml[^>]+>[ \t\n]*)?<([^ \t>]+)/);
-        if (matches) {
-            docRootName = matches[matches.length - 1];
-        } else {
-            docRootName = 'root';
-        }
 
         // console.log('SuiData.xmlToJSON - 2\n\$xmlString: ' . substr($xmlString, 0, 50) . '\n');
         const options = {
@@ -703,11 +696,15 @@ export class SuiData {
         } catch(error) {
             Logger.log(LogLevel.ERROR, `Error parsing incoming XML: ${error.message}`);
         }
-        const keepIntermediateFile = (typeof req.query.keepTempFile === 'string');
+
+        let docRootName = Object.keys(json)[0]; // should this have some type of error handling?
+        Logger.log(LogLevel.INFO, docRootName);
+
+        const keepIntermediateFile = req.query.keepTempFile;
         let debugFileNames = {xml_in_file: '', json_initial_file: '', json_normal_file: ''};
         if (keepIntermediateFile) {
             debugFileNames = SuiData.getDebugFileNames(appName, props, req);
-            Logger.log(LogLevel.ERROR, `keepIntermediateFile: true - keeping intermediate files`);
+            Logger.log(LogLevel.INFO, `keepIntermediateFile: true - keeping intermediate files`);
             fs.writeFileSync(debugFileNames.xml_in_file, xmlString);
             fs.writeFileSync(debugFileNames.json_initial_file, JSON.stringify(json));
         }
@@ -716,8 +713,10 @@ export class SuiData {
             JsonStringNormalizer.normalizeJSON(json, props);
         } else if (docRootName === 'Overlay_Summary') {
             JsonOverlayNormalizer.normalizeJSON(json, props);
-        } else {
-            json = `{ '${docRootName}': ${json} }`;
+        } 
+        //else if (docRootName === 'error') {}
+        else {
+            json = `{ '${docRootName}': ${json} }`; 
         }
 
         const sJson = JSON.stringify(json);
@@ -765,7 +764,7 @@ export class SuiData {
             theReq = {
                 path: `${xmlInFile}`,
                 query: {
-                    keepTempFile: 'yes',
+                    keepTempFile: false,
                     ti: {},
                     hash: {}
                 },
@@ -773,26 +772,29 @@ export class SuiData {
         }
 
         const sJson = SuiData.xmlToJSON(xmlString, cmdArgs.appName, props, <Request<ParamsDictionary>>theReq);
+
         let jsonOutFile = "";
+
         if (typeof cmdArgs.jsonOutFile !== 'undefined' && cmdArgs.jsonOutFile !== "") {
             // Use the indexed version
             jsonOutFile = cmdArgs.jsonOutFile;
         } else {
             // No or empty jsonOutFile: follow keepTempFile instruction if passed
-            if (typeof theReq.query.keepTempFile === 'string') {
+            if (theReq.query.keepTempFile) {
                 // Use the temp file as the output file
                 SuiData.mockDataFileIndex[cmdArgs.xmlInFile] = 0;
                 jsonOutFile =
                     `${SuiData.ram_disk_folder}`
                     + path.basename(`${xmlInFile}`).replace(/\.xml$/, '.json');
+
+                try {
+                    fs.writeFileSync(jsonOutFile, sJson);
+                    console.log(`Created test output file: ${jsonOutFile}.`);
+                } catch (err) {
+                    console.log(`Couldn't create output file due to error | jsonOutFile = ${jsonOutFile === '' ? 'empty string' : jsonOutFile}`);
+                }
             }
-            try {
-                fs.writeFileSync(jsonOutFile, sJson);
-                console.log(`Created test output file: ${jsonOutFile}.`);
-            } catch (err) {
-                console.log("Couldn't create output file due to error");
-                console.log(`jsonOutFile = ${jsonOutFile === '' ? 'empty string' : jsonOutFile}`)
-            }
+
         }
 
         if (res) {

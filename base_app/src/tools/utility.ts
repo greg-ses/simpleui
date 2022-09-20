@@ -255,7 +255,7 @@ export class UTIL {
     }
 
 
-    public static deepCopy_old(obj: any) {
+    public static deepCopy_(obj: any) {
 
         if (typeof obj === 'undefined') {
             // return value is also undefined
