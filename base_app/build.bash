@@ -3,14 +3,14 @@
 fix_base_app(){
     BASE_APP=$1
     # egrep "\"baseHref\": \"[a-zA-Z0-9/]+\"" angular.json
-    sed -iE "s/\"baseHref\": \"\/\w*\/\"/\"baseHref\": \"\/${BASE_APP}\/\"/g" angular.json
+    sed -i "s/\"baseHref\": \"\/\w*\/\"/\"baseHref\": \"\/${BASE_APP}\/\"/g" angular.json
 }
 
 
 prebuild() {
     BASE_APP=$1
     APP_PATH=$2
-    
+
     # create assets folder in base_app
     mkdir ./src/assets
     ###cp -r $APP_PATH ./src/assets
