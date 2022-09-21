@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2002">
+    <Title u_id="2002">BMS</Title>
+    <timeStamp u_id="2003">1564605496216</timeStamp>
+    <Version u_id="2004">debug-BMSServer: develop, 2019-07-25 17:57 EDT</Version>
+    <Section name="Battery System" u_id="2006">
+        <DataSets u_id="2007">
+            <Configuration u_id="2008">
+                <dyn name="Num_Modules" u_id="2009">2</dyn>
+            </Configuration>
+            <System_State u_id="2010">
+                <dyn class="on" disabled="false" name="Local_Mode" u_id="2011">on</dyn>
+                <dyn class="priority" name="System_Mode" u_id="2012">Offline</dyn>
+                <dyn class="priority" name="EPO_State" u_id="2013">EPO_Fault</dyn>
+                <dyn name="ChargeSt" u_id="2014">Invalid</dyn>
+                <dyn name="Fault_Level" u_id="2015">none</dyn>
+                <dyn name="Fault_Op_Mode" u_id="2016">tolerant</dyn>
+            </System_State>
+            <System_Data u_id="2017">
+                <dyn name="DcBattV" u_id="2018" units="V">0.0</dyn>
+                <dyn name="DcBattAmps" u_id="2019" units="A">0.0</dyn>
+                <dyn name="DcBattKW" u_id="2020" units="kW">0.0</dyn>
+                <dyn class="priority" name="DcBattSoC" u_id="2021" units="%">0.0</dyn>
+            </System_Data>
+            <Event_Log u_id="2023">
+                <Event timestamp="16:38:05" type="EVENT NOTICE" u_id="2023">Mod2 : Tank valves are not in required
+                    position, ignoring Start_HEX_Pumps
+                </Event>
+                <Event timestamp="16:37:58" type="EVENT INFO" u_id="2024">Mod2 received cmd:Service</Event>
+                <Event timestamp="16:20:38" type="EVENT INFO" u_id="2025">Mod2 received cmd:Offline</Event>
+                <Event timestamp="16:20:38" type="URGENT SERVICE REQUEST" u_id="2026">Mod2-Process-CaTank-4-Tank_Level :
+                    trip, value 37876.88 &gt;= 37400.00
+                </Event>
+                <Event timestamp="16:20:38" type="URGENT SERVICE REQUEST" u_id="2027">Mod2-Process-CaTank-3-Tank_Level :
+                    trip, value 37876.88 &gt;= 37400.00
+                </Event>
+            </Event_Log>
+        </DataSets>
+    </Section>
+    <Section name="Module 1" u_id="2029">
+        <CmdSet u_id="2030">
+            <command cmd="Remote" confirm="true" desc="desc" dest="1-0" deviceId="1" disabled="false" idnum="0"
+                     label="Remote" name="Remote" u_id="2031"/>
+            <command cmd="ResetEPO" confirm="false" desc="Reset the EPO safety inputs." dest="1-0" deviceId="1"
+                     disabled="false" idnum="0" label="ResetEPO" name="ResetEPO" u_id="2032"/>
+            <command cmd="Service" confirm="false" desc="desc" dest="1-0" deviceId="1" disabled="false" idnum="0"
+                     label="Service" name="Service" u_id="2033"/>
+            <command cmd="Offline" confirm="true" desc="desc" dest="1-0" deviceId="1" disabled="true" idnum="0"
+                     label="Offline" name="Offline" u_id="2034"/>
+            <command cmd="Post" confirm="true" desc="desc" dest="1-0" deviceId="1" disabled="true" idnum="0"
+                     label="Post" name="Post" u_id="2035"/>
+            <command cmd="Standby" confirm="false" desc="desc" dest="1-0" deviceId="1" disabled="true" idnum="0"
+                     label="Standby" name="Standby" u_id="2036"/>
+            <command cmd="Float" confirm="false" desc="desc" dest="1-0" deviceId="1" disabled="true" idnum="0"
+                     label="Float" name="Float" u_id="2037"/>
+            <command cmd="Active" confirm="false" desc="desc" dest="1-0" deviceId="1" disabled="true" idnum="0"
+                     label="Active" name="Active" u_id="2038"/>
+            <command cmd="Clear_Fault" confirm="false" desc="desc" dest="1-0" deviceId="1" disabled="false" idnum="0"
+                     label="Clear_Fault" name="Clear_Fault" u_id="2039"/>
+        </CmdSet>
+        <DataSets u_id="2040">
+            <Status u_id="2041">
+                <Fake_Multi_Enabled u_id="2206">
+                    <command cmd="Fake_Multi_Enabled"
+                             desc="This is a long description of a command." dest="2-1"
+                             disabled="false" idnum="0" label="Fake_Multi_Enabled" name="Fake_Multi_Enabled" u_id="2207">
+                        <_input
+                                _type="float"
+                                desc="Enter a First random Percentage to use."
+                                idnum="0"
+                                max="12.5"
+                                min="0.1"
+                                u_id="0008"
+                                value="1.0"
+                        />
+                        <_input
+                                _type="float"
+                                desc="Enter a Second random Percentage to use."
+                                idnum="0"
+                                max="54.50"
+
+                                min="45.50"
+                                u_id="0009"
+                                value="51.50"
+                        />
+                    </command>
+                </Fake_Multi_Enabled>
+                <Fake_Multi_Disabled u_id="2206">
+                    <command cmd="Fake_Multi_Disabled"
+                             desc="[Not enabled] This is a long description of a command." dest="2-1"
+                             disabled="true" idnum="0" label="Fake_Multi_Disabled" name="Fake_Multi_Disabled" u_id="2207">
+                        <_input
+                                _type="float"
+                                desc="Enter a First random Percentage to use."
+                                idnum="0"
+                                max="12.5"
+                                min="0.1"
+                                u_id="0008"
+                                value="1.0"
+                        />
+                        <_input
+                                _type="float"
+                                desc="Enter a Second random Percentage to use."
+                                idnum="0"
+                                max="54.50"
+
+                                min="45.50"
+                                u_id="0009"
+                                value="51.50"
+                        />
+                    </command>
+                </Fake_Multi_Disabled>
+                <dyn class="on" disabled="false" name="Local_Mode" u_id="2042">on</dyn>
+                <dyn class="priority" name="Container_State" u_id="2043">Pre_Init</dyn>
+                <dyn name="EPO_State" u_id="2044">EPO_Fault</dyn>
+                <dyn class="priority" name="Process_State" u_id="2045">Offline</dyn>
+                <dyn class="priority" name="Utility_State" u_id="2046">Offline</dyn>
+                <dyn class="trip" desc="Current fault level for the container" name="Fault_Level" u_id="2047">trip</dyn>
+                <dyn desc="Fault response mode" name="Fault_Op_Mode" u_id="2048">tolerant</dyn>
+            </Status>
+            <AnolyteTanks name="Anolyte Tanks" u_id="2049">
+                <dyn class="priority" name="AnolyteTotalVolume" u_id="2050" units="L">113,630</dyn>
+                <dyn class="Closed" name="AnolyteValvesState" u_id="2051">Closed</dyn>
+                <dyn desc="Tank level reading. [c1-smu-SENSEMON-1:AIN14] raw: 20.05" name="LT102_Level_Transducer"
+                     u_id="2052" units="L">37,876
+                </dyn>
+                <dyn desc="Tank level reading. [c1-smu-SENSEMON-2:AIN13] raw: 20.05" name="LT103_Level_Transducer"
+                     u_id="2053" units="L">37,876
+                </dyn>
+                <dyn desc="Tank level reading. [c1-smu-SENSEMON-2:AIN14] raw: 20.05" name="LT104_Level_Transducer"
+                     u_id="2054" units="L">37,876
+                </dyn>
+            </AnolyteTanks>
+            <SSA name="String Side A (SSA)" u_id="2055">
+                <dyn class="priority" name="String_Voltage_Side_A" u_id="2056" units="V">3.8</dyn>
+                <dyn class="priority" name="String_Current_Side_A" u_id="2057" units="A">7.6</dyn>
+                <dyn name="Rung_1_Voltage_Side_A" u_id="2058" units="V">1.9</dyn>
+                <dyn name="Rung_1_Current_Side_A" u_id="2059" units="A">7.6</dyn>
+                <dyn name="Rung_2_Voltage_Side_A" u_id="2060" units="V">1.9</dyn>
+                <dyn name="Rung_2_Current_Side_A" u_id="2061" units="A">7.6</dyn>
+            </SSA>
+            <PSA name="Process Side A (PSA)" u_id="2062">
+                <dyn class="priority" name="ProcessPumpsState_Side_A" u_id="2063">Stopped</dyn>
+                <dyn class="priority" name="AnolyteFlow_Side_A" u_id="2064" units="LPM">0</dyn>
+                <dyn name="AnolytePress_Side_A" u_id="2065" units="PSI">4</dyn>
+                <dyn desc="Current operating motor frequency." name="Actual_Speed" u_id="2066" units="Hz">0.0</dyn>
+                <dyn class="priority" name="CatholyteFlow_Side_A" u_id="2067" units="LPM">0</dyn>
+                <dyn name="CatholytePress_Side_A" u_id="2068" units="PSI">3</dyn>
+                <dyn desc="Current operating motor frequency." name="Actual_Speed" u_id="2069" units="Hz">0.0</dyn>
+            </PSA>
+            <PSB name="Process Side B (PSB)" u_id="2070">
+                <dyn class="priority" name="ProcessPumpsState_Side_B" u_id="2071">Stopped</dyn>
+                <dyn class="priority" name="AnolyteFlow_Side_B" u_id="2072" units="LPM">0</dyn>
+                <dyn name="AnolytePress_Side_B" u_id="2073" units="PSI">4</dyn>
+                <dyn desc="Current operating motor frequency." name="Actual_Speed" u_id="2074" units="Hz">0.0</dyn>
+                <dyn class="priority" name="CatholyteFlow_Side_B" u_id="2075" units="LPM">0</dyn>
+                <dyn name="CatholytePress_Side_B" u_id="2076" units="PSI">4</dyn>
+                <dyn desc="Current operating motor frequency." name="Actual_Speed" u_id="2077" units="Hz">0.0</dyn>
+            </PSB>
+            <SSB name="String Side B (SSB)" u_id="2078">
+                <dyn class="priority" name="String_Voltage_Side_B" u_id="2079" units="V">3.8</dyn>
+                <dyn class="priority" name="String_Current_Side_B" u_id="2080" units="A">7.6</dyn>
+                <dyn name="Rung_1_Voltage_Side_B" u_id="2081" units="V">1.9</dyn>
+                <dyn name="Rung_1_Current_Side_B" u_id="2082" units="A">7.6</dyn>
+                <dyn name="Rung_2_Voltage_Side_B" u_id="2083" units="V">1.9</dyn>
+                <dyn name="Rung_2_Current_Side_B" u_id="2084" units="A">7.6</dyn>
+            </SSB>
+            <CatholyteTanks name="Catholyte Tanks" u_id="2085">
+                <dyn class="priority" name="CatholyteTotalVolume" u_id="2086" units="L">113,630</dyn>
+                <dyn class="Closed" name="CatholyteValvesState" u_id="2087">Closed</dyn>
+                <dyn desc="Tank level reading. [c1-smu-SENSEMON-1:AIN16] raw: 20.05" name="LT202_Level_Transducer"
+                     u_id="2088" units="L">37,876
+                </dyn>
+                <dyn desc="Tank level reading. [c1-smu-SENSEMON-2:AIN15] raw: 20.05" name="LT203_Level_Transducer"
+                     u_id="2089" units="L">37,876
+                </dyn>
+                <dyn desc="Tank level reading. [c1-smu-SENSEMON-2:AIN16] raw: 20.05" name="LT204_Level_Transducer"
+                     u_id="2090" units="L">37,876
+                </dyn>
+            </CatholyteTanks>
+        </DataSets>
+        <DataSets u_id="2091">
+            <Utility u_id="2092">
+                <dyn class="priority" name="HotelPower" u_id="2093" units="V">27.8</dyn>
+            </Utility>
+            <RebalanceSystem name="Rebalance System" u_id="2094">
+                <dyn class="priority" name="Rebalance_State" u_id="2095">Offline</dyn>
+                <dyn class="priority" name="status" u_id="2096">---</dyn>
+            </RebalanceSystem>
+            <AnolyteUtil name="Anolyte Util" u_id="2097">
+                <dyn class="priority" desc="Anolyte utility flow. [c1-smu-SENSEMON-3:AIN1] raw: 4.10"
+                     name="FT105_An_Util" u_id="2098" units="LPM">0.0
+                </dyn>
+                <dyn desc="Anolyte utility pressure. [c1-smu-SENSEMON-3:AIN3] raw: 5.25" name="PT102_An_Util"
+                     u_id="2099" units="PSI">3.9
+                </dyn>
+                <dyn desc="Current operating motor frequency." name="Actual_Speed" u_id="2100" units="Hz">0.0</dyn>
+                <dyn class="Process" desc="Anolyte utility transfer valve. [c1-vcu-VALVECTRL-1:Valve 11]"
+                     name="CV121_An_Xfer" u_id="2101">Process
+                </dyn>
+            </AnolyteUtil>
+            <CatholyteUtil name="Catholyte Util" u_id="2102">
+                <dyn class="priority" desc="Catholyte utility flow. [c1-smu-SENSEMON-3:AIN2] raw: 4.00"
+                     name="FT205_Ca_Util" u_id="2103" units="LPM">0.0
+                </dyn>
+                <dyn desc="Catholyte utility pressure. [c1-smu-SENSEMON-3:AIN4] raw: 5.36" name="PT202_Ca_Util"
+                     u_id="2104" units="PSI">4.2
+                </dyn>
+                <dyn desc="Current operating motor frequency." name="Actual_Speed" u_id="2105" units="Hz">0.0</dyn>
+                <dyn class="Process" desc="Catholyte utility transfer valve. [c1-vcu-VALVECTRL-2:Valve 11]"
+                     name="CV221_Ca_Xfer" u_id="2106">Process
+                </dyn>
+            </CatholyteUtil>
+            <Chem1 name="Electrolyte Accounting" u_id="2107">
+                <dyn name="AnVol_Pct" u_id="2108" units="%">50.00</dyn>
+                <dyn name="AnMol_Pct" u_id="2109" units="%">48.3</dyn>
+                <dyn name="Va" u_id="2110">1.556</dyn>
+                <dyn name="Vc" u_id="2111">1.664</dyn>
+                <dyn class="priority" name="VaValence" u_id="2112">2.97</dyn>
+            </Chem1>
+            <Chem2 name="Electrolyte SoC" u_id="2113">
+                <dyn name="AnSOC" u_id="2114" units="%">51.2</dyn>
+                <dyn class="priority" name="RefSOC" u_id="2115" units="%">57.8</dyn>
+                <dyn name="CaSOC" u_id="2116" units="%">64.4</dyn>
+                <dyn name="RefCellVolts" u_id="2117" units="V">1.450</dyn>
+            </Chem2>
+            <Active_Fault_List u_id="2118">
+                <Fault ev_details="value 37876.88 &gt;= 37400.00" fault_code="Process-Mod1-2" idx="2"
+                       name="Mod1-Process-AnTank-2-Tank_Level" timestamp="16:20:38" u_id="2118">trip
+                </Fault>
+                <Fault ev_details="value 37876.88 &gt;= 37400.00" fault_code="Process-Mod1-4" idx="4"
+                       name="Mod1-Process-AnTank-3-Tank_Level" timestamp="16:20:38" u_id="2119">trip
+                </Fault>
+                <Fault ev_details="value 37876.88 &gt;= 37400.00" fault_code="Process-Mod1-6" idx="6"
+                       name="Mod1-Process-AnTank-4-Tank_Level" timestamp="16:20:38" u_id="2120">trip
+                </Fault>
+                <Fault ev_details="value 37876.88 &gt;= 37400.00" fault_code="Process-Mod1-8" idx="8"
+                       name="Mod1-Process-CaTank-2-Tank_Level" timestamp="16:20:38" u_id="2121">trip
+                </Fault>
+                <Fault ev_details="value 37876.88 &gt;= 37400.00" fault_code="Process-Mod1-10" idx="10"
+                       name="Mod1-Process-CaTank-3-Tank_Level" timestamp="16:20:38" u_id="2122">trip
+                </Fault>
+                <Fault ev_details="" fault_code="...." idx="" name="15 more not displayed." timestamp="" u_id="2123">
+                    ...
+                </Fault>
+            </Active_Fault_List>
+        </DataSets>
+    </Section>
+    <Section name="Module 2" u_id="2125">
+        <CmdSet u_id="2126">
+            <command cmd="Remote" confirm="true" desc="desc" dest="2-0" deviceId="2" disabled="false" idnum="0"
+                     label="Remote" name="Remote" u_id="2127"/>
+            <command cmd="ResetEPO" confirm="false" desc="Reset the EPO safety inputs." dest="2-0" deviceId="2"
+                     disabled="false" idnum="0" label="ResetEPO" name="ResetEPO" u_id="2128"/>
+            <command cmd="Service" confirm="false" desc="desc" dest="2-0" deviceId="2" disabled="false" idnum="0"
+                     label="Service" name="Service" u_id="2129"/>
+            <command cmd="Offline" confirm="true" desc="desc" dest="2-0" deviceId="2" disabled="false" idnum="0"
+                     label="Offline" name="Offline" u_id="2130"/>
+            <command cmd="Post" confirm="true" desc="desc" dest="2-0" deviceId="2" disabled="true" idnum="0"
+                     label="Post" name="Post" u_id="2131"/>
+            <command cmd="Standby" confirm="false" desc="desc" dest="2-0" deviceId="2" disabled="true" idnum="0"
+                     label="Standby" name="Standby" u_id="2132"/>
+            <command cmd="Float" confirm="false" desc="desc" dest="2-0" deviceId="2" disabled="true" idnum="0"
+                     label="Float" name="Float" u_id="2133"/>
+            <command cmd="Active" confirm="false" desc="desc" dest="2-0" deviceId="2" disabled="true" idnum="0"
+                     label="Active" name="Active" u_id="2134"/>
+            <command cmd="Clear_Fault" confirm="false" desc="desc" dest="2-0" deviceId="2" disabled="false" idnum="0"
+                     label="Clear_Fault" name="Clear_Fault" u_id="2135"/>
+        </CmdSet>
+        <CmdSet u_id="2136">
+            <command cmd="Open_Tanks" confirm="false" desc="Open all tank valves." dest="2-2" disabled="true" idnum="0"
+                     label="Open_Tanks" name="Open_Tanks" u_id="2137"/>
+            <command cmd="Close_Tanks" confirm="false" desc="Close all tank valves." dest="2-2" disabled="true"
+                     idnum="0" label="Close_Tanks" name="Close_Tanks" u_id="2138"/>
+        </CmdSet>
+        <DataSets u_id="2139">
+            <Status u_id="2140">
+                <dyn class="on" disabled="false" name="Local_Mode" u_id="2141">on</dyn>
+                <dyn class="priority" name="Container_State" u_id="2142">Service</dyn>
+                <dyn name="EPO_State" u_id="2143">EPO_Fault</dyn>
+                <dyn class="priority" name="Process_State" u_id="2144">Standby</dyn>
+                <dyn class="priority" name="Utility_State" u_id="2145">Standby</dyn>
+                <dyn class="trip" desc="Current fault level for the container" name="Fault_Level" u_id="2146">trip</dyn>
+                <dyn desc="Fault response mode" name="Fault_Op_Mode" u_id="2147">critical_only</dyn>
+            </Status>
+            <AnolyteTanks name="Anolyte Tanks" u_id="2148">
+                <dyn class="priority" name="AnolyteTotalVolume" u_id="2149" units="L">113,630</dyn>
+                <dyn class="Closed" name="AnolyteValvesState" u_id="2150">Closed</dyn>
+                <dyn desc="Tank level reading. [c2-smu-SENSEMON-1:AIN14] raw: 20.05" name="LT102_Level_Transducer"
+                     u_id="2151" units="L">37,876
+                </dyn>
+                <dyn desc="Tank level reading. [c2-smu-SENSEMON-2:AIN13] raw: 20.05" name="LT103_Level_Transducer"
+                     u_id="2152" units="L">37,876
+                </dyn>
+                <dyn desc="Tank level reading. [c2-smu-SENSEMON-2:AIN14] raw: 20.05" name="LT104_Level_Transducer"
+                     u_id="2153" units="L">37,876
+                </dyn>
+            </AnolyteTanks>
+            <SSA name="String Side A (SSA)" u_id="2154">
+                <dyn class="priority" name="String_Voltage_Side_A" u_id="2155" units="V">3.8</dyn>
+                <dyn class="priority" name="String_Current_Side_A" u_id="2156" units="A">7.6</dyn>
+                <dyn name="Rung_1_Voltage_Side_A" u_id="2157" units="V">1.9</dyn>
+                <dyn name="Rung_1_Current_Side_A" u_id="2158" units="A">7.6</dyn>
+                <dyn name="Rung_2_Voltage_Side_A" u_id="2159" units="V">1.9</dyn>
+                <dyn name="Rung_2_Current_Side_A" u_id="2160" units="A">7.6</dyn>
+            </SSA>
+            <PSA name="Process Side A (PSA)" u_id="2161">
+                <StartProcessPumps class="priority" u_id="2162"><command cmd="StartProcessPumps" confirm="false"
+                                                                         dest="2-3" deviceId="0" disabled="true"
+                                                                         idnum="0" label="Start Pumps"
+                                                                         name="StartProcessPumps" u_id="2163"/>Stopped
+                </StartProcessPumps>
+                <dyn class="priority" name="AnolyteFlow_Side_A" u_id="2164" units="LPM">0</dyn>
+                <dyn name="AnolytePress_Side_A" u_id="2165" units="PSI">4</dyn>
+                <dyn desc="Current operating motor frequency." name="Actual_Speed" u_id="2166" units="Hz">0.0</dyn>
+                <dyn class="priority" name="CatholyteFlow_Side_A" u_id="2167" units="LPM">0</dyn>
+                <dyn name="CatholytePress_Side_A" u_id="2168" units="PSI">4</dyn>
+                <dyn desc="Current operating motor frequency." name="Actual_Speed" u_id="2169" units="Hz">0.0</dyn>
+            </PSA>
+            <PSB name="Process Side B (PSB)" u_id="2170">
+                <StartProcessPumps class="priority" u_id="2171"><command cmd="StartProcessPumps" confirm="false"
+                                                                         dest="2-4" deviceId="0" disabled="true"
+                                                                         idnum="0" label="Start Pumps"
+                                                                         name="StartProcessPumps" u_id="2172"/>Stopped
+                </StartProcessPumps>
+                <dyn class="priority" name="AnolyteFlow_Side_B" u_id="2173" units="LPM">0</dyn>
+                <dyn name="AnolytePress_Side_B" u_id="2174" units="PSI">4</dyn>
+                <dyn desc="Current operating motor frequency." name="Actual_Speed" u_id="2175" units="Hz">0.0</dyn>
+                <dyn class="priority" name="CatholyteFlow_Side_B" u_id="2176" units="LPM">0</dyn>
+                <dyn name="CatholytePress_Side_B" u_id="2177" units="PSI">3</dyn>
+                <dyn desc="Current operating motor frequency." name="Actual_Speed" u_id="2178" units="Hz">0.0</dyn>
+            </PSB>
+            <SSB name="String Side B (SSB)" u_id="2179">
+                <dyn class="priority" name="String_Voltage_Side_B" u_id="2180" units="V">3.8</dyn>
+                <dyn class="priority" name="String_Current_Side_B" u_id="2181" units="A">7.6</dyn>
+                <dyn name="Rung_1_Voltage_Side_B" u_id="2182" units="V">1.9</dyn>
+                <dyn name="Rung_1_Current_Side_B" u_id="2183" units="A">7.6</dyn>
+                <dyn name="Rung_2_Voltage_Side_B" u_id="2184" units="V">1.9</dyn>
+                <dyn name="Rung_2_Current_Side_B" u_id="2185" units="A">7.6</dyn>
+            </SSB>
+            <CatholyteTanks name="Catholyte Tanks" u_id="2186">
+                <dyn class="priority" name="CatholyteTotalVolume" u_id="2187" units="L">113,630</dyn>
+                <dyn class="Closed" name="CatholyteValvesState" u_id="2188">Closed</dyn>
+                <dyn desc="Tank level reading. [c2-smu-SENSEMON-1:AIN16] raw: 20.05" name="LT202_Level_Transducer"
+                     u_id="2189" units="L">37,876
+                </dyn>
+                <dyn desc="Tank level reading. [c2-smu-SENSEMON-2:AIN15] raw: 20.05" name="LT203_Level_Transducer"
+                     u_id="2190" units="L">37,876
+                </dyn>
+                <dyn desc="Tank level reading. [c2-smu-SENSEMON-2:AIN16] raw: 20.05" name="LT204_Level_Transducer"
+                     u_id="2191" units="L">37,876
+                </dyn>
+            </CatholyteTanks>
+        </DataSets>
+        <DataSets u_id="2192">
+            <Utility u_id="2193">
+                <dyn class="priority" name="HotelPower" u_id="2194" units="V">28.1</dyn>
+                <Stop_Utility_Sys class="" u_id="2195">
+                    <command cmd="Stop_Utility_Sys" confirm="false" desc="Stop utility pumps and set valves to process."
+                             dest="2-1" deviceId="0" disabled="false" idnum="0" label="Stop Utility"
+                             name="Stop_Utility_Sys" u_id="2196"/>
+                </Stop_Utility_Sys>
+                <Start_HEX_Pumps class="" u_id="2197">
+                    <command cmd="Start_HEX_Pumps" confirm="false" desc="Start running the utility pumps." dest="2-1"
+                             deviceId="0" disabled="false" idnum="0" label="Start HEX Pumps" name="Start_HEX_Pumps"
+                             u_id="2198"/>
+                </Start_HEX_Pumps>
+            </Utility>
+            <RebalanceSystem name="Rebalance System" u_id="2199">
+                <dyn class="priority" name="Rebalance_State" u_id="2200">Offline</dyn>
+                <dyn class="priority" name="status" u_id="2201">---</dyn>
+                <Move_Liters u_id="2202">
+                    <command cmd="Move_Liters" desc="[Not enabled] Move chemistry." dest="2-1" disabled="true" idnum="0"
+                             label="Move_Liters" name="Move_Liters" u_id="2203">
+                        <_input
+                                _type="float"
+                                desc="Enter target Anolyte to Catholyte Vol (L)"
+                                idnum="0"
+                                max="10000.00"
+                                min="0.00"
+                                u_id="2204"
+                                value="0.00"
+                        />
+                        <_input
+                                _type="float"
+                                desc="Enter target Catholyte to Anolyte Vol (L)"
+                                idnum="0"
+                                max="10000.00"
+                                min="0.00"
+                                u_id="2205"
+                                value="0.00"
+                        />
+                    </command>
+                </Move_Liters>
+                <Move_Volume_Perc u_id="2206">
+                    <command cmd="Move_Volume_Perc"
+                             desc="[Not enabled] Mix a percentage of the Anolyte and Catholyte chemistry's." dest="2-1"
+                             disabled="true" idnum="0" label="Move_Volume_Perc" name="Move_Volume_Perc" u_id="2207">
+                        <_input
+                                _type="float"
+                                desc="Enter Volume Percentage to mix."
+                                idnum="0"
+                                max="12.5"
+                                min="0.1"
+                                u_id="2208"
+                                value="1.0"
+                        />
+                        <_input
+                                _type="float"
+                                desc="Enter target Anolyte Volume Percentage."
+                                idnum="0"
+                                max="54.50"
+
+                                min="45.50"
+                                u_id="2209"
+                                value="51.50"
+                        />
+                    </command>
+                </Move_Volume_Perc>
+                <Mix_Tanks u_id="2210">
+                    <command cmd="Mix_Tanks" desc="[Not enabled] Mix Anolyte and Catholyte chemistry's." dest="2-1"
+                             disabled="true" idnum="0" label="Mix_Tanks" name="Mix_Tanks" u_id="2211">
+                        <_input
+                                _type="float"
+                                desc="Enter target Anolyte Vol Percentage"
+                                idnum="0"
+                                max="54.50"
+
+                                min="45.50"
+                                u_id="2212"
+                                value="51.50"
+                        />
+                        <_input
+                                _type="int"
+                                desc="Enter amount of time to mix in
+                                minutes."
+                                max="6000"
+                                min="1"
+
+                                u_id="2213"
+                                value="5"
+                        />
+                    </command>
+                </Mix_Tanks>
+                <Level_Tanks u_id="2214">
+                    <command cmd="Level_Tanks" desc="[Not enabled] Set the Anolyte Volume Percentage." dest="2-1"
+                             disabled="true" idnum="0" label="Level_Tanks" name="Level_Tanks" u_id="2215">
+                        <_input
+                                _type="float"
+                                desc="Enter target Anolyte Vol Percentage"
+                                idnum="0"
+                                max="54.50"
+
+                                min="45.50"
+                                u_id="2216"
+                                value="51.50"
+                        />
+                    </command>
+                </Level_Tanks>
+            </RebalanceSystem>
+            <AnolyteUtil name="Anolyte Util" u_id="2217">
+                <dyn class="priority" desc="Anolyte utility flow. [c2-smu-SENSEMON-3:AIN1] raw: 4.10"
+                     name="FT105_An_Util" u_id="2218" units="LPM">0.0
+                </dyn>
+                <dyn desc="Anolyte utility pressure. [c2-smu-SENSEMON-3:AIN3] raw: 5.22" name="PT102_An_Util"
+                     u_id="2219" units="PSI">3.8
+                </dyn>
+                <dyn desc="Current operating motor frequency." name="Actual_Speed" u_id="2220" units="Hz">0.0</dyn>
+                <dyn class="Process" desc="Anolyte utility transfer valve. [c2-vcu-VALVECTRL-1:Valve 11]"
+                     name="CV121_An_Xfer" u_id="2221">Process
+                </dyn>
+            </AnolyteUtil>
+            <CatholyteUtil name="Catholyte Util" u_id="2222">
+                <dyn class="priority" desc="Catholyte utility flow. [c2-smu-SENSEMON-3:AIN2] raw: 4.01"
+                     name="FT205_Ca_Util" u_id="2223" units="LPM">0.0
+                </dyn>
+                <dyn desc="Catholyte utility pressure. [c2-smu-SENSEMON-3:AIN4] raw: 5.33" name="PT202_Ca_Util"
+                     u_id="2224" units="PSI">4.1
+                </dyn>
+                <dyn desc="Current operating motor frequency." name="Actual_Speed" u_id="2225" units="Hz">0.0</dyn>
+                <dyn class="Process" desc="Catholyte utility transfer valve. [c2-vcu-VALVECTRL-2:Valve 11]"
+                     name="CV221_Ca_Xfer" u_id="2226">Process
+                </dyn>
+            </CatholyteUtil>
+            <Chem1 name="Electrolyte Accounting" u_id="2227">
+                <dyn name="AnVol_Pct" u_id="2228" units="%">50.00</dyn>
+                <dyn name="AnMol_Pct" u_id="2229" units="%">48.3</dyn>
+                <dyn name="Va" u_id="2230">1.556</dyn>
+                <dyn name="Vc" u_id="2231">1.664</dyn>
+                <dyn class="priority" name="VaValence" u_id="2232">2.97</dyn>
+            </Chem1>
+            <Chem2 name="Electrolyte SoC" u_id="2233">
+                <dyn name="AnSOC" u_id="2234" units="%">51.1</dyn>
+                <dyn class="priority" name="RefSOC" u_id="2235" units="%">57.6</dyn>
+                <dyn name="CaSOC" u_id="2236" units="%">64.2</dyn>
+                <dyn name="RefCellVolts" u_id="2237" units="V">1.450</dyn>
+            </Chem2>
+            <Active_Fault_List u_id="2238">
+                <Fault ev_details="value 37876.88 &gt;= 37400.00" fault_code="Process-Mod2-2" idx="114"
+                       name="Mod2-Process-AnTank-2-Tank_Level" timestamp="16:20:38" u_id="2238">trip
+                </Fault>
+                <Fault ev_details="value 37876.88 &gt;= 37400.00" fault_code="Process-Mod2-4" idx="116"
+                       name="Mod2-Process-AnTank-3-Tank_Level" timestamp="16:20:38" u_id="2239">trip
+                </Fault>
+                <Fault ev_details="value 37876.88 &gt;= 37400.00" fault_code="Process-Mod2-6" idx="118"
+                       name="Mod2-Process-AnTank-4-Tank_Level" timestamp="16:20:38" u_id="2240">trip
+                </Fault>
+                <Fault ev_details="value 37876.88 &gt;= 37400.00" fault_code="Process-Mod2-8" idx="120"
+                       name="Mod2-Process-CaTank-2-Tank_Level" timestamp="16:20:38" u_id="2241">trip
+                </Fault>
+                <Fault ev_details="value 37876.88 &gt;= 37400.00" fault_code="Process-Mod2-10" idx="122"
+                       name="Mod2-Process-CaTank-3-Tank_Level" timestamp="16:20:38" u_id="2242">trip
+                </Fault>
+                <Fault ev_details="" fault_code="...." idx="" name="15 more not displayed." timestamp="" u_id="2243">
+                    ...
+                </Fault>
+            </Active_Fault_List>
+        </DataSets>
+    </Section>
+    <status>0</status>
+</Data_Summary>

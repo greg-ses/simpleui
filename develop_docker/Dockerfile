@@ -20,27 +20,15 @@ RUN apt-get update && apt-get install -y \
     vim \
     openssh-server \
     && rm -rf /var/lib/apt/lists/*
-RUN apt-get -y clean
 RUN service ssh start && \
     useradd -m user && yes password | passwd user && \
     usermod -aG sudo user
 
 #---------- base_app (client) ---------------
 RUN mkdir -p /usr/src/app/base_app/
-COPY ./base_app/package.json /usr/src/app/base_app/
-RUN mkdir -p /usr/src/app/base_app/ && \
-    cd /usr/src/app/base_app/ && \
-    npm install -g @angular/cli && \
-    npm install && \
-    chmod -R 777 /usr/src/app/base_app
-
 
 #---------- simpleui-server (express app) ---------------
 RUN mkdir /usr/src/app/simpleui-server/
-COPY ./simpleui-server/package.json /usr/src/app/simpleui-server/
-RUN cd /usr/src/app/simpleui-server && \
-    npm install -f && \
-    chmod -R 777 /usr/src/app/simpleui-server
 
 # Bottom of dockerfile
 CMD ["/usr/sbin/sshd", "-D"]

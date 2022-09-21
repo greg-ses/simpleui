@@ -8,11 +8,10 @@ This folder contains the files necessary for launcher docker containers to suppo
 ```
 # from bash
 cd simpleui/
-docker build -t angular-dev-image -f develop_docker/Dockerfile .
-docker compose up -d 
-cd base_app
-npm run build-client-dev
-code .&
-(Use the launched VS Code window to edit the code)
-(Open the URL http://localhost:4200 to see changes as you update the code.)
+docker build -t sui-dev-image -f develop_docker/Dockerfile .
+
+bash run-dev-env.bash
 ```
+
+## Notes
+- The `docker run` configuration can be found in `run-dev-env.bash`

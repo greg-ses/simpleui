@@ -1,0 +1,561 @@
+
+/* Objects for the GUI */
+
+div.var_label, span.var_label {
+    font-size: 12px;
+    color: royalblue;
+    user-select: none;
+    padding-right: 2px;
+}
+
+input {
+    font-size: 10px;
+    user-select: none;
+}
+
+button.stateSelectedButton {
+    color: #5959DE;
+    background-color: #AAAAAA;
+    border-bottom-width: 1px;
+    border-left-color: #BBBBBB;
+    border-top-color: #BBBBBB;
+    font-size: 20px;
+    font-style: italic;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: default;
+    width: auto;
+    min-width: 80px;
+}
+
+div.process_var, span.process_var, label.process_var {
+    position: absolute;
+    white-space: nowrap;
+    width:55px;
+    height:16px;
+    color: #003399;
+    background-color: khaki;
+    /*background-color: lightyellow;*/
+    text-align: center;
+    font-size: 12px;
+    border: 1px solid #c4c4c4;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    box-shadow: 2px 2px 2px #d9d9d9;
+    -moz-box-shadow: 2px 2px 2px #d9d9d9;
+    -webkit-box-shadow: 2px 2px 8px #d9d9d9;
+    padding-left: 2px;
+    user-select: none;
+}
+
+.process_var.red {
+    background-color: red;
+    color: black;
+}
+
+.process_var.yellow {
+    background-color: yellow;
+    color: black;
+}
+
+div.priority, span.priority, label.priority {
+    background-color:gold;
+    color: black;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+div.open, span.open, label.open, span.darkRed {
+    background-color: darkred;
+    color: black;
+    font-size: 14px;
+    font-weight: bolder;
+    width: 50px;
+}
+
+div.closed, span.closed, label.closed, span.lightGreen {
+    background-color: lightgreen;
+    color: black;
+    font-size: 14px;
+    font-weight: bolder;
+    width: 50px;
+}
+
+div.transit, span.transit, label.transit, span.blinkOrangeToOrangeRed {
+    background-color: orange;
+    color: orangered;
+    font-size: 14px;
+    animation-name: BlinkOrangeToOrangeRed;
+    animation-duration: 0.4s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+    width: 50px;
+}
+
+@keyframes BlinkOrangeToOrangeRed {
+    from {color: #962424;}
+    to {color: white;}
+}
+
+th.dataTableTH {
+    border-bottom: 1px solid black;
+    text-align: left;
+    font-size: 12px;
+}
+
+td.dataTableTD {
+    border: 1px solid black;
+    text-align: left;
+    font-size: 12px;
+}
+
+tr.odd {
+    background-color: #fbfafa;
+}
+
+tr.even {
+    background-color: #e3e2e2;
+}
+
+p.tableTitle {
+    font-size: larger;
+    margin-left: 0em;
+    margin-top: 0em;
+    margin-bottom: 0em;
+}
+
+table.dataTable {
+    position: absolute;
+    /*white-space: nowrap;*/
+    width: 100%;
+    color: #444444;
+    background-color: #e3e2e2;
+    text-align: left;
+    /*font-size: 14px;*/
+    border: 1px solid #c4c4c4;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    box-shadow: 2px 2px 2px #d9d9d9;
+    -moz-box-shadow: 2px 2px 2px #d9d9d9;
+    -webkit-box-shadow: 2px 2px 8px #d9d9d9;
+    padding-left: 0px;
+    user-select: none;
+}
+
+td.trip {
+    background-color: red;
+    color: black;
+}
+
+td.warning {
+    background-color: yellow;
+    color: black;
+}
+
+.overlayimage {
+    position: absolute;
+    left: 3px;
+    top: 50px;
+    white-space: nowrap;
+    /*
+    width:1900px;
+    height:800px;
+    */
+}
+
+.impeller-right {
+    animation-name: impeller-spin-right;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+}
+
+.impeller-left {
+    animation-name: impeller-spin-left;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+}
+
+.rotate_5rpm { animation-duration: 9s; }
+.rotate_10rpm { animation-duration: 4.5s; }
+.rotate_15rpm { animation-duration: 3s; }
+.rotate_20rpm { animation-duration: 2.25s; }
+.rotate_25rpm { animation-duration: 1.8s; }
+.rotate_30rpm { animation-duration: 1.5s; }
+.rotate_35rpm { animation-duration: 1.286s; }
+.rotate_40rpm { animation-duration: 1.125s; }
+.rotate_45rpm { animation-duration: 1.0s; }
+.rotate_50rpm { animation-duration: 0.9s; }
+.rotate_55rpm { animation-duration: 0.8181s; }
+.rotate_60rpm { animation-duration: 0.75s; }
+.rotate_70rpm { animation-duration: 0.6s; }
+
+.stop_rotate {
+    animation-duration: unset;
+}
+
+@keyframes impeller-spin-right {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes impeller-spin-left {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+#≪Battery_System_Commands≫Remote {position: absolute; top: 10px; left: 220px; width: 100px; font-size: 12px;}
+#≪Battery_System_Commands≫Local {position: absolute; top: 10px; left: 220px; width: 100px; font-size: 12px;}
+#≪Battery_System_Commands≫ResetEPO {position: absolute; top: 10px; left: 340px; width: 100px; font-size: 12px;}
+#≪Battery_System_Commands≫EnableSystem {position: absolute; top: 10px; left: 340px; width: 100px; font-size: 12px;}
+#≪Battery_System_Commands≫DisableSystem {position: absolute; top: 10px; left: 340px; width: 100px; font-size: 12px;}
+#≪Battery_System_Commands≫Offline {position: absolute; top: 10px; left: 460px; width: 100px; font-size: 12px;}
+#≪Battery_System_Commands≫Standby {position: absolute; top: 10px; left: 580px; width: 100px; font-size: 12px;}
+#≪Battery_System_Commands≫Float {position: absolute; top: 10px; left: 700px; width: 100px; font-size: 12px;}
+#≪Battery_System_Commands≫Active {position: absolute; top: 10px; left: 820px; width: 100px; font-size: 12px;}
+#≪Battery_System_Commands≫Service {position: absolute; top: 10px; left: 940px; width: 100px; font-size: 12px;}
+#≪Battery_System_Commands≫Clear_Fault {position: absolute; top: 10px; left: 1060px; width: 100px; font-size: 12px;}
+
+#≪Battery_System_Commands≫Molar_Rebal {position: absolute; top: 50px; left: 1420px; width: 100px; font-size: 12px;}
+#≪Battery_System_Commands≫StartBurstWrites {position: absolute; top: 80px; left: 1420px; width: 100px; font-size: 12px;}
+
+
+#≪Module_Commands≫ResetEPO {position: absolute; top: 780px; left: 220px; width: 100px; font-size: 12px; background-color: lightblue;}
+#≪Module_Commands≫EnableSystem {position: absolute; top: 780px; left: 220px; width: 100px; font-size: 12px; background-color: lightblue;}
+#≪Module_Commands≫DisableSystem {position: absolute; top: 780px; left: 220px; width: 100px; font-size: 12px; background-color: lightblue;}
+#≪Module_Commands≫Offline {position: absolute; top: 780px; left: 340px; width: 100px; font-size: 12px; background-color: lightblue;}
+#≪Module_Commands≫Operational {position: absolute; top: 780px; left: 460px; width: 100px; font-size: 12px; background-color: lightblue;}
+#≪Module_Commands≫Clear_Fault {position: absolute; top: 780px; left: 580px; width: 100px; font-size: 12px; background-color: lightblue;}
+#≪Module_Commands≫Exhaust_Off {position: absolute; top: 780px; left: 700px; width: 100px; font-size: 12px; background-color: lightblue;}
+#≪Module_Commands≫Exhaust_On {position: absolute; top: 780px; left: 700px; width: 100px; font-size: 12px; background-color: lightblue;}
+#≪Module_Commands≫Lights_On {position: absolute; top: 780px; left: 820px; width: 100px; font-size: 12px; background-color: lightblue;}
+#≪Module_Commands≫Lights_Off {position: absolute; top: 780px; left: 820px; width: 100px; font-size: 12px; background-color: lightblue;}
+
+#≪N2Pad_Control≫Enable_N2Pad {position: absolute; top: 710px; left: 60px; width: 100px; font-size: 12px; background-color: lightblue;}
+#≪N2Pad_Control≫Disable_N2Pad {position: absolute; top: 710px; left: 60px; width: 100px; font-size: 12px; background-color: lightblue;}
+
+#≪PSAcmd≫Offline {position: absolute; top: 396px; left: 400px; width: 55px; height: 25px; font-size: 11px; background-color: lightblue;}
+#≪PSAcmd≫Standby {position: absolute; top: 396px; left: 460px; width: 55px; height: 25px; font-size: 11px; background-color: lightblue;}
+#≪PSAcmd≫Float {position: absolute; top: 396px; left: 520px; width: 55px; height: 25px; font-size: 11px; background-color: lightblue;}
+#≪PSAcmd≫Active {position: absolute; top: 396px; left: 580px; width: 55px; height: 25px; font-size: 11px; background-color: lightblue;}
+
+#≪PSBcmd≫Offline {position: absolute; top: 396px; left: 860px; width: 55px; height: 25px; font-size: 11px; background-color: lightblue;}
+#≪PSBcmd≫Standby {position: absolute; top: 396px; left: 920px; width: 55px; height: 25px; font-size: 11px; background-color: lightblue;}
+#≪PSBcmd≫Float {position: absolute; top: 396px; left: 980px; width: 55px; height: 25px; font-size: 11px; background-color: lightblue;}
+#≪PSBcmd≫Active {position: absolute; top: 396px; left: 1040px; width: 55px; height: 25px; font-size: 11px; background-color: lightblue;}
+
+#≪Battery_Status≫Local_Mode {position: absolute; top: 10px; left: 20px;}
+#≪Battery_Status≫System_Mode {position: absolute; top: 30px; left: 20px;} #≪Battery_Status≫System_Mode_value { width: 95px; }
+#≪Battery_Status≫sub-state {position: absolute; top: 50px; left: 20px;} #≪Battery_Status≫sub-state_value { width: 95px; }
+#≪Battery_Status≫EPO_State {position: absolute; top: 70px; left: 20px;}
+#≪Battery_Status≫SysFaultLvl {position: absolute; top: 90px; left: 20px;}
+
+#≪Battery_Status≫Container_State {position: absolute; top: 140px; left: 20px;} #≪Battery_Status≫Container_State_value { width: 95px; }
+#≪Battery_Status≫ContainerEPO_State {position: absolute; top: 160px; left: 20px;}
+#≪Battery_Status≫ContainerFaultLvl {position: absolute; top: 180px; left: 20px;}
+#≪Battery_Status≫Fault_Op_Mode {position: absolute; top: 200px; left: 20px;}
+#≪EPO_Control≫EPO_Mushroom_Set {position: absolute; top: 240px; left: 20px;}
+#≪EPO_Control≫External_Stop_Active {position: absolute; top: 260px; left: 20px;}
+
+
+#≪EPO_Control≫Cont_EnableEpo {position: absolute; top: 60px; left: 20px;} #≪EPO_Control≫Cont_EnableEpo_value {--format:'';}
+#≪EPO_Control≫Door_Bypass {position: absolute; top: 335px; left: 20px;} #≪EPO_Control≫Door_Bypass_value {top: 20px; left: 0px; --format:'';}
+#≪EPO_Control≫ZS301A_Switch_Door_Side_A {position: absolute; top: 375px; left: 20px;} #≪EPO_Control≫ZS301A_Switch_Door_Side_A_value {top: 20px; left: 0px; --format:'';}
+#≪EPO_Control≫ZS301B_Switch_Door_Side_B {position: absolute; top: 425px; left: 1470px;} #≪EPO_Control≫ZS301B_Switch_Door_Side_B_value {top: 20px; left: 0px; --format:'';}
+#≪EPO_Control≫LS317A_Switch_Leak_Stack_Container_Side_A {position: absolute; top: 415px; left: 320px; font-size:x-small;} #≪EPO_Control≫LS317A_Switch_Leak_Stack_Container_Side_A_value {top: 20px; left: 0px; width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪EPO_Control≫LS317B_Switch_Leak_Stack_Container_Side_B {position: absolute; top: 415px; left: 1120px;} #≪EPO_Control≫LS317B_Switch_Leak_Stack_Container_Side_B_value {top: 20px; left: 0px; width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪EPO_Control≫LS318_Switch_Leak_Stack_Container_Ref_Cell {position: absolute; top: 445px; left: 700px; font-size:x-small;} #≪EPO_Control≫LS318_Switch_Leak_Stack_Container_Ref_Cell_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪EPO_Control≫LS401_Switch_Leak_Stack_Container_PAD {position: absolute; top: 455px; left: 10px; font-size:x-small;} #≪EPO_Control≫LS401_Switch_Leak_Stack_Container_PAD_value {top: 20px; left: 0px; --format:'';}
+#≪EPO_Control≫PS403_Switch_PAD_Over_Pressure {position: absolute; top: 455px; left: 75px; font-size:x-small;} #≪EPO_Control≫PS403_Switch_PAD_Over_Pressure_value {top: 20px; left: 0px; --format:'';}
+
+#≪Anolyte_Tank_1≫CV101_Supply {position: absolute; top: 139px; left:  100px;} #≪Anolyte_Tank_1≫CV101_Supply_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_1≫CV101_Supply_value {--format:'';} #≪Anolyte_Tank_1≫CV101_Supply_cmd {position:absolute; top:18px;}
+#≪Anolyte_Tank_1≫CV111_Return {position: absolute; top: 139px; left:  200px;} #≪Anolyte_Tank_1≫CV111_Return_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_1≫CV111_Return_value {--format:'';} #≪Anolyte_Tank_1≫CV111_Return_cmd {position:absolute; top:18px;}
+#≪Anolyte_Tank_2≫CV102_Supply {position: absolute; top: 139px; left:  487px;} #≪Anolyte_Tank_2≫CV102_Supply_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_2≫CV102_Supply_value {--format:'';} #≪Anolyte_Tank_2≫CV102_Supply_cmd {position:absolute; top:18px;}
+#≪Anolyte_Tank_2≫CV112_Return {position: absolute; top: 139px; left:  528px;} #≪Anolyte_Tank_2≫CV112_Return_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_2≫CV112_Return_value {--format:'';} #≪Anolyte_Tank_2≫CV112_Return_cmd {position:absolute; top:18px;}
+#≪Anolyte_Tank_3≫CV103_Supply {position: absolute; top: 139px; left:  715px;} #≪Anolyte_Tank_3≫CV103_Supply_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_3≫CV103_Supply_value {--format:'';} #≪Anolyte_Tank_3≫CV103_Supply_cmd {position:absolute; top:18px;}
+#≪Anolyte_Tank_3≫CV113_Return {position: absolute; top: 139px; left:  755px;} #≪Anolyte_Tank_3≫CV113_Return_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_3≫CV113_Return_value {--format:'';} #≪Anolyte_Tank_3≫CV113_Return_cmd {position:absolute; top:18px;}
+#≪Anolyte_Tank_4≫CV104_Supply {position: absolute; top: 139px; left: 942px;} #≪Anolyte_Tank_4≫CV104_Supply_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_4≫CV104_Supply_value {--format:'';} #≪Anolyte_Tank_4≫CV104_Supply_cmd {position:absolute; top:18px;}
+#≪Anolyte_Tank_4≫CV114_Return {position: absolute; top: 139px; left: 984px;} #≪Anolyte_Tank_4≫CV114_Return_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_4≫CV114_Return_value {--format:'';} #≪Anolyte_Tank_4≫CV114_Return_cmd {position:absolute; top:18px;}
+#≪Anolyte_Tank_5≫CV105_Supply {position: absolute; top: 139px; left: 1400px;} #≪Anolyte_Tank_5≫CV105_Supply_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_5≫CV105_Supply_value {--format:'';} #≪Anolyte_Tank_5≫CV105_Supply_cmd {position:absolute; top:18px;}
+#≪Anolyte_Tank_5≫CV115_Return {position: absolute; top: 139px; left: 1500px;} #≪Anolyte_Tank_5≫CV115_Return_label {margin-top:-28px; height: 24px; background-color: lightyellow; border: solid royalblue 1pt;} #≪Anolyte_Tank_5≫CV115_Return_value {--format:'';} #≪Anolyte_Tank_5≫CV115_Return_cmd {position:absolute; top:18px;}
+
+#≪Catholyte_Tank_1≫CV211_Return {position: absolute; top: 646px; left:  150px;} #≪Catholyte_Tank_1≫CV211_Return_value {--format:'';} #≪Catholyte_Tank_1≫CV211_Return_cmd {position:absolute; top:18px;}
+#≪Catholyte_Tank_1≫CV201_Supply {position: absolute; top: 646px; left:  190px;} #≪Catholyte_Tank_1≫CV201_Supply_value {--format:'';} #≪Catholyte_Tank_1≫CV201_Supply_cmd {position:absolute; top:18px;}
+#≪Catholyte_Tank_2≫CV212_Return {position: absolute; top: 646px; left:  491px;} #≪Catholyte_Tank_2≫CV212_Return_value {--format:'';} #≪Catholyte_Tank_2≫CV212_Return_cmd {position:absolute; top:18px;}
+#≪Catholyte_Tank_2≫CV202_Supply {position: absolute; top: 646px; left:  532px;} #≪Catholyte_Tank_2≫CV202_Supply_value {--format:'';} #≪Catholyte_Tank_2≫CV202_Supply_cmd {position:absolute; top:18px;}
+#≪Catholyte_Tank_3≫CV213_Return {position: absolute; top: 646px; left:  709px;} #≪Catholyte_Tank_3≫CV213_Return_value {--format:'';} #≪Catholyte_Tank_3≫CV213_Return_cmd {position:absolute; top:18px;}
+#≪Catholyte_Tank_3≫CV203_Supply {position: absolute; top: 646px; left:  752px;} #≪Catholyte_Tank_3≫CV203_Supply_value {--format:'';} #≪Catholyte_Tank_3≫CV203_Supply_cmd {position:absolute; top:18px;}
+#≪Catholyte_Tank_4≫CV214_Return {position: absolute; top: 646px; left: 952px;} #≪Catholyte_Tank_4≫CV214_Return_value {--format:'';} #≪Catholyte_Tank_4≫CV214_Return_cmd {position:absolute; top:18px;}
+#≪Catholyte_Tank_4≫CV204_Supply {position: absolute; top: 646px; left: 993px;} #≪Catholyte_Tank_4≫CV204_Supply_value {--format:'';} #≪Catholyte_Tank_4≫CV204_Supply_cmd {position:absolute; top:18px;}
+#≪Catholyte_Tank_5≫CV215_Return {position: absolute; top: 646px; left: 1500px;} #≪Catholyte_Tank_5≫CV215_Return_value {--format:'';} #≪Catholyte_Tank_5≫CV215_Return_cmd {position:absolute; top:18px;}
+#≪Catholyte_Tank_5≫CV205_Supply {position: absolute; top: 646px; left: 1400px;} #≪Catholyte_Tank_5≫CV205_Supply_value {--format:'';} #≪Catholyte_Tank_5≫CV205_Supply_cmd {position:absolute; top:18px;}
+
+
+#≪Anolyte_Tank_1≫AnolyteVolume_Tank1 {position: absolute; top: 60px; left:  225px;}
+#≪Anolyte_Tank_2≫AnolyteVolume_Tank2 {position: absolute; top: 60px; left:  460px;}
+#≪Anolyte_Tank_3≫AnolyteVolume_Tank3 {position: absolute; top: 60px; left:  680px;}
+#≪Anolyte_Tank_4≫AnolyteVolume_Tank4 {position: absolute; top: 60px; left:  915px;}
+#≪Anolyte_Tank_5≫AnolyteVolume_Tank5 {position: absolute; top: 60px; left: 1105px;}
+
+#≪Anolyte_Tank_1≫LT101_Depth_Transducer {position: absolute; top: 65px; left:  305px;} #≪Anolyte_Tank_1≫LT101_Depth_Transducer_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Anolyte_Tank_2≫LT102_Depth_Transducer {position: absolute; top: 65px; left:  535px;} #≪Anolyte_Tank_2≫LT102_Depth_Transducer_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Anolyte_Tank_3≫LT103_Depth_Transducer {position: absolute; top: 65px; left:  755px;} #≪Anolyte_Tank_3≫LT103_Depth_Transducer_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Anolyte_Tank_4≫LT104_Depth_Transducer {position: absolute; top: 65px; left:  995px;} #≪Anolyte_Tank_4≫LT104_Depth_Transducer_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Anolyte_Tank_5≫LT105_Depth_Transducer {position: absolute; top: 65px; left: 1195px;} #≪Anolyte_Tank_5≫LT105_Depth_Transducer_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+
+#≪Anolyte_Tank_1≫LS101_Overfill_Switch {position: absolute; top: 110px; left:  190px;}
+#≪Anolyte_Tank_2≫LS102_Overfill_Switch {position: absolute; top: 110px; left:  415px;}
+#≪Anolyte_Tank_3≫LS103_Overfill_Switch {position: absolute; top: 110px; left:  640px;}
+#≪Anolyte_Tank_4≫LS104_Overfill_Switch {position: absolute; top: 110px; left:  865px;}
+#≪Anolyte_Tank_5≫LS105_Overfill_Switch {position: absolute; top: 110px; left: 1090px;}
+
+#≪Anolyte_Tank_1≫CT101_Leak_Sensor {position: absolute; top: 93px; left:  305px;} #≪Anolyte_Tank_1≫CT101_Leak_Sensor_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Anolyte_Tank_2≫CT102_Leak_Sensor {position: absolute; top: 93px; left:  535px;} #≪Anolyte_Tank_2≫CT102_Leak_Sensor_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Anolyte_Tank_3≫CT103_Leak_Sensor {position: absolute; top: 93px; left:  755px;} #≪Anolyte_Tank_3≫CT103_Leak_Sensor_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Anolyte_Tank_4≫CT104_Leak_Sensor {position: absolute; top: 93px; left: 995px;} #≪Anolyte_Tank_4≫CT104_Leak_Sensor_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Anolyte_Tank_5≫CT105_Leak_Sensor {position: absolute; top: 93px; left: 1195px;} #≪Anolyte_Tank_5≫CT105_Leak_Sensor_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+
+#≪Catholyte_Tank_1≫CatholyteVolume_Tank1 {position: absolute; top: 710px; left: 225px;}
+#≪Catholyte_Tank_2≫CatholyteVolume_Tank2 {position: absolute; top: 710px; left: 460px;}
+#≪Catholyte_Tank_3≫CatholyteVolume_Tank3 {position: absolute; top: 710px; left: 680px;}
+#≪Catholyte_Tank_4≫CatholyteVolume_Tank4 {position: absolute; top: 710px; left: 915px;}
+#≪Catholyte_Tank_5≫CatholyteVolume_Tank5 {position: absolute; top: 710px; left: 1105px;}
+
+#≪Catholyte_Tank_1≫LT201_Depth_Transducer {position: absolute; top: 715px; left: 305px;} #≪Catholyte_Tank_1≫LT201_Depth_Transducer_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Catholyte_Tank_2≫LT202_Depth_Transducer {position: absolute; top: 715px; left: 535px;} #≪Catholyte_Tank_2≫LT202_Depth_Transducer_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Catholyte_Tank_3≫LT203_Depth_Transducer {position: absolute; top: 715px; left: 755px;} #≪Catholyte_Tank_3≫LT203_Depth_Transducer_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Catholyte_Tank_4≫LT204_Depth_Transducer {position: absolute; top: 715px; left: 995px;} #≪Catholyte_Tank_4≫LT204_Depth_Transducer_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Catholyte_Tank_5≫LT205_Depth_Transducer {position: absolute; top: 715px; left: 1195px;} #≪Catholyte_Tank_5≫LT205_Depth_Transducer_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+
+#≪Catholyte_Tank_1≫LS201_Overfill_Switch {position: absolute; top: 645px; left: 190px;}
+#≪Catholyte_Tank_2≫LS202_Overfill_Switch {position: absolute; top: 645px; left: 415px;}
+#≪Catholyte_Tank_3≫LS203_Overfill_Switch {position: absolute; top: 645px; left: 640px;}
+#≪Catholyte_Tank_4≫LS204_Overfill_Switch {position: absolute; top: 645px; left: 865px;}
+#≪Catholyte_Tank_5≫LS205_Overfill_Switch {position: absolute; top: 645px; left: 1090px;}
+
+#≪Catholyte_Tank_1≫CT201_Leak_Sensor {position: absolute; top: 745px; left:  305px;} #≪Catholyte_Tank_1≫CT201_Leak_Sensor_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Catholyte_Tank_2≫CT202_Leak_Sensor {position: absolute; top: 745px; left:  535px;} #≪Catholyte_Tank_2≫CT202_Leak_Sensor_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Catholyte_Tank_3≫CT203_Leak_Sensor {position: absolute; top: 745px; left:  755px;} #≪Catholyte_Tank_3≫CT203_Leak_Sensor_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Catholyte_Tank_4≫CT204_Leak_Sensor {position: absolute; top: 745px; left: 995px;} #≪Catholyte_Tank_4≫CT204_Leak_Sensor_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+#≪Catholyte_Tank_5≫CT205_Leak_Sensor {position: absolute; top: 745px; left: 1195px;} #≪Catholyte_Tank_5≫CT205_Leak_Sensor_value {width:55px; height: 12px; font-size:x-small; --format:'';}
+
+
+#≪SSA≫Stack_Discharger {position: absolute; top: 210px; left: 255px;} #≪SSA≫Stack_Discharger_value {width:80px;}
+#≪SSA≫String_Voltage {position: absolute; top: 210px; left: 360px;}
+#≪SSA≫String_Current {position: absolute; top: 210px; left: 430px;}
+#≪SSA≫String_Power {position: absolute; top: 210px; left: 500px;}
+#≪SSA≫Rung_1_Voltage {position: absolute; top: 245px; left: 465px;} #≪SSA≫Rung_1_Voltage_value {height: 12px; font-size:x-small;}
+#≪SSA≫Rung_1_Current {position: absolute; top: 245px; left: 530px;} #≪SSA≫Rung_1_Current_value {height: 12px; font-size:x-small;}
+#≪SSA≫R1_State {position: absolute; top: 385px; left: 290px;} #≪SSA≫R1_State_value {width:70px; height: 12px; font-size:x-small;}
+#≪SSA≫LoadDump_Temp_A1 {position: absolute; top: 378px; left: 222px;} #≪SSA≫LoadDump_Temp_A1_value {height: 12px; width: 40px; font-size:x-small;}
+#≪SSA≫Rung_2_Voltage {position: absolute; top: 447px; left: 465px;} #≪SSA≫Rung_2_Voltage_value {height: 12px; font-size:x-small;}
+#≪SSA≫Rung_2_Current {position: absolute; top: 447px; left: 530px;} #≪SSA≫Rung_2_Current_value {height: 12px; font-size:x-small;}
+#≪SSA≫R2_State {position: absolute; top: 582px; left: 290px;} #≪SSA≫R2_State_value {width:70px; height: 12px; font-size:x-small;}
+#≪SSA≫LoadDump_Temp_A2 {position: absolute; top: 579px; left: 222px;} #≪SSA≫LoadDump_Temp_A2_value {height: 12px; width: 40px; font-size:x-small;}
+
+#≪SSB≫Stack_Discharger {position: absolute; top: 210px; left: 940px;} #≪SSB≫Stack_Discharger_value {width:80px;}
+#≪SSB≫String_Voltage {position: absolute; top: 210px; left: 1045px;}
+#≪SSB≫String_Current {position: absolute; top: 210px; left: 1115px;}
+#≪SSB≫String_Power {position: absolute; top: 210px; left: 1185px;}
+#≪SSB≫Rung_1_Voltage {position: absolute; top: 245px; left: 915px;} #≪SSB≫Rung_1_Voltage_value {height: 12px; font-size:x-small;}
+#≪SSB≫Rung_1_Current {position: absolute; top: 245px; left: 980px;} #≪SSB≫Rung_1_Current_value {height: 12px; font-size:x-small;}
+#≪SSB≫R1_State {position: absolute; top: 385px; left: 1135px;} #≪SSB≫R1_State_value {width:70px; height: 12px; font-size:x-small;}
+#≪SSB≫LoadDump_Temp_B1 {position: absolute; top: 378px; left: 1232px;} #≪SSB≫LoadDump_Temp_B1_value {height: 12px; width: 40px; font-size:x-small;}
+#≪SSB≫LoadDump_Temp_B2 {position: absolute; top: 579px; left: 1232px;} #≪SSB≫LoadDump_Temp_B2_value {height: 12px; width: 40px; font-size:x-small;}
+#≪SSB≫Rung_2_Voltage {position: absolute; top: 447px; left: 915px;} #≪SSB≫Rung_2_Voltage_value {height: 12px; font-size:x-small;}
+#≪SSB≫Rung_2_Current {position: absolute; top: 447px; left: 980px;} #≪SSB≫Rung_2_Current_value {height: 12px; font-size:x-small;}
+#≪SSB≫R2_State {position: absolute; top: 582px; left: 1135px;} #≪SSB≫R2_State_value {width:70px; height: 12px; font-size:x-small;}
+
+#≪VFD101A_Anolyte_Pump≫VFD101A_Anolyte_Pump {position: absolute; top: 212px; left: 679px; width: 50px; height: 50px;}
+#≪VFD101A_Anolyte_Pump≫Actual_Speed {position: absolute; top: 210px; left: 615px;} #≪VFD101A_Anolyte_Pump≫Actual_Speed_value {--format:'';}
+#≪PSA_Anolyte_Data≫TT111A_Pump_Discharge_An {position: absolute; top: 265px; left: 670px;} #≪PSA_Anolyte_Data≫TT111A_Pump_Discharge_An_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSA_Anolyte_Data≫PT101A_Pump_Discharge_An {position: absolute; top: 285px; left: 670px;} #≪PSA_Anolyte_Data≫PT101A_Pump_Discharge_An_value {width:65px; --format:'';}
+#≪PSA_Anolyte_Data≫Flow {position: absolute; top: 305px; left: 665px;} #≪PSA_Anolyte_Data≫Flow_value {width:75px; --format:'';}
+
+#≪VFD101B_Anolyte_Pump≫VFD101B_Anolyte_Pump {position: absolute; top: 212px; left: 772px; width: 50px; height: 50px;}
+#≪VFD101B_Anolyte_Pump≫Actual_Speed {position: absolute; top: 210px; left: 825px;} #≪VFD101B_Anolyte_Pump≫Actual_Speed_value {--format:'';}
+#≪PSB_Anolyte_Data≫TT111B_Pump_Discharge_An {position: absolute; top: 265px; left: 780px;} #≪PSB_Anolyte_Data≫TT111B_Pump_Discharge_An_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSB_Anolyte_Data≫PT101B_Pump_Discharge_An {position: absolute; top: 285px; left: 760px;} #≪PSB_Anolyte_Data≫PT101B_Pump_Discharge_An_value {width:65px; --format:'';}
+#≪PSB_Anolyte_Data≫Flow {position: absolute; top: 305px; left: 755px;} #≪PSB_Anolyte_Data≫Flow_value {width:75px; --format:'';}
+
+#≪PSA_Catholyte_Data≫Flow {position: absolute; top: 495px; left: 665px;} #≪PSA_Catholyte_Data≫Flow_value {width:75px; --format:'';}
+#≪PSA_Catholyte_Data≫PT201A_Pump_Discharge_Ca {position: absolute; top: 515px; left: 670px;} #≪PSA_Catholyte_Data≫PT201A_Pump_Discharge_Ca_value {width:65px; --format:'';}
+#≪PSA_Catholyte_Data≫TT211A_Pump_Discharge_Ca {position: absolute; top: 540px; left: 670px;} #≪PSA_Catholyte_Data≫TT211A_Pump_Discharge_Ca_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪VFD201A_Catholyte_Pump≫Actual_Speed {position: absolute; top: 590px; left: 615px;} #≪VFD201A_Catholyte_Pump≫Actual_Speed_value {--format:'';}
+#≪VFD201A_Catholyte_Pump≫VFD201A_Catholyte_Pump {position: absolute; top: 558px; left: 679px; width: 50px; height: 50px;}
+
+#≪PSB_Catholyte_Data≫Flow {position: absolute; top: 495px; left: 755px;} #≪PSB_Catholyte_Data≫Flow_value {width:75px; --format:'';}
+#≪PSB_Catholyte_Data≫PT201B_Pump_Discharge_Ca {position: absolute; top: 515px; left: 760px;} #≪PSB_Catholyte_Data≫PT201B_Pump_Discharge_Ca_value {width:65px; --format:'';}
+#≪PSB_Catholyte_Data≫TT211B_Pump_Discharge_Ca {position: absolute; top: 540px; left: 780px;} #≪PSB_Catholyte_Data≫TT211B_Pump_Discharge_Ca_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪VFD201B_Catholyte_Pump≫Actual_Speed {position: absolute; top: 590px; left: 825px;} #≪VFD201B_Catholyte_Pump≫Actual_Speed_value {--format:'';}
+#≪VFD201B_Catholyte_Pump≫VFD201B_Catholyte_Pump {position: absolute; top: 558px; left: 772px; width: 50px; height: 50px;}
+
+
+
+#≪PSA_Anolyte_Data≫FT101A_An_Rung2_Pos {position: absolute; top: 550px; left: 600px} #≪PSA_Anolyte_Data≫FT101A_An_Rung2_Pos_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSA_Anolyte_Data≫FT102A_An_Rung2_Neg {position: absolute; top: 550px; left: 150px} #≪PSA_Anolyte_Data≫FT102A_An_Rung2_Neg_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSA_Catholyte_Data≫FT201A_Ca_Rung2_Pos {position: absolute; top: 485px; left: 600px} #≪PSA_Catholyte_Data≫FT201A_Ca_Rung2_Pos_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSA_Catholyte_Data≫FT202A_Ca_Rung2_Neg {position: absolute; top: 485px; left: 150px} #≪PSA_Catholyte_Data≫FT202A_Ca_Rung2_Neg_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+
+#≪PSA_Anolyte_Data≫FT103A_An_Rung1_Pos {position: absolute; top: 350px; left: 600px} #≪PSA_Anolyte_Data≫FT103A_An_Rung1_Pos_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSA_Anolyte_Data≫FT104A_An_Rung1_Neg {position: absolute; top: 350px; left: 150px} #≪PSA_Anolyte_Data≫FT104A_An_Rung1_Neg_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSA_Catholyte_Data≫FT203A_Ca_Rung1_Pos {position: absolute; top: 285px; left: 600px} #≪PSA_Catholyte_Data≫FT203A_Ca_Rung1_Pos_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSA_Catholyte_Data≫FT204A_Ca_Rung1_Neg {position: absolute; top: 285px; left: 150px} #≪PSA_Catholyte_Data≫FT204A_Ca_Rung1_Neg_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+
+#≪PSB_Anolyte_Data≫FT102B_An_Rung1_Pos {position: absolute; top: 550px; left: 845px} #≪PSB_Anolyte_Data≫FT102B_An_Rung1_Pos_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSB_Anolyte_Data≫FT101B_An_Rung1_Neg {position: absolute; top: 550px; left: 1300px} #≪PSB_Anolyte_Data≫FT101B_An_Rung1_Neg_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSB_Catholyte_Data≫FT202B_Ca_Rung1_Pos {position: absolute; top: 485px; left: 845px} #≪PSB_Catholyte_Data≫FT202B_Ca_Rung1_Pos_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSB_Catholyte_Data≫FT201B_Ca_Rung1_Neg {position: absolute; top: 485px; left: 1300px} #≪PSB_Catholyte_Data≫FT201B_Ca_Rung1_Neg_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+
+#≪PSB_Anolyte_Data≫FT104B_An_Rung2_Pos {position: absolute; top: 350px; left: 845px} #≪PSB_Anolyte_Data≫FT104B_An_Rung2_Pos_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSB_Anolyte_Data≫FT103B_An_Rung2_Neg {position: absolute; top: 350px; left: 1300px} #≪PSB_Anolyte_Data≫FT103B_An_Rung2_Neg_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSB_Catholyte_Data≫FT204B_Ca_Rung2_Pos {position: absolute; top: 285px; left: 845px} #≪PSB_Catholyte_Data≫FT204B_Ca_Rung2_Pos_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+#≪PSB_Catholyte_Data≫FT203B_Ca_Rung2_Neg {position: absolute; top: 285px; left: 1300px} #≪PSB_Catholyte_Data≫FT203B_Ca_Rung2_Neg_value {width:45px; height: 12px; font-size:x-small; --format:'';}
+
+
+
+#≪scu-a1_Stack_1≫A1-1_Batt_Voltage {position: absolute; top: 305px; left: 530px;} #≪scu-a1_Stack_1≫A1-1_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a1_Stack_1≫A1-1_Batt_Current {position: absolute; top: 325px; left: 530px;} #≪scu-a1_Stack_1≫A1-1_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a1_Stack_2≫A1-2_Batt_Voltage {position: absolute; top: 305px; left: 425px;} #≪scu-a1_Stack_2≫A1-2_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a1_Stack_2≫A1-2_Batt_Current {position: absolute; top: 325px; left: 425px;} #≪scu-a1_Stack_2≫A1-2_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a1_Stack_3≫A1-3_Batt_Voltage {position: absolute; top: 305px; left: 322px;} #≪scu-a1_Stack_3≫A1-3_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a1_Stack_3≫A1-3_Batt_Current {position: absolute; top: 325px; left: 322px;} #≪scu-a1_Stack_3≫A1-3_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a1_Stack_4≫A1-4_Batt_Voltage {position: absolute; top: 305px; left: 219px;} #≪scu-a1_Stack_4≫A1-4_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a1_Stack_4≫A1-4_Batt_Current {position: absolute; top: 325px; left: 219px;} #≪scu-a1_Stack_4≫A1-4_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+
+#≪scu-a2_Stack_1≫A2-1_Batt_Voltage {position: absolute; top: 505px; left: 530px;} #≪scu-a2_Stack_1≫A2-1_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a2_Stack_1≫A2-1_Batt_Current {position: absolute; top: 525px; left: 530px;} #≪scu-a2_Stack_1≫A2-1_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a2_Stack_2≫A2-2_Batt_Voltage {position: absolute; top: 505px; left: 425px;} #≪scu-a2_Stack_2≫A2-2_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a2_Stack_2≫A2-2_Batt_Current {position: absolute; top: 525px; left: 425px;} #≪scu-a2_Stack_2≫A2-2_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a2_Stack_3≫A2-3_Batt_Voltage {position: absolute; top: 505px; left: 322px;} #≪scu-a2_Stack_3≫A2-3_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a2_Stack_3≫A2-3_Batt_Current {position: absolute; top: 525px; left: 322px;} #≪scu-a2_Stack_3≫A2-3_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a2_Stack_4≫A2-4_Batt_Voltage {position: absolute; top: 505px; left: 219px;} #≪scu-a2_Stack_4≫A2-4_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-a2_Stack_4≫A2-4_Batt_Current {position: absolute; top: 525px; left: 219px;} #≪scu-a2_Stack_4≫A2-4_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+
+#≪scu-b2_Stack_1≫B2-1_Batt_Voltage {position: absolute; top: 305px; left: 916px;} #≪scu-b2_Stack_1≫B2-1_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b2_Stack_1≫B2-1_Batt_Current {position: absolute; top: 325px; left: 916px;} #≪scu-b2_Stack_1≫B2-1_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b2_Stack_2≫B2-2_Batt_Voltage {position: absolute; top: 305px; left: 1020px;} #≪scu-b2_Stack_2≫B2-2_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b2_Stack_2≫B2-2_Batt_Current {position: absolute; top: 325px; left: 1020px;} #≪scu-b2_Stack_2≫B2-2_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b2_Stack_3≫B2-3_Batt_Voltage {position: absolute; top: 305px; left: 1125px;} #≪scu-b2_Stack_3≫B2-3_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b2_Stack_3≫B2-3_Batt_Current {position: absolute; top: 325px; left: 1125px;} #≪scu-b2_Stack_3≫B2-3_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b2_Stack_4≫B2-4_Batt_Voltage {position: absolute; top: 305px; left: 1229px;} #≪scu-b2_Stack_4≫B2-4_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b2_Stack_4≫B2-4_Batt_Current {position: absolute; top: 325px; left: 1229px;} #≪scu-b2_Stack_4≫B2-4_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+
+#≪scu-b1_Stack_1≫B1-1_Batt_Voltage {position: absolute; top: 505px; left: 916px;} #≪scu-b1_Stack_1≫B1-1_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b1_Stack_1≫B1-1_Batt_Current {position: absolute; top: 525px; left: 916px;} #≪scu-b1_Stack_1≫B1-1_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b1_Stack_2≫B1-2_Batt_Voltage {position: absolute; top: 505px; left: 1020px;} #≪scu-b1_Stack_2≫B1-2_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b1_Stack_2≫B1-2_Batt_Current {position: absolute; top: 525px; left: 1020px;} #≪scu-b1_Stack_2≫B1-2_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b1_Stack_3≫B1-3_Batt_Voltage {position: absolute; top: 505px; left: 1125px;} #≪scu-b1_Stack_3≫B1-3_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b1_Stack_3≫B1-3_Batt_Current {position: absolute; top: 525px; left: 1125px;} #≪scu-b1_Stack_3≫B1-3_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b1_Stack_4≫B1-4_Batt_Voltage {position: absolute; top: 505px; left: 1229px;} #≪scu-b1_Stack_4≫B1-4_Batt_Voltage_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+#≪scu-b1_Stack_4≫B1-4_Batt_Current {position: absolute; top: 525px; left: 1229px;} #≪scu-b1_Stack_4≫B1-4_Batt_Current_value {width:45px; height: 14px; font-size:x-small; --format:'';}
+
+
+#≪scu-a1_Stack_1≫A1-1_Bus_Contact_Close {position: absolute; top: 265px; left: 580px;}
+#≪scu-a1_Stack_1≫A1-1_Discharge_Contact_Close {position: absolute; top: 352px; left: 580px;}
+#≪scu-a1_Stack_2≫A1-2_Bus_Contact_Close {position: absolute; top: 265px; left: 477px;}
+#≪scu-a1_Stack_2≫A1-2_Discharge_Contact_Close {position: absolute; top: 352px; left: 477px;}
+#≪scu-a1_Stack_3≫A1-3_Bus_Contact_Close {position: absolute; top: 265px; left: 374px;}
+#≪scu-a1_Stack_3≫A1-3_Discharge_Contact_Close {position: absolute; top: 352px; left: 374px;}
+#≪scu-a1_Stack_4≫A1-4_Bus_Contact_Close {position: absolute; top: 265px; left: 272px;}
+#≪scu-a1_Stack_4≫A1-4_Discharge_Contact_Close {position: absolute; top: 352px; left: 272px;}
+
+#≪scu-a2_Stack_1≫A2-1_Discharge_Contact_Close {position: absolute; top: 553px; left: 580px;}
+#≪scu-a2_Stack_1≫A2-1_Bus_Contact_Close {position: absolute; top: 465px; left: 580px;}
+#≪scu-a2_Stack_2≫A2-2_Discharge_Contact_Close {position: absolute; top: 553px; left: 477px;}
+#≪scu-a2_Stack_2≫A2-2_Bus_Contact_Close {position: absolute; top: 465px; left: 477px;}
+#≪scu-a2_Stack_3≫A2-3_Discharge_Contact_Close {position: absolute; top: 553px; left: 374px;}
+#≪scu-a2_Stack_3≫A2-3_Bus_Contact_Close {position: absolute; top: 465px; left: 374px;}
+#≪scu-a2_Stack_4≫A2-4_Discharge_Contact_Close {position: absolute; top: 553px; left: 272px;}
+#≪scu-a2_Stack_4≫A2-4_Bus_Contact_Close {position: absolute; top: 465px; left: 272px;}
+
+#≪scu-b2_Stack_1≫B2-1_Bus_Contact_Close {position: absolute; top: 265px; left: 899px;}
+#≪scu-b2_Stack_1≫B2-1_Discharge_Contact_Close {position: absolute; top: 352px; left: 899px;}
+#≪scu-b2_Stack_2≫B2-2_Bus_Contact_Close {position: absolute; top: 265px; left: 1001px;}
+#≪scu-b2_Stack_2≫B2-2_Discharge_Contact_Close {position: absolute; top: 352px; left: 1001px;}
+#≪scu-b2_Stack_3≫B2-3_Bus_Contact_Close {position: absolute; top: 265px; left: 1104px;}
+#≪scu-b2_Stack_3≫B2-3_Discharge_Contact_Close {position: absolute; top: 352px; left: 1104px;}
+#≪scu-b2_Stack_4≫B2-4_Bus_Contact_Close {position: absolute; top: 265px; left: 1206px;}
+#≪scu-b2_Stack_4≫B2-4_Discharge_Contact_Close {position: absolute; top: 352px; left: 1206px;}
+
+#≪scu-b1_Stack_1≫B1-1_Discharge_Contact_Close {position: absolute; top: 553px; left: 899px;}
+#≪scu-b1_Stack_1≫B1-1_Bus_Contact_Close {position: absolute; top: 465px; left: 899px;}
+#≪scu-b1_Stack_2≫B1-2_Discharge_Contact_Close {position: absolute; top: 553px; left: 1001px;}
+#≪scu-b1_Stack_2≫B1-2_Bus_Contact_Close {position: absolute; top: 465px; left: 1001px;}
+#≪scu-b1_Stack_3≫B1-3_Discharge_Contact_Close {position: absolute; top: 553px; left: 1104px;}
+#≪scu-b1_Stack_3≫B1-3_Bus_Contact_Close {position: absolute; top: 465px; left: 1104px;}
+#≪scu-b1_Stack_4≫B1-4_Discharge_Contact_Close {position: absolute; top: 553px; left: 1206px;}
+#≪scu-b1_Stack_4≫B1-4_Bus_Contact_Close {position: absolute; top: 465px; left: 1206px;}
+
+#≪scu-a1≫A1_Bus_Contactors_enable {position: absolute; top: 220px; left: 560px; width:100px; height: 16px;} #≪scu-a1≫A1_Bus_Contactors_enable_value {width:100px; height: 16px; --format:'';}
+#≪scu-a1≫A1_Discharge_Contactors_enable {position: absolute; top: 395px; left: 560px; width:100px; height: 16px;} #≪scu-a1≫A1_Discharge_Contactors_enable_value {width:100px; height: 16px; --format:'';}
+#≪scu-a2≫A2_Bus_Contactors_enable {position: absolute; top: 415px; left: 560px; width:100px; height: 16px;} #≪scu-a2≫A2_Bus_Contactors_enable_value {width:100px; height: 16px; --format:'';}
+#≪scu-a2≫A2_Discharge_Contactors_enable {position: absolute; top: 605px; left: 560px; width:100px; height: 16px;} #≪scu-a2≫A2_Discharge_Contactors_enable_value {width:100px; height: 16px; --format:'';}
+#≪scu-b1≫B1_Bus_Contactors_enable {position: absolute; top: 415px; left: 880px; width:100px; height: 16px;} #≪scu-b1≫B1_Bus_Contactors_enable_value {width:100px; height: 16px; --format:'';}
+#≪scu-b1≫B1_Discharge_Contactors_enable {position: absolute; top: 605px; left: 880px; width:100px; height: 16px;} #≪scu-b1≫B1_Discharge_Contactors_enable_value {width:100px; height: 16px; --format:'';}
+#≪scu-b2≫B2_Bus_Contactors_enable {position: absolute; top: 220px; left: 880px; width:100px; height: 16px;} #≪scu-b2≫B2_Bus_Contactors_enable_value {width:100px; height: 16px; --format:'';}
+#≪scu-b2≫B2_Discharge_Contactors_enable {position: absolute; top: 395px; left: 880px; width:100px; height: 16px;} #≪scu-b2≫B2_Discharge_Contactors_enable_value {width:100px; height: 16px; --format:'';}
+
+#≪Utility_Measurements≫ET301_Reference_OCV_Voltage {position: absolute; top: 95px; left: 1400px; width:90px; height: 16px;} #≪Utility_Measurements≫ET301_Reference_OCV_Voltage_value {width:90px; height: 16px; --format:'';}
+
+
+#≪An_Utility_Data≫TT103_An_Hex_Return {position: absolute; top: 240px; left: 1300px;} #≪An_Utility_Data≫TT103_An_Hex_Return_value {--format:'';}
+#≪An_Utility_Data≫TT102_An_Hex_Inlet {position: absolute; top: 260px; left: 1430px;} #≪An_Utility_Data≫TT102_An_Hex_Inlet_value {--format:'';}
+#≪An_Utility_Data≫CV121_An_Xfer {position: absolute; top: 209px; left: 1482px;} #≪An_Utility_Data≫CV121_An_Xfer_cmd  {position:absolute; top:18px;z-index:2; opacity:0.6;}
+#≪An_Utility_Data≫PT102_An_Util {position: absolute; top: 150px; left: 1400px;} #≪An_Utility_Data≫PT102_An_Util_value {--format:'';}
+#≪An_Utility_Data≫FT105_An_Util {position: absolute; top: 170px; left: 1400px;} #≪An_Utility_Data≫FT105_An_Util_value {--format:'';}
+#≪VFD102_An_Util_Pump≫Actual_Speed {position: absolute; top: 145px; left: 1290px;} #≪VFD102_An_Util_Pump≫Actual_Speed_value {--format:'';}
+#≪VFD102_An_Util_Pump≫VFD102_An_Util_Pump {position: absolute; top: 143px; left: 1353px; width: 45px; height: 45px;}
+
+#≪Ca_Utility_Data≫TT202_Ca_Hex_Inlet {position: absolute; top: 575px; left: 1430px;} #≪Ca_Utility_Data≫TT202_Ca_Hex_Inlet_value {--format:'';}
+#≪Ca_Utility_Data≫TT203_Ca_Hex_Return {position: absolute; top: 550px; left: 1300px;} #≪Ca_Utility_Data≫TT203_Ca_Hex_Return_value {--format:'';}
+#≪Ca_Utility_Data≫PT202_Ca_Util {position: absolute; top: 640px; left: 1400px;} #≪Ca_Utility_Data≫PT202_Ca_Util_value {--format:'';}
+#≪Ca_Utility_Data≫FT205_Ca_Util {position: absolute; top: 660px; left: 1400px;} #≪Ca_Utility_Data≫FT205_Ca_Util_value {--format:'';}
+#≪Ca_Utility_Data≫CV221_Ca_Xfer {position: absolute; top: 527px; left: 1482px;} #≪Ca_Utility_Data≫CV221_Ca_Xfer_value {--format:'';} #≪Ca_Utility_Data≫CV221_Ca_Xfer_cmd {position:absolute; top:18px;}
+#≪VFD202_Ca_Util_Pump≫Actual_Speed {position: absolute; top: 660px; left: 1290px;} #≪VFD202_Ca_Util_Pump≫Actual_Speed_value {--format:'';}
+#≪VFD202_Ca_Util_Pump≫VFD202_Ca_Util_Pump {position: absolute; top: 633px; left: 1354px; width: 45px; height: 45px;}
+
+
+#≪N2Pad_Control≫PT403_N2_Blanket {position: absolute; top: 502px; left: 54px;} #≪N2Pad_Control≫PT403_N2_Blanket_value {width: 80px; --format:'';}
+#≪N2Pad_Control≫PT402_N2_Feed {position: absolute; top: 568px; left: 40px;} #≪N2Pad_Control≫PT402_N2_Feed_value {--format:'';}
+#≪N2Pad_Control≫PT401_N2_Tank {position: absolute; top: 650px; left: 40px;} #≪N2Pad_Control≫PT401_N2_Tank_value {--format:'';}
+#≪N2Pad_Control≫CV401_N2_Supply {position: absolute; top: 606px; left: 25px;}
+#≪N2Pad_Control≫CV402_N2_Release {position: absolute; top: 606px; left: 108px;}
+
+#≪Utility_Measurements≫TT301_Container_Ambient {position: absolute; top: 665px; left: 1470px;} #≪Utility_Measurements≫TT301_Container_Ambient_value {--format:'';}
+#≪Utility_Measurements≫TT302_External_Ambient {position: absolute; top: 695px; left: 1470px;} #≪Utility_Measurements≫TT302_External_Ambient_value {--format:'';}
+
+#≪Utility_Measurements≫TT303_Glycol_Supply {position: absolute; top: 310px; left: 1430px;} #≪Utility_Measurements≫TT303_Glycol_Supply_value {--format:'';}
+#≪Utility_Measurements≫PT301_Glycol_Inlet {position: absolute; top: 330px; left: 1430px;} #≪Utility_Measurements≫PT301_Glycol_Inlet_value {--format:'';}
+#≪Utility_Measurements≫TT304_Glycol_Return {position: absolute; top: 360px; left: 1425px;} #≪Utility_Measurements≫TT304_Glycol_Return_value {--format:'';}
+#≪Utility_Measurements≫CT301_Conductivity_Glycol {position: absolute; top: 380px; left: 1425px;} #≪Utility_Measurements≫CT301_Conductivity_Glycol_value {width:100px; --format:'';}
+
+#≪Utility_Measurements≫AnVol_Pct {position: absolute; top: 140px; left: 580px;} #≪Utility_Measurements≫AnVol_Pct_value {--format:'';}
+#≪Utility_Measurements≫AnMol_Pct {position: absolute; top: 160px; left: 580px;} #≪Utility_Measurements≫AnMol_Pct_value {--format:'';}
+#≪Utility_Measurements≫Va {position: absolute; top: 140px; left: 840px;} #≪Utility_Measurements≫Va_value {--format:'';}
+#≪Utility_Measurements≫VaValence {position: absolute; top: 160px; left: 810px;} #≪Utility_Measurements≫VaValence_value {--format:'';}
+
+#≪Utility_Measurements≫AnSOC {position: absolute; top: 350px; left: 700px;} #≪Utility_Measurements≫AnSOC_value {--format:'';}
+#≪Utility_Measurements≫RefSOC {position: absolute; top: 370px; left: 700px;} #≪Utility_Measurements≫RefSOC_value {--format:'';}
+#≪Utility_Measurements≫CaSOC {position: absolute; top: 390px; left: 700px;} #≪Utility_Measurements≫CaSOC_value {--format:'';}
+#≪Utility_Measurements≫Ref_ocv {position: absolute; top: 420px; left: 700px;} #≪Utility_Measurements≫Ref_ocv_value {--format:'';}
+
+#≪Utility_Measurements≫Vc {position: absolute; top: 650px; left: 820px;} #≪Utility_Measurements≫Vc_value {--format:'';}
+
+#≪Recent_Events≫Event_Log {position: absolute; top: 10px; left: 1545px; width: 350px;}
+#≪Recent_Events≫Active_Faults {position: absolute; top: 350px; left: 1545px; width: 350px;}
