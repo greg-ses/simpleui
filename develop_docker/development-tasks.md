@@ -22,23 +22,7 @@ test
 │   favicon.ico
 │   logo.png
 
-├── mock-bms-app
-│        ├── config
-│        ├── data                (.xml & .json)
-│        ├── overlay-1
-│        ├── overlay-2
-+
-│   favicon.ico
-│   logo.png
 
-├── mock-device-app
-│        ├── config
-│        ├── data                (.xml & .json)
-│        ├── overlay-1
-│        ├── overlay-2
-+
-│   favicon.ico
-│   logo.png
 
 
 └── script

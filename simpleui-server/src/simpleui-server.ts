@@ -348,7 +348,6 @@ export class SimpleUIServer {
 
                     const mockCmdVars = cmdVars;
                     mockCmdVars.xmlInFile = req.query.file;
-                    //Logger.log(LogLevel.INFO, `\n ==>  mockCmdVars.xmlInFile: '${mockCmdVars.xmlInFile}'\n`);
                     mockCmdVars.versions = (typeof req.query.versions === 'string') ? parseInt(req.query.versions, 10) : 1;
                     await SimpleUIServer.executeMockRequest(mockCmdVars, props, req, res);
                 } catch (err) {
@@ -370,26 +369,9 @@ export class SimpleUIServer {
                     let jsonString: string = JSON.stringify(JSON.parse(fs.readFileSync(filepath, 'utf-8')))
                     await res.send(jsonString)
                 } catch (err) {
-                    Logger.log(LogLevel.ERROR, 'css_elements request failed')
+                    Logger.log(LogLevel.ERROR, `css elements to json request failed: ${err}`)
                 }
-            })
-
-
-            // -----------------------------
-            // Handler for misc. call
-            // -----------------------------
-            let mockOverlayData = 0;
-            displayUrl = 'localhost:4100/bms/overlay_items';
-            app.get('/bms/overlay', async (req, res) => {
-                try{
-                    let filepath = '/var/www/bms/overlay_data.'.concat(mockOverlayData.toString(),'.json');
-                    let jsonString: string = JSON.stringify(JSON.parse(fs.readFileSync(filepath, 'utf-8')))
-                    await res.send(jsonString)
-                    mockOverlayData = mockOverlayData === 3 ? 0 : mockOverlayData+1;
-                } catch (err) {
-                    Logger.log(LogLevel.ERROR, 'overlay_data request failed');
-                }
-            })
+            });
 
             
 

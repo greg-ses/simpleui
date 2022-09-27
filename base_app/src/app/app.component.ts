@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-//import './css/styles.css';
+// import './css/styles.css';
 import {AppProperties, SubscriptionState, TabUI, TitleBarProperties} from './interfaces/props-data';
 import {ajax} from 'rxjs/ajax';
 import {MatTabChangeEvent, MatTabGroup} from '@angular/material/tabs';
@@ -158,7 +158,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
     }
 
-    static getDataTabRelativePath(relativeURL, tab_index, tab_hash, serverSideJsDebugging) {
+    static getDataTabRelativePath(relativeURL, tab_index, tab_hash, serverSideJsDebugging: boolean) {
 
         // Default assumes relativeURL is a complete URL
 
@@ -172,7 +172,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
 
         // Relative path
-        return relativeURL + querySuffix;
+        return relativeURL.concat(querySuffix);
     }
 
 
@@ -492,7 +492,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this.initTabDataUpdates();
     }
 
-
+    /**
+     * Adjusts the size of the individual tabs to make them smaller
+     */
     configureTabBar() {
         // Just want this to adjust the tab height
         const TAB_BAR_HEIGHT = '20px';
@@ -537,7 +539,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                     tabLabel['style'].lineHeight = TAB_BAR_HEIGHT;
                 }
             } catch (e) {
-                console.log('error: ', e);
+                console.log('error in configureTabBar: ', e);
             }
         }
     }
@@ -609,6 +611,10 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             });
     }
 
+    /**
+     * Main update loop of the base_app.
+     * @param {Number} cycle : the number of document.location.reload()'s have been used
+     */
     doUpdate(cycle: number = 0) {
         try {
             if ((cycle * this._refreshRate) > this._milliSecondsBeforeAutoPageReload) {
@@ -749,6 +755,12 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this._tBarProps._updateTime = this.getUpdateTime(tab);
     }
 
+    /**
+     * Gets remote information for the selected tab
+     * @param {TabUI} tab -
+     * @param tab_hash -
+     * @param {boolean} serverSideJsDebugging -
+     */
     getRemoteTabData(tab: TabUI, tab_hash, serverSideJsDebugging) {
 
         if (this.isDeltaUpdate(tab)) {
@@ -806,7 +818,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             this._detectChanges = {'name': tab.name, 'value': true};
             this.updateData(tab, response['Data_Summary']);
             ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');
-            
+
         } else if (typeof response === 'object'
             && typeof response['Overlay_Summary'] === 'object') {
 

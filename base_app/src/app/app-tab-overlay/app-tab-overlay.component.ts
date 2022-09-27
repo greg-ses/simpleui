@@ -16,7 +16,7 @@ import {SiteIndex} from '../interfaces/site-index';
 import {CssUpdateService} from '../services/css-update-service';
 import {TabUI} from '../interfaces/props-data';
 
-//import '../css/styles.css';
+// import '../css/styles.css';
 import {ajax} from 'rxjs/ajax';
 import {AppComponent} from '../app.component';
 
@@ -143,7 +143,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         ClientLogger.log('LogOverlayList', 'getImplementedOverlays(nthOverlay)');
 
         const ajaxRequest = {
-            //url: `${this._appURI}php/css_elements_to_json.php?nthOverlay=${nthOverlay}`,
+            // url: `${this._appURI}php/css_elements_to_json.php?nthOverlay=${nthOverlay}`,
             url: 'http://localhost:4100/bms/php/css_elements_to_json',
             withCredentials: true,
             crossDomain: true,

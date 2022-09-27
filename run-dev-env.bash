@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# This script creates the docker container (sui-dev-container) from the dev env image (sui-dev-image) 
 
 docker run \
     -it \
@@ -13,15 +14,12 @@ docker run \
     --mount type=bind,src="$(pwd)"/simpleui-server/test/data/dcbatt-data,dst=/var/www/dcbatt-data \
     -p 4200:4200 \
     -p 4100:4100 \
-    -w /usr/src/app \
+    -w /usr/src/app/base_app \
     sui-dev-image /bin/bash /usr/src/app/install-script.bash
 
 echo ""
-echo $?
+docker ps -a
 
 
 #    -p 9229:9229 \
 #    -p 2223:22 \
-#      - '../simpleui-server/test/config:/opt/config'
-#      - '../simpleui-server/test/data/bms:/var/www/bms'
-#      - '../simpleui-server/test/data/dcbatt-data:/var/www/dcbatt-data'

@@ -698,13 +698,17 @@ export class SuiData {
         }
 
         let docRootName = Object.keys(json)[0]; // should this have some type of error handling?
-        Logger.log(LogLevel.INFO, docRootName);
+        Logger.log(LogLevel.DEBUG, `sui_data.ts docRootName: ${docRootName}`);
+
+        if (!docRootName) {
+            docRootName = 'error';
+        }
 
         const keepIntermediateFile = req.query.keepTempFile;
         let debugFileNames = {xml_in_file: '', json_initial_file: '', json_normal_file: ''};
         if (keepIntermediateFile) {
             debugFileNames = SuiData.getDebugFileNames(appName, props, req);
-            Logger.log(LogLevel.INFO, `keepIntermediateFile: true - keeping intermediate files`);
+            Logger.log(LogLevel.INFO, 'keepIntermediateFile: true - keeping intermediate files');
             fs.writeFileSync(debugFileNames.xml_in_file, xmlString);
             fs.writeFileSync(debugFileNames.json_initial_file, JSON.stringify(json));
         }
@@ -741,7 +745,7 @@ export class SuiData {
 
         const xmlInFile = cmdArgs.xmlInFile.replace('.0.', `.${SuiData.mockDataFileIndex[cmdArgs.xmlInFile]}.`);
         const xmlFileExists = fs.existsSync(xmlInFile);
-        Logger.log(LogLevel.INFO, `\n ==>  mockCmdVars.xmlInFile (in mockSuiRequest, exists ${xmlFileExists}): '${xmlInFile}'\n`);
+        Logger.log(LogLevel.DEBUG, `\n ==>  mockCmdVars.xmlInFile (in mockSuiRequest, exists ${xmlFileExists}): '${xmlInFile}'\n`);
         ServerUtil.logRequestDetails(LogLevel.DEBUG, req,
             `Starting MOCK request # ${++SuiData.mockRequestNum}`,
             'suiMockRequest', '/mock/data?file=', xmlInFile);
@@ -775,6 +779,7 @@ export class SuiData {
 
         let jsonOutFile = "";
 
+
         if (typeof cmdArgs.jsonOutFile !== 'undefined' && cmdArgs.jsonOutFile !== "") {
             // Use the indexed version
             jsonOutFile = cmdArgs.jsonOutFile;
@@ -789,11 +794,12 @@ export class SuiData {
 
                 try {
                     fs.writeFileSync(jsonOutFile, sJson);
-                    console.log(`Created test output file: ${jsonOutFile}.`);
+                    Logger.log(LogLevel.DEBUG, `Created test output file: ${jsonOutFile}.`);
                 } catch (err) {
-                    console.log(`Couldn't create output file due to error | jsonOutFile = ${jsonOutFile === '' ? 'empty string' : jsonOutFile}`);
+                    Logger.log(LogLevel.ERROR, `Couldn't create output file due to error | jsonOutFile = ${jsonOutFile === '' ? 'empty string' : jsonOutFile}`);
                 }
             }
+
 
         }
 

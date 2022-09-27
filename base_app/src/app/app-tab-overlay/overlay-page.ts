@@ -152,6 +152,29 @@ export class OverlayPageComponent {
 
         return false;
     }
+    /*
+    // Memory leak tools
+
+    bytesForHuman(bytes, decimals = 2) {
+        const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+        let i = 0;
+        for (i; bytes > 1024; i++) {
+            bytes /= 1024;
+        }
+        return parseFloat(bytes.toFixed(decimals)) + ' ' + units[i];
+      }
+
+    strToBytes(str) {
+        const bytes = [];
+        for (let ii = 0; ii < str.length; ii++) {
+            const code = str.charCodeAt(ii); // x00-xFFFF
+            bytes.push(code & 255, code >> 8); // low, high
+        }
+        const bytesTOTAL = bytes.reduce( (partialSum, a) => partialSum + a, 0)
+        // console.log(this.bytesForHuman(bytesTOTAL))
+    }
+    */
+
 
     getGroupMembers(overlayType: OverlayType, overlayGroupName: string, tag: string): any {
         // tag is an element of ['dyn', 'command', 'img', 'table']
@@ -262,9 +285,9 @@ export class OverlayPageComponent {
 
     elements_are_equal(deep: number, el1: any, el2: any): boolean {
         try {
-            let _ = Object.keys(el1); 
+            const _ = Object.keys(el1);
         } catch (err) {
-            return false
+            return false;
         }
         for (const key of Object.keys(el1)) {
             if (typeof el1[key] === 'object' && typeof el2[key] === 'object') {
@@ -634,7 +657,6 @@ export class OverlayPageComponent {
                     if (val_css.length > 0) {
                         cmd += 'if (e_val) {e_val.style="' + val_css + '";}';
                     }
-                    // console.log(cmd);
                     setTimeout(cmd, 50);
                 }
             }

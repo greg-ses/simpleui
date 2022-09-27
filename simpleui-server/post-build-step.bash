@@ -17,7 +17,7 @@ done
 # Create dist.tgz
 cd dist
 #tar czvf ../dist.tgz *
-tar czf ../dist.tgz
+tar czf ../dist.tgz *
 cd ..
 
 echo "------------------ Finished simpleui-server post-build-step at $(date) -----------------------"

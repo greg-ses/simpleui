@@ -24,6 +24,12 @@ RUN service ssh start && \
     useradd -m user && yes password | passwd user && \
     usermod -aG sudo user
 
+
+#---------- Angular CLI --------------
+RUN mkdir -p /usr/src/app && \
+    cd /usr/src/app/ && \
+    npm install -g @angular/cli@14.2.2
+
 #---------- base_app (client) ---------------
 RUN mkdir -p /usr/src/app/base_app/
 

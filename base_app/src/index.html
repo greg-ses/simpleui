@@ -22,14 +22,14 @@
     let link = document.createElement('link');
     link.setAttribute('rel', 'icon');
     link.type = 'image/x-icon';
-    link.href = appURI + 'assets/favicon.ico';
+    link.href = appURI + 'assets/images/favicon.ico';
     document.head.appendChild(link);
 
     // this condition is specifically for ng serve dev env
     let debugPrefix = "";
     if (window.location.port === '4200') {
       debugPrefix = window.location.protocol + '//' + window.location.hostname + ':4100';
-      link.href = window.origin + '/bms/assets/favicon.ico';
+      link.href = window.origin + '/bms/assets/images/favicon.ico';
       console.log(`debugPrefix: ${debugPrefix}`);
     }
 
@@ -41,7 +41,7 @@
 
 
     if (uiProp) {
-        document.title = uiProp;
+      document.title = uiProp;
     }
 
   </script>

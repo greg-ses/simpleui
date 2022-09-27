@@ -9,8 +9,10 @@ This folder contains the files necessary for launcher docker containers to suppo
 # from bash
 cd simpleui/
 docker build -t sui-dev-image -f develop_docker/Dockerfile .
-
 bash run-dev-env.bash
+# OR
+cd base_app/
+npm run start-client-dev
 ```
 
 ## Notes
