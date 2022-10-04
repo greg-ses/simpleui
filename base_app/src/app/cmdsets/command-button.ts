@@ -385,12 +385,22 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
 
             const jsonToPost = this.buildJsonToPost(valueObjectsFromPopup);
 
-            this._moduleCommandService.sendCommand(
-                this._uiTab,
-                jsonToPost,
-                this,
-                this.onJSONUpdate,
-                this.onJSONError, this.app._props);
+            if (this._uiTab['commandUrl'].includes('/mock/cmd')) {
+                this._moduleCommandService.sendMockCommand(
+                    this._uiTab,
+                    jsonToPost,
+                    this,
+                    this.onJSONUpdate,
+                    this.onJSONError, this.app._props);
+            } else {
+                this._moduleCommandService.sendCommand(
+                    this._uiTab,
+                    jsonToPost,
+                    this,
+                    this.onJSONUpdate,
+                    this.onJSONError, this.app._props);
+            }
+
         }
     }
 

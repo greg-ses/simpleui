@@ -362,7 +362,7 @@ export class UTIL {
 
 
     /**
-     * Looks for a non-empty value within the object obj
+     * Looks for a non-empty value within obj
      * @param obj -
      * @param attrName -
      * @param defaultValue -
@@ -386,6 +386,48 @@ export class UTIL {
             parts[0] = parts[0].replace('≪', '');
         }
         return parts;
+    }
+
+
+    // Memory leak tools
+    /**
+     * Finds a reasonable format for bytes
+     * @param {number} bytes input
+     * @param decimals number of decimal places for output
+     * @returns string of formatted bytes
+     */
+    public static readableBytesFormat(bytes: number, decimals: number = 2): string {
+        const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+        let i = 0;
+        for (i; bytes > 1024; i++) {
+            bytes /= 1024;
+        }
+        return parseFloat(bytes.toFixed(decimals)) + ' ' + units[i];
+    }
+
+    /**
+     * Returns the total bytes that a UTF-16 string represents
+     * @param str input UTF-16 string
+     */
+    public static strToBytes(str: string): number {
+        const bytes = [];
+        for (let ii = 0; ii < str.length; ii++) {
+            const code = str.charCodeAt(ii); // x00-xFFFF
+            bytes.push(code & 255, code >> 8); // low, high
+        }
+        const bytesTOTAL = bytes.reduce( (partialSum, a) => partialSum + a, 0);
+        return bytesTOTAL;
+    }
+
+
+    /**
+     * Returns the amount of memory a string consumes
+     * @param str input string
+     * @returns {string} string of formatted bytes
+     */
+    public static stringMemoryChecker(str: string): string {
+        const totalBytes = UTIL.strToBytes(str);
+        return UTIL.readableBytesFormat(totalBytes);
     }
 
 }

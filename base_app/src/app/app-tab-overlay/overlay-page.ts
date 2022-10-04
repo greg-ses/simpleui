@@ -152,30 +152,32 @@ export class OverlayPageComponent {
 
         return false;
     }
-    /*
-    // Memory leak tools
 
-    bytesForHuman(bytes, decimals = 2) {
-        const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
-        let i = 0;
-        for (i; bytes > 1024; i++) {
-            bytes /= 1024;
-        }
-        return parseFloat(bytes.toFixed(decimals)) + ' ' + units[i];
-      }
 
-    strToBytes(str) {
-        const bytes = [];
-        for (let ii = 0; ii < str.length; ii++) {
-            const code = str.charCodeAt(ii); // x00-xFFFF
-            bytes.push(code & 255, code >> 8); // low, high
+    /**
+     * Returns false if element is not already in elemList
+     * @param elemList list of elements
+     * @param element potenital new element
+     */
+    checkElemListForDuplicates(elemList: any, element: any): boolean {
+        let duplicatesExist = false;
+        const elementID = element.id;
+        for (let iter = 0; iter < elemList.length; iter++) {
+            const elemListID = elemList[iter].id;
+            if (elemListID === elementID) {
+                duplicatesExist = true;
+            }
         }
-        const bytesTOTAL = bytes.reduce( (partialSum, a) => partialSum + a, 0)
-        // console.log(this.bytesForHuman(bytesTOTAL))
+        return duplicatesExist;
     }
-    */
 
-
+    /**
+     * Source of mem leaks due to lost code?
+     * @param overlayType -
+     * @param overlayGroupName -
+     * @param tag -
+     * @returns elemList
+     */
     getGroupMembers(overlayType: OverlayType, overlayGroupName: string, tag: string): any {
         // tag is an element of ['dyn', 'command', 'img', 'table']
         const node = this._DataSummary[overlayGroupName];
@@ -186,12 +188,13 @@ export class OverlayPageComponent {
                     if (Array.isArray(node[key])) {
                         for (let i = 0; i < node[key].length; i++) {
                             if (typeof node[key][i]['name'] === 'string') {
-                                // to remove ContextPrefix from fullOverlayName, use .replace(/≪[^≫]*≫/, '')
                                 const fullOverlayName = UTIL.addContextPrefix(overlayGroupName, node[key][i]['name']);
                                 const e = this.getElemInfo(tag, overlayGroupName, node[key][i]['name']);
                                 if (this.filterBy(overlayType, node[key][i], e.id, tag)
                                     || this.filterBy(overlayType, node[key][i], fullOverlayName, tag)) {
-                                    elemList.push(e);
+                                    if (!this.checkElemListForDuplicates(elemList, e)) {
+                                        elemList.push(e);
+                                    }
                                 }
                             }
                         }
@@ -283,6 +286,7 @@ export class OverlayPageComponent {
         return elemList;
     }
 
+    /* REFACTOR zbeucler
     elements_are_equal(deep: number, el1: any, el2: any): boolean {
         try {
             const _ = Object.keys(el1);
@@ -301,6 +305,16 @@ export class OverlayPageComponent {
         }
         return true;
     }
+    */
+
+    /**
+     * Returns true if two shallow (?) objects are identical
+     * @param element_1 -
+     * @param element_2 -
+     */
+    elements_are_equal(element_1, element_2): boolean {
+        return JSON.stringify(element_1) === JSON.stringify(element_2);
+    }
 
     // ----------------------
     get_implemented_commands_in_group(overlayGroupName: string): any {
@@ -317,7 +331,7 @@ export class OverlayPageComponent {
             this._commandList[overlayGroupName] = UTIL.deepCopy(elemList);
         } else {
             for (let idx = 0; idx < elemList.length; ++idx) {
-                if (!this.elements_are_equal(0, this._commandList[overlayGroupName][idx], elemList[idx])) {
+                if (!this.elements_are_equal(this._commandList[overlayGroupName][idx], elemList[idx])) {
                     this._commandList[overlayGroupName][idx] = UTIL.deepCopy(elemList[idx]);
                 }
             }
@@ -346,7 +360,7 @@ export class OverlayPageComponent {
             this._imageList[overlayGroupName] = UTIL.deepCopy(elemList);
         } else {
             for (let idx = 0; idx < elemList.length; ++idx) {
-                if (!this.elements_are_equal(0, this._imageList[overlayGroupName][idx], elemList[idx])) {
+                if (!this.elements_are_equal(this._imageList[overlayGroupName][idx], elemList[idx])) {
                     this._imageList[overlayGroupName][idx] = UTIL.deepCopy(elemList[idx]);
                 }
             }
@@ -375,7 +389,7 @@ export class OverlayPageComponent {
             this._animationList[overlayGroupName] = UTIL.deepCopy(elemList);
         } else {
             for (let idx = 0; idx < elemList.length; ++idx) {
-                if (!this.elements_are_equal(0, this._animationList[overlayGroupName][idx], elemList[idx])) {
+                if (!this.elements_are_equal(this._animationList[overlayGroupName][idx], elemList[idx])) {
                     this._animationList[overlayGroupName][idx] = UTIL.deepCopy(elemList[idx]);
                 }
             }

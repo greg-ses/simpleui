@@ -600,7 +600,10 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
         this._updateSubscription = updateTimer.subscribe(
             cycle => {
+                console.log('before doUpdate top: ', this._props.tab[0]._DataSummary?.Pipe_one?.img?.length);
                 this.doUpdate(cycle);
+                console.log('after doUpdate top: ', this._props.tab[0]._DataSummary?.Pipe_one?.img?.length);
+
             },
             err => {
                 console.log(`Error in initTabDataUpdates() ajax subscribe callback.`);
@@ -616,6 +619,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
      * @param {Number} cycle : the number of document.location.reload()'s have been used
      */
     doUpdate(cycle: number = 0) {
+        console.log(this._props.tab[0]._DataSummary?.Pipe_one);
         try {
             if ((cycle * this._refreshRate) > this._milliSecondsBeforeAutoPageReload) {
                 sessionStorage.autoReload = 'true';

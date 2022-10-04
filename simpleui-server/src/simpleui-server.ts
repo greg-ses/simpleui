@@ -26,6 +26,8 @@ export class SimpleUIServer {
     static EXTERNAL_IP = SimpleUIServer.getExternalIP();
     static requestCallbacks = 0;
     static bin_dir = "";
+    static newMockDataURL: any = ""; // allows us to modify the mock data requests via mock cmd requests
+
 
     static executeMockRequest(cmdArgs: CommandArgs, props: any, req: Request<ParamsDictionary> = null, res: Response = null) {
         if (props) {
@@ -340,6 +342,10 @@ export class SimpleUIServer {
             app.get(mockDataQuery, async (req, res) => {
                 // Replies with data from a zeromq request
                 Logger.log(LogLevel.VERBOSE, `data request callback: ${++SimpleUIServer.requestCallbacks}`);
+                
+                if (SimpleUIServer.requestCallbacks % 10 === 0) {
+                    SimpleUIServer.newMockDataURL = "";
+                }
 
                 try {
                     const props = PropsFileReader.getProps(
@@ -347,7 +353,7 @@ export class SimpleUIServer {
                         `${req.params.appName}`, cmdVars.webPort);
 
                     const mockCmdVars = cmdVars;
-                    mockCmdVars.xmlInFile = req.query.file;
+                    mockCmdVars.xmlInFile = SimpleUIServer.newMockDataURL !== "" ? SimpleUIServer.newMockDataURL : req.query.file;
                     mockCmdVars.versions = (typeof req.query.versions === 'string') ? parseInt(req.query.versions, 10) : 1;
                     await SimpleUIServer.executeMockRequest(mockCmdVars, props, req, res);
                 } catch (err) {
@@ -358,16 +364,55 @@ export class SimpleUIServer {
                 }
             });
 
+
+            // ------------------------------
+            // Handler for mock cmd requests
+            // ------------------------------
+            // Support path # /APP_NAME/UI_PROP/TAB_NAME/mock/cmd
+            const mockCmdQuery = [
+                `/:appName/:propsStub/:tabName/mock/cmd`
+            ];
+            displayUrl = `http://${os.hostname()}${webPortString}${mockCmdQuery[0]}`;
+            spacer1 = ' '.repeat(Math.max((105 - displayUrl.length), 1));
+            Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(commands)`);
+            app.post(mockCmdQuery, async (req, res) => {
+                Logger.log(LogLevel.VERBOSE, `mock cmd request callback: ${++SimpleUIServer.requestCallbacks}`);
+                try {
+                    const cmdFilepath = req.query.file;
+                    Logger.log(LogLevel.DEBUG, `mock cmd filepath: ${cmdFilepath}`);
+                    SimpleUIServer.newMockDataURL = cmdFilepath;
+                } catch (err) {
+                    Logger.log(LogLevel.ERROR, err)
+                    Logger.log(LogLevel.ERROR, 'Error in mock cmd handler')
+                }
+                res.json({'mock data placeholder': 123})
+                /*
+                try {
+                    const props = PropsFileReader.getProps(
+                        `${req.params.propsStub}.properties`,
+                        `${req.params.appName}`, cmdVars.webPort);
+                    await SuiData.suiCommandRequest(req, res, props);
+                } catch (err) {
+
+                    const cmd = SuiData.getCmdFromReq(req);
+                    ServerUtil.logRequestDetails(LogLevel.ERROR, req,
+                        `Err in cmd request: ${err}`,
+                        'main cmd handler', '/mock/cmd', cmd);
+                }
+                */
+            });
+
+
             // -----------------------------
             // Handler for css_elements_to_json.php call
             // -----------------------------
             displayUrl = 'localhost:4100/bms/php/css_elements_to_json';
             app.get('/bms/php/css_elements_to_json', async (req, res) => {
                 // css_elements.json file in simpleui-server/test/data/bms || /var/www/bms/
-                try{
-                    let filepath = '/var/www/bms/css_elements.json';
-                    let jsonString: string = JSON.stringify(JSON.parse(fs.readFileSync(filepath, 'utf-8')))
-                    await res.send(jsonString)
+                try {
+                    const filepath = '/var/www/bms/css_elements.json';
+                    let jsonString: string = JSON.stringify(JSON.parse(fs.readFileSync(filepath, 'utf-8')));
+                    await res.send(jsonString);
                 } catch (err) {
                     Logger.log(LogLevel.ERROR, `css elements to json request failed: ${err}`)
                 }
