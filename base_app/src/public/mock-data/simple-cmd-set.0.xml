@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Data_Summary u_id="2002">
-    <Title u_id="2002">BSC</Title>
-    <timeStamp u_id="2003">1554235176900</timeStamp>
-    <Version u_id="2004">simple-cmd-set.0.xml - 0 Buttons</Version>
-    <Section name="Battery System 0" u_id="2006">
-    </Section>
-    <status>0</status>
-</Data_Summary>
