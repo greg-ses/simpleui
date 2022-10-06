@@ -44,7 +44,7 @@ main() {
         APP_PATH="./src/test/simpleui.derivative/";
     fi
 
-    if [[ "prod" == "${BUILD_MODE}" ]]; then
+    if [[ "${BUILD_MODE}" == "prod" ]]; then
         bash make-version-text.bash build-client-prod
         rm -rf dist dist.tgz
         prebuild "$BASE_APP" "$APP_PATH" 
