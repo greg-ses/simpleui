@@ -25,6 +25,14 @@ RUN service ssh start && \
     usermod -aG sudo user
 
 
+#----------- Chromium (for headless tests) --------
+RUN apt update && \
+    apt install && \
+    apt install chromium -y
+
+ENV CHROME_BIN=/usr/bin/chromium
+
+
 #---------- Angular CLI --------------
 RUN mkdir -p /usr/src/app && \
     cd /usr/src/app/ && \

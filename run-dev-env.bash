@@ -56,6 +56,7 @@ docker run \
     --mount type=bind,src="$(pwd)"/simpleui-server/test/data/dcbatt-data,dst=/var/www/dcbatt-data \
     -p 4200:4200 \
     -p 4100:4100 \
+    -p 9876:9876 \
     -w /usr/src/app/base_app \
     sui-dev-image /bin/bash /usr/src/app/install-script.bash
 

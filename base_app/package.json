@@ -17,7 +17,7 @@
     "start-client-prod": "bash -c \"node node_modules/@angular/cli/bin/ng.js serve --aot\"",
     "post-build-step--setup-bms-for-dev": "sh build-app-for-dev.sh 0 bms git-workspace-all ${USER}",
     "test": "node node_modules/@angular/cli/bin/ng.js test --browsers Chrome_small",
-    "test-headless-once": "node node_modules/@angular/cli/bin/ng.js test --browsers ChromeHeadlessWin --watch=false",
+    "test-headless-once": "ng test --browsers ChromeHeadlessWin --watch=false",
     "e2e--not-tested": "bash -c \"node node_modules/@angular/cli/bin/ng.js e2e\"",
     "lint": "ng lint"
   },
@@ -48,6 +48,7 @@
     "@angular-eslint/template-parser": "14.1.2",
     "@angular/cli": "^14.2.2",
     "@angular/compiler-cli": "^14.2.1",
+    "@types/jasmine": "^4.3.0",
     "@typescript-eslint/eslint-plugin": "5.37.0",
     "@typescript-eslint/parser": "5.37.0",
     "codelyzer": "^6.0.2",
