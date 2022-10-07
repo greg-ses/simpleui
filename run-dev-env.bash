@@ -42,7 +42,7 @@
 # popd || exit 1   
 
 
-
+echo "Using SIMPLEUI_TEST_DATA: ${SIMPLEUI_TEST_DATA}"
 
 docker run \
     -it \
@@ -51,9 +51,9 @@ docker run \
     --mount type=bind,src="$(pwd)"/base_app,dst=/usr/src/app/base_app/ \
     --mount type=bind,src="$(pwd)"/simpleui-server,dst=/usr/src/app/simpleui-server/ \
     --mount type=bind,src="$(pwd)"/develop_docker/install-script.bash,dst=/usr/src/app/install-script.bash \
-    --mount type=bind,src="$(pwd)"/simpleui-server/test/config,dst=/opt/config \
-    --mount type=bind,src="$(pwd)"/simpleui-server/test/data/bms,dst=/var/www/bms \
-    --mount type=bind,src="$(pwd)"/simpleui-server/test/data/dcbatt-data,dst=/var/www/dcbatt-data \
+    --mount type=bind,src="${SIMPLEUI_TEST_DATA}"/bms/opt/,dst=/opt/ \
+    --mount type=bind,src="${SIMPLEUI_TEST_DATA}"/bms,dst=/var/www/bms/ \
+    --mount type=bind,src="${SIMPLEUI_TEST_DATA}"/dcbatt-data,dst=/var/www/dcbatt-data/ \
     -p 4200:4200 \
     -p 4100:4100 \
     -p 9876:9876 \
