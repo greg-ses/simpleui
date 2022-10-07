@@ -430,5 +430,15 @@ export class UTIL {
         return UTIL.readableBytesFormat(totalBytes);
     }
 
+
+    /**
+     * Returns true if two objects are equal
+     * @param element_1 -
+     * @param element_2 -
+     */
+    public static elements_are_equal(element_1, element_2): boolean {
+        return JSON.stringify(element_1) === JSON.stringify(element_2);
+    }
+
 }
 

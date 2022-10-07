@@ -154,21 +154,22 @@ export class OverlayPageComponent {
     }
 
 
-    /**
-     * Returns false if element is not already in elemList
+     /**
+     * Returns true if element is already in elemlist
      * @param elemList list of elements
      * @param element potenital new element
      */
     checkElemListForDuplicates(elemList: any, element: any): boolean {
-        let duplicatesExist = false;
-        const elementID = element.id;
+        if (!elemList || !element) {
+            return false
+        }
         for (let iter = 0; iter < elemList.length; iter++) {
-            const elemListID = elemList[iter].id;
-            if (elemListID === elementID) {
-                duplicatesExist = true;
+            const current = elemList[iter];
+            if (UTIL.elements_are_equal(current, element)) {
+                return true
             }
         }
-        return duplicatesExist;
+        return false
     }
 
     /**
@@ -286,35 +287,6 @@ export class OverlayPageComponent {
         return elemList;
     }
 
-    /* REFACTOR zbeucler
-    elements_are_equal(deep: number, el1: any, el2: any): boolean {
-        try {
-            const _ = Object.keys(el1);
-        } catch (err) {
-            return false;
-        }
-        for (const key of Object.keys(el1)) {
-            if (typeof el1[key] === 'object' && typeof el2[key] === 'object') {
-                if ((deep > 4)
-                    || (!this.elements_are_equal(deep + 1, el1[key], el2[key]))) {
-                    return false;
-                }
-            } else if (el1[key] !== el2[key]) {
-                return false;
-            }
-        }
-        return true;
-    }
-    */
-
-    /**
-     * Returns true if two shallow (?) objects are identical
-     * @param element_1 -
-     * @param element_2 -
-     */
-    elements_are_equal(element_1, element_2): boolean {
-        return JSON.stringify(element_1) === JSON.stringify(element_2);
-    }
 
     // ----------------------
     get_implemented_commands_in_group(overlayGroupName: string): any {
@@ -331,7 +303,7 @@ export class OverlayPageComponent {
             this._commandList[overlayGroupName] = UTIL.deepCopy(elemList);
         } else {
             for (let idx = 0; idx < elemList.length; ++idx) {
-                if (!this.elements_are_equal(this._commandList[overlayGroupName][idx], elemList[idx])) {
+                if (!UTIL.elements_are_equal(this._commandList[overlayGroupName][idx], elemList[idx])) {
                     this._commandList[overlayGroupName][idx] = UTIL.deepCopy(elemList[idx]);
                 }
             }
@@ -360,7 +332,7 @@ export class OverlayPageComponent {
             this._imageList[overlayGroupName] = UTIL.deepCopy(elemList);
         } else {
             for (let idx = 0; idx < elemList.length; ++idx) {
-                if (!this.elements_are_equal(this._imageList[overlayGroupName][idx], elemList[idx])) {
+                if (!UTIL.elements_are_equal(this._imageList[overlayGroupName][idx], elemList[idx])) {
                     this._imageList[overlayGroupName][idx] = UTIL.deepCopy(elemList[idx]);
                 }
             }
@@ -389,7 +361,7 @@ export class OverlayPageComponent {
             this._animationList[overlayGroupName] = UTIL.deepCopy(elemList);
         } else {
             for (let idx = 0; idx < elemList.length; ++idx) {
-                if (!this.elements_are_equal(this._animationList[overlayGroupName][idx], elemList[idx])) {
+                if (!UTIL.elements_are_equal(this._animationList[overlayGroupName][idx], elemList[idx])) {
                     this._animationList[overlayGroupName][idx] = UTIL.deepCopy(elemList[idx]);
                 }
             }
@@ -640,7 +612,6 @@ export class OverlayPageComponent {
     }
 
     formatValue(overlayGroupName: string, varName: string, isImplemented: boolean) {
-        const retVal = '';
         let css = '';
         if (isImplemented) {}
         try {
@@ -671,7 +642,7 @@ export class OverlayPageComponent {
                     if (val_css.length > 0) {
                         cmd += 'if (e_val) {e_val.style="' + val_css + '";}';
                     }
-                    setTimeout(cmd, 50);
+                    setTimeout(cmd, 5);
                 }
             }
             /* End of section lost with checkin on 9/10.2020 2:07 PM change */
@@ -709,7 +680,7 @@ export class OverlayPageComponent {
         } catch (err) {
             console.log(err);
         }
-        return retVal;
+        return '';
     }
 
     getImpOverlayCssDef(eName: string): string {
