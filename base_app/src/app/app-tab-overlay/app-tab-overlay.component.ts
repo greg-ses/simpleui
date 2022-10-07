@@ -143,8 +143,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         ClientLogger.log('LogOverlayList', 'getImplementedOverlays(nthOverlay)');
 
         const ajaxRequest = {
-            // url: `${this._appURI}php/css_elements_to_json.php?nthOverlay=${nthOverlay}`,
-            url: 'http://localhost:4100/bms/php/css_elements_to_json',
+            url: `${this._appURI}/css_elements_to_json/overlay/${nthOverlay}`,
             withCredentials: true,
             crossDomain: true,
             timeout:

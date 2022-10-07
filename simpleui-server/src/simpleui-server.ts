@@ -336,7 +336,7 @@ export class SimpleUIServer {
                 `/:appName/:propsStub/:tabName/mock/data`
             ];
             // displayUrl = `http://${os.hostname()}${webPortString}${mockDataQuery[0]}`;
-            displayUrl = `http://localhost:4100/${webPortString}${mockDataQuery[0]}`;
+            displayUrl = `http://localhost${webPortString}${mockDataQuery[0]}`;
             spacer1 = ' '.repeat(Math.max((104 - displayUrl.length), 1));
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}/${spacer1}(mock data)`);
             app.get(mockDataQuery, async (req, res) => {
@@ -403,18 +403,31 @@ export class SimpleUIServer {
             });
 
 
-            // -----------------------------
-            // Handler for css_elements_to_json.php call
-            // -----------------------------
-            displayUrl = 'localhost:4100/bms/php/css_elements_to_json';
-            app.get('/bms/php/css_elements_to_json', async (req, res) => {
-                // css_elements.json file in simpleui-server/test/data/bms || /var/www/bms/
+            // -------------------------------------
+            // Handler for css_elements_to_json call
+            // -------------------------------------
+            // Support path # /APP_NAME/UI_PROP/TAB_NAME/query/data/zmq/PORT/COMMAND_NAME
+            // Support path # /APP_NAME/UI_PROP/TAB_NAME/query/css_elements_to_json/:overlay/2
+            const cssToJsonQuery = [
+                `/:appName/:propsStub/:tabName/query/css_elements_to_json/:overlay/:nthOverlay`
+            ];
+            displayUrl = `http://${os.hostname()}${webPortString}${dataQuery[0]}`;
+            spacer1 = ' '.repeat(Math.max((105 - displayUrl.length), 1));
+            Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(data)`);
+            app.get(cssToJsonQuery, async (req, res) => {
+                // Replies with data from a zeromq request
+                Logger.log(LogLevel.VERBOSE, `css_elements_to_json request callback: ${++SimpleUIServer.requestCallbacks}`);
                 try {
-                    const filepath = '/var/www/bms/css_elements.json';
-                    let jsonString: string = JSON.stringify(JSON.parse(fs.readFileSync(filepath, 'utf-8')));
-                    await res.send(jsonString);
+                    const props = PropsFileReader.getProps(
+                        `${req.params.propsStub}.properties`,
+                        `${req.params.appName}`, cmdVars.webPort);
+                    await SuiData.suiCssToJsonRequest(req, res, props);
                 } catch (err) {
-                    Logger.log(LogLevel.ERROR, `css elements to json request failed: ${err}`)
+
+                    const cmd = SuiData.getCmdFromReq(req);
+                    ServerUtil.logRequestDetails(LogLevel.ERROR, req,
+                        `Err in data request: ${err}`,
+                        'main data handler', '/query/data/zmq', cmd);
                 }
             });
 
