@@ -64,7 +64,12 @@ export class SuiData {
             if (typeof req.query.version === 'string') {
                 versionString = req.query.version;
             }
-            const sJson = SuiData.xmlToJSON(xmlResponse, req.params.appName, uiProps, req);
+            let sJson = "";
+            if (xmlResponse[0] === "{") {
+                sJson = xmlResponse;
+            } else {
+                sJson = SuiData.xmlToJSON(xmlResponse, req.params.appName, uiProps, req);
+            }
             res.send(sJson);
         }
 
@@ -79,12 +84,15 @@ export class SuiData {
         };
 
         if (typeof req.query.cmd === 'string') {
+            Logger.log(LogLevel.DEBUG, `typeof req.query.cmd === 'string'`);
             cmd.source = 'req.query.cmd';
             cmd.cmd = req.query.cmd;
-        } else if (typeof req.query.css_elements_to_json === 'string') {
+        } else if (typeof req.params.overlay === 'string') {
+            Logger.log(LogLevel.DEBUG, `typeof req.query.css_elements_to_json === 'string''`);
             cmd.source = 'req.query.css_elements_to_json';
-            cmd.cmd = req.query.css_elements_to_json;
+            cmd.cmd = req.params.overlay;
         } else {
+            Logger.log(LogLevel.DEBUG, `else (cmd.source = 'req.params.zmqCmd'`);
             cmd.source = 'req.params.zmqCmd';
             cmd.cmd = req.params.zmqCmd;
         }
@@ -326,7 +334,7 @@ export class SuiData {
             'suiCssToJsonRequest', '/query/css_elements_to_json', cmd);
 
         Logger.log(LogLevel.DEBUG, `Converting css to json.`);
-        const css_file = `/var/www/${req.params.appName}/overlay-${req.params.nthOverlay}`;
+        const css_file = `/var/www/${req.params.appName}/overlay-${req.params.nthOverlay}/image-overlays.css`;
         const response = SuiData.cssToJson(css_file);
         SuiData.sendResponse(req, res, uiProps, response);
 
@@ -698,18 +706,18 @@ export class SuiData {
 
         try {
             const css = fs.readFileSync(filepath, 'utf-8');
-            for (let line in css.split('\n')) {
+            for (let line of css.split('\n')) {
                 if (line !== "") {
                     let matches = line.match(elemNameRegEx)
                     if (matches) {
-                        json += `{delim}    "{matches[1]}": "{matches[2]}"`;
+                        json += `${delim}    "${matches[1]}": "${matches[2]}"`;
                         delim = ',\n';
                     }
                 }
             }
             json += '  }\n}\n';
         } catch(error) {
-            Logger.log(LogLevel.ERROR, `Error parsing incoming XML: ${error.message}`);
+            Logger.log(LogLevel.ERROR, `Error parsing incoming .css: ${error.message}`);
             json = '{\n  "CSS_Elements": { }\n}';
         }
         return json;

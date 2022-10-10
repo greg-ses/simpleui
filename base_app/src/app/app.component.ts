@@ -158,12 +158,12 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
     }
 
-    static getDataTabRelativePath(relativeURL, tab_index, tab_hash, serverSideJsDebugging: boolean) {
-
-        // Default assumes relativeURL is a complete URL
+    static getDataTabPath(incomingURL, tab_index, tab_hash, serverSideJsDebugging: boolean) {
+        // TODO: verify that the hash stuff isn't being used for incremental update logic
+        //       and remove.
 
         let querySuffix = '?ti=' + tab_index + '&hash=' + tab_hash;
-        if (relativeURL.indexOf('?') > -1) {
+        if (incomingURL.indexOf('?') > -1) {
             querySuffix = '&ti=' + tab_index + '&hash=' + tab_hash;
         }
 
@@ -171,10 +171,13 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             querySuffix += '&keepTempFile';
         }
 
-        // Relative path
-        return relativeURL.concat(querySuffix);
+        let prefix = '';
+        if (window.location.port === '4200') {
+            // Hack to support local development via docker and ng serv
+            prefix = `http://localhost:4100`;
+        }
+        return `${prefix}${incomingURL}${querySuffix}`;
     }
-
 
     static doResizeTabScrollRegion(evt: any, timeout = 10) {
         if (evt) {
@@ -321,16 +324,28 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         */
     }
 
-    /*
-    ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-            this._changeDetectorRef.markForCheck();
+    getCssToJsonURL(tab): string {
+        let overlayNum = 1;
+        const overlayImageUrl = tab['overlayImageUrl'];
+        const matches = overlayImageUrl.match(/\/[^\/]*\/overlay-([0-9]+)\//);
+        if (matches) {
+            overlayNum = matches[1];
+        }
+        const url = AppComponent.getPropsURL().replace('/query/props', `/query/css_elements_to_json/overlay/${overlayNum}`);
+        console.log(`getCssToJsonURL(${tab}: ${url}`);
+        return url;
     }
 
-    registerPopupDialog(popupDialog) {
-        this.popupDialog = popupDialog;
-    }
+        /*
+        ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+                this._changeDetectorRef.markForCheck();
+        }
 
-    */
+        registerPopupDialog(popupDialog) {
+            this.popupDialog = popupDialog;
+        }
+
+        */
 
     updateToggleButton() {
         const toggleButton = document.getElementById('dbPulse');
@@ -600,9 +615,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
         this._updateSubscription = updateTimer.subscribe(
             cycle => {
-                console.log('before doUpdate top: ', this._props.tab[0]._DataSummary?.Pipe_one?.img?.length);
+                // console.log('before doUpdate top: ', this._props.tab[0]._DataSummary?.Pipe_one?.img?.length);
                 this.doUpdate(cycle);
-                console.log('after doUpdate top: ', this._props.tab[0]._DataSummary?.Pipe_one?.img?.length);
+                // console.log('after doUpdate top: ', this._props.tab[0]._DataSummary?.Pipe_one?.img?.length);
 
             },
             err => {
@@ -619,7 +634,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
      * @param {Number} cycle : the number of document.location.reload()'s have been used
      */
     doUpdate(cycle: number = 0) {
-        console.log(this._props.tab[0]._DataSummary?.Pipe_one);
+        // console.log(this._props.tab[0]._DataSummary?.Pipe_one);
         try {
             if ((cycle * this._refreshRate) > this._milliSecondsBeforeAutoPageReload) {
                 sessionStorage.autoReload = 'true';
@@ -788,7 +803,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 tab._pendingRequestExpiration = now.valueOf() + this._pendingRequestWait;
 
                 const ajaxRequest = {
-                    url: `http://localhost:4100${AppComponent.getDataTabRelativePath(tab.dataUrl, tab.index, tab_hash, serverSideJsDebugging)}`,
+                    url: `${AppComponent.getDataTabPath(tab.dataUrl, tab.index, tab_hash, serverSideJsDebugging)}`,
                     withCredentials: true,
                     crossDomain: true,
                     timeout: parseInt(this.getProp('ajaxTimeout', '5001'), 10)

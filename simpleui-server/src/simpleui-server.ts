@@ -406,16 +406,14 @@ export class SimpleUIServer {
             // -------------------------------------
             // Handler for css_elements_to_json call
             // -------------------------------------
-            // Support path # /APP_NAME/UI_PROP/TAB_NAME/query/data/zmq/PORT/COMMAND_NAME
-            // Support path # /APP_NAME/UI_PROP/TAB_NAME/query/css_elements_to_json/:overlay/2
+            // Support path # /APP_NAME/UI_PROP/query/css_elements_to_json/:overlay/2
             const cssToJsonQuery = [
-                `/:appName/:propsStub/:tabName/query/css_elements_to_json/:overlay/:nthOverlay`
+                `/:appName/:propsStub/query/css_elements_to_json/:overlay/:nthOverlay`
             ];
-            displayUrl = `http://${os.hostname()}${webPortString}${dataQuery[0]}`;
+            displayUrl = `http://${os.hostname()}${webPortString}${cssToJsonQuery[0]}`;
             spacer1 = ' '.repeat(Math.max((105 - displayUrl.length), 1));
-            Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(data)`);
+            Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(cssToJson)`);
             app.get(cssToJsonQuery, async (req, res) => {
-                // Replies with data from a zeromq request
                 Logger.log(LogLevel.VERBOSE, `css_elements_to_json request callback: ${++SimpleUIServer.requestCallbacks}`);
                 try {
                     const props = PropsFileReader.getProps(
@@ -426,8 +424,8 @@ export class SimpleUIServer {
 
                     const cmd = SuiData.getCmdFromReq(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
-                        `Err in data request: ${err}`,
-                        'main data handler', '/query/data/zmq', cmd);
+                        `Err in cssToJsonQuery request: ${err}`,
+                        'main cssToJsonQuery handler', '/query/css_elements_to_json/overlay', cmd);
                 }
             });
 

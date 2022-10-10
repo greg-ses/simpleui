@@ -39,6 +39,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     @Input() _dataTableNames: any;
     @Input() _imageOverlayGroupNames: string;
     @Input() _appURI: string;
+    @Input() _cssToJsonURL: string;
     private _nthOverlay = 1;
     private _detectChanges: {name: string, value: boolean};
 
@@ -143,7 +144,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         ClientLogger.log('LogOverlayList', 'getImplementedOverlays(nthOverlay)');
 
         const ajaxRequest = {
-            url: `${this._appURI}/css_elements_to_json/overlay/${nthOverlay}`,
+            url: `${this._cssToJsonURL}`,
             withCredentials: true,
             crossDomain: true,
             timeout:
@@ -183,12 +184,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         ClientLogger.log('LogOverlayListAll',
             'onImplementedOverlaysUpdate() - count _implementedOverlays: '
                   + Object.keys(this._implementedOverlays).length);
-    }
-
-    sendCssUpdate(cssOperation: string, cssRecord: string, cssValueRecord: string): void {
-        ClientLogger.log('LogCssUpdate', 'sendCssUpdate(' + cssOperation + ', ' + cssRecord + ')');
-
-        this._cssUpdateService.sendUpdate(this.getNthOverlayNumber(), cssOperation, cssRecord, cssValueRecord);
     }
 
     normalizeSection(sectionName: string, sectionLabel: string, sortIt?: boolean) {
@@ -319,162 +314,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
 
     getOverlayImage() {
         return this._uiTab && this._uiTab['overlayImageUrl'];
-    }
-
-    getCoordinates(elem) {
-        const box = elem.getBoundingClientRect();
-        return {
-            top: Math.round((box.top + pageYOffset) * 10) / 10,
-            left: Math.round((box.left + pageXOffset) * 10) / 10
-        };
-    }
-
-    parseImgData(url): any {
-        let imgData = null;
-        const pos = url.lastIndexOf('/');
-        if (pos > -1) {
-            const fileParts = url.substring(pos + 1).split('.');
-            if (fileParts.length > 0) {
-                imgData = {};
-                imgData['id'] = fileParts[0];
-                imgData['className'] = '';
-                imgData['cssDefName'] = '#' + imgData['id'];
-                if (fileParts.length > 1) {
-                    imgData['className'] = fileParts[1];
-                    imgData['cssDefName'] = imgData['id'] + '.' + imgData['className'];
-                }
-            }
-        }
-
-        return imgData;
-    }
-
-    onDrop(ev: DragEvent) {
-        try {
-            let id: string = ev.dataTransfer.getData('Text');
-
-            if (id === 'unimplementedOverlaysContainer') {
-                return false;
-            }
-
-            console.log('OverlayComponent.onDrop(' + id + ')');
-                const imgData = this.parseImgData(id);
-                if (imgData) {
-                    id = imgData.id;
-                }
-
-                this.moveDraggableVarOrImage(ev, imgData, id);
-
-        } catch (e) {
-            console.log('Error in onDrop(): ' + e);
-        }
-
-        ev.preventDefault();
-    }
-
-    moveDraggableVarOrImage(ev: any, imgData: any, id: string) {
-        let anchorCoords = {top: 0, left: 0};
-
-        const anchorElement = document.getElementById('overlayAnchor');
-        if (anchorElement) {
-            anchorCoords = this.getCoordinates(anchorElement);
-        }
-
-        const e: any = document.getElementById(id);
-        const prevStyle = window.getComputedStyle(e);
-
-        let valueWidth: any = e && e.children && e.children[1] && e.children[1].offsetWidth || '100';
-        valueWidth = Math.round(valueWidth);
-
-        const eLeft = ev.pageX - (anchorCoords.left + (e.offsetWidth / 2));
-        const eTop = ev.pageY - (anchorCoords.top + (e.offsetHeight / 2));
-
-        const moveLogger: any = document.getElementById('moveLogger');
-        moveLogger.innerHTML = 'x: ' + ev.pageX + 'px, y:' + ev.pageY + 'px&nbsp;&nbsp;' +
-            'left: '     + anchorCoords.left + ', top: ' + anchorCoords.top + '&nbsp;&nbsp;' +
-            'ev.pageX: ' + ev.pageX + ', ev.pageY: ' + ev.pageY + '&nbsp;&nbsp;' +
-            'eLeft: '    + eLeft + ', eTop: ' + eTop + '&nbsp;&nbsp;' +
-            'Width: '    + e.offsetWidth + ', Height: ' + e.offsetHeight;
-
-        console.log('prevStyle["left"]): ' + prevStyle['left'] + ', prevStyle["top"] ' + prevStyle['top']);
-        console.log('          ev.pageX: ' + ev.pageX + ', ev.pageY: ' + ev.pageY);
-        console.log('          ev.scrollX: ' + ev.scrollX + ', ev.scrollY: ' + ev.scrollY);
-        console.log('           startX:'   + moveLogger['dragStartInfo']['startX']
-            + ',   startY: ' + moveLogger['dragStartInfo']['startY']);
-        console.log('leftOffsetToMouse:' + moveLogger['dragStartInfo']['leftOffsetToMouse'] +
-            ',topOffsetToMouse: ' + moveLogger['dragStartInfo']['topOffsetToMouse']);
-
-        const newTop: number = Math.round(ev.pageY - anchorCoords.top + moveLogger['dragStartInfo']['topOffsetToMouse']);
-        const newLeft: number = Math.round(ev.pageX - anchorCoords.left + moveLogger['dragStartInfo']['leftOffsetToMouse']);
-
-        let newHeight: number = e && e.children && e.children[1] && e.children[1].offsetHeight || e.offsetHeight;
-        newHeight = Math.round(newHeight);
-
-        const defaultFmt  = (e && e.innerHTML && e.innerHTML.match(/[0-9]*[.][0-9]+/)) ? '\'%2d\'' : '\'\'';
-        const newStyle = 'position: absolute; ' +
-            'top: '  + newTop + 'px; '  +
-            'left: ' + newLeft + 'px; ' +
-            'width: 200px; ' +
-            'height:' + newHeight + 'px; ';
-        const newValueStyle = 'width:' + valueWidth + 'px; ' +
-            'height:' + newHeight + 'px; ' +
-            '--format:' + defaultFmt + ';';
-        let cssDef: string;
-        let cssValueDef = '';
-        if (imgData) {
-            e.className = imgData.className;
-            cssDef = imgData.cssDefName + ' {' + newStyle + '}\n';
-
-            if (this._debug) {
-                const imgInfoCmd = AppTabOverlayComponent.getImgInfoCmd(id, 'Before');
-                setTimeout(imgInfoCmd, 50);
-            }
-
-            const cmd = 'var e=document.getElementById("' + id + '"); if (e) {e.style="' + newStyle + '";}';
-            if (this._debug) {
-                console.log(cmd);
-            }
-            setTimeout(cmd, 200);
-
-            if (this._debug) {
-                const imgInfoCmd = AppTabOverlayComponent.getImgInfoCmd(id, 'After');
-                setTimeout(imgInfoCmd, 100);
-            }
-
-        } else {
-            cssDef = '#' + id + ' {' + newStyle + '}\n';
-            cssValueDef = '#' + id + '_value {' + newValueStyle + '}\n';
-            e.style = newStyle;
-
-            // Move the element to a the div containing the image, and update its current CSS definitions
-            const cmd =
-                `var e=document.getElementById("${id}");
-                if (e) {
-                     var overlayAnchor = document.getElementById("overlayAnchor");
-                     if (overlayAnchor) {overlayAnchor.appendChild(e);}
-                     e.style="${newStyle}";
-                 }
-                 var e_val=document.getElementById("${id}_value"); if (e_val) {e_val.style="${newValueStyle}";}`;
-            if (this._debug) {
-                console.log(cmd);
-            }
-            setTimeout(cmd, 200);
-
-            console.log('newStyle: ' + newStyle);
-            console.log('newValueStyle: ' + newValueStyle);
-
-            this.sendCssUpdate('update-css', cssDef, cssValueDef);
-        }
-
-        console.log(cssDef);
-    }
-
-    onDragOver(ev: DragEvent): void {
-        // Allow Drop
-        ev.preventDefault();
-
-        const positioner = document.getElementById('moveLogger');
-        positioner.innerHTML = '(x: ' + ev.pageX + 'px, y:' + ev.pageY + 'px)';
     }
 
     createUiObjList(label = '', desc = '', u_id = '', url = '', tooltip = '', elements = []): UiObjList {

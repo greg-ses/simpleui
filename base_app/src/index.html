@@ -22,13 +22,15 @@
     let link = document.createElement('link');
     link.setAttribute('rel', 'icon');
     link.type = 'image/x-icon';
-    link.href = appURI + 'assets/images/favicon.ico';
+    link.href = appURI + '/images/favicon.ico';
     document.head.appendChild(link);
 
     // this condition is specifically for ng serve dev env
     let debugPrefix = "";
+    let simpleuiServerPort = "";
     if (window.location.port === '4200') {
-      debugPrefix = window.location.protocol + '//' + window.location.hostname + ':4100';
+      simpleuiServerPort = 4100;
+      debugPrefix = window.location.protocol + '//' + window.location.hostname + ':' + simpleuiServerPort;
       link.href = window.origin + '/bms/assets/images/favicon.ico';
       console.log(`debugPrefix: ${debugPrefix}`);
     }
@@ -37,6 +39,8 @@
     base['appURI'] = appURI;
     base['uiProp'] = uiProp;
     base['propsQuery'] = debugPrefix + appPath + (uiProp || 'ui') + '/query/props';
+    base['cssToJsonQuery'] = debugPrefix + appPath + (uiProp || 'ui') + '/query/css_elements_to_json/overlay';
+
     console.log(`base['propsQuery']: ${base['propsQuery']}`);
 
 
@@ -46,7 +50,6 @@
 
   </script>
   <base href=appURI />
-  <link href="/bms/assets/image-overlays.css" rel="stylesheet" />
 </head>
 <body style="margin:0;overflow:hidden">
   <app-simpleui>Loading...</app-simpleui>

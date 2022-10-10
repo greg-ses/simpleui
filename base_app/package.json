@@ -11,8 +11,8 @@
   "license": "ISC",
   "scripts": {
     "ng": "node node_modules/@angular/cli/bin/ng.js",
-    "build-client-dev": "bash make-version-txt.bash build-client-only && rm -rf dist dist.tgz && ng build --output-hashing all --configuration development && bash post-build-step.bash --include-mocks",
-    "build-client-prod": "bash -c \"bash make-version-txt.bash build-client-prod && rm -rf dist dist.tgz && ng build --aot --output-hashing all --no-source-map --no-named-chunks && bash post-build-step.bash\"",
+    "build-client-dev": "bash make-version-txt.bash build-client-only && bash -c 'rm -rf dist dist.tgz' && node node_modules/@angular/cli/bin/ng.js build --output-hashing all --configuration development && bash post-build-step.bash --include-mocks",
+    "build-client-prod": "bash -c \"bash make-version-txt.bash build-client-prod && bash -c 'rm -rf dist dist.tgz' && node node_modules/@angular/cli/bin/ng.js build --aot --output-hashing all --no-source-map --no-named-chunks && bash post-build-step.bash\"",
     "start-client-dev": "cd ../ && bash run-dev-env.bash",
     "start-client-prod": "bash -c \"node node_modules/@angular/cli/bin/ng.js serve --aot\"",
     "post-build-step--setup-bms-for-dev": "sh build-app-for-dev.sh 0 bms git-workspace-all ${USER}",
