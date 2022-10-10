@@ -26,10 +26,8 @@ docker run \
     sui-dev-image /bin/bash /usr/src/app/${install_script}
 
 
-
 echo ""
 docker ps -a
-
 
 #    -p 9229:9229 \
 #    -p 2223:22 \

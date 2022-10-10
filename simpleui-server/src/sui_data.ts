@@ -87,7 +87,7 @@ export class SuiData {
             cmd.source = 'req.query.cmd';
             cmd.cmd = req.query.cmd;
         } else if (typeof req.params.overlay === 'string') {
-            cmd.source = 'req.query.css_elements_to_json';
+            cmd.source = 'req.params.overlay';
             cmd.cmd = req.params.overlay;
         } else {
             cmd.source = 'req.params.zmqCmd';
@@ -331,6 +331,7 @@ export class SuiData {
             'suiCssToJsonRequest', '/query/css_elements_to_json', cmd);
 
         Logger.log(LogLevel.DEBUG, `Converting css to json.`);
+        // const css_file = `/var/www/${req.params.appName}/css_elements.css`;
         const css_file = `/var/www/${req.params.appName}/overlay-${req.params.nthOverlay}/image-overlays.css`;
         const response = SuiData.cssToJson(css_file);
         SuiData.sendResponse(req, res, uiProps, response);
