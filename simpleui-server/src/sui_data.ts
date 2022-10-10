@@ -84,15 +84,12 @@ export class SuiData {
         };
 
         if (typeof req.query.cmd === 'string') {
-            Logger.log(LogLevel.DEBUG, `typeof req.query.cmd === 'string'`);
             cmd.source = 'req.query.cmd';
             cmd.cmd = req.query.cmd;
         } else if (typeof req.params.overlay === 'string') {
-            Logger.log(LogLevel.DEBUG, `typeof req.query.css_elements_to_json === 'string''`);
             cmd.source = 'req.query.css_elements_to_json';
             cmd.cmd = req.params.overlay;
         } else {
-            Logger.log(LogLevel.DEBUG, `else (cmd.source = 'req.params.zmqCmd'`);
             cmd.source = 'req.params.zmqCmd';
             cmd.cmd = req.params.zmqCmd;
         }

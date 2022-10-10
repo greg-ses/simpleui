@@ -158,7 +158,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
                 && (res.response instanceof Object)
                 && (res.response.CSS_Elements instanceof Object)
             ) {
-                return (this.onImplementedOverlaysUpdate(res.response.CSS_Elements));
+                return this.onImplementedOverlaysUpdate(res.response.CSS_Elements);
             } else {
                 console.log(`Error ${res.status} fetching res,response.CSS_Elements data in getImplementedOverlays(${nthOverlay})`);
             }
