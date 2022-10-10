@@ -386,27 +386,12 @@ export class SimpleUIServer {
                     Logger.log(LogLevel.ERROR, 'Error in mock cmd handler')
                 }
                 res.json({'mock data placeholder': 123})
-                /*
-                try {
-                    const props = PropsFileReader.getProps(
-                        `${req.params.propsStub}.properties`,
-                        `${req.params.appName}`, cmdVars.webPort);
-                    await SuiData.suiCommandRequest(req, res, props);
-                } catch (err) {
-
-                    const cmd = SuiData.getCmdFromReq(req);
-                    ServerUtil.logRequestDetails(LogLevel.ERROR, req,
-                        `Err in cmd request: ${err}`,
-                        'main cmd handler', '/mock/cmd', cmd);
-                }
-                */
             });
 
 
             // -------------------------------------
             // Handler for css_elements_to_json call
             // -------------------------------------
-            // Support path # /APP_NAME/UI_PROP/TAB_NAME/query/data/zmq/PORT/COMMAND_NAME
             // Support path # /APP_NAME/UI_PROP/TAB_NAME/query/css_elements_to_json/:overlay/2
             const cssToJsonQuery = [
                 `/:appName/:propsStub/:tabName/query/css_elements_to_json/:overlay/:nthOverlay`

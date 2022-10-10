@@ -64,7 +64,12 @@ export class SuiData {
             if (typeof req.query.version === 'string') {
                 versionString = req.query.version;
             }
-            const sJson = SuiData.xmlToJSON(xmlResponse, req.params.appName, uiProps, req);
+            let sJson = "";
+            if (xmlResponse[0] === "{") {
+                sJson = xmlResponse;
+            } else {
+                sJson = SuiData.xmlToJSON(xmlResponse, req.params.appName, uiProps, req);
+            }
             res.send(sJson);
         }
 
@@ -326,7 +331,8 @@ export class SuiData {
             'suiCssToJsonRequest', '/query/css_elements_to_json', cmd);
 
         Logger.log(LogLevel.DEBUG, `Converting css to json.`);
-        const css_file = `/var/www/${req.params.appName}/overlay-${req.params.nthOverlay}`;
+        //const css_file = `/var/www/${req.params.appName}/overlay-${req.params.nthOverlay}`;                ////////////////// hard coded is bad
+        const css_file = `/var/www/${req.params.appName}/css_elements.css`;
         const response = SuiData.cssToJson(css_file);
         SuiData.sendResponse(req, res, uiProps, response);
 
@@ -698,11 +704,13 @@ export class SuiData {
 
         try {
             const css = fs.readFileSync(filepath, 'utf-8');
-            for (let line in css.split('\n')) {
-                if (line !== "") {
+            let css_array = css.split('\n');
+            for (let indx = 0; indx < css_array.length; indx++) {
+                let line = css_array[indx];
+                if (line !== "" && line.slice(0, 2) !== "/*") {
                     let matches = line.match(elemNameRegEx)
                     if (matches) {
-                        json += `{delim}    "{matches[1]}": "{matches[2]}"`;
+                        json += `${delim}    "${matches[1]}": "${matches[2]}"`;
                         delim = ',\n';
                     }
                 }
