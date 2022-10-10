@@ -704,10 +704,8 @@ export class SuiData {
 
         try {
             const css = fs.readFileSync(filepath, 'utf-8');
-            let css_array = css.split('\n');
-            for (let indx = 0; indx < css_array.length; indx++) {
-                let line = css_array[indx];
-                if (line !== "" && line.slice(0, 2) !== "/*") {
+            for (let line of css.split('\n')) {
+                if (line !== "") {
                     let matches = line.match(elemNameRegEx)
                     if (matches) {
                         json += `${delim}    "${matches[1]}": "${matches[2]}"`;

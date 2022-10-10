@@ -141,7 +141,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     getImplementedOverlays(nthOverlay): any {
 
         ClientLogger.log('LogOverlayList', 'getImplementedOverlays(nthOverlay)');
-
         const ajaxRequest = {
             //url: `${this._appURI}css_elements_to_json/overlay/${nthOverlay}`,
             // /APP_NAME/UI_PROP/TAB_NAME/query/css_elements_to_json/:overlay/2
@@ -182,7 +181,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
                 this._implementedOverlays[key] = cssElements[key];
             }
         }
-        console.log(this._implementedOverlays)
         ClientLogger.log('LogOverlayListAll',
             'onImplementedOverlaysUpdate() - count _implementedOverlays: '
                   + Object.keys(this._implementedOverlays).length);

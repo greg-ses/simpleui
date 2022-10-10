@@ -762,7 +762,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
      * @param tab_hash -
      * @param {boolean} serverSideJsDebugging -
      */
-    getRemoteTabData(tab: TabUI, tab_hash, serverSideJsDebugging) {
+    getRemoteTabData(tab: TabUI, tab_hash, serverSideJsDebugging: boolean) {
 
         if (this.isDeltaUpdate(tab)) {
             ClientLogger.log('DeltaUpdate', 'Partial Update');

@@ -408,7 +408,6 @@ export class SimpleUIServer {
                         `${req.params.appName}`, cmdVars.webPort);
                     await SuiData.suiCssToJsonRequest(req, res, props);
                 } catch (err) {
-
                     const cmd = SuiData.getCmdFromReq(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                         `Err in data request: ${err}`,
