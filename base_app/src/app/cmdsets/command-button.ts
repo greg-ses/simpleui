@@ -139,7 +139,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
     }
 
     getQuestionText(): string {
-        let qText: string;
+        let qText = 'Perform unknown action?';
         if (typeof this._element.command['desc'] === 'string') {
             qText = this._element.command['desc'].replace(/\(NL\)/g, '\n');
         } else {
