@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>NgSimpleUi</title>
+  <title>APP_TITLE</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +22,7 @@
     let link = document.createElement('link');
     link.setAttribute('rel', 'icon');
     link.type = 'image/x-icon';
-    link.href = appURI + '/images/favicon.ico';
+    link.href = appURI + 'assets/images/favicon.ico';
     document.head.appendChild(link);
 
     // this condition is specifically for ng serve dev env
@@ -31,7 +31,7 @@
     if (window.location.port === '4200') {
       simpleuiServerPort = 4100;
       debugPrefix = window.location.protocol + '//' + window.location.hostname + ':' + simpleuiServerPort;
-      link.href = window.origin + '/bms/assets/images/favicon.ico';
+      link.href = window.origin + '/simple_ui/assets/images/favicon.ico';
       console.log(`debugPrefix: ${debugPrefix}`);
     }
 
@@ -50,6 +50,7 @@
 
   </script>
   <base href=appURI />
+  <link href="/simple_ui/assets/image-overlays.css" rel="stylesheet" />
 </head>
 <body style="margin:0;overflow:hidden">
   <app-simpleui>Loading...</app-simpleui>

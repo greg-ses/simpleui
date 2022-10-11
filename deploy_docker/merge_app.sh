@@ -39,6 +39,8 @@ if test -d "$INCOMING_DIR"; then
     printf "Add overlay-${i}/..."
     cp -r overlay-${i} "${STAGING_DIR}"
 
+    ln -s "${STAGING_DIR}" "${STAGING_DIR}/assets/"
+
     # Handle image symlink creation if the overlay needs it
     if test -f "${STAGING_DIR}/overlay-${i}/images/create_links.sh"; then
     (
@@ -62,8 +64,9 @@ linksAtEndOfHead="${linksAtEndOfHead}\n</head>"
   < index.html awk -v appname="$app_name" -v linksAtEndOfHead="$linksAtEndOfHead" \
   '{ s=$0; \
     gsub("/simpleui/", "/" appname "/", s); \
-    gsub("NgSimpleUi", appname, s); \
+    gsub("APP_TITLE", appname, s); \
     gsub("</head>", linksAtEndOfHead, s); \
+    gsub("<link href=\"/simple_ui/assets/image-overlays.css\" rel=\"stylesheet\" />", "", s); \
     print s;}' > newindex.html && mv newindex.html index.html
 )
 

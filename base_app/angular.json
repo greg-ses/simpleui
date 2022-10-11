@@ -14,8 +14,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "baseHref": "/bms/",
-            "outputPath": "dist/base_app",
+            "baseHref": "/simple_ui/",
+            "outputPath": "dist/simple_ui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

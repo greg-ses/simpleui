@@ -6,7 +6,7 @@
     if [[ ! -d .vscode ]]; then
         mkdir .vscode;
         cd .vscode && touch launch.json;
-        echo '{"configurations": [{"name": "Debug server","type": "node","request": "launch","program": "${workspaceFolder}/simpleui-server/dist/simpleui-server/simpleui-server.js","args": ["--mode=daemon","--appName=bms","--webPort=4100"]}]}' > launch.json
+        echo '{"configurations": [{"name": "Debug server","type": "node","request": "launch","program": "${workspaceFolder}/simpleui-server/dist/simpleui-server/simpleui-server.js","args": ["--mode=daemon","--appName=sample-app","--webPort=4100"]}]}' > launch.json
     fi
  )
 
@@ -19,7 +19,7 @@ npm run build;
 
 #node --inspect /usr/src/app/simpleui-server/dist/simpleui-server/simpleui-server.js \
 #--mode=daemon \
-#--appName=bms \
+#--appName=sample-app \
 #--webPort=4100
 
 # -------------- base_app --------------
