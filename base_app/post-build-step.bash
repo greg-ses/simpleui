@@ -1,5 +1,9 @@
 #!/bin/bash
-PROJ=simpleui
+
+# this could be parameterized???
+PROJ=simple_ui
+
+#set -e
 
 echo "------------------ Starting post-build-step -----------------------"
 
@@ -19,22 +23,22 @@ cp src/app/cmdsets/popup-dialog.css dist/css/
 cp -rv src/public/doc dist
 cp -rv src/public/images dist
 cp -rv src/public/php dist
-cp -rv ../deploy/setup-helpers dist
+#cp -rv ../deploy/setup-helpers dist
 
 cp src/public/version.txt dist/
 
 cp src/public/example-overlay.tgz dist/
 cp src/public/proxy-index.php dist/
 cp src/public/collect-apache-coredumps.bash dist/
-cp ../deploy/merge-derived-app.sh dist/
+#cp ../deploy/merge-derived-app.sh dist/
 cp src/public/sample_ui.properties.txt dist/
 cp src/public/service-worker.js dist/
 cp src/public/LoggingFeatures.js dist/
 
 cp dist/${PROJ}/*.css dist/css/
-cp dist/${PROJ}/*.css.map dist/css/
+#cp dist/${PROJ}/*.css.map dist/css/
 cp dist/${PROJ}/*.js dist/js/
-cp dist/${PROJ}/*.js.map dist/js/
+#cp dist/${PROJ}/*.js.map dist/js/
 
 
 if (($# > 0)) && [[ "$1" == "--include-mocks" ]]; then
@@ -44,7 +48,7 @@ if (($# > 0)) && [[ "$1" == "--include-mocks" ]]; then
 fi
 
 # Fix names of javascript files
-cat dist/base_app/index.html | \
+cat dist/${PROJ}/index.html | \
   awk -v JS_FOLDER="/${PROJ}/js/" -v CSS_FOLDER="/${PROJ}/css/" \
         '{ s=$0; \
          cssPrefix="<link rel=\"stylesheet\" href=\""; \
@@ -52,7 +56,7 @@ cat dist/base_app/index.html | \
          gsub(cssPrefix, cssPrefix CSS_FOLDER, s); \
          gsub(jsPrefix, jsPrefix JS_FOLDER, s); \
          gsub("</script>", "</script>\n", s); \
-         print s;}' > dist/index.html
+         print s;}' > dist/index.html 
 
 # -- end: add GUID to js files and fix up index.html --
 
