@@ -1,6 +1,6 @@
 ###############################################################################
 # build stage-0: BUILD THE BASE CLIENT PACKAGE
-FROM node:16 as build_base_client
+FROM node:18 as build_base_client
 
 COPY "base_app/" "/base_app/"
 WORKDIR /base_app/
@@ -9,12 +9,13 @@ RUN npm run build-client-prod
 
 ###############################################################################
 # build stage-1: BUILD THE BASE SERVER PAKCGAE
-FROM node:16 as build_base_server
+FROM node:18 as build_base_server
 
 COPY "simpleui-server/" "/simpleui-server/"
 WORKDIR /simpleui-server/
 RUN npm install
 RUN npm run build
+
 
 ###############################################################################
 # build stage-2: FINAL IMAGE
@@ -22,8 +23,8 @@ FROM php:7-apache
 
 WORKDIR /tmp
 
-# Node 16 script, mostly just adds it to apt
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+# Node 18 script, mostly just adds it to apt
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 
 # Install nodejs, install wget for zmq, install git for php-zmq
 RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
