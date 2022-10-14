@@ -50,7 +50,6 @@ if test -d "$INCOMING_DIR"; then
     )
     fi
 
-    linksAtEndOfHead="${linksAtEndOfHead}\n<link href=\"/${app_name}/overlay-${i}/image-overlays.css\" rel=\"stylesheet\">"
     i=$(expr ${i} + 1)
     printf "done\n"
   done
@@ -64,9 +63,9 @@ linksAtEndOfHead="${linksAtEndOfHead}\n</head>"
   < index.html awk -v appname="$app_name" -v linksAtEndOfHead="$linksAtEndOfHead" \
   '{ s=$0; \
     gsub("/simpleui/", "/" appname "/", s); \
+    gsub("/simple_ui/", "/" appname "/", s); \
     gsub("APP_TITLE", appname, s); \
     gsub("</head>", linksAtEndOfHead, s); \
-    gsub("<link href=\"/simple_ui/assets/image-overlays.css\" rel=\"stylesheet\" />", "", s); \
     print s;}' > newindex.html && mv newindex.html index.html
 )
 
@@ -80,13 +79,14 @@ linksAtEndOfHead="${linksAtEndOfHead}\n</head>"
 )
 
 # Make sure some staging directories exist
-mkdir -p "${STAGING_DIR}/doc" "${STAGING_DIR}/images" "${STAGING_DIR}/nodejs" "${STAGING_DIR}/php"
+mkdir -p "${STAGING_DIR}/doc" "${STAGING_DIR}/images" "${STAGING_DIR}/nodejs" "${STAGING_DIR}/php" "${STAGING_DIR}/assets"
 
 # Copy overlay assets to the staging dir
 if test -d $INCOMING_DIR/doc; then cp $INCOMING_DIR/doc/*.* ${STAGING_DIR}/doc; fi
 if test -d $INCOMING_DIR/images; then cp $INCOMING_DIR/images/*.* ${STAGING_DIR}/images; fi
 if test -d $INCOMING_DIR/nodejs; then cp -r $INCOMING_DIR/nodejs ${STAGING_DIR}; fi
 if test -d $INCOMING_DIR/php; then cp $INCOMING_DIR/php/*.php ${STAGING_DIR}/php; fi
+if test -d $INCOMING_DIR/overlay-1; then cp -ar $INCOMING_DIR/php/*.php ${STAGING_DIR}/assets; fi
 if test -f $INCOMING_DIR/.htaccess; then cp $INCOMING_DIR/.htaccess ${STAGING_DIR}; fi
 cp $INCOMING_DIR/*.properties ${STAGING_DIR}
 

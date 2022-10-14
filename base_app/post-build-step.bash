@@ -38,7 +38,7 @@ cp src/public/LoggingFeatures.js dist/
 cp dist/${PROJ}/*.css dist/css/
 #cp dist/${PROJ}/*.css.map dist/css/
 cp dist/${PROJ}/*.js dist/js/
-#cp dist/${PROJ}/*.js.map dist/js/
+cp dist/${PROJ}/*.js.map dist/js/
 
 
 if (($# > 0)) && [[ "$1" == "--include-mocks" ]]; then
