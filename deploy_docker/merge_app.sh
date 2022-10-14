@@ -79,14 +79,14 @@ linksAtEndOfHead="${linksAtEndOfHead}\n</head>"
 )
 
 # Make sure some staging directories exist
-mkdir -p "${STAGING_DIR}/doc" "${STAGING_DIR}/images" "${STAGING_DIR}/nodejs" "${STAGING_DIR}/php" "${STAGING_DIR}/assets"
+mkdir -p "${STAGING_DIR}/doc" "${STAGING_DIR}/images" "${STAGING_DIR}/nodejs" "${STAGING_DIR}/php"
 
 # Copy overlay assets to the staging dir
 if test -d $INCOMING_DIR/doc; then cp $INCOMING_DIR/doc/*.* ${STAGING_DIR}/doc; fi
 if test -d $INCOMING_DIR/images; then cp $INCOMING_DIR/images/*.* ${STAGING_DIR}/images; fi
 if test -d $INCOMING_DIR/nodejs; then cp -r $INCOMING_DIR/nodejs ${STAGING_DIR}; fi
 if test -d $INCOMING_DIR/php; then cp $INCOMING_DIR/php/*.php ${STAGING_DIR}/php; fi
-if test -d $INCOMING_DIR/overlay-1; then cp -ar $INCOMING_DIR/php/*.php ${STAGING_DIR}/assets; fi
+if test -d $INCOMING_DIR/overlay-1; then ln -s $INCOMING_DIR/overlay-1 ${STAGING_DIR}/assets; fi
 if test -f $INCOMING_DIR/.htaccess; then cp $INCOMING_DIR/.htaccess ${STAGING_DIR}; fi
 cp $INCOMING_DIR/*.properties ${STAGING_DIR}
 
