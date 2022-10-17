@@ -49,7 +49,7 @@ if test -d "$INCOMING_DIR"; then
       source create_links.sh siteshir
     )
     else
-       mkdir "${STAGING_DIR}/overlay-${i}/images
+       mkdir "${STAGING_DIR}/overlay-${i}/images"
     fi
 
     if test -d $INCOMING_DIR/images; then cp --no-clobber $INCOMING_DIR/images/*.* ${STAGING_DIR}/overlay-${i}/images; fi
