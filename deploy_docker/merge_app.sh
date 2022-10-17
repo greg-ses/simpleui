@@ -84,6 +84,7 @@ mkdir -p "${STAGING_DIR}/doc" "${STAGING_DIR}/images" "${STAGING_DIR}/nodejs" "$
 # Copy overlay assets to the staging dir
 if test -d $INCOMING_DIR/doc; then cp $INCOMING_DIR/doc/*.* ${STAGING_DIR}/doc; fi
 if test -d $INCOMING_DIR/images; then cp $INCOMING_DIR/images/*.* ${STAGING_DIR}/images; fi
+if test -d $INCOMING_DIR/images && test -d $STAGING_DIR/overlay-1/images; then cp --no-clobber $INCOMING_DIR/images/*.* ${STAGING_DIR}/overlay-1/images; fi
 if test -d $INCOMING_DIR/nodejs; then cp -r $INCOMING_DIR/nodejs ${STAGING_DIR}; fi
 if test -d $INCOMING_DIR/php; then cp $INCOMING_DIR/php/*.php ${STAGING_DIR}/php; fi
 if test -d $INCOMING_DIR/overlay-1; then ln -s $INCOMING_DIR/overlay-1 ${STAGING_DIR}/assets; fi
