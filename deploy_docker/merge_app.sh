@@ -39,7 +39,7 @@ if test -d "$INCOMING_DIR"; then
     printf "Add overlay-${i}/..."
     cp -r overlay-${i} "${STAGING_DIR}"
 
-    ln -s "${STAGING_DIR}/overlay-${i}" "${STAGING_DIR}/simple_ui/assets/"
+    ln -s "${STAGING_DIR}/overlay-${i}" "${STAGING_DIR}/assets/"
 
     # Handle image symlink creation if the overlay needs it
     if test -f "${STAGING_DIR}/overlay-${i}/images/create_links.sh"; then
