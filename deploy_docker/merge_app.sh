@@ -39,7 +39,7 @@ if test -d "$INCOMING_DIR"; then
     printf "Add overlay-${i}/..."
     cp -r overlay-${i} "${STAGING_DIR}"
 
-    ln -s "${STAGING_DIR}" "${STAGING_DIR}/simple_ui/assets/"
+    ln -s "${STAGING_DIR}/overlay-${i}" "${STAGING_DIR}/simple_ui/assets/"
 
     # Handle image symlink creation if the overlay needs it
     if test -f "${STAGING_DIR}/overlay-${i}/images/create_links.sh"; then
@@ -48,7 +48,11 @@ if test -d "$INCOMING_DIR"; then
       printf "linking images..."
       source create_links.sh siteshir
     )
+    else
+       mkdir "${STAGING_DIR}/overlay-${i}/images
     fi
+
+    if test -d $INCOMING_DIR/images; then cp --no-clobber $INCOMING_DIR/images/*.* ${STAGING_DIR}/overlay-${i}/images; fi
 
     i=$(expr ${i} + 1)
     printf "done\n"
@@ -84,10 +88,8 @@ mkdir -p "${STAGING_DIR}/doc" "${STAGING_DIR}/images" "${STAGING_DIR}/nodejs" "$
 # Copy overlay assets to the staging dir
 if test -d $INCOMING_DIR/doc; then cp $INCOMING_DIR/doc/*.* ${STAGING_DIR}/doc; fi
 if test -d $INCOMING_DIR/images; then cp $INCOMING_DIR/images/*.* ${STAGING_DIR}/images; fi
-if test -d $INCOMING_DIR/images && test -d $STAGING_DIR/overlay-1/images; then cp --no-clobber $INCOMING_DIR/images/*.* ${STAGING_DIR}/overlay-1/images; fi
 if test -d $INCOMING_DIR/nodejs; then cp -r $INCOMING_DIR/nodejs ${STAGING_DIR}; fi
 if test -d $INCOMING_DIR/php; then cp $INCOMING_DIR/php/*.php ${STAGING_DIR}/php; fi
-if test -d $INCOMING_DIR/overlay-1; then ln -s $INCOMING_DIR/overlay-1 ${STAGING_DIR}/assets; fi
 if test -f $INCOMING_DIR/.htaccess; then cp $INCOMING_DIR/.htaccess ${STAGING_DIR}; fi
 cp $INCOMING_DIR/*.properties ${STAGING_DIR}
 
