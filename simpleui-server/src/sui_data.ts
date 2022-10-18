@@ -527,7 +527,7 @@ export class SuiData {
 
         let attributes = '';
 
-        if (typeof req.query !== 'object') {
+        if (req.query !== {}) {
             Object.keys(req.query).forEach(key => {
                 if (typeof req.query[key] === 'string') {
                     if (key === 'cmd') {
