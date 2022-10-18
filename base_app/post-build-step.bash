@@ -23,20 +23,18 @@ cp src/app/cmdsets/popup-dialog.css dist/css/
 cp -rv src/public/doc dist
 cp -rv src/public/images dist
 cp -rv src/public/php dist
-#cp -rv ../deploy/setup-helpers dist
 
 cp src/public/version.txt dist/
 
 cp src/public/example-overlay.tgz dist/
 cp src/public/proxy-index.php dist/
 cp src/public/collect-apache-coredumps.bash dist/
-#cp ../deploy/merge-derived-app.sh dist/
 cp src/public/sample_ui.properties.txt dist/
 cp src/public/service-worker.js dist/
 cp src/public/LoggingFeatures.js dist/
 
 cp dist/${PROJ}/*.css dist/css/
-#cp dist/${PROJ}/*.css.map dist/css/
+cp dist/${PROJ}/*.css.map dist/css/
 cp dist/${PROJ}/*.js dist/js/
 cp dist/${PROJ}/*.js.map dist/js/
 
@@ -56,9 +54,9 @@ cat dist/${PROJ}/index.html | \
          gsub(cssPrefix, cssPrefix CSS_FOLDER, s); \
          gsub(jsPrefix, jsPrefix JS_FOLDER, s); \
          gsub("</script>", "</script>\n", s); \
-         print s;}' > dist/index.html 
+         print s;}' > dist/index.html
 
-# -- end: add GUID to js files and fix up index.html --
+# -- end: fix up index.html --
 
 # Create dist.tgz
 cd dist

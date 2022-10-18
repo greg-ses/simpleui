@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-// import './css/styles.css';
 import {AppProperties, SubscriptionState, TabUI, TitleBarProperties} from './interfaces/props-data';
 import {ajax} from 'rxjs/ajax';
 import {MatTabChangeEvent, MatTabGroup} from '@angular/material/tabs';
@@ -7,8 +6,6 @@ import {interval} from 'rxjs';
 import {ClientLogger, LogLevel} from '../tools/logger';
 import {DataSummary} from './interfaces/data-summary';
 import {UTIL} from '../tools/utility';
-// import {AppEditUiPanelComponent} from './app-tab-overlay/app-edit-ui-panel-component';
-// import {Subscriber} from 'rxjs/src/internal/Subscriber';
 
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -138,24 +135,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     }
 
     static getServiceURI(): string {
-
-        /*
-        let path = '';
-        const pos = window.location.pathname.indexOf('/index.html');
-        if (pos > -1) {
-            path = window.location.pathname.substr(pos);
-        } else if (window.location.pathname === '/' || window.location.pathname === '/context.html') {
-            path = '/simpleui/';
-        } else {
-            path = window.location.pathname;
-        }
-
-        return (window.location.protocol + '//' + window.location.hostname + path);
-        */
-
         const base = document.getElementsByTagName('base')[0];
         return base['appURI'];
-
     }
 
     static getDataTabPath(incomingURL, tab_index, tab_hash, serverSideJsDebugging: boolean) {

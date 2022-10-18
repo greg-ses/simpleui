@@ -7,14 +7,6 @@
  *     https://stackoverflow.com/questions/40291987/javascript-deep-clone-object-with-circular-references/40293777#40293777
 */
 
-
-/*
-
-const arrayContainsObject = (arr, obj) => {
-  return arr.some(item => Object.keys(item).every(key => item[key] === obj[key]))
-}
-*/
-
 import { Injectable } from '@angular/core';
 import { ObjRel, DataChange } from '../app/services/data-change.service';
 
@@ -441,4 +433,3 @@ export class UTIL {
     }
 
 }
-

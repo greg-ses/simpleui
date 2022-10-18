@@ -16,7 +16,6 @@ import {SiteIndex} from '../interfaces/site-index';
 import {CssUpdateService} from '../services/css-update-service';
 import {TabUI} from '../interfaces/props-data';
 
-// import '../css/styles.css';
 import {ajax} from 'rxjs/ajax';
 import {AppComponent} from '../app.component';
 
@@ -329,4 +328,3 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     }
 
 }
-
