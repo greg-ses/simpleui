@@ -39,6 +39,8 @@ if test -d "$INCOMING_DIR"; then
     printf "Add overlay-${i}/..."
     cp -r overlay-${i} "${STAGING_DIR}"
 
+    ln -s "${STAGING_DIR}/overlay-${i}" "${STAGING_DIR}/assets"
+
     # Handle image symlink creation if the overlay needs it
     if test -f "${STAGING_DIR}/overlay-${i}/images/create_links.sh"; then
     (
@@ -46,9 +48,12 @@ if test -d "$INCOMING_DIR"; then
       printf "linking images..."
       source create_links.sh siteshir
     )
+    else
+       mkdir "${STAGING_DIR}/overlay-${i}/images"
     fi
 
-    linksAtEndOfHead="${linksAtEndOfHead}\n<link href=\"/${app_name}/overlay-${i}/image-overlays.css\" rel=\"stylesheet\">"
+    if test -d $INCOMING_DIR/images; then cp --no-clobber $INCOMING_DIR/images/*.* ${STAGING_DIR}/overlay-${i}/images; fi
+
     i=$(expr ${i} + 1)
     printf "done\n"
   done
@@ -62,7 +67,8 @@ linksAtEndOfHead="${linksAtEndOfHead}\n</head>"
   < index.html awk -v appname="$app_name" -v linksAtEndOfHead="$linksAtEndOfHead" \
   '{ s=$0; \
     gsub("/simpleui/", "/" appname "/", s); \
-    gsub("NgSimpleUi", appname, s); \
+    gsub("/simple_ui/", "/" appname "/", s); \
+    gsub("APP_TITLE", appname, s); \
     gsub("</head>", linksAtEndOfHead, s); \
     print s;}' > newindex.html && mv newindex.html index.html
 )

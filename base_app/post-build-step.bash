@@ -1,5 +1,9 @@
 #!/bin/bash
-PROJ=simpleui
+
+# this could be parameterized???
+PROJ=simple_ui
+
+#set -e
 
 echo "------------------ Starting post-build-step -----------------------"
 
@@ -19,14 +23,12 @@ cp src/app/cmdsets/popup-dialog.css dist/css/
 cp -rv src/public/doc dist
 cp -rv src/public/images dist
 cp -rv src/public/php dist
-cp -rv ../deploy/setup-helpers dist
 
 cp src/public/version.txt dist/
 
 cp src/public/example-overlay.tgz dist/
 cp src/public/proxy-index.php dist/
 cp src/public/collect-apache-coredumps.bash dist/
-cp ../deploy/merge-derived-app.sh dist/
 cp src/public/sample_ui.properties.txt dist/
 cp src/public/service-worker.js dist/
 cp src/public/LoggingFeatures.js dist/
@@ -44,7 +46,7 @@ if (($# > 0)) && [[ "$1" == "--include-mocks" ]]; then
 fi
 
 # Fix names of javascript files
-cat dist/simpleui/index.html | \
+cat dist/${PROJ}/index.html | \
   awk -v JS_FOLDER="/${PROJ}/js/" -v CSS_FOLDER="/${PROJ}/css/" \
         '{ s=$0; \
          cssPrefix="<link rel=\"stylesheet\" href=\""; \
@@ -54,25 +56,11 @@ cat dist/simpleui/index.html | \
          gsub("</script>", "</script>\n", s); \
          print s;}' > dist/index.html
 
-# -- end: add GUID to js files and fix up index.html --
+# -- end: fix up index.html --
 
 # Create dist.tgz
 cd dist
 tar czvf ../dist.tgz --exclude="${PROJ}"  *
 cd ..
 
-if [[ "${NPM_COPY_DIST_TO_OUTPUT}" != "false" ]]; then
-    out_folder=../../../output/simpleui/base_app
-
-    # Use sudo as necessary to create / modify out_folder and its two ancestors to make them writeable
-    for d in ../../../output ../../../output/simpleui ../../../output/simpleui/base_app; do
-        if (! $(test -d $d) ); then sudo mkdir -m777 $d; sudo chown service:service $d; fi
-        if (! $(test -w $d) ); then sudo chmod 777 $d; sudo chown service:service $d; fi
-    done
-
-    printf "Copy files \n  from: %s\n  to:   %s\n" ${PWD} ${out_folder}
-    cp dist.tgz  ${out_folder}
-    chmod 755 ${out_folder}/dist.tgz
-fi
-
-echo "------------------ Finished post-build-step at $(date) -----------------------"
+echo "------------------ Finished base_app post-build-step at $(date) -----------------------"

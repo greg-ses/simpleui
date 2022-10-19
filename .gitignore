@@ -10,3 +10,6 @@ derivative-examples/BMSServer/sample-backend/lib/libtest_library.a
 
 web/angularjs1-dist.tgz
 .idea/*
+
+base_app/src/app/LGO.assets.tar.gz
+simpleui-server/LGO.test.tar.gz

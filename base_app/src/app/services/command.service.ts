@@ -22,7 +22,7 @@ export class CommandService {
     _response: string;
     _tabId = '';
     _commandServiceProps: any = null;
-    _responseHandler = function(caller = this, response = '{Default Response}') { console.log(response); };
+    _responseHandler = (caller = this, response = '{Default Response') => {console.log(response); };
     _errorResponseHandler = function(caller = this, response: any) {
         let msg = 'Error on ajax.post()';
         if ( (typeof response === 'object') && (typeof response.status === 'string') ) {
@@ -65,6 +65,7 @@ export class CommandService {
                 responseHandler: any,
                 errorResponseHandler: any,
                 commandServiceProps: any): void {
+
         this._responseHandler = responseHandler;
         this._errorResponseHandler = errorResponseHandler;
 
@@ -74,6 +75,32 @@ export class CommandService {
         const body = JSON.stringify(jsonToPost);
 
         const data$ = ajax.post(uiTab['commandUrl'], body, { 'Content-Type': 'application/json' });
+        data$.subscribe(res => {
+            if (res.status === 200) {
+                this._responseHandler(caller, res.response.props);
+            } else {
+                this._errorResponseHandler(caller, res.response.props);
+            }
+        });
+    }
+
+    sendMockCommand(uiTab: TabUI, jsonToPost: any,
+        caller: any,
+        responseHandler: any,
+        errorResponseHandler: any,
+        commandServiceProps: any): void {
+
+        this._responseHandler = responseHandler;
+        this._errorResponseHandler = errorResponseHandler;
+
+        this._tabId = uiTab.id;
+        this._commandServiceProps = commandServiceProps;
+        jsonToPost['counter'] = ++CommandService.commandCounter;
+        const body = JSON.stringify(jsonToPost);
+
+        const URL = 'http://localhost:4100' + uiTab['commandUrl'];
+
+        const data$ = ajax.post(URL, body, { 'Content-Type': 'application/json' });
         data$.subscribe(res => {
             if (res.status === 200) {
                 this._responseHandler(caller, res.response.props);

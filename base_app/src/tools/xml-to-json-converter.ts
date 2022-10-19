@@ -16,7 +16,7 @@
  */
 
 
-import { Injectable }     from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class XmlToJsonConverter {
@@ -32,7 +32,7 @@ export class XmlToJsonConverter {
         } else if (typeof (<any>window).ActiveXObject !== 'undefined' &&
             new (<any>window).ActiveXObject('Microsoft.XMLDOM')) {
             this.parseXml = function (xmlStr: string) {
-                let xmlDoc = new (<any>window).ActiveXObject('Microsoft.XMLDOM');
+                const xmlDoc = new (<any>window).ActiveXObject('Microsoft.XMLDOM');
                 xmlDoc.async = 'false';
                 xmlDoc.loadXML(xmlStr);
                 return xmlDoc;
@@ -44,7 +44,7 @@ export class XmlToJsonConverter {
 
 
     public xml2json(xml0: any, tab: string) {
-        let X = {
+        const X = {
             toObj: function (xml: any) {
                 let o = {};
                 if (xml.nodeType === 1) {   // element node ..
@@ -122,41 +122,41 @@ export class XmlToJsonConverter {
                 return o;
             },
             toJson: function (o: any, name: any, ind: any) {
-                let json = name ? ('"' + name + '"') : '';
+                let json1 = name ? ('"' + name + '"') : '';
                 if (o instanceof Array) {
                     for (let i = 0, n = o.length; i < n; i++) {
                         o[i] = X.toJson(o[i], '', ind + '\t');
                     }
-                    json += (name ? ':[' : '[')
+                    json1 += (name ? ':[' : '[')
                                + (o.length > 1
                                     ? ('\n' + ind + '\t' + o.join(',\n' + ind + '\t') + '\n' + ind)
                                     : o.join('')) + ']';
                 } else if (o == null) {
-                    json += (name && ':') + 'null';
+                    json1 += (name && ':') + 'null';
                 } else if (typeof(o) === 'object') {
-                    let arr: any = [];
-                    for (let m in o) {
+                    const arr: any = [];
+                    for (const m in o) {
                         if (o.hasOwnProperty(m)) {
                             arr[arr.length] = X.toJson(o[m], m, ind + '\t');
                         }
                     }
-                    json += (name ? ':{' : '{')
+                    json1 += (name ? ':{' : '{')
                                + (arr.length > 1
                                     ? ('\n' + ind + '\t' + arr.join(',\n' + ind + '\t') + '\n' + ind)
                                     : arr.join('')) + '}';
                 } else if (typeof(o) === 'string') {
-                    json += (name && ':') + '"' + o.toString() + '"';
+                    json1 += (name && ':') + '"' + o.toString() + '"';
                 } else {
-                    json += (name && ':') + o.toString();
+                    json1 += (name && ':') + o.toString();
                 }
-                return json;
+                return json1;
             },
             innerXml: function (node: any) {
                 let s0 = '';
                 if ('innerHTML' in node) {
                     s0 = node.innerHTML;
                 } else {
-                    let asXml = function (n: any) {
+                    const asXml = function (n: any) {
                         let s = '';
                         if (n.nodeType === 1) {
                             s += '<' + n.nodeName;
@@ -196,7 +196,7 @@ export class XmlToJsonConverter {
                 for (let n = e.firstChild; n; ) {
                     if (n.nodeType === 3) {  // text node
                         if (!n.nodeValue.match(/[^ \f\n\r\t\v]/)) { // pure whitespace text node
-                            let nxt = n.nextSibling;
+                            const nxt = n.nextSibling;
                             e.removeChild(n);
                             n = nxt;
                         } else {
@@ -216,7 +216,7 @@ export class XmlToJsonConverter {
         if (xml0.nodeType === 9) { // document node
             xml0 = xml0.documentElement;
         }
-        let json = X.toJson(X.toObj(X.removeWhite(xml0)), xml0.nodeName, '\t');
+        const json = X.toJson(X.toObj(X.removeWhite(xml0)), xml0.nodeName, '\t');
         return '{\n' + tab + (tab ? json.replace(/\t/g, tab) : json.replace(/\t|\n/g, '')) + '\n}';
     }
 }

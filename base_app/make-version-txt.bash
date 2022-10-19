@@ -5,6 +5,7 @@ echo "BUILD_COMMAND: $1" > ${VER_FILE}
 echo "BUILD_TIME: $(date -R)" >> ${VER_FILE}
 echo "USER: $(whoami)" >> ${VER_FILE}
 
+git describe --always --dirty --long >> ${VER_FILE} 2> /dev/null
 git rev-list --all --timestamp --branches --pretty >> ${VER_FILE} 2> /dev/null
 if [[ $? -ne 0 ]]; then
     echo "GIT_DIRTY_STATUS: unknown (maybe built from docker?)" >> ${VER_FILE};

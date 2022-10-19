@@ -1,7 +1,7 @@
 <div id="wrapper">
 <!-- Start Title Bar -->
-<div [className]="'tbContainer ' + _props['appTheme'].name + 'TitleBar'" width='100%' id='titleBar'>
-  <div class='logoContainer'><img class='logo' [src]="_appURI + 'images/logo.png'" alt='logo'/></div>
+<div [className]="'tbContainer ' + _props['appTheme'].name + 'TitleBar'" style="width: 100%" id='titleBar'>
+  <div class='logoContainer'><img class='logo' [src]="_appURI + 'assets/images/logo.png'" alt='logo'/></div>
   <div class='eventMsg' id='eventMsg'>{{_tBarProps?._eventMsg}}</div>
   <div class='appTitle'>{{_tBarProps?._appTitle}}</div>
   <div class='tabTitleFromTab'>
@@ -20,8 +20,10 @@
         <span *ngFor="let e of _props?.appLink ">
             <a [href]="e['url']" target="_blank" [title]="e['tooltip']">{{e['name']}}</a>&nbsp;&nbsp;
         </span>
+        <!--
         <a *ngIf='_props?.mode === "design"' id='moveButton' (click)="onMoveElement($event)" title='Click to move the Unimplemented Overlays Window.'>⦻&nbsp;&nbsp;</a>
         <a *ngIf='_props?.mode !== "design"' id='editUIButton' (click)="onEditUIElements($event)" title='Future features.'>⦻&nbsp;&nbsp;</a>
+        -->
         <a [href]="_appURI + 'doc/simple_ui_doc/my-simple-ui-derivative.html?hash=' + _appHash" target="_blank" title="{{_tBarProps?._appTitle}} Documentation.">⍰</a>&nbsp;&nbsp;
     </span>
 
@@ -71,6 +73,7 @@
                     [_uiTab]="t"
                     [_imageOverlayGroupNames]="t['imageOverlayGroupNames']"
                     [_appURI]="_appURI"
+                    [_cssToJsonURL]="getCssToJsonURL(t)"
                     [_cmdBarNames]="t['cmdBarNames']"
                     [_dataTableNames]="t['dataTableNames']" >
             </app-tab-overlay>

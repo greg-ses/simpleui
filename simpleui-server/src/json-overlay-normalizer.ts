@@ -1,21 +1,23 @@
-import * as fs from 'fs';
 import {CommandJsonNormalizer} from './command-json-normalizer';
-// import { sha1 } from '@angular/compiler/src/i18n/digest';
-import * as crypt from './crypt';
-import * as charenc from './charenc';
-import * as sha1 from './sha1';
-import {hasOwnProperty} from 'tslint/lib/utils';
-import {element} from 'protractor';
 
 export class JsonOverlayNormalizer {
 
     static deepCopy(obj: any) {
-
         if (typeof obj === 'undefined') {
             // return value is also undefined
             return obj;
         }
 
+        return structuredClone(obj);
+        
+    }
+
+    static deepCopy_(obj: any) {
+
+        if (typeof obj === 'undefined') {
+            // return value is also undefined
+            return obj;
+        }
         let clonedObject: any;
 
         if (obj instanceof Array) {

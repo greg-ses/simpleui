@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>NgSimpleUi</title>
+  <title>APP_TITLE</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,27 +16,41 @@
     let url = new URL(window.location.href);
     let uiProp = url.searchParams.get("uiProp");
 
-    let webpackURI = appURI + '/js/';
     document.title = appURI;
 
     console.log("appURI : ", appURI );
     let link = document.createElement('link');
     link.setAttribute('rel', 'icon');
     link.type = 'image/x-icon';
-    link.href = appURI + '/images/favicon.ico';
+    link.href = appURI + 'assets/images/favicon.ico';
     document.head.appendChild(link);
 
+    // this condition is specifically for ng serve dev env
+    let debugPrefix = "";
+    let simpleuiServerPort = "";
+    if (window.location.port === '4200') {
+      simpleuiServerPort = 4100;
+      debugPrefix = window.location.protocol + '//' + window.location.hostname + ':' + simpleuiServerPort;
+      link.href = window.origin + '/simple_ui/assets/images/favicon.ico';
+      console.log(`debugPrefix: ${debugPrefix}`);
+    }
+
     let base = document.getElementsByTagName('base')[0];
-    base['appURI'] = appURI ;
+    base['appURI'] = appURI;
     base['uiProp'] = uiProp;
-    base['propsQuery'] = appPath + (uiProp || 'ui') + '/query/props';
+    base['propsQuery'] = debugPrefix + appPath + (uiProp || 'ui') + '/query/props';
+    base['cssToJsonQuery'] = debugPrefix + appPath + (uiProp || 'ui') + '/query/css_elements_to_json/overlay';
+
+    console.log(`base['propsQuery']: ${base['propsQuery']}`);
+
 
     if (uiProp) {
-        document.title = uiProp;
+      document.title = uiProp;
     }
 
   </script>
   <base href=appURI />
+  <link href="/simple_ui/assets/image-overlays.css" rel="stylesheet" />
 </head>
 <body style="margin:0;overflow:hidden">
   <app-simpleui>Loading...</app-simpleui>

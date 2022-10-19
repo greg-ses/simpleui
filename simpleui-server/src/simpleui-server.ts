@@ -5,9 +5,10 @@ import * as cors from 'cors';
 import * as os from 'os';
 import {PropsFileReader} from './props-file-reader';
 import {CommandArgs} from './interfaces';
-import {microtime} from 'microtime';
 import {ServerUtil} from './server-util';
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
+import * as fs from 'fs';
+
 
 const app = express();
 
@@ -25,6 +26,8 @@ export class SimpleUIServer {
     static EXTERNAL_IP = SimpleUIServer.getExternalIP();
     static requestCallbacks = 0;
     static bin_dir = "";
+    static newMockDataURL: any = ""; // allows us to modify the mock data requests via mock cmd requests
+
 
     static executeMockRequest(cmdArgs: CommandArgs, props: any, req: Request<ParamsDictionary> = null, res: Response = null) {
         if (props) {
@@ -151,6 +154,8 @@ export class SimpleUIServer {
 
             const originsWhiteList = [
                 `http://localhost`,
+                "http://localhost:4100",
+                "http://localhost:4200",
                 `http://svcapache`,
                 `http://svcmariadb`,
                 `http://svcnode-vts`,
@@ -172,8 +177,8 @@ export class SimpleUIServer {
             };
 
             app.use(cors(corsOptions));
-            app.use(express.json());
-            app.use(express.urlencoded({ extended: true }));
+            app.use(express.json() as express.RequestHandler);
+            app.use(express.urlencoded({ extended: true }) as express.RequestHandler);
 
             const appPropFiles = PropsFileReader.getAppPropsFiles(cmdVars.appName, cmdVars.webPort);
 
@@ -330,18 +335,25 @@ export class SimpleUIServer {
             const mockDataQuery = [
                 `/:appName/:propsStub/:tabName/mock/data`
             ];
-            displayUrl = `http://${os.hostname()}${webPortString}${mockDataQuery[0]}`;
+            // displayUrl = `http://${os.hostname()}${webPortString}${mockDataQuery[0]}`;
+            displayUrl = `http://localhost${webPortString}${mockDataQuery[0]}`;
             spacer1 = ' '.repeat(Math.max((104 - displayUrl.length), 1));
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}/${spacer1}(mock data)`);
             app.get(mockDataQuery, async (req, res) => {
                 // Replies with data from a zeromq request
                 Logger.log(LogLevel.VERBOSE, `data request callback: ${++SimpleUIServer.requestCallbacks}`);
+                
+                if (SimpleUIServer.requestCallbacks % 10 === 0) {
+                    SimpleUIServer.newMockDataURL = "";
+                }
+
                 try {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
+
                     const mockCmdVars = cmdVars;
-                    mockCmdVars.xmlInFile = req.query.file;
+                    mockCmdVars.xmlInFile = SimpleUIServer.newMockDataURL !== "" ? SimpleUIServer.newMockDataURL : req.query.file;
                     mockCmdVars.versions = (typeof req.query.versions === 'string') ? parseInt(req.query.versions, 10) : 1;
                     await SimpleUIServer.executeMockRequest(mockCmdVars, props, req, res);
                 } catch (err) {
@@ -351,6 +363,58 @@ export class SimpleUIServer {
                         'mock data handler', '/mock/data', `?file=${cmdVars.xmlInFile}`);
                 }
             });
+
+
+            // ------------------------------
+            // Handler for mock cmd requests
+            // ------------------------------
+            // Support path # /APP_NAME/UI_PROP/TAB_NAME/mock/cmd
+            const mockCmdQuery = [
+                `/:appName/:propsStub/:tabName/mock/cmd`
+            ];
+            displayUrl = `http://${os.hostname()}${webPortString}${mockCmdQuery[0]}`;
+            spacer1 = ' '.repeat(Math.max((105 - displayUrl.length), 1));
+            Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(commands)`);
+            app.post(mockCmdQuery, async (req, res) => {
+                Logger.log(LogLevel.VERBOSE, `mock cmd request callback: ${++SimpleUIServer.requestCallbacks}`);
+                try {
+                    const cmdFilepath = req.query.file;
+                    Logger.log(LogLevel.DEBUG, `mock cmd filepath: ${cmdFilepath}`);
+                    SimpleUIServer.newMockDataURL = cmdFilepath;
+                } catch (err) {
+                    Logger.log(LogLevel.ERROR, err)
+                    Logger.log(LogLevel.ERROR, 'Error in mock cmd handler')
+                }
+                res.json({'mock data placeholder': 123})
+            });
+
+
+            // -------------------------------------
+            // Handler for css_elements_to_json call
+            // -------------------------------------
+            // Support path # /APP_NAME/UI_PROP/query/css_elements_to_json/:overlay/2
+            const cssToJsonQuery = [
+                `/:appName/:propsStub/query/css_elements_to_json/:overlay/:nthOverlay`
+            ];
+            displayUrl = `http://${os.hostname()}${webPortString}${cssToJsonQuery[0]}`;
+            spacer1 = ' '.repeat(Math.max((105 - displayUrl.length), 1));
+            Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(cssToJson)`);
+            app.get(cssToJsonQuery, async (req, res) => {
+                Logger.log(LogLevel.VERBOSE, `css_elements_to_json request callback: ${++SimpleUIServer.requestCallbacks}`);
+                try {
+                    const props = PropsFileReader.getProps(
+                        `${req.params.propsStub}.properties`,
+                        `${req.params.appName}`, cmdVars.webPort);
+                    await SuiData.suiCssToJsonRequest(req, res, props);
+                } catch (err) {
+                    const cmd = SuiData.getCmdFromReq(req);
+                    ServerUtil.logRequestDetails(LogLevel.ERROR, req,
+                        `Err in cssToJsonQuery request: ${err}`,
+                        'main cssToJsonQuery handler', '/query/css_elements_to_json/overlay', cmd);
+                }
+            });
+
+            
 
             // ------------------------------
             // start the Express server
@@ -362,8 +426,13 @@ export class SimpleUIServer {
                         `\n==> Server started at http://${os.hostname()}${webPortString}\n\n==> Handled Requests:`);
                     Logger.log(LogLevel.INFO, `\nNote: Only the first 5 ZMQ responses will be logged at INFO level.`);
                     Logger.log(LogLevel.INFO, `      To see later responses, set the LogLevel to DEBUG with this URL:\n`);
+                    let hostname = `${os.hostname()}`;
+                    if (hostname.match(/[a-z0-9]{12}/)  && !hostname.match(/site/i)) {
+                        // crude attempt to see if this is a docker hostname
+                        hostname = 'localhost';
+                    }
                     Logger.log(LogLevel.INFO, `          ` +
-                        `http://${os.hostname()}${webPortString}/` +
+                        `http://${hostname}${webPortString}/` +
                         `${cmdVars.appName.split(',')[0]}/` +
                         `svr-util/SetLogLevel/DEBUG\n`);
                 });

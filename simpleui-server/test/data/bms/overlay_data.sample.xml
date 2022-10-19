@@ -1,0 +1,67 @@
+<Overlay_Summary u_id="2002">
+    <Title u_id="2003">Sample Overlay</Title>
+    <timeStamp u_id="2004">000000000001</timeStamp>
+    <Battery_Status u_id="2005">
+        <dyn label="Battery Status Sample" name="Battery_Status_Sample" u_id="2006">I'm a battery</dyn>
+    </Battery_Status>
+    <Battery_System_Commands u_id="2015">
+        <command cmd="cmd" confirm="true" desc="Sample button with no popup" dest="0-0" deviceId="0" disabled="false" idnum="0" label="Sample Button" name="Sample_Button" u_id="2016"/>
+        <command cmd="Button_with_popup" confirm="true" dest="6-0" disabled="false" idnum="0" label="Popup dialog" name="Sample_Button_popup" u_id="2024">
+            <_input _type="int" desc="single int input" max="100" min="0" u_id="2025" value="1"/>
+        </command>
+    </Battery_System_Commands>
+    <Pump_one u_id="2027">
+        <animation class="impeller-right" fileType="png" name="Pump_one" speed_rpm="6.000000" u_id="2096">running</animation>
+        <dyn class="priority" desc="Current operating motor frequency." name="Actual_Speed" u_id="2097" units="Hz">~~~</dyn>
+    </Pump_one>
+    <Pump_two u_id="2028">
+        <animation class="impeller-left" fileType="png" name="Pump_two" speed_rpm="6.000000" u_id="2106">running</animation>
+        <dyn class="priority" desc="Current operating motor frequency." name="Actual_Speed" u_id="2107" units="Hz">~~~</dyn>
+    </Pump_two>
+    <Pipe_one u_id="2029">
+        <img class="open" desc="Open pipe one" fileType="gif" name="pipe" u_id="2137">open</img>
+        <img class="closed" desc="Closed pipe one" fileType="gif" name="pipe" u_id="2137">closed</img>
+        <dyn class="priority" desc="Pipe one Battery Current" name="pipe_one_value" u_id="2138" units="A">~~~</dyn>
+    </Pipe_one>
+    <Pipe_two u_id="2030">
+        <img class="closed" desc="Closed pipe two" fileType="gif" name="pipe" u_id="2141">closed</img>
+        <img class="open" desc="Open pipe two" fileType="gif" name="pipe" u_id="2140">open</img>
+        <dyn class="priority" desc="Pipe two Battery Current" name="pipe_two_value" u_id="2142" units="A">~~~</dyn>
+    </Pipe_two>
+    <Valve_one u_id="2031">
+        <img class="Does_Not_Exist" desc="Valve one" fileType="gif" name="valve" u_id="2190">Does_Not_Exist</img>
+        <dyn class="priority" desc="Value of valve one" name="valve_one_value" u_id="2191" units="PSI">~~~</dyn>
+    </Valve_one>
+    <Valve_two u_id="2032">
+        <img class="Does_Not_Exist" desc="valve two" fileType="gif" name="valve" u_id="2197">Does_Not_Exist</img>
+        <dyn class="priority" desc="Value of valve two" name="valve_two_value" u_id="2198" units="PSI">~~~</dyn>
+    </Valve_two>
+    <Recent_Events u_id="2222">
+        <prop-def-table name="Event_Log" u_id="2223">
+            <label u_id="2224">Recent Events</label>
+            <Col u_id="2225">Time</Col>
+            <Col u_id="2226">Type</Col>
+            <Col u_id="2227">Description</Col>
+            <Row u_id="2228">
+                <Col u_id="2229">9/19 14:11:20</Col>
+                <Col u_id="2230">EVENT INFO</Col>
+                <Col u_id="2231">Something happened somewhere</Col>
+            </Row>
+            <Row u_id="2232">
+                <Col u_id="2233">9/19 14:11:19</Col>
+                <Col u_id="2234">URGENT SERVICE REQUEST</Col>
+                <Col u_id="2235">It happened again!!</Col>
+            </Row>
+            <Row u_id="2236">
+                <Col u_id="2237">9/19 14:11:18</Col>
+                <Col u_id="2238">URGENT SERVICE REQUEST</Col>
+                <Col u_id="2239">And again!!!</Col>
+            </Row>
+        </prop-def-table>
+        <prop-def-table name="Active_Faults" u_id="2248">
+            <Fault class="warning" ev_details="" fault_code="Warning" idx="54" name="Something kinda went wrong..." timestamp="14:11:15" u_id="2248">warning</Fault>
+            <Fault class="trip" ev_details="" fault_code="Danger Will Robinson!" idx="55" name="Something went very wrong" timestamp="14:11:18" u_id="2273">trip</Fault>
+        </prop-def-table>
+    </Recent_Events>
+    <status>0</status>
+</Overlay_Summary>

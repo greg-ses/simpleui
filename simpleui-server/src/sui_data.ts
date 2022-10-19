@@ -64,7 +64,12 @@ export class SuiData {
             if (typeof req.query.version === 'string') {
                 versionString = req.query.version;
             }
-            const sJson = SuiData.xmlToJSON(xmlResponse, req.params.appName, uiProps, req);
+            let sJson = "";
+            if (xmlResponse[0] === "{") {
+                sJson = xmlResponse;
+            } else {
+                sJson = SuiData.xmlToJSON(xmlResponse, req.params.appName, uiProps, req);
+            }
             res.send(sJson);
         }
 
@@ -81,6 +86,9 @@ export class SuiData {
         if (typeof req.query.cmd === 'string') {
             cmd.source = 'req.query.cmd';
             cmd.cmd = req.query.cmd;
+        } else if (typeof req.params.overlay === 'string') {
+            cmd.source = 'req.params.overlay';
+            cmd.cmd = req.params.overlay;
         } else {
             cmd.source = 'req.params.zmqCmd';
             cmd.cmd = req.params.zmqCmd;
@@ -108,12 +116,14 @@ export class SuiData {
         return zmqPort;
     }
 
+    static incrRequestNum() { SuiData.requestNum = (SuiData.requestNum + 1) % 100000; }
+
     // from sui_data.php:  zmqRequest($props, $DataPortPrefix, $cmd, $valueName, $expectedResponseRoot, "get");
     static async suiDataRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
         // req contains:  /:appName/:propsStub/:tabName/query/cmd/zmq/:zmqPortExpr/:zmqCmd/:zmqValue
         // if the req.query contains
 
-        SuiData.requestNum = (SuiData.requestNum + 1) % 100000;
+        SuiData.incrRequestNum();
 
         if (!uiProps) {
             Logger.log(LogLevel.ERROR, 'No response is defined for the root folder "/".');
@@ -189,7 +199,7 @@ export class SuiData {
     }
 
     static async suiCommandRequest(req: Request<ParamsDictionary>, res: Response, uiProps) {
-        SuiData.requestNum = (SuiData.requestNum + 1) % 100000;
+        SuiData.incrRequestNum();
 
         if (!uiProps) {
             Logger.log(LogLevel.ERROR, 'No response is defined for the root folder "/".');
@@ -302,6 +312,30 @@ export class SuiData {
                 zmqCmdRequester.close();
             });
         }
+        return;
+    }
+
+    static async suiCssToJsonRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
+        // req contains:  /:appName/:propsStub/:tabName/query/css_elements_to_json/overlay/:nthOverlay
+
+        SuiData.incrRequestNum();
+
+        if (!uiProps) {
+            Logger.log(LogLevel.ERROR, 'No response is defined for the root folder "/".');
+            return;
+        }
+
+        const cmd = SuiData.getCmdFromReq(req);
+        ServerUtil.logRequestDetails(LogLevel.DEBUG, req,
+            `Starting css_elements_to_json request # ${SuiData.requestNum}`,
+            'suiCssToJsonRequest', '/query/css_elements_to_json', cmd);
+
+        Logger.log(LogLevel.DEBUG, `Converting css to json.`);
+        // const css_file = `/var/www/${req.params.appName}/css_elements.css`;
+        const css_file = `/var/www/${req.params.appName}/overlay-${req.params.nthOverlay}/image-overlays.css`;
+        const response = SuiData.cssToJson(css_file);
+        SuiData.sendResponse(req, res, uiProps, response);
+
         return;
     }
 
@@ -449,7 +483,7 @@ export class SuiData {
     }
 
     static getXmlFromJsonArgs(req: Request<ParamsDictionary>, parsedReq) {
-        Logger.log(LogLevel.VERBOSE, '\n==> Inside getXmlFromJsonArgs()\n');
+        //Logger.log(LogLevel.VERBOSE, '\n==> Inside getXmlFromJsonArgs()\n');
 
         if (req.body == null) {
             Logger.log(LogLevel.VERBOSE, 'req.body IS NULL\n');
@@ -493,7 +527,7 @@ export class SuiData {
 
         let attributes = '';
 
-        if (req.query !== {}) {
+        if (typeof req.query === 'object') {
             Object.keys(req.query).forEach(key => {
                 if (typeof req.query[key] === 'string') {
                     if (key === 'cmd') {
@@ -663,18 +697,35 @@ export class SuiData {
         return JSON.parse(sJson);
     }
 
+    static cssToJson(filepath: string) {
+        let json = '{\n  "CSS_Elements": {\n';
+        let delim = '\n';
+        const elemNameRegEx = /[ \t]*#([0-9a-zA-Z.≪≫_-]+)[ \t]*\{[ \t]*([^\}]*)[ \t]*\}/;
+
+        try {
+            const css = fs.readFileSync(filepath, 'utf-8');
+            for (let line of css.split('\n')) {
+                if (line !== "") {
+                    let matches = line.match(elemNameRegEx)
+                    if (matches) {
+                        json += `${delim}    "${matches[1]}": "${matches[2]}"`;
+                        delim = ',\n';
+                    }
+                }
+            }
+            json += '  }\n}\n';
+        } catch(error) {
+            Logger.log(LogLevel.ERROR, `Error parsing incoming .css: ${error.message}`);
+            json = '{\n  "CSS_Elements": { }\n}';
+        }
+        return json;
+    }
+
     static xmlToJSON(xmlString: string, appName: string, props: any, req: Request<ParamsDictionary>) {
-        let json = '{"error": "Something bad happened."}';
+        let json = '{"error": "Something bad happened inside xmlToJSON."}';
 
         if (xmlString[0] !== '<') {
             xmlString = xmlString.trim();
-        }
-        let docRootName = '';
-        const matches = xmlString.match(/(<\?xml[^>]+>[ \t\n]*)?<([^ \t>]+)/);
-        if (matches) {
-            docRootName = matches[matches.length - 1];
-        } else {
-            docRootName = 'root';
         }
 
         // console.log('SuiData.xmlToJSON - 2\n\$xmlString: ' . substr($xmlString, 0, 50) . '\n');
@@ -703,11 +754,19 @@ export class SuiData {
         } catch(error) {
             Logger.log(LogLevel.ERROR, `Error parsing incoming XML: ${error.message}`);
         }
-        const keepIntermediateFile = (typeof req.query.keepTempFile === 'string');
+
+        let docRootName = Object.keys(json)[0]; // should this have some type of error handling?
+        Logger.log(LogLevel.DEBUG, `sui_data.ts docRootName: ${docRootName}`);
+
+        if (!docRootName) {
+            docRootName = 'error';
+        }
+
+        const keepIntermediateFile = req.query.keepTempFile;
         let debugFileNames = {xml_in_file: '', json_initial_file: '', json_normal_file: ''};
         if (keepIntermediateFile) {
             debugFileNames = SuiData.getDebugFileNames(appName, props, req);
-            Logger.log(LogLevel.ERROR, `keepIntermediateFile: true - keeping intermediate files`);
+            Logger.log(LogLevel.INFO, 'keepIntermediateFile: true - keeping intermediate files');
             fs.writeFileSync(debugFileNames.xml_in_file, xmlString);
             fs.writeFileSync(debugFileNames.json_initial_file, JSON.stringify(json));
         }
@@ -716,8 +775,10 @@ export class SuiData {
             JsonStringNormalizer.normalizeJSON(json, props);
         } else if (docRootName === 'Overlay_Summary') {
             JsonOverlayNormalizer.normalizeJSON(json, props);
-        } else {
-            json = `{ '${docRootName}': ${json} }`;
+        } 
+        //else if (docRootName === 'error') {}
+        else {
+            json = `{ '${docRootName}': ${json} }`; 
         }
 
         const sJson = JSON.stringify(json);
@@ -741,12 +802,14 @@ export class SuiData {
         }
 
         const xmlInFile = cmdArgs.xmlInFile.replace('.0.', `.${SuiData.mockDataFileIndex[cmdArgs.xmlInFile]}.`);
+        const xmlFileExists = fs.existsSync(xmlInFile);
+        Logger.log(LogLevel.DEBUG, `\n ==>  mockCmdVars.xmlInFile (in mockSuiRequest, exists ${xmlFileExists}): '${xmlInFile}'\n`);
         ServerUtil.logRequestDetails(LogLevel.DEBUG, req,
             `Starting MOCK request # ${++SuiData.mockRequestNum}`,
             'suiMockRequest', '/mock/data?file=', xmlInFile);
 
 
-        let xmlString = fs.readFileSync(xmlInFile, 'utf8');
+        let xmlString = fs.readFileSync(xmlInFile, { 'encoding': 'utf8', 'flag': 'r'} );
         if (xmlString === '') {
             const msg = 'ERROR: empty result reading ' + xmlInFile;
             Logger.log(LogLevel.ERROR, msg);
@@ -763,7 +826,7 @@ export class SuiData {
             theReq = {
                 path: `${xmlInFile}`,
                 query: {
-                    keepTempFile: 'yes',
+                    keepTempFile: false,
                     ti: {},
                     hash: {}
                 },
@@ -771,21 +834,31 @@ export class SuiData {
         }
 
         const sJson = SuiData.xmlToJSON(xmlString, cmdArgs.appName, props, <Request<ParamsDictionary>>theReq);
+
         let jsonOutFile = "";
+
+
         if (typeof cmdArgs.jsonOutFile !== 'undefined' && cmdArgs.jsonOutFile !== "") {
             // Use the indexed version
             jsonOutFile = cmdArgs.jsonOutFile;
         } else {
             // No or empty jsonOutFile: follow keepTempFile instruction if passed
-            if (typeof theReq.query.keepTempFile === 'string') {
+            if (theReq.query.keepTempFile) {
                 // Use the temp file as the output file
                 SuiData.mockDataFileIndex[cmdArgs.xmlInFile] = 0;
                 jsonOutFile =
                     `${SuiData.ram_disk_folder}`
                     + path.basename(`${xmlInFile}`).replace(/\.xml$/, '.json');
+
+                try {
+                    fs.writeFileSync(jsonOutFile, sJson);
+                    Logger.log(LogLevel.DEBUG, `Created test output file: ${jsonOutFile}.`);
+                } catch (err) {
+                    Logger.log(LogLevel.ERROR, `Couldn't create output file due to error | jsonOutFile = ${jsonOutFile === '' ? 'empty string' : jsonOutFile}`);
+                }
             }
-            fs.writeFileSync(jsonOutFile, sJson);
-            console.log(`Created test output file: ${jsonOutFile}.`);
+
+
         }
 
         if (res) {

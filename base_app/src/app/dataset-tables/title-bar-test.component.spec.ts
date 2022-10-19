@@ -3,7 +3,7 @@ import { AppTabNormalComponent } from '../app-tab-normal/app-tab-normal.componen
 import { AppTabOverlayComponent } from '../app-tab-overlay/app-tab-overlay.component'
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommandButtonComponent } from '../cmdsets/command-button';
-import { DebugElement } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { ImageOverlaysComponent } from '../app-tab-overlay/image-overlays';
 import { OverlayCmdBarComponent } from '../app-tab-overlay/overlay-cmd-bar';
 import { OverlayPageComponent } from '../app-tab-overlay/overlay-page';
@@ -11,6 +11,7 @@ import { DatasetTableComponent } from './dataset-table';
 import { PortalModule } from '@angular/cdk/portal';
 import { MatTabsModule } from '@angular/material/tabs';
 import { PropDefinedTableComponent } from './prop-defined-table';
+import {CommonModule} from '@angular/common';
 
 
 /** Button events to pass to `DebugElement.triggerEventHandler` for RouterLink event handler */
@@ -150,10 +151,13 @@ describe('TitleBarTest', () => {
                 PropDefinedTableComponent
             ],
             imports: [
+                CommonModule,
                 MatTabsModule,
                 PortalModule
-            ]
-        });
+            ],
+            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+        }).compileComponents();
+        const commonModule = new CommonModule();
 
         if (fixture === null) {
             fixture = TestBed.createComponent(AppComponent);

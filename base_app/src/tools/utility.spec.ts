@@ -2,14 +2,11 @@ import { TestBed, async } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { UTIL } from './utility';
 
-class TestSetup {
+class DataSummaryWrapper {
+    Data_Summary = {};
+}
 
-    public static Working_Data_Summary_Initializer = {
-        'Data_Summary': {
-            'u_id': '1111',
-            'Title': {'u_id': '1112', 'value': 'INITIAL_WORKING_MOCK'}
-        }
-    };
+class TestSetup {
 
     public static Initial_Data_Summary_Initializer = {
         'Data_Summary': {
@@ -529,11 +526,22 @@ class TestSetup {
         }
     };
 
+    public static Working_Data_Summary_Initializer = {
+        'Data_Summary': {
+            'u_id': '1111',
+            'Title': {'u_id': '1112', 'value': 'INITIAL_WORKING_MOCK'}
+        }
+    };
 }
 
 
 describe('UTIL', () => {
+    let initialData: DataSummaryWrapper = {Data_Summary: {}};
+    let workingData: DataSummaryWrapper = {Data_Summary: {}};
+
     beforeEach(async(() => {
+        initialData = UTIL.deepCopy(TestSetup.Working_Data_Summary_Initializer);
+        workingData = UTIL.deepCopy(TestSetup.Initial_Data_Summary_Initializer);
         TestBed.configureTestingModule({
             declarations: [
             ],
@@ -541,15 +549,20 @@ describe('UTIL', () => {
         }).compileComponents();
     }));
 
-    it('TestSetup statics should be different', () => {
-        expect(TestSetup.Working_Data_Summary_Initializer.toString()).not.toEqual(TestSetup.Initial_Data_Summary_Initializer.toString());
+    it('TestSetup Working- and Initial- statics should have different list of property names', () => {
+        const initialProps = Object.getOwnPropertyNames(workingData.Data_Summary).join();
+        const workingProps = Object.getOwnPropertyNames(initialData.Data_Summary).join();
+
+        expect(workingProps).not.toEqual(initialProps);
     });
 
-    it('TestSetup statics should be equal after appropriate transformations', () => {
+    it('TestSetup Working- and Initial- statics should have identical property names after UTIL.recursiveUpdate()', () => {
+        UTIL.recursiveUpdate(TestSetup.Working_Data_Summary_Initializer, TestSetup.Initial_Data_Summary_Initializer);
 
-        UTIL.recursiveUpdate(TestSetup.Working_Data_Summary_Initializer, TestSetup.Initial_Data_Summary_Initializer)
+        const initialProps = Object.getOwnPropertyNames(initialData.Data_Summary).join();
+        const workingProps = Object.getOwnPropertyNames(workingData.Data_Summary).join();
 
-        expect(TestSetup.Working_Data_Summary_Initializer.toString()).toEqual(TestSetup.Initial_Data_Summary_Initializer.toString());
+        expect(workingProps).toEqual(initialProps);
     });
 
     /*

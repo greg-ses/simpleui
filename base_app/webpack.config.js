@@ -6,7 +6,7 @@ const ENV = process.env.npm_lifecycle_event;
 const isTestWatch = ENV === 'test-watch';
 const isTest = ENV === 'test' || isTestWatch;
 const is_SKIP__NOT_TEST_AND_NOT_TESTWATCH = true; // !isTest && !isTestWatch
-const isProd = true; // ENV === 'build';
+const isProd = false; // ENV === 'build';
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const autoprefixer = require('autoprefixer');
@@ -105,7 +105,13 @@ module.exports = function makeWebpackConfig() {
             // copy those assets to output
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: 'file-loader?name=fonts/[name].[hash].[ext]?'
+                use: [{
+                        loader: "file-loader",
+                        options: {
+                                name: "fonts/[name].[fullhash].[ext]?"
+                        }
+                }]
+
             },
 
             // Support for *.json files.
@@ -316,9 +322,12 @@ module.exports = function makeWebpackConfig() {
 
             // Copy assets from the public folder
             // Reference: https://github.com/kevlened/copy-webpack-plugin
-            new CopyWebpackPlugin([{from: root('src/public'),
-                  to: root('dist')
-            }])
+            new CopyWebpackPlugin({
+                patterns: [
+                        { from: root('src', 'public'), to: root('dist') }
+                ]
+            }
+            )
         );
     };
 
@@ -355,10 +364,14 @@ module.exports = function makeWebpackConfig() {
      * Reference: http://webpack.github.io/docs/webpack-dev-server.html
      */
     config.devServer = {
-        contentBase: './src/public',
+        static: {
+                directory: root('src', 'public', 'index.html'),
+                serveIndex: true,
+                watch: true
+        },
         historyApiFallback: true,
-        quiet: true,
-        stats: 'minimal' // none (or false), errors-only, minimal, normal (or true) and verbose
+        //quiet: true
+        //stats: 'minimal' // none (or false), errors-only, minimal, normal (or true) and verbose
     };
 
     return config;

@@ -4,3 +4,4 @@ test/dist/*
 node_modules/*
 
 /dist.tgz
+/zeromq-4.3.2.tar.gz

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data_Summary u_id="2002">
+    <Title u_id="2002">BMS</Title>
+    <timeStamp u_id="2003">0000000000001</timeStamp>
+    <Version u_id="2004">Sample Table Data</Version>
+
+    <Section name="Overall state" u_id="2006">
+        <DataSets u_id="2007">
+            <Structure u_id="2008">
+                <dyn name="Number of things" u_id="2009">3</dyn>
+                <dyn name="Amount of stuff" u_id="2300">10</dyn>
+            </Structure>
+            <Bills u_id="2010">
+                <dyn class="red" name="Mortage" u_id="2301">Unpaid</dyn>
+                <dyn class="red" name="Electricity" u_id="2302">Unpaid</dyn>
+                <dyn name="Water" u_id="2303">Paid</dyn>
+                <dyn name="Heat" u_id="2304">Paid</dyn>
+                <dyn name="Cable" u_id="2305">Paid</dyn>
+                <dyn name="Student Loans" class="red" u_id="2306">Unpaid</dyn>
+            </Bills>
+            <Event_Log u_id="2023">
+                <Event timestamp="16:38:05" type="EVENT NOTICE" u_id="2023">EVENT NOTICE</Event>
+                <Event timestamp="16:37:58" type="EVENT INFO" u_id="2024">EVENT INFO</Event>
+                <Event timestamp="16:20:38" type="EVENT INFO" u_id="2025">EVENT INFO</Event>
+                <Event timestamp="16:20:38" type="URGENT SERVICE REQUEST" u_id="2026">P === NP !!!</Event>
+                <Event timestamp="16:20:38" type="URGENT SERVICE REQUEST" u_id="2027">Something isn't working!</Event>
+            </Event_Log>
+        </DataSets>
+    </Section>
+
+    <Section name="Module 1" u_id="2029">
+        <CmdSet u_id="2030">
+            <command cmd="boom" confirm="true" desc="desc" dest="1-0" deviceId="1" disabled="true" idnum="0"
+                    label="Self destruct" name="boom" u_id="2031"/>
+            <command cmd="redo" confirm="false" desc="Reset the EPO safety inputs." dest="1-0" deviceId="1"
+                    disabled="false" idnum="0" label="Redo" name="redo" u_id="2032"/>
+            <command cmd="undo" confirm="false" desc="desc" dest="1-0" deviceId="1" disabled="false" idnum="0"
+                    label="Undo" name="undo" u_id="2033"/>
+            <command cmd="copy" confirm="true" desc="desc" dest="1-0" deviceId="1" disabled="false" idnum="0"
+                    label="Copy" name="copy" u_id="2035"/>
+            <command cmd="paste" confirm="false" desc="desc" dest="1-0" deviceId="1" disabled="false" idnum="0"
+                    label="Paste" name="paste" u_id="2036"/>
+        </CmdSet>
+        <DataSets u_id="2040">
+            <Status u_id="2041">
+                <Enabled_Button_in_Table u_id="2206">
+                    <command cmd="Enabled_Button_in_Table" desc="enabled button" disabled="false" dest="2-1" idnum="0" label="Multi input btn!" u_id="2207">
+                        <_input
+                                _type="float"
+                                desc="Enter a First random Percentage to use."
+                                idnum="0"
+                                max="100"
+                                min="0.1"
+                                u_id="0008"
+                                value="1.0"
+                        />
+                        <_input
+                                _type="float"
+                                desc="Enter a Second random Percentage to use."
+                                idnum="0"
+                                max="100"
+                                min="0"
+                                u_id="0009"
+                                value="51.50"
+                        />
+                    </command>
+                </Enabled_Button_in_Table>
+
+                <Disabled_Button_in_Table u_id="2500">
+                    <command cmd="Disabled_Button_in_Table"
+                             desc="Disabled button" dest="2-1"
+                             disabled="true" idnum="0" label="Disabled button" name="Disabled_button" u_id="2207">
+                        <_input
+                                _type="float"
+                                desc="Enter a First random Percentage to use."
+                                idnum="0"
+                                max="100"
+                                min="0.1"
+                                u_id="0008"
+                                value="1.0"
+                        />
+                        <_input
+                                _type="float"
+                                desc="Enter a Second random Percentage to use."
+                                idnum="0"
+                                max="100"
+                                min="1.0"
+                                u_id="0009"
+                                value="51.50"
+                        />
+                    </command>
+                </Disabled_Button_in_Table>
+                <dyn class="on" disabled="false" name="Something" u_id="2042">On</dyn>
+                <dyn class="off" disabled="false" name="Something else" u_id="2043">Off</dyn>
+            </Status>
+
+            <Table_1 name="Table 1" u_id="2078">
+                <dyn name="One" u_id="2079">One</dyn>
+                <dyn name="Two" u_id="2080">Two</dyn>
+                <dyn name="Three" u_id="2081">Three</dyn>
+                <dyn name="Four" u_id="2082">Four</dyn>
+                <dyn name="Five" u_id="2083">Five</dyn>
+            </Table_1>
+            <Table_2 name="Table 2" u_id="2084">
+                <dyn name="One" u_id="2085">One</dyn>
+                <dyn name="Two" u_id="2086">Two</dyn>
+                <dyn name="Three" u_id="2087">Three</dyn>
+                <dyn name="Four" u_id="2088">Four</dyn>
+                <dyn name="Five" u_id="2089">Five</dyn>
+            </Table_2>
+
+        </DataSets>
+        <DataSets u_id="2091">
+            <Active_Fault_List u_id="2118">
+                <Fault ev_details="one" fault_code="code" idx="2"
+                       name="one" timestamp="16:20:38" u_id="2118">trip
+                </Fault>
+                <Fault ev_details="two" fault_code="" idx="4"
+                       name="two" timestamp="16:20:38" u_id="2119">trip
+                </Fault>
+                <Fault ev_details="three" fault_code="warning" idx="6"
+                       name="three" timestamp="16:20:38" u_id="2120">trip
+                </Fault>
+                <Fault ev_details="four" fault_code="" idx="8"
+                       name="four" timestamp="16:20:38" u_id="2121">trip
+                </Fault>
+
+                <Fault ev_details="" fault_code="...." idx="" name="15 more not displayed." timestamp="" u_id="2123">
+                    ...
+                </Fault>
+            </Active_Fault_List>
+        </DataSets>
+    </Section>
+
+    <Section name="Module 2" u_id="2125">
+        <CmdSet u_id="2136">
+            <command cmd="Open_something" desc="Open something" dest="2-2" disabled="false" idnum="0"
+                     label="open it" name="open_something" u_id="2137"/>
+            <command cmd="Close_something" confirm="false" desc="Close something" dest="2-2" disabled="true"
+                     idnum="0" label="close it" name="close_something" u_id="2138"/>
+        </CmdSet>
+        <DataSets u_id="2139">
+            <Status u_id="2140">
+                <dyn class="trip" desc="desc" name="level" u_id="2146">trip</dyn>
+            </Status>
+            
+            <Table_with_Buttons name="Table with Buttons" u_id="2161">
+                <Something u_id="2162">
+                    <command cmd="something1" disabled="false" dest="2-3" label="Enabled Button" deviceId="0" name="Enabled button" u_id="2163"/>Enabled Button
+                </Something>
+                <Something u_id="2164">
+                    <command cmd="something2" disabled="true" dest="2-3" label="Disabled Button" deviceId="0" name="Disabled button" u_id="2165"/>Disabled Button
+                </Something>
+                <Something u_id="2166">
+                    <command cmd="something3" disabled="false" dest="2-3" label="One input" deviceId="0" name="Enabled button" u_id="2167">
+                        <_input
+                                _type="float"
+                                desc="Enter a First random Percentage to use."
+                                idnum="0"
+                                max="100"
+                                min="0.1"
+                                u_id="0008"
+                                value="1.0"
+                        />
+                    </command>One input
+                </Something>
+                <Something u_id="2168">
+                    <command cmd="something4" disabled="false" dest="2-3" label="multiple inputs" deviceId="0" name="multiple inputs" u_id="2169">
+                        <_input
+                            _type="float"
+                            desc="Enter a First random Percentage to use."
+                            idnum="0"
+                            max="100"
+                            min="0.1"
+                            u_id="0008"
+                            value="1.0"
+                        />
+                        <_input
+                            _type="float"
+                            desc="Enter a Second random Percentage to use."
+                            idnum="0"
+                            max="100"
+                            min="1.0"
+                            u_id="0009"
+                            value="51.50"
+                        />
+                    </command>multiple inputs
+                </Something>
+            </Table_with_Buttons>
+
+        </DataSets>
+    </Section>
+    <status>0</status>
+</Data_Summary>

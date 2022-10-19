@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Directive, EventEmitter, Input, Optional, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Optional, Output} from '@angular/core';
 import {DataSummary} from '../interfaces/data-summary';
 import {ClientLogger} from '../../tools/logger';
 import {OverlayType} from './overlay-type';
@@ -8,6 +8,7 @@ import {AppComponent} from '../app.component';
 import {UTIL} from '../../tools/utility';
 
 @Component({
+    animations: [],
     // tslint:disable-next-line:component-selector
     selector: 'overlay-page',
     changeDetection: ChangeDetectionStrategy.Default,
@@ -87,7 +88,7 @@ export class OverlayPageComponent {
         return retVal;
     }
 
-    toggleAutoRefresh() {
+    toggleAutoRefresh(): void {
         if (this._autoRefreshLabel === 'Pause Auto Refresh') {
             this._autoRefreshLabel = 'Resume Auto Refresh';
         } else {
@@ -152,6 +153,32 @@ export class OverlayPageComponent {
         return false;
     }
 
+
+     /**
+     * Returns true if element is already in elemlist
+     * @param elemList list of elements
+     * @param element potenital new element
+     */
+    checkElemListForDuplicates(elemList: any, element: any): boolean {
+        if (!elemList || !element) {
+            return false
+        }
+        for (let iter = 0; iter < elemList.length; iter++) {
+            const current = elemList[iter];
+            if (UTIL.elements_are_equal(current, element)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    /**
+     * Source of mem leaks due to lost code?
+     * @param overlayType -
+     * @param overlayGroupName -
+     * @param tag -
+     * @returns elemList
+     */
     getGroupMembers(overlayType: OverlayType, overlayGroupName: string, tag: string): any {
         // tag is an element of ['dyn', 'command', 'img', 'table']
         const node = this._DataSummary[overlayGroupName];
@@ -162,12 +189,13 @@ export class OverlayPageComponent {
                     if (Array.isArray(node[key])) {
                         for (let i = 0; i < node[key].length; i++) {
                             if (typeof node[key][i]['name'] === 'string') {
-                                // to uncode fullOverlayName, use .replace(/≪[^≫]*≫/, '')
                                 const fullOverlayName = UTIL.addContextPrefix(overlayGroupName, node[key][i]['name']);
                                 const e = this.getElemInfo(tag, overlayGroupName, node[key][i]['name']);
                                 if (this.filterBy(overlayType, node[key][i], e.id, tag)
                                     || this.filterBy(overlayType, node[key][i], fullOverlayName, tag)) {
-                                    elemList.push(e);
+                                    if (!this.checkElemListForDuplicates(elemList, e)) {
+                                        elemList.push(e);
+                                    }
                                 }
                             }
                         }
@@ -181,7 +209,7 @@ export class OverlayPageComponent {
                     }
                 } else if (['dyn', 'command', 'img', 'animation', 'label', 'table', 'u_id', 'value'].indexOf(key) === -1) {
 
-                    // todo: find out what this else acuatlly does!!!  Might be "dead" code
+                    // todo: find out what this else actually does!!!  Might be "dead" code
                     // todo: update 5/22/20, not deleting yet,
                     //                       but all actually defined values should be handled (and appear to be handled) in the if above.
                     //
@@ -199,7 +227,7 @@ export class OverlayPageComponent {
                     }
 
                     const fullOverlayName = UTIL.addContextPrefix(overlayGroupName, key);
-                    let e = this.getElemInfo(tag, overlayGroupName, key);
+                    const e = this.getElemInfo(tag, overlayGroupName, key);
                     if (this.filterBy(overlayType, node[key], e.id, tag)
                         || this.filterBy(overlayType, node[key], fullOverlayName, tag)) {
                         elemList.push(e);
@@ -218,17 +246,9 @@ export class OverlayPageComponent {
         return elemList;
     }
 
-    getTableColumnHeaders(tableIdStr: string) {
-        let colHeaders = [];
-        colHeaders[0] = 'Time';
-        colHeaders[1] = 'Type';
-        colHeaders[2] = 'Description';
-        return colHeaders;
-    }
-
     elemListToIdList(elemList: any): any {
-        let idList = [];
-        for (let e of elemList) {
+        const idList = [];
+        for (const e of elemList) {
             idList.push(e.id);
         }
 
@@ -267,19 +287,6 @@ export class OverlayPageComponent {
         return elemList;
     }
 
-    elements_are_equal(deep: number, el1: any, el2: any): boolean {
-        for (const key of Object.keys(el1)) {
-            if (typeof el1[key] === 'object' && typeof el2[key] === 'object') {
-                if ((deep > 4)
-                    || (!this.elements_are_equal(deep + 1, el1[key], el2[key]))) {
-                    return false;
-                }
-            } else if (el1[key] !== el2[key]) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     // ----------------------
     get_implemented_commands_in_group(overlayGroupName: string): any {
@@ -296,7 +303,7 @@ export class OverlayPageComponent {
             this._commandList[overlayGroupName] = UTIL.deepCopy(elemList);
         } else {
             for (let idx = 0; idx < elemList.length; ++idx) {
-                if (!this.elements_are_equal(0, this._commandList[overlayGroupName][idx], elemList[idx])) {
+                if (!UTIL.elements_are_equal(this._commandList[overlayGroupName][idx], elemList[idx])) {
                     this._commandList[overlayGroupName][idx] = UTIL.deepCopy(elemList[idx]);
                 }
             }
@@ -325,7 +332,7 @@ export class OverlayPageComponent {
             this._imageList[overlayGroupName] = UTIL.deepCopy(elemList);
         } else {
             for (let idx = 0; idx < elemList.length; ++idx) {
-                if (!this.elements_are_equal(0, this._imageList[overlayGroupName][idx], elemList[idx])) {
+                if (!UTIL.elements_are_equal(this._imageList[overlayGroupName][idx], elemList[idx])) {
                     this._imageList[overlayGroupName][idx] = UTIL.deepCopy(elemList[idx]);
                 }
             }
@@ -354,7 +361,7 @@ export class OverlayPageComponent {
             this._animationList[overlayGroupName] = UTIL.deepCopy(elemList);
         } else {
             for (let idx = 0; idx < elemList.length; ++idx) {
-                if (!this.elements_are_equal(0, this._animationList[overlayGroupName][idx], elemList[idx])) {
+                if (!UTIL.elements_are_equal(this._animationList[overlayGroupName][idx], elemList[idx])) {
                     this._animationList[overlayGroupName][idx] = UTIL.deepCopy(elemList[idx]);
                 }
             }
@@ -438,7 +445,7 @@ export class OverlayPageComponent {
 
         let retObj = {'name': shortName, 'id': UTIL.addContextPrefix(overlayGroupName, shortName)};
 
-        let e: any = (typeof this._DataSummary[overlayGroupName] === 'object')
+        const e: any = (typeof this._DataSummary[overlayGroupName] === 'object')
             && (this._DataSummary[overlayGroupName][shortName]
                 || this._DataSummary[overlayGroupName][tagName]);
 
@@ -451,7 +458,7 @@ export class OverlayPageComponent {
                     }
                 }
             } else {
-                for (let attr of Object.keys(e)) {
+                for (const attr of Object.keys(e)) {
                     if (typeof retObj[attr] === 'undefined') {
                         retObj[attr] = e[attr];
                     }
@@ -480,12 +487,12 @@ export class OverlayPageComponent {
     }
 
     getLabel(overlayGroupName: string, varName: string, defaultLabel = '') {
-        let e = this.getJsonElement(overlayGroupName, varName);
+        const e = this.getJsonElement(overlayGroupName, varName);
         if (!e) {
             return '';
         }
 
-        let label = ((typeof e === 'object') && (typeof e['label'] === 'string') && e['label']) || defaultLabel;
+        const label = ((typeof e === 'object') && (typeof e['label'] === 'string') && e['label']) || defaultLabel;
 
         return label;
     }
@@ -497,8 +504,8 @@ export class OverlayPageComponent {
 
     getElemInfo(tag: string, overlayGroupName: string, shortName: string): any {
 
-        let j = this.getJsonElement(overlayGroupName, shortName, tag);
-        let info = {
+        const j = this.getJsonElement(overlayGroupName, shortName, tag);
+        const info = {
             'json': j,
             'label': '',
             'name': shortName,
@@ -551,7 +558,7 @@ export class OverlayPageComponent {
         } else if (tag === 'animation') {
             info.class = ((typeof j['class'] === 'string') && j['class']) || '';
             if (typeof j['speed_rpm'] === 'string') {
-                let speed_rpm = 0;
+                let speed_rpm: number;
                 try { speed_rpm = parseInt(j['speed_rpm'], 10); } catch (e) { speed_rpm = 0; }
 
                 if (speed_rpm < 1.0) {
@@ -596,17 +603,17 @@ export class OverlayPageComponent {
         return info;
     }
 
-    hasCommandLabel(commandInfo: any) {
+    hasCommandLabel(commandInfo: any): boolean {
         return (typeof commandInfo.json.commandLabel === 'string' && commandInfo.json.commandLabel !== '');
     }
 
-    isArray(test_object: any) {
+    isArray(test_object: any): boolean {
         return Array.isArray(test_object);
     }
 
     formatValue(overlayGroupName: string, varName: string, isImplemented: boolean) {
-        let v = '';
         let css = '';
+        if (isImplemented) {}
         try {
             const e = this.getJsonElement(overlayGroupName, varName);
             if (!e) {
@@ -618,6 +625,28 @@ export class OverlayPageComponent {
             if (units === 'bool') {
                 return value;
             }
+
+            /******************************************************************/
+            /* Start of section lost with checkin on 9/10.2020 2:07 PM change
+               Not sure if this code is needed, but without it, "if (fmt === '')"
+               (used below this block) will always evaluate to true.
+             */
+            if (isImplemented) {
+                css = this.getImpOverlayCssDef(varName);
+                if (css.length > 0) {
+                    let cmd = 'var e=document.getElementById("' + varName + '");' +
+                        'var e_val=document.getElementById("' + varName + '_value");' +
+                        'if (e) {e.style="' + css + '";}';
+
+                    const val_css = this.getImpOverlayCssDef(varName + '_value');
+                    if (val_css.length > 0) {
+                        cmd += 'if (e_val) {e_val.style="' + val_css + '";}';
+                    }
+                    setTimeout(cmd, 5);
+                }
+            }
+            /* End of section lost with checkin on 9/10.2020 2:07 PM change */
+            /******************************************************************/
 
             const pat = css && (css.length > 0) && css.match(/--format:[ \t]*['"]([^']+)*['"]/);
             let fmt = (pat && pat.length === 2 && pat[1]) || '';
@@ -651,7 +680,7 @@ export class OverlayPageComponent {
         } catch (err) {
             console.log(err);
         }
-        return v;
+        return '';
     }
 
     getImpOverlayCssDef(eName: string): string {
@@ -714,7 +743,7 @@ export class OverlayPageComponent {
     getAnimationSrc(overlayGroupName: string, imgInfo: object): string {
         const varName = imgInfo['id'];
         let s = 'invalid-filename.png';
-        const shortName = UTIL.removeContextPrefix(varName);
+        // const shortName = UTIL.removeContextPrefix(varName);
 
         if (typeof this._uiTab === 'object'
             && typeof this._uiTab['overlayImageUrl'] === 'string'
@@ -732,9 +761,9 @@ export class OverlayPageComponent {
         return s;
     }
 
-    showHideInstructions() {
-        let e = document.getElementById('dnd-toggle');
-        let instructions = document.getElementById('movedElementInfo');
+    showHideInstructions(): void {
+        const e = document.getElementById('dnd-toggle');
+        const instructions = document.getElementById('movedElementInfo');
         if (e && e.innerHTML === '►') {
             e.innerHTML = '▼';
             instructions.style.display = 'block';

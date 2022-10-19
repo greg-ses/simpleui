@@ -10,24 +10,27 @@ import { DatasetTableComponent } from './dataset-tables/dataset-table';
 import { PropDefinedTableComponent } from './dataset-tables/prop-defined-table';
 import { SeparatorBarComponent } from './dataset-tables/separator-bar';
 import {OverlayPageComponent} from './app-tab-overlay/overlay-page';
+import {CommonModule} from '@angular/common';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeAll(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        AppTabOverlayComponent,
-        AppTabNormalComponent,
-        CommandButtonComponent,
-        ImageOverlaysComponent,
-        OverlayCmdBarComponent,
-        OverlayPageComponent,
-        DatasetTableComponent,
+        SeparatorBarComponent,
         PropDefinedTableComponent,
-        SeparatorBarComponent
+        DatasetTableComponent,
+        OverlayPageComponent,
+        OverlayCmdBarComponent,
+        ImageOverlaysComponent,
+        CommandButtonComponent,
+        AppTabNormalComponent,
+        AppTabOverlayComponent
       ],
+      imports: [ CommonModule ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     }).compileComponents();
+    const commonModule = new CommonModule();
   }));
 
   it('should create the AppComponent', () => {
@@ -36,7 +39,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'INITIAL-APP-TITLE'`, () => {
+  it(`should not have as title 'INITIAL-APP-TITLE'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     // expect(app).isNot(null);

@@ -46,7 +46,7 @@ export class ImageOverlaysComponent {
     _updateCount = 0;
     imageSetChangeSubscription: Subscription;
 
-    static evtToString(evt: any) {
+    static evtToString(evt: any): string {
         let s = 'evt dump. ';
         if ((typeof evt !== 'undefined') && (typeof evt.srcElement !== 'undefined') && typeof (evt.srcElement.tagName !== 'undefined')) {
             s += 'evt.srcElement.tagName: ' + evt.srcElement.tagName;
@@ -154,9 +154,9 @@ export class ImageOverlaysComponent {
         return v;
     }
 
-    getSize() {
-        let arr = this._uiObjList && Object.keys(this._uiObjList);
-        let len = (arr && arr.length) || 0;
+    getSize(): number {
+        const arr = this._uiObjList && Object.keys(this._uiObjList);
+        const len = (arr && arr.length) || 0;
         return len;
     }
 
@@ -240,8 +240,8 @@ export class ImageOverlaysComponent {
             return '';
         }
 
-        let e = this.getJsonElement(varName);
-        let attrVal = ( (typeof e === 'object') && (typeof e[attr] === 'string') && e[attr]) || '';
+        const e = this.getJsonElement(varName);
+        const attrVal = ( (typeof e === 'object') && (typeof e[attr] === 'string') && e[attr]) || '';
 
         return attrVal;
     }

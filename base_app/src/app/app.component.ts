@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import './css/styles.css';
 import {AppProperties, SubscriptionState, TabUI, TitleBarProperties} from './interfaces/props-data';
 import {ajax} from 'rxjs/ajax';
 import {MatTabChangeEvent, MatTabGroup} from '@angular/material/tabs';
@@ -7,12 +6,10 @@ import {interval} from 'rxjs';
 import {ClientLogger, LogLevel} from '../tools/logger';
 import {DataSummary} from './interfaces/data-summary';
 import {UTIL} from '../tools/utility';
-import {AppEditUiPanelComponent} from './app-tab-overlay/app-edit-ui-panel-component';
-
-// import {Subscriber} from 'rxjs/src/internal/Subscriber';
 
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [],
     selector: 'app-simpleui',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
@@ -40,7 +37,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _refreshRate = 1000;
     _pendingRequestWait = 10000;
     _updateSubscription = null;
-    _milliSecondsBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default * 60 * 1000; // Default # of minutes before automatic updates stop
+    _milliSecondsBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default * 60 * 1000;
     _debugRefreshCycle = 0;
     _errorMessage = '';
     _appURI = AppComponent.getServiceURI();
@@ -138,32 +135,16 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     }
 
     static getServiceURI(): string {
-
-        /*
-        let path = '';
-        const pos = window.location.pathname.indexOf('/index.html');
-        if (pos > -1) {
-            path = window.location.pathname.substr(pos);
-        } else if (window.location.pathname === '/' || window.location.pathname === '/context.html') {
-            path = '/simpleui/';
-        } else {
-            path = window.location.pathname;
-        }
-
-        return (window.location.protocol + '//' + window.location.hostname + path);
-        */
-
         const base = document.getElementsByTagName('base')[0];
         return base['appURI'];
-
     }
 
-    static getDataTabRelativePath(relativeURL, tab_index, tab_hash, serverSideJsDebugging) {
-
-        // Default assumes relativeURL is a complete URL
+    static getDataTabPath(incomingURL, tab_index, tab_hash, serverSideJsDebugging: boolean) {
+        // TODO: verify that the hash stuff isn't being used for incremental update logic
+        //       and remove.
 
         let querySuffix = '?ti=' + tab_index + '&hash=' + tab_hash;
-        if (relativeURL.indexOf('?') > -1) {
+        if (incomingURL.indexOf('?') > -1) {
             querySuffix = '&ti=' + tab_index + '&hash=' + tab_hash;
         }
 
@@ -171,10 +152,13 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             querySuffix += '&keepTempFile';
         }
 
-        // Relative path
-        return relativeURL + querySuffix;
+        let prefix = '';
+        if (window.location.port === '4200') {
+            // Hack to support local development via docker and ng serv
+            prefix = `http://localhost:4100`;
+        }
+        return `${prefix}${incomingURL}${querySuffix}`;
     }
-
 
     static doResizeTabScrollRegion(evt: any, timeout = 10) {
         if (evt) {
@@ -321,16 +305,28 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         */
     }
 
-    /*
-    ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-            this._changeDetectorRef.markForCheck();
+    getCssToJsonURL(tab): string {
+        let overlayNum = 1;
+        const overlayImageUrl = tab['overlayImageUrl'];
+        const matches = overlayImageUrl.match(/\/[^\/]*\/overlay-([0-9]+)\//);
+        if (matches) {
+            overlayNum = matches[1];
+        }
+        const url = AppComponent.getPropsURL().replace('/query/props', `/query/css_elements_to_json/overlay/${overlayNum}`);
+        console.log(`getCssToJsonURL(${tab}: ${url}`);
+        return url;
     }
 
-    registerPopupDialog(popupDialog) {
-        this.popupDialog = popupDialog;
-    }
+        /*
+        ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+                this._changeDetectorRef.markForCheck();
+        }
 
-    */
+        registerPopupDialog(popupDialog) {
+            this.popupDialog = popupDialog;
+        }
+
+        */
 
     updateToggleButton() {
         const toggleButton = document.getElementById('dbPulse');
@@ -362,7 +358,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     */
 
     onToggleAutoRefresh(event: MouseEvent) {
-        let selectedTab = this._props.tab[this._selectedTabIndex];
+        const selectedTab = this._props.tab[this._selectedTabIndex];
         if (event) {
             if (event.ctrlKey && event.shiftKey) {
                 // CTRL-SHIFT-CLICK
@@ -378,7 +374,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 // SHIFT-CLICK with updates paused
                 selectedTab._commands_enabled  = window.confirm(`Allow commands even when refresh is paused (developers only)?`);
             } else {
-                let newVal = !selectedTab._autoRefreshEnabled;
+                const newVal = !selectedTab._autoRefreshEnabled;
                 selectedTab._autoRefreshEnabled = newVal;
                 selectedTab._commands_enabled = newVal;
                 // this._changeDetectorRef.detectChanges();
@@ -414,16 +410,16 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     }
 
     onEditUIElements(event) {
-        /*
         if (event) {
-            if (event.ctrlKey && event.shiftKey) {
-                window['editUiPanel'] = new AppEditUiPanelComponent();
-                setTimeout(() => window['editUiPanel'].create(), 1000);
-            } else if (event.shiftKey) {
-                AppComponent.turnOffAnimatedGifs();
+            /*
+                if (event.ctrlKey && event.shiftKey) {
+                    window['editUiPanel'] = new AppEditUiPanelComponent();
+                    setTimeout(() => window['editUiPanel'].create(), 1000);
+                } else if (event.shiftKey) {
+                    AppComponent.turnOffAnimatedGifs();
+                }
+           */
             }
-        }
-       */
     }
 
     getWindowLocationField(fieldName) {
@@ -439,6 +435,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
         if (this._props && this._props.initialized) {
             // already have properties - don't fetch again
+            console.log('Using cached _props');
             return;
         }
 
@@ -470,13 +467,15 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 try {
                     console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
                 } catch (err1) {
+                    console.log('Error trying to display error');
                 }
             });
         this._propsSubscriptionState = SubscriptionState.AwaitingAsyncResponse;
     }
 
     onPropsUpdate(propsIn: any) {
-        this._props = propsIn;
+        this._props = UTIL.deepCopy(propsIn);
+        //this._props = propsIn;
         if (typeof this._props.instance === 'object'
             && typeof this._props.instance['name'] === 'string') {
             this._theAppTitle = this._props.instance['name'];
@@ -490,7 +489,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this.initTabDataUpdates();
     }
 
-
+    /**
+     * Adjusts the size of the individual tabs to make them smaller
+     */
     configureTabBar() {
         // Just want this to adjust the tab height
         const TAB_BAR_HEIGHT = '20px';
@@ -535,7 +536,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                     tabLabel['style'].lineHeight = TAB_BAR_HEIGHT;
                 }
             } catch (e) {
-                console.log('error: ', e);
+                console.log('error in configureTabBar: ', e);
             }
         }
     }
@@ -578,7 +579,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
             }
         }
-        minutesBeforeAutoPageReload = Math.max(Math.min(minutesBeforeAutoPageReload, AppComponent._minutesBeforeAutoPageReload_Default), 1); // range (1..30)
+        // Restrict minutesBeforeAutoPageReload range to (1..30)
+        minutesBeforeAutoPageReload = Math.max(Math.min(minutesBeforeAutoPageReload, AppComponent._minutesBeforeAutoPageReload_Default), 1);
         this._milliSecondsBeforeAutoPageReload = minutesBeforeAutoPageReload * 60 * 1000;
 
         this._refreshRate = 1000;
@@ -606,6 +608,10 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             });
     }
 
+    /**
+     * Main update loop of the base_app.
+     * @param {Number} cycle : the number of document.location.reload()'s have been used
+     */
     doUpdate(cycle: number = 0) {
         try {
             if ((cycle * this._refreshRate) > this._milliSecondsBeforeAutoPageReload) {
@@ -746,7 +752,13 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this._tBarProps._updateTime = this.getUpdateTime(tab);
     }
 
-    getRemoteTabData(tab: TabUI, tab_hash, serverSideJsDebugging) {
+    /**
+     * Gets remote information for the selected tab
+     * @param {TabUI} tab -
+     * @param tab_hash -
+     * @param {boolean} serverSideJsDebugging -
+     */
+    getRemoteTabData(tab: TabUI, tab_hash, serverSideJsDebugging: boolean) {
 
         if (this.isDeltaUpdate(tab)) {
             ClientLogger.log('DeltaUpdate', 'Partial Update');
@@ -769,7 +781,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 tab._pendingRequestExpiration = now.valueOf() + this._pendingRequestWait;
 
                 const ajaxRequest = {
-                    url: AppComponent.getDataTabRelativePath(tab.dataUrl, tab.index, tab_hash, serverSideJsDebugging),
+                    url: `${AppComponent.getDataTabPath(tab.dataUrl, tab.index, tab_hash, serverSideJsDebugging)}`,
                     withCredentials: true,
                     crossDomain: true,
                     timeout: parseInt(this.getProp('ajaxTimeout', '5001'), 10)
@@ -787,6 +799,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                         try {
                             console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
                         } catch (err1) {
+                            console.log('error logging ajax error in getRemoteTabData()');
                         }
                     });
             }
@@ -802,8 +815,10 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             this._detectChanges = {'name': tab.name, 'value': true};
             this.updateData(tab, response['Data_Summary']);
             ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');
+
         } else if (typeof response === 'object'
             && typeof response['Overlay_Summary'] === 'object') {
+
             this._detectChanges = {'name': tab.name, 'value': true};
             this.updateData(tab, response['Overlay_Summary']);
             ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');

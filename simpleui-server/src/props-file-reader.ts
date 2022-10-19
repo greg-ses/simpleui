@@ -261,6 +261,15 @@ export class PropsFileReader {
         props['macro'][macroIndex] = {};
         props['macro'][macroIndex]['index'] = macroIndex.toString();
         props['macro'][macroIndex]['id'] = `macro-${macroIndex}`;
+        props['macro'][macroIndex]['token'] = 'BASE_APP_URL_PREFIX';
+        props['macro'][macroIndex]['source'] = 'PREDEFINED';
+        props['macro'][macroIndex]['replacement'] = '';
+        PropsFileReader.processMacroPart(props, macroIndex);
+
+        ++macroIndex; macroCount++;
+        props['macro'][macroIndex] = {};
+        props['macro'][macroIndex]['index'] = macroIndex.toString();
+        props['macro'][macroIndex]['id'] = `macro-${macroIndex}`;
         props['macro'][macroIndex]['token'] = 'IP_ADDR';
         props['macro'][macroIndex]['source'] = 'PREDEFINED';
         props['macro'][macroIndex]['replacement'] = `${SimpleUIServer.EXTERNAL_IP}`;
