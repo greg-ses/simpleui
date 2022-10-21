@@ -164,7 +164,6 @@ export class MaterialPopupComponent implements OnInit {
     getDescription(): string {
         let description = '';
         if (this.commandData.element.command.desc !== '') {
-
             description = this.commandData.element.command.desc;
         }
 
