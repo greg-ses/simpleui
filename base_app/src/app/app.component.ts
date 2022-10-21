@@ -313,7 +313,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             overlayNum = matches[1];
         }
         const url = AppComponent.getPropsURL().replace('/query/props', `/query/css_elements_to_json/overlay/${overlayNum}`);
-        console.log(`getCssToJsonURL(${tab}: ${url}`);
         return url;
     }
 
