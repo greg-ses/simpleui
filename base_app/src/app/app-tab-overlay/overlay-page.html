@@ -38,19 +38,21 @@
 
     <div *ngFor='let imgInfo of get_implemented_images_in_group(overlayGroupName)'
          creator='impl-images-ngFor'>
-        <img [id]='imgInfo.id'
-             [title]='imgInfo.desc'
-             [class]='imgInfo.class'
-             [src]='getImgSrc(overlayGroupName, imgInfo)'
-        >
+        <span [title]="imgInfo.desc">
+            <img [id]='imgInfo.id'
+                [class]='imgInfo.class'
+                [src]='getImgSrc(overlayGroupName, imgInfo)'
+            >
+        </span>
     </div>
 
     <div *ngFor='let imgInfo of get_implemented_animations_in_group(overlayGroupName)'>
-        <img [id]='imgInfo.id'
-             [title]='imgInfo.desc'
-             [class]='imgInfo.class'
-             [src]='getAnimationSrc(overlayGroupName, imgInfo)'
-        >
+        <span [title]="imgInfo.desc">
+            <img [id]='imgInfo.id'
+                [class]='imgInfo.class'
+                [src]='getAnimationSrc(overlayGroupName, imgInfo)'
+            >
+        </span>
     </div>
 
     <div *ngIf="get_implemented_defined_table_in_group(overlayGroupName, 'Event_Log') as tableInfo"
