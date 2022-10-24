@@ -43,7 +43,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _appURI = AppComponent.getServiceURI();
     _propsURL = AppComponent.getPropsURL();
     _theAppTitle = 'INITIAL-APP-TITLE';
-    _globalProps = {};
+    _globalProps = {
+        _hiddenTables: []
+    };
     _fullUpdateRequired = false;
     _selectedTabIndex = 0;
     _autoRefreshEnabled = false;

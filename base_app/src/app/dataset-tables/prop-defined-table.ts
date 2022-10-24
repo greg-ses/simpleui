@@ -64,21 +64,21 @@ export class PropDefinedTableComponent implements OnDestroy {
     }
 
     isCollapsed(): boolean {
-        this._hidden = this.app.globalProps
-                       && this.app.globalProps._hiddenTables
-                       && (this.app.globalProps._hiddenTables.indexOf(this._id) > -1);
+        this._hidden = this.app._globalProps
+                       && this.app._globalProps._hiddenTables
+                       && (this.app._globalProps._hiddenTables.indexOf(this._id) > -1);
         return this._hidden;
     }
 
     toggle() {
-        if (this.app.globalProps && this.app.globalProps._hiddenTables) {
-            const pos = this.app.globalProps._hiddenTables.indexOf(this._id);
+        if (this.app._globalProps && this.app._globalProps._hiddenTables) {
+            const pos = this.app._globalProps._hiddenTables.indexOf(this._id);
             if (pos === -1) {
-                this.app.globalProps._hiddenTables.push(this._id);
+                this.app._globalProps._hiddenTables.push(this._id);
                 this._hidden = true;
                 console.log('toggle(' + this._id + '): hidden');
             } else {
-                this.app.globalProps._hiddenTables = this.app.globalProps._hiddenTables.filter(e => e !== this._id);
+                this.app._globalProps._hiddenTables = this.app._globalProps._hiddenTables.filter(e => e !== this._id);
                 this._hidden = false;
                 console.log('toggle(' + this._id + '): visible');
             }

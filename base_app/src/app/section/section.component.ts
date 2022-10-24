@@ -83,21 +83,21 @@ export class SectionComponent implements AfterViewInit{
     }
 
     isCollapsed(i): boolean {
-        const hidden = this.app.globalProps && this.app.globalProps._hiddenTables
-            && (this.app.globalProps._hiddenTables.indexOf(this.getSectId(i)) > -1);
+        const hidden = this.app._globalProps && this.app._globalProps._hiddenTables
+            && (this.app._globalProps._hiddenTables.indexOf(this.getSectId(i)) > -1);
         return hidden;
     }
 
     toggle(i) {
-        if (this.app.globalProps && this.app.globalProps._hiddenTables) {
+        if (this.app._globalProps && this.app._globalProps._hiddenTables) {
             const sectId = this.getSectId(i);
-            const pos = this.app.globalProps._hiddenTables.indexOf(sectId);
+            const pos = this.app._globalProps._hiddenTables.indexOf(sectId);
             if (pos === -1) {
-                this.app.globalProps._hiddenTables.push(sectId);
-                console.log('toggle(' + sectId + '): hidden');
+                this.app._globalProps._hiddenTables.push(sectId);
+                //console.log('toggle(' + sectId + '): hidden');
             } else {
-                this.app.globalProps._hiddenTables = this.app.globalProps._hiddenTables.filter(e => e !== sectId);
-                console.log('toggle(' + sectId + '): visible');
+                this.app._globalProps._hiddenTables = this.app._globalProps._hiddenTables.filter(e => e !== sectId);
+                //console.log('toggle(' + sectId + '): visible');
             }
             // this.changeDetectorRef.markForCheck();
             this._changeDetectorRef.detectChanges();
