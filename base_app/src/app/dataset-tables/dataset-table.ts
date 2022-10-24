@@ -83,24 +83,26 @@ export class DatasetTableComponent implements OnDestroy {
 
 
     isCollapsed(): boolean {
-        this._hidden = this.app._globalProps && this.app._globalProps._hiddenTables
-                       && (this.app._globalProps._hiddenTables.indexOf(this.getTableId()) > -1);
+        this._hidden = this.app._globalProps._hiddenTables.indexOf(this.getTableId()) > -1;
         return this._hidden;
     }
 
-    toggle() {
+
+    toggleTableDisplay() {
         if (this.app._globalProps && this.app._globalProps._hiddenTables) {
             const tableId = this.getTableId();
             const pos = this.app._globalProps._hiddenTables.indexOf(tableId);
             if (pos === -1) {
                 this.app._globalProps._hiddenTables.push(tableId);
                 this._hidden = true;
-                console.log('toggle(' + tableId + '): hidden');
+                //console.log('toggle(' + tableId + '): hidden');
             } else {
                 this.app._globalProps._hiddenTables = this.app._globalProps._hiddenTables.filter(e => e !== tableId);
                 this._hidden = false;
-                console.log('toggle(' + tableId + '): visible');
+                //console.log('toggle(' + tableId + '): visible');
             }
+            this._changeDetectorRef.detectChanges();
+            this._changeDetectorRef.detach();
         }
     }
 }

@@ -82,9 +82,8 @@ export class SectionComponent implements AfterViewInit{
 
     }
 
-    isCollapsed(i): boolean {
-        const hidden = this.app._globalProps && this.app._globalProps._hiddenTables
-            && (this.app._globalProps._hiddenTables.indexOf(this.getSectId(i)) > -1);
+    isCollapsed(i: number): boolean {
+        const hidden = this.app._globalProps._hiddenTables.indexOf(this.getSectId(i)) > -1;
         return hidden;
     }
 
