@@ -220,98 +220,98 @@ export class SuiData {
             Logger.log(LogLevel.INFO, `Service is disabled for ${tab.tabName}`);
             const errorXml = `<Data_Summary>${SuiData.errorToXml("1005", "suiRequest")}</Data_Summary>`;
             res.send(errorXml);
-        } else */ {
+        } else { */ 
 
-            const parsedReq = {cmd: `${req.params.zmqCmd}`};
-            let xmlCmdRequestForZmq = '';
-            const contentType = SuiData.getContentType(req);
+        const parsedReq = {cmd: `${req.params.zmqCmd}`};
+        let xmlCmdRequestForZmq = '';
+        const contentType = SuiData.getContentType(req);
 
-            if (req.method === 'POST') {
-                if (contentType === 'application/xml') {
-                    // header('Content-Type: application/xml; charset=UTF-8');
+        if (req.method === 'POST') {
+            if (contentType === 'application/xml') {
+                // header('Content-Type: application/xml; charset=UTF-8');
 
-                    try {
-                        Logger.log(LogLevel.DEBUG, 'Getting XML stream from req.body \n');
-                        // xmlCmdRequestForZmq = file_get_contents('php://input');
-                        xmlCmdRequestForZmq = req.body;
-                    } catch (e) {
-                        Logger.log(LogLevel.ERROR, `Exception while building XML request: ${e}`);
-                    }
-
-                } else if (contentType === 'application/x-www-form-urlencoded') {
-                    Logger.log(LogLevel.VERBOSE, 'Incoming CONTENT_TYPE is application/x-www-form-urlencoded\n');
-
-                    try {
-                        // header('Content-Type: application/json; charset=UTF-8');
-                        // echo '{'document':{'body': 'This is a response'}}\n';
-
-                        xmlCmdRequestForZmq = SuiData.getXmlFromUrlArgs(req, req.params.zmqCmd);
-                        Logger.log(LogLevel.VERBOSE,
-                            `${SuiData.ram_disk_folder}/my-apache-log.txt. Xml Command: ${xmlCmdRequestForZmq.toString()}`);
-                    } catch (e) {
-                        Logger.log(LogLevel.VERBOSE, `Exception while building JSON request: ${e}`);
-                    }
-
-                } else if ((contentType === 'json') || (contentType === 'application/json')) {
-                    Logger.log(LogLevel.VERBOSE, 'Incoming CONTENT_TYPE is ${contentType}\n');
-
-                    try {
-                        // header('Content-Type: application/json; charset=UTF-8');
-                        // echo '{'document':{'body': 'This is a response'}}\n';
-                        xmlCmdRequestForZmq = SuiData.getXmlFromJsonArgs(req, parsedReq);
-                        Logger.log(LogLevel.VERBOSE, `Xml Command:\n ${xmlCmdRequestForZmq.toString()}`);
-                    } catch (e) {
-                        Logger.log(LogLevel.VERBOSE, `Exception while building JSON request: '  ${e}`);
-                    }
-                } else if (contentType === 'unknown') {
-                    // Look for a file as input.
-                    Logger.log(LogLevel.VERBOSE, `requestMethod for contentType === "unknown" is not yet implemented\n`);
-                    /*
-                    SuiData_statusValue = 1;
-                    SuiData_statusMsg = '
-                    options = getopt('f:');
-                    xmlCmdRequestForZmq = file_get_contents(options['f']);
-                    //xmlCmdRequestForZmq = file_get_contents('./test_stream.xml');  Greg - Start here, at least it appears to get through.
-                    */
-                    return;
-                } else {
-                    Logger.log(LogLevel.VERBOSE, `requestMethod for contentType === "${contentType}" is not yet implemented\n`);
-                    /*
-                    SuiData_statusValue = 2;
-                    // ClientLogger.log(LOG_INFO, 'Unexpected content type in request');
-                    // msg = sprintf('Unexpected content type in request: %s\n', requestMethod);
-                    Logger.log(LogLevel.VERBOSE, msg);
-                    */
-                    return;
+                try {
+                    Logger.log(LogLevel.DEBUG, 'Getting XML stream from req.body \n');
+                    // xmlCmdRequestForZmq = file_get_contents('php://input');
+                    xmlCmdRequestForZmq = req.body;
+                } catch (e) {
+                    Logger.log(LogLevel.ERROR, `Exception while building XML request: ${e}`);
                 }
-            }
 
-            Logger.log(LogLevel.INFO, `suiCommandRequest(): App "${req.params.appName}" received command "${parsedReq.cmd}" ` +
-                `for tab ${req.params.tabName} - forwarding to ZMQ.`);
-            Logger.log(LogLevel.VERBOSE, `contentType: ${contentType}, request.method: ${req.method}, contentType: ${contentType}`);
-            const zmqCmdRequester = SuiData.zmq.socket('req');
+            } else if (contentType === 'application/x-www-form-urlencoded') {
+                Logger.log(LogLevel.VERBOSE, 'Incoming CONTENT_TYPE is application/x-www-form-urlencoded\n');
 
-            // Callback invoked after zmqCmdRequester.send() completes
-            zmqCmdRequester.on('message', function (reply) {
-                const zmqResponse = SuiData.addXmlStatus(reply.toString());
-                zmqCmdRequester.close();
-                SuiData.sendResponse(req, res, uiProps, zmqResponse);
+                try {
+                    // header('Content-Type: application/json; charset=UTF-8');
+                    // echo '{'document':{'body': 'This is a response'}}\n';
 
-                Logger.log((SuiData.requestNum <= 5) ? LogLevel.INFO : LogLevel.DEBUG,
-                    `Request #${SuiData.requestNum} - zmqResponse: ` +
-                    `${zmqResponse.substr(0, 105).replace(/[ \t]*\n[ \t]*/g, '')}...`);
+                    xmlCmdRequestForZmq = SuiData.getXmlFromUrlArgs(req, req.params.zmqCmd);
+                    Logger.log(LogLevel.VERBOSE,
+                        `${SuiData.ram_disk_folder}/my-apache-log.txt. Xml Command: ${xmlCmdRequestForZmq.toString()}`);
+                } catch (e) {
+                    Logger.log(LogLevel.VERBOSE, `Exception while building JSON request: ${e}`);
+                }
+
+            } else if ((contentType === 'json') || (contentType === 'application/json')) {
+                Logger.log(LogLevel.VERBOSE, 'Incoming CONTENT_TYPE is ${contentType}\n');
+
+                try {
+                    // header('Content-Type: application/json; charset=UTF-8');
+                    // echo '{'document':{'body': 'This is a response'}}\n';
+                    xmlCmdRequestForZmq = SuiData.getXmlFromJsonArgs(req, parsedReq);
+                    Logger.log(LogLevel.VERBOSE, `Xml Command:\n ${xmlCmdRequestForZmq.toString()}`);
+                } catch (e) {
+                    Logger.log(LogLevel.VERBOSE, `Exception while building JSON request: '  ${e}`);
+                }
+            } else if (contentType === 'unknown') {
+                // Look for a file as input.
+                Logger.log(LogLevel.VERBOSE, `requestMethod for contentType === "unknown" is not yet implemented\n`);
+                /*
+                SuiData_statusValue = 1;
+                SuiData_statusMsg = '
+                options = getopt('f:');
+                xmlCmdRequestForZmq = file_get_contents(options['f']);
+                //xmlCmdRequestForZmq = file_get_contents('./test_stream.xml');  Greg - Start here, at least it appears to get through.
+                */
                 return;
-                // process.exit(0);
-            });
-
-            zmqCmdRequester.connect(`tcp://svcmachineapps:${SuiData.getZmqPort(req)}`);
-            Logger.log(LogLevel.VERBOSE, `Send Request: ${xmlCmdRequestForZmq}`);
-            zmqCmdRequester.send(xmlCmdRequestForZmq);
-
-            process.on('SIGINT', function () {
-                zmqCmdRequester.close();
-            });
+            } else {
+                Logger.log(LogLevel.VERBOSE, `requestMethod for contentType === "${contentType}" is not yet implemented\n`);
+                /*
+                SuiData_statusValue = 2;
+                // ClientLogger.log(LOG_INFO, 'Unexpected content type in request');
+                // msg = sprintf('Unexpected content type in request: %s\n', requestMethod);
+                Logger.log(LogLevel.VERBOSE, msg);
+                */
+                return;
+            }
         }
+
+        Logger.log(LogLevel.INFO, `suiCommandRequest(): App "${req.params.appName}" received command "${parsedReq.cmd}" ` +
+            `for tab ${req.params.tabName} - forwarding to ZMQ.`);
+        Logger.log(LogLevel.VERBOSE, `contentType: ${contentType}, request.method: ${req.method}, contentType: ${contentType}`);
+        const zmqCmdRequester = SuiData.zmq.socket('req');
+
+        // Callback invoked after zmqCmdRequester.send() completes
+        zmqCmdRequester.on('message', function (reply) {
+            const zmqResponse = SuiData.addXmlStatus(reply.toString());
+            zmqCmdRequester.close();
+            SuiData.sendResponse(req, res, uiProps, zmqResponse);
+
+            Logger.log((SuiData.requestNum <= 5) ? LogLevel.INFO : LogLevel.DEBUG,
+                `Request #${SuiData.requestNum} - zmqResponse: ` +
+                `${zmqResponse.substr(0, 105).replace(/[ \t]*\n[ \t]*/g, '')}...`);
+            return;
+            // process.exit(0);
+        });
+
+        zmqCmdRequester.connect(`tcp://svcmachineapps:${SuiData.getZmqPort(req)}`);
+        Logger.log(LogLevel.VERBOSE, `Send Request: ${xmlCmdRequestForZmq}`);
+        zmqCmdRequester.send(xmlCmdRequestForZmq);
+
+        process.on('SIGINT', function () {
+            zmqCmdRequester.close();
+        });
+        
         return;
     }
 
@@ -588,7 +588,6 @@ export class SuiData {
 
     static getMicroSecs() {
         let microSec = '00.00000000';
-
         try {
             const microtime = require('microtime');
             const mt = microtime.nowStruct();
@@ -600,13 +599,10 @@ export class SuiData {
     }
 
     static getApacheTempFolder() {
-
         let apacheTempFolder = '/var/volatile/tmp/apache2/';
-
         if (!fs.statSync(apacheTempFolder).isDirectory()) {
             apacheTempFolder = '/tmp/';
         }
-
         return apacheTempFolder;
     }
 
@@ -625,12 +621,15 @@ export class SuiData {
         return debugFileNames;
     }
 
-    static execute_getPhpJsonShim(appName: string, filenames: any) {
-        // Execute a php script to call the XMLDiffTool::  getPhpJsonShim passing
-        //   xml_send_file
-        //   json_receive_file
 
-        // Read and rewrite temp_data_in_file_name
+    /**
+     * Execute a php script to call the XMLDiffTool::  getPhpJsonShim passing
+     * SHOULD PROBABLY DELETE
+     * @param appName 
+     * @param filenames 
+     * @returns 
+     */
+    static execute_getPhpJsonShim(appName: string, filenames: any) {
         const phpCommand = '/usr/bin/php' ;
         const phpArgs =
             [
@@ -656,15 +655,13 @@ export class SuiData {
         return retVal;
     }
 
-        static replacer(match, p1, p2, p3, offset, string) {
-            return `${p2.trim()}",`;
-        }
+    static replacer(match, p1, p2, p3, offset, string) {
+        return `${p2.trim()}",`;
+    }
 
     static cleanUpOutgoingJson(sJson: string) {
     // strip trailing spaces and newlines
-
         /*
-
         const valueRegEx = /("value":\W*"([^"])*)",/;
         while (true) {
             let matches = sJson.match(valueRegEx);
@@ -674,7 +671,6 @@ export class SuiData {
                 break;
         }
         */
-
         const valueRegEx = /("value":\W*"([^"])*)",/;
         sJson = sJson.replace(valueRegEx, SuiData.replacer);
         return sJson;
@@ -789,6 +785,7 @@ export class SuiData {
 
         return sJson;
     }
+
     static mockSuiRequest(cmdArgs: CommandArgs, props: any, req: any = null, res: Response = null)
     {
         if (!props) {
