@@ -76,6 +76,12 @@ COPY --from=build_base_server "/simpleui-server/dist.tgz" "/tmp/server_dist.tgz"
 # Copy the deployment/run scripts
 COPY "deploy_docker/*.sh" "/scripts/"
 
+# Tini init-system
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+
+
 WORKDIR /
-ENTRYPOINT [ "bash", "/scripts/run.sh" ]
+ENTRYPOINT [ "/tini", "-g", "-vvv", "--", "bash", "/scripts/run.sh" ]
 CMD [ "" ]
