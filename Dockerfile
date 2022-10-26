@@ -53,6 +53,11 @@ RUN git clone https://github.com/mkoppanen/php-zmq.git && \
     cd .. && \
     rm -rf ./php-zmq
 
+# Tini init-system
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+
 # Enable apache modules, set default apache configs
 RUN a2enmod rewrite && \
     a2enmod proxy && \
@@ -75,12 +80,6 @@ COPY --from=build_base_server "/simpleui-server/dist.tgz" "/tmp/server_dist.tgz"
 
 # Copy the deployment/run scripts
 COPY "deploy_docker/*.sh" "/scripts/"
-
-# Tini init-system
-ENV TINI_VERSION v0.19.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
-RUN chmod +x /tini
-
 
 WORKDIR /
 ENTRYPOINT [ "/tini", "-g", "--", "bash", "/scripts/run.sh" ]
