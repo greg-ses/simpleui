@@ -14,15 +14,6 @@ const app = express();
 
 
 
-
-/*
-const asyncMiddleware = fn =>
-    (req, res, next) => {
-        Promise.resolve(fn(req, res, next))
-            .catch(next);
-    };
-*/
-
 export class SimpleUIServer {
     static SERVER_IP = '0.0.0.0';
     static BACKLOG = 511;
@@ -31,11 +22,7 @@ export class SimpleUIServer {
     static bin_dir = "";
     static newMockDataURL: any = ""; // allows us to modify the mock data requests via mock cmd requests
     static webPortString = "";
-    static SIGNALS = {
-        'SIGHUP': 1,
-        'SIGINT': 2,
-        'SIGTERM': 15
-    }
+
 
     static executeMockRequest(cmdArgs: CommandArgs, props: any, req: Request<ParamsDictionary> = null, res: Response = null) {
         if (props) {
