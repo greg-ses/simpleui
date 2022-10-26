@@ -446,23 +446,6 @@ export class SimpleUIServer {
             // ------------------------------
             try {
                 const server = app.listen(cmdVars.webPort, SimpleUIServer.SERVER_IP, SimpleUIServer.BACKLOG, () => SimpleUIServer.printServerInfo(cmdVars));
-
-                
-                const shutdown = (signal, value, server) => {
-                    Logger.log(LogLevel.INFO, 'Shutting down');
-                    server.close( () => {
-                        Logger.log(LogLevel.INFO, `Server stopped by ${signal} ${value}`)
-                        process.exit(128 + value);
-                    })
-                }
-
-                
-                Object.keys(SimpleUIServer.SIGNALS).forEach( signal => {
-                    process.on(signal, () => {
-                        Logger.log(LogLevel.INFO, `\nRecieved ${signal}`);
-                        shutdown(signal, SimpleUIServer.SIGNALS[signal], server);
-                    })
-                })
                 
 
             } catch (err) {
