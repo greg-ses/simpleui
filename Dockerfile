@@ -83,5 +83,5 @@ RUN chmod +x /tini
 
 
 WORKDIR /
-ENTRYPOINT [ "/tini", "-g", "-vvv", "--", "bash", "/scripts/run.sh" ]
+ENTRYPOINT [ "/tini", "-g", "--", "bash", "/scripts/run.sh" ]
 CMD [ "" ]
