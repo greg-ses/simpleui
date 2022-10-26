@@ -28,7 +28,7 @@ if [[ ! -d node_modules ]]; then
 fi
 npm run build;
 
-exec node /usr/src/app/simpleui-server/dist/simpleui-server/simpleui-server.js \
+node /usr/src/app/simpleui-server/dist/simpleui-server/simpleui-server.js \
 --mode=daemon \
 --appName=simple_ui \
 --webPort=4100

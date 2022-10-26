@@ -14,7 +14,7 @@ RUN wget --no-check-certificate --quiet \
     rm -rf ./zeromq-4.3.2 zeromq-4.3.2.tar.gz && \
     ldconfig
 
-#---------- ssh server ---------------
+#---------- SSH Server ---------------
 RUN apt-get update && apt-get install -y \
     ssh \
     vim \
@@ -25,7 +25,7 @@ RUN service ssh start && \
     usermod -aG sudo user
 
 
-#----------- Chromium (for headless tests) --------
+#----------- Chromium (headless tests) --------
 RUN apt update && \
     apt install && \
     apt install chromium -y
@@ -38,11 +38,21 @@ RUN mkdir -p /usr/src/app && \
     cd /usr/src/app/ && \
     npm install -g @angular/cli@14.2.2
 
+
 #---------- base_app (client) ---------------
 RUN mkdir -p /usr/src/app/base_app/
+
 
 #---------- simpleui-server (express app) ---------------
 RUN mkdir /usr/src/app/simpleui-server/
 
-# Bottom of dockerfile
+
+#---------- Tini (init system) ---------------
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+ENTRYPOINT ["/tini", "--"]
+
+
+#---------- Run SSH Daemon ---------------
 CMD ["/usr/sbin/sshd", "-D"]
