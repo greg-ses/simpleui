@@ -115,10 +115,15 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
     }
 
     isDisabled(): any {
+        if (this._uiTab?.disabled_buttons === 'true') {
+            this._disabled = true;
+            this._uiTab._commands_enabled = false;
+            return true;
+        }
         if (this._element.command.disabled === 'true') {
             return true;
         } else {
-            return null;
+            return null; // if return false, button is disabled
         }
     }
 
