@@ -168,7 +168,7 @@ export class SimpleUIServer {
     static main() {
         try {
 
-            Logger.logLevel = LogLevel.INFO;
+            Logger.logLevel = LogLevel.VERBOSE;
 
             // Parse input arguments
             SimpleUIServer.setBinDir(process.argv[1]);
@@ -365,8 +365,7 @@ export class SimpleUIServer {
             spacer1 = ' '.repeat(Math.max((104 - displayUrl.length), 1));
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}/${spacer1}(mock data)`);
             app.get(mockDataQuery, async (req, res) => {
-                // Replies with data from a zeromq request
-                Logger.log(LogLevel.VERBOSE, `data request callback: ${++SimpleUIServer.requestCallbacks}`);
+                Logger.log(LogLevel.VERBOSE, `mock data request callback: ${++SimpleUIServer.requestCallbacks}`);
                 
                 if (SimpleUIServer.requestCallbacks % 10 === 0) {
                     SimpleUIServer.newMockDataURL = "";

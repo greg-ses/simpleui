@@ -24,36 +24,6 @@ export interface UiPropStubs {
     microSec: string
 }
 
-class SuiZMQ {
-    hostname: string;
-    timeout: number;
-    socket: any;
-    constructor(hostname: string='svcmachineapps', timeout: number=1000) {
-        this.hostname = hostname;
-        this.timeout = timeout;
-
-        try {
-            this.socket = _zmq.socket('req');
-            this.socket.connect_timeout = timeout;
-        } catch (err) {
-            Logger.log(LogLevel.ERROR, `COULD NOT MAKE ZMQ SOCKET ${err}`)
-            process.exit(1);
-        }
-    }
-
-    connect(port: number) {
-        this.socket.connect(`tcp://${this.hostname}:${port}`)
-    }
-
-    close() {
-        if (this.socket.closed === false) {
-            this.socket.close;
-        }
-    }
-
-    
-}
-
 export class SuiData {
 
 // Subscribe to zmq publisher
