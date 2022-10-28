@@ -12,13 +12,9 @@
               [class]='"process_var " + varInfo.class' [id]='varInfo.id + "_value"'>{{ formatValue(overlayGroupName, varInfo.id, true) }}</span>
         <span *ngIf='((varInfo.value !== "") && (varInfo.units === "bool"))'
               [class]='"process_var " + varInfo.class + " ro_bool"' [id]='varInfo.id + "_value"'>{{ formatValue(overlayGroupName, varInfo.id, true) }}</span>
-        <app-command-button *ngIf='varInfo.command' 
-                            [id]='varInfo.command.id' 
-                            class="overlay-control"
-                            [_uiTab]='_uiTab' 
-                            [element]='getElement(varInfo)'
-                            [_container]='varInfo.id' 
-                            [_sha1sum]="varInfo.sha1sum?varInfo.sha1sum:0"
+        <app-command-button *ngIf='varInfo.command' [id]='varInfo.command.id' class="overlay-control"
+                            [_uiTab]='_uiTab' [element]='getElement(varInfo)'
+                            [_container]='varInfo.id' [_sha1sum]="varInfo.sha1sum?varInfo.sha1sum:0"
         >
         </app-command-button>
     </div>
