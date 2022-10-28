@@ -30,6 +30,7 @@ export class TabUI {
     _commands_enabled: boolean;
     _updateTime: number;
     _pendingRequestExpiration: number;
+    disabled_buttons: string;           // TODO: figure out a way to parse bools from ui.prop as bools and not str
 
     constructor () {
         return {
@@ -44,7 +45,8 @@ export class TabUI {
             _autoRefreshEnabled: false,
             _commands_enabled: false,
             _updateTime: 18000000, // '1970-01-01 00:00.00'
-            _pendingRequestExpiration: 0
+            _pendingRequestExpiration: 0,
+            disabled_buttons: ""
         };
     }
 }
