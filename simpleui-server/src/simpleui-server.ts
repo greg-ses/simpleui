@@ -168,7 +168,7 @@ export class SimpleUIServer {
     static main() {
         try {
 
-            Logger.logLevel = LogLevel.VERBOSE;
+            Logger.logLevel = LogLevel.INFO;
 
             // Parse input arguments
             SimpleUIServer.setBinDir(process.argv[1]);
