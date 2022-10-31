@@ -12,13 +12,7 @@ import * as fs from 'fs';
 
 const app = express();
 
-/*
-const asyncMiddleware = fn =>
-    (req, res, next) => {
-        Promise.resolve(fn(req, res, next))
-            .catch(next);
-    };
-*/
+
 
 export class SimpleUIServer {
     static SERVER_IP = '0.0.0.0';
@@ -27,6 +21,7 @@ export class SimpleUIServer {
     static requestCallbacks = 0;
     static bin_dir = "";
     static newMockDataURL: any = ""; // allows us to modify the mock data requests via mock cmd requests
+    static webPortString = "";
 
 
     static executeMockRequest(cmdArgs: CommandArgs, props: any, req: Request<ParamsDictionary> = null, res: Response = null) {
@@ -139,6 +134,24 @@ export class SimpleUIServer {
         return cmdVars;
     }
 
+    static printServerInfo(cmdVars: any): void {
+        Logger.log(LogLevel.INFO, `app.listen callback: ${++SimpleUIServer.requestCallbacks}`)
+        Logger.log(LogLevel.INFO,
+            `\n==> Server started at http://${os.hostname()}${SimpleUIServer.webPortString}\n\n==> Handled Requests:`);
+        Logger.log(LogLevel.INFO, `\nNote: Only the first 5 ZMQ responses will be logged at INFO level.`);
+        Logger.log(LogLevel.INFO, `      To see later responses, set the LogLevel to DEBUG with this URL:\n`);
+        let hostname = `${os.hostname()}`;
+        if (hostname.match(/[a-z0-9]{12}/)  && !hostname.match(/site/i)) {
+            // crude attempt to see if this is a docker hostname
+            hostname = 'localhost';
+        }
+        Logger.log(LogLevel.INFO, `          ` +
+            `http://${hostname}${SimpleUIServer.webPortString}/` +
+            `${cmdVars.appName.split(',')[0]}/` +
+            `svr-util/SetLogLevel/DEBUG\n`);
+        return;
+    }
+
     static main() {
         try {
 
@@ -208,8 +221,8 @@ export class SimpleUIServer {
             Logger.log(LogLevel.INFO, `\n==> Internal Web-Server Management`);
             const suiSvrUtility = `/${cmdVars.appName.split(',')[0]}/svr-util/:svrCmdName/:svrCmdValue`;
             const svrCmds = ['SetLogLevel'];
-            const webPortString = (cmdVars.webPort === '80') ? '' : `:${cmdVars.webPort}`;
-            let displayUrl = `http://${os.hostname()}${webPortString}${suiSvrUtility}`;
+            SimpleUIServer.webPortString = (cmdVars.webPort === '80') ? '' : `:${cmdVars.webPort}`;
+            let displayUrl = `http://${os.hostname()}${SimpleUIServer.webPortString}${suiSvrUtility}`;
             let spacer1 = ' '.repeat(Math.max((105 - displayUrl.length), 1));
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(web svr mgmt)`);
             Logger.log(LogLevel.INFO,
@@ -251,7 +264,7 @@ export class SimpleUIServer {
             // Handler for properties requests
             // --------------------------------
             const propsFileQuery = `/:appName/:propsStub/query/props`;
-            displayUrl = `http://${os.hostname()}${webPortString}${propsFileQuery}`;
+            displayUrl = `http://${os.hostname()}${SimpleUIServer.webPortString}${propsFileQuery}`;
             spacer1 = ' '.repeat(Math.max((105 - displayUrl.length), 1));
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(properties)`);
             app.get(`${propsFileQuery}`, async (req, res) => {
@@ -277,7 +290,7 @@ export class SimpleUIServer {
                 `/:appName/:propsStub/:tabName/query/data/zmq/:zmqPortExpr/:zmqCmd`,
                 `/:appName/:propsStub/:tabName/query/data/zmq/:zmqPortExpr/:zmqCmd/:zmqValue`
             ];
-            displayUrl = `http://${os.hostname()}${webPortString}${dataQuery[1]}`;
+            displayUrl = `http://${os.hostname()}${SimpleUIServer.webPortString}${dataQuery[1]}`;
             spacer1 = ' '.repeat(Math.max((105 - displayUrl.length), 1));
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(data)`);
             app.get(dataQuery, async (req, res) => {
@@ -307,7 +320,7 @@ export class SimpleUIServer {
                 `/:appName/:propsStub/:tabName/query/cmd/zmq/:zmqPortExpr/:zmqCmd/:zmqValue`
             ];
 
-            displayUrl = `http://${os.hostname()}${webPortString}${cmdQuery[1]}`;
+            displayUrl = `http://${os.hostname()}${SimpleUIServer.webPortString}${cmdQuery[1]}`;
             spacer1 = ' '.repeat(Math.max((105 - displayUrl.length), 1));
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(commands)`);
             app.post(cmdQuery, async (req, res) => {
@@ -335,8 +348,7 @@ export class SimpleUIServer {
             const mockDataQuery = [
                 `/:appName/:propsStub/:tabName/mock/data`
             ];
-            // displayUrl = `http://${os.hostname()}${webPortString}${mockDataQuery[0]}`;
-            displayUrl = `http://localhost${webPortString}${mockDataQuery[0]}`;
+            displayUrl = `http://localhost${SimpleUIServer.webPortString}${mockDataQuery[0]}`;
             spacer1 = ' '.repeat(Math.max((104 - displayUrl.length), 1));
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}/${spacer1}(mock data)`);
             app.get(mockDataQuery, async (req, res) => {
@@ -372,7 +384,7 @@ export class SimpleUIServer {
             const mockCmdQuery = [
                 `/:appName/:propsStub/:tabName/mock/cmd`
             ];
-            displayUrl = `http://${os.hostname()}${webPortString}${mockCmdQuery[0]}`;
+            displayUrl = `http://${os.hostname()}${SimpleUIServer.webPortString}${mockCmdQuery[0]}`;
             spacer1 = ' '.repeat(Math.max((105 - displayUrl.length), 1));
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(commands)`);
             app.post(mockCmdQuery, async (req, res) => {
@@ -396,7 +408,7 @@ export class SimpleUIServer {
             const cssToJsonQuery = [
                 `/:appName/:propsStub/query/css_elements_to_json/:overlay/:nthOverlay`
             ];
-            displayUrl = `http://${os.hostname()}${webPortString}${cssToJsonQuery[0]}`;
+            displayUrl = `http://${os.hostname()}${SimpleUIServer.webPortString}${cssToJsonQuery[0]}`;
             spacer1 = ' '.repeat(Math.max((105 - displayUrl.length), 1));
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}${spacer1}(cssToJson)`);
             app.get(cssToJsonQuery, async (req, res) => {
@@ -420,22 +432,9 @@ export class SimpleUIServer {
             // start the Express server
             // ------------------------------
             try {
-                app.listen(cmdVars.webPort, SimpleUIServer.SERVER_IP, SimpleUIServer.BACKLOG, () => {
-                    Logger.log(LogLevel.INFO, `app.listen callback: ${++SimpleUIServer.requestCallbacks}`)
-                    Logger.log(LogLevel.INFO,
-                        `\n==> Server started at http://${os.hostname()}${webPortString}\n\n==> Handled Requests:`);
-                    Logger.log(LogLevel.INFO, `\nNote: Only the first 5 ZMQ responses will be logged at INFO level.`);
-                    Logger.log(LogLevel.INFO, `      To see later responses, set the LogLevel to DEBUG with this URL:\n`);
-                    let hostname = `${os.hostname()}`;
-                    if (hostname.match(/[a-z0-9]{12}/)  && !hostname.match(/site/i)) {
-                        // crude attempt to see if this is a docker hostname
-                        hostname = 'localhost';
-                    }
-                    Logger.log(LogLevel.INFO, `          ` +
-                        `http://${hostname}${webPortString}/` +
-                        `${cmdVars.appName.split(',')[0]}/` +
-                        `svr-util/SetLogLevel/DEBUG\n`);
-                });
+                const server = app.listen(cmdVars.webPort, SimpleUIServer.SERVER_IP, SimpleUIServer.BACKLOG, () => SimpleUIServer.printServerInfo(cmdVars));
+                
+
             } catch (err) {
                 Logger.log(LogLevel.ERROR, `Error in app.listen(): ${err}`);
             }
