@@ -617,10 +617,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         try {
             if ((cycle * this._refreshRate) > this._milliSecondsBeforeAutoPageReload) {
                 sessionStorage.autoReload = 'true';
-                //setTimeout(() => {
-                    //document.location.reload();
-                    //console.log('----------------------------------------- attempted reload...')
-                //}, 1);
+                setTimeout(() => {
+                    document.location.reload();
+                }, 1);
             }
 
             if (!AppComponent._updatesSuspended) {
