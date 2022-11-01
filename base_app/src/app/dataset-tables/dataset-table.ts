@@ -5,6 +5,8 @@ import { DataSetChangeService } from '../services/dataset-change.service';
 import { AppComponent } from '../app.component';
 import { TabUI } from '../interfaces/props-data';
 import { Subscription } from 'rxjs';
+import {ClientLogger} from '../../tools/logger';
+
 
 @Component({
     animations: [],
@@ -95,11 +97,11 @@ export class DatasetTableComponent implements OnDestroy {
             if (pos === -1) {
                 this.app._globalProps._hiddenTables.push(tableId);
                 this._hidden = true;
-                //console.log('toggle(' + tableId + '): hidden');
+                ClientLogger.log("DeltaUpdate", `toggle( ${tableId} ): hidden`)
             } else {
                 this.app._globalProps._hiddenTables = this.app._globalProps._hiddenTables.filter(e => e !== tableId);
                 this._hidden = false;
-                //console.log('toggle(' + tableId + '): visible');
+                ClientLogger.log("DeltaUpdate", `toggle( ${tableId} ): visible`)
             }
             this._changeDetectorRef.detectChanges();
             this._changeDetectorRef.detach();
