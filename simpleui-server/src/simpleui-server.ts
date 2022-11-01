@@ -1,3 +1,4 @@
+var wtfnode = require('wtfnode');
 import {SuiData} from './sui_data';
 import {DisplayLogLevel, Logger, LogLevel} from './server-logger';
 import * as express from 'express';
@@ -11,7 +12,6 @@ import * as fs from 'fs';
 
 
 const app = express();
-
 
 
 
@@ -31,11 +31,7 @@ export class SimpleUIServer {
     static bin_dir = "";
     static newMockDataURL: any = ""; // allows us to modify the mock data requests via mock cmd requests
     static webPortString = "";
-    static SIGNALS = {
-        'SIGHUP': 1,
-        'SIGINT': 2,
-        'SIGTERM': 15
-    }
+    
 
     static executeMockRequest(cmdArgs: CommandArgs, props: any, req: Request<ParamsDictionary> = null, res: Response = null) {
         if (props) {
@@ -315,7 +311,6 @@ export class SimpleUIServer {
                         `${req.params.appName}`, cmdVars.webPort);
                     await SuiData.suiDataRequest(req, res, props);
                 } catch (err) {
-
                     const cmd = SuiData.getCmdFromReq(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                         `Err in data request: ${err}`,
@@ -445,24 +440,6 @@ export class SimpleUIServer {
             // ------------------------------
             try {
                 const server = app.listen(cmdVars.webPort, SimpleUIServer.SERVER_IP, SimpleUIServer.BACKLOG, () => SimpleUIServer.printServerInfo(cmdVars));
-
-                
-                const shutdown = (signal, value, server) => {
-                    Logger.log(LogLevel.INFO, 'Shutting down');
-                    server.close( () => {
-                        Logger.log(LogLevel.INFO, `Server stopped by ${signal} ${value}`)
-                        process.exit(128 + value);
-                    })
-                }
-
-                
-                Object.keys(SimpleUIServer.SIGNALS).forEach( signal => {
-                    process.on(signal, () => {
-                        Logger.log(LogLevel.INFO, `\nRecieved ${signal}`);
-                        shutdown(signal, SimpleUIServer.SIGNALS[signal], server);
-                    })
-                })
-                
 
             } catch (err) {
                 Logger.log(LogLevel.ERROR, `Error in app.listen(): ${err}`);
