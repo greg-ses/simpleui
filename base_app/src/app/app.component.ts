@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     static _updatesSuspended = false;
     static _trackClicks = false;
     static _mouseDownSuspendsUpdates = false;
-    static _minutesBeforeAutoPageReload_Default = 30; // Time until the page auto-refreshes, doing automatic garbage collection
+    static _minutesBeforeAutoPageReload_Default = 90; // Time until the page auto-refreshes, doing automatic garbage collection
     static _logLevel = LogLevel.CRITICAL;
 
     @Output() selectedTabChange = new EventEmitter<MatTabChangeEvent>();
