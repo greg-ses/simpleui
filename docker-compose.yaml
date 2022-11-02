@@ -3,6 +3,7 @@ version: '3'
 services:
     sui-server:
         image: sui-dev-image
+        init: true
         ports:
             - "4100:4100"
             - "4200:4200"
