@@ -4,7 +4,7 @@ Zack Beucler 10/28/22
 """
 
 import zmq
-
+import logging
 
 with open('./data/table_data.sample.xml', 'rb') as data:
     table_data = data.read()
@@ -31,7 +31,7 @@ def main():
                 print(e)
             else:
                 raise
-        print(data_msg)
+        print('Native apps received: ', data_msg)
         data_socket.send(table_data)
 
 

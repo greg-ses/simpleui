@@ -20,12 +20,10 @@ services:
             - type: bind
               source: "${PWD}/develop_docker/install-script.bash"
               target: /usr/src/app/install-script.bash
-            
             # install-script-debug-simpleui-server.bash
             - type: bind
               source: "${PWD}/develop_docker/install-script-debug-simpleui-server.bash"
               target: /usr/src/app/install-script-debug-simpleui-server.bash
-            
             # sample data
             - type: bind
               source: "${SIMPLEUI_TEST_DATA}/sample-app/opt"
@@ -41,6 +39,8 @@ services:
         image: zmq_backend
         hostname: svcmachineapps
         init: true
+        environment:
+          PYTHONUNBUFFERED: 1
         volumes:
             # python file
             - type: bind
@@ -49,5 +49,5 @@ services:
             # sample data
             - type: bind
               source: "${SIMPLEUI_TEST_DATA}/sample-app/"
-              target: /app/data/
+              target: /app/data/        
         entrypoint: ["python", "backend.py"]
