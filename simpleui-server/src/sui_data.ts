@@ -1,5 +1,4 @@
 var wtfnode = require('wtfnode');
-var _zmq = require('zeromq');
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
 import {JsonStringNormalizer} from './json-string-normalizer';
 import {JsonOverlayNormalizer} from './json-overlay-normalizer';
@@ -8,9 +7,8 @@ import * as fastXmlParser from 'fast-xml-parser';
 import * as he from 'he';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
+import {SuiZMQ} from './SuiZMQ';
 import * as fs from 'fs';
-
-import * as child_process from 'child_process';
 import * as path from 'path';
 
 const SIMPLE_TYPES = ['boolean', 'float', 'integer', 'string'];
@@ -24,74 +22,6 @@ export interface UiPropStubs {
     microSec: string
 }
 
-class SuiZMQ {
-    hostname: string;
-    timeout: number;
-    socket: any;
-    connections: Array<string>;
-
-
-    constructor(hostname: string='svcmachineapps', timeout: number=1000) {
-        this.hostname = hostname;
-        this.timeout = timeout;
-        this.connections = [];
-
-        try {
-            this.socket = _zmq.socket('req');
-            this.socket.connect_timeout = timeout;
-
-            process.on('SIGINT', () => {
-                Logger.log(LogLevel.ERROR, 'sui_data.ts got SIGINT, shutting down and closing zmq socket...')
-                this.close();
-            })
-
-        } catch (err) {
-            Logger.log(LogLevel.ERROR, `COULD NOT MAKE ZMQ SOCKET ${err}`)
-            process.exit(1);  
-        }
-    }
-
-    connect(port: number) {
-        if (this.connections.includes(`${this.hostname}:${port}`)) {
-            Logger.log(LogLevel.VERBOSE, `ZMQ connection to ${this.hostname}:${port} already made`);
-        } else {
-            this.socket.connect(`tcp://${this.hostname}:${port}`)
-            this.connections.push(`${this.hostname}:${port}`);
-        }
-    }
-
-    start_listening(type: string, callback: Function, ) {
-        /**
-         * figure out a way to only set the listeners once
-         * they all are unique ['type', specific_method()]
-         *                      ['message', .....]
-         * each connection (data|command) will have their own set of listeners (on message | on error | on disconnected )
-         * each listener will have their own type and function on.('message', (msg) => console.log(msg))
-         */
-    }
-
-    send(msg: string) {
-        try{
-            this.socket.send(msg);
-        } catch (err) {
-            Logger.log(LogLevel.ERROR, `could not send zmq message:\n${msg}`)
-        }
-    }
-
-    close() {
-        if (this.socket.closed === false) {
-            this.socket.close();
-        }
-    }
-
-    set_timeout(ms: number) {
-        try {
-            this.socket.connect_timeout = ms;
-        } catch (err) {
-            Logger.log(LogLevel.ERROR, `COULD NOT SET ZMQ TIMEOUT`)
-        }
-    }
-}
 
 export class SuiData {
 
@@ -102,6 +32,7 @@ export class SuiData {
     static mockDataFileIndex = [];
     static isListening_data = false;
     static isListening_cmd = false;
+    
 
 
 
@@ -124,8 +55,9 @@ export class SuiData {
      * @returns 
      */
     static sendResponse(req: Request<ParamsDictionary>, res: Response, uiProps: any, xmlResponse: string) {
-        try{
-            // we've already sent this request, zmq is sending stuff faster than base_app requests it,
+        try {
+            // zmq is sending stuff faster than base_app requests it, but we've already sent this request.
+            // we can't write to a res we already sent, so just return
             if (res.headersSent) { return } 
 
             if ((typeof req.query.xml === 'string') || (typeof req.query.XML === 'string')) {
@@ -133,6 +65,7 @@ export class SuiData {
                 res.setHeader('charset', 'UTF-8');
                 const xmlMetaPrefix = '<?xml version="1.0" encoding="UTF-8"?>';
                 res.send(xmlMetaPrefix + xmlResponse);
+                return;
             } else {
                 res.setHeader('Content-Type', 'application/json');
                 res.setHeader('charset', 'UTF-8');
@@ -147,10 +80,10 @@ export class SuiData {
                     sJson = SuiData.xmlToJSON(xmlResponse, req.params.appName, uiProps, req);
                 }
                 res.send(sJson);
-                console.log('HTTPS JSON SENT!!!!!!!!!!!!!!!!!!')
+                console.log('----------------------- HTTPS JSON SENT');
             }
         } catch (err) {
-            console.log('ERROR ---------------------------')
+            console.log('--------------------------- ERROR')
             console.log(err)
         }
 
@@ -215,20 +148,18 @@ export class SuiData {
      * @returns 
      */
      static async suiDataRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
-        if (!uiProps) {  Logger.log(LogLevel.ERROR, `ui.props is null`); return }
+        if (!uiProps) { Logger.log(LogLevel.ERROR, `ui.props is null`); return }
 
         SuiData.incrRequestNum();
 
         if (SuiData.isListening_data === false) {
             SuiData.isListening_data = true;
+
             // on message
             SuiData.zmq_handler.socket.on('message', (msg) => {
-                console.log('message!')
                 const zmq_response = SuiData.addXmlStatus(msg.toString());
                 SuiData.sendResponse(req, res, uiProps, zmq_response);
-                //Logger.log((SuiData.requestNum <= 5 && res.headersSent ) ? LogLevel.INFO : LogLevel.DEBUG,
-                //    `Request #${SuiData.requestNum} - zmqResponse: ` +
-                //    `${zmq_response.substr(0, 105).replace(/[ \t]*\n[ \t]*/g, '')}...`);
+                console.log(`I am a listener for messages: ${zmq_response.substr(0, 105).replace(/[ \t]*\n[ \t]*/g, '')}`);
             });
 
             // on error
@@ -236,12 +167,10 @@ export class SuiData {
                 const zmq_response = ServerUtil.getServerError('ZMQ_ERROR', '{{ERROR}}', zmqErr);
                 SuiData.sendResponse(req, res, uiProps, zmq_response);
                 Logger.log(LogLevel.INFO, `Request #${SuiData.requestNum} - suiDataRequest() received error: ${zmqErr}`);
-                // should I close and try to reconnect / make a new socket?
+                //should I close and try to reconnect / make a new socket?
                 //SuiData.zmq_handler.close()
             });
-
         }
-
 
         // get timeout
         const timeout = SuiData.propOrDefault(uiProps, 'zmqTimeout', 1000);
@@ -254,7 +183,7 @@ export class SuiData {
         const cmd = SuiData.getCmdFromReq(req);
 
         // log zmq details
-        console.log(`zmq details:\n\ttimeout:\t${timeout}\n\tPort:\t\t${zmq_port}\n\tCMD:\t\t${JSON.stringify(cmd)}`);
+        Logger.log(LogLevel.DEBUG, `zmq details:\n\ttimeout:\t${timeout}\n\tPort:\t\t${zmq_port}\n\tCMD:\t\t${JSON.stringify(cmd)}`);
 
         // connection
         SuiData.zmq_handler.connect(zmq_port)
@@ -321,7 +250,7 @@ export class SuiData {
         const zmq_port = SuiData.getZmqPort(req);
 
         if (SuiData.isListening_cmd === false) {
-            SuiData.isListening_cmd = true;
+            //SuiData.isListening_cmd = true;
             // on message
             SuiData.zmq_handler.socket.on('message', (msg) => {
                 const zmq_response = SuiData.addXmlStatus(msg.toString());
@@ -340,7 +269,7 @@ export class SuiData {
                 //SuiData.zmq_handler.close()
             })
 
-                    // close socket on SIGINT
+            // close socket on SIGINT
             process.on('SIGINT', () => {
                 Logger.log(LogLevel.ERROR, 'sui_data.ts recieved SIGINT')
                 SuiData.zmq_handler.close();
