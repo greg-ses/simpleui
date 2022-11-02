@@ -1,6 +1,8 @@
 var _zmq = require('zeromq');
 
+import {ServerUtil} from './server-util';
 import {Logger, LogLevel} from './server-logger';
+import {Queue} from './queue';
 
 
 export class SuiZMQ {
@@ -10,12 +12,14 @@ export class SuiZMQ {
     connections: Array<string>;
     isListening_data: boolean;
     isListening_cmd: boolean;
+    message_queue: Queue;
 
 
     constructor(hostname: string='svcmachineapps', timeout: number=1000) {
         this.hostname = hostname;
         this.timeout = timeout;
         this.connections = [];
+        this.message_queue = new Queue();
 
         try {
             this.socket = _zmq.socket('req');
@@ -25,6 +29,19 @@ export class SuiZMQ {
                 Logger.log(LogLevel.ERROR, 'sui_data.ts got SIGINT, shutting down and closing zmq socket...')
                 this.close();
             });
+
+            this.socket.on('message', (msg) => {
+                console.log('Got a message!')
+                const zmq_data = msg.toString();
+                this.message_queue.enqueue(zmq_data);
+                console.log(`Updated Queue: ${this.message_queue.length}`)
+            });
+
+            this.socket.on('error', (zmqErr) => {
+                console.log('Got an error!!!')
+                const zmq_data = ServerUtil.getServerError('ZMQ_ERROR', '{{ERROR}}', zmqErr);
+                this.message_queue.enqueue(zmq_data);
+            })
 
         } catch (err) {
             Logger.log(LogLevel.ERROR, `COULD NOT MAKE ZMQ SOCKET ${err}`)

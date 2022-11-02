@@ -35,14 +35,14 @@ def main():
         data_socket.send(table_data)
 
 
-        try:
-            cmd_msg = cmd_socket.recv()
-        except zmq.ZMQError as e:
-            if e.errno == zmq.ETERM:
-                print(e)
-            else:
-                raise
-        print(cmd_msg)
+        # try:
+        #     cmd_msg = cmd_socket.recv()
+        # except zmq.ZMQError as e:
+        #     if e.errno == zmq.ETERM:
+        #         print(e)
+        #     else:
+        #         raise
+        # print(cmd_msg)
         #cmd_socket.send("command?")
 
 
