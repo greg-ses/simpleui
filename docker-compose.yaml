@@ -31,7 +31,6 @@ services:
             - type: bind
               source: "${SIMPLEUI_TEST_DATA}/sample-app"
               target: /var/www/simple_ui
-
         #entrypoint: ["/bin/bash", "/usr/src/app/install-script-debug-simpleui-server.bash"]       
         entrypoint: ["/bin/bash", "/usr/src/app/install-script.bash"]
 
@@ -49,5 +48,5 @@ services:
             # sample data
             - type: bind
               source: "${SIMPLEUI_TEST_DATA}/sample-app/"
-              target: /app/data/        
+              target: /app/data/
         entrypoint: ["python", "backend.py"]
