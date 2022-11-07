@@ -4,7 +4,6 @@ Zack Beucler 10/28/22
 """
 
 import zmq
-import logging
 
 with open('./data/table_data.sample.xml', 'rb') as data:
     table_data = data.read()
@@ -26,13 +25,14 @@ def main():
     while True:
         try:
             data_msg = data_socket.recv()
+            print('Native apps received: ', data_msg)
+            data_socket.send(table_data)
         except zmq.ZMQError as e:
             if e.errno == zmq.ETERM:
                 print(e)
             else:
                 raise
-        print('Native apps received: ', data_msg)
-        data_socket.send(table_data)
+        
 
 
         # try:
