@@ -307,8 +307,7 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
-                    console.log('got request from base_app')
-                    SuiData.zmqDataRequest(req, res, props);
+                    await SuiData.zmqDataRequest(req, res, props);
                 } catch (err) {
                     const cmd = SuiData.getCmdFromReq(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,

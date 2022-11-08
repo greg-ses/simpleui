@@ -1,7 +1,7 @@
 
 
 export class Queue {
-    elements: Array<string>;
+    elements: Array<any>;
 
     constructor() {
         this.elements = [];

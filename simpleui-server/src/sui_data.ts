@@ -1,4 +1,4 @@
-var wtfnode = require('wtfnode');
+//var wtfnode = require('wtfnode');
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
 import {JsonStringNormalizer} from './json-string-normalizer';
 import {JsonOverlayNormalizer} from './json-overlay-normalizer';
@@ -10,9 +10,11 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as fastXmlParser from 'fast-xml-parser';
 import * as he from 'he';
-import { nextTick } from 'process';
+import { Queue } from './queue';
 
-const SIMPLE_TYPES = ['boolean', 'float', 'integer', 'string'];
+const zmq_data_wrapper = new SuiZMQ();
+
+const zmq_cmd_wrapper = new SuiZMQ();
 
 export interface UiPropStubs {
     uiProp: string,
@@ -25,18 +27,15 @@ export interface UiPropStubs {
 
 
 export class SuiData {
-    static zmq_handler = new SuiZMQ();
     static ram_disk_folder = '/var/volatile/tmp/apache2';
     static requestNum = 0;
     static mockRequestNum = 0;
     static mockDataFileIndex = [];
-    static isListening_cmd = false;
-  
+    static uiProps = "";
+    static httpQueue = new Queue();
 
 
-
-
-    static propOrDefault(props: any, prop: string, defaultValue): any {
+    static propOrDefault(props: any, prop: string, defaultValue: any): any {
         let val = defaultValue;
         if (typeof props[prop] !== 'undefined') {
             val = props[prop];
@@ -50,16 +49,22 @@ export class SuiData {
      * @param req 
      * @param res 
      * @param uiProps 
-     * @param xmlResponse data to send to base_app
-     * @returns 
-     */
-    static sendResponse(req: Request<ParamsDictionary>, res: Response, uiProps: any, xmlResponse: string) {
+     * @param xmlResponse data to send to base_app 
+    */
+    static sendResponse(req: Request<ParamsDictionary>, res: Response, xmlResponse: string) {
         try {
-            // zmq is sending stuff faster than base_app requests it, but we've already sent this request.
-            // we can't write to a res we already sent, so just return
+
             if (res.headersSent) { return } 
 
-            if ((typeof req.query.xml === 'string') || (typeof req.query.XML === 'string')) {
+            /*
+            if (xmlResponse === '<response>Fail</response>') {
+                res.status(408).json({ "error": "timeout 408" });
+                return;
+            }
+            */
+            
+
+            if (req.query.xml || req.query.XML) {
                 res.setHeader('Content-Type', 'application/xml');
                 res.setHeader('charset', 'UTF-8');
                 const xmlMetaPrefix = '<?xml version="1.0" encoding="UTF-8"?>';
@@ -68,26 +73,29 @@ export class SuiData {
             } else {
                 res.setHeader('Content-Type', 'application/json');
                 res.setHeader('charset', 'UTF-8');
-                let versionString = 'V.xxx';
-                if (typeof req.query.version === 'string') {
+                let versionString: any = 'V.xxx';
+                if (req.query.version) {
                     versionString = req.query.version;
                 }
                 let sJson = "";
                 if (xmlResponse[0] === "{") {
                     sJson = xmlResponse;
                 } else {
-                    sJson = SuiData.xmlToJSON(xmlResponse, req.params.appName, uiProps, req);
+                    sJson = SuiData.xmlToJSON(xmlResponse, req.params.appName, SuiData.uiProps, req);
                 }
                 res.send(sJson);
                 console.log('----------------------- HTTPS JSON SENT');
             }
         } catch (err) {
-            console.log('--------------------------- ERROR')
-            console.log(err)
+            console.log('--------------------------- ERROR');
+            console.log(err);
         }
 
 
     }
+    
+
+
 
     /**
      * Parses the command from the request from base_app
@@ -144,16 +152,18 @@ export class SuiData {
      * @param req 
      * @param res 
      * @param uiProps 
-     * @returns 
      */
-     static async suiDataRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
+     static async zmqDataRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
         if (!uiProps) { Logger.log(LogLevel.ERROR, `ui.props is null`); return }
+
+        // makes uiProps global in a sense
+        SuiData.uiProps = uiProps;
 
         SuiData.incrRequestNum();
 
         // get timeout
         const timeout = SuiData.propOrDefault(uiProps, 'zmqTimeout', 1000);
-        SuiData.zmq_handler.set_timeout(timeout);
+        zmq_data_wrapper.set_timeout(timeout);
 
         // get port
         const zmq_port = SuiData.getZmqPort(req);
@@ -165,20 +175,13 @@ export class SuiData {
         Logger.log(LogLevel.DEBUG, `zmq details:\n\ttimeout:\t${timeout}\n\tPort:\t\t${zmq_port}\n\tCMD:\t\t${JSON.stringify(cmd)}`);
 
         // connection
-        SuiData.zmq_handler.connect(zmq_port)
+        zmq_data_wrapper.connect(zmq_port);
         const xml_zmq_request = `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
-        SuiData.zmq_handler.send(xml_zmq_request);
 
-        // get message
-        const zmq_data = SuiData.zmq_handler.message_queue.dequeue();
-        if (zmq_data === "Queue Underflow") {
-            console.log('undefined'); 
-            //res.end();                      // terminate / throw away this request somehow (zmq hasnt sent anything)
-            //return
-        }
-        console.log(`zmq_data: ${zmq_data.substr(0, 105).replace(/[ \t]*\n[ \t]*/g, '')}`)
-        const zmq_response = SuiData.addXmlStatus(zmq_data);
-        SuiData.sendResponse(req, res, uiProps, zmq_response);
+        zmq_data_wrapper.send(xml_zmq_request);        
+        
+        // add res and req to queue
+        SuiData.httpQueue.enqueue([req, res]);   
     }
 
 
@@ -189,12 +192,15 @@ export class SuiData {
      * @param uiProps 
      * @returns 
      */
-     static async suiCommandRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
+     static async zmqCommandRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
         if (!uiProps) { Logger.log(LogLevel.ERROR, `ui.props is null`); return }
 
         SuiData.incrRequestNum();
 
-        // no idea, is 'dependsOnApp' a thing? also could this just be if uiProp['dependsOnApp']
+        // makes allows zmq_backend handler to call sendResponse
+        SuiData.uiProps = uiProps;
+
+        // is this still used now that everything is dockerized?
         if (typeof uiProps['dependsOnApp'] === 'string') {
             const processInfo = {};
             await ServerUtil.getProcessInfo(uiProps['dependsOnApp'], processInfo);
@@ -205,9 +211,11 @@ export class SuiData {
         ServerUtil.logRequestDetails(LogLevel.DEBUG, req, `Starting cmd request # ${SuiData.requestNum}`,
                 'suiCommandRequest', '/query/cmd/zmq', cmd);
 
+
         const parsedReq = {cmd: `${req.params.zmqCmd}`};
         let cmdForZMQ = '';
         const contentType = SuiData.getContentType(req);
+
 
         if (req.method === 'POST') {
             // parse the command from the request
@@ -234,55 +242,48 @@ export class SuiData {
 
         // get timeout
         const timeout = SuiData.propOrDefault(uiProps, 'zmqTimeout', 1000);
-        SuiData.zmq_handler.set_timeout(timeout);
+        zmq_cmd_wrapper.set_timeout(timeout);
 
         // get port
         const zmq_port = SuiData.getZmqPort(req);
 
         // connection
-        SuiData.zmq_handler.connect(zmq_port);
+        zmq_cmd_wrapper.connect(zmq_port);
         Logger.log(LogLevel.VERBOSE, `Send Request: ${cmdForZMQ}`);
-        SuiData.zmq_handler.send(cmdForZMQ);
-
-        // get message
-        const zmq_cmd = SuiData.zmq_handler.message_queue.dequeue();
-        if (zmq_cmd === "Queue Underflow") {
-            console.log('undefined'); 
-            //res.end();                      // terminate / throw away this request somehow (zmq hasnt sent anything)
-            //return
-        }
-        console.log(`zmq_data: ${zmq_cmd.substr(0, 105).replace(/[ \t]*\n[ \t]*/g, '')}`)
-        const zmq_response = SuiData.addXmlStatus(zmq_cmd);
-        SuiData.sendResponse(req, res, uiProps, zmq_response);
+        zmq_cmd_wrapper.send(cmdForZMQ);
+        
+        // add res and req to queue
+        SuiData.httpQueue.enqueue([req, res]);
 
     }
 
     static async suiCssToJsonRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
         // req contains:  /:appName/:propsStub/:tabName/query/css_elements_to_json/overlay/:nthOverlay
 
-        SuiData.incrRequestNum();
+        SuiData.uiProps = uiProps;
 
+        SuiData.incrRequestNum();
         if (!uiProps) {
             Logger.log(LogLevel.ERROR, 'No response is defined for the root folder "/".');
             return;
         }
-
         const cmd = SuiData.getCmdFromReq(req);
         ServerUtil.logRequestDetails(LogLevel.DEBUG, req,
             `Starting css_elements_to_json request # ${SuiData.requestNum}`,
             'suiCssToJsonRequest', '/query/css_elements_to_json', cmd);
-
         Logger.log(LogLevel.DEBUG, `Converting css to json.`);
-        // const css_file = `/var/www/${req.params.appName}/css_elements.css`;
         const css_file = `/var/www/${req.params.appName}/overlay-${req.params.nthOverlay}/image-overlays.css`;
         const response = SuiData.cssToJson(css_file);
-        SuiData.sendResponse(req, res, uiProps, response);
-
+        SuiData.sendResponse(req, res, response);
         return;
     }
 
-    static addXmlStatus(xmlString): string {
-        // Inject a status if the XML didn't contain one.
+    /**
+     * Injects a status if the XML doesn't aready have it
+     * @param xmlString 
+     * @returns 
+     */
+    static addXmlStatus(xmlString: string): string {
         let tagNames = "(Data_Summary|Overlay_Summary)";
         let endTagRegExp = new RegExp(`<\/${tagNames}>`);
         let endTagContainingStatusRegExp = new RegExp(`\<status\>[0-9]+\<\/status\>\n*\<\/${tagNames}\>`);
@@ -339,6 +340,7 @@ export class SuiData {
 
     static jsonToXml(json, docRoot, extraDocRootAttrs = '', depth = 0) {
         let xml = `<${docRoot} ${extraDocRootAttrs} `;
+        const SIMPLE_TYPES = ['boolean', 'float', 'integer', 'string'];
         try {
             let childrenXml = '';
             Logger.log(LogLevel.VERBOSE, '\n');
@@ -626,7 +628,7 @@ export class SuiData {
 
     static xmlToJSON(xmlString: string, appName: string, props: any, req: Request<ParamsDictionary>) {
         let json = '{"error": "Something bad happened inside xmlToJSON."}';
-
+       
         if (xmlString[0] !== '<') {
             xmlString = xmlString.trim();
         }
@@ -658,7 +660,7 @@ export class SuiData {
         }
 
         let docRootName = Object.keys(json)[0]; // should this have some type of error handling?
-        Logger.log(LogLevel.DEBUG, `XML-to-JSON docRootName: ${docRootName}`);
+        Logger.log(LogLevel.VERBOSE, `XML-to-JSON docRootName: ${docRootName}`);
 
         if (!docRootName) {
             docRootName = 'error';
@@ -711,7 +713,6 @@ export class SuiData {
             `Starting MOCK request # ${++SuiData.mockRequestNum}`,
             'suiMockRequest', '/mock/data?file=', xmlInFile);
 
-
         let xmlString = fs.readFileSync(xmlInFile, { 'encoding': 'utf8', 'flag': 'r'} );
         if (xmlString === '') {
             const msg = 'ERROR: empty result reading ' + xmlInFile;
@@ -721,9 +722,6 @@ export class SuiData {
 
         xmlString = SuiData.addXmlStatus(xmlString);
 
-        // let versionString = "V.xxx";
-
-        // let req = new Request<ParamsDictionary>();
         let theReq = req;
         if (theReq === null) {
             theReq = {
