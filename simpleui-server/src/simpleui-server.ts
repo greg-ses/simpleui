@@ -8,8 +8,6 @@ import {PropsFileReader} from './props-file-reader';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
-import * as fs from 'fs';
-
 
 const app = express();
 
@@ -31,7 +29,7 @@ export class SimpleUIServer {
     static bin_dir = "";
     static newMockDataURL: any = ""; // allows us to modify the mock data requests via mock cmd requests
     static webPortString = "";
-    
+    static REQUESTS_UNTIL_MOCK_CMD_ENDS: number = 10;
 
     static executeMockRequest(cmdArgs: CommandArgs, props: any, req: Request<ParamsDictionary> = null, res: Response = null) {
         if (props) {
@@ -309,7 +307,8 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
-                    await SuiData.suiDataRequest(req, res, props);
+                    console.log('got request from base_app')
+                    SuiData.zmqDataRequest(req, res, props);
                 } catch (err) {
                     const cmd = SuiData.getCmdFromReq(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
@@ -338,7 +337,7 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
-                    await SuiData.suiCommandRequest(req, res, props);
+                    await SuiData.zmqCommandRequest(req, res, props);
                 } catch (err) {
 
                     const cmd = SuiData.getCmdFromReq(req);
@@ -362,7 +361,7 @@ export class SimpleUIServer {
             app.get(mockDataQuery, async (req, res) => {
                 Logger.log(LogLevel.VERBOSE, `mock data request callback: ${++SimpleUIServer.requestCallbacks}`);
                 
-                if (SimpleUIServer.requestCallbacks % 10 === 0) {
+                if (SimpleUIServer.requestCallbacks % SimpleUIServer.REQUESTS_UNTIL_MOCK_CMD_ENDS === 0) {
                     SimpleUIServer.newMockDataURL = "";
                 }
 
