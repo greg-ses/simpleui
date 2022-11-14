@@ -4,6 +4,10 @@
  * potenitally add a send timeout ZMQ_SNDTIMEO
  *                      http://api.zeromq.org/3-0:zmq-setsockopt
  *      might be good to add because zmq will wait forever if not told otherwise
+ * 
+ * 
+ * client_1 sends http req
+ * 
  */
 
 
@@ -29,12 +33,16 @@ export class ZMQ_Socker_Wrapper {
             this.socket.connect_timeout = timeout;
             this.connect(this.port);
 
-            this.socket.on('message', (msg) => {
+            this.socket.on('message', (msg) => {                            // this msg data might not be what we need (could be overlay data)
                 const raw_zmq_data = msg.toString();
                 const zmq_data = SuiData.addXmlStatus(raw_zmq_data);
                 Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at port ${this.port}: ${zmq_data.substring(0, 105)}`);
-                // deque response from queue
-                let [req, res] = SuiData.httpQueue.dequeue();
+                // get request from queue
+                let [uuid, req] = SuiData.httpRequestQueue.dequeue();
+                // use uuid to get response
+                let res = SuiData.httpResponseMap.get(uuid);
+                SuiData.httpResponseMap.delete(uuid);
+
                 // send response
                 SuiData.sendResponse(req, res, zmq_data);
             });
@@ -42,8 +50,12 @@ export class ZMQ_Socker_Wrapper {
             this.socket.on('error', (zmqErr) => {
                 const zmq_data = ServerUtil.getServerError('ZMQ_ERROR', '{{ERROR}}', zmqErr);
                 Logger.log(LogLevel.ERROR, `ZMQ socket at port ${this.port} got error: ${zmqErr}`);
-                // deque response from queue
-                let [req, res] = SuiData.httpQueue.dequeue();
+                // get request from queue
+                let [uuid, req] = SuiData.httpRequestQueue.dequeue();
+                // use uuid to get response
+                let res = SuiData.httpResponseMap.get(uuid);
+                SuiData.httpResponseMap.delete(uuid);
+
                 // send response
                 SuiData.sendResponse(req, res, zmq_data);
             });

@@ -9,6 +9,7 @@ import * as path from 'path';
 import * as fastXmlParser from 'fast-xml-parser';
 import * as he from 'he';
 import { Queue } from './queue';
+import {randomUUID} from 'crypto';
 
 
 export interface UiPropStubs {
@@ -27,7 +28,8 @@ export class SuiData {
     static mockRequestNum = 0;
     static mockDataFileIndex = [];
     static uiProps = "";
-    static httpQueue = new Queue();
+    static httpRequestQueue = new Queue();
+    static httpResponseMap = new Map();
     static zmqMap = null;
 
 
@@ -146,16 +148,25 @@ export class SuiData {
             return;
         }
 
+        SuiData.incrRequestNum();
+
         // allows us to call sendResponse inside zmq msg callback
         SuiData.uiProps = uiProps;
 
-        SuiData.incrRequestNum();
+        // get uuid
+        const uuid = randomUUID();
+
+        // add res to map
+        SuiData.httpResponseMap.set(uuid, res);
+        Logger.log(LogLevel.INFO, `httpResponseMap size: ${SuiData.httpResponseMap.size}`)
 
         // get port
         const zmq_port = SuiData.getZmqPort(req);
 
         // get cmd
         const cmd = SuiData.getCmdFromReq(req);
+
+        // create packet
         const zmq_xml_data_request_msg = `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
 
         // get the socket
@@ -173,7 +184,7 @@ export class SuiData {
         socket.send(zmq_xml_data_request_msg); 
         
         // add res and req to queue
-        SuiData.httpQueue.enqueue([req, res]);   
+        SuiData.httpRequestQueue.enqueue([uuid, req]);   
     }
 
 
@@ -250,7 +261,7 @@ export class SuiData {
         socket.send(zmq_cmd_msg);
         
         // add res and req to queue
-        SuiData.httpQueue.enqueue([req, res]);
+        SuiData.httpRequestQueue.enqueue(req);
 
     }
 
