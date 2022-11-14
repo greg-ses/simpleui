@@ -6,8 +6,11 @@
  *      might be good to add because zmq will wait forever if not told otherwise
  * 
  * 
- * client_1 sends http req
- * 
+ ****************************** NOTE ******************************
+ *
+ *  An http request can only request data from a single zmq socket
+ *
+ ******************************************************************
  */
 
 
@@ -15,6 +18,7 @@ var _zmq = require('zeromq');
 import {ServerUtil} from './server-util';
 import {Logger, LogLevel} from './server-logger';
 import { SuiData } from './sui_data';
+import { Queue } from './queue';
 
 
 export class ZMQ_Socker_Wrapper {
@@ -22,27 +26,26 @@ export class ZMQ_Socker_Wrapper {
     timeout: number;
     port: number;
     socket: any;
+    http_queue: Queue;
+    
 
     constructor(hostname: string='svcmachineapps', port: number, timeout: number=500) {
         this.hostname = hostname;
         this.timeout = timeout;
         this.port = port;
+        this.http_queue = new Queue();
 
         try {
             this.socket = _zmq.socket('req');
             this.socket.connect_timeout = timeout;
             this.connect(this.port);
 
-            this.socket.on('message', (msg) => {                            // this msg data might not be what we need (could be overlay data)
+            this.socket.on('message', (msg) => {
                 const raw_zmq_data = msg.toString();
                 const zmq_data = SuiData.addXmlStatus(raw_zmq_data);
                 Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at port ${this.port}: ${zmq_data.substring(0, 105)}`);
-                // get request from queue
-                let [uuid, req] = SuiData.httpRequestQueue.dequeue();
-                // use uuid to get response
-                let res = SuiData.httpResponseMap.get(uuid);
-                SuiData.httpResponseMap.delete(uuid);
-
+                // get response + request from queue
+                let [res, req] = this.http_queue.dequeue();
                 // send response
                 SuiData.sendResponse(req, res, zmq_data);
             });
@@ -50,12 +53,8 @@ export class ZMQ_Socker_Wrapper {
             this.socket.on('error', (zmqErr) => {
                 const zmq_data = ServerUtil.getServerError('ZMQ_ERROR', '{{ERROR}}', zmqErr);
                 Logger.log(LogLevel.ERROR, `ZMQ socket at port ${this.port} got error: ${zmqErr}`);
-                // get request from queue
-                let [uuid, req] = SuiData.httpRequestQueue.dequeue();
-                // use uuid to get response
-                let res = SuiData.httpResponseMap.get(uuid);
-                SuiData.httpResponseMap.delete(uuid);
-
+                // get response + request from queue
+                let [res, req] = this.http_queue.dequeue();
                 // send response
                 SuiData.sendResponse(req, res, zmq_data);
             });

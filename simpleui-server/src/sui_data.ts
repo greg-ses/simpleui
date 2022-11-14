@@ -8,8 +8,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as fastXmlParser from 'fast-xml-parser';
 import * as he from 'he';
-import { Queue } from './queue';
-import {randomUUID} from 'crypto';
 
 
 export interface UiPropStubs {
@@ -28,8 +26,6 @@ export class SuiData {
     static mockRequestNum = 0;
     static mockDataFileIndex = [];
     static uiProps = "";
-    static httpRequestQueue = new Queue();
-    static httpResponseMap = new Map();
     static zmqMap = null;
 
 
@@ -43,7 +39,7 @@ export class SuiData {
 
     /**
      * Responds to the request base_app sent. Also, adds headers to the request 
-     * depending on filetype
+     * depending on filetype.
      * @param req 
      * @param res 
      * @param uiProps 
@@ -134,7 +130,7 @@ export class SuiData {
     static incrRequestNum() { SuiData.requestNum = (SuiData.requestNum + 1) % 100000; }
 
     /**
-     * Request data from c++ apps via zeromq
+     * Request data from c++ apps via zeromq. An http request can only request data from a single zmq socket
      * @param req 
      * @param res 
      * @param uiProps 
@@ -152,13 +148,6 @@ export class SuiData {
 
         // allows us to call sendResponse inside zmq msg callback
         SuiData.uiProps = uiProps;
-
-        // get uuid
-        const uuid = randomUUID();
-
-        // add res to map
-        SuiData.httpResponseMap.set(uuid, res);
-        Logger.log(LogLevel.INFO, `httpResponseMap size: ${SuiData.httpResponseMap.size}`)
 
         // get port
         const zmq_port = SuiData.getZmqPort(req);
@@ -184,12 +173,13 @@ export class SuiData {
         socket.send(zmq_xml_data_request_msg); 
         
         // add res and req to queue
-        SuiData.httpRequestQueue.enqueue([uuid, req]);   
+        socket.http_queue.enqueue([res, req]);
     }
 
 
     /**
-     * Parse the command out of the request, and send to native apps via c++
+     * Parse the command out of the request, and send to native apps via c++.
+     *  An http request can only request data from a single zmq socket
      * @param req 
      * @param res 
      * @param uiProps 
@@ -261,7 +251,7 @@ export class SuiData {
         socket.send(zmq_cmd_msg);
         
         // add res and req to queue
-        SuiData.httpRequestQueue.enqueue(req);
+        socket.http_queue.enqueue(req);
 
     }
 
