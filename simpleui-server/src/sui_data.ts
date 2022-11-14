@@ -1,20 +1,15 @@
-//var wtfnode = require('wtfnode');
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
 import {JsonStringNormalizer} from './json-string-normalizer';
 import {JsonOverlayNormalizer} from './json-overlay-normalizer';
 import {Logger, LogLevel} from './server-logger';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
-import {SuiZMQ} from './SuiZMQ';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as fastXmlParser from 'fast-xml-parser';
 import * as he from 'he';
 import { Queue } from './queue';
 
-const zmq_data_wrapper = new SuiZMQ();
-
-const zmq_cmd_wrapper = new SuiZMQ();
 
 export interface UiPropStubs {
     uiProp: string,
@@ -33,15 +28,16 @@ export class SuiData {
     static mockDataFileIndex = [];
     static uiProps = "";
     static httpQueue = new Queue();
+    static zmqMap = null;
 
 
-    static propOrDefault(props: any, prop: string, defaultValue: any): any {
-        let val = defaultValue;
-        if (typeof props[prop] !== 'undefined') {
-            val = props[prop];
-        }
-        return val;
+
+
+    static propOrDefault(props: Object, prop: string, defaultValue: any): any {
+        return props[prop] ? props[prop] : defaultValue;
     }
+
+
 
     /**
      * Responds to the request base_app sent. Also, adds headers to the request 
@@ -55,14 +51,6 @@ export class SuiData {
         try {
 
             if (res.headersSent) { return } 
-
-            /*
-            if (xmlResponse === '<response>Fail</response>') {
-                res.status(408).json({ "error": "timeout 408" });
-                return;
-            }
-            */
-            
 
             if (req.query.xml || req.query.XML) {
                 res.setHeader('Content-Type', 'application/xml');
@@ -84,14 +72,10 @@ export class SuiData {
                     sJson = SuiData.xmlToJSON(xmlResponse, req.params.appName, SuiData.uiProps, req);
                 }
                 res.send(sJson);
-                console.log('----------------------- HTTPS JSON SENT');
             }
         } catch (err) {
-            console.log('--------------------------- ERROR');
-            console.log(err);
+            Logger.log(LogLevel.ERROR, `SendResponse got error: ${err}`)
         }
-
-
     }
     
 
@@ -148,37 +132,45 @@ export class SuiData {
     static incrRequestNum() { SuiData.requestNum = (SuiData.requestNum + 1) % 100000; }
 
     /**
-     * Request and parse data from c++ apps via zeromq
+     * Request data from c++ apps via zeromq
      * @param req 
      * @param res 
      * @param uiProps 
      */
      static async zmqDataRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
+
         if (!uiProps) { Logger.log(LogLevel.ERROR, `ui.props is null`); return }
 
-        // makes uiProps global in a sense
+        if (!SuiData.zmqMap) {
+            Logger.log(LogLevel.NOTICE, `Waiting for the props HTTP request...`);
+            return;
+        }
+
+        // allows us to call sendResponse inside zmq msg callback
         SuiData.uiProps = uiProps;
 
         SuiData.incrRequestNum();
-
-        // get timeout
-        const timeout = SuiData.propOrDefault(uiProps, 'zmqTimeout', 1000);
-        zmq_data_wrapper.set_timeout(timeout);
 
         // get port
         const zmq_port = SuiData.getZmqPort(req);
 
         // get cmd
         const cmd = SuiData.getCmdFromReq(req);
+        const zmq_xml_data_request_msg = `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
+
+        // get the socket
+        const socket = SuiData.zmqMap.get(zmq_port);
+
+        // get and set connection timeout (is this needed anymore? better to replace with reply timeout)
+        const timeout = SuiData.propOrDefault(uiProps, 'zmqTimeout', 1000);
+        socket.set_timeout(timeout);
 
         // log zmq details
-        Logger.log(LogLevel.DEBUG, `zmq details:\n\ttimeout:\t${timeout}\n\tPort:\t\t${zmq_port}\n\tCMD:\t\t${JSON.stringify(cmd)}`);
+        Logger.log( SuiData.requestNum <= 5 ? LogLevel.INFO : LogLevel.DEBUG, 
+            `zmq details:\n\ttimeout:\t${timeout}\n\tPort:\t\t${zmq_port}\n\tCMD:\t\t${JSON.stringify(cmd)}\n\tMsg:\t\t${zmq_xml_data_request_msg}`);
 
-        // connection
-        zmq_data_wrapper.connect(zmq_port);
-        const xml_zmq_request = `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
-
-        zmq_data_wrapper.send(xml_zmq_request);        
+        // send the data request
+        socket.send(zmq_xml_data_request_msg); 
         
         // add res and req to queue
         SuiData.httpQueue.enqueue([req, res]);   
@@ -195,9 +187,14 @@ export class SuiData {
      static async zmqCommandRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
         if (!uiProps) { Logger.log(LogLevel.ERROR, `ui.props is null`); return }
 
+        if (!SuiData.zmqMap) {
+            Logger.log(LogLevel.NOTICE, `Waiting for the props HTTP request...`);
+            return;
+        }
+
         SuiData.incrRequestNum();
 
-        // makes allows zmq_backend handler to call sendResponse
+        // allows us to call sendResponse inside zmq msg callback
         SuiData.uiProps = uiProps;
 
         // is this still used now that everything is dockerized?
@@ -211,9 +208,19 @@ export class SuiData {
         ServerUtil.logRequestDetails(LogLevel.DEBUG, req, `Starting cmd request # ${SuiData.requestNum}`,
                 'suiCommandRequest', '/query/cmd/zmq', cmd);
 
+        // get port
+        const zmq_port = SuiData.getZmqPort(req);
+
+        // get socket
+        const socket = SuiData.zmqMap.get(zmq_port);
+
+        // get timeout
+        const timeout = SuiData.propOrDefault(uiProps, 'zmqTimeout', 1000);
+        socket.set_timeout(timeout);
+
 
         const parsedReq = {cmd: `${req.params.zmqCmd}`};
-        let cmdForZMQ = '';
+        let zmq_cmd_msg = '';
         const contentType = SuiData.getContentType(req);
 
 
@@ -221,13 +228,13 @@ export class SuiData {
             // parse the command from the request
             if (contentType === 'application/xml') {
                 try {
-                    cmdForZMQ = req.body; 
+                    zmq_cmd_msg = req.body; 
                 } catch (err) {
                     Logger.log(LogLevel.ERROR, `could not parse body from request sui_data.ts suiCommadRequest`);
                 }
             } else if (contentType === 'json' || contentType === 'application/json') {
                 try {
-                    cmdForZMQ = SuiData.getXmlFromJsonArgs(req, parsedReq);
+                    zmq_cmd_msg = SuiData.getXmlFromJsonArgs(req, parsedReq);
                 } catch (err) {
                     Logger.log(LogLevel.VERBOSE, `Exception while building JSON request: ${err}`);
                 }
@@ -235,22 +242,12 @@ export class SuiData {
                 Logger.log(LogLevel.ERROR, `Received unknown content type suiCommandRequest`);
                 return
             }
-        } else { console.log(`got ${req.method}  \nContent-type:${SuiData.getContentType(req)} | ${req.headers['content-type']} \nREQ:${req} \nRES:${res} \nuiProps:${uiProps}`)}
+        } else { Logger.log(LogLevel.DEBUG, `got ${req.method}  \nContent-type:${SuiData.getContentType(req)} | ${req.headers['content-type']} \nREQ:${req} \nRES:${res} \nuiProps:${uiProps}`)}
 
         Logger.log(LogLevel.INFO, `suiCommandRequest(): App "${req.params.appName}" received command "${parsedReq.cmd}" ` + `for tab ${req.params.tabName} - forwarding to ZMQ.`);
-        Logger.log(LogLevel.VERBOSE, `contentType: ${contentType}, request.method: ${req.method}`);
 
-        // get timeout
-        const timeout = SuiData.propOrDefault(uiProps, 'zmqTimeout', 1000);
-        zmq_cmd_wrapper.set_timeout(timeout);
-
-        // get port
-        const zmq_port = SuiData.getZmqPort(req);
-
-        // connection
-        zmq_cmd_wrapper.connect(zmq_port);
-        Logger.log(LogLevel.VERBOSE, `Send Request: ${cmdForZMQ}`);
-        zmq_cmd_wrapper.send(cmdForZMQ);
+        // send msg
+        socket.send(zmq_cmd_msg);
         
         // add res and req to queue
         SuiData.httpQueue.enqueue([req, res]);

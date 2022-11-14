@@ -7,6 +7,7 @@ import * as os from 'os';
 import {PropsFileReader} from './props-file-reader';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
+import { zmq_wrapper } from './SuiZMQ';
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
 
 const app = express();
@@ -162,7 +163,7 @@ export class SimpleUIServer {
     static main() {
         try {
 
-            Logger.logLevel = LogLevel.DEBUG;
+            Logger.logLevel = LogLevel.INFO;
 
             // Parse input arguments
             SimpleUIServer.setBinDir(process.argv[1]);
@@ -208,11 +209,6 @@ export class SimpleUIServer {
                 return 0;
             }
 
-            // handle --mode=daemon
-
-            // MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGINT listeners added.
-            // This error happens because ZMQ requests are stalling / taking too long.
-            // But it's possible to experiments with upping the limit from the default of 10 as shown below.
             const maxListeners = 200;
             process.setMaxListeners(maxListeners);
 
@@ -280,6 +276,13 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
+
+                    ////// set up zmq sockets
+                    let zmq_ports_array = ServerUtil.getZMQPortsFromProps(props).map(p => Number(p));
+                    Logger.log(LogLevel.DEBUG, `ZMQ ports: ${zmq_ports_array}`);
+                    SuiData.zmqMap = new zmq_wrapper(zmq_ports_array);
+                    //////
+                    
                     await PropsFileReader.propsFileRequest(req, res, props);
                 } catch (err) {
                     const cmd = SuiData.getCmdFromReq(req);
