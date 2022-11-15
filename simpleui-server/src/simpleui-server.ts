@@ -1,4 +1,3 @@
-var wtfnode = require('wtfnode');
 import {SuiData} from './sui_data';
 import {DisplayLogLevel, Logger, LogLevel} from './server-logger';
 import * as express from 'express';
