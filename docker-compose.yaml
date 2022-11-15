@@ -43,7 +43,7 @@ services:
         volumes:
             # python file
             - type: bind
-              source: "${PWD}/docker_zmq/backend.py"
+              source: "${PWD}/docker_zmq_backend/backend.py"
               target: /app/backend.py
             # sample data
             - type: bind
