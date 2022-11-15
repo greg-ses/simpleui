@@ -82,5 +82,5 @@ COPY --from=build_base_server "/simpleui-server/dist.tgz" "/tmp/server_dist.tgz"
 COPY "deploy_docker/*.sh" "/scripts/"
 
 WORKDIR /
-ENTRYPOINT [ "/tini", "-g", "--", "bash", "/scripts/run.sh" ]
+ENTRYPOINT [ "/tini", "-g", "-vvv", "--", "bash", "/scripts/run.sh" ]
 CMD [ "" ]
