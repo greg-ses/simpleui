@@ -173,6 +173,15 @@ export class SimpleUIServer {
                 return 1;
             }
 
+            let _props = PropsFileReader.getProps('ui.properties',
+                cmdVars.appName, cmdVars.webPort);
+
+            ////// set up zmq sockets
+            let zmq_ports_array = ServerUtil.getZMQPortsFromProps(_props).map(p => Number(p));
+            Logger.log(LogLevel.INFO, `ZMQ ports: ${zmq_ports_array}`);
+            SuiData.zmqMap = new zmq_wrapper(zmq_ports_array);
+            //////
+
             const originsWhiteList = [
                 `http://localhost`,
                 "http://localhost:4100",
