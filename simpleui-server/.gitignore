@@ -2,7 +2,6 @@
 dist/*
 test/dist/*
 node_modules/*
-package-lock.json
 
 /dist.tgz
 /zeromq-4.3.2.tar.gz
