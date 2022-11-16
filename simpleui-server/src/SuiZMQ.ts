@@ -1,11 +1,11 @@
 /**
  * Created by Zack Beucler
- * 
+ *
  * potenitally add a send timeout ZMQ_SNDTIMEO
  *                      http://api.zeromq.org/3-0:zmq-setsockopt
  *      might be good to add because zmq will wait forever if not told otherwise
- * 
- * 
+ *
+ *
  ****************************** NOTE ******************************
  *
  *  An http request can only request data from a single zmq socket
@@ -21,15 +21,15 @@ import { SuiData } from './sui_data';
 import { Queue } from './queue';
 
 
-export class ZMQ_Socker_Wrapper {
+export class ZMQ_Socket_Wrapper {
     hostname: string;
     timeout: number;
     port: number;
     socket: any;
     http_queue: Queue;
-    
 
-    constructor(hostname: string='svcmachineapps', port: number, timeout: number=500) {
+
+    constructor(hostname: string, port: number, timeout: number=500) {
         this.hostname = hostname;
         this.timeout = timeout;
         this.port = port;
@@ -60,7 +60,8 @@ export class ZMQ_Socker_Wrapper {
             });
 
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not create ZMQ socket at port ${this.port} got error: ${err}`)
+            Logger.log(LogLevel.ERROR, `Could not create ZMQ socket at port ${this.port} got error: ${err}`);
+            process.exit(1);
         }
     }
 
@@ -70,7 +71,8 @@ export class ZMQ_Socker_Wrapper {
             this.socket.connect(`tcp://${this.hostname}:${port}`)
 
         } catch (e) {
-            Logger.log(LogLevel.ERROR, `Could not connect to tcp://${this.hostname}:${port}`);
+            Logger.log(LogLevel.ERROR, `Could not connect to tcp://${this.hostname}:${port} Got error: ${e}`);
+            process.exit(1);
         }
     }
 
@@ -78,7 +80,7 @@ export class ZMQ_Socker_Wrapper {
         try{
             this.socket.send(msg);
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `could not send zmq message:\n${msg}`)
+            Logger.log(LogLevel.ERROR, `could not send zmq message:\n${msg} got error: ${err}`);
         }
     }
 
@@ -99,52 +101,40 @@ export class ZMQ_Socker_Wrapper {
 
 
 /**
- * This class handles the creation of the zmq map 
+ * This class handles the creation of the zmq map
  * and the destruction of the sockets
  */
 export class zmq_wrapper {
-    socket_map: Map<number, ZMQ_Socker_Wrapper>;
+    socket_map: Map<number, ZMQ_Socket_Wrapper>;
 
     constructor(port_list: Array<number>) {
         this.socket_map = new Map();
 
-        for (let port_indx = 0; port_indx < port_list.length; port_indx++) {
-            const port = port_list[port_indx];
-            const zmq_wrapper_instance = new ZMQ_Socker_Wrapper('svcmachineapps', port)
+
+        port_list.forEach( (port) => {
+            const zmq_wrapper_instance = new ZMQ_Socket_Wrapper('svcmachineapps', port);
             this.socket_map.set(port, zmq_wrapper_instance);
-        }
-
-        
-        process.on('SIGINT', () => {
-            Logger.log(LogLevel.INFO, 'ZMQ got SIGINT')
-            this.socket_map.forEach((zmq_wrapper_instance, port) => {
-                Logger.log(LogLevel.INFO, `closing zmq port: ${port}`);
-                zmq_wrapper_instance.close();
-            });
         });
 
-        process.on('SIGTERM', () => {
-            Logger.log(LogLevel.INFO, 'ZMQ got SIGTERM')
-            this.socket_map.forEach((zmq_wrapper_instance, port) => {
-                Logger.log(LogLevel.INFO, `closing zmq port: ${port}`);
-                zmq_wrapper_instance.close();
-            });
-        });
+        process.on('SIGINT', () => this.handleApplicationExit('SIGINT'));
 
-        process.on('SIGTERM', () => {
-            Logger.log(LogLevel.INFO, 'ZMQ got SIGWINCH')
-            this.socket_map.forEach((zmq_wrapper_instance, port) => {
-                Logger.log(LogLevel.INFO, `closing zmq port: ${port}`);
-                zmq_wrapper_instance.close();
-            });
-        });
-        
+        process.on('SIGTERM', () => this.handleApplicationExit('SIGTERM'));
+
+        process.on('SIGWINCH', () => this.handleApplicationExit('SIGWINCH'));
+
     }
 
     get(port: number) {
         return this.socket_map.get(port);
     }
+
+
+    handleApplicationExit(type: string) {
+        Logger.log(LogLevel.INFO, `ZMQ got ${type}`);
+        this.socket_map.forEach((zmq_wrapper_instance, port) => {
+            Logger.log(LogLevel.INFO, `closing zmq port: ${port}`);
+            zmq_wrapper_instance.close();
+        });
+    }
 }
-
-
 
