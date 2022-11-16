@@ -34,6 +34,7 @@ services:
         image: zmq_backend
         hostname: svcmachineapps
         init: true
+        working_dir: /app
         environment:
           PYTHONUNBUFFERED: 1
         volumes:

@@ -16,11 +16,6 @@ def main():
     data_socket.bind('tcp://*:1234')
     data_msg = "no data recieved..."
 
-    cmd_socket = context.socket(zmq.REP)
-    cmd_socket.bind('tcp://*:5482')
-    cmd_msg = "no cmd recieved..."
-
-
     print('starting server...')
     while True:
         try:
@@ -32,18 +27,5 @@ def main():
                 print(e)
             else:
                 raise
-        
-
-
-        # try:
-        #     cmd_msg = cmd_socket.recv()
-        # except zmq.ZMQError as e:
-        #     if e.errno == zmq.ETERM:
-        #         print(e)
-        #     else:
-        #         raise
-        # print(cmd_msg)
-        #cmd_socket.send("command?")
-
 
 main()
