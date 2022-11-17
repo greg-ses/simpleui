@@ -285,12 +285,6 @@ export class SimpleUIServer {
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
 
-                    ////// set up zmq sockets
-                    let zmq_ports_array = ServerUtil.getZMQPortsFromProps(props).map(p => Number(p));
-                    Logger.log(LogLevel.DEBUG, `ZMQ ports: ${zmq_ports_array}`);
-                    SuiData.zmqMap = new zmq_wrapper(zmq_ports_array);
-                    //////
-                    
                     await PropsFileReader.propsFileRequest(req, res, props);
                 } catch (err) {
                     const cmd = SuiData.getCmdFromReq(req);
@@ -318,7 +312,7 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
-                    await SuiData.zmqDataRequest(req, res, props);
+                    SuiData.zmqDataRequest(req, res, props);
                 } catch (err) {
                     const cmd = SuiData.getCmdFromReq(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
@@ -370,7 +364,7 @@ export class SimpleUIServer {
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}/${spacer1}(mock data)`);
             app.get(mockDataQuery, async (req, res) => {
                 Logger.log(LogLevel.VERBOSE, `mock data request callback: ${++SimpleUIServer.requestCallbacks}`);
-                
+
                 if (SimpleUIServer.requestCallbacks % SimpleUIServer.REQUESTS_UNTIL_MOCK_CMD_ENDS === 0) {
                     SimpleUIServer.newMockDataURL = "";
                 }
@@ -442,7 +436,7 @@ export class SimpleUIServer {
                 }
             });
 
-            
+
 
             // ------------------------------
             // start the Express server
