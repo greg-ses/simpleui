@@ -284,7 +284,6 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
-
                     await PropsFileReader.propsFileRequest(req, res, props);
                 } catch (err) {
                     const cmd = SuiData.getCmdFromReq(req);
@@ -312,7 +311,7 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
-                    SuiData.zmqDataRequest(req, res, props);
+                    SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
                     const cmd = SuiData.getCmdFromReq(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
@@ -341,7 +340,7 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
-                    await SuiData.zmqCommandRequest(req, res, props);
+                    SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
 
                     const cmd = SuiData.getCmdFromReq(req);

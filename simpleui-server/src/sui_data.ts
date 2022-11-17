@@ -124,14 +124,16 @@ export class SuiData {
 
     static incrRequestNum() { SuiData.requestNum = (SuiData.requestNum + 1) % 100000; }
 
+
     /**
-     * Request data from c++ apps via zeromq. An http request can only request data from a single zmq socket
+     * Handles the zmq request from base_app.
+     * An http request can only request data from a single zmq socket
      * @param req
      * @param res
      * @param uiProps
+     * @returns
      */
-     static zmqDataRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
-
+    static handleZmqRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
         if (!uiProps) { Logger.log(LogLevel.ERROR, `ui.props is null`); return }
 
         if (!SuiData.zmqMap) {
@@ -151,42 +153,6 @@ export class SuiData {
         const socket = SuiData.zmqMap.get(zmq_port);
 
         // get and set connection timeout (is this needed anymore?)
-        const timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
-        socket.set_timeout(timeout);
-
-        // add res + req pair to socket's queue
-        socket.http_queue.enqueue([res, req]);
-    }
-
-
-    /**
-     * Parse the command out of the request, and send to native apps via c++.
-     *  An http request can only request data from a single zmq socket
-     * @param req
-     * @param res
-     * @param uiProps
-     * @returns
-     */
-     static async zmqCommandRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
-        if (!uiProps) { Logger.log(LogLevel.ERROR, `ui.props is null`); return }
-
-        if (!SuiData.zmqMap) {
-            Logger.log(LogLevel.NOTICE, `Waiting for the zmq sockets to set up...`);
-            return;
-        }
-
-        SuiData.incrRequestNum();
-
-        // Update SuiData's copy of uiProps
-        SuiData.uiProps = uiProps;
-
-        // get port
-        const zmq_port = SuiData.getZmqPort(req);
-
-        // get socket
-        const socket = SuiData.zmqMap.get(zmq_port);
-
-        // get and set connection timeout (is this needed anymore? better to replace with reply timeout)
         const timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
         socket.set_timeout(timeout);
 
