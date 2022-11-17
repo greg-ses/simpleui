@@ -180,12 +180,6 @@ export class SuiData {
         // Update SuiData's copy of uiProps
         SuiData.uiProps = uiProps;
 
-        // is this still used now that everything is dockerized?
-        if (typeof uiProps['dependsOnApp'] === 'string') {
-            const processInfo = {};
-            await ServerUtil.getProcessInfo(uiProps['dependsOnApp'], processInfo);
-        }
-
         // get port
         const zmq_port = SuiData.getZmqPort(req);
 
@@ -237,20 +231,6 @@ export class SuiData {
                 '<status>0</status></$1>');
         }
         return xmlString
-    }
-
-    static getContentType(req): string {
-        let contentType = 'unknown';
-        if (req.accepts(['json', 'text'])) {
-            contentType = 'json';
-        } else {
-            ['html', 'text/html', 'application/json'].forEach(ct => {
-                if (req.accepts(ct)) {
-                    contentType = ct;
-                }
-            });
-        }
-        return contentType;
     }
 
     static getItemTag(listName)
@@ -405,35 +385,6 @@ export class SuiData {
         }
     }
 
-    static getXmlFromUrlArgs(req: Request<ParamsDictionary>, tab): string
-    {
-        let cmd =
-            (typeof tab.commandCmd === 'string')
-                ? tab.commandCmd
-                : tab.dataCmd;
-
-        if (typeof req.query.cmd === 'string') {
-            cmd = req.query.cmd;
-        }
-
-        let attributes = '';
-
-        if (typeof req.query === 'object') {
-            Object.keys(req.query).forEach(key => {
-                if (typeof req.query[key] === 'string') {
-                    if (key === 'cmd') {
-                        cmd = req.query.cmd;
-                    } else {
-                        attributes += ` "${key}"="${req.query[key]}"`;
-                    }
-                }
-            });
-        }
-
-        const xml = `<request COMMAND="{{cmd}}" ${attributes}}></request>`;
-        Logger.log(LogLevel.VERBOSE, `SuiData.getXmlFromUrlArgs() - xml: ${xml}\n`);
-        return xml;
-    }
 
     static getUiPropStubs(props: any, req: Request<ParamsDictionary>): UiPropStubs {
 
@@ -496,9 +447,7 @@ export class SuiData {
         return apacheTempFolder;
     }
 
-    // +
     static getDebugFileNames(appName, props, req: Request<ParamsDictionary>) {
-
         const st = SuiData.getUiPropStubs(props, req);
         const ramDrive = SuiData.getApacheTempFolder();
 
@@ -513,40 +462,6 @@ export class SuiData {
 
     static replacer(match, p1, p2, p3, offset, string) {
         return `${p2.trim()}",`;
-    }
-
-    static cleanUpOutgoingJson(sJson: string) {
-    // strip trailing spaces and newlines
-        /*
-        const valueRegEx = /("value":\W*"([^"])*)",/;
-        while (true) {
-            let matches = sJson.match(valueRegEx);
-            if (matches) {
-                sJson = sJson.replace(matches[0], `${matches[1].trim()}",`);
-            } else {
-                break;
-        }
-        */
-        const valueRegEx = /("value":\W*"([^"])*)",/;
-        sJson = sJson.replace(valueRegEx, SuiData.replacer);
-        return sJson;
-    }
-
-    static readJsonFile(jsonFile) {
-        if (!fs.statSync(jsonFile).isFile()) {
-            const msg = 'ERROR: Input json file does not exist: ' + jsonFile;
-            Logger.log(LogLevel.ERROR, msg);
-            return msg;
-        }
-
-        const sJson = fs.readFileSync(jsonFile, 'utf8');
-        if (sJson === '') {
-            const msg = 'ERROR: empty result reading ' + jsonFile;
-            Logger.log(LogLevel.ERROR, msg);
-            return msg;
-        }
-
-        return JSON.parse(sJson);
     }
 
     static cssToJson(filepath: string) {
