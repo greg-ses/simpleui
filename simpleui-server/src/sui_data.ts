@@ -35,20 +35,18 @@ export class SuiData {
         return props[prop] ? props[prop] : defaultValue;
     }
 
-
-
     /**
-     * Responds to the request base_app sent. Also, adds headers to the request 
+     * Responds to the request base_app sent. Also, adds headers to the request
      * depending on filetype.
-     * @param req 
-     * @param res 
-     * @param uiProps 
-     * @param xmlResponse data to send to base_app 
+     * @param req
+     * @param res
+     * @param uiProps
+     * @param xmlResponse data to send to base_app
     */
     static sendResponse(req: Request<ParamsDictionary>, res: Response, xmlResponse: string) {
         try {
 
-            if (res.headersSent) { return } 
+            if (res.headersSent) { return }
 
             if (req.query.xml || req.query.XML) {
                 res.setHeader('Content-Type', 'application/xml');
@@ -75,14 +73,11 @@ export class SuiData {
             Logger.log(LogLevel.ERROR, `SendResponse got error: ${err}`)
         }
     }
-    
-
-
 
     /**
      * Parses the command from the request from base_app
      * @param req request from base_app
-     * @returns 
+     * @returns
      */
     static getCmdFromReq(req: Request<ParamsDictionary>): any {
         const cmd = {
@@ -105,7 +100,7 @@ export class SuiData {
 
     /**
      * Parses the zmq port from the request
-     * @param req 
+     * @param req
      * @returns 0 if no port found
      */
     static getZmqPort(req: Request<ParamsDictionary>): number {
@@ -131,48 +126,35 @@ export class SuiData {
 
     /**
      * Request data from c++ apps via zeromq. An http request can only request data from a single zmq socket
-     * @param req 
-     * @param res 
-     * @param uiProps 
+     * @param req
+     * @param res
+     * @param uiProps
      */
-     static async zmqDataRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
+     static zmqDataRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
 
         if (!uiProps) { Logger.log(LogLevel.ERROR, `ui.props is null`); return }
 
         if (!SuiData.zmqMap) {
-            Logger.log(LogLevel.NOTICE, `Waiting for the props HTTP request...`);
+            Logger.log(LogLevel.NOTICE, `Waiting for the zmq sockets to set up...`);
             return;
         }
 
         SuiData.incrRequestNum();
 
-        // allows us to call sendResponse inside zmq msg callback
+        // Update SuiData's copy of uiProps
         SuiData.uiProps = uiProps;
 
         // get port
         const zmq_port = SuiData.getZmqPort(req);
 
-        // get cmd
-        const cmd = SuiData.getCmdFromReq(req);
-
-        // create packet
-        const zmq_xml_data_request_msg = `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
-
-        // get the socket
+        // get socket
         const socket = SuiData.zmqMap.get(zmq_port);
 
-        // get and set connection timeout (is this needed anymore? better to replace with reply timeout)
-        const timeout = SuiData.propOrDefault(uiProps, 'zmqTimeout', 1000);
+        // get and set connection timeout (is this needed anymore?)
+        const timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
         socket.set_timeout(timeout);
 
-        // log zmq details
-        Logger.log( SuiData.requestNum <= 5 ? LogLevel.INFO : LogLevel.DEBUG, 
-            `zmq details:\n\ttimeout:\t${timeout}\n\tPort:\t\t${zmq_port}\n\tCMD:\t\t${JSON.stringify(cmd)}\n\tMsg:\t\t${zmq_xml_data_request_msg}`);
-
-        // send the data request
-        socket.send(zmq_xml_data_request_msg); 
-        
-        // add res and req to queue
+        // add res + req pair to socket's queue
         socket.http_queue.enqueue([res, req]);
     }
 
@@ -180,22 +162,22 @@ export class SuiData {
     /**
      * Parse the command out of the request, and send to native apps via c++.
      *  An http request can only request data from a single zmq socket
-     * @param req 
-     * @param res 
-     * @param uiProps 
-     * @returns 
+     * @param req
+     * @param res
+     * @param uiProps
+     * @returns
      */
      static async zmqCommandRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
         if (!uiProps) { Logger.log(LogLevel.ERROR, `ui.props is null`); return }
 
         if (!SuiData.zmqMap) {
-            Logger.log(LogLevel.NOTICE, `Waiting for the props HTTP request...`);
+            Logger.log(LogLevel.NOTICE, `Waiting for the zmq sockets to set up...`);
             return;
         }
 
         SuiData.incrRequestNum();
 
-        // allows us to call sendResponse inside zmq msg callback
+        // Update SuiData's copy of uiProps
         SuiData.uiProps = uiProps;
 
         // is this still used now that everything is dockerized?
@@ -204,55 +186,18 @@ export class SuiData {
             await ServerUtil.getProcessInfo(uiProps['dependsOnApp'], processInfo);
         }
 
-        // get cmd
-        const cmd = SuiData.getCmdFromReq(req);
-        ServerUtil.logRequestDetails(LogLevel.DEBUG, req, `Starting cmd request # ${SuiData.requestNum}`,
-                'suiCommandRequest', '/query/cmd/zmq', cmd);
-
         // get port
         const zmq_port = SuiData.getZmqPort(req);
 
         // get socket
         const socket = SuiData.zmqMap.get(zmq_port);
 
-        // get timeout
-        const timeout = SuiData.propOrDefault(uiProps, 'zmqTimeout', 1000);
+        // get and set connection timeout (is this needed anymore? better to replace with reply timeout)
+        const timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
         socket.set_timeout(timeout);
 
-
-        const parsedReq = {cmd: `${req.params.zmqCmd}`};
-        let zmq_cmd_msg = '';
-        const contentType = SuiData.getContentType(req);
-
-
-        if (req.method === 'POST') {
-            // parse the command from the request
-            if (contentType === 'application/xml') {
-                try {
-                    zmq_cmd_msg = req.body; 
-                } catch (err) {
-                    Logger.log(LogLevel.ERROR, `could not parse body from request sui_data.ts suiCommadRequest`);
-                }
-            } else if (contentType === 'json' || contentType === 'application/json') {
-                try {
-                    zmq_cmd_msg = SuiData.getXmlFromJsonArgs(req, parsedReq);
-                } catch (err) {
-                    Logger.log(LogLevel.VERBOSE, `Exception while building JSON request: ${err}`);
-                }
-            } else {
-                Logger.log(LogLevel.ERROR, `Received unknown content type suiCommandRequest`);
-                return
-            }
-        } else { Logger.log(LogLevel.DEBUG, `got ${req.method}  \nContent-type:${SuiData.getContentType(req)} | ${req.headers['content-type']} \nREQ:${req} \nRES:${res} \nuiProps:${uiProps}`)}
-
-        Logger.log(LogLevel.INFO, `suiCommandRequest(): App "${req.params.appName}" received command "${parsedReq.cmd}" ` + `for tab ${req.params.tabName} - forwarding to ZMQ.`);
-
-        // send msg
-        socket.send(zmq_cmd_msg);
-        
-        // add res and req to queue
-        socket.http_queue.enqueue(req);
-
+        // add res + req pair to socket's queue
+        socket.http_queue.enqueue([res, req]);
     }
 
     static async suiCssToJsonRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
@@ -278,8 +223,8 @@ export class SuiData {
 
     /**
      * Injects a status if the XML doesn't aready have it
-     * @param xmlString 
-     * @returns 
+     * @param xmlString
+     * @returns
      */
     static addXmlStatus(xmlString: string): string {
         let tagNames = "(Data_Summary|Overlay_Summary)";
@@ -418,42 +363,46 @@ export class SuiData {
             // Add "cmd" attribute as a string
             if (typeof json_params['name'] === 'string') {
                 json_params['cmd'] = json_params['name'];
-                
+
             }
         }
         return json_params;
     }
 
     static getXmlFromJsonArgs(req: Request<ParamsDictionary>, parsedReq) {
-        //Logger.log(LogLevel.VERBOSE, '\n==> Inside getXmlFromJsonArgs()\n');
-
-        if (req.body == null) {
-            Logger.log(LogLevel.VERBOSE, 'req.body IS NULL\n');
-            return '{}';
-        } else {
-            Logger.log(LogLevel.VERBOSE, `req.body is NOT null, type: %s', ${typeof req.body}`);
-        }
-
-        const json_params = SuiData.merge_singleton_cmd(req.body);
-        json_params['commandName'] = 'unknown_command_name';
-        if (json_params['cmd'] instanceof Object) {
-            if (typeof json_params['cmd']['name'] === 'string') {
-                json_params['commandName'] = json_params['cmd']['name'];
+        try {
+            if (req.body == null) {
+                Logger.log(LogLevel.VERBOSE, 'req.body IS NULL');
+                return '{}';
+            } else {
+                Logger.log(LogLevel.VERBOSE, `req.body is not null, ${typeof req.body}`);
             }
-        } else if (typeof json_params['cmd'] === 'string') {
-            json_params['commandName'] = json_params['cmd'];
+
+            const json_params = SuiData.merge_singleton_cmd(req.body);
+            json_params['commandName'] = 'unknown_command_name';
+
+            if (json_params['cmd'] instanceof Object) {
+                if (typeof json_params['cmd']['name'] === 'string') {
+                    json_params['commandName'] = json_params['cmd']['name'];
+                }
+            } else if (typeof json_params['cmd'] === 'string') {
+                json_params['commandName'] = json_params['cmd'];
+            }
+
+            Logger.log(LogLevel.VERBOSE, `commandName: ${json_params['commandName']}`);
+
+            const extraDocRootAttrs = `COMMAND="${json_params['commandName']}" cmd="${json_params['commandName']}"`;
+            let xmlOut = SuiData.jsonToXml(json_params, 'request', extraDocRootAttrs);
+            xmlOut = xmlOut.replace('_input', 'value');
+
+            parsedReq.cmd = json_params['commandName'];
+            Logger.log(LogLevel.VERBOSE, `output xml for command "${json_params['commandName']}": ${xmlOut}`);
+
+            return xmlOut;
+        } catch (err) {
+            Logger.log(LogLevel.ERROR, `getXmlFromJsonArgs got error: ${err}`);
+            return '{}';
         }
-
-        Logger.log(LogLevel.VERBOSE, `commandName: ${json_params['commandName']}`);
-
-        const extraDocRootAttrs = `COMMAND="${json_params['commandName']}" cmd="${json_params['commandName']}"`;
-        let xmlOut = SuiData.jsonToXml(json_params, 'request', extraDocRootAttrs);
-        xmlOut = xmlOut.replace('_input', 'value');
-
-        parsedReq.cmd = json_params['commandName'];
-        Logger.log(LogLevel.VERBOSE, `output xml for command "${json_params['commandName']}": ${xmlOut}`);
-
-        return xmlOut;
     }
 
     static getXmlFromUrlArgs(req: Request<ParamsDictionary>, tab): string
@@ -626,7 +575,7 @@ export class SuiData {
 
     static xmlToJSON(xmlString: string, appName: string, props: any, req: Request<ParamsDictionary>) {
         let json = '{"error": "Something bad happened inside xmlToJSON."}';
-       
+
         if (xmlString[0] !== '<') {
             xmlString = xmlString.trim();
         }
@@ -677,10 +626,10 @@ export class SuiData {
             JsonStringNormalizer.normalizeJSON(json, props);
         } else if (docRootName === 'Overlay_Summary') {
             JsonOverlayNormalizer.normalizeJSON(json, props);
-        } 
+        }
         //else if (docRootName === 'error') {}
         else {
-            json = `{ '${docRootName}': ${json} }`; 
+            json = `{ '${docRootName}': ${json} }`;
         }
 
         const sJson = JSON.stringify(json);

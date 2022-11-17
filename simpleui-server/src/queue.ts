@@ -1,29 +1,32 @@
+import { EventEmitter } from "events";
 
 
 export class Queue {
     elements: Array<any>;
     MAX_QUEUE_SIZE: number;
+    events: EventEmitter;
 
     constructor() {
         this.elements = [];
         this.MAX_QUEUE_SIZE = 32;
+        this.events = new EventEmitter();
     }
 
     /**
      * add item to back of queue
-     * @param element 
+     * @param element
      */
     enqueue(element: any) {
         while (this.elements.length >= this.MAX_QUEUE_SIZE) {
-            console.log(this.elements.length)
             this.dequeue();
         }
         this.elements.push(element);
+        this.events.emit('item_added');
     }
 
     /**
      * remove item from front of queue
-     * @returns 
+     * @returns
      */
     dequeue() {
         return this.isEmpty() ? "Queue Underflow" : this.elements.shift();
