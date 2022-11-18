@@ -68,7 +68,7 @@ export class ZMQ_Socket_Wrapper {
 
                 if (req.method === 'POST' && req.body) {        // cmd request
                     const parsed_request = {cmd: `${req.params.zmqCmd}`};
-                    switch(req['Content-type']) {   // make packet off of content-type
+                    switch(req.get('Content-type')) {   // make packet off of content-type
                         case 'application/json': {
                             zmq_request_packet = SuiData.getXmlFromJsonArgs(req, parsed_request);
                             break;
