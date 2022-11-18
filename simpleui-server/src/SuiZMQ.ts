@@ -79,7 +79,7 @@ export class ZMQ_Socket_Wrapper {
                         }
                         default:
                             Logger.log(LogLevel.WARNING,
-                                `item_added event listener got unimplimented content-type: ${req['Content-Type']}`);
+                                `item_added event listener got unimplimented content-type: ${req.get('Content-Type')}`);
                             break;
                     }
                     Logger.log(LogLevel.INFO, `App "${req.params.appName}" received command "${parsed_request.cmd}" ` +
