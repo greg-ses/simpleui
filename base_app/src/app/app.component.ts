@@ -204,6 +204,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                         }
                     } catch (e) {
                         // Do nothing
+                        console.error(`resizeTabScrollRegion got error: ${e}`);
                     }
                 };
 
@@ -458,17 +459,17 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                     this.onPropsUpdate(res.response.props);
                     this._propsSubscriptionState = SubscriptionState.Idle;
                 } else {
-                    console.log(`${this._propsURL} failed`);
+                    console.error(`${this._propsURL} failed`);
                     alert(this._errorMessage + '\n\nPress F5 or REFRESH BUTTON to retry.');
                     this._propsSubscriptionState = SubscriptionState.ErrorFromAsyncResponse;
                 }
             },
             err => {
-                console.log(`Error in getProps() ajax subscribe callback.`);
+                console.error(`Error in getProps() ajax subscribe callback. ${err}`);
                 try {
-                    console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
+                    console.error('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
                 } catch (err1) {
-                    console.log('Error trying to display error');
+                    console.error('Error trying to display error');
                 }
             });
         this._propsSubscriptionState = SubscriptionState.AwaitingAsyncResponse;
@@ -537,7 +538,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                     tabLabel['style'].lineHeight = TAB_BAR_HEIGHT;
                 }
             } catch (e) {
-                console.log('error in configureTabBar: ', e);
+                console.error('error in configureTabBar: ', e);
             }
         }
     }
@@ -601,9 +602,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 this.doUpdate(cycle);
             },
             err => {
-                console.log(`Error in initTabDataUpdates() ajax subscribe callback.`);
+                console.error(`Error in initTabDataUpdates() ajax subscribe callback. ${err}`);
                 try {
-                    console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
+                    console.error(`initTabDataUpdates()  name:  ${err.name}, message: ${err.message} , url: ${err.request.url}`);
                 } catch (err1) {
                 }
             });
@@ -617,9 +618,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         try {
             if ((cycle * this._refreshRate) > this._milliSecondsBeforeAutoPageReload) {
                 sessionStorage.autoReload = 'true';
-                setTimeout(() => {
-                    document.location.reload();
-                }, 1);
+                //setTimeout(() => { document.location.reload(); }, 1);
             }
 
             if (!AppComponent._updatesSuspended) {
@@ -658,7 +657,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 }
             }
         } catch (e) {
-            console.log(`AppComponent.doUpdate() error: ${e.toString()}`);
+            console.error(`AppComponent.doUpdate() error: ${e}`);
         }
     }
 
@@ -721,7 +720,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 }
             }
         } catch (e) {
-            console.log(e);
+            console.error(`updateMinColWidths got error ${e}`);
         }
     }
 
@@ -833,13 +832,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
         // Extract and delete the updateTime
         tab._updateTime = ajaxDataSummary.timeStamp.value;
-        // delete ajaxDataSummary.timeStamp;
-        if (this._fullUpdateRequired) {
-            tab._DataSummary = ajaxDataSummary;
-            this._fullUpdateRequired = false;
-        } else {
-            UTIL.recursiveUpdate(tab._DataSummary, ajaxDataSummary);
-        }
+
+        tab._DataSummary= UTIL.deepCopy(ajaxDataSummary);
+        //UTIL.recursiveUpdate(tab._DataSummary, ajaxDataSummary);
 
         this.init_common_props(tab);
         this._tBarProps._serverStatus = 'Server connection okay';
@@ -855,6 +850,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         // this._changeDetectorRef.markForCheck();
         // this._changeDetectorRef.detectChanges();
         // this._changeDetectorRef.detach();
+
+        console.log(UTIL.stringMemoryChecker(JSON.stringify(tab._DataSummary)))
     }
 
     getUpdateTime(tab: TabUI) {
