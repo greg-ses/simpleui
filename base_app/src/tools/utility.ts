@@ -134,7 +134,7 @@ export class UTIL {
                 if (   (typeof outArr[i]['u_id'] === 'string') && (typeof inArr[j]['u_id'] === 'string')
                     && (outArr[i]['u_id'] === inArr[j]['u_id']) ) {
 
-                    updateElementsMap.push([i, j]); ///////////////
+                    updateElementsMap.push([i, j]);
                     break;
                 }
             }
@@ -174,6 +174,9 @@ export class UTIL {
             }
         }
     }
+
+
+
 
 
 

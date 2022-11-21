@@ -23,7 +23,7 @@ ng serve --host 0.0.0.0 --port 4200& #--configuration development
 
 # ----------- simpleui-server -----------
 cd /usr/src/app/simpleui-server || exit 1
-if [[ ! -d node_modules ]]; then 
+if [[ ! -d node_modules ]]; then
     npm install -f;
 fi
 npm run build;

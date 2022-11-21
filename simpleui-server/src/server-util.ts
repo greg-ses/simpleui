@@ -129,7 +129,7 @@ export class ServerUtil {
                     // console.log(`there are ${list.length} ${processName} process(es)`);
                 }, (err) => {
                     processInfo.isRunning = false;
-                    Logger.log(LogLevel.DEBUG, `Error in findProcess`);
+                    Logger.log(LogLevel.DEBUG, `Error in findProcess ${err}`);
             });
         }
         outProcessInfo['name']  = processInfo.name;

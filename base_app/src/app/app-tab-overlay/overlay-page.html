@@ -12,12 +12,12 @@
               [class]='"process_var " + varInfo.class' [id]='varInfo.id + "_value"'>{{ formatValue(overlayGroupName, varInfo.id, true) }}</span>
         <span *ngIf='((varInfo.value !== "") && (varInfo.units === "bool"))'
               [class]='"process_var " + varInfo.class + " ro_bool"' [id]='varInfo.id + "_value"'>{{ formatValue(overlayGroupName, varInfo.id, true) }}</span>
-        <app-command-button *ngIf='varInfo.command' 
-                            [id]='varInfo.command.id' 
+        <app-command-button *ngIf='varInfo.command'
+                            [id]='varInfo.command.id'
                             class="overlay-control"
-                            [_uiTab]='_uiTab' 
+                            [_uiTab]='_uiTab'
                             [element]='getElement(varInfo)'
-                            [_container]='varInfo.id' 
+                            [_container]='varInfo.id'
                             [_sha1sum]="varInfo.sha1sum?varInfo.sha1sum:0"
         >
         </app-command-button>
@@ -125,7 +125,7 @@
     <!--</div>-->
 
 
-    <!-- UnImplemented Overlays 
+    <!-- UnImplemented Overlays
     <div *ngIf="isDesignEnabled()" id='unimplementedOverlaysContainer' [hidden]='getMode() !== "design"'
          title='Click ⦻ in the title bar to move this window'
          style='position:absolute; opacity:75; background-color:lightgray; left: 1500px; top: 400px; border:3px solid black; padding: 0 0 0 0;'>
