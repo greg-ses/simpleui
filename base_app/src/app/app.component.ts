@@ -852,6 +852,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         // this._changeDetectorRef.detach();
 
         console.log(UTIL.stringMemoryChecker(JSON.stringify(tab._DataSummary)))
+        console.warn(tab._DataSummary)
     }
 
     getUpdateTime(tab: TabUI) {
