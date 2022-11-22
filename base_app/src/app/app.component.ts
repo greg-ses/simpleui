@@ -46,7 +46,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _globalProps = {
         _hiddenTables: []
     };
-    _fullUpdateRequired = false;
     _selectedTabIndex = 0;
     _autoRefreshEnabled = false;
     _commands_enabled = false;
@@ -210,10 +209,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
             }
         }
-    }
-
-    @Output() onFullUpdateRequired(fullUpdateRequired) {
-        this._fullUpdateRequired = fullUpdateRequired;
     }
 
     @Output() onUpdateModelOfChildDataSet(evt: any) {
@@ -839,17 +834,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this.init_common_props(tab);
         this._tBarProps._serverStatus = 'Server connection okay';
         this._tBarProps._refreshState = 'indicatorOn';
-
-        /*
-                if ((sessionStorage.autoReload === 'true') && (this._refreshCycle > 2) ) {
-                    setTimeout(() => this.displayRefreshPausedMessage(), 1);
-                    sessionStorage.autoReload = 'false';
-                }
-
-        */
-        // this._changeDetectorRef.markForCheck();
-        // this._changeDetectorRef.detectChanges();
-        // this._changeDetectorRef.detach();
 
         console.log(UTIL.stringMemoryChecker(JSON.stringify(tab._DataSummary)))
         console.warn(tab._DataSummary)
