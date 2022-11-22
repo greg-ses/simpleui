@@ -37,7 +37,7 @@ export class Queue {
     }
 
     isEmpty() {
-        return this.elements.length === 0 ? true : false;
+        return this.elements.length === 0;
     }
 
     get length() {
