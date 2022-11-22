@@ -135,8 +135,8 @@ export class ZMQ_Socket_Wrapper {
 
 
 /**
- * This class handles the creation of the zmq map
- * and the destruction of the sockets
+ * This class handles the creation and destruction of the zmq map
+ * and sockets
  */
 export class zmq_wrapper {
     socket_map: Map<number, ZMQ_Socket_Wrapper>;
@@ -168,13 +168,13 @@ export class zmq_wrapper {
 
     handleApplicationExit(signalName: string) {
         Logger.log(LogLevel.INFO, `ZMQ_Socket_Wrapper recieved signal ${signalName}`);
-        process.exit(1)
-        /*
+        //process.exit(1)
+
         this.socket_map.forEach((zmq_wrapper_instance, port) => {
             Logger.log(LogLevel.INFO, `closing zmq port: ${port}`);
             zmq_wrapper_instance.close();
             // close event listeners (message, error, item_added)?
-        });'
-        */
+            // zmq_wrapper_instance.http_queue.removeEventListener('item_added', () => {})
+        });
     }
 }

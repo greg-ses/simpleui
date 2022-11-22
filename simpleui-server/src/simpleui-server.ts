@@ -6,7 +6,7 @@ import * as os from 'os';
 import {PropsFileReader} from './props-file-reader';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
-import { zmq_wrapper } from './SuiZMQ';
+import { zmq_wrapper } from './sui_zmq';
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
 
 const app = express();
