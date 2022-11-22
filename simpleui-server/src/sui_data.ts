@@ -48,7 +48,7 @@ export class SuiData {
 
             if (res.headersSent) { return }
 
-            if (req.query.xml || req.query.XML) {
+            if (req.query.xml == "" || req.query.XML == "") {
                 res.setHeader('Content-Type', 'application/xml');
                 res.setHeader('charset', 'UTF-8');
                 const xmlMetaPrefix = '<?xml version="1.0" encoding="UTF-8"?>';

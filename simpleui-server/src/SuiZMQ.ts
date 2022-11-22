@@ -66,21 +66,15 @@ export class ZMQ_Socket_Wrapper {
                 let [_, req] = this.http_queue.elements[0];
                 let zmq_request_packet = "";
 
-                if (req.method === 'POST' && req.body) {        // cmd request
+                if (req.method === 'POST') {        // cmd request
                     const parsed_request = {cmd: `${req.params.zmqCmd}`};
-                    switch(req.get('Content-type')) {   // make packet off of content-type
-                        case 'application/json': {
-                            zmq_request_packet = SuiData.getXmlFromJsonArgs(req, parsed_request);
-                            break;
-                        }
-                        case 'application/xml': {
-                            zmq_request_packet = req.body;
-                            break;
-                        }
-                        default:
-                            Logger.log(LogLevel.WARNING,
-                                `item_added event listener got unimplimented content-type: ${req.get('Content-Type')}`);
-                            break;
+                    if (req.headers.accept === "*/*" && req.body) {     // regular cmd request
+                        zmq_request_packet = SuiData.getXmlFromJsonArgs(req, parsed_request);
+                    } else if (Object.keys(req.query).includes('xml')) {    // &xml debug request
+                        zmq_request_packet = req.body;
+                    } else {
+                        Logger.log(LogLevel.WARNING,
+                            `item_added event listener got unknown request type with headers ${req.headers} and body ${req.body}`);
                     }
                     Logger.log(LogLevel.INFO, `App "${req.params.appName}" received command "${parsed_request.cmd}" ` +
                         `for tab ${req.params.tabName} - forwarding to ZMQ.`);
@@ -174,10 +168,13 @@ export class zmq_wrapper {
 
     handleApplicationExit(signalName: string) {
         Logger.log(LogLevel.INFO, `ZMQ_Socket_Wrapper recieved signal ${signalName}`);
+        process.exit(1)
+        /*
         this.socket_map.forEach((zmq_wrapper_instance, port) => {
             Logger.log(LogLevel.INFO, `closing zmq port: ${port}`);
             zmq_wrapper_instance.close();
             // close event listeners (message, error, item_added)?
-        });
+        });'
+        */
     }
 }
