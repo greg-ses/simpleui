@@ -17,8 +17,8 @@
                        [formControl]="inputControl"
                        [value]="control.value"
                        [matDatepicker]="myDatepicker"
-                       [title]="control.desc"
-                />
+                       [title]="control.desc">
+
                 <mat-datepicker-toggle matSuffix [for]='myDatepicker'>
                 </mat-datepicker-toggle>
                 <mat-datepicker #myDatepicker></mat-datepicker>
@@ -37,9 +37,8 @@
                        [checked]="control.checked"
                        [name]="control.name"
                        [placeholder]="control.name"
-                       [title]="control.desc">{{control.label}}
-
-
+                       [title]="control.desc">
+                {{control.label}}
             </mat-form-field>
 
             <mat-form-field appearance="fill" *ngIf='control.type === "int"'>
@@ -48,8 +47,7 @@
                        [formControl]="inputControl"
                        [value]="control.value"
                        [placeholder]="control.name"
-                       [title]="control.desc"
-                />
+                       [title]="control.desc">
             </mat-form-field>
 
             <mat-form-field appearance="fill"  *ngIf='control.type === "float"'>
@@ -58,8 +56,7 @@
                        [formControl]="inputControl"
                        [value]="control.value"
                        [placeholder]="control.name"
-                       [title]="control.desc"
-                />
+                       [title]="control.desc">
             </mat-form-field>
 
             <mat-form-field appearance="fill" *ngIf='control.type === "text"'>
@@ -68,7 +65,7 @@
                        [formControl]="inputControl"
                        [value]="control.value"
                        [placeholder]="control.name"
-                       [title]="control.desc"/>
+                       [title]="control.desc">
             </mat-form-field>
 
             <mat-form-field appearance="fill" *ngIf='control.type === "textarea"'>
@@ -86,8 +83,7 @@
                        [formControl]="inputControl"
                        [value]="control.value"
                        [placeholder]="control.name"
-                       [title]="control.desc"
-                />
+                       [title]="control.desc">
             </mat-form-field>
         </div>
     </form>
