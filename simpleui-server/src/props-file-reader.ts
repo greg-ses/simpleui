@@ -19,51 +19,47 @@ export class PropsFileReader {
 
     static PropertySets = [];
 
-    static getAppPropsFiles(rawAppNameList: string, webPort: string): any
-    {
+    static getAppPropsFiles(rawAppNameList: string, webPort: string): any {
         const appPropsTuples = [];
-
         const appNames = rawAppNameList.split(/[,:;]/);
         for (let appName of appNames) {
             appName = appName.trim();
-
             let isMock = (appName.substr(0, 5) === "mock-");
-
             let propsDir = `/var/www/${appName}`;
             if (isMock) { propsDir = `${SimpleUIServer.bin_dir}/../../test/data/${appName.replace("mock-", "")}`; }
-
             if (!fs.existsSync(propsDir)) {
                     console.log(`Invalid appName: '${appName}'. Missing expected folder '${propsDir}'`);
                     return;
                 }
-
             const propsFiles =
                 fs.readdirSync(propsDir).filter( (element, index, array) => { return element.match(/[^\.]\.properties$/); } );
-
             for (const propsFileName of propsFiles) {
-
                 const props = PropsFileReader.getProps(propsFileName, appName, webPort, isMock);
                 if (!(props instanceof Object)) {
                     Logger.log(LogLevel.ERROR,
                         `Invalid config (no props for app "${appName}" and uiProp "${propsFileName}")`);
                     return;
                 }
-
                 if (!(props.tab instanceof Array)) {
                     Logger.log(LogLevel.ERROR,
                         `Invalid config (There are no "tab" properties for app "${appName}" and uiProp "${propsFileName}")`);
                     return;
                 }
-
                 const propsStub = propsFileName.replace('.properties', '');
                 appPropsTuples.push({appName: appName, propsFileName: propsFileName, propsStub: propsStub, props: props});
             }
         }
-
         return appPropsTuples;
     }
 
-    // PropsFileReader.getProps(app expressRequest.protocol, appName, expressRequest.query.uiProp);
+    /**
+     * Load the *.properties file and
+     * @param propsFileName
+     * @param appName
+     * @param webPort
+     * @param isMock
+     * @returns
+     */
     static getProps(propsFileName: string, appName: string, webPort: string, isMock=false) {
         if (appName === '/' || appName === '') {
             return null;
@@ -85,14 +81,6 @@ export class PropsFileReader {
         return PropsFileReader.PropertySets[key];
     }
 
-    /*
-    // header("Access-Control-Allow-Origin: *");
-    if (array_key_exists("xml", $_REQUEST) || array_key_exists("XML", $_REQUEST)) {
-        header("Content-Type: application/xml; charset=UTF-8");
-    } else {
-        header("Content-Type: application/json; charset=UTF-8");
-    }
-    */
 
     static processMacroPart(props: any, index: number) {
 
@@ -200,7 +188,6 @@ export class PropsFileReader {
         let macroCount = 0;
         let propsText = rawText.toString().replace(/[ \t]*#.*\n/g, '\n').replace(/\n+/g, '\n');
 
-
         let macroIndex = 0;
 
         if (!(props['macro'] instanceof Array)) {
@@ -293,14 +280,17 @@ export class PropsFileReader {
 
         let i = 0;
         let keyIndex = 0;
-        for (const pair of pairs) {
+        for (const pair of pairs) {                 // for each 'prop' line (not macro)
             // if (i++ === 0) { continue; }
             const firstEqual = pair.indexOf('=');
             if (firstEqual > 0) {
                 let key = pair.substr(0, firstEqual).trim();
                 const value = pair.substr(firstEqual + 1).trim();
-                const arrayKey = key.match(/^([^.]+)\.([0-9])+\.([^ =]+)/);
+                let arrayKey = key.match(/^([^.]+)\.([0-9])+\.([^ =]+)/);     // tab.1.dataURL splits into [tab, 1, dataUrl]           |       tab.10.dataUrl splits into [tab, 1, 0, dataUrl]
                 if (arrayKey) {
+                    if (key === 'tab') {
+                        arrayKey = key.split('.');
+                    }
                     key = arrayKey[1];
                     const index = parseInt(arrayKey[2], 10) - 1;
                     const subKey = arrayKey[3];
@@ -447,7 +437,6 @@ export class PropsFileReader {
     }
 
     static jsonToXml(element, root, depth = 0) {
-
         // IMPORTANT NOTE: element is modified by this function!
         // To avoid whacking the props you pass to this function,
         //   use    const tmpElement = ServerUtil.deepCopy(props);
@@ -461,11 +450,8 @@ export class PropsFileReader {
                 element[key] = '';
             }
         }
-
         // Use the jsonxml lib to format vanilla xml
         let xml = `<${root}>\n${jsonxml(element)}\n</${root}>`;
-
-
         for (const key of Object.keys(specializedElements)) {
             const xmlValue = `<${key}/>`;
             xml = xml.replace(xmlValue, specializedElements[key]);
@@ -473,6 +459,14 @@ export class PropsFileReader {
         return xml;
     }
 
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @param props
+     * @returns
+     */
     static async propsFileRequest(request, response, props) {
 
         if ((typeof request.query.xml === 'string')
@@ -497,40 +491,5 @@ export class PropsFileReader {
         return;
     }
 
-/*
-function getPropsJson(request, appDir, uiProp)
-{
-    // new stuff
-    if (array_key_exists("uiProp", request)) {
-        $uiProp = trim(request["uiProp"]);
-    } else {
-        $uiProp = "ui";
-    }
-
-    $UIProps = loadUiPropsFile(appDir . "/" . $uiProp . ".properties");
-    $UIMacroProps = extractMacros($UIProps);
-    replaceMacros($UIProps, $UIMacroProps);
-
-
-    $response = "<props>\n"
-        . UIPropsToXml($UIProps)
-        . "</props>\n";
-
-    // Arbitrary change
-
-    if (array_key_exists("xml", $_REQUEST) || array_key_exists("XML", $_REQUEST)) {
-        // nothing to do -- already have XML
-    } else {
-        // Default is to return JSON
-        $versionText = "V.xxx";
-        if (array_key_exists("version", $_REQUEST)) {
-            $versionText = $_REQUEST["version"];
-        }
-        $response = XmlDiffTool::xmlToJSON($response, "props", $versionText);
-    }
-
-    echo $response;
-}
-*/
 
 }
