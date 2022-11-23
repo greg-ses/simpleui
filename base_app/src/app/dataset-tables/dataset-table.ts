@@ -5,6 +5,8 @@ import { DataSetChangeService } from '../services/dataset-change.service';
 import { AppComponent } from '../app.component';
 import { TabUI } from '../interfaces/props-data';
 import { Subscription } from 'rxjs';
+import {ClientLogger} from '../../tools/logger';
+
 
 @Component({
     animations: [],
@@ -83,24 +85,26 @@ export class DatasetTableComponent implements OnDestroy {
 
 
     isCollapsed(): boolean {
-        this._hidden = this.app.globalProps && this.app.globalProps._hiddenTables
-                       && (this.app.globalProps._hiddenTables.indexOf(this.getTableId()) > -1);
+        this._hidden = this.app._globalProps._hiddenTables.indexOf(this.getTableId()) > -1;
         return this._hidden;
     }
 
-    toggle() {
-        if (this.app.globalProps && this.app.globalProps._hiddenTables) {
+
+    toggleTableDisplay() {
+        if (this.app._globalProps && this.app._globalProps._hiddenTables) {
             const tableId = this.getTableId();
-            const pos = this.app.globalProps._hiddenTables.indexOf(tableId);
+            const pos = this.app._globalProps._hiddenTables.indexOf(tableId);
             if (pos === -1) {
-                this.app.globalProps._hiddenTables.push(tableId);
+                this.app._globalProps._hiddenTables.push(tableId);
                 this._hidden = true;
-                console.log('toggle(' + tableId + '): hidden');
+                ClientLogger.log("DeltaUpdate", `toggle( ${tableId} ): hidden`)
             } else {
-                this.app.globalProps._hiddenTables = this.app.globalProps._hiddenTables.filter(e => e !== tableId);
+                this.app._globalProps._hiddenTables = this.app._globalProps._hiddenTables.filter(e => e !== tableId);
                 this._hidden = false;
-                console.log('toggle(' + tableId + '): visible');
+                ClientLogger.log("DeltaUpdate", `toggle( ${tableId} ): visible`)
             }
+            this._changeDetectorRef.detectChanges();
+            this._changeDetectorRef.detach();
         }
     }
 }

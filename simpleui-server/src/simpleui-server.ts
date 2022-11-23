@@ -12,15 +12,6 @@ import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
 const app = express();
 
 
-
-/*
-const asyncMiddleware = fn =>
-    (req, res, next) => {
-        Promise.resolve(fn(req, res, next))
-            .catch(next);
-    };
-*/
-
 export class SimpleUIServer {
     static SERVER_IP = '0.0.0.0';
     static BACKLOG = 511;

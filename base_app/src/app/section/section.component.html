@@ -40,6 +40,7 @@
             id="Table-{{_sectionIndex}}-{{dataSetIdx}}-{{tableIdx}}" [title]="fixNL(dsItem.desc)" class="L3"
         >
             <dataset-table *ngIf="getTableType(dsItem) === 'PairListTable'"
+                            [idk]="datasets_instance"
                            [_dataset]="dsItem"
                             [_uiTab]="_uiTab"
                             [id]="dsItem.id"
@@ -48,7 +49,7 @@
             <prop-defined-table *ngIf="getTableType(dsItem) === 'PropDefinedTable'"
                                 [_dataset]="dsItem"
                                 [_uiTab]="_uiTab"
-                                [id]="dsItem.id"
+                                [_id]="dsItem.id"
                                 [_hidden]="false">
             </prop-defined-table>
         </td>
