@@ -787,6 +787,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                         if (res.status === 200 && typeof res.response === 'object' && (null !== res.response)) {
                             tab._pendingRequestExpiration = 0; // Cancel wait
                             this.onTabDataUpdate(tab, res.response);
+                        } else {
+                            console.warn(`Got odd response: ${res.response}`);
                         }
                     },
                     err => {
