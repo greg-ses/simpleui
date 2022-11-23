@@ -171,4 +171,22 @@ export class ServerUtil {
         );
     }
 
+    /**
+     * parses the ZMQ ports out of a props object
+     * @param props
+     * @returns
+     */
+    static getZMQPortsFromProps(props: any) {
+        let ports = []
+        for (let macroIndex = 0; macroIndex < props.macro.length; macroIndex++) {
+            let macro = props.macro[macroIndex];
+            if (Object.getOwnPropertyNames(macro).includes('replacement') &&
+                Object.getOwnPropertyNames(macro).includes('property') &&
+                macro.property.endsWith('.port')) {
+                let port = parseInt(macro.replacement);
+                ports.push(port);
+            }
+        }
+        return ports
+    }
 }
