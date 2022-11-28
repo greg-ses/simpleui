@@ -505,6 +505,7 @@ export class OverlayPageComponent {
     getElemInfo(tag: string, overlayGroupName: string, shortName: string): any {
 
         const j = this.getJsonElement(overlayGroupName, shortName, tag);
+
         const info = {
             'json': j,
             'label': '',
@@ -544,8 +545,9 @@ export class OverlayPageComponent {
                 info.value = ((typeof j['value'] === 'string') && j['value']) || '';
                 info['disabled'] = false;
 
+
                 info.commandLabel = ((typeof j['cmd'] === 'string') && j['cmd']) || '';
-                info.command = j;
+                info.command = Object.assign({}, j);
                 info['_action'] = ((typeof j['_action'] === 'string') && j['_action']) || '';
                 }
         } else if (tag === 'img') {
@@ -678,7 +680,7 @@ export class OverlayPageComponent {
                 return prefix + value + (units ? (' ' + units) : '');
             }
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
         return '';
     }

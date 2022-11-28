@@ -42,7 +42,6 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
             const sNewCommandElement = JSON.stringify(newCmdObject);
             if (sExistingCommandElement !== sNewCommandElement) {
                 this._element = newCmdObject;
-                // UTIL.recursiveUpdate(newCmdObject, this._element);
                 this._changeDetectorRef.detectChanges();
             }
         } else {
