@@ -37,7 +37,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _refreshRate = 1000;
     _pendingRequestWait = 10000;
     _updateSubscription = null;
-    _milliSecondsBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default * 60 * 1000;
     _debugRefreshCycle = 0;
     _errorMessage = '';
     _appURI = AppComponent.getServiceURI();
@@ -576,9 +575,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
             }
         }
-        // Restrict minutesBeforeAutoPageReload range to (1..30)
-        minutesBeforeAutoPageReload = Math.max(Math.min(minutesBeforeAutoPageReload, AppComponent._minutesBeforeAutoPageReload_Default), 1);
-        this._milliSecondsBeforeAutoPageReload = minutesBeforeAutoPageReload * 60 * 1000;
 
         this._refreshRate = 1000;
         if ((this._props instanceof Object)
@@ -611,11 +607,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
      */
     doUpdate(cycle: number = 0) {
         try {
-            if ((cycle * this._refreshRate) > this._milliSecondsBeforeAutoPageReload) {
-                sessionStorage.autoReload = 'true';
-                //setTimeout(() => { document.location.reload(); }, 1);
-            }
-
             if (!AppComponent._updatesSuspended) {
                 for (const tab of this._props.tab) {
                     if (Number(tab.index) === this._selectedTabIndex) {
