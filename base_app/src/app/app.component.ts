@@ -822,15 +822,10 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         tab._updateTime = ajaxDataSummary.timeStamp.value;
 
         tab._DataSummary= UTIL.deepCopy(ajaxDataSummary);
-        //UTIL.recursiveUpdate(tab._DataSummary, ajaxDataSummary);
 
         this.init_common_props(tab);
         this._tBarProps._serverStatus = 'Server connection okay';
         this._tBarProps._refreshState = 'indicatorOn';
-
-        //console.log(UTIL.stringMemoryChecker(JSON.stringify(tab._DataSummary)))
-        //console.warn(tab._DataSummary)
-        console.log(this.globalProps)
     }
 
     getUpdateTime(tab: TabUI) {

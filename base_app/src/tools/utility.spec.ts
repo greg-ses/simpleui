@@ -556,6 +556,7 @@ describe('UTIL', () => {
         expect(workingProps).not.toEqual(initialProps);
     });
 
+    /*
     it('TestSetup Working- and Initial- statics should have identical property names after UTIL.recursiveUpdate()', () => {
         UTIL.recursiveUpdate(TestSetup.Working_Data_Summary_Initializer, TestSetup.Initial_Data_Summary_Initializer);
 
@@ -565,7 +566,7 @@ describe('UTIL', () => {
         expect(workingProps).toEqual(initialProps);
     });
 
-    /*
+
     it('TestSetup statics should be equal after appropriate transformations', () => {
 
         let working_Data_Summary = TestSetup.Working_Data_Summary_Initializer;

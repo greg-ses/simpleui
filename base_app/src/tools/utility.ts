@@ -2,9 +2,6 @@
  * Created by jscarsdale on 3/29/2019.
  *
  * Added typescript wrapper around xml2json function
- *
- * Based on deepClone() example from
- *     https://stackoverflow.com/questions/40291987/javascript-deep-clone-object-with-circular-references/40293777#40293777
 */
 
 import { Injectable } from '@angular/core';
@@ -110,132 +107,6 @@ export class UTIL {
         return changeSet;
     }
 
-    /**
-     * Modifies the contents on inArr to match outArr. THIS IS NOT A COPY. The point of this method
-     * is to keep the references to outArr and inArr.
-     * @param outArr -
-     * @param inArr -
-     */
-    public static recursiveUpdateArray(outArr, inArr) {
-
-        if (!outArr || (! (outArr instanceof Array)) ) {
-            throw new Error('outArr must be an array, but is of type "' + typeof outArr + '".');
-        }
-
-        if (!inArr || (! (inArr instanceof Array)) ) {
-            throw new Error('inArr should be an array, but is of type "' + typeof inArr + '".');
-        }
-
-        const updateElementsMap = []; // Map of (outArrIndex, inArrIndex) of elements that match by 'u_id'
-
-        // Walk outArr elements, saving elements with a corresponding inArr element in updateElementsMap.
-        for (let i = 0; i < outArr.length; i++) {
-            for (let j = 0; j < inArr.length; j++) {
-                if (   (typeof outArr[i]['u_id'] === 'string') && (typeof inArr[j]['u_id'] === 'string')
-                    && (outArr[i]['u_id'] === inArr[j]['u_id']) ) {
-
-                    updateElementsMap.push([i, j]);
-                    break;
-                }
-            }
-        }
-
-        // Update all elements from outArr that matched an inArr element by 'u_id'
-        // and Delete all elements from outArr that didn't match any inArr element by 'u_id'
-        for (let i = outArr.length - 1; i >= 0; i--) {
-            let outPos = -1;
-            let inPos = -1;
-            for (let j = 0; j < updateElementsMap.length; j++) {
-                if (i === updateElementsMap[j][0]) {
-                    outPos = i;
-                    inPos = updateElementsMap[j][1];
-                    break;
-                }
-            }
-            if (outPos > -1) {
-                UTIL.recursiveUpdate(outArr[outPos], inArr[inPos]);
-            } else {
-                outArr.splice(i, 1);
-            }
-        }
-
-        // Add any elements from inArr that had no corresponding element in outArr
-        for (let i = 0; i < inArr.length; i++) {
-            let found = false;
-            for (let j = 0; j < updateElementsMap.length; j++) {
-                if (i === updateElementsMap[j][1]) {
-                    found = true;
-                }
-            }
-            if (!found) {
-                // outArr.push(inArr[i]);
-                outArr.push(UTIL.deepCopy(inArr[i]));
-
-            }
-        }
-    }
-
-
-
-
-
-
-    /**
-     * Replicates inObj to outObj, by modifying any existing children, instead of creating new instances of them.
-     * Children that are in inObj but not present in outObj are added to outObj.
-     * Any children of outObj that are not present in InObj are deleted.
-     * @param outObj - -
-     * @param inObj - -
-     * @returns -
-     */
-    public static recursiveUpdate(outObj, inObj) {
-
-        if (!outObj || (! (outObj instanceof Object)) ) {
-            throw new Error('outObj must be a mutable argument, but is of type "' + typeof outObj + '".');
-        }
-
-        if (!inObj || (! (inObj instanceof Object)) ) {
-            throw new Error('inObj should be an object type, but is of type "' + typeof outObj + '".');
-        }
-
-       if (inObj instanceof Array) {
-            if (Array.isArray(outObj)) {
-                UTIL.recursiveUpdateArray(outObj, inObj);
-            } else {
-                // inObj IS an array, but outObj is NOT an array - just copy the array
-                // Object.assign(outObj, inObj)
-                outObj = UTIL.deepCopy(inObj);
-            }
-        } else {
-            // inObj is an object, but is NOT an array
-            const inObjKeys = Object.keys(inObj);
-
-            // Delete all children of outObj that aren't in inObj
-            for (const key of Object.keys(outObj)) {
-                if (inObjKeys.indexOf(key) === -1) {
-                    delete outObj[key];
-                }
-            }
-
-            // Copy all children from inObj to outObj
-            for (const key of inObjKeys) {
-
-                if ( (inObj[key] instanceof Object)
-                    && outObj[key] && (outObj[key] instanceof Object)
-                    && (! ( (outObj[key] instanceof Array) && (outObj[key].length === 0) ) ) ) {
-                    UTIL.recursiveUpdate(outObj[key], inObj[key]);
-
-                } else {
-                    // if inObj[key] not already in outObj[key], then add it
-                    outObj[key] = null;
-                    outObj[key] = UTIL.deepCopy(inObj[key]);
-                }
-            }
-        }
-
-        return;
-    }
-
 
     /**
      * Compares the 'u_id' of obj1 and obj2.
@@ -264,38 +135,6 @@ export class UTIL {
         return structuredClone(data);
     }
 
-
-    public static deepCopy_(obj: any) {
-        if (typeof obj === 'undefined') {
-            // return value is also undefined
-            return obj;
-        }
-        let clonedObject: any;
-        if (obj instanceof Array) {
-            clonedObject = Object.assign([], obj);
-            for (let j = 0; j < obj.length; j++) {
-                clonedObject[j] = this.deepCopy(obj[j]);
-            }
-            return clonedObject;
-        } else if (['number', 'string', 'boolean'].indexOf(typeof obj) > -1) {
-            return obj;
-        } else {
-            clonedObject = Object.assign({}, obj);
-            const allKeys = Object.keys(clonedObject);
-            for (let i = 0; i < allKeys.length; i++) {
-                if (clonedObject[allKeys[i]] instanceof Array) {
-                    clonedObject[allKeys[i]] = this.deepCopy(clonedObject[allKeys[i]]);
-                } else if (clonedObject[allKeys[i]] instanceof Date) {
-                    clonedObject[allKeys[i]] = new Date(clonedObject[allKeys[i]].valueOf());
-                } else if (clonedObject[allKeys[i]] instanceof Object) {
-                    clonedObject[allKeys[i]] = this.deepCopy(clonedObject[allKeys[i]]);
-                } else {
-                    clonedObject[allKeys[i]] = this.deepCopy(clonedObject[allKeys[i]]);
-                }
-            }
-            return clonedObject;
-        }
-    }
 
     public static compareAndUpdateSavedJSONValue(newJson, referenceKey, childObj, outComparedValues: any = null): boolean {
         // Example: const changed = this.app._popupDialog.compareAndUpdateSavedJSONValue(sect, sect.name, 'CmdSet');
