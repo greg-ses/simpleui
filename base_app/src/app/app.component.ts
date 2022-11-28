@@ -837,8 +837,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this._tBarProps._serverStatus = 'Server connection okay';
         this._tBarProps._refreshState = 'indicatorOn';
 
-        console.log(UTIL.stringMemoryChecker(JSON.stringify(tab._DataSummary)))
-        console.warn(tab._DataSummary)
+        //console.log(UTIL.stringMemoryChecker(JSON.stringify(tab._DataSummary)))
+        //console.warn(tab._DataSummary)
+        console.log(this.globalProps)
     }
 
     getUpdateTime(tab: TabUI) {

@@ -20,12 +20,12 @@ import {ClientLogger} from '../../tools/logger';
 // The common page layout with id tags for js
 export class DatasetTableComponent implements OnDestroy {
     @Input() _dataset: DataSet;
-    @Input() _hidden: boolean;
     @Input() _props: any;
     @Input() _uiTab: TabUI;
     @Input() _tableName: string;
     _updateCount = 0;
     dataSetChangeSubscription: Subscription;
+    _hidden: boolean
 
     constructor(
         private commandButtonChangeService: CommandButtonChangeService,
@@ -53,6 +53,16 @@ export class DatasetTableComponent implements OnDestroy {
                     this._changeDetectorRef.detectChanges();
                 }
             });
+
+
+
+    }
+
+    ngOnInit() {
+        let table_name = this._dataset.label;
+        if (this.app._globalProps._hiddenTables.includes(table_name)) {
+            this._hidden = true;
+        }
     }
 
     ngOnDestroy() {
