@@ -59,8 +59,8 @@ export class DatasetTableComponent implements OnDestroy {
     }
 
     ngOnInit() {
-        let table_name = this._dataset.label;
-        if (this.app._globalProps._hiddenTables.includes(table_name)) {
+        let table_id = this.getTableId();
+        if (this.app._globalProps._hiddenTables.includes(table_id)) {
             this._hidden = true;
         }
     }
