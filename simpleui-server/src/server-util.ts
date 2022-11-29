@@ -1,14 +1,5 @@
 /**
  * Created by jscarsdale on 2019-10-17.
- *
- * For deepCopy() function.
- *
- * Based on deepClone() example from
- *     https://stackoverflow.com/questions/40291987/javascript-deep-clone-object-with-circular-references/40293777#40293777
- *
- *     and
- *
- *     function deepCopy() from ../nodejs/json-normalizer.ts
  */
 import { Logger, LogLevel } from './server-logger';
 import { ProcessInfo } from './interfaces';
@@ -27,44 +18,6 @@ export class ServerUtil {
         return structuredClone(obj)
     }
 
-    static deepCopy_(obj: any) {
-
-        if (typeof obj === 'undefined') {
-            // return value is also undefined
-            return obj;
-        }
-
-        let clonedObject: any;
-
-        if (obj instanceof Array) {
-            clonedObject = Object.assign([], obj);
-
-            for (let j = 0; j < obj.length; j++) {
-                clonedObject[j] = ServerUtil.deepCopy(obj[j]);
-            }
-
-            return clonedObject;
-
-        } else if (['number', 'string', 'boolean'].indexOf(typeof obj) > -1) {
-            return obj;
-        } else {
-
-            clonedObject = Object.assign({}, obj);
-
-            const allKeys = Object.keys(clonedObject);
-
-            for (let i = 0; i < allKeys.length; i++) {
-                if (clonedObject[allKeys[i]] instanceof Array) {
-                    clonedObject[allKeys[i]] = ServerUtil.deepCopy(clonedObject[allKeys[i]]);
-                } else if (clonedObject[allKeys[i]] instanceof Date) {
-                    clonedObject[allKeys[i]] = new Date(clonedObject[allKeys[i]].valueOf());
-                } else if (clonedObject[allKeys[i]] instanceof Object){
-                    clonedObject[allKeys[i]] = ServerUtil.deepCopy(clonedObject[allKeys[i]]);
-                }
-            }
-            return clonedObject;
-        }
-    }
 
     static htmlspecialchars(s: string) {
         const retVal =
@@ -129,7 +82,7 @@ export class ServerUtil {
                     // console.log(`there are ${list.length} ${processName} process(es)`);
                 }, (err) => {
                     processInfo.isRunning = false;
-                    Logger.log(LogLevel.DEBUG, `Error in findProcess`);
+                    Logger.log(LogLevel.DEBUG, `Error in findProcess ${err}`);
             });
         }
         outProcessInfo['name']  = processInfo.name;
@@ -171,4 +124,22 @@ export class ServerUtil {
         );
     }
 
+    /**
+     * parses the ZMQ ports out of a props object
+     * @param props
+     * @returns
+     */
+    static getZMQPortsFromProps(props: any) {
+        let ports = []
+        for (let macroIndex = 0; macroIndex < props.macro.length; macroIndex++) {
+            let macro = props.macro[macroIndex];
+            if (Object.getOwnPropertyNames(macro).includes('replacement') &&
+                Object.getOwnPropertyNames(macro).includes('property') &&
+                macro.property.endsWith('.port')) {
+                let port = parseInt(macro.replacement);
+                ports.push(port);
+            }
+        }
+        return ports
+    }
 }

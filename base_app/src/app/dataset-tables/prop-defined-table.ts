@@ -16,11 +16,11 @@ import { Subscription } from 'rxjs';
 // The common page layout with id tags for js
 export class PropDefinedTableComponent implements OnDestroy {
     @Input() _dataset: PropDefinedDataSet;
-    @Input() _hidden: boolean;
     @Input() _uiTab: TabUI;
     @Input() _id: string;
     _updateCount = 0;
     dataSetChangeSubscription: Subscription;
+    _hidden: boolean
 
     constructor(
         private dataSetChangeService: DataSetChangeService,
@@ -37,6 +37,13 @@ export class PropDefinedTableComponent implements OnDestroy {
                 this._changeDetectorRef.detectChanges();
             }
         });
+    }
+
+    ngOnInit() {
+        let table_name = this._id;
+        if (this.app._globalProps._hiddenTables.includes(table_name)) {
+            this._hidden = true;
+        }
     }
 
     ngOnDestroy() {
@@ -82,7 +89,7 @@ export class PropDefinedTableComponent implements OnDestroy {
         }
         this._changeDetectorRef.detectChanges();
         this._changeDetectorRef.detach();
-        
+
     }
 
 }

@@ -7,48 +7,9 @@ export class JsonOverlayNormalizer {
             // return value is also undefined
             return obj;
         }
-
         return structuredClone(obj);
-        
     }
 
-    static deepCopy_(obj: any) {
-
-        if (typeof obj === 'undefined') {
-            // return value is also undefined
-            return obj;
-        }
-        let clonedObject: any;
-
-        if (obj instanceof Array) {
-            clonedObject = Object.assign([], obj);
-
-            for (let j = 0; j < obj.length; j++) {
-                clonedObject[j] = JsonOverlayNormalizer.deepCopy(obj[j]);
-            }
-
-            return clonedObject;
-
-        } else if (['number', 'string', 'boolean'].indexOf(typeof obj) > -1) {
-            return obj;
-        } else {
-
-            clonedObject = Object.assign({}, obj);
-
-            const allKeys = Object.keys(clonedObject);
-
-            for (let i = 0; i < allKeys.length; i++) {
-                if (clonedObject[allKeys[i]] instanceof Array) {
-                    clonedObject[allKeys[i]] = JsonOverlayNormalizer.deepCopy(clonedObject[allKeys[i]]);
-                } else if (clonedObject[allKeys[i]] instanceof Date) {
-                    clonedObject[allKeys[i]] = new Date(clonedObject[allKeys[i]].valueOf());
-                } else if (clonedObject[allKeys[i]] instanceof Object) {
-                    clonedObject[allKeys[i]] = JsonOverlayNormalizer.deepCopy(clonedObject[allKeys[i]]);
-                }
-            }
-            return clonedObject;
-        }
-    }
 
     static normalizeJSON($json, $propsJson) {
         if (typeof $json === 'object') {

@@ -43,14 +43,12 @@
                             [idk]="datasets_instance"
                            [_dataset]="dsItem"
                             [_uiTab]="_uiTab"
-                            [id]="dsItem.id"
-                            [_hidden]="false">
+                            [id]="dsItem.id">
             </dataset-table>
             <prop-defined-table *ngIf="getTableType(dsItem) === 'PropDefinedTable'"
                                 [_dataset]="dsItem"
                                 [_uiTab]="_uiTab"
-                                [_id]="dsItem.id"
-                                [_hidden]="false">
+                                [_id]="dsItem.id">
             </prop-defined-table>
         </td>
     </tr>

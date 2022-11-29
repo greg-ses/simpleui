@@ -6,12 +6,10 @@ import * as os from 'os';
 import {PropsFileReader} from './props-file-reader';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
+import { zmq_wrapper } from './sui_zmq';
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
-import * as fs from 'fs';
-
 
 const app = express();
-
 
 
 export class SimpleUIServer {
@@ -22,7 +20,7 @@ export class SimpleUIServer {
     static bin_dir = "";
     static newMockDataURL: any = ""; // allows us to modify the mock data requests via mock cmd requests
     static webPortString = "";
-
+    static REQUESTS_UNTIL_MOCK_CMD_ENDS: number = 10;
 
     static executeMockRequest(cmdArgs: CommandArgs, props: any, req: Request<ParamsDictionary> = null, res: Response = null) {
         if (props) {
@@ -165,6 +163,15 @@ export class SimpleUIServer {
                 return 1;
             }
 
+            let _props = PropsFileReader.getProps('ui.properties',
+                cmdVars.appName, cmdVars.webPort);
+
+            ////// set up zmq sockets
+            let zmq_ports_array = ServerUtil.getZMQPortsFromProps(_props).map(p => Number(p));
+            Logger.log(LogLevel.INFO, `ZMQ ports: ${zmq_ports_array}`);
+            SuiData.zmqMap = new zmq_wrapper(zmq_ports_array);
+            //////
+
             const originsWhiteList = [
                 `http://localhost`,
                 "http://localhost:4100",
@@ -201,11 +208,6 @@ export class SimpleUIServer {
                 return 0;
             }
 
-            // handle --mode=daemon
-
-            // MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGINT listeners added.
-            // This error happens because ZMQ requests are stalling / taking too long.
-            // But it's possible to experiments with upping the limit from the default of 10 as shown below.
             const maxListeners = 200;
             process.setMaxListeners(maxListeners);
 
@@ -300,9 +302,8 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
-                    await SuiData.suiDataRequest(req, res, props);
+                    SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
-
                     const cmd = SuiData.getCmdFromReq(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                         `Err in data request: ${err}`,
@@ -330,7 +331,7 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
-                    await SuiData.suiCommandRequest(req, res, props);
+                    SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
 
                     const cmd = SuiData.getCmdFromReq(req);
@@ -352,10 +353,9 @@ export class SimpleUIServer {
             spacer1 = ' '.repeat(Math.max((104 - displayUrl.length), 1));
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}/${spacer1}(mock data)`);
             app.get(mockDataQuery, async (req, res) => {
-                // Replies with data from a zeromq request
-                Logger.log(LogLevel.VERBOSE, `data request callback: ${++SimpleUIServer.requestCallbacks}`);
-                
-                if (SimpleUIServer.requestCallbacks % 10 === 0) {
+                Logger.log(LogLevel.VERBOSE, `mock data request callback: ${++SimpleUIServer.requestCallbacks}`);
+
+                if (SimpleUIServer.requestCallbacks % SimpleUIServer.REQUESTS_UNTIL_MOCK_CMD_ENDS === 0) {
                     SimpleUIServer.newMockDataURL = "";
                 }
 
@@ -426,14 +426,13 @@ export class SimpleUIServer {
                 }
             });
 
-            
+
 
             // ------------------------------
             // start the Express server
             // ------------------------------
             try {
                 const server = app.listen(cmdVars.webPort, SimpleUIServer.SERVER_IP, SimpleUIServer.BACKLOG, () => SimpleUIServer.printServerInfo(cmdVars));
-                
 
             } catch (err) {
                 Logger.log(LogLevel.ERROR, `Error in app.listen(): ${err}`);

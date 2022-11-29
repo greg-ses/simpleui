@@ -19,7 +19,6 @@ import { SectionChangeList } from '../interfaces/dataset';
 
 export class AppTabNormalComponent implements AfterContentInit, OnInit {
     @Input() _uiTab: TabUI;
-    @Output() fullUpdateRequired = new EventEmitter<boolean>();
     @Output() updateModelOfChildDataSet = new EventEmitter<{uiTab: any, sectionIdx: number, dataSetsIdx: number, newChildData: any}>();
     _initialized = false;
 
@@ -110,10 +109,6 @@ export class AppTabNormalComponent implements AfterContentInit, OnInit {
                 }
             }
 
-            if (sectionChangeList.changed) {
-                ClientLogger.log('DeltaUpdate', 'Send fullUpdateRequired msg');
-                this.fullUpdateRequired.emit(true);
-            }
         }
         return sectionChangeList;
     }
@@ -125,13 +120,11 @@ export class AppTabNormalComponent implements AfterContentInit, OnInit {
             changed_dsItem_u_ids: []
         };
 
-        let needFullUpdate = false;
 
         // If full update not already triggered, trigger updates for any changed command within any DataSet
             for (const dsItem of dataSetsInstance.dsItems) {
                 if (! (window['dsItem_sha1sum'] instanceof Array)) {
                     // Initializing
-                    needFullUpdate = true;
                     ClientLogger.log('DeltaUpdate', 'Δ ' + dsItem.u_id + ':init dsItem_sha1sum');
                     window['dsItem_sha1sum'] = [];
                     window['dsItem_sha1sum'][dsItem.u_id] = dsItem.sha1sum;
