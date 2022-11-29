@@ -61,17 +61,25 @@ export class SimpleUIServer {
     }
 
     /**
-     * Adds overrides from command line to props file
+     * Adds overrides from command line to props by directly manipulating the
+     * props object
      * @param cmdVars
      * @param props
      */
     static addOverrides(cmdVars: CommandArgs, props: any): any {
         if (cmdVars.theme) {
+            Logger.log(LogLevel.INFO, `Overriding props.appTheme.name (${props.appTheme.name}) with ${cmdVars.theme}`);
             props.appTheme.name = cmdVars.theme;
         }
 
         if (cmdVars.DBname) {
-
+            let macros = props.macro;
+            macros.forEach( (macro) => {
+                if (macro.token.includes("_MYSQL_DB")) {
+                    Logger.log(LogLevel.INFO, `Overriding macro ${macro.token} (${macro.replacement}) with ${cmdVars.DBname}`);
+                    macro.replacement = cmdVars.DBname;
+                }
+            } );
         }
 
         return props;
@@ -172,13 +180,14 @@ export class SimpleUIServer {
         cmdVars.help += '\n    --theme=       (optional) Overrides the theme. Must be either SimpleUiBlue, SimpleUiPurple, SimpleUiSea, or SimpleUiPeach';
         match = cmdLine.match(/(\W+-t\W+|--theme=)([^ \t]+)/);
         if (match) {
-            if ( ["SimpleUiBlue", "SimpleUiPurple", "SimpleUiSea", "SimpleUiPeach"].includes(cmdVars.theme) ) {
+            if ( ["SimpleUiBlue", "SimpleUiPurple", "SimpleUiSea", "SimpleUiPeach"].includes(match[2]) ) {
                 cmdVars.theme = match[2];
                 cmdVars.override = true;
             } else {
                 Logger.log(LogLevel.WARNING, `theme ${match[2]} is not valid, using theme in ui.properties`);
             }
         }
+
 
         return cmdVars
     }
@@ -219,8 +228,6 @@ export class SimpleUIServer {
             let _props = PropsFileReader.getProps('ui.properties', cmdVars.appName, cmdVars.webPort);
 
             ////// set up zmq sockets
-            console.log(_props)
-
             let zmq_ports_array = ServerUtil.getZMQPortsFromProps(_props).map(p => Number(p));
             const zmqHostname = cmdVars.zmqHostname;
             Logger.log(LogLevel.INFO, `ZMQ ports: ${zmq_ports_array}`);
@@ -327,16 +334,13 @@ export class SimpleUIServer {
             app.get(`${propsFileQuery}`, async (req, res) => {
                 Logger.log(LogLevel.VERBOSE, `props request callback: ${++SimpleUIServer.requestCallbacks}`);
                 try {
-                    const props = PropsFileReader.getProps(
+                    let props = PropsFileReader.getProps(
                         `${req.params.propsStub}.properties`,
                         `${req.params.appName}`, cmdVars.webPort);
 
-                    console.log(props)
-
                     if (cmdVars.override) {
-
+                        props = SimpleUIServer.addOverrides(cmdVars, props)
                     }
-
 
                     await PropsFileReader.propsFileRequest(req, res, props);
                 } catch (err) {
