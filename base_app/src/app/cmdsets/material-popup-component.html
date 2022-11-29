@@ -6,9 +6,7 @@
         </div>
 
         <div *ngIf='noControls === true'>
-            <mat-form-field>
-                Execute command <i>{{cmd}}</i> ?
-            </mat-form-field>
+            <p>Execute command <i>{{cmd}}</i> ?</p>
         </div>
 
         <div *ngFor='let control of commandData.element["command"].controls'>
@@ -21,6 +19,7 @@
                        [matDatepicker]="myDatepicker"
                        [title]="control.desc"
                 />
+
                 <mat-datepicker-toggle matSuffix [for]='myDatepicker'>
                 </mat-datepicker-toggle>
                 <mat-datepicker #myDatepicker></mat-datepicker>
@@ -34,14 +33,14 @@
 
             <mat-form-field appearance="fill" *ngIf='control.type === "bool"'>
                 <input matInput type='checkbox' [id]="'popup-control-' + control.id"
-                       [formControl]="inputControl" 
+                       [formControl]="inputControl"
                        [attr.aria-label]="'labelFor-' + control.id"
-                       [checked]="control.checked"  
+                       [checked]="control.checked"
                        [name]="control.name"
                        [placeholder]="control.name"
-                       [title]="control.desc">{{control.label}}
+                       [title]="control.desc"
                 />
-
+                {{control.label}}
             </mat-form-field>
 
             <mat-form-field appearance="fill" *ngIf='control.type === "int"'>
@@ -70,7 +69,8 @@
                        [formControl]="inputControl"
                        [value]="control.value"
                        [placeholder]="control.name"
-                       [title]="control.desc"/>
+                       [title]="control.desc"
+                />
             </mat-form-field>
 
             <mat-form-field appearance="fill" *ngIf='control.type === "textarea"'>
@@ -99,3 +99,4 @@
     <button class='mat-raised-button mat-primary' (click)='onOK()'>OK</button>
     <button class='mat-raised-button' (click)='onCancel()'>Cancel</button>
 </div>
+
