@@ -70,7 +70,7 @@ $fields = array("subsystem", "catDisplayOrder", "paramDisplayOrder", "category",
 $outerParamFields = array("subsystem", "catDisplayOrder", "paramDisplayOrder", "category", "paramName", "type", "min", "max", "description", "detail", "resource");
 $resourceField = "resource";
 
-    
+
 $category = "";
 if (! empty($_GET['category'])) {
     $category = $_GET['category'];

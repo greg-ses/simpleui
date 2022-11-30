@@ -62,10 +62,16 @@ function loadAppProperties()
 
     $GLOBALS["AbstractParameterTable"] = "$ControlsParamAbstractPrefix$ControlsParamTable";
     $GLOBALS["DataParameterTable"] = "$ControlsParamDataPrefix$ControlsParamTable";
-    $GLOBALS['MYSQL_DB'] = $ConfigProperties["DatabaseMgr.MYSQL_DB"];
     $GLOBALS['MYSQL_USER'] = $ConfigProperties["DatabaseMgr.MYSQL_USER"];
     $GLOBALS['MYSQL_PWD'] = $ConfigProperties["DatabaseMgr.MYSQL_PWD"];
     $GLOBALS['MYSQL_HOST'] = $ConfigProperties["DatabaseMgr.MYSQL_HOST"];
+
+    // dbName override from simpleui CLI
+    if (! empty($_GET('database'))) {
+        $GLOBALS["MYSQL_DB"] = $_GET('database');
+    } else {
+        $GLOBALS["MYSQL_DB"] = $ConfigProperties["DatabaseMgr.MYSQL_DB"];
+    }
 }
 
 loadAppProperties();
