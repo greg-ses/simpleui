@@ -21,7 +21,6 @@ export class PropsFileReader {
     static cmdVars: CommandArgs = <CommandArgs> {
         valid: true,
         help: '\nSyntax:\n\n', // Each arg help is appended in arg definition
-        override: false,
         examples: '\n\nExample for running as a daemon:' +
             '\n  node simpleui-server.js \\' +
             '\n     --appName=bms \\' +

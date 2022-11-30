@@ -1,7 +1,6 @@
 
 export interface CommandArgs {
     valid: boolean;
-    override: boolean;
     help: string;
     errors: string;
     mode: string;

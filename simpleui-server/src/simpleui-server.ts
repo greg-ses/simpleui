@@ -78,7 +78,6 @@ export class SimpleUIServer {
         const cmdVars: CommandArgs = <CommandArgs> {
             valid: true,
             help: '\nSyntax:\n\n', // Each arg help is appended in arg definition
-            override: false,
             examples: '\n\nExample for running as a daemon:' +
                 '\n  node simpleui-server.js \\' +
                 '\n     --appName=bms \\' +
@@ -164,14 +163,12 @@ export class SimpleUIServer {
         match = cmdLine.match(/(\W+-D\W+|--DbName=)([^ \t]+)/);
         if (match) {
             cmdVars.DbName = match[2];
-            cmdVars.override = true;
         }
         cmdVars.help += '\n    --themeName=       (optional) Overrides the themeName. Must be either SimpleUiBlue, SimpleUiPurple, SimpleUiSea, or SimpleUiPeach';
         match = cmdLine.match(/(\W+-t\W+|--themeName=)([^ \t]+)/);
         if (match) {
             if ( ["SimpleUiBlue", "SimpleUiPurple", "SimpleUiSea", "SimpleUiPeach"].includes(match[2]) ) {
                 cmdVars.themeName = match[2];
-                cmdVars.override = true;
             } else {
                 Logger.log(LogLevel.WARNING, `themeName ${match[2]} is not valid, using themeName in ui.properties`);
             }
