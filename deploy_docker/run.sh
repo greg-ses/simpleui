@@ -18,4 +18,4 @@ source /scripts/merge_app.sh "$app_name"
 docker-php-entrypoint apache2-foreground &
 
 # Run node
-node /var/www/"$app_name"/simpleui-server/simpleui-server.js --mode=daemon --appName="$app_name" --webPort=2080
+node /var/www/"$app_name"/simpleui-server/simpleui-server.js --mode=daemon --appName="$app_name" --webPort=2080 --zmqHostname=svcmachineapps
