@@ -10,8 +10,8 @@ export interface CommandArgs {
     xmlInFile: string;
     jsonOutFile: string;
     zmqHostname: string;
-    DBname: string;
-    theme: string;
+    DbName: string;
+    themeName: string;
 }
 
 export interface ProcessInfo {

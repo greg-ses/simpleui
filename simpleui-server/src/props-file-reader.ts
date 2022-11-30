@@ -2,11 +2,11 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import * as jsonxml from 'jsontoxml';
-// import {Request, ParamsDictionary} from 'express-serve-static-core';
 import { Logger, LogLevel } from './server-logger';
 import { SimpleUIServer } from './simpleui-server';
 import { ServerUtil } from './server-util';
-import {ProcessInfo} from './interfaces';
+import {CommandArgs} from './interfaces';
+
 
 export class VersionProps {
     user = 'user';
@@ -18,22 +18,52 @@ export class VersionProps {
 export class PropsFileReader {
 
     static PropertySets = [];
+    static cmdVars: CommandArgs = <CommandArgs> {
+        valid: true,
+        help: '\nSyntax:\n\n', // Each arg help is appended in arg definition
+        override: false,
+        examples: '\n\nExample for running as a daemon:' +
+            '\n  node simpleui-server.js \\' +
+            '\n     --appName=bms \\' +
+            '\n     --webPort=2080' +
 
-    static getAppPropsFiles(rawAppNameList: string, webPort: string): any
-    {
+            '\n\nExample for running the test:' +
+            '\n  node simpleui-server.js \\' +
+            '\n    --mode=test \\' +
+            '\n    --appName=bms \\' +
+            '\n    --webPort=2080 \\' +
+            '\n    --xmlInFile=src/public/simpleui-server/test/bms.reference.xml \\' +
+            '\n    --jsonOutFile=src/public/simpleui-server/test/bms.reference.json',
+
+        errors: 'Invalid command line:\n\n', // Each error is appended when parsing args
+        mode: 'daemon',
+        appName: '',
+        webPort: '2080',
+        xmlInFile: '',
+        jsonOutFile: '',
+        zmqHostname: '',
+        DbName: '',
+        themeName: '',
+    };
+
+    static getAppPropsFiles(): any {
+        let rawAppNameList = PropsFileReader.cmdVars.appName;
+        let webPort = PropsFileReader.cmdVars.webPort;
+
         const appPropsTuples = [];
 
         const appNames = rawAppNameList.split(/[,:;]/);
         for (let appName of appNames) {
             appName = appName.trim();
 
-            let isMock = (appName.substr(0, 5) === "mock-");
+            let isMock = (appName.substring(0, 5) === "mock-");
+
 
             let propsDir = `/var/www/${appName}`;
             if (isMock) { propsDir = `${SimpleUIServer.bin_dir}/../../test/data/${appName.replace("mock-", "")}`; }
 
             if (!fs.existsSync(propsDir)) {
-                    console.log(`Invalid appName: '${appName}'. Missing expected folder '${propsDir}'`);
+                    Logger.log(LogLevel.ERROR, `Invalid appName: '${appName}'. Missing expected folder '${propsDir}'`);
                     return;
                 }
 
@@ -42,7 +72,7 @@ export class PropsFileReader {
 
             for (const propsFileName of propsFiles) {
 
-                const props = PropsFileReader.getProps(propsFileName, appName, webPort, isMock);
+                const props = PropsFileReader.getProps(propsFileName, isMock);
                 if (!(props instanceof Object)) {
                     Logger.log(LogLevel.ERROR,
                         `Invalid config (no props for app "${appName}" and uiProp "${propsFileName}")`);
@@ -63,13 +93,15 @@ export class PropsFileReader {
         return appPropsTuples;
     }
 
-    // PropsFileReader.getProps(app expressRequest.protocol, appName, expressRequest.query.uiProp);
-    static getProps(propsFileName: string, appName: string, webPort: string, isMock=false) {
+
+
+    static getProps(propsFileName: string, isMock: boolean=false) {
+        let appName = PropsFileReader.cmdVars.appName;
         if (appName === '/' || appName === '') {
             return null;
         }
 
-        let propsDir = `/var/www/${appName}`;
+        let propsDir = `/var/www/${appName}`;       // props path
         if (isMock) { propsDir = `${SimpleUIServer.bin_dir}/../../test/data/${appName.replace("mock-", "")}`; }
         if (typeof propsFileName !== 'string') { propsFileName = 'ui.properties'; }
 
@@ -80,24 +112,20 @@ export class PropsFileReader {
         const mtimeMs = stats.mtimeMs.toString();
         if (   (typeof PropsFileReader.PropertySets[key] === 'undefined')
             || (mtimeMs !== PropsFileReader.PropertySets[key]['mtimeMs']) ) {
-            PropsFileReader.PropertySets[key] = PropsFileReader.loadUiPropsFile(fullPropsFileName, appName, webPort, mtimeMs);
+            PropsFileReader.PropertySets[key] = PropsFileReader.loadUiPropsFile(fullPropsFileName, mtimeMs);
         }
         return PropsFileReader.PropertySets[key];
     }
 
-    /*
-    // header("Access-Control-Allow-Origin: *");
-    if (array_key_exists("xml", $_REQUEST) || array_key_exists("XML", $_REQUEST)) {
-        header("Content-Type: application/xml; charset=UTF-8");
-    } else {
-        header("Content-Type: application/json; charset=UTF-8");
-    }
-    */
 
+    /**
+     * Retrieves value for macro from other property file
+     * @param props
+     * @param index
+     * @returns
+     */
     static processMacroPart(props: any, index: number) {
-
         let macroComplete = false;
-
         if (   (typeof props['macro'][index]['token'] === 'string')
             && (typeof props['macro'][index]['source'] === 'string')
             && (typeof props['macro'][index]['property'] === 'string') ) {
@@ -108,16 +136,12 @@ export class PropsFileReader {
             const sourceFile = props['macro'][index]['source'];
             const token = props['macro'][index]['token'];
 
-            // props['macro'][index]['index'] = index.toString;
-            // props['macro'][index]['id'] = `macro-${index}`;
-
             if (sourceFile === 'self') {
                 // Defer substitution until we have all local props
                 props['macro'][index]['replacement'] =  '${' + props['macro'][index]['token'] + '}';
             } else {
                 if (!fs.existsSync(sourceFile)) {
-                    const msg = `ERROR: Properties source file '${sourceFile}' referenced by MACRO ${token} does not exist.`;
-                    Logger.log(LogLevel.ERROR, msg);
+                    Logger.log(LogLevel.ERROR, `ERROR: Properties source file '${sourceFile}' referenced by MACRO ${token} does not exist.`);
                     return false;
                 }
 
@@ -138,7 +162,7 @@ export class PropsFileReader {
         let propValue = 'missing';
         const rawTestWithComments = fs.readFileSync(sourceFile, 'utf8');
         if (rawTestWithComments === '') {
-            console.log(`Error reading ${sourceFile} in loadUiPropsFile`);
+            Logger.log(LogLevel.ERROR, `Error reading ${sourceFile} in loadUiPropsFile`);
         } else {
             const rawText = rawTestWithComments.replace(/#[^\n]*[\n]+/g, '\n');
             const pattern = new RegExp('\\W*' + propKey + '\\W*=\\W*([^\\n]*)\\n');
@@ -170,49 +194,53 @@ export class PropsFileReader {
         return value;
     }
 
-    static loadUiPropsFile(uiPropsFile: string, appName: string, webPort: string, mtimeMs: string) {
+
+
+
+    static loadUiPropsFile(uiPropsFile: string, mtimeMs: string) {
+        let appName = PropsFileReader.cmdVars.appName;
         const uiProp = path.parse(uiPropsFile).name;
-        const props = { 'srcFile': uiPropsFile };
-        props['uiProp'] = { 'value': uiProp };
-
         const versionProps = PropsFileReader.getSoftwareVersionStrings(`/var/www/${appName}/version.txt`);
-        props['uiVersionLong'] = { 'value': versionProps.uiVersionLong };
-        props['uiVersionShort'] = { 'value': versionProps.uiVersionShort };
 
-        props['propsUrl'] =  { 'value': `/${appName}/${uiProp}/query/props`};
-        props['mtimeMs'] = mtimeMs;
-        props['propsLastRefresh'] = ServerUtil.formatDate(new Date(), 'second');
-        props['fullAppUrl'] =  { 'value': `/${appName}/`};
-        props['selectedIndex'] = { 'value': '0' };
-        props['instance'] = { 'name': 'Simple_UI_Instance' };
-        props['nodejsPort'] = { 'value': '2080'};
-        props['refreshRate'] = { 'value': '1200'};
-        props['logLevel'] = { 'value': '0'};
-        props['sessionExpiration'] = { 'value': '6'};
 
+        // why are we using { property: { value: abc }} instead of { property: abc } ?
+        let props = {
+            srcFile: uiPropsFile,
+            mtimeMs: mtimeMs,
+            propsLastRefresh: ServerUtil.formatDate(new Date(), 'second'),
+            uiProp: { value: uiProp },
+            uiVersionLong: { value: versionProps.uiVersionLong },
+            uiVersionShort: { value: versionProps.uiVersionShort },
+            propsUrl: { value: `/${appName}/${uiProp}/query/props` },
+            fullAppUrl: { value: `/${appName}` },
+            selectedIndex: { value: '0' },
+            instance: { name: 'Simple_UI_Instance' },
+            nodejsPort: { value: '2080' },
+            refreshRate: { value: '1200' },
+            logLevel: { value: '0' },
+            sessionExpiration: { value: '6' },
+            macro: []
+        }
+
+        // get raw text
         const rawText = fs.readFileSync(uiPropsFile, 'utf8');
         if (rawText === '') {
-            console.log(`Error reading ${uiPropsFile} in loadUiPropsFile`);
+            Logger.log(LogLevel.ERROR, `Error reading ${uiPropsFile} in loadUiPropsFile`);
         }
 
         // Remove comments
-        let propCount = 0;
-        let macroCount = 0;
         let propsText = rawText.toString().replace(/[ \t]*#.*\n/g, '\n').replace(/\n+/g, '\n');
 
-
+        let propCount = 0;
+        let macroCount = 0;
         let macroIndex = 0;
-
-        if (!(props['macro'] instanceof Array)) {
-            props['macro'] = [];
-        }
-
         const oneLineMacroRegEx = /@MACRO\W+([0-9a-zA-Z._-]+)\W*=\W*[$]?\(\W*([^ \t]+)\W+FROM\W+([^\)]+)[ \t]*\)/g;
         const oneLineMacros: any = propsText.match(oneLineMacroRegEx);
         if (oneLineMacros) {
             for (const macro of oneLineMacros) {
                 propsText = propsText.replace(macro, '');
-                const macroParts = macro.trim().split(/[ \t=$\(\)\n]+/);
+                const [_, token, property, __, source] = macro.trim().split(/[ \t=$\(\)\n]+/);
+
                 if ((props['macro'][macroIndex] instanceof Object)) {
                     macroIndex = Object.keys(props['macro']).length;
                 } else {
@@ -221,10 +249,17 @@ export class PropsFileReader {
 
                 props['macro'][macroIndex]['index'] = macroIndex.toString();
                 props['macro'][macroIndex]['id'] = `macro-${macroIndex}`;
-                props['macro'][macroIndex]['token'] = macroParts[1];
-                props['macro'][macroIndex]['source'] = macroParts[4];
-                props['macro'][macroIndex]['property'] = macroParts[2];
-                PropsFileReader.processMacroPart(props, macroIndex);
+                props['macro'][macroIndex]['token'] = token;
+                props['macro'][macroIndex]['source'] = source;
+                props['macro'][macroIndex]['property'] = property;
+
+                // override dbname with given value
+                if (PropsFileReader.cmdVars.DbName !== "" && token.includes("_MYSQL_DB")) {
+                    Logger.log(LogLevel.INFO, `Overriding macro ${token} with ${PropsFileReader.cmdVars.DbName}`);
+                    props['macro'][macroIndex]['replacement'] = PropsFileReader.cmdVars.DbName
+                } else {
+                    PropsFileReader.processMacroPart(props, macroIndex);
+                }
 
                 macroIndex++; macroCount++;
             }
@@ -281,7 +316,7 @@ export class PropsFileReader {
         props['macro'][macroIndex]['id'] = `macro-${macroIndex}`;
         props['macro'][macroIndex]['token'] = 'NODEJS_PORT';
         props['macro'][macroIndex]['source'] = 'PREDEFINED';
-        props['macro'][macroIndex]['replacement'] = webPort;
+        props['macro'][macroIndex]['replacement'] = PropsFileReader.cmdVars.webPort;
         PropsFileReader.processMacroPart(props, macroIndex);
 
         const propRegEx = /\W*([0-9a-zA-Z._-]+)\W*=\W*([^\n]*)\n/g;
@@ -382,23 +417,21 @@ export class PropsFileReader {
         return props;
     }
 
+
+
     static getSoftwareVersionStrings(versionFile): VersionProps {
-
         const returnValue = new VersionProps();
-
         if (!fs.existsSync(versionFile) ) {
             return returnValue;
         }
         const userRegEx = /define\W+GIT_USER\W+"([^"]*)"/g;
         const uiVersionShortRegEx = /define\W+GIT_REVSTR_SHORT\W+"([^"]*)"/g;
         const uiVersionLongRegEx = /define\W+GIT_REV_SUMMARY\W+"([^"]*)"/g;
-
         const versionText = fs.readFileSync(versionFile,'utf8');
         if (versionText === '') {
-            console.log(`Error reading ${versionFile} in getSoftwareVersionStrings`);
+            Logger.log(LogLevel.ERROR, `Error reading ${versionFile} in getSoftwareVersionStrings`);
             return null;
         }
-
         let matchedStr = versionText.toString().match(userRegEx);
         if (matchedStr) {
             returnValue.user = matchedStr[0].split(' ')[2].replace(/"/g, '');
@@ -413,13 +446,6 @@ export class PropsFileReader {
         if (matchedStr) {
             returnValue.uiVersionLong = matchedStr[0].split(' ')[2].replace(/"/g, '');
         }
-
-        /*
-        console.log(
-            `Version data: user: ${returnValue.user}, ` +
-            `uiVersionShort: ${returnValue.uiVersionShort}, ` +
-            `uiVersionLong: ${returnValue.uiVersionLong}`);
-        */
 
         return returnValue;
     }
@@ -497,40 +523,5 @@ export class PropsFileReader {
         return;
     }
 
-/*
-function getPropsJson(request, appDir, uiProp)
-{
-    // new stuff
-    if (array_key_exists("uiProp", request)) {
-        $uiProp = trim(request["uiProp"]);
-    } else {
-        $uiProp = "ui";
-    }
-
-    $UIProps = loadUiPropsFile(appDir . "/" . $uiProp . ".properties");
-    $UIMacroProps = extractMacros($UIProps);
-    replaceMacros($UIProps, $UIMacroProps);
-
-
-    $response = "<props>\n"
-        . UIPropsToXml($UIProps)
-        . "</props>\n";
-
-    // Arbitrary change
-
-    if (array_key_exists("xml", $_REQUEST) || array_key_exists("XML", $_REQUEST)) {
-        // nothing to do -- already have XML
-    } else {
-        // Default is to return JSON
-        $versionText = "V.xxx";
-        if (array_key_exists("version", $_REQUEST)) {
-            $versionText = $_REQUEST["version"];
-        }
-        $response = XmlDiffTool::xmlToJSON($response, "props", $versionText);
-    }
-
-    echo $response;
-}
-*/
 
 }
