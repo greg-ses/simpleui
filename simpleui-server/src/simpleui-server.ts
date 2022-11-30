@@ -68,9 +68,19 @@ export class SimpleUIServer {
      */
     static addOverrides(cmdVars: CommandArgs, props: any): any {
         if (cmdVars.themeName) {
-            Logger.log(LogLevel.INFO, `Overriding props.appTheme.name (${props.appTheme.name}) with ${cmdVars.themeName}`);
+            Logger.log(LogLevel.INFO, `Overriding props.appTheme.name (${props.appTheme.name}) with the value of command line arg "--themeName=${cmdVars.themeName}"`);
             props.appTheme.name = cmdVars.themeName;
         }
+        if (cmdVars.dbName) {
+            Logger.log(LogLevel.INFO, `Overriding Parameters App DB with the value of command line arg "--dbName=${cmdVars.themeName}"`);
+            let appLinks = props.appLink;
+            appLinks.forEach( (link) => {
+                if (link.url.endsWith('/Parameters.html')) {
+                    link.url = link.url + `?database=${cmdVars.dbName}`;
+                }
+            })
+        }
+
         return props;
     }
 
@@ -98,7 +108,7 @@ export class SimpleUIServer {
             xmlInFile: '',
             jsonOutFile: '',
             zmqHostname: '',
-            DbName: '',
+            dbName: '',
             themeName: '',
         };
 
@@ -159,10 +169,10 @@ export class SimpleUIServer {
         }
 
         // overrides
-        cmdVars.help += '\n    --DbName=       (optional) Overrides the DbName';
-        match = cmdLine.match(/(\W+-D\W+|--DbName=)([^ \t]+)/);
+        cmdVars.help += '\n    --dbName=       (optional) Overrides the dbName';
+        match = cmdLine.match(/(\W+-D\W+|--dbName=)([^ \t]+)/);
         if (match) {
-            cmdVars.DbName = match[2];
+            cmdVars.dbName = match[2];
         }
         cmdVars.help += '\n    --themeName=       (optional) Overrides the themeName. Must be either SimpleUiBlue, SimpleUiPurple, SimpleUiSea, or SimpleUiPeach';
         match = cmdLine.match(/(\W+-t\W+|--themeName=)([^ \t]+)/);

@@ -9,7 +9,7 @@ export interface CommandArgs {
     xmlInFile: string;
     jsonOutFile: string;
     zmqHostname: string;
-    DbName: string;
+    dbName: string;
     themeName: string;
 }
 
