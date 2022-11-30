@@ -254,8 +254,8 @@ export class PropsFileReader {
                 props['macro'][macroIndex]['property'] = property;
 
                 // override dbname with given value
-                if (PropsFileReader.cmdVars.DbName !== "" && token.includes("_MYSQL_DB")) {
-                    Logger.log(LogLevel.INFO, `Overriding macro ${token} with ${PropsFileReader.cmdVars.DbName}`);
+                if (PropsFileReader.cmdVars.DbName !== "" && token.endsWith("_MYSQL_DB")) {
+                    Logger.log(LogLevel.INFO, `Overriding macro ${token} with the value of cmd line arg "--DbName ${PropsFileReader.cmdVars.DbName}"`);
                     props['macro'][macroIndex]['replacement'] = PropsFileReader.cmdVars.DbName
                 } else {
                     PropsFileReader.processMacroPart(props, macroIndex);
