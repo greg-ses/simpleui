@@ -339,7 +339,7 @@ export class OverlayPageComponent {
                 }
             }
         }
-        console.log(this._commandList)
+        //console.log(this._commandList)
 
         //console.log(Math.floor(Date.now() / 1000), this._commandList[overlayGroupName])
         return this._commandList[overlayGroupName];

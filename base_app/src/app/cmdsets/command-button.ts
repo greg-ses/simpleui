@@ -37,12 +37,13 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
 
     @Input()
     set element(newCmdObject) {
+        console.log(newCmdObject)
+
         if (this._element instanceof Object) {
-            const sExistingCommandElement = JSON.stringify(this._element);
-            const sNewCommandElement = JSON.stringify(newCmdObject);
-            if (sExistingCommandElement !== sNewCommandElement) {
+            if (!UTIL.elements_are_equal(this._element, newCmdObject)) {
                 this._element = newCmdObject;
                 this._changeDetectorRef.detectChanges();
+                console.log('changing');
             }
         } else {
             this._element = UTIL.deepCopy(newCmdObject);
@@ -78,7 +79,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
 
 
     ngAfterViewInit() {
-        console.log(`Button viewable`);
+        //console.log(`Button viewable`);
     }
 
     AfterContentChecked() {
