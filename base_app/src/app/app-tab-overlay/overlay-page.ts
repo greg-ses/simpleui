@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Optional, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Optional, Output, AfterViewChecked, ViewChild, ElementRef, NgZone} from '@angular/core';
 import {DataSummary} from '../interfaces/data-summary';
 import {ClientLogger} from '../../tools/logger';
 import {OverlayType} from './overlay-type';
@@ -39,6 +39,35 @@ export class OverlayPageComponent {
 
     TODO__hide_graphs_and_data = false;
 
+    /**
+     * https://stackoverflow.com/questions/43210050/how-to-detect-when-dom-is-ready-after-ngif-condition-is-set-to-true
+     *
+     *
+     * press btn alot and see if missed clicks only happen on dom re-write
+     *
+     */
+
+
+
+
+
+
+    @ViewChild('btn')
+    btn: ElementRef;
+    btn_shown = false;
+
+
+    old_buttons: any;
+
+
+
+
+    ngAfterViewChecked() {
+        //console.log(this.btn_shown);
+        //console.log(this.btn)
+    }
+
+
     static writeOverlayDebugInfo(overlayGroupName: string, idList: any, overlayType: OverlayType): void {
         const implKey = OverlayType[OverlayType[overlayType]] || 'Unimplemented';
 
@@ -72,6 +101,8 @@ export class OverlayPageComponent {
         // private _changeDetectorRef: ChangeDetectorRef,
         @Optional() public app: AppComponent
     ) {
+
+        this.old_buttons = [];
     }
 
 
@@ -308,6 +339,9 @@ export class OverlayPageComponent {
                 }
             }
         }
+        console.log(this._commandList)
+
+        //console.log(Math.floor(Date.now() / 1000), this._commandList[overlayGroupName])
         return this._commandList[overlayGroupName];
     }
 

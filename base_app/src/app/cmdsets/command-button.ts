@@ -5,7 +5,7 @@
 // The common page layout with id tags for js
 import {
     ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef, Inject,
-    Input, OnChanges, OnDestroy, SimpleChanges
+    Input, OnChanges, OnDestroy, SimpleChanges, AfterContentChecked
 } from '@angular/core';
 import {AppComponent} from '../app.component';
 import {CommandService} from '../services/command.service';
@@ -75,6 +75,16 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
         'confirmDialog',
         'textInputDialog'
     ];
+
+
+    ngAfterViewInit() {
+        console.log(`Button viewable`);
+    }
+
+    AfterContentChecked() {
+        console.log(`aftercontnet`)
+    }
+
 
     static resumeUpdates(uiTab: TabUI) {
         uiTab._autoRefreshEnabled = true;
