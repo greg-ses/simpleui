@@ -3,6 +3,9 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 require_once "ParamHelper.php";
 require_once "DbSchemaDefs.php";
+//require_once "sLogger.php";
+
+//$log->logData(LOG_INFO, "NewParams.php");
 
 function writeInvalidRowError($rowLabel, $row, $missingKey) {
     $errorContext = $rowLabel . ":\n";
@@ -76,6 +79,7 @@ if (! empty($_GET['category'])) {
     $category = $_GET['category'];
 }
 
+
 // Define empty defaults for debug trace flags that help understand where in the flow various pieces of data are created
 $DT0 = "";
 $DT1 = "";
@@ -101,16 +105,27 @@ if (! empty($_GET['DEBUG'])) {
     $DT9 = "|9|";
 }
 
-$query = "
-SELECT apd.subsystem, apd.catDisplayOrder, apd.paramDisplayOrder, apd.category,
-apd.paramName, apd.type, apd.min, apd.max, apd.description, apd.detail,
-p.resource, p.`timestamp`, p.value, p.`user`
-FROM `AbstractParameterByCategory` AS apd
-			INNER JOIN `$DataParameterTable` AS p
-				ON apd.paramName = p.name
-				AND apd.subsystem = p.subsystem
-				AND apd.category = p.category
-ORDER BY apd.subsystem, apd.catDisplayOrder, apd.paramDisplayOrder, apd.category, p.name, p.resource asc, p.`timestamp` desc";
+// $query = "
+// SELECT apd.subsystem, apd.catDisplayOrder, apd.paramDisplayOrder, apd.category,
+// apd.paramName, apd.type, apd.min, apd.max, apd.description, apd.detail,
+// p.resource, p.`timestamp`, p.value, p.`user`
+// FROM `AbstractParameterByCategory` AS apd
+// INNER JOIN `$DataParameterTable` AS p
+// ON apd.paramName = p.name
+// AND apd.subsystem = p.subsystem
+// AND apd.category = p.category
+// ORDER BY apd.subsystem, apd.catDisplayOrder, apd.paramDisplayOrder, apd.category, p.name, p.resource asc, p.`timestamp` desc";
+
+$query = "SELECT apd.subsystem, apd.catDisplayOrder, apd.paramDisplayOrder, apd.category,";
+$query .= " apd.paramName, apd.type, apd.min, apd.max, apd.description, apd.detail,";
+$query .= " p.resource, p.`timestamp`, p.value, p.`user`";
+$query .= " FROM `AbstractParameterByCategory` AS apd";
+$query .= " INNER JOIN `$DataParameterTable` AS p";
+$query .= " ON apd.paramName = p.name";
+$query .= " AND apd.subsystem = p.subsystem";
+$query .= " AND apd.category = p.category";
+$query .= " ORDER BY apd.subsystem, apd.catDisplayOrder, apd.paramDisplayOrder, apd.category, p.name, p.resource asc, p.`timestamp` desc";
+
 
 $conn = new mysqli($MYSQL_HOST, $MYSQL_USER, $MYSQL_PWD, $MYSQL_DB);
 

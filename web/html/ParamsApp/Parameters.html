@@ -47,19 +47,44 @@
         </table>
 
         </div>
-        
+
         <script>
             var app = angular.module('paramsApp', ['ngMaterial']);
             app.controller('paramsCtrl', function ($scope, $http, $mdDialog) {
 
                 $scope.debug = false;
 
-                $http.get( "php/NewParams.php" )
+
+                const url_params = new URLSearchParams(window.location.search);
+                let php_request_url = "php/NewParams.php";
+
+                if (window.location.search) {
+                    php_request_url += window.location.search;
+                    console.debug(`Requesting ${php_request_url}`);
+                }
+
+                $http.get( php_request_url )
                        .then (function ( response )  {
-                            $scope.params = response.data.records;
-                            $scope.subsystems = get_unique_subsystems( response.data.records );
-                            $scope.SubsysSel = $scope.subsystems[0];
-                            $scope.categories = get_unique_categories(response.data.records);
+                            // response or query failed
+                            if (response.status != 200) {
+                                let alert_msg = `ParamsApp got an error. Request got status code ${response.status}`;
+                                console.error(alert_msg, response);
+                                alert(alert_msg);
+                            }
+                            else if (response.data.hasOwnProperty('error')) {
+                                let err_code = response.data.error.code;
+                                let err_msg = response.data.error.msg;
+                                let err_context = response.data.error.context;
+                                let alert_msg = `ParamsApp got an error.\nCode: ${err_code}\nMsg: ${err_msg}\nContext: ${err_context}`;
+                                console.error(alert_msg, response);
+                                alert(alert_msg);
+                            } else {
+                                $scope.params = response.data.records;
+                                $scope.subsystems = get_unique_subsystems(response.data.records);
+                                $scope.SubsysSel = $scope.subsystems[0];
+                                $scope.categories = get_unique_categories(response.data.records);
+                            }
+
                         });
 
                 $scope.paramRow = {
@@ -132,7 +157,7 @@
                         .targetEvent(ev)
                     );
                 };
-           
+
                 $scope.addNewParamValues = function (newParamValues)  {
                     var postStatus;
 	                data = { 'newParamValues': newParamValues };
@@ -250,6 +275,6 @@
            </script>
 
 
-       
+
 </BODY>
 </HTML>
