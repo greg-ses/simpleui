@@ -72,7 +72,7 @@ export class SimpleUIServer {
             props.appTheme.name = cmdVars.themeName;
         }
         if (cmdVars.dbName) {
-            Logger.log(LogLevel.INFO, `Overriding Parameters App DB with the value of command line arg "--dbName=${cmdVars.themeName}"`);
+            Logger.log(LogLevel.INFO, `Overriding Parameters App DB with the value of command line arg "--dbName=${cmdVars.dbName}"`);
             let appLinks = props.appLink;
             appLinks.forEach( (link) => {
                 if (link.url.endsWith('/Parameters.html')) {
@@ -92,7 +92,6 @@ export class SimpleUIServer {
                 '\n  node simpleui-server.js \\' +
                 '\n     --appName=bms \\' +
                 '\n     --webPort=2080' +
-
                 '\n\nExample for running the test:' +
                 '\n  node simpleui-server.js \\' +
                 '\n    --mode=test \\' +
@@ -184,8 +183,7 @@ export class SimpleUIServer {
             }
         }
 
-
-        return cmdVars
+        return cmdVars;
     }
 
     static printServerInfo(cmdVars: any): void {
@@ -214,7 +212,8 @@ export class SimpleUIServer {
 
             // Parse input arguments
             SimpleUIServer.setBinDir(process.argv[1]);
-            const cmdVars = SimpleUIServer.parseCommandLine(process.argv.join(' '));
+            const cli_args = process.argv.slice(2).join(" ");
+            const cmdVars = SimpleUIServer.parseCommandLine(cli_args);
             PropsFileReader.cmdVars = cmdVars;
 
             if (!cmdVars.valid) {
