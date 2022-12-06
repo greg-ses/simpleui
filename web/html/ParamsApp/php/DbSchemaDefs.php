@@ -23,7 +23,7 @@ define("DROP_VIEW_QUERY", "DROP VIEW IF EXISTS %s");
 define("VIEW_EXISTS_QUERY",
 "select count(distinct t.table_name) as viewExists
  from information_schema.views t
- where t.table_schema = '%s' 
+ where t.table_schema = '%s'
  and t.table_name = '%s';");
 
 
@@ -44,7 +44,7 @@ $requiredTables = array(
 	  PRIMARY KEY (`name`,`subsystem`,`category`)
 	) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
 
-    "Parameter" =>
+    "Parameter" =>													// creates the table :(
         "CREATE TABLE `$DataParameterTable` (
 	  `name` char(64) NOT NULL DEFAULT '',
 	  `resource` char(16) NOT NULL DEFAULT '',
@@ -65,17 +65,17 @@ $requiredViews = array(
 	     WHERE ap1.displayOrder < ap3.displayOrder
 	     AND ap1.category <> ap3.category
 	    ) AS catDisplayOrder,
-	    
+
 	    ap3.category,
-	    
+
 	    (SELECT COUNT(DISTINCT(ap2.name))
 	     from $AbstractParameterTable ap2
 	     where ap2.category = ap3.category) as paramCount,
-	
+
 	    (SELECT COUNT(DISTINCT(ap2.name))
 	     from $AbstractParameterTable ap2
 	     where ap2.category = ap3.category and ap3.visibility = '1') as visibleParamCount,
-	     
+
 	     ap3.subsystem
 	FROM $AbstractParameterTable ap3
 	GROUP by ap3.category, ap3.subsystem
@@ -83,7 +83,7 @@ $requiredViews = array(
 
     "AbstractParameterByCategory" =>
         "CREATE VIEW `AbstractParameterByCategory` AS
-	SELECT 
+	SELECT
 	  pc.catDisplayOrder,
 	  ap.displayOrder as paramDisplayOrder,
 	  pc.category,
@@ -115,55 +115,55 @@ ORDER by p2.resource;",
         "CREATE VIEW `ParameterResourcePivot` AS
 	SELECT
 	  apd.subsystem, catDisplayOrder, paramDisplayOrder, apd.category, paramName,
-	  `type`, `min`, `max`, description, detail, `timestamp`, 
+	  `type`, `min`, `max`, description, detail, `timestamp`,
 	         MAX(IF(resourceIndex  = 1, p.resource, '')) AS  Res1Name,
 	         MAX(IF(resourceIndex  = 1, p.value, ''))    AS  Res1Val,
-	
+
 	         MAX(IF(resourceIndex =  2, p.resource, '')) AS  Res2Name,
 	         MAX(IF(resourceIndex =  2, p.value, ''))    AS  Res2Val,
-	
+
 	         MAX(IF(resourceIndex =  3, p.resource, '')) AS  Res3Name,
 	         MAX(IF(resourceIndex =  3, p.value, ''))    AS  Res3Val,
-	
+
 	         MAX(IF(resourceIndex =  4, p.resource, '')) AS  Res4Name,
 	         MAX(IF(resourceIndex =  4, p.value, ''))    AS  Res4Val,
-	
+
 	         MAX(IF(resourceIndex =  5, p.resource, '')) AS  Res5Name,
 	         MAX(IF(resourceIndex =  5, p.value, ''))    AS  Res5Val,
-	
+
 	         MAX(IF(resourceIndex =  6, p.resource, '')) AS  Res6Name,
 	         MAX(IF(resourceIndex =  6, p.value, ''))    AS  Res6Val,
-	
+
 	         MAX(IF(resourceIndex =  7, p.resource, '')) AS  Res7Name,
 	         MAX(IF(resourceIndex =  7, p.value, ''))    AS  Res7Val,
-	
+
 	         MAX(IF(resourceIndex =  8, p.resource, '')) AS  Res8Name,
 	         MAX(IF(resourceIndex =  8, p.value, ''))    AS  Res8Val,
-	
+
 	         MAX(IF(resourceIndex =  9, p.resource, '')) AS  Res9Name,
 	         MAX(IF(resourceIndex =  9, p.value, ''))    AS  Res9Val,
-	
+
 	         MAX(IF(resourceIndex = 10, p.resource, '')) AS Res10Name,
 	         MAX(IF(resourceIndex = 10, p.value, ''))    AS Res10Val,
-	
+
 	         MAX(IF(resourceIndex = 11, p.resource, '')) AS Res11Name,
 	         MAX(IF(resourceIndex = 11, p.value, ''))    AS Res11Val,
-	
+
 	         MAX(IF(resourceIndex = 12, p.resource, '')) AS Res12Name,
 	         MAX(IF(resourceIndex = 12, p.value, ''))    AS Res12Val,
-	
+
 	         MAX(IF(resourceIndex = 13, p.resource, '')) AS Res13Name,
 	         MAX(IF(resourceIndex = 13, p.value, ''))    AS Res13Val,
-	
+
 	         MAX(IF(resourceIndex = 14, p.resource, '')) AS Res14Name,
 	         MAX(IF(resourceIndex = 14, p.value, ''))    AS Res14Val,
-	
+
 	         MAX(IF(resourceIndex = 15, p.resource, '')) AS Res15Name,
 	         MAX(IF(resourceIndex = 15, p.value, ''))    AS Res15Val,
-	
+
 	         MAX(IF(resourceIndex = 16, p.resource, '')) AS Res16Name,
 	         MAX(IF(resourceIndex = 16, p.value, ''))    AS Res16Val
-	
+
 	FROM (`AbstractParameterByCategory` as apd
 	       inner join `$DataParameterTable` as p
 	       ON apd.paramName = p.name
@@ -176,7 +176,7 @@ ORDER by p2.resource;",
 ); /* End of array $requiredViews */
 
 
-/*
+/**
  *  createRequiredDbEntities()
  *
  *  Creates a required table or view if missing.
@@ -200,18 +200,14 @@ function createRequiredDbEntities($dbName, $user, $pw, $dbHost, $quiet = false)
     /* Define any missing req table */
     foreach($reqTables as $tableName => $tableDef) {
 
-        $query = sprintf(TABLE_EXISTS_QUERY, $dbName, $tableName);
-        /* echo "\nquery:\n" . $query; */
-        $result = $conn->query($query);
+        $query = sprintf(TABLE_EXISTS_QUERY, $dbName, $tableName);		// create a query to check if the db and table exist
+        $result = $conn->query($query); 								// perform query
+		if (! $result) {
+			return false;
+		}
         $rs = $result->fetch_array(MYSQLI_ASSOC);
-        /* printf("\nrs['tableExists']: %s", $rs['tableExists']); */
 
-        if ($rs['tableExists'] == "0") {
-            $return .= $tableName . " (created table)\n";
-            /* echo "\ntableDef:\n" . $tableDef; */
-            $result = $conn->query($tableDef);
-            /* $rs = $result->fetch_array(MYSQLI_ASSOC); */
-        } else {
+		if ($rs['tableExists'] != "0") {
             $return .= $tableName . " (preexisting table)\n";
         }
     }
@@ -220,16 +216,13 @@ function createRequiredDbEntities($dbName, $user, $pw, $dbHost, $quiet = false)
     foreach($reqViews as $viewName => $viewDef) {
         $query = sprintf(DROP_VIEW_QUERY, $viewName);
         $result = $conn->query($query);
-/*        $rs = $result->fetch_all(MYSQLI_ASSOC); */
         if (! $quiet) {
             printf("\n\n>> dropped view %s result: %d\n", $viewName, $result);
         }
 
         $query = sprintf(VIEW_EXISTS_QUERY, $dbName, $viewName);
-        /* echo "\nquery:\n" . $query; */
         $result = $conn->query($query);
         $rs = $result->fetch_array(MYSQLI_ASSOC);
-        /* printf("\nrs['viewExists']: %s", $rs['viewExists']); */
 
         if ($rs['viewExists'] == "0") {
             $return .= $viewName . " (created view)\n";
@@ -240,7 +233,6 @@ function createRequiredDbEntities($dbName, $user, $pw, $dbHost, $quiet = false)
             if (! $quiet) {
                 printf("\n\n>> create view %s result: %d\n", $viewName, $result);
             }
-            /* $rs = $result->fetch_array(MYSQLI_ASSOC); */
         } else {
             $return .= $viewName. " (preexisting view)\n";
         }
@@ -249,6 +241,7 @@ function createRequiredDbEntities($dbName, $user, $pw, $dbHost, $quiet = false)
     $conn->close();
 
     return $return;
+
 }
 ?>
 

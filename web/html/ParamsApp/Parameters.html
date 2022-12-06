@@ -19,7 +19,7 @@
         <select  ng-model="SubsysSel" ng-options="subsys for subsys in subsystems" ></select>
         <table>
             <tr ng-repeat="cat in categories | filter : { 'subsystem' : SubsysSel }" ng-controller="catController as catCtrl" >
-                <td  ng-style="catLike">{{ cat.category }} <span ng-click="catShow()">{{showSelector}}</span>
+                <td  ng-style="catLike">{{ cat.category }} <span ng-click="catShow()">{{ showSelector }}</span>
                     <table  ng-show = "showMe">
                         <tr >
                             <th></th>
@@ -53,11 +53,10 @@
             app.controller('paramsCtrl', function ($scope, $http, $mdDialog) {
 
                 $scope.debug = false;
-
-
-                const url_params = new URLSearchParams(window.location.search);
                 let php_request_url = "php/NewParams.php";
 
+                // append url params to php url if needed
+                const url_params = new URLSearchParams(window.location.search);
                 if (window.location.search) {
                     php_request_url += window.location.search;
                     console.debug(`Requesting ${php_request_url}`);
@@ -65,24 +64,29 @@
 
                 $http.get( php_request_url )
                        .then (function ( response )  {
-                            // response or query failed
+                            // response failed
                             if (response.status != 200) {
-                                let alert_msg = `ParamsApp got an error. Request got status code ${response.status}`;
+                                const alert_msg = `ParamsApp got an error. Request got status code ${response.status} ${response.statusText}`;
+                                console.error(alert_msg, response);
+                                alert(alert_msg);
+                            } // query failed
+                            else if (response.data.hasOwnProperty('error')) {
+                                const err_code = response.data?.error?.code;
+                                const err_msg = response.data?.error?.msg;
+                                const err_context = response.data?.error?.context;
+                                const alert_msg = `ParamsApp got an error.\nCode: ${err_code}\nMsg: ${err_msg}\nContext: ${err_context}`;
                                 console.error(alert_msg, response);
                                 alert(alert_msg);
                             }
-                            else if (response.data.hasOwnProperty('error')) {
-                                let err_code = response.data.error.code;
-                                let err_msg = response.data.error.msg;
-                                let err_context = response.data.error.context;
-                                let alert_msg = `ParamsApp got an error.\nCode: ${err_code}\nMsg: ${err_msg}\nContext: ${err_context}`;
-                                console.error(alert_msg, response);
-                                alert(alert_msg);
-                            } else {
+                            else if (response.status == 200 && response.data) {
+                                // got good response with data
                                 $scope.params = response.data.records;
                                 $scope.subsystems = get_unique_subsystems(response.data.records);
                                 $scope.SubsysSel = $scope.subsystems[0];
                                 $scope.categories = get_unique_categories(response.data.records);
+                            } else {
+                                console.error('Got odd response from backend', response);
+                                alert("Got an odd response from the backend. Check the javascript console for more information.");
                             }
 
                         });

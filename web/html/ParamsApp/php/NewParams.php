@@ -3,9 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 require_once "ParamHelper.php";
 require_once "DbSchemaDefs.php";
-//require_once "sLogger.php";
 
-//$log->logData(LOG_INFO, "NewParams.php");
 
 function writeInvalidRowError($rowLabel, $row, $missingKey) {
     $errorContext = $rowLabel . ":\n";
@@ -68,6 +66,12 @@ function isSameResource($prevRow, $currRow) {
 /* Create required Database definitions if necessary */
 $tableList = createRequiredDbEntities($MYSQL_DB, $MYSQL_USER, $MYSQL_PWD, $MYSQL_HOST, true);
 
+if (! $tableList) {
+    $err_context = "DB -> " . $MYSQL_DB . " Table -> " . $DataParameterTable;
+    writeError("1", "", "Unable to find DB and/or Table", $err_context);
+    exit();
+}
+
 /* Continue */
 $fields = array("subsystem", "catDisplayOrder", "paramDisplayOrder", "category", "paramName", "type", "min", "max", "description", "detail", "resource", "timestamp", "value", "user");
 $outerParamFields = array("subsystem", "catDisplayOrder", "paramDisplayOrder", "category", "paramName", "type", "min", "max", "description", "detail", "resource");
@@ -105,16 +109,6 @@ if (! empty($_GET['DEBUG'])) {
     $DT9 = "|9|";
 }
 
-// $query = "
-// SELECT apd.subsystem, apd.catDisplayOrder, apd.paramDisplayOrder, apd.category,
-// apd.paramName, apd.type, apd.min, apd.max, apd.description, apd.detail,
-// p.resource, p.`timestamp`, p.value, p.`user`
-// FROM `AbstractParameterByCategory` AS apd
-// INNER JOIN `$DataParameterTable` AS p
-// ON apd.paramName = p.name
-// AND apd.subsystem = p.subsystem
-// AND apd.category = p.category
-// ORDER BY apd.subsystem, apd.catDisplayOrder, apd.paramDisplayOrder, apd.category, p.name, p.resource asc, p.`timestamp` desc";
 
 $query = "SELECT apd.subsystem, apd.catDisplayOrder, apd.paramDisplayOrder, apd.category,";
 $query .= " apd.paramName, apd.type, apd.min, apd.max, apd.description, apd.detail,";
