@@ -254,7 +254,7 @@ export class PropsFileReader {
 
                 // override dbname with given value
                 if (PropsFileReader.cmdVars.dbName !== "" && token.endsWith("_MYSQL_DB")) {
-                    Logger.log(LogLevel.INFO, `Overriding macro ${token} with the value of cmd line arg "--dbName${PropsFileReader.cmdVars.dbName}" for fleetviewer`);
+                    Logger.log(LogLevel.INFO, `Overriding macro ${token} with the value of cmd line arg "--dbName=${PropsFileReader.cmdVars.dbName}" for fleetviewer`);
                     props['macro'][macroIndex]['replacement'] = PropsFileReader.cmdVars.dbName
                 } else {
                     PropsFileReader.processMacroPart(props, macroIndex);
