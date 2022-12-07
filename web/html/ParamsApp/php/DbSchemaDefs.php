@@ -200,16 +200,19 @@ function createRequiredDbEntities($dbName, $user, $pw, $dbHost, $quiet = false)
     /* Define any missing req table */
     foreach($reqTables as $tableName => $tableDef) {
 
-        $query = sprintf(TABLE_EXISTS_QUERY, $dbName, $tableName);		// create a query to check if the db and table exist
-        $result = $conn->query($query); 								// perform query
+        $query = sprintf(TABLE_EXISTS_QUERY, $dbName, $tableName);
+        $result = $conn->query($query);
 		if (! $result) {
 			return false;
 		}
         $rs = $result->fetch_array(MYSQLI_ASSOC);
 
-		if ($rs['tableExists'] != "0") {
+		if ($rs['tableExists'] == "0") {
+            $return .= $tableName . " (created table)\n";
+            $result = $conn->query($tableDef);
+		} else {
             $return .= $tableName . " (preexisting table)\n";
-        }
+		}
     }
 
     /* Define any missing req view */
