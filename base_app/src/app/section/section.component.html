@@ -40,7 +40,6 @@
             id="Table-{{_sectionIndex}}-{{dataSetIdx}}-{{tableIdx}}" [title]="fixNL(dsItem.desc)" class="L3"
         >
             <dataset-table *ngIf="getTableType(dsItem) === 'PairListTable'"
-                            [idk]="datasets_instance"
                            [_dataset]="dsItem"
                             [_uiTab]="_uiTab"
                             [id]="dsItem.id">
