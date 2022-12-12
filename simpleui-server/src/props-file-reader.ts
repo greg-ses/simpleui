@@ -280,13 +280,12 @@ export class PropsFileReader {
 
         let i = 0;
         let keyIndex = 0;
-        for (const pair of pairs) {                 // for each 'prop' line (not macro)
-            // if (i++ === 0) { continue; }
+        for (const pair of pairs) {
             const firstEqual = pair.indexOf('=');
             if (firstEqual > 0) {
                 let key = pair.substr(0, firstEqual).trim();
                 const value = pair.substr(firstEqual + 1).trim();
-                let arrayKey = key.match(/^([^.]+)\.([0-9])+\.([^ =]+)/);     // tab.1.dataURL splits into [tab, 1, dataUrl]           |       tab.10.dataUrl splits into [tab, 1, 0, dataUrl]
+                let arrayKey = key.match(/^([^.]+)\.([0-9]+)+\.([^ =]+)/);
                 if (arrayKey) {
                     if (key === 'tab') {
                         arrayKey = key.split('.');
