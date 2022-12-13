@@ -40,6 +40,8 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
         if (this._element instanceof Object) {
             if (!UTIL.elements_are_equal(this._element, newCmdObject)) {
                 this._element = newCmdObject;
+                // im okay with this manual change since its most likely the last child in the compoponent
+                // and therefore shouldnt cause a big refresh chain (its the last node in  the tree)
                 this._changeDetectorRef.detectChanges();
             }
         } else {

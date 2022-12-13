@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { CommandButtonChange, CommandButtonChangeService } from '../services/command-button-change.service';
 import { DataSet } from '../interfaces/dataset';
 import { DataSetChangeService } from '../services/dataset-change.service';
@@ -18,54 +18,55 @@ import {ClientLogger} from '../../tools/logger';
 })
 
 // The common page layout with id tags for js
-export class DatasetTableComponent implements OnDestroy {
+export class DatasetTableComponent implements OnInit {
     @Input() _dataset: DataSet;
     @Input() _props: any;
     @Input() _uiTab: TabUI;
     @Input() _tableName: string;
-    _updateCount = 0;
-    dataSetChangeSubscription: Subscription;
     _hidden: boolean
 
+    // _updateCount = 0;
+    // dataSetChangeSubscription: Subscription;
+    // constructor(
+    //     private commandButtonChangeService: CommandButtonChangeService,
+    //     private dataSetChangeService: DataSetChangeService,
+    //     private _changeDetectorRef: ChangeDetectorRef,
+    //     @Optional() public app: AppComponent
+    // ) {
+    //     this.dataSetChangeSubscription = dataSetChangeService.changeAnnounced$.subscribe(
+    //     dataChange => {
+    //         if (   (dataChange.tabId === this._uiTab.id)
+    //             && (this._dataset.u_id === dataChange.updatedDataSet.u_id) ) {
+
+    //                 this._updateCount++;
+
+    //                 if (this._dataset.elements instanceof Object) {
+    //                     for (const element of this._dataset.elements) {
+    //                         if (element['command'] instanceof Object) {
+    //                             const commandButtonChange = new CommandButtonChange(this._uiTab.id, element);
+    //                             this.commandButtonChangeService.announceChange(commandButtonChange);
+    //                         }
+    //                     }
+    //                 }
+    //                 this._dataset = dataChange.updatedDataSet;
+    //                 //this._changeDetectorRef.detectChanges();
+    //             }
+    //         });
+    // }
+
+    // ngOnDestroy() {
+    //     this.dataSetChangeSubscription.unsubscribe();
+    // }
+
     constructor(
-        private commandButtonChangeService: CommandButtonChangeService,
-        private dataSetChangeService: DataSetChangeService,
-        private _changeDetectorRef: ChangeDetectorRef,
         @Optional() public app: AppComponent
-    ) {
-        this.dataSetChangeSubscription = dataSetChangeService.changeAnnounced$.subscribe(
-        dataChange => {
-            if (   (dataChange.tabId === this._uiTab.id)
-                && (this._dataset.u_id === dataChange.updatedDataSet.u_id) ) {
-
-                    this._updateCount++;
-
-                    if (this._dataset.elements instanceof Object) {
-                        for (const element of this._dataset.elements) {
-                            if (element['command'] instanceof Object) {
-                                const commandButtonChange = new CommandButtonChange(this._uiTab.id, element);
-                                this.commandButtonChangeService.announceChange(commandButtonChange);
-                            }
-                        }
-                    }
-                    this._dataset = dataChange.updatedDataSet;
-                    this._changeDetectorRef.detectChanges();
-                }
-            });
-
-
-
-    }
+    ) {}
 
     ngOnInit() {
         let table_id = this.getTableId();
         if (this.app._globalProps._hiddenTables.includes(table_id)) {
             this._hidden = true;
         }
-    }
-
-    ngOnDestroy() {
-        this.dataSetChangeSubscription.unsubscribe();
     }
 
     getTitle(): string {
@@ -112,8 +113,8 @@ export class DatasetTableComponent implements OnDestroy {
                 this._hidden = false;
                 ClientLogger.log("DeltaUpdate", `toggle( ${tableId} ): visible`)
             }
-            this._changeDetectorRef.detectChanges();
-            this._changeDetectorRef.detach();
+            //this._changeDetectorRef.detectChanges();
+            //this._changeDetectorRef.detach();
         }
     }
 

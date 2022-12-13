@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { PropDefinedDataSet } from '../interfaces/dataset';
 import { DataSetChangeService} from '../services/dataset-change.service';
 import { AppComponent } from '../app.component';
@@ -14,30 +14,37 @@ import { Subscription } from 'rxjs';
 })
 
 // The common page layout with id tags for js
-export class PropDefinedTableComponent implements OnDestroy {
+export class PropDefinedTableComponent implements OnInit {
     @Input() _dataset: PropDefinedDataSet;
     @Input() _uiTab: TabUI;
     @Input() _id: string;
-    _updateCount = 0;
-    dataSetChangeSubscription: Subscription;
     _hidden: boolean
 
+
+
+    // _updateCount = 0;
+    // dataSetChangeSubscription: Subscription;
+
+    // constructor(
+    //     private dataSetChangeService: DataSetChangeService,
+    //     private _changeDetectorRef: ChangeDetectorRef,
+    //     @Optional() public app: AppComponent
+    // ) {
+    // }
+
+    // ngOnDestroy() {
+    //     this.dataSetChangeSubscription.unsubscribe();
+    // }
+
     constructor(
-        private dataSetChangeService: DataSetChangeService,
-        private _changeDetectorRef: ChangeDetectorRef,
         @Optional() public app: AppComponent
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         let table_name = this._id;
         if (this.app._globalProps._hiddenTables.includes(table_name)) {
             this._hidden = true;
         }
-    }
-
-    ngOnDestroy() {
-        //this.dataSetChangeSubscription.unsubscribe();
     }
 
     getTitle(): string {
@@ -75,8 +82,6 @@ export class PropDefinedTableComponent implements OnDestroy {
             this.app._globalProps._hiddenTables = this.app._globalProps._hiddenTables.filter(e => e !== this._id);
             this._hidden = false;
         }
-
-
     }
 
 }

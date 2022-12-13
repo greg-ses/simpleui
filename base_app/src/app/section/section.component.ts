@@ -16,14 +16,13 @@ import { UTIL } from 'src/tools/utility';
 })
 
 // The common page layout with id tags for js
-export class SectionComponent implements AfterViewInit, OnInit, OnDestroy, OnChanges {
+export class SectionComponent implements OnInit, OnDestroy, OnChanges {
     @Input() _section: any;
     @Input() _sectionIndex: number;
     @Input() _uiTab: TabUI;
-    dataSetChangeList_arr: Array<DataSetChangeList> = [];
 
-
-    private _detectChanges: SectionChangeList;
+    //dataSetChangeList_arr: Array<DataSetChangeList> = [];
+    //private _detectChanges: SectionChangeList;
 
     // @Input()
     // set detectSectionChanges(sectionChangeList: SectionChangeList) {
@@ -49,15 +48,23 @@ export class SectionComponent implements AfterViewInit, OnInit, OnDestroy, OnCha
     // }
     // get detectChanges(): {name: string, value: boolean, updatedSection: any} { return this._detectChanges; }
 
-    constructor(
-        private _changeDetectorRef: ChangeDetectorRef,
-        @Optional() public app: AppComponent
-    ) { }
+    // constructor(
+    //     private _changeDetectorRef: ChangeDetectorRef,
+    //     @Optional() public app: AppComponent
+    // ) { }
 
-    ngAfterViewInit() {
-        // Disable change detection on the component - we deliberately re-enable it when required using reattach() and detectChanges()
-        //this._changeDetectorRef.detach();
-    }
+    // ngAfterViewInit() {
+    //     // Disable change detection on the component - we deliberately re-enable it when required using reattach() and detectChanges()
+    //     this._changeDetectorRef.detach();
+    // }
+
+    // getDataSetChangeListArr() {
+    //     return this.dataSetChangeList_arr;
+    // }
+
+    constructor(
+        @Optional() public app: AppComponent
+    ) {}
 
     ngOnInit(): void {
         console.info(`created ${this._section.name}`);
@@ -67,18 +74,13 @@ export class SectionComponent implements AfterViewInit, OnInit, OnDestroy, OnCha
         console.info(`destroyed ${this._section.name}`);
     }
     ngOnChanges(changes: SimpleChanges): void {
-        console.debug('changed', changes);
+        //console.debug('changed', changes);
     }
-
-
 
     getTableType(dsItem) {
         return dsItem['tableType'];
     }
 
-    getDataSetChangeListArr() {
-        return this.dataSetChangeList_arr;
-    }
 
     getSectId(i): string {
         return 'Section-' + i;
@@ -95,16 +97,14 @@ export class SectionComponent implements AfterViewInit, OnInit, OnDestroy, OnCha
         return hidden;
     }
 
-    toggle(i) {
+    toggle(section_indx) {
         if (this.app._globalProps && this.app._globalProps._hiddenTables) {
-            const sectId = this.getSectId(i);
+            const sectId = this.getSectId(section_indx);
             const pos = this.app._globalProps._hiddenTables.indexOf(sectId);
             if (pos === -1) {
                 this.app._globalProps._hiddenTables.push(sectId);
-                //console.log('toggle(' + sectId + '): hidden');
             } else {
                 this.app._globalProps._hiddenTables = this.app._globalProps._hiddenTables.filter(e => e !== sectId);
-                //console.log('toggle(' + sectId + '): visible');
             }
             // this.changeDetectorRef.markForCheck();
             //this._changeDetectorRef.detectChanges();
