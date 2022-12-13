@@ -1,9 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Optional } from '@angular/core';
 import { PropDefinedDataSet } from '../interfaces/dataset';
-import { DataSetChangeService} from '../services/dataset-change.service';
 import { AppComponent } from '../app.component';
 import { TabUI } from '../interfaces/props-data';
-import { Subscription } from 'rxjs';
 
 @Component({
     animations: [],
@@ -19,22 +17,6 @@ export class PropDefinedTableComponent implements OnInit {
     @Input() _uiTab: TabUI;
     @Input() _id: string;
     _hidden: boolean
-
-
-
-    // _updateCount = 0;
-    // dataSetChangeSubscription: Subscription;
-
-    // constructor(
-    //     private dataSetChangeService: DataSetChangeService,
-    //     private _changeDetectorRef: ChangeDetectorRef,
-    //     @Optional() public app: AppComponent
-    // ) {
-    // }
-
-    // ngOnDestroy() {
-    //     this.dataSetChangeSubscription.unsubscribe();
-    // }
 
     constructor(
         @Optional() public app: AppComponent
