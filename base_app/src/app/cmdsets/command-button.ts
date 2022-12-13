@@ -5,7 +5,7 @@
 // The common page layout with id tags for js
 import {
     ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef, Inject,
-    Input, OnChanges, OnDestroy, SimpleChanges, AfterContentChecked
+    Input, OnChanges, OnDestroy, SimpleChanges, AfterContentChecked, OnInit
 } from '@angular/core';
 import {AppComponent} from '../app.component';
 import {CommandService} from '../services/command.service';
@@ -27,7 +27,7 @@ import {TabUI} from '../interfaces/props-data';
     providers: [HttpClientModule, CommandService]
 })
 
-export class CommandButtonComponent implements OnChanges, OnDestroy {
+export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnChanges {
     @Input() _uiTab: TabUI;
     @Input() _sha1sum: string;
     _element: any;
@@ -37,13 +37,10 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
 
     @Input()
     set element(newCmdObject) {
-        console.log(newCmdObject)
-
         if (this._element instanceof Object) {
             if (!UTIL.elements_are_equal(this._element, newCmdObject)) {
                 this._element = newCmdObject;
                 this._changeDetectorRef.detectChanges();
-                console.log('changing');
             }
         } else {
             this._element = UTIL.deepCopy(newCmdObject);
@@ -77,13 +74,28 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
         'textInputDialog'
     ];
 
-
-    ngAfterViewInit() {
-        //console.log(`Button viewable`);
+    ngOnInit() {
+        console.info('init', this._element?.command?.label);
     }
 
-    AfterContentChecked() {
-        console.log(`aftercontnet`)
+    ngOnDestroy() {
+        this.commandButtonChangeSubscription.unsubscribe();
+        console.info('destroy', this._element?.command?.label);
+
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        let anyChange = false;
+        for (const propName in changes) {
+            if (this.isChanged(propName, changes[propName].currentValue)) {
+                anyChange = true;
+                break;
+            }
+        }
+        if (anyChange) {
+            ClientLogger.log('CommandButtonChangeDetection',
+                'anyChange is true', true);
+        }
     }
 
 
@@ -282,10 +294,6 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
         return found;
     }
 
-    ngOnDestroy() {
-        this.commandButtonChangeSubscription.unsubscribe();
-    }
-
     getExtraAttributes(formParams: any) {
         const ignoredAttrs: any = ['name', 'confirm', 'u_id', 'controls'];
         const attrKeys = Object.keys(this._element.command);
@@ -431,8 +439,8 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
         if ((typeof response === 'object') && (typeof response.status === 'string')) {
             msg += `{response.status}`;
         }
-        alert(msg);
-        console.log(msg);
+        //alert(msg);
+        //console.log(msg);
     }
 
     disabled() {
@@ -498,10 +506,9 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
     }
 
     onClick(event) {
-        // alert('You clicked me!');
         try {
             if (!this._uiTab._commands_enabled) {
-                this.showCommandsDisabledWhenUpdatesPausesMessage();
+                this.showCommandsDisabledWhenUpdatesPausesMessage();                // stops updates
                 return;
             } else {
                 this.updateClass('inProgress');
@@ -534,7 +541,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
             }
         } catch (err) {
             console.log('error in CommandButtonComponent.onClick()', err.toString());
-            alert('Error: ' + err.toString());
+            //alert('Error: ' + err.toString());
             this.updateClass('command');
         }
         event.preventDefault();
@@ -593,17 +600,5 @@ export class CommandButtonComponent implements OnChanges, OnDestroy {
         return propChanged;
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        let anyChange = false;
-        for (const propName in changes) {
-            if (this.isChanged(propName, changes[propName].currentValue)) {
-                anyChange = true;
-                break;
-            }
-        }
-        if (anyChange) {
-            ClientLogger.log('CommandButtonChangeDetection',
-                'anyChange is true', true);
-        }
-    }
+
 }

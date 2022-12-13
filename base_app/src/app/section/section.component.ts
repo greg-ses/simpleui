@@ -2,10 +2,11 @@
  * Created by jscarsdale on 2019-06-27.
  */
 
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Optional, Output} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, Optional, OnInit, OnDestroy, OnChanges, SimpleChanges} from '@angular/core';
 import { AppComponent } from '../app.component';
 import { TabUI } from '../interfaces/props-data';
 import { DataSetChangeList, SectionChangeList } from '../interfaces/dataset';
+import { UTIL } from 'src/tools/utility';
 
 @Component({
     selector: 'app-section',
@@ -15,37 +16,37 @@ import { DataSetChangeList, SectionChangeList } from '../interfaces/dataset';
 })
 
 // The common page layout with id tags for js
-export class SectionComponent implements AfterViewInit{
+export class SectionComponent implements AfterViewInit, OnInit, OnDestroy, OnChanges {
     @Input() _section: any;
     @Input() _sectionIndex: number;
     @Input() _uiTab: TabUI;
     dataSetChangeList_arr: Array<DataSetChangeList> = [];
 
+
     private _detectChanges: SectionChangeList;
 
-    @Input()
-    set detectSectionChanges(sectionChangeList: SectionChangeList) {
+    // @Input()
+    // set detectSectionChanges(sectionChangeList: SectionChangeList) {
+    //     if (typeof sectionChangeList === 'undefined') {
+    //         return;
+    //     }
 
-        if (typeof sectionChangeList === 'undefined') {
-            return;
-        }
+    //     if (typeof this._uiTab === 'object') {
+    //         if (this._uiTab.name === sectionChangeList.tabName) {
+    //             if (typeof this._detectChanges === 'undefined') {
+    //                 this._detectChanges = sectionChangeList;
+    //             }
 
-        if (typeof this._uiTab === 'object') {
-            if (this._uiTab.name === sectionChangeList.tabName) {
-                if (typeof this._detectChanges === 'undefined') {
-                    this._detectChanges = sectionChangeList;
-                }
+    //             if (sectionChangeList.changed === true) {
+    //                 this._section = sectionChangeList.section;
+    //                 //this._changeDetectorRef.detectChanges();
+    //                 //this._changeDetectorRef.detach();
+    //             }
+    //         }
+    //     }
 
-                if (sectionChangeList.changed === true) {
-                    this._section = sectionChangeList.section;
-                    this._changeDetectorRef.detectChanges();
-                    this._changeDetectorRef.detach();
-                }
-            }
-        }
-
-        this.dataSetChangeList_arr = sectionChangeList.dataSetChangeList_arr;
-    }
+    //     this.dataSetChangeList_arr = sectionChangeList.dataSetChangeList_arr;
+    // }
     // get detectChanges(): {name: string, value: boolean, updatedSection: any} { return this._detectChanges; }
 
     constructor(
@@ -55,8 +56,21 @@ export class SectionComponent implements AfterViewInit{
 
     ngAfterViewInit() {
         // Disable change detection on the component - we deliberately re-enable it when required using reattach() and detectChanges()
-        this._changeDetectorRef.detach();
+        //this._changeDetectorRef.detach();
     }
+
+    ngOnInit(): void {
+        console.info(`created ${this._section.name}`);
+    }
+
+    ngOnDestroy(): void {
+        console.info(`destroyed ${this._section.name}`);
+    }
+    ngOnChanges(changes: SimpleChanges): void {
+        console.debug('changed', changes);
+    }
+
+
 
     getTableType(dsItem) {
         return dsItem['tableType'];
@@ -71,13 +85,7 @@ export class SectionComponent implements AfterViewInit{
     }
 
     getThClassName(sectionIndex) {
-        let theme = '';
-        try {
-            theme = this.app._props['appTheme']['name'] || 'SimpleUiBlue';
-        } catch(e) {
-            theme = 'SimpleUiBlue';
-        }
-
+        const theme = this.app?._props?.appTheme?.name || 'SimpleUiBlue';
         return `${this.isCollapsed(sectionIndex) ? 'sectionClosed' : 'sectionOpened'} ${sectionIndex % 2 ? 'even' : 'odd'}-${theme} L3`;
 
     }
@@ -99,8 +107,8 @@ export class SectionComponent implements AfterViewInit{
                 //console.log('toggle(' + sectId + '): visible');
             }
             // this.changeDetectorRef.markForCheck();
-            this._changeDetectorRef.detectChanges();
-            this._changeDetectorRef.detach();
+            //this._changeDetectorRef.detectChanges();
+            //this._changeDetectorRef.detach();
         }
         event.preventDefault();
         event.stopPropagation();
@@ -108,6 +116,19 @@ export class SectionComponent implements AfterViewInit{
 
     fixNL(s): string {
         return s ? s.replace(/\(NL\)/g, '\n') : '';
+    }
+
+
+
+/**
+ * *ngFor methods for preventing destruction and recreation of
+ * components on each iteration (keeps buttons on the page)
+ */
+    datatableTrackBy(index: number, dsItem: any) {
+        return dsItem.u_id
+    }
+    cmdsetTrackBy(index: number, cmdset: any) {
+        return cmdset.u_id
     }
 
 }

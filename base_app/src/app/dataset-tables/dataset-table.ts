@@ -48,7 +48,6 @@ export class DatasetTableComponent implements OnDestroy {
                             }
                         }
                     }
-
                     this._dataset = dataChange.updatedDataSet;
                     this._changeDetectorRef.detectChanges();
                 }
@@ -116,5 +115,10 @@ export class DatasetTableComponent implements OnDestroy {
             this._changeDetectorRef.detectChanges();
             this._changeDetectorRef.detach();
         }
+    }
+
+
+    commandButtonTrackBy(index: number, commandButton: any) {
+        return commandButton.u_id
     }
 }

@@ -2,7 +2,7 @@
     <tr *ngIf="_uiTab._DataSummary.Section" class='tr-section L1' style="width: 100%">
         <td align="center" class="top-wrapper L1">
             <table align="left" width="300px" class="L2" style="border-style: hidden; border-collapse: collapse;" >
-                <tr *ngFor="let sect of _uiTab?._DataSummary?.Section; let sectionIndex = index;" [className]="getSectionClassName(sectionIndex)">
+                <tr *ngFor="let sect of _uiTab?._DataSummary?.Section; let sectionIndex = index; trackBy: sectionTrackBy" [className]="getSectionClassName(sectionIndex)">
                     <td class="L2">
                         <app-section
                                 [_section]="sect"
@@ -16,3 +16,15 @@
         </td>
     </tr>
 </tbody>
+
+
+<!--
+<app-section
+    [_section]="sect"
+    [_sectionIndex]="sectionIndex"
+    [_uiTab]="_uiTab"
+    [detectSectionChanges]="checkSectionUpdate(sect, sectionIndex)"
+></app-section>
+
+trackBy: sectionTrackBy
+-->

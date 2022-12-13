@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, EventEmitter, Input, OnInit, Optional, Output } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, OnChanges, OnInit, Optional, Output, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { TabUI } from '../interfaces/props-data';
 
 //import '../css/styles.css';
@@ -6,7 +6,6 @@ import { AppComponent } from '../app.component';
 import { DataSetChange, DataSetChangeService} from '../services/dataset-change.service';
 import { DataSetChangeList } from '../interfaces/dataset';
 import { UTIL } from '../../tools/utility';
-import { ClientLogger } from '../../tools/logger' ;
 import { SectionChangeList } from '../interfaces/dataset';
 
 @Component({
@@ -17,7 +16,7 @@ import { SectionChangeList } from '../interfaces/dataset';
     providers: [DataSetChangeService]
 })
 
-export class AppTabNormalComponent implements AfterContentInit, OnInit {
+export class AppTabNormalComponent implements AfterContentInit, OnInit, OnChanges {
     @Input() _uiTab: TabUI;
     @Output() updateModelOfChildDataSet = new EventEmitter<{uiTab: any, sectionIdx: number, dataSetsIdx: number, newChildData: any}>();
     _initialized = false;
@@ -33,16 +32,16 @@ export class AppTabNormalComponent implements AfterContentInit, OnInit {
     }
 
     ngOnInit() {
+        console.log('app-tab-normal init');
+    }
+
+
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log('changes', changes)
     }
 
     getSectionClassName(sectionIndex) {
-        let theme: string;
-        try {
-            theme = this.app._props['appTheme']['name'] || 'SimpleUiBlue';
-        } catch (e) {
-            theme = 'SimpleUiBlue';
-        }
-
+        let theme = this.app._props?.appTheme?.name || 'SimpleUiBlue';
         return `section-${sectionIndex % 2 ? 'even' : 'odd'}-${theme} L2`;
     }
 
@@ -55,17 +54,11 @@ export class AppTabNormalComponent implements AfterContentInit, OnInit {
 
         // Trigger a full update on the FIRST changed CmdSet
         if (this._initialized) {
-
             const sectionRefKey = 'tab/' + this._uiTab.index + '/section/' + sectionIndex + '/sha1sum';
             const sectionChildObj = section.sha1sum || 'NO-SHA1SUM';
             const sectionComparedValues = {new: '', old: ''};
             if (UTIL.compareAndUpdateSavedJSONValue(section, sectionRefKey, sectionChildObj, sectionComparedValues)) {
                 sectionChangeList.changed = true;
-                ClientLogger.log('DeltaUpdate', 'Δ ' + section.u_id
-                    + ':section[' + sectionIndex + '] sha1sum compareAndUpdateSavedJSONValue',
-                    false,
-                    'Δ old: ' + sectionComparedValues.old,
-                    'Δ new: ' + sectionComparedValues.new );
             }
 
             for (let cmdSetIndex = 0; cmdSetIndex < section.CmdSet.length; cmdSetIndex++) {
@@ -75,11 +68,6 @@ export class AppTabNormalComponent implements AfterContentInit, OnInit {
                 const comparedValues = {new: '', old: ''};
                 if (UTIL.compareAndUpdateSavedJSONValue(section, cmdSetRefKey, childObj, comparedValues)) {
                     sectionChangeList.changed = true;
-                    ClientLogger.log('DeltaUpdate', 'Δ ' + section.CmdSet[cmdSetIndex].u_id
-                                + ':cmdSet[' + cmdSetIndex + '] sha1sums compareAndUpdateSavedJSONValue',
-                        false,
-                        'Δ old: ' + comparedValues.old,
-                        'Δ new: ' + comparedValues.new );
                 }
             }
 
@@ -95,12 +83,6 @@ export class AppTabNormalComponent implements AfterContentInit, OnInit {
 
                 const comparedValues = {new: '', old: ''};
                 if (UTIL.compareAndUpdateSavedJSONValue(section, dataSetsRefKey, sha1SumsChildObj, comparedValues)) {
-                    ClientLogger.log('DeltaUpdate',
-                       'Δ ' + section.DataSets[dsi].u_id + ':dataSets[' + dsi + '] sha1sums compareAndUpdateSavedJSONValue',
-                      false,
-                       'Δ old: ' + comparedValues.old,
-                       'Δ new: ' + comparedValues.new );
-
                     const datasetChangeList = this.updateDataSet(section.DataSets[dsi]);
                     if (datasetChangeList.sectionUpdateNeeded) {
                         sectionChangeList.changed = true;
@@ -119,13 +101,10 @@ export class AppTabNormalComponent implements AfterContentInit, OnInit {
             sectionUpdateNeeded : false,
             changed_dsItem_u_ids: []
         };
-
-
         // If full update not already triggered, trigger updates for any changed command within any DataSet
             for (const dsItem of dataSetsInstance.dsItems) {
                 if (! (window['dsItem_sha1sum'] instanceof Array)) {
                     // Initializing
-                    ClientLogger.log('DeltaUpdate', 'Δ ' + dsItem.u_id + ':init dsItem_sha1sum');
                     window['dsItem_sha1sum'] = [];
                     window['dsItem_sha1sum'][dsItem.u_id] = dsItem.sha1sum;
                     continue;
@@ -139,18 +118,21 @@ export class AppTabNormalComponent implements AfterContentInit, OnInit {
                         this.dataSetChangeService.announceChange(dataSetChange);
 
                         dataSetChangeList.changed_dsItem_u_ids.push(dsItem.u_id);
-                        ClientLogger.log('DeltaUpdate', 'Δ ' + dsItem.u_id + ':dsItem_sha1sum');
                         window['dsItem_sha1sum'][dsItem.u_id] = dsItem.sha1sum;
                     }
                 } else {
                     // New DataSet
                     dataSetChangeList.sectionUpdateNeeded = true;
-                    ClientLogger.log('DeltaUpdate', 'Δ ' + dsItem.u_id + ':dsItem_sha1sum');
                     window['dsItem_sha1sum'][dsItem.u_id] = dsItem.sha1sum;
                 }
             }
 
         return dataSetChangeList;
+    }
+
+
+    sectionTrackBy(index: number, section: any) {
+        return section.u_id
     }
 }
 

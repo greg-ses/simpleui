@@ -12,8 +12,10 @@
 
     <tr *ngIf="_section?.CmdSet.length && ('top' === _section?.menuPos)" [className]="isCollapsed(_sectionIndex)?'hiddenBlock L3':'tableRowGroupBlock L3'" >
         <td [id]="'CmdSet-' + _sectionIndex" class="cmdset-wrapper L3" [attr.colspan]="_section?.colCount">
-            <table *ngFor="let cmdset of _section.CmdSet" style="border-style: hidden; border-collapse: collapse;" class="L3">
-                <tr class="L3"><td class="L3"><span>{{ cmdset.desc }}</span></td></tr>
+            <table *ngFor="let cmdset of _section.CmdSet trackBy: cmdsetTrackBy" style="border-style: hidden; border-collapse: collapse;" class="L3">
+                <tr class="L3">
+                    <td class="L3"><span>{{ cmdset.desc }}</span></td>
+                </tr>
                 <tr class="L3">
                     <td class="L3">
                         <cmdset [_cmdset]="cmdset" [_uiTab]="_uiTab"><!-- horizontal cmdset--></cmdset>
@@ -25,19 +27,20 @@
 
     <tr *ngIf="_section?.CmdSet.length && ('left' === _section?.menuPos)" [className]="isCollapsed(_sectionIndex)?'hiddenBlock L3':'tableRowGroupBlock L3'" >
         <td [id]="'CmdSet-' + _sectionIndex" [attr.rowspan]="_section?.rowCount" [className]="'cmdset-wrapper left-vertical-cmdset L3'">
-            <section *ngFor="let cmdset of _section.CmdSet" class="L3">
+            <section *ngFor="let cmdset of _section.CmdSet; trackBy: cmdsetTrackBy" class="L3">
                 <cmdset [_cmdset]="cmdset" [_uiTab]="_uiTab"><!-- vertical cmdset--></cmdset>
             </section>
         </td>
     </tr>
 
 
-    <tr *ngFor="let datasets_instance of _section?.DataSets; let dataSetIdx = index"
+    <tr *ngFor="let datasets_instance of _section?.DataSets; let dataSetIdx = index; trackBy: datatableTrackBy"
         id="DataSet-{{_sectionIndex}}-{{dataSetIdx}}"
         [className]="isCollapsed(_sectionIndex) ? 'hiddenBlock L3' : 'tableRowGroupBlock dataset-wrapper L3'"
     >
-        <td *ngFor="let dsItem of datasets_instance['dsItems']; let tableIdx = index"
-            id="Table-{{_sectionIndex}}-{{dataSetIdx}}-{{tableIdx}}" [title]="fixNL(dsItem.desc)" class="L3"
+        <td *ngFor="let dsItem of datasets_instance['dsItems']; let tableIdx = index; trackBy: datatableTrackBy"
+            id="Table-{{_sectionIndex}}-{{dataSetIdx}}-{{tableIdx}}"
+            [title]="fixNL(dsItem.desc)" class="L3"
         >
             <dataset-table *ngIf="getTableType(dsItem) === 'PairListTable'"
                            [_dataset]="dsItem"
