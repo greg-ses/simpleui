@@ -15,7 +15,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ClientLogger} from '../../tools/logger';
 import {UTIL} from '../../tools/utility';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import {MaterialPopupComponent} from './material-popup-component';
+import {MaterialPopupComponent} from '../cmdsets/material-popup-component';
 import {TabUI} from '../interfaces/props-data';
 
 @Component({

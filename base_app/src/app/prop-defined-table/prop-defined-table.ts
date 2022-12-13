@@ -27,16 +27,6 @@ export class PropDefinedTableComponent implements OnDestroy {
         private _changeDetectorRef: ChangeDetectorRef,
         @Optional() public app: AppComponent
     ) {
-        this.dataSetChangeSubscription = dataSetChangeService.changeAnnounced$.subscribe(
-        dataChange => {
-            if (   (dataChange.tabId === this._uiTab.id)
-                && (this._dataset.u_id === dataChange.updatedDataSet.u_id) ) {
-
-                this._updateCount++;
-                this._dataset = <PropDefinedDataSet>dataChange.updatedDataSet;
-                this._changeDetectorRef.detectChanges();
-            }
-        });
     }
 
     ngOnInit() {
@@ -47,7 +37,7 @@ export class PropDefinedTableComponent implements OnDestroy {
     }
 
     ngOnDestroy() {
-        this.dataSetChangeSubscription.unsubscribe();
+        //this.dataSetChangeSubscription.unsubscribe();
     }
 
     getTitle(): string {
@@ -81,14 +71,11 @@ export class PropDefinedTableComponent implements OnDestroy {
         if (pos === -1) {
             this.app._globalProps._hiddenTables.push(this._id);
             this._hidden = true;
-            console.log('toggle(' + this._id + '): hidden');
         } else {
             this.app._globalProps._hiddenTables = this.app._globalProps._hiddenTables.filter(e => e !== this._id);
             this._hidden = false;
-            console.log('toggle(' + this._id + '): visible');
         }
-        this._changeDetectorRef.detectChanges();
-        this._changeDetectorRef.detach();
+
 
     }
 
