@@ -2,11 +2,9 @@
  * Created by jscarsdale on 2019-06-27.
  */
 
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, Optional, OnInit, OnDestroy, OnChanges, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, Optional, OnInit, OnDestroy} from '@angular/core';
 import { AppComponent } from '../app.component';
 import { TabUI } from '../interfaces/props-data';
-import { DataSetChangeList, SectionChangeList } from '../interfaces/dataset';
-import { UTIL } from 'src/tools/utility';
 
 @Component({
     selector: 'app-section',
@@ -16,71 +14,22 @@ import { UTIL } from 'src/tools/utility';
 })
 
 // The common page layout with id tags for js
-export class SectionComponent implements OnInit, OnDestroy, OnChanges {
+export class SectionComponent implements OnInit, OnDestroy {
     @Input() _section: any;
     @Input() _sectionIndex: number;
     @Input() _uiTab: TabUI;
 
-    //dataSetChangeList_arr: Array<DataSetChangeList> = [];
-    //private _detectChanges: SectionChangeList;
-
-    // @Input()
-    // set detectSectionChanges(sectionChangeList: SectionChangeList) {
-    //     if (typeof sectionChangeList === 'undefined') {
-    //         return;
-    //     }
-
-    //     if (typeof this._uiTab === 'object') {
-    //         if (this._uiTab.name === sectionChangeList.tabName) {
-    //             if (typeof this._detectChanges === 'undefined') {
-    //                 this._detectChanges = sectionChangeList;
-    //             }
-
-    //             if (sectionChangeList.changed === true) {
-    //                 this._section = sectionChangeList.section;
-    //                 //this._changeDetectorRef.detectChanges();
-    //                 //this._changeDetectorRef.detach();
-    //             }
-    //         }
-    //     }
-
-    //     this.dataSetChangeList_arr = sectionChangeList.dataSetChangeList_arr;
-    // }
-    // get detectChanges(): {name: string, value: boolean, updatedSection: any} { return this._detectChanges; }
-
-    // constructor(
-    //     private _changeDetectorRef: ChangeDetectorRef,
-    //     @Optional() public app: AppComponent
-    // ) { }
-
-    // ngAfterViewInit() {
-    //     // Disable change detection on the component - we deliberately re-enable it when required using reattach() and detectChanges()
-    //     this._changeDetectorRef.detach();
-    // }
-
-    // getDataSetChangeListArr() {
-    //     return this.dataSetChangeList_arr;
-    // }
 
     constructor(
         @Optional() public app: AppComponent
     ) {}
 
-    ngOnInit(): void {
-        console.info(`created ${this._section.name}`);
-    }
-
-    ngOnDestroy(): void {
-        console.info(`destroyed ${this._section.name}`);
-    }
-    ngOnChanges(changes: SimpleChanges): void {
-        //console.debug('changed', changes);
-    }
+    ngOnInit(): void { }
+    ngOnDestroy(): void { }
 
     getTableType(dsItem) {
         return dsItem['tableType'];
     }
-
 
     getSectId(i): string {
         return 'Section-' + i;
@@ -89,7 +38,6 @@ export class SectionComponent implements OnInit, OnDestroy, OnChanges {
     getThClassName(sectionIndex) {
         const theme = this.app?._props?.appTheme?.name || 'SimpleUiBlue';
         return `${this.isCollapsed(sectionIndex) ? 'sectionClosed' : 'sectionOpened'} ${sectionIndex % 2 ? 'even' : 'odd'}-${theme} L3`;
-
     }
 
     isCollapsed(i: number): boolean {
@@ -106,9 +54,6 @@ export class SectionComponent implements OnInit, OnDestroy, OnChanges {
             } else {
                 this.app._globalProps._hiddenTables = this.app._globalProps._hiddenTables.filter(e => e !== sectId);
             }
-            // this.changeDetectorRef.markForCheck();
-            //this._changeDetectorRef.detectChanges();
-            //this._changeDetectorRef.detach();
         }
         event.preventDefault();
         event.stopPropagation();
@@ -122,13 +67,14 @@ export class SectionComponent implements OnInit, OnDestroy, OnChanges {
 
 /**
  * *ngFor methods for preventing destruction and recreation of
- * components on each iteration (keeps buttons on the page)
+ * components on each iteration. Basically stops components
+ * from being reloaded unnecessarily
  */
     datatableTrackBy(index: number, dsItem: any) {
-        return dsItem.u_id
+        return dsItem.u_id;
     }
     cmdsetTrackBy(index: number, cmdset: any) {
-        return cmdset.u_id
+        return cmdset.u_id;
     }
 
 }
