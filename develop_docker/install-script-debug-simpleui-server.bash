@@ -6,7 +6,7 @@
     if [[ ! -d .vscode ]]; then
         mkdir .vscode;
         cd .vscode && touch launch.json;
-        echo '{"configurations": [{"name": "Debug server","type": "node","request": "launch","program": "${workspaceFolder}/simpleui-server/dist/simpleui-server/simpleui-server.js","args": ["--mode=daemon","--appName=sample-app","--webPort=4100"]}]}' > launch.json
+        echo '{"configurations": [{"name": "Debug server","type": "node","request": "launch","program": "${workspaceFolder}/simpleui-server/dist/simpleui-server/simpleui-server.js","args": ["--mode=daemon","--appName=simple_ui","--webPort=4100"]}]}' > launch.json
     fi
  )
 
