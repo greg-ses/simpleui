@@ -39,34 +39,6 @@ export class OverlayPageComponent {
 
     TODO__hide_graphs_and_data = false;
 
-    /**
-     * https://stackoverflow.com/questions/43210050/how-to-detect-when-dom-is-ready-after-ngif-condition-is-set-to-true
-     *
-     *
-     * press btn alot and see if missed clicks only happen on dom re-write
-     *
-     */
-
-
-
-
-
-
-    @ViewChild('btn')
-    btn: ElementRef;
-    btn_shown = false;
-
-
-    old_buttons: any;
-
-
-
-
-    ngAfterViewChecked() {
-        //console.log(this.btn_shown);
-        //console.log(this.btn)
-    }
-
 
     static writeOverlayDebugInfo(overlayGroupName: string, idList: any, overlayType: OverlayType): void {
         const implKey = OverlayType[OverlayType[overlayType]] || 'Unimplemented';
@@ -100,10 +72,7 @@ export class OverlayPageComponent {
     constructor(
         // private _changeDetectorRef: ChangeDetectorRef,
         @Optional() public app: AppComponent
-    ) {
-
-        this.old_buttons = [];
-    }
+    ) {    }
 
 
     // _dataRefreshed: boolean = (typeof this._DataSummary.DerivedSummary === 'UiObjList') &&
@@ -339,9 +308,6 @@ export class OverlayPageComponent {
                 }
             }
         }
-        //console.log(this._commandList)
-
-        //console.log(Math.floor(Date.now() / 1000), this._commandList[overlayGroupName])
         return this._commandList[overlayGroupName];
     }
 
