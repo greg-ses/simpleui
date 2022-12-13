@@ -197,8 +197,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                             const tabIndex = pattern[1];
                             sessionStorage[`tab${tabIndex}ScrollTop`] = targetElement.scrollTop;
                             sessionStorage[`tab${tabIndex}ScrollLeft`] = targetElement.scrollLeft;
-                            console.log(`onscroll - tab: ${tabIndex},
-                                scrollTop: ${targetElement.scrollTop}, scrollLeft: ${targetElement.scrollLeft}`);
+                            // console.log(`onscroll - tab: ${tabIndex},
+                            //     scrollTop: ${targetElement.scrollTop}, scrollLeft: ${targetElement.scrollLeft}`);
                         }
                     } catch (e) {
                         // Do nothing
@@ -719,7 +719,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                         if (res.status === 200 && typeof res.response === 'object' && (null !== res.response)) {
                             tab._pendingRequestExpiration = 0; // Cancel wait
                             this.onTabDataUpdate(tab, res.response);
-                            console.log('requested data...')
+                            //console.log('requested data...')
                         } else {
                             console.warn(`Got odd response: ${res.response}`);
                         }
