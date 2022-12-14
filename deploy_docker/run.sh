@@ -8,7 +8,7 @@ if test "$#" \< "2"; then
     echo "run.sh - runs simpleui for docker";
     echo "Usage: run.sh YOUR_APP_NAME --zmqHostname=YOUR_ZMQ_HOSTNAME";
     echo "Other options include:";
-    printf "\t zmqHostname ==> zmq's hostname (required)\n";
+    printf "\t zmqHostname ==> address/hostname of native app zmq sockets (required)\n";
     printf "\t dbName      ==> override DB name (optional)\n";
     printf "\t themeName   ==> override themeName (optional)\n";
     exit 1;
