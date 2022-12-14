@@ -50,7 +50,6 @@ export class PropsFileReader {
         let webPort = PropsFileReader.cmdVars.webPort;
 
         const appPropsTuples = [];
-
         const appNames = rawAppNameList.split(/[,:;]/);
         for (let appName of appNames) {
             appName = appName.trim();
@@ -60,15 +59,12 @@ export class PropsFileReader {
 
             let propsDir = `/var/www/${appName}`;
             if (isMock) { propsDir = `${SimpleUIServer.bin_dir}/../../test/data/${appName.replace("mock-", "")}`; }
-
             if (!fs.existsSync(propsDir)) {
                     Logger.log(LogLevel.ERROR, `Invalid appName: '${appName}'. Missing expected folder '${propsDir}'`);
                     return;
                 }
-
             const propsFiles =
                 fs.readdirSync(propsDir).filter( (element, index, array) => { return element.match(/[^\.]\.properties$/); } );
-
             for (const propsFileName of propsFiles) {
 
                 const props = PropsFileReader.getProps(propsFileName, isMock);
@@ -77,18 +73,15 @@ export class PropsFileReader {
                         `Invalid config (no props for app "${appName}" and uiProp "${propsFileName}")`);
                     return;
                 }
-
                 if (!(props.tab instanceof Array)) {
                     Logger.log(LogLevel.ERROR,
                         `Invalid config (There are no "tab" properties for app "${appName}" and uiProp "${propsFileName}")`);
                     return;
                 }
-
                 const propsStub = propsFileName.replace('.properties', '');
                 appPropsTuples.push({appName: appName, propsFileName: propsFileName, propsStub: propsStub, props: props});
             }
         }
-
         return appPropsTuples;
     }
 
@@ -328,13 +321,15 @@ export class PropsFileReader {
         let i = 0;
         let keyIndex = 0;
         for (const pair of pairs) {
-            // if (i++ === 0) { continue; }
             const firstEqual = pair.indexOf('=');
             if (firstEqual > 0) {
                 let key = pair.substr(0, firstEqual).trim();
                 const value = pair.substr(firstEqual + 1).trim();
-                const arrayKey = key.match(/^([^.]+)\.([0-9])+\.([^ =]+)/);
+                let arrayKey = key.match(/^([^.]+)\.([0-9]+)+\.([^ =]+)/);
                 if (arrayKey) {
+                    if (key === 'tab') {
+                        arrayKey = key.split('.');
+                    }
                     key = arrayKey[1];
                     const index = parseInt(arrayKey[2], 10) - 1;
                     const subKey = arrayKey[3];
@@ -472,7 +467,6 @@ export class PropsFileReader {
     }
 
     static jsonToXml(element, root, depth = 0) {
-
         // IMPORTANT NOTE: element is modified by this function!
         // To avoid whacking the props you pass to this function,
         //   use    const tmpElement = ServerUtil.deepCopy(props);
@@ -486,11 +480,8 @@ export class PropsFileReader {
                 element[key] = '';
             }
         }
-
         // Use the jsonxml lib to format vanilla xml
         let xml = `<${root}>\n${jsonxml(element)}\n</${root}>`;
-
-
         for (const key of Object.keys(specializedElements)) {
             const xmlValue = `<${key}/>`;
             xml = xml.replace(xmlValue, specializedElements[key]);
@@ -498,6 +489,14 @@ export class PropsFileReader {
         return xml;
     }
 
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @param props
+     * @returns
+     */
     static async propsFileRequest(request, response, props) {
 
         if ((typeof request.query.xml === 'string')
