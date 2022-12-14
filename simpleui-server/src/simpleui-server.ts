@@ -60,16 +60,38 @@ export class SimpleUIServer {
         return ipAddress;
     }
 
+    /**
+     * Adds overrides from command line to props by directly manipulating the
+     * props object
+     * @param cmdVars
+     * @param props
+     */
+    static addOverrides(cmdVars: CommandArgs, props: any): any {
+        if (cmdVars.themeName) {
+            Logger.log(LogLevel.INFO, `Overriding props.appTheme.name (${props.appTheme.name}) with the value of command line arg "--themeName=${cmdVars.themeName}"`);
+            props.appTheme.name = cmdVars.themeName;
+        }
+        if (cmdVars.dbName) {
+            Logger.log(LogLevel.INFO, `Overriding Parameters App DB with the value of command line arg "--dbName=${cmdVars.dbName}"`);
+            let appLinks = props.appLink;
+            appLinks.forEach( (link) => {
+                if (link.url.endsWith('/Parameters.html')) {
+                    link.url = link.url + `?database=${cmdVars.dbName}`;
+                }
+            })
+        }
+
+        return props;
+    }
+
     static parseCommandLine(cmdLine: string): any {
         const cmdVars: CommandArgs = <CommandArgs> {
             valid: true,
             help: '\nSyntax:\n\n', // Each arg help is appended in arg definition
-
             examples: '\n\nExample for running as a daemon:' +
                 '\n  node simpleui-server.js \\' +
                 '\n     --appName=bms \\' +
                 '\n     --webPort=2080' +
-
                 '\n\nExample for running the test:' +
                 '\n  node simpleui-server.js \\' +
                 '\n    --mode=test \\' +
@@ -83,7 +105,11 @@ export class SimpleUIServer {
             appName: '',
             webPort: '2080',
             xmlInFile: '',
-            jsonOutFile: ''
+            jsonOutFile: '',
+            zmqHostname: '',
+            dbName: '',
+            themeName: '',
+            mock: false
         };
 
         cmdVars.help += '\n    -m or --mode=     (optional) the mode (daemon or test) - defaults to daemon';
@@ -129,6 +155,39 @@ export class SimpleUIServer {
             }
         }
 
+        cmdVars.help += '\n    --zmqHostname=       (required) hostname for the ZMQ backend';
+        match = cmdLine.match(/(\W+-z\W+|--zmqHostname=)([^ \t]+)/);
+        if (match) {
+            cmdVars.zmqHostname = match[2];
+            if (cmdVars.zmqHostname === "") {
+                cmdVars.valid = false;
+                cmdVars.errors += `a ZMQ hostname is required. \n`;
+            }
+        } else {
+            cmdVars.valid = false;
+            cmdVars.errors += `a ZMQ hostname is required. \n`;
+        }
+
+        if (cmdLine.includes("--mock")) {
+            cmdVars.mock = true;
+        }
+
+        // overrides
+        cmdVars.help += '\n    --dbName=       (optional) Overrides the dbName';
+        match = cmdLine.match(/(\W+-D\W+|--dbName=)([^ \t]+)/);
+        if (match) {
+            cmdVars.dbName = match[2];
+        }
+        cmdVars.help += '\n    --themeName=       (optional) Overrides the themeName. Must be either SimpleUiBlue, SimpleUiPurple, SimpleUiSea, or SimpleUiPeach';
+        match = cmdLine.match(/(\W+-t\W+|--themeName=)([^ \t]+)/);
+        if (match) {
+            if ( ["SimpleUiBlue", "SimpleUiPurple", "SimpleUiSea", "SimpleUiPeach"].includes(match[2]) ) {
+                cmdVars.themeName = match[2];
+            } else {
+                Logger.log(LogLevel.WARNING, `themeName ${match[2]} is not valid, using themeName in ui.properties`);
+            }
+        }
+
         return cmdVars;
     }
 
@@ -153,23 +212,27 @@ export class SimpleUIServer {
     static main() {
         try {
 
+
             Logger.logLevel = LogLevel.INFO;
 
             // Parse input arguments
             SimpleUIServer.setBinDir(process.argv[1]);
-            const cmdVars = SimpleUIServer.parseCommandLine(process.argv.join(' '));
+            const cli_args = process.argv.slice(2).join(" ");
+            const cmdVars = SimpleUIServer.parseCommandLine(cli_args);
+            PropsFileReader.cmdVars = cmdVars;
+
             if (!cmdVars.valid) {
                 Logger.log(LogLevel.ERROR, `${cmdVars.errors}${cmdVars.help}`);
                 return 1;
             }
 
-            let _props = PropsFileReader.getProps('ui.properties',
-                cmdVars.appName, cmdVars.webPort);
+            let _props = PropsFileReader.getProps('ui.properties');
 
             ////// set up zmq sockets
             let zmq_ports_array = ServerUtil.getZMQPortsFromProps(_props).map(p => Number(p));
+            const zmqHostname = cmdVars.zmqHostname;
             Logger.log(LogLevel.INFO, `ZMQ ports: ${zmq_ports_array}`);
-            SuiData.zmqMap = new zmq_wrapper(zmq_ports_array);
+            SuiData.zmqMap = new zmq_wrapper(zmq_ports_array, zmqHostname);
             //////
 
             const originsWhiteList = [
@@ -200,7 +263,7 @@ export class SimpleUIServer {
             app.use(express.json() as express.RequestHandler);
             app.use(express.urlencoded({ extended: true }) as express.RequestHandler);
 
-            const appPropFiles = PropsFileReader.getAppPropsFiles(cmdVars.appName, cmdVars.webPort);
+            const appPropFiles = PropsFileReader.getAppPropsFiles();
 
             // handle --mode=test
             if (cmdVars.mode === 'test') {
@@ -272,9 +335,10 @@ export class SimpleUIServer {
             app.get(`${propsFileQuery}`, async (req, res) => {
                 Logger.log(LogLevel.VERBOSE, `props request callback: ${++SimpleUIServer.requestCallbacks}`);
                 try {
-                    const props = PropsFileReader.getProps(
-                        `${req.params.propsStub}.properties`,
-                        `${req.params.appName}`, cmdVars.webPort);
+                    let props = PropsFileReader.getProps(`${req.params.propsStub}.properties`,);
+
+                    props = SimpleUIServer.addOverrides(cmdVars, props)
+
                     await PropsFileReader.propsFileRequest(req, res, props);
                 } catch (err) {
                     const cmd = SuiData.getCmdFromReq(req);
@@ -299,9 +363,7 @@ export class SimpleUIServer {
                 // Replies with data from a zeromq request
                 Logger.log(LogLevel.VERBOSE, `data request callback: ${++SimpleUIServer.requestCallbacks}`);
                 try {
-                    const props = PropsFileReader.getProps(
-                        `${req.params.propsStub}.properties`,
-                        `${req.params.appName}`, cmdVars.webPort);
+                    const props = PropsFileReader.getProps(`${req.params.propsStub}.properties`);
                     SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
                     const cmd = SuiData.getCmdFromReq(req);
@@ -328,9 +390,7 @@ export class SimpleUIServer {
                 // Replies with data from a zeromq request
                 Logger.log(LogLevel.VERBOSE, `cmd request callback: ${++SimpleUIServer.requestCallbacks}`);
                 try {
-                    const props = PropsFileReader.getProps(
-                        `${req.params.propsStub}.properties`,
-                        `${req.params.appName}`, cmdVars.webPort);
+                    const props = PropsFileReader.getProps(`${req.params.propsStub}.properties`);
                     SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
 
@@ -349,7 +409,7 @@ export class SimpleUIServer {
             const mockDataQuery = [
                 `/:appName/:propsStub/:tabName/mock/data`
             ];
-            displayUrl = `http://localhost${SimpleUIServer.webPortString}${mockDataQuery[0]}`;
+            displayUrl = `http://${os.hostname()}${SimpleUIServer.webPortString}${mockDataQuery[0]}`;
             spacer1 = ' '.repeat(Math.max((104 - displayUrl.length), 1));
             Logger.log(LogLevel.INFO, `Starting listener for ${displayUrl}/${spacer1}(mock data)`);
             app.get(mockDataQuery, async (req, res) => {
@@ -361,8 +421,7 @@ export class SimpleUIServer {
 
                 try {
                     const props = PropsFileReader.getProps(
-                        `${req.params.propsStub}.properties`,
-                        `${req.params.appName}`, cmdVars.webPort);
+                        `${req.params.propsStub}.properties`);
 
                     const mockCmdVars = cmdVars;
                     mockCmdVars.xmlInFile = SimpleUIServer.newMockDataURL !== "" ? SimpleUIServer.newMockDataURL : req.query.file;
@@ -414,9 +473,7 @@ export class SimpleUIServer {
             app.get(cssToJsonQuery, async (req, res) => {
                 Logger.log(LogLevel.VERBOSE, `css_elements_to_json request callback: ${++SimpleUIServer.requestCallbacks}`);
                 try {
-                    const props = PropsFileReader.getProps(
-                        `${req.params.propsStub}.properties`,
-                        `${req.params.appName}`, cmdVars.webPort);
+                    const props = PropsFileReader.getProps(`${req.params.propsStub}.properties`);
                     await SuiData.suiCssToJsonRequest(req, res, props);
                 } catch (err) {
                     const cmd = SuiData.getCmdFromReq(req);

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild, isDevMode} from '@angular/core';
 import {AppProperties, SubscriptionState, TabUI, TitleBarProperties} from './interfaces/props-data';
 import {ajax} from 'rxjs/ajax';
 import {MatTabChangeEvent, MatTabGroup} from '@angular/material/tabs';
@@ -49,6 +49,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _autoRefreshEnabled = false;
     _commands_enabled = false;
     _propsSubscriptionState = SubscriptionState.Idle;
+    isDevMode = isDevMode();
+
+
     /*
         // appOptions is normally hidden - can be enabled for development
         _appOptionsVisible = false;

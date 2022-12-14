@@ -6,13 +6,13 @@
     if [[ ! -d .vscode ]]; then
         mkdir .vscode;
         cd .vscode && touch launch.json;
-        echo '{"configurations": [{"name": "Debug server","type": "node","request": "launch","program": "${workspaceFolder}/simpleui-server/dist/simpleui-server/simpleui-server.js","args": ["--mode=daemon","--appName=simple_ui","--webPort=4100"]}]}' > launch.json
+        echo '{"configurations": [{"name": "Debug server","type": "node","request": "launch","program": "${workspaceFolder}/simpleui-server/dist/simpleui-server/simpleui-server.js","args": ["--mode=daemon","--appName=simple_ui","--webPort=4100","--zmqHostname=svcmachineapps"]}]}' > launch.json
     fi
  )
 
 # ----------- simpleui-server -----------
 cd /usr/src/app/simpleui-server || exit 1
-if [[ ! -d node_modules ]]; then 
+if [[ ! -d node_modules ]]; then
     npm install -f;
 fi
 npm run build;
