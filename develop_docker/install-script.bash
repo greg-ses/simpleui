@@ -23,7 +23,8 @@ npm run build;
 /tini -- node /usr/src/app/simpleui-server/dist/simpleui-server/simpleui-server.js \
 --mode=daemon \
 --appName=simple_ui \
---webPort=4100 &
+--webPort=4100 \
+--zmqHostname=svcmachineapps &
 
 
 # -------------- base_app --------------

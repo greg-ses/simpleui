@@ -19,7 +19,7 @@
         <select  ng-model="SubsysSel" ng-options="subsys for subsys in subsystems" ></select>
         <table>
             <tr ng-repeat="cat in categories | filter : { 'subsystem' : SubsysSel }" ng-controller="catController as catCtrl" >
-                <td  ng-style="catLike">{{ cat.category }} <span ng-click="catShow()">{{showSelector}}</span>
+                <td  ng-style="catLike">{{ cat.category }} <span ng-click="catShow()">{{ showSelector }}</span>
                     <table  ng-show = "showMe">
                         <tr >
                             <th></th>
@@ -47,19 +47,47 @@
         </table>
 
         </div>
-        
+
         <script>
             var app = angular.module('paramsApp', ['ngMaterial']);
             app.controller('paramsCtrl', function ($scope, $http, $mdDialog) {
 
                 $scope.debug = false;
+                let php_get_request_url = "php/NewParams.php";
 
-                $http.get( "php/NewParams.php" )
+                // append url params to php url if needed
+                if (window.location.search) {
+                    php_get_request_url += window.location.search;
+                    console.debug(`Requesting ${php_get_request_url}`);
+                }
+
+                $http.get( php_get_request_url )
                        .then (function ( response )  {
-                            $scope.params = response.data.records;
-                            $scope.subsystems = get_unique_subsystems( response.data.records );
-                            $scope.SubsysSel = $scope.subsystems[0];
-                            $scope.categories = get_unique_categories(response.data.records);
+                            // response failed
+                            if (response.status != 200) {
+                                const alert_msg = `ParamsApp got an error. Request got status code ${response.status} ${response.statusText}`;
+                                console.error(alert_msg, response);
+                                alert(alert_msg);
+                            } // query failed
+                            else if (response.data.hasOwnProperty('error')) {
+                                const err_code = response.data?.error?.code;
+                                const err_msg = response.data?.error?.msg;
+                                const err_context = response.data?.error?.context;
+                                const alert_msg = `ParamsApp got an error.\nCode: ${err_code}\nMsg: ${err_msg}\nContext: ${err_context}`;
+                                console.error(alert_msg, response);
+                                alert(alert_msg);
+                            }
+                            else if (response.status == 200 && response.data) {
+                                // got good response with data
+                                $scope.params = response.data.records;
+                                $scope.subsystems = get_unique_subsystems(response.data.records);
+                                $scope.SubsysSel = $scope.subsystems[0];
+                                $scope.categories = get_unique_categories(response.data.records);
+                            } else {
+                                console.error('Got odd response from backend', response);
+                                alert("Got an odd response from the backend. Check the javascript console for more information.");
+                            }
+
                         });
 
                 $scope.paramRow = {
@@ -132,7 +160,7 @@
                         .targetEvent(ev)
                     );
                 };
-           
+
                 $scope.addNewParamValues = function (newParamValues)  {
                     var postStatus;
 	                data = { 'newParamValues': newParamValues };
@@ -141,7 +169,16 @@
 	                $http.get('php/InsertParamValues.php', data)
 	                */
 	                var config={'responseType':'json'};
-	                $http.post('php/InsertParamValues.php', data, config)
+
+                    let php_post_request_url = 'php/InsertParamValues.php';
+
+                    // append url params to php url if needed
+                    if (window.location.search) {
+                        php_post_request_url += window.location.search;
+                        console.debug(`Requesting ${php_post_request_url}`);
+                    }
+
+	                $http.post(php_post_request_url, data, config)
 	                .then(function (data, status, headers, config) {
 	                    $scope.content = status + ' - ' + data;
                         postStatus = 0;
@@ -250,6 +287,6 @@
            </script>
 
 
-       
+
 </BODY>
 </HTML>
