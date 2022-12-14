@@ -109,6 +109,7 @@ export class SimpleUIServer {
             zmqHostname: '',
             dbName: '',
             themeName: '',
+            mock: false
         };
 
         cmdVars.help += '\n    -m or --mode=     (optional) the mode (daemon or test) - defaults to daemon';
@@ -165,6 +166,10 @@ export class SimpleUIServer {
         } else {
             cmdVars.valid = false;
             cmdVars.errors += `a ZMQ hostname is required. \n`;
+        }
+
+        if (cmdLine.includes("--mock")) {
+            cmdVars.mock = true;
         }
 
         // overrides

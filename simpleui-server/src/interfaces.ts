@@ -11,6 +11,7 @@ export interface CommandArgs {
     zmqHostname: string;
     dbName: string;
     themeName: string;
+    mock: boolean;
 }
 
 export interface ProcessInfo {

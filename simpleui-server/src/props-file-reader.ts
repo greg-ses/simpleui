@@ -43,6 +43,7 @@ export class PropsFileReader {
         zmqHostname: '',
         dbName: '',
         themeName: '',
+        mock: false
     };
 
     static getAppPropsFiles(): any {
@@ -54,8 +55,7 @@ export class PropsFileReader {
         for (let appName of appNames) {
             appName = appName.trim();
 
-            let isMock = (appName.substring(0, 5) === "mock-");
-
+            let isMock = PropsFileReader.cmdVars.mock;
 
             let propsDir = `/var/www/${appName}`;
             if (isMock) { propsDir = `${SimpleUIServer.bin_dir}/../../test/data/${appName.replace("mock-", "")}`; }
