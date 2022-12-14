@@ -8,6 +8,10 @@ export interface CommandArgs {
     webPort: string;
     xmlInFile: string;
     jsonOutFile: string;
+    zmqHostname: string;
+    dbName: string;
+    themeName: string;
+    mock: boolean;
 }
 
 export interface ProcessInfo {

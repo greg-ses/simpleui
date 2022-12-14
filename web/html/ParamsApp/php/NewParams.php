@@ -4,6 +4,7 @@ header("Content-Type: application/json; charset=UTF-8");
 require_once "ParamHelper.php";
 require_once "DbSchemaDefs.php";
 
+
 function writeInvalidRowError($rowLabel, $row, $missingKey) {
     $errorContext = $rowLabel . ":\n";
     foreach ($row as $i) {
@@ -65,16 +66,23 @@ function isSameResource($prevRow, $currRow) {
 /* Create required Database definitions if necessary */
 $tableList = createRequiredDbEntities($MYSQL_DB, $MYSQL_USER, $MYSQL_PWD, $MYSQL_HOST, true);
 
+if (! $tableList) {
+    $err_context = "DB -> " . $MYSQL_DB . " Table -> " . $DataParameterTable;
+    writeError("1", "", "Unable to find DB and/or Table", $err_context);
+    exit();
+}
+
 /* Continue */
 $fields = array("subsystem", "catDisplayOrder", "paramDisplayOrder", "category", "paramName", "type", "min", "max", "description", "detail", "resource", "timestamp", "value", "user");
 $outerParamFields = array("subsystem", "catDisplayOrder", "paramDisplayOrder", "category", "paramName", "type", "min", "max", "description", "detail", "resource");
 $resourceField = "resource";
 
-    
+
 $category = "";
 if (! empty($_GET['category'])) {
     $category = $_GET['category'];
 }
+
 
 // Define empty defaults for debug trace flags that help understand where in the flow various pieces of data are created
 $DT0 = "";
@@ -111,6 +119,8 @@ FROM `AbstractParameterByCategory` AS apd
 				AND apd.subsystem = p.subsystem
 				AND apd.category = p.category
 ORDER BY apd.subsystem, apd.catDisplayOrder, apd.paramDisplayOrder, apd.category, p.name, p.resource asc, p.`timestamp` desc";
+
+
 
 $conn = new mysqli($MYSQL_HOST, $MYSQL_USER, $MYSQL_PWD, $MYSQL_DB);
 

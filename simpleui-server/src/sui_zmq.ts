@@ -140,21 +140,21 @@ export class ZMQ_Socket_Wrapper {
  */
 export class zmq_wrapper {
     socket_map: Map<number, ZMQ_Socket_Wrapper>;
+    hostname: string;
 
-    constructor(port_list: Array<number>) {
+    constructor(port_list: Array<number>, hostname: string) {
         this.socket_map = new Map();
+        this.hostname = hostname;
 
 
         port_list.forEach( (port) => {
-            const zmq_wrapper_instance = new ZMQ_Socket_Wrapper('svcmachineapps', port);
+            const zmq_wrapper_instance = new ZMQ_Socket_Wrapper(hostname, port);
             this.socket_map.set(port, zmq_wrapper_instance);
         });
 
         process.on('SIGINT', () => this.handleApplicationExit('SIGINT'));
 
         process.on('SIGTERM', () => this.handleApplicationExit('SIGTERM'));
-
-        process.on('SIGWINCH', () => this.handleApplicationExit('SIGWINCH'));
 
     }
 
