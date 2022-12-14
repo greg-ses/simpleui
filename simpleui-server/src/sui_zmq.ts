@@ -156,8 +156,6 @@ export class zmq_wrapper {
 
         process.on('SIGTERM', () => this.handleApplicationExit('SIGTERM'));
 
-        process.on('SIGWINCH', () => this.handleApplicationExit('SIGWINCH'));
-
     }
 
     get(port: number) {
