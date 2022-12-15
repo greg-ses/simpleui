@@ -76,14 +76,10 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
         'textInputDialog'
     ];
 
-    ngOnInit() {
-        console.info('init', this._element?.command?.label);
-    }
+    ngOnInit() {  }
 
     ngOnDestroy() {
         this.commandButtonChangeSubscription.unsubscribe();
-        console.info('destroy', this._element?.command?.label);
-
     }
 
     ngOnChanges(changes: SimpleChanges) {
