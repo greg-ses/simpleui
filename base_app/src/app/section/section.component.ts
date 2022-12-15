@@ -2,10 +2,9 @@
  * Created by jscarsdale on 2019-06-27.
  */
 
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Optional, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, Optional, OnInit, OnDestroy} from '@angular/core';
 import { AppComponent } from '../app.component';
 import { TabUI } from '../interfaces/props-data';
-import { DataSetChangeList, SectionChangeList } from '../interfaces/dataset';
 
 @Component({
     selector: 'app-section',
@@ -15,55 +14,21 @@ import { DataSetChangeList, SectionChangeList } from '../interfaces/dataset';
 })
 
 // The common page layout with id tags for js
-export class SectionComponent implements AfterViewInit{
+export class SectionComponent implements OnInit, OnDestroy {
     @Input() _section: any;
     @Input() _sectionIndex: number;
     @Input() _uiTab: TabUI;
-    dataSetChangeList_arr: Array<DataSetChangeList> = [];
 
-    private _detectChanges: SectionChangeList;
-
-    @Input()
-    set detectSectionChanges(sectionChangeList: SectionChangeList) {
-
-        if (typeof sectionChangeList === 'undefined') {
-            return;
-        }
-
-        if (typeof this._uiTab === 'object') {
-            if (this._uiTab.name === sectionChangeList.tabName) {
-                if (typeof this._detectChanges === 'undefined') {
-                    this._detectChanges = sectionChangeList;
-                }
-
-                if (sectionChangeList.changed === true) {
-                    this._section = sectionChangeList.section;
-                    this._changeDetectorRef.detectChanges();
-                    this._changeDetectorRef.detach();
-                }
-            }
-        }
-
-        this.dataSetChangeList_arr = sectionChangeList.dataSetChangeList_arr;
-    }
-    // get detectChanges(): {name: string, value: boolean, updatedSection: any} { return this._detectChanges; }
 
     constructor(
-        private _changeDetectorRef: ChangeDetectorRef,
         @Optional() public app: AppComponent
-    ) { }
+    ) {}
 
-    ngAfterViewInit() {
-        // Disable change detection on the component - we deliberately re-enable it when required using reattach() and detectChanges()
-        this._changeDetectorRef.detach();
-    }
+    ngOnInit(): void { }
+    ngOnDestroy(): void { }
 
     getTableType(dsItem) {
         return dsItem['tableType'];
-    }
-
-    getDataSetChangeListArr() {
-        return this.dataSetChangeList_arr;
     }
 
     getSectId(i): string {
@@ -71,15 +36,8 @@ export class SectionComponent implements AfterViewInit{
     }
 
     getThClassName(sectionIndex) {
-        let theme = '';
-        try {
-            theme = this.app._props['appTheme']['name'] || 'SimpleUiBlue';
-        } catch(e) {
-            theme = 'SimpleUiBlue';
-        }
-
+        const theme = this.app?._props?.appTheme?.name || 'SimpleUiBlue';
         return `${this.isCollapsed(sectionIndex) ? 'sectionClosed' : 'sectionOpened'} ${sectionIndex % 2 ? 'even' : 'odd'}-${theme} L3`;
-
     }
 
     isCollapsed(i: number): boolean {
@@ -87,20 +45,15 @@ export class SectionComponent implements AfterViewInit{
         return hidden;
     }
 
-    toggle(i) {
+    toggle(section_indx) {
         if (this.app._globalProps && this.app._globalProps._hiddenTables) {
-            const sectId = this.getSectId(i);
+            const sectId = this.getSectId(section_indx);
             const pos = this.app._globalProps._hiddenTables.indexOf(sectId);
             if (pos === -1) {
                 this.app._globalProps._hiddenTables.push(sectId);
-                //console.log('toggle(' + sectId + '): hidden');
             } else {
                 this.app._globalProps._hiddenTables = this.app._globalProps._hiddenTables.filter(e => e !== sectId);
-                //console.log('toggle(' + sectId + '): visible');
             }
-            // this.changeDetectorRef.markForCheck();
-            this._changeDetectorRef.detectChanges();
-            this._changeDetectorRef.detach();
         }
         event.preventDefault();
         event.stopPropagation();
@@ -108,6 +61,20 @@ export class SectionComponent implements AfterViewInit{
 
     fixNL(s): string {
         return s ? s.replace(/\(NL\)/g, '\n') : '';
+    }
+
+
+
+/**
+ * *ngFor methods for preventing destruction and recreation of
+ * components on each iteration. Basically stops components
+ * from being reloaded unnecessarily
+ */
+    datatableTrackBy(index: number, dsItem: any) {
+        return dsItem.u_id;
+    }
+    cmdsetTrackBy(index: number, cmdset: any) {
+        return cmdset.u_id;
     }
 
 }

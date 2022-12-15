@@ -30,6 +30,10 @@ input.command {background-color: lightgreen;}
 input.emergency_command {background-color: lightskyblue;}
 input.service_command {background-color: lightsalmon;}
 
+button:active {
+    background-color: #AAAAAA;
+}
+
 input.indicatorOn {
 	background-color:lime;
 	position: relative;

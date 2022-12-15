@@ -58,8 +58,6 @@ export class DataSummary {
         //   'commandList':  []
         // };
 
-        // this.Section = [];
-
         this.commands = {
           'u_id': '',
           'name': '',

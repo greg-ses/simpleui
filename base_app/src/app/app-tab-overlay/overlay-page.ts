@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Optional, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Optional, Output, AfterViewChecked, ViewChild, ElementRef, NgZone} from '@angular/core';
 import {DataSummary} from '../interfaces/data-summary';
 import {ClientLogger} from '../../tools/logger';
 import {OverlayType} from './overlay-type';
@@ -39,6 +39,7 @@ export class OverlayPageComponent {
 
     TODO__hide_graphs_and_data = false;
 
+
     static writeOverlayDebugInfo(overlayGroupName: string, idList: any, overlayType: OverlayType): void {
         const implKey = OverlayType[OverlayType[overlayType]] || 'Unimplemented';
 
@@ -71,8 +72,7 @@ export class OverlayPageComponent {
     constructor(
         // private _changeDetectorRef: ChangeDetectorRef,
         @Optional() public app: AppComponent
-    ) {
-    }
+    ) {    }
 
 
     // _dataRefreshed: boolean = (typeof this._DataSummary.DerivedSummary === 'UiObjList') &&

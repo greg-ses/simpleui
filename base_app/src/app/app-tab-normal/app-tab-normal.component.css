@@ -356,6 +356,10 @@ button, input[type=button], html input[type=button], input[type=reset], input[ty
     box-sizing: border-box;
 }
 
+button:active {
+    background-color: #AAAAAA;
+}
+
 .overlay-control {
     padding: 5px;
     text-align: center;
