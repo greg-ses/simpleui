@@ -49,8 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _autoRefreshEnabled = false;
     _commands_enabled = false;
     _propsSubscriptionState = SubscriptionState.Idle;
-    isDevMode = isDevMode();
-
+    _isDevMode = (document.location.port == "4200" ? true : false);
 
     /*
         // appOptions is normally hidden - can be enabled for development

@@ -2,8 +2,8 @@
 <!-- Start Title Bar -->
 <div [className]="'tbContainer ' + _props['appTheme'].name + 'TitleBar'" style="width: 100%" id='titleBar'>
   <div class='logoContainer'>
-    <img *ngIf="isDevMode" class='logo' [src]="_appURI + 'assets/images/logo.png'" alt='logo'/>
-    <img *ngIf="! isDevMode" class='logo' [src]="_appURI + 'images/logo.png'" alt='logo'/>
+    <img *ngIf="_isDevMode" class='logo' [src]="_appURI + 'assets/images/logo.png'" alt='logo'/>
+    <img *ngIf="! _isDevMode" class='logo' [src]="_appURI + 'images/logo.png'" alt='logo'/>
   </div>
   <div class='eventMsg' id='eventMsg'>{{_tBarProps?._eventMsg}}</div>
   <div class='appTitle'>{{_tBarProps?._appTitle}}</div>
