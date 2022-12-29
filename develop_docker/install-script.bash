@@ -11,8 +11,6 @@
     fi
 )
 
-ln -s /usr/src/app/base_app/src/assets/image-overlays.css /var/www/simple_ui/image-overlays.css
-cp -r /usr/src/base_app/src/assets/overlay-1/ /var/www/simple_ui/overlay-1/
 
 
 # ----------- simpleui-server -----------
