@@ -593,7 +593,6 @@ export class SuiData {
         }
 
         if (res) {
-            console.log('mockSuiRequest', sJson)
             res.send(sJson);
         }
         return;
