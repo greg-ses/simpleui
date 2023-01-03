@@ -507,9 +507,11 @@ export class SuiData {
             JsonStringNormalizer.normalizeJSON(json, props);
         } else if (docRootName === 'Overlay_Summary') {
             JsonOverlayNormalizer.normalizeJSON(json, props);
-        }
-        //else if (docRootName === 'error') {}
-        else {
+        } else if (docRootName === 'response') {
+            json = json;
+        } else if (docRootName === 'error') {
+            Logger.log(LogLevel.ERROR, "xmlToJSON xmlString has no docRootName");
+        } else {
             json = `{ '${docRootName}': ${json} }`;
         }
 
@@ -591,6 +593,7 @@ export class SuiData {
         }
 
         if (res) {
+            console.log('mockSuiRequest', sJson)
             res.send(sJson);
         }
         return;
