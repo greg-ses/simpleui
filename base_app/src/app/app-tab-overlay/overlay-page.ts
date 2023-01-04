@@ -185,6 +185,8 @@ export class OverlayPageComponent {
      */
     getGroupMembers(overlayType: OverlayType, overlayGroupName: string, tag: string): any {
         // tag is an element of ['dyn', 'command', 'img', 'table']
+
+        // update missing gif and png overlay files
         if (this._DataSummary['missing_overlay_files']) {
             this.isMissingFiles = true;
             this.missingFiles = this._DataSummary['missing_overlay_files'];

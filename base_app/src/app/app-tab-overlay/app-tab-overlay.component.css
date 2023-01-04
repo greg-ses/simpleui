@@ -175,10 +175,11 @@ pre {
 	margin-bottom: 5px;
 }
 #warning-content {
-	background-color: #AAAAAA;
+	background-color: #e3e2e2;
 	border: 1px solid #c4c4c4;
 	border-radius: 6px;
 	overflow-x: scroll;
+	color: #444444;
 }
 #warning-content > ul {
 	/*list-style-type: "- ";  none */
