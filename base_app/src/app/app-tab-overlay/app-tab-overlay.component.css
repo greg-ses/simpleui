@@ -168,9 +168,9 @@ pre {
 	list-style: none;
 	background-color: transparent;
 	font-size: 18px;
-	cursor: pointer;
 }
 #warning-summary > p {
+	cursor: pointer;
 	color: red;
 }
 #warning-content {
