@@ -167,7 +167,7 @@ pre {
 #warning-summary {
 	list-style: none;
 	background-color: transparent;
-	font-size: 18px;
+	font-size: 28px;
 }
 #warning-summary > p {
 	cursor: pointer;
