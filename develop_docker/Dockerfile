@@ -1,6 +1,6 @@
 FROM node:18-bullseye
 
-RUN mkdir /output && chmod 777 /output
+RUN mkdir /output && chmod 777 /output && mkdir -p /var/www/simple_ui/
 
 #---------- ZMQ ---------------
 RUN wget --no-check-certificate --quiet \
