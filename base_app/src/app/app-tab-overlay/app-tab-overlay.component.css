@@ -157,18 +157,29 @@ pre {
 
 #warning-div {
 	margin-right: 10px;
-	background-color: #AAAAAA;
-	cursor: pointer;
+	float: right;
+	font-size: 12px;
 }
-
-details {
-	width: 400px;
+#warning-div > details {
+	width: 300px;
 	display: inline-block;
 }
-
 #warning-summary {
 	list-style: none;
+	background-color: transparent;
+	font-size: 18px;
+	cursor: pointer;
 }
 #warning-summary > p {
-	color: red
+	color: red;
+}
+#warning-content {
+	background-color: #AAAAAA;
+	border: 1px solid #c4c4c4;
+	border-radius: 6px;
+	overflow-x: scroll;
+}
+#warning-content > ul {
+	/*list-style-type: "- ";  none */
+	padding-left: 15px;
 }

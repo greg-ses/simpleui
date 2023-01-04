@@ -241,7 +241,7 @@ export class SimpleUIServer {
             SuiData.zmqMap = new zmq_wrapper(zmq_ports_array, zmqHostname);
             //////
 
-            ////// get list of gif and png files
+            ////// get list of gif and png files for overlay
             const overlay_assets_dir_path = `/var/www/${SimpleUIServer.APP_NAME}/overlay-1/images/`;
             SimpleUIServer.overlay_image_file_names = await ServerUtil.getFileNames(overlay_assets_dir_path);
             SimpleUIServer.overlay_image_file_names.filter(file => ((file.endsWith("gif")) || (file.endsWith("png"))));
@@ -376,6 +376,10 @@ export class SimpleUIServer {
                 // Replies with data from a zeromq request
                 Logger.log(LogLevel.VERBOSE, `data request callback: ${++SimpleUIServer.requestCallbacks}`);
                 try {
+                    // update list of overlay files
+                    SimpleUIServer.overlay_image_file_names = await ServerUtil.getFileNames(overlay_assets_dir_path);
+                    SimpleUIServer.overlay_image_file_names.filter(file => ((file.endsWith("gif")) || (file.endsWith("png"))));
+
                     const props = PropsFileReader.getProps(`${req.params.propsStub}.properties`);
                     SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {

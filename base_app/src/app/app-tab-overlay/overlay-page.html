@@ -1,15 +1,15 @@
 <!-- Implemented Overlays -->
 
-<div *ngIf="isMissingFiles" id="warning-div" style="float: right" >
-    <details>
-        <summary id="warning-summary"><p>Warning!</p></summary>
-        <p>The following files are missing:</p>
-        <ul>
-            <li>hi</li>
-        </ul>
+<div *ngIf="isMissingFiles" id="warning-div" >
+    <details id="warning-details">
+        <summary id="warning-summary"><p align="center">&#9888;</p></summary>
+        <div id="warning-content">
+            <p>The following files are missing:</p>
+            <ul>
+                <li *ngFor="let filename of missingFiles">{{ filename }}</li>
+            </ul>
+        </div>
     </details>
-    <div></div>
-
 </div>
 
 

@@ -131,13 +131,16 @@ export class SuiData {
                 } else {
                     sJson = SuiData.xmlToJSON(xmlResponse, req.params.appName, SuiData.uiProps, req);
                 }
-                // if sJson is for an overlay, check the img links
+                // if sJson is for an overlay, check the imgs to see if any are missing
                 if (sJson.substring(0, 20).includes("Overlay_Summary")) {
                     const broken_links = SuiData.checkForBrokenOverlayFiles(sJson);
-                    broken_links.forEach( item => SimpleUIServer.missing_overlay_files.add(item) )
-                    console.log('------------- Broken links', broken_links);
-                    //SimpleUIServer.missing_overlay_files.forEach( i => console.log(i) );
-
+                    if (broken_links) {
+                        SimpleUIServer.missing_overlay_files = new Set();
+                        broken_links.forEach( item => SimpleUIServer.missing_overlay_files.add(item) );
+                        const json = JSON.parse(sJson);
+                        json['Overlay_Summary'].missing_overlay_files = Array.from(SimpleUIServer.missing_overlay_files);
+                        sJson = JSON.stringify(json);
+                    }
                 }
                 res.send(sJson);
             }

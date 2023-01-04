@@ -41,9 +41,8 @@ export class OverlayPageComponent {
 
     TODO__hide_graphs_and_data = false;
 
-    isMissingFiles = true;
-
-
+    isMissingFiles = false;
+    missingFiles = [];
 
     static writeOverlayDebugInfo(overlayGroupName: string, idList: any, overlayType: OverlayType): void {
         const implKey = OverlayType[OverlayType[overlayType]] || 'Unimplemented';
@@ -186,6 +185,11 @@ export class OverlayPageComponent {
      */
     getGroupMembers(overlayType: OverlayType, overlayGroupName: string, tag: string): any {
         // tag is an element of ['dyn', 'command', 'img', 'table']
+        if (this._DataSummary['missing_overlay_files']) {
+            this.isMissingFiles = true;
+            this.missingFiles = this._DataSummary['missing_overlay_files'];
+        } else { this.isMissingFiles = false }
+
         const node = this._DataSummary[overlayGroupName];
         const elemList = [];
         if (node && typeof node !== 'undefined') {
