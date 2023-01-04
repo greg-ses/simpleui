@@ -172,6 +172,7 @@ pre {
 #warning-summary > p {
 	cursor: pointer;
 	color: red;
+	margin-bottom: 5px;
 }
 #warning-content {
 	background-color: #AAAAAA;
