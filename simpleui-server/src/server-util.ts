@@ -4,6 +4,8 @@
 import { Logger, LogLevel } from './server-logger';
 import { ProcessInfo } from './interfaces';
 import {ParamsDictionary, Request} from 'express-serve-static-core';
+import * as fs from "fs";
+import * as path from "path";
 
 export class ServerUtil {
 
@@ -16,6 +18,26 @@ export class ServerUtil {
         }
 
         return structuredClone(obj)
+    }
+
+
+    /**
+     * Get the difference of items of two arrays
+     * @returns an array of items that are present arr_A but missing from arr_B
+     */
+    static getArrayDifference(arr_A: any[], arr_B: any[]): any[] {
+        return arr_A.filter((x) => !arr_B.includes(x));
+    }
+
+
+    /**
+     * Returns an array of filenames in a give directory path
+     * @param dir
+     * @returns
+     */
+    static async getFileNames(dir_path: string): Promise<string[]> {
+        const files = await fs.promises.readdir(dir_path);
+        return files.filter((file) => (!fs.statSync(path.join(dir_path, file)).isDirectory()) && ((file.endsWith("gif")) || (file.endsWith("png"))) );
     }
 
 

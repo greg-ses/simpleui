@@ -21,6 +21,9 @@ export class SimpleUIServer {
     static newMockDataURL: any = ""; // allows us to modify the mock data requests via mock cmd requests
     static webPortString = "";
     static REQUESTS_UNTIL_MOCK_CMD_ENDS: number = 10;
+    static overlay_image_file_names = [];
+    static missing_overlay_files = new Set();
+    static APP_NAME = ""; // name of the app
 
     static executeMockRequest(cmdArgs: CommandArgs, props: any, req: Request<ParamsDictionary> = null, res: Response = null) {
         if (props) {
@@ -33,6 +36,7 @@ export class SimpleUIServer {
     static setBinDir(argv1): void {
         SimpleUIServer.bin_dir = argv1.substr(0, argv1.lastIndexOf('/'));
         console.log(`bin_dir: ${SimpleUIServer.bin_dir}`);
+
     }
 
     static getExternalIP(): string {
@@ -209,7 +213,7 @@ export class SimpleUIServer {
         return;
     }
 
-    static main() {
+    static async main() {
         try {
 
 
@@ -226,6 +230,8 @@ export class SimpleUIServer {
                 return 1;
             }
 
+            SimpleUIServer.APP_NAME = cmdVars.appName;
+
             let _props = PropsFileReader.getProps('ui.properties');
 
             ////// set up zmq sockets
@@ -233,6 +239,13 @@ export class SimpleUIServer {
             const zmqHostname = cmdVars.zmqHostname;
             Logger.log(LogLevel.INFO, `ZMQ ports: ${zmq_ports_array}`);
             SuiData.zmqMap = new zmq_wrapper(zmq_ports_array, zmqHostname);
+            //////
+
+            ////// get list of gif and png files
+            const overlay_assets_dir_path = `/var/www/${SimpleUIServer.APP_NAME}/overlay-1/images/`;
+            SimpleUIServer.overlay_image_file_names = await ServerUtil.getFileNames(overlay_assets_dir_path);
+            SimpleUIServer.overlay_image_file_names.filter(file => ((file.endsWith("gif")) || (file.endsWith("png"))));
+            Logger.log(LogLevel.INFO, `Total media (.png + .gif) files for overlay:  ${SimpleUIServer.overlay_image_file_names.length}`);
             //////
 
             const originsWhiteList = [
