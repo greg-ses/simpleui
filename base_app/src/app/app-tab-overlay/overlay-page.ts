@@ -31,6 +31,8 @@ export class OverlayPageComponent {
 
     @Output() onToggleAutoRefresh = new EventEmitter<boolean>();
 
+    warningPanelOpenState = false;
+
     _autoRefreshLabel = 'Pause Auto Refresh';
 
     _commandList = [];
@@ -38,6 +40,9 @@ export class OverlayPageComponent {
     _animationList = [];
 
     TODO__hide_graphs_and_data = false;
+
+    isMissingFiles = true;
+
 
 
     static writeOverlayDebugInfo(overlayGroupName: string, idList: any, overlayType: OverlayType): void {

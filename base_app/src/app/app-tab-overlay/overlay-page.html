@@ -1,4 +1,20 @@
 <!-- Implemented Overlays -->
+
+<div *ngIf="isMissingFiles" id="warning-div" style="float: right" >
+    <details>
+        <summary id="warning-summary"><p>Warning!</p></summary>
+        <p>The following files are missing:</p>
+        <ul>
+            <li>hi</li>
+        </ul>
+    </details>
+    <div></div>
+
+</div>
+
+
+
+
 <div *ngFor='let overlayGroupName of _imageOverlayGroupNames' class='implemented_overlays' valign='top'
      creator='overlayGroups-ngFor'>
 

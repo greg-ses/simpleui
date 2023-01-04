@@ -153,3 +153,22 @@ pre {
 	color: black;
 	margin-top: 0;
 }
+
+
+#warning-div {
+	margin-right: 10px;
+	background-color: #AAAAAA;
+	cursor: pointer;
+}
+
+details {
+	width: 400px;
+	display: inline-block;
+}
+
+#warning-summary {
+	list-style: none;
+}
+#warning-summary > p {
+	color: red
+}
