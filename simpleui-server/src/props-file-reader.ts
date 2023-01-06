@@ -171,14 +171,11 @@ export class PropsFileReader {
     static replaceMacros(props, value) {
         if (props['macro'] instanceof Array) {
             props['macro'].forEach(macro => {
-                if (   (macro instanceof Object)
-                    && (typeof macro['token'] === 'string')
-                    && (typeof macro['replacement'] === 'string') ) {
+                if (   (macro instanceof Object) && (typeof macro['token'] === 'string') && (typeof macro['replacement'] === 'string') ) {
 
                     const searchString = '${' + macro['token'] + '}';
                     const replacement = macro['replacement'];
-                    value = value.replace(searchString, replacement)
-                        .replace('{{index}}', '((index))');
+                    value = ServerUtil.replaceAllOccurences(value, searchString, replacement).replace('{{index}}', '((index))');
                 }
             });
         }
@@ -353,6 +350,7 @@ export class PropsFileReader {
                         props[key][index]['index'] = (keyIndex - 1).toString();
                         props[key][index]['id'] = `${key}-${index + 1}`;
                         props[key][index][subKey] = PropsFileReader.replaceMacros(props, value);
+                        let wwwwww = props[key][index][subKey]
                     } else {
                         props[key][index]['index'] = index.toString();
                         props[key][index]['id'] = `${key}-${index + 1}`;
