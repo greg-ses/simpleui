@@ -350,7 +350,6 @@ export class PropsFileReader {
                         props[key][index]['index'] = (keyIndex - 1).toString();
                         props[key][index]['id'] = `${key}-${index + 1}`;
                         props[key][index][subKey] = PropsFileReader.replaceMacros(props, value);
-                        let wwwwww = props[key][index][subKey]
                     } else {
                         props[key][index]['index'] = index.toString();
                         props[key][index]['id'] = `${key}-${index + 1}`;
