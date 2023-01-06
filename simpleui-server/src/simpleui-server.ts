@@ -80,6 +80,17 @@ export class SimpleUIServer {
                 }
             })
         }
+        if (cmdVars.urlResource) {
+            Logger.log(LogLevel.INFO, `Overriding the RESOURCE param of the appLinks urls with the value of command line arg "--dbName=${cmdVars.urlResource}"`);
+            let appLinks = props.appLink;
+            appLinks.forEach( (link) => {
+                if (link.url.includes("RESOURCE=")) {
+                    const resourceIndex = link.url.indexOf('RESOURCE=');
+                    const resourceEndIndex = link.url.indexOf('&', resourceIndex);
+                    link.url = link.url.substring(0, resourceIndex + 9) + cmdVars.urlResource + link.url.substring(resourceEndIndex);
+                }
+            })
+        }
 
         return props;
     }
@@ -109,7 +120,8 @@ export class SimpleUIServer {
             zmqHostname: '',
             dbName: '',
             themeName: '',
-            mock: false
+            mock: false,
+            urlResource: ''
         };
 
         cmdVars.help += '\n    -m or --mode=     (optional) the mode (daemon or test) - defaults to daemon';
@@ -186,6 +198,11 @@ export class SimpleUIServer {
             } else {
                 Logger.log(LogLevel.WARNING, `themeName ${match[2]} is not valid, using themeName in ui.properties`);
             }
+        }
+        cmdVars.help += '\n    --urlResource=       (optional) Overrides the RESOURCE param in the appLinks';
+        match = cmdLine.match(/(\W+-D\W+|--urlResource=)([^ \t]+)/);
+        if (match) {
+            cmdVars.urlResource = match[2];
         }
 
         return cmdVars;
