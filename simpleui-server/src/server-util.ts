@@ -19,6 +19,18 @@ export class ServerUtil {
     }
 
 
+    /**
+     * replaces all occurences of 'search' with 'replacement' in 'input'
+     * @param input
+     * @param search
+     * @param replace
+     * @returns
+     */
+    static replaceAllOccurences(input: string, search: string, replacement: string) {
+        return input.split(search).join(replacement);
+    }
+
+
     static htmlspecialchars(s: string) {
         const retVal =
             s.replace(/&/g, '&amp;')

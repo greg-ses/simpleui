@@ -7,6 +7,7 @@ install_script=install-script.bash
 for arg in "$@"
 do
     if [ "$arg" == "debugserver" ]; then
+        echo "--- DEBUG MODE ---"
         install_script=install-script-debug-simpleui-server.bash
     fi
 done
