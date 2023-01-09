@@ -171,14 +171,11 @@ export class PropsFileReader {
     static replaceMacros(props, value) {
         if (props['macro'] instanceof Array) {
             props['macro'].forEach(macro => {
-                if (   (macro instanceof Object)
-                    && (typeof macro['token'] === 'string')
-                    && (typeof macro['replacement'] === 'string') ) {
+                if (   (macro instanceof Object) && (typeof macro['token'] === 'string') && (typeof macro['replacement'] === 'string') ) {
 
                     const searchString = '${' + macro['token'] + '}';
                     const replacement = macro['replacement'];
-                    value = value.replace(searchString, replacement)
-                        .replace('{{index}}', '((index))');
+                    value = ServerUtil.replaceAllOccurences(value, searchString, replacement).replace('{{index}}', '((index))');
                 }
             });
         }
