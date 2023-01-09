@@ -8,9 +8,10 @@ if test "$#" \< "2"; then
     echo "run.sh - runs simpleui for docker";
     echo "Usage: run.sh YOUR_APP_NAME --zmqHostname=YOUR_ZMQ_HOSTNAME";
     echo "Other options include:";
-    printf "\t zmqHostname ==> address/hostname of native app zmq sockets (required)\n";
-    printf "\t dbName      ==> override DB name (optional)\n";
-    printf "\t themeName   ==> override themeName (optional)\n";
+    printf "\t zmqHostname ==> (required) address/hostname of native app zmq sockets \n";
+    printf "\t dbName      ==> (optional) override DB name \n";
+    printf "\t themeName   ==> (optional) override themeName \n";
+    printf "\t urlResource ==> (optional) override the RESOURCE param for all appLink urls \n"
     exit 1;
 fi
 
