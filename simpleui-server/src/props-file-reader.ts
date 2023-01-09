@@ -43,7 +43,8 @@ export class PropsFileReader {
         zmqHostname: '',
         dbName: '',
         themeName: '',
-        mock: false
+        mock: false,
+        urlResource: ''
     };
 
     static getAppPropsFiles(): any {

@@ -12,6 +12,7 @@ export interface CommandArgs {
     dbName: string;
     themeName: string;
     mock: boolean;
+    urlResource: string;
 }
 
 export interface ProcessInfo {
