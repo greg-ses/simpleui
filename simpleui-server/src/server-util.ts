@@ -40,6 +40,7 @@ export class ServerUtil {
         return files.filter((file) => (!fs.statSync(path.join(dir_path, file)).isDirectory()) && ((file.endsWith("gif")) || (file.endsWith("png"))) );
      }
 
+     /**
      * replaces all occurences of 'search' with 'replacement' in 'input'
      * @param input
      * @param search
