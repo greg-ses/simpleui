@@ -4,6 +4,7 @@ import {JsonOverlayNormalizer} from './json-overlay-normalizer';
 import {Logger, LogLevel} from './server-logger';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
+import { SimpleUIServer } from './simpleui-server';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as fastXmlParser from 'fast-xml-parser';
@@ -33,6 +34,69 @@ export class SuiData {
 
     static propOrDefault(props: Object, prop: string, defaultValue: any): any {
         return props[prop] ? props[prop] : defaultValue;
+    }
+
+
+
+    /**
+     * Parses the Overlay_Summary object to extract all the image and
+     * animation file names
+     * @param data the Overlay_Summary object
+     * @returns
+     */
+    static getImageLinksFromOverlaySummary(data: object): string[] {
+        data = data['Overlay_Summary'];
+        const groupnames = Object.keys(data);
+        let groups_with_images = [];
+        let all_image_links = [];
+
+        // get every group with a image or animation
+        groupnames.forEach( (group, indx) => {
+            let group_data = data[group];
+            if (Object.keys(group_data).includes("img") || Object.keys(group_data).includes("animation")) {
+                groups_with_images.push(group);
+            }
+        });
+
+
+        // build a list of all the image / animation file names
+        groups_with_images.forEach( (val, _) => {
+            let current = data[val];
+            if (current?.img) {
+              for (let indx = 0; indx < current.img.length; indx++) {
+                const name =  current.img[indx].name;
+                const classname = current.img[indx].class;
+                const filetype = current.img[indx].fileType;
+                const filename = `${name}.${classname}.${filetype}`;
+                all_image_links.push(filename)
+              }
+            }
+            else {
+              for (let indx = 0; indx < current.animation.length; indx++) {
+                const name =  current.animation[indx].name;
+                const classname = current.animation[indx].class;
+                const filetype = current.animation[indx].fileType;
+                const filename = `${name}.${classname}.${filetype}`;
+                all_image_links.push(filename)
+              }
+            }
+          });
+
+        return all_image_links;
+
+    }
+
+
+    /**
+     * Iterates through the image files in the zmq response to
+     * find broken images
+     * @returns array of broken filenames. [] if none
+     */
+    static checkForBrokenOverlayFiles(data: string): string[] {
+        let json = JSON.parse(data);
+        let all_file_names = SuiData.getImageLinksFromOverlaySummary(json);
+        const broken_links = ServerUtil.getArrayDifference(all_file_names, SimpleUIServer.overlay_image_file_names);
+        return broken_links;
     }
 
     /**
@@ -66,6 +130,17 @@ export class SuiData {
                     sJson = xmlResponse;
                 } else {
                     sJson = SuiData.xmlToJSON(xmlResponse, req.params.appName, SuiData.uiProps, req);
+                }
+                // if sJson is for an overlay, check the imgs to see if any are missing
+                if (sJson.substring(0, 20).includes("Overlay_Summary")) {
+                    const broken_links = SuiData.checkForBrokenOverlayFiles(sJson);
+                    if (broken_links) {
+                        SimpleUIServer.missing_overlay_files = new Set();
+                        broken_links.forEach( item => SimpleUIServer.missing_overlay_files.add(item) );
+                        const json = JSON.parse(sJson);
+                        json['Overlay_Summary'].missing_overlay_files = Array.from(SimpleUIServer.missing_overlay_files);
+                        sJson = JSON.stringify(json);
+                    }
                 }
                 res.send(sJson);
             }
@@ -593,6 +668,8 @@ export class SuiData {
         }
 
         if (res) {
+            const broken_links = SuiData.checkForBrokenOverlayFiles(sJson);
+            //console.log('------------- Broken links', broken_links)
             res.send(sJson);
         }
         return;
