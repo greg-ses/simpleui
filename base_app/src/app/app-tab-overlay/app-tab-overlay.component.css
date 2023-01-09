@@ -153,3 +153,35 @@ pre {
 	color: black;
 	margin-top: 0;
 }
+
+
+#warning-div {
+	margin-right: 10px;
+	float: right;
+	font-size: 12px;
+}
+#warning-div > details {
+	width: 300px;
+	display: inline-block;
+}
+#warning-summary {
+	list-style: none;
+	background-color: transparent;
+	font-size: 28px;
+}
+#warning-summary > p {
+	cursor: pointer;
+	color: red;
+	margin-bottom: 5px;
+}
+#warning-content {
+	background-color: #e3e2e2;
+	border: 1px solid #c4c4c4;
+	border-radius: 6px;
+	overflow-x: scroll;
+	color: #444444;
+}
+#warning-content > ul {
+	/*list-style-type: "- ";  none */
+	padding-left: 15px;
+}
