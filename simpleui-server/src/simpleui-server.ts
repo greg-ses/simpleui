@@ -260,9 +260,13 @@ export class SimpleUIServer {
 
             ////// get list of gif and png files for overlay
             const overlay_assets_dir_path = `/var/www/${SimpleUIServer.APP_NAME}/overlay-1/images/`;
-            SimpleUIServer.overlay_image_file_names = await ServerUtil.getFileNames(overlay_assets_dir_path);
-            SimpleUIServer.overlay_image_file_names.filter(file => ((file.endsWith("gif")) || (file.endsWith("png"))));
-            Logger.log(LogLevel.INFO, `Total media (.png + .gif) files for overlay:  ${SimpleUIServer.overlay_image_file_names.length}`);
+            try {
+                SimpleUIServer.overlay_image_file_names = await ServerUtil.getFileNames(overlay_assets_dir_path);
+                SimpleUIServer.overlay_image_file_names.filter(file => ((file.endsWith("gif")) || (file.endsWith("png"))));
+                Logger.log(LogLevel.INFO, `Total media (.png + .gif) files for overlay:  ${SimpleUIServer.overlay_image_file_names.length}`);
+            } catch (err) {
+                Logger.log(LogLevel.INFO, `No overlay directory detected`);
+            }
             //////
 
             const originsWhiteList = [
