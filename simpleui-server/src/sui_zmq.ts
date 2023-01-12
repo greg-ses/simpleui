@@ -166,6 +166,15 @@ export class zmq_wrapper {
         return this.socket_map.size;
     }
 
+    /**
+     * Add a zmq socket to the socket map
+     * @param port
+     */
+    add_socket(port: number) {
+        const zmq_wrapper_instance = new ZMQ_Socket_Wrapper(this.hostname, port);
+        this.socket_map.set(port, zmq_wrapper_instance);
+    }
+
     handleApplicationExit(signalName: string) {
         Logger.log(LogLevel.INFO, `ZMQ_Socket_Wrapper recieved signal ${signalName}`);
         //process.exit(1)

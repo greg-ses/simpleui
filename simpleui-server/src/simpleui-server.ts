@@ -254,7 +254,7 @@ export class SimpleUIServer {
             ////// set up zmq sockets
             let zmq_ports_array = ServerUtil.getZMQPortsFromProps(_props).map(p => Number(p));
             const zmqHostname = cmdVars.zmqHostname;
-            Logger.log(LogLevel.INFO, `ZMQ ports: ${zmq_ports_array}`);
+            Logger.log(LogLevel.INFO, zmq_ports_array ? `ZMQ ports: ${zmq_ports_array}` : `No ZMQ ports were parsed from the inital props`);
             SuiData.zmqMap = new zmq_wrapper(zmq_ports_array, zmqHostname);
             //////
 
@@ -397,9 +397,12 @@ export class SimpleUIServer {
                 // Replies with data from a zeromq request
                 Logger.log(LogLevel.VERBOSE, `data request callback: ${++SimpleUIServer.requestCallbacks}`);
                 try {
-                    // update list of overlay files
-                    SimpleUIServer.overlay_image_file_names = await ServerUtil.getFileNames(overlay_assets_dir_path);
-                    SimpleUIServer.overlay_image_file_names.filter(file => ((file.endsWith("gif")) || (file.endsWith("png"))));
+                    try {
+                        // update list of overlay files
+                        SimpleUIServer.overlay_image_file_names = await ServerUtil.getFileNames(overlay_assets_dir_path);
+                        SimpleUIServer.overlay_image_file_names.filter(file => ((file.endsWith("gif")) || (file.endsWith("png"))));
+                    } catch (err) { /* no overlay folder */ }
+
 
                     const props = PropsFileReader.getProps(`${req.params.propsStub}.properties`);
                     SuiData.handleZmqRequest(req, res, props);

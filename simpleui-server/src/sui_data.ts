@@ -5,6 +5,7 @@ import {Logger, LogLevel} from './server-logger';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
 import { SimpleUIServer } from './simpleui-server';
+import { zmq_wrapper } from './sui_zmq';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as fastXmlParser from 'fast-xml-parser';
@@ -27,7 +28,7 @@ export class SuiData {
     static mockRequestNum = 0;
     static mockDataFileIndex = [];
     static uiProps = "";
-    static zmqMap = null;
+    static zmqMap: null|zmq_wrapper  = null;
 
 
 
@@ -225,10 +226,18 @@ export class SuiData {
         const zmq_port = SuiData.getZmqPort(req);
 
         // get socket
-        const socket = SuiData.zmqMap.get(zmq_port);
+        let socket = SuiData.zmqMap.get(zmq_port);
+
+        if (!socket) {
+            SuiData.zmqMap.add_socket(zmq_port);
+            socket = SuiData.zmqMap.get(zmq_port);
+            Logger.log(LogLevel.WARNING, `No socket for ZMQ socket with port ${zmq_port}, creating new socket`);
+            Logger.log(LogLevel.DEBUG, `All ZMQ socket ports: ${Array.from(SuiData.zmqMap.socket_map.keys())}`)
+        }
 
         // get and set connection timeout (is this needed anymore?)
         const timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
+
         socket.set_timeout(timeout);
 
         // add res + req pair to socket's queue
