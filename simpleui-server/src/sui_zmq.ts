@@ -105,7 +105,7 @@ export class ZMQ_Socket_Wrapper {
             Logger.log(LogLevel.VERBOSE, `ZMQ connecting to tcp://${this.hostname}:${port}`)
             this.socket.connect(`tcp://${this.hostname}:${port}`)
         } catch (e) {
-            Logger.log(LogLevel.ERROR, `Could not connect to tcp://${this.hostname}:${port} Got error: ${e}`);
+            Logger.log(LogLevel.ERROR, `Could not connect to tcp://${this.hostname}:${port} ${typeof port} Got error: ${e}`);
             process.exit(1);
         }
     }

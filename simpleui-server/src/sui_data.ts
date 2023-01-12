@@ -175,14 +175,15 @@ export class SuiData {
     }
 
     /**
-     * Parses the zmq port from the request
+     * Parses the zmq port from the request. Will also evaluate expressions with addition.
+     * EX: ${100}+5 ===> 105
      * @param req
      * @returns 0 if no port found
      */
     static getZmqPort(req: Request<ParamsDictionary>): number {
         let zmqPort = 0;
         try {
-            if (typeof req.params.zmqPortExpr === 'string') {
+            if (typeof req.params.zmqPortExpr === 'string' && req.params.zmqPortExpr !== 'missing') {
                 const arr = req.params.zmqPortExpr.split('+');
                 if (arr.length === 1) {
                     zmqPort = parseInt(req.params.zmqPortExpr, 10);
