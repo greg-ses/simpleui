@@ -80,7 +80,7 @@ export class ZMQ_Socket_Wrapper {
                         `for tab ${req.params.tabName} - forwarding to ZMQ.`);
                 }
                 else {                                        // data request
-                    // get cmd
+                    // get data cmd
                     const cmd = SuiData.getCmdFromReq(req);
                     // create packet
                     zmq_request_packet = `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
@@ -114,7 +114,7 @@ export class ZMQ_Socket_Wrapper {
         try{
             this.socket.send(msg);
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `could not send zmq message:\n${msg} got error: ${err}`);
+            Logger.log(LogLevel.ERROR, `Could not send zmq message:\n${msg} got error: ${err}`);
         }
     }
 
@@ -128,7 +128,7 @@ export class ZMQ_Socket_Wrapper {
         try {
             this.socket.connect_timeout = ms;
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `COULD NOT SET ZMQ TIMEOUT ${ms}`);
+            Logger.log(LogLevel.ERROR, `Could not set zmq socket timeout: ${ms} got error: ${err}`);
         }
     }
 }

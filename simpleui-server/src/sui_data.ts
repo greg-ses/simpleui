@@ -232,7 +232,7 @@ export class SuiData {
         if (!socket) {
             SuiData.zmqMap.add_socket(zmq_port);
             socket = SuiData.zmqMap.get(zmq_port);
-            Logger.log(LogLevel.WARNING, `No socket for ZMQ socket with port ${zmq_port}, creating new socket`);
+            Logger.log(LogLevel.WARNING, `No socket for ZMQ socket with port ${zmq_port}, created new socket`);
             Logger.log(LogLevel.DEBUG, `All ZMQ socket ports: ${Array.from(SuiData.zmqMap.socket_map.keys())}`)
         }
 
