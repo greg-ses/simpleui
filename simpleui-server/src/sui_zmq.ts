@@ -40,6 +40,20 @@ export class ZMQ_Socket_Wrapper {
             this.socket.connect_timeout = timeout;
             this.connect(this.port);
 
+            this.socket.monitor(10_000, 0)
+
+            this.socket.on('connect', () => {
+                Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} connected`)
+            })
+
+            this.socket.on('connect_retry', () => {
+                Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} retrying connection`)
+            })
+
+            this.socket.on('connect_delay', () => {
+                Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} connection delayed`);
+            })
+
 
             this.socket.on('message', (msg) => {
                 const raw_zmq_data = msg.toString();
@@ -59,7 +73,6 @@ export class ZMQ_Socket_Wrapper {
                 // send response
                 SuiData.sendResponse(req, res, zmq_data);
             });
-
 
             this.http_queue.events.on('item_added', () => {
                 // read the most recent item
@@ -106,7 +119,7 @@ export class ZMQ_Socket_Wrapper {
             this.socket.connect(`tcp://${this.hostname}:${port}`)
         } catch (e) {
             Logger.log(LogLevel.ERROR, `Could not connect to tcp://${this.hostname}:${port} ${typeof port} Got error: ${e}`);
-            process.exit(1);
+            //process.exit(1);
         }
     }
 
