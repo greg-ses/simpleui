@@ -573,7 +573,6 @@ export class SuiData {
         }
 
         let docRootName = Object.keys(json)[0]; // should this have some type of error handling?
-        Logger.log(LogLevel.VERBOSE, `XML-to-JSON docRootName: ${docRootName}`);
 
         if (!docRootName) {
             docRootName = 'error';
