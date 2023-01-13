@@ -170,8 +170,8 @@ export class ServerUtil {
                 Object.getOwnPropertyNames(macro).includes('property') &&
                 macro.property.endsWith('port') &&
                 !isNaN(macro.replacement)) {
-                const port = parseInt(macro.replacement);
-                ports.push(port);
+                    const port = parseInt(macro.replacement, 10);
+                    ports.push(port);
             }
         }
         return ports
