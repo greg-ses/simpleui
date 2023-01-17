@@ -40,19 +40,15 @@ export class ZMQ_Socket_Wrapper {
             this.socket.connect_timeout = timeout;
             this.connect(this.port);
 
-            this.socket.monitor(10_000, 0)
+            this.socket.monitor(10_000, 0); // allows for `connect` and `connect_retry` event listeners https://github.com/zeromq/zeromq.js/blob/5.x/lib/index.js#L547
 
             this.socket.on('connect', () => {
-                Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} connected`)
-            })
+                Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} connected`);
+            });
 
             this.socket.on('connect_retry', () => {
-                Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} retrying connection`)
-            })
-
-            this.socket.on('connect_delay', () => {
-                Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} connection delayed`);
-            })
+                Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} retrying connection...`);
+            });
 
 
             this.socket.on('message', (msg) => {
@@ -134,6 +130,7 @@ export class ZMQ_Socket_Wrapper {
     close() {
         if (this.socket.closed === false) {
             this.socket.close();
+            this.socket.unmonitor();
         }
     }
 
