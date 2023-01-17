@@ -48,6 +48,7 @@ export class ServerUtil {
      * @returns
      */
     static replaceAllOccurences(input: string, search: string, replacement: string) {
+        //return input.replaceAll(search, replacement); // needs `lib: ["ES2020"]` in tsconfig.json
         return input.split(search).join(replacement);
     }
 
@@ -174,6 +175,6 @@ export class ServerUtil {
                     ports.push(port);
             }
         }
-        return ports
+        return ports;
     }
 }
