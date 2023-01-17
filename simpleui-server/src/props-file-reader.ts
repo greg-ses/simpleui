@@ -135,6 +135,7 @@ export class PropsFileReader {
             } else {
                 if (!fs.existsSync(sourceFile)) {
                     Logger.log(LogLevel.ERROR, `ERROR: Properties source file '${sourceFile}' referenced by MACRO ${token} does not exist.`);
+                    props['macro'][index]['replacement'] = 'missing';           // just mark the prop as missing
                     return false;
                 }
 

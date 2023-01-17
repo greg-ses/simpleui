@@ -40,6 +40,16 @@ export class ZMQ_Socket_Wrapper {
             this.socket.connect_timeout = timeout;
             this.connect(this.port);
 
+            this.socket.monitor(5000, 0); // allows for `connect` and `connect_retry` event listeners https://github.com/zeromq/zeromq.js/blob/5.x/lib/index.js#L547
+
+            this.socket.on('connect', () => {
+                Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} connected`);
+            });
+
+            this.socket.on('connect_retry', () => {
+                Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} retrying connection...`);
+            });
+
 
             this.socket.on('message', (msg) => {
                 const raw_zmq_data = msg.toString();
@@ -60,7 +70,6 @@ export class ZMQ_Socket_Wrapper {
                 SuiData.sendResponse(req, res, zmq_data);
             });
 
-
             this.http_queue.events.on('item_added', () => {
                 // read the most recent item
                 let [_, req] = this.http_queue.elements[0];
@@ -80,7 +89,7 @@ export class ZMQ_Socket_Wrapper {
                         `for tab ${req.params.tabName} - forwarding to ZMQ.`);
                 }
                 else {                                        // data request
-                    // get cmd
+                    // get data cmd
                     const cmd = SuiData.getCmdFromReq(req);
                     // create packet
                     zmq_request_packet = `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
@@ -105,8 +114,8 @@ export class ZMQ_Socket_Wrapper {
             Logger.log(LogLevel.VERBOSE, `ZMQ connecting to tcp://${this.hostname}:${port}`)
             this.socket.connect(`tcp://${this.hostname}:${port}`)
         } catch (e) {
-            Logger.log(LogLevel.ERROR, `Could not connect to tcp://${this.hostname}:${port} Got error: ${e}`);
-            process.exit(1);
+            Logger.log(LogLevel.ERROR, `Could not connect to tcp://${this.hostname}:${port} ${typeof port} Got error: ${e}`);
+            //process.exit(1);
         }
     }
 
@@ -114,13 +123,14 @@ export class ZMQ_Socket_Wrapper {
         try{
             this.socket.send(msg);
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `could not send zmq message:\n${msg} got error: ${err}`);
+            Logger.log(LogLevel.ERROR, `Could not send zmq message:\n${msg} got error: ${err}`);
         }
     }
 
     close() {
         if (this.socket.closed === false) {
             this.socket.close();
+            this.socket.unmonitor();
         }
     }
 
@@ -128,7 +138,7 @@ export class ZMQ_Socket_Wrapper {
         try {
             this.socket.connect_timeout = ms;
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `COULD NOT SET ZMQ TIMEOUT ${ms}`);
+            Logger.log(LogLevel.ERROR, `Could not set zmq socket timeout: ${ms} got error: ${err}`);
         }
     }
 }
@@ -164,6 +174,15 @@ export class zmq_wrapper {
 
     size(): number {
         return this.socket_map.size;
+    }
+
+    /**
+     * Add a zmq socket to the socket map
+     * @param port
+     */
+    add_socket(port: number) {
+        const zmq_wrapper_instance = new ZMQ_Socket_Wrapper(this.hostname, port);
+        this.socket_map.set(port, zmq_wrapper_instance);
     }
 
     handleApplicationExit(signalName: string) {

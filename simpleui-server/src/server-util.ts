@@ -48,6 +48,7 @@ export class ServerUtil {
      * @returns
      */
     static replaceAllOccurences(input: string, search: string, replacement: string) {
+        //return input.replaceAll(search, replacement); // needs `lib: ["ES2020"]` in tsconfig.json
         return input.split(search).join(replacement);
     }
 
@@ -168,11 +169,12 @@ export class ServerUtil {
             let macro = props.macro[macroIndex];
             if (Object.getOwnPropertyNames(macro).includes('replacement') &&
                 Object.getOwnPropertyNames(macro).includes('property') &&
-                macro.property.endsWith('.port')) {
-                let port = parseInt(macro.replacement);
-                ports.push(port);
+                macro.property.endsWith('port') &&
+                !isNaN(macro.replacement)) {
+                    const port = parseInt(macro.replacement, 10);
+                    ports.push(port);
             }
         }
-        return ports
+        return ports;
     }
 }
