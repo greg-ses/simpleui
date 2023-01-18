@@ -1,0 +1,3 @@
+# Only these two accounts can review and accept merge request across all (*) files and folders
+# read more about CODEOWNERS here: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+* @zbeucler-largo @jscarsdale1
