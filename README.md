@@ -1,3 +1,62 @@
+# Improve testing
+- [ ] headless tests from karma
+- [ ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Simple UI
 
 Simple UI is a real-time display framework using `Angular 14` for the front end display
