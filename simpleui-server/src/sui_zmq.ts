@@ -65,7 +65,7 @@ export class ZMQ_Socket_Wrapper {
             this.socket.on('disconnect', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
                 Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} disconnected.`);
-            })
+            });
 
 
             this.socket.on('message', (msg) => {
