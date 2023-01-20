@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild, isDevMode} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild, AfterContentInit, ChangeDetectorRef} from '@angular/core';
 import {AppProperties, SubscriptionState, TabUI, TitleBarProperties} from './interfaces/props-data';
 import {ajax} from 'rxjs/ajax';
 import {MatTabChangeEvent, MatTabGroup} from '@angular/material/tabs';
@@ -7,6 +7,8 @@ import {ClientLogger, LogLevel} from '../tools/logger';
 import {DataSummary} from './interfaces/data-summary';
 import {UTIL} from '../tools/utility';
 
+
+const debug = (msg: any) => console.debug(msg)
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [],
@@ -21,7 +23,7 @@ import {UTIL} from '../tools/utility';
  * 2. AppComponent _tBarProps is an @Input to AppTitleBarComponent
  */
 
-export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
+export class AppComponent implements OnInit, AfterContentInit, AfterViewInit /*, OnChanges */ {
     static _updatesSuspended = false;
     static _trackClicks = false;
     static _mouseDownSuspendsUpdates = false;
@@ -61,7 +63,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     */
     _detectChanges: { 'name': string, 'value': boolean };
 
-    @ViewChild('_tabGroup', {static: false}) _tabGroup !: MatTabGroup;
+    //@ViewChild('_tabGroup', {static: false}) _tabGroup !: MatTabGroup;
+    @ViewChild(MatTabGroup) _tabGroup: MatTabGroup;
 
     static onWindowClick(event: MouseEvent) {
         const e = document.getElementById('eventMsg');
@@ -224,8 +227,13 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
     }
 
-    constructor(
-    ) {
+    constructor(private cdr: ChangeDetectorRef) {
+        this._selectedTabIndex = Number(sessionStorage?.selectedTab);
+
+        if (!this._selectedTabIndex || isNaN(this._selectedTabIndex)) {
+            this._selectedTabIndex = 0;
+        }
+        debug(`constructor \n\tsessionStorage: ${sessionStorage.getItem('selectedTab')}\n\tthis._selectedTabIndex: ${this._selectedTabIndex}`)
     }
 
     ngOnInit() {
@@ -247,33 +255,64 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         });
 
         AppComponent.doResizeTabScrollRegion(null, 100);
+
+        //debug(`ngAfterViewInit ${sessionStorage?.selectedTab} ${Number(sessionStorage?.selectedTab)} \n this._selectedTabIndex ${this._selectedTabIndex}`)
+
+        debug(`ngOnInit \n\tsessionStorage: ${sessionStorage.getItem('selectedTab')}\n\tthis._selectedTabIndex: ${this._selectedTabIndex}`)
+
     }
 
-    ngAfterViewInit() {
-        if (parseInt(sessionStorage.selectedTab, 10) === this._tabGroup.selectedIndex) {
-            setTimeout(() => this.configureTabBar(), 1);
-            AppComponent.doResizeTabScrollRegion({}, 10);
-        } else {
-            const scrollChangeWait = 1500;
-            setTimeout(() => {
-                let rememberedTab = parseInt(sessionStorage.selectedTab, 10);
-                rememberedTab = Math.max(0, rememberedTab);
-                this._tabGroup.selectedIndex = rememberedTab;
-                this.selectedTabChange.emit({index: rememberedTab, tab: null});
-                setTimeout(() => {
-                    if (typeof sessionStorage[`tab${rememberedTab}ScrollTop`] === 'string') {
-                        const actualScrollElement = AppComponent.getActualScrollElement();
-                        if (actualScrollElement) {
-                            actualScrollElement.scrollTop = sessionStorage[`tab${rememberedTab}ScrollTop`];
-                            actualScrollElement.scrollLeft = sessionStorage[`tab${rememberedTab}ScrollLeft`];
-                            // console.log(`Restored tab: ${rememberedTab},
-                            //     scrollTop: ${actualScrollElement.scrollTop},
-                            //     scrollLeft: ${actualScrollElement.scrollLeft}`);
-                        }
-                    }
-                }, scrollChangeWait);
-            }, 1);
+    // ngAfterViewInit() {
+    //     // if saved tab is the same as current tab
+    //     if (Number(sessionStorage.selectedTab) === this._tabGroup.selectedIndex) {
+    //         setTimeout(() => this.configureTabBar(), 1);
+    //         AppComponent.doResizeTabScrollRegion({}, 10);
+    //         debug(`ngAfterViewInit if \n\tsessionStorage: ${sessionStorage.getItem('selectedTab')} --${parseInt(sessionStorage.selectedTab, 10)}-- \n\tthis._selectedTabIndex: ${this._selectedTabIndex}\n\ttabgroup.selectedTab ${this._tabGroup.selectedIndex}`)
+    //     }
+    //     else {
+    //         const scrollChangeWait = 1500;
+    //         setTimeout(() => {
+    //             let rememberedTab = Number(sessionStorage.selectedTab)//parseInt(sessionStorage.selectedTab, 10);
+    //             this._tabGroup.selectedIndex = rememberedTab;
+    //             //this.selectedTabChange.emit({index: rememberedTab, tab: null});
+    //             setTimeout(() => {
+    //                 if (typeof sessionStorage[`tab${rememberedTab}ScrollTop`] === 'string') {
+    //                     const actualScrollElement = AppComponent.getActualScrollElement();
+    //                     if (actualScrollElement) {
+    //                         actualScrollElement.scrollTop = sessionStorage[`tab${rememberedTab}ScrollTop`];
+    //                         actualScrollElement.scrollLeft = sessionStorage[`tab${rememberedTab}ScrollLeft`];
+    //                         // console.log(`Restored tab: ${rememberedTab},
+    //                         //     scrollTop: ${actualScrollElement.scrollTop},
+    //                         //     scrollLeft: ${actualScrollElement.scrollLeft}`);
+    //                     }
+    //                 }
+    //             }, scrollChangeWait);
+    //         }, 1);
+
+
+    //         // if the current tab is not the saved one at init, then change the current tab to the saved one
+    //         this._tabGroup.selectedIndex = parseInt(sessionStorage.getItem('selectedTab'))
+    //         debug(`ngAfterViewInit else \n\tsessionStorage: ${sessionStorage.getItem('selectedTab')}\n\tthis._selectedTabIndex: ${this._selectedTabIndex}\n\ttabgroup.selectedTab ${this._tabGroup.selectedIndex}`)
+    //     }
+    // }
+
+
+    ngAfterContentInit(): void {}
+
+    ngAfterViewInit(): void {
+        if (sessionStorage?.selectedTab) {
+            debug(`ngAfterView got session storage`)
+            this._selectedTabIndex = Number(sessionStorage.selectedTab);
+            //debug(`before\n${this._tabGroup.selectedIndex} ==> ${ Number(sessionStorage.selectedTab)}`)
+            this._tabGroup.selectedIndex = Number(sessionStorage.selectedTab);
+            this._tabGroup.focusTab(this._selectedTabIndex)
+            //debug(`after\n${this._tabGroup.selectedIndex} ==> ${ Number(sessionStorage.selectedTab)}`)
         }
+        else {
+            this._selectedTabIndex = 0;
+        }
+        debug(`ngAfterViewInit\n\tsessionStorage: ${sessionStorage?.selectedTab} ${Number(sessionStorage?.selectedTab)}\n\tthis._selectedTabIndex ${this._selectedTabIndex}\n\ttabGroup.selectedTabIndex: ${this._tabGroup.selectedIndex}`)
+
     }
 
     public get globalProps(): any {
@@ -518,16 +557,19 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     }
 
     onSelect(tab) {
-        const newTabIndex = Math.max(0, parseInt(tab.index, 10));
-        console.log('New Tab Index: ' + tab.index);
+        const newTabIndex = tab.index;
+        sessionStorage.setItem('selectedTab', newTabIndex.toString());
         this._selectedTabIndex = newTabIndex;
-        sessionStorage.selectedTab = newTabIndex;
-        if (typeof sessionStorage[`tab${newTabIndex}ScrollTop`] === 'undefined') {
-            sessionStorage[`tab${newTabIndex}ScrollTop`] = 0;
-        }
-        if (typeof sessionStorage[`tab${newTabIndex}ScrollLeft`] === 'undefined') {
-            sessionStorage[`tab${newTabIndex}ScrollLeft`] = 0;
-        }
+        debug(`tab changed\n\tnewTabIndex: ${newTabIndex}\n\t_selectedTabIndex: ${this._selectedTabIndex}\n\tsessionStorage: ${ sessionStorage.getItem('selectedTab')}`)
+
+
+
+        // if (typeof sessionStorage[`tab${newTabIndex}ScrollTop`] === 'undefined') {
+        //     sessionStorage[`tab${newTabIndex}ScrollTop`] = 0;
+        // }
+        // if (typeof sessionStorage[`tab${newTabIndex}ScrollLeft`] === 'undefined') {
+        //     sessionStorage[`tab${newTabIndex}ScrollLeft`] = 0;
+        // }
         this.updateToggleButton();
         this.configureTabBar();
         AppComponent.doResizeTabScrollRegion({}, 200);
@@ -579,6 +621,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
      * @param {Number} cycle : the number of document.location.reload()'s have been used
      */
     doUpdate(cycle: number = 0) {
+        //debug(`doUpdate \n\tsessionStorage: ${sessionStorage.getItem('selectedTab')}\n\tthis._selectedTabIndex: ${this._selectedTabIndex}\n\ttabgroup.selectedTab ${this._tabGroup.selectedIndex}`)
         try {
             if (!AppComponent._updatesSuspended) {
                 for (const tab of this._props.tab) {
