@@ -226,14 +226,14 @@ export class SuiData {
         // get port
         const zmq_port = SuiData.getZmqPort(req);
 
+
         // get socket
         let socket = SuiData.zmqMap.get(zmq_port);
 
         if (!socket) {
             SuiData.zmqMap.add_socket(zmq_port);
             socket = SuiData.zmqMap.get(zmq_port);
-            Logger.log(LogLevel.WARNING, `No socket for ZMQ socket with port ${zmq_port}, created new socket`);
-            Logger.log(LogLevel.DEBUG, `All ZMQ socket ports: ${Array.from(SuiData.zmqMap.socket_map.keys())}`)
+            Logger.log(LogLevel.INFO, `No socket for ZMQ socket with port ${zmq_port}, created new socket`);
         }
 
         // get and set connection timeout (is this needed anymore?)
@@ -677,8 +677,6 @@ export class SuiData {
         }
 
         if (res) {
-            const broken_links = SuiData.checkForBrokenOverlayFiles(sJson);
-            //console.log('------------- Broken links', broken_links)
             res.send(sJson);
         }
         return;

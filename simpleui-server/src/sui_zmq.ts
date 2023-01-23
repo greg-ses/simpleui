@@ -17,9 +17,9 @@ import { Queue } from './queue';
 
 
 enum ZMQ_Connection_Status {
-    CONNECTED,
-    CONNECTING,
-    DISCONNECTED
+    CONNECTED = "connected",
+    CONNECTING = "attempting to connect",
+    DISCONNECTED = "disconnected"
 }
 
 
@@ -212,5 +212,20 @@ export class zmq_wrapper {
             // close event listeners (message, error, item_added)?
             // zmq_wrapper_instance.http_queue.removeEventListener('item_added', () => {})
         });
+    }
+
+
+    log_status(): void {
+        if (this.socket_map.size == 0) return;
+        let msg = "--- ZMQ Socket Connection Status ---\n";
+        this.socket_map.forEach( (socket_instance: ZMQ_Socket_Wrapper, port: number) => {
+             const id = `${socket_instance.hostname}:${port}`;
+             const status = socket_instance.connection_status;
+             const line = `\t${id}\t ==> ${status}\n`;
+             msg += line;
+        });
+        msg += "------------------------------------";
+
+        Logger.log(LogLevel.DEBUG, msg);
     }
 }
