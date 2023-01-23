@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild, AfterContentInit, ChangeDetectorRef} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {AppProperties, SubscriptionState, TabUI, TitleBarProperties} from './interfaces/props-data';
 import {ajax} from 'rxjs/ajax';
 import {MatTabChangeEvent, MatTabGroup} from '@angular/material/tabs';
@@ -23,7 +23,7 @@ const debug = (msg: any) => console.debug(msg)
  * 2. AppComponent _tBarProps is an @Input to AppTitleBarComponent
  */
 
-export class AppComponent implements OnInit, AfterContentInit, AfterViewInit /*, OnChanges */ {
+export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     static _updatesSuspended = false;
     static _trackClicks = false;
     static _mouseDownSuspendsUpdates = false;
@@ -63,8 +63,7 @@ export class AppComponent implements OnInit, AfterContentInit, AfterViewInit /*,
     */
     _detectChanges: { 'name': string, 'value': boolean };
 
-    //@ViewChild('_tabGroup', {static: false}) _tabGroup !: MatTabGroup;
-    @ViewChild(MatTabGroup) _tabGroup: MatTabGroup;
+    @ViewChild('_tabGroup', {static: false}) _tabGroup !: MatTabGroup;
 
     static onWindowClick(event: MouseEvent) {
         const e = document.getElementById('eventMsg');
@@ -227,14 +226,7 @@ export class AppComponent implements OnInit, AfterContentInit, AfterViewInit /*,
         }
     }
 
-    constructor(private cdr: ChangeDetectorRef) {
-        this._selectedTabIndex = Number(sessionStorage?.selectedTab);
-
-        if (!this._selectedTabIndex || isNaN(this._selectedTabIndex)) {
-            this._selectedTabIndex = 0;
-        }
-        debug(`constructor \n\tsessionStorage: ${sessionStorage.getItem('selectedTab')}\n\tthis._selectedTabIndex: ${this._selectedTabIndex}`)
-    }
+    constructor() {}
 
     ngOnInit() {
         const base = document.getElementsByTagName('base')[0];
@@ -255,64 +247,37 @@ export class AppComponent implements OnInit, AfterContentInit, AfterViewInit /*,
         });
 
         AppComponent.doResizeTabScrollRegion(null, 100);
-
-        //debug(`ngAfterViewInit ${sessionStorage?.selectedTab} ${Number(sessionStorage?.selectedTab)} \n this._selectedTabIndex ${this._selectedTabIndex}`)
-
-        debug(`ngOnInit \n\tsessionStorage: ${sessionStorage.getItem('selectedTab')}\n\tthis._selectedTabIndex: ${this._selectedTabIndex}`)
-
     }
 
-    // ngAfterViewInit() {
-    //     // if saved tab is the same as current tab
-    //     if (Number(sessionStorage.selectedTab) === this._tabGroup.selectedIndex) {
-    //         setTimeout(() => this.configureTabBar(), 1);
-    //         AppComponent.doResizeTabScrollRegion({}, 10);
-    //         debug(`ngAfterViewInit if \n\tsessionStorage: ${sessionStorage.getItem('selectedTab')} --${parseInt(sessionStorage.selectedTab, 10)}-- \n\tthis._selectedTabIndex: ${this._selectedTabIndex}\n\ttabgroup.selectedTab ${this._tabGroup.selectedIndex}`)
-    //     }
-    //     else {
-    //         const scrollChangeWait = 1500;
-    //         setTimeout(() => {
-    //             let rememberedTab = Number(sessionStorage.selectedTab)//parseInt(sessionStorage.selectedTab, 10);
-    //             this._tabGroup.selectedIndex = rememberedTab;
-    //             //this.selectedTabChange.emit({index: rememberedTab, tab: null});
-    //             setTimeout(() => {
-    //                 if (typeof sessionStorage[`tab${rememberedTab}ScrollTop`] === 'string') {
-    //                     const actualScrollElement = AppComponent.getActualScrollElement();
-    //                     if (actualScrollElement) {
-    //                         actualScrollElement.scrollTop = sessionStorage[`tab${rememberedTab}ScrollTop`];
-    //                         actualScrollElement.scrollLeft = sessionStorage[`tab${rememberedTab}ScrollLeft`];
-    //                         // console.log(`Restored tab: ${rememberedTab},
-    //                         //     scrollTop: ${actualScrollElement.scrollTop},
-    //                         //     scrollLeft: ${actualScrollElement.scrollLeft}`);
-    //                     }
-    //                 }
-    //             }, scrollChangeWait);
-    //         }, 1);
-
-
-    //         // if the current tab is not the saved one at init, then change the current tab to the saved one
-    //         this._tabGroup.selectedIndex = parseInt(sessionStorage.getItem('selectedTab'))
-    //         debug(`ngAfterViewInit else \n\tsessionStorage: ${sessionStorage.getItem('selectedTab')}\n\tthis._selectedTabIndex: ${this._selectedTabIndex}\n\ttabgroup.selectedTab ${this._tabGroup.selectedIndex}`)
-    //     }
-    // }
-
-
-    ngAfterContentInit(): void {}
 
     ngAfterViewInit(): void {
+        // move to saved tab if it exists, got to first tab by default
         if (sessionStorage?.selectedTab) {
-            debug(`ngAfterView got session storage`)
             this._selectedTabIndex = Number(sessionStorage.selectedTab);
-            //debug(`before\n${this._tabGroup.selectedIndex} ==> ${ Number(sessionStorage.selectedTab)}`)
-            this._tabGroup.selectedIndex = Number(sessionStorage.selectedTab);
-            this._tabGroup.focusTab(this._selectedTabIndex)
-            //debug(`after\n${this._tabGroup.selectedIndex} ==> ${ Number(sessionStorage.selectedTab)}`)
-        }
-        else {
+            setTimeout( () => { this._tabGroup.selectedIndex = Number(sessionStorage.selectedTab) }, 1); // need to wait so DOM render
+            this.selectedTabChange.emit({index: this._selectedTabIndex, tab: null});
+            debug(`ngAfterViewInit\n\tthis._selectedTab: ${this._selectedTabIndex}\n\ttabGroup: ${this._tabGroup.selectedIndex}\n\tsessionStorage: ${sessionStorage.selectedTab}`)
+        } else {
+            debug('else')
             this._selectedTabIndex = 0;
         }
-        debug(`ngAfterViewInit\n\tsessionStorage: ${sessionStorage?.selectedTab} ${Number(sessionStorage?.selectedTab)}\n\tthis._selectedTabIndex ${this._selectedTabIndex}\n\ttabGroup.selectedTabIndex: ${this._tabGroup.selectedIndex}`)
 
+        // do something with the 'scrolling region' of the tab
+        if (Number(sessionStorage.selectedTab) === this._tabGroup.selectedIndex) {
+            setTimeout(() => this.configureTabBar(), 1);
+            AppComponent.doResizeTabScrollRegion({}, 10);
+        } else {
+            const scrollChangeWait = 1500;
+            setTimeout(() => {
+                if (typeof sessionStorage[`tab${this._selectedTabIndex}ScrollTop`] === 'string') {
+                    const actualScrollElement = AppComponent.getActualScrollElement();
+                    if (actualScrollElement) {
+                        actualScrollElement.scrollTop = sessionStorage[`tab${this._selectedTabIndex}ScrollTop`];
+                        actualScrollElement.scrollLeft = sessionStorage[`tab${this._selectedTabIndex}ScrollLeft`];
+                    }
+                }
+            }, scrollChangeWait);
+        }
     }
 
     public get globalProps(): any {
@@ -560,16 +525,12 @@ export class AppComponent implements OnInit, AfterContentInit, AfterViewInit /*,
         const newTabIndex = tab.index;
         sessionStorage.setItem('selectedTab', newTabIndex.toString());
         this._selectedTabIndex = newTabIndex;
-        debug(`tab changed\n\tnewTabIndex: ${newTabIndex}\n\t_selectedTabIndex: ${this._selectedTabIndex}\n\tsessionStorage: ${ sessionStorage.getItem('selectedTab')}`)
-
-
-
-        // if (typeof sessionStorage[`tab${newTabIndex}ScrollTop`] === 'undefined') {
-        //     sessionStorage[`tab${newTabIndex}ScrollTop`] = 0;
-        // }
-        // if (typeof sessionStorage[`tab${newTabIndex}ScrollLeft`] === 'undefined') {
-        //     sessionStorage[`tab${newTabIndex}ScrollLeft`] = 0;
-        // }
+        if (typeof sessionStorage[`tab${newTabIndex}ScrollTop`] === 'undefined') {
+            sessionStorage[`tab${newTabIndex}ScrollTop`] = 0;
+        }
+        if (typeof sessionStorage[`tab${newTabIndex}ScrollLeft`] === 'undefined') {
+            sessionStorage[`tab${newTabIndex}ScrollLeft`] = 0;
+        }
         this.updateToggleButton();
         this.configureTabBar();
         AppComponent.doResizeTabScrollRegion({}, 200);
@@ -621,7 +582,6 @@ export class AppComponent implements OnInit, AfterContentInit, AfterViewInit /*,
      * @param {Number} cycle : the number of document.location.reload()'s have been used
      */
     doUpdate(cycle: number = 0) {
-        //debug(`doUpdate \n\tsessionStorage: ${sessionStorage.getItem('selectedTab')}\n\tthis._selectedTabIndex: ${this._selectedTabIndex}\n\ttabgroup.selectedTab ${this._tabGroup.selectedIndex}`)
         try {
             if (!AppComponent._updatesSuspended) {
                 for (const tab of this._props.tab) {

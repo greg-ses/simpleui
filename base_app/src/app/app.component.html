@@ -44,7 +44,7 @@
     </div>
     -->
 
-<mat-tab-group #_tabGroup (selectedTabChange)="onSelect($event)" [selectedIndex]="_selectedTabIndex">
+<mat-tab-group #_tabGroup (selectedTabChange)="onSelect($event)">
   <mat-tab *ngIf="(!_props || !_props['uiProp'])">
     <ng-template mat-tab-label>Stalled Communications</ng-template>
     <div class="tabScrollRegion">
