@@ -234,7 +234,7 @@ export class SimpleUIServer {
         try {
 
 
-            Logger.logLevel = LogLevel.INFO;
+            Logger.logLevel = LogLevel.DEBUG;
 
             // Parse input arguments
             SimpleUIServer.setBinDir(process.argv[1]);
@@ -249,14 +249,7 @@ export class SimpleUIServer {
 
             SimpleUIServer.APP_NAME = cmdVars.appName;
 
-            let _props = PropsFileReader.getProps('ui.properties');
-
-            ////// set up zmq sockets
-            let zmq_ports_array = ServerUtil.getZMQPortsFromProps(_props).map(p => Number(p));
-            const zmqHostname = cmdVars.zmqHostname;
-            Logger.log(LogLevel.INFO, zmq_ports_array ? `ZMQ ports: ${zmq_ports_array}` : `No ZMQ ports were parsed from the inital props`);
-            SuiData.zmqMap = new zmq_wrapper(zmq_ports_array, zmqHostname);
-            //////
+            SuiData.zmqMap = new zmq_wrapper(cmdVars.zmqHostname);
 
             ////// get list of gif and png files for overlay
             const overlay_assets_dir_path = `/var/www/${SimpleUIServer.APP_NAME}/overlay-1/images/`;
@@ -369,11 +362,16 @@ export class SimpleUIServer {
             app.get(`${propsFileQuery}`, async (req, res) => {
                 Logger.log(LogLevel.VERBOSE, `props request callback: ${++SimpleUIServer.requestCallbacks}`);
                 try {
-                    let props = PropsFileReader.getProps(`${req.params.propsStub}.properties`,);
-
-                    props = SimpleUIServer.addOverrides(cmdVars, props)
-
+                    const props_filename = `${req.params.propsStub}.properties`;
+                    let props = PropsFileReader.getProps(props_filename);
+                    props = SimpleUIServer.addOverrides(cmdVars, props);
                     await PropsFileReader.propsFileRequest(req, res, props);
+
+                    // refresh ZMQ socket map
+                    let zmq_ports_array = ServerUtil.getZMQPortsFromProps(props);
+                    SuiData.zmqMap.add_sockets(zmq_ports_array);
+                    Logger.log(LogLevel.INFO, `All ZMQ socket ports: ${SuiData.zmqMap.get_all_ports()}`);
+
                 } catch (err) {
                     const cmd = SuiData.getCmdFromReq(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
