@@ -54,17 +54,14 @@ export class ZMQ_Socket_Wrapper {
 
             this.socket.on('connect', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.CONNECTED;
-                Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} connected.`);
             });
 
             this.socket.on('connect_retry', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.CONNECTING;
-                Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} retrying connection...`);
             });
 
             this.socket.on('disconnect', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
-                Logger.log(LogLevel.VERBOSE, `ZMQ Socket ${this.hostname}:${this.port} disconnected.`);
             });
 
 
@@ -169,18 +166,11 @@ export class zmq_wrapper {
     socket_map: Map<number, ZMQ_Socket_Wrapper>;
     hostname: string;
 
-    constructor(port_list: Array<number>, hostname: string) {
+    constructor(hostname: string) {
         this.socket_map = new Map();
         this.hostname = hostname;
 
-
-        port_list.forEach( (port) => {
-            const zmq_wrapper_instance = new ZMQ_Socket_Wrapper(hostname, port);
-            this.socket_map.set(port, zmq_wrapper_instance);
-        });
-
         process.on('SIGINT', () => this.handleApplicationExit('SIGINT'));
-
         process.on('SIGTERM', () => this.handleApplicationExit('SIGTERM'));
 
     }
@@ -196,12 +186,35 @@ export class zmq_wrapper {
     /**
      * Add a zmq socket to the socket map
      * @param port
+     * @param hostname (optional)
      */
-    add_socket(port: number) {
-        const zmq_wrapper_instance = new ZMQ_Socket_Wrapper(this.hostname, port);
-        this.socket_map.set(port, zmq_wrapper_instance);
+    add_socket(port: number, hostname?: string) {
+        try {
+            const zmq_wrapper_instance = new ZMQ_Socket_Wrapper(hostname ? hostname : this.hostname, port);
+            this.socket_map.set(port, zmq_wrapper_instance);
+        } catch (err) {
+            Logger.log(LogLevel.ERROR, `Could not add socket. Got error ${err}`);
+        }
     }
 
+    /**
+     * Adds multiple zmq sockets to socket map
+     * @param port_array array of port numbers
+     * @param hostname (optional)
+     */
+    add_sockets(port_array: Array<number>, hostname?: string) {
+        port_array.forEach( (port) => {
+            if (!this.socket_map.has(port)) {
+                const zmq_wrapper_instance = new ZMQ_Socket_Wrapper(hostname ? hostname : this.hostname, port);
+                this.socket_map.set(port, zmq_wrapper_instance);
+            }
+        });
+    }
+
+    /**
+     * closes all the sockets at once
+     * @param signalName
+     */
     handleApplicationExit(signalName: string) {
         Logger.log(LogLevel.INFO, `ZMQ_Socket_Wrapper recieved signal ${signalName}`);
         //process.exit(1)
@@ -215,6 +228,9 @@ export class zmq_wrapper {
     }
 
 
+    /**
+     * Logs the connection status of each zmq socket
+     */
     log_status(): void {
         if (this.socket_map.size == 0) return;
         let msg = "--- ZMQ Socket Connection Status ---\n";
@@ -225,7 +241,15 @@ export class zmq_wrapper {
              msg += line;
         });
         msg += "------------------------------------";
-
         Logger.log(LogLevel.DEBUG, msg);
     }
+
+    /**
+     * Gets a list of all the ports
+     * @returns Array of all the ports
+     */
+    get_all_ports() {
+        return Array.from(this.socket_map.keys());
+    }
+
 }
