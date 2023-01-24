@@ -22,11 +22,12 @@ export const DisplayLogLevel = {
     'VERBOSE': LogLevel.VERBOSE
 };
 
+
 export class Logger {
 
     public static logLevel = LogLevel.DEBUG;
 
-    public static log(logLevel: LogLevel, message: string) {
+    public static log(logLevel: LogLevel, ...message: any[]) {
         if (logLevel <= Logger.logLevel) {
             console.log(message);
         }
