@@ -29,7 +29,7 @@ export class Logger {
 
     public static log(logLevel: LogLevel, ...message: any[]) {
         if (logLevel <= Logger.logLevel) {
-            console.log(message);
+            console.log(...message);
         }
     }
 
