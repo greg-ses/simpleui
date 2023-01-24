@@ -8,9 +8,10 @@
                             <table>
                                 <thead class="dataSetSizerHead">
                                 <tr>
-                                    <th colspan="2" class="tableTitle" align="center" [uid]="_dataset.u_id" (click)="toggleTableDisplay()">
+                                    <th colspan="2" class="tableTitle" align="center" [uid]="_dataset.u_id" >
                                         <div [className]="this._hidden ? 'sectionClosed':'sectionOpened'"
                                             [title]="fixNL(_dataset.desc)"
+                                            (click)="toggleTableDisplay()"
                                         >&nbsp;</div>
                                         <span *ngIf="!_dataset.url">{{ getTitle() }}</span
                                         >&nbsp;<a *ngIf="_dataset.url" target="_blank"  href={{_dataset.url}}

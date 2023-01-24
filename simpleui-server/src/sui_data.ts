@@ -677,8 +677,6 @@ export class SuiData {
         }
 
         if (res) {
-            const broken_links = SuiData.checkForBrokenOverlayFiles(sJson);
-            //console.log('------------- Broken links', broken_links)
             res.send(sJson);
         }
         return;
