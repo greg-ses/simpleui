@@ -7,7 +7,7 @@ require_once "ParamHelper.php";
 
 
 
-
+// connect to DB
 $conn = new mysqli($MYSQL_HOST, $MYSQL_USER, $MYSQL_PWD, $MYSQL_DB);
 if ($conn->connect_errno) {
 	$errorContext = sprintf("mysqli Connect(%s, %s, %s, %s)", $MYSQL_HOST, $MYSQL_USER, "****", $MYSQL_DB);
@@ -55,14 +55,13 @@ if ($limitation_result->num_rows > 0) {
 // if invalid, send error response
 if (!$isInputValid) {
 	$invalid_input_json_response = array();
-	// send a response "invalid item entered"
 	writeError("1", "105", "invalid item entered. Either wrong type, or not in within range", $user_input);
 	exit();
 }
 
 
-$paramFields = array('name', 'resource', 'subsystem', 'category', 'timestamp', 'Value', 'user');
 // query to insert value
+$paramFields = array('name', 'resource', 'subsystem', 'category', 'timestamp', 'Value', 'user');
 $query = "INSERT INTO $DataParameterTable(" . implode(",", $paramFields) . ")"  .  " VALUES (\"" . implode("\" , \"", $data["newParamValues"]) . "\");";
 
 $result = $conn->query($query);
