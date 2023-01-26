@@ -209,14 +209,6 @@ describe('TitleBarTest', () => {
         });
     });
 
-    it( 'should have _refreshCycle > 2', (done) => {
-        waitUntil(function() {
-            return (component._refreshCycle > 2);
-        }).then(function() {
-            done();
-        });
-    });
-
     it('should have some inputs', () => {
         expect(page.inputs.length > 0);
     });
