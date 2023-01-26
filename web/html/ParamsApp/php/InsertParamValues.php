@@ -60,31 +60,17 @@ if (!$isInputValid) {
 	exit();
 }
 
-// query to insert value
-$query = "INSERT INTO $DataParameterTable(" . implode(",", $paramFields)  .  ")"   .   "VALUES ";
 
 $paramFields = array('name', 'resource', 'subsystem', 'category', 'timestamp', 'Value', 'user');
-
-$i = 0;
-foreach ($data["newParamValues"] as $newParamValue) {
-	$i++;
-	$query .= "\n  (";
-	$j = 0;
-	foreach ($paramFields as $fld) {
-		$j++;
-		$query .= "\""  .  $newParamValue[$fld]  .  "\""  .  ($j < count($paramFields) ? "," : "");
-	}
-	$query .=  ")"  .  ($i < count($data["newParamValues"]) ? "," : ";");
-}
-
-$i++;
+// query to insert value
+$query = "INSERT INTO $DataParameterTable(" . implode(",", $paramFields) . ")"  .  " VALUES (\"" . implode("\" , \"", $data["newParamValues"]) . "\");";
 
 $result = $conn->query($query);
 if ($result === false) {
 	writeError("1", "102", "Query failed", $query);
 	exit();
 } else {
-    $outJSON = json_encode(array(response => 200, result => "$result - $i records added"), JSON_PRETTY_PRINT);
+    $outJSON = json_encode(array(response => 200, result => "1 record added"), JSON_PRETTY_PRINT);
 	writeError("0", "200", $outJSON, $query);
 };
 
