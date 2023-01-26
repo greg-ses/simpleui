@@ -48,8 +48,6 @@ describe('DatasetTableComponent', () => {
   });
 
   it('should create', () => {
-    console.log(Object.keys(app))
-
     expect(component).toBeTruthy(); // saying it should create a component
   });
 });
