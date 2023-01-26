@@ -60,10 +60,10 @@ if (!$isInputValid) {
 	exit();
 }
 
+// query to insert value
+$query = "INSERT INTO $DataParameterTable(" . implode(",", $paramFields)  .  ")"   .   "VALUES ";
 
 $paramFields = array('name', 'resource', 'subsystem', 'category', 'timestamp', 'Value', 'user');
-
-$query = "INSERT INTO $DataParameterTable(" . implode(",", $paramFields)  .  ")"   .   "\nVALUES";
 
 $i = 0;
 foreach ($data["newParamValues"] as $newParamValue) {
@@ -84,7 +84,7 @@ if ($result === false) {
 	writeError("1", "102", "Query failed", $query);
 	exit();
 } else {
-	$outJSON = "{\"response\": \"200\", \"result\": \"$result - $i records added.\"}";
+    $outJSON = json_encode(array(response => 200, result => "$result - $i records added"), JSON_PRETTY_PRINT);
 	writeError("0", "200", $outJSON, $query);
 };
 
