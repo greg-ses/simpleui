@@ -256,9 +256,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             this._selectedTabIndex = Number(sessionStorage.selectedTab);
             setTimeout( () => { this._tabGroup.selectedIndex = Number(sessionStorage.selectedTab) }, 1); // need to wait so DOM render
             this.selectedTabChange.emit({index: this._selectedTabIndex, tab: null});
-            debug(`ngAfterViewInit\n\tthis._selectedTab: ${this._selectedTabIndex}\n\ttabGroup: ${this._tabGroup.selectedIndex}\n\tsessionStorage: ${sessionStorage.selectedTab}`)
         } else {
-            debug('else')
             this._selectedTabIndex = 0;
         }
 
