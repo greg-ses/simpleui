@@ -41,7 +41,7 @@ export class ZMQ_Socket_Wrapper {
         this.port = port;
         this.http_queue = new Queue();
         this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
-        this.ZMQ_monitor_interval_ms = 5_000;
+        this.ZMQ_monitor_interval_ms = 500;
 
 
 
@@ -68,7 +68,7 @@ export class ZMQ_Socket_Wrapper {
             this.socket.on('message', (msg) => {
                 const raw_zmq_data = msg.toString();
                 const zmq_data = SuiData.addXmlStatus(raw_zmq_data);
-                Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at port ${this.port}: ${zmq_data.substring(0, 105)}`);
+                Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at port ${this.port}: ${zmq_data.substring(0, 16)}`);
                 // get response + request from queue
                 let [res, req] = this.http_queue.dequeue();
                 // send response
@@ -109,7 +109,7 @@ export class ZMQ_Socket_Wrapper {
                     zmq_request_packet = `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
                     // log zmq details
                     Logger.log( SuiData.requestNum <= 5 ? LogLevel.INFO : LogLevel.DEBUG,
-                        `zmq details:\n\ttimeout:\t${timeout}\n\tPort:\t\t${this.port}\n\tCMD:\t\t${JSON.stringify(cmd)}\n\tMsg:\t\t${zmq_request_packet}`);
+                        `zmq request details:\n\ttimeout:\t${timeout}\n\tPort:\t\t${this.port}\n\tCMD:\t\t${JSON.stringify(cmd)}\n\tMsg:\t\t${zmq_request_packet}`);
                 }
 
                 // send request
