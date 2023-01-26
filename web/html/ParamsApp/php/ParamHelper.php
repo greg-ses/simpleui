@@ -19,12 +19,6 @@ function propOrDefault($props, $prop, $default) {
 }
 
 function writeError($statusCode, $errorCode, $errorMsg, $errorContext) {
-//	echo("{\n\"status\": \"$statusCode\",");
-//	echo("\n  \"error\": {");
-//	echo("\n    \"code\": \"$errorCode\",");
-//	echo("\n    \"msg\": \"$errorMsg\",");
-//	echo("\n    \"context\": \"$errorContext\"");
-//	echo("\n  }\n}\n");
     $response = array(
         status => $statusCode,
         error => array(
@@ -34,8 +28,6 @@ function writeError($statusCode, $errorCode, $errorMsg, $errorContext) {
         )
     );
     echo json_encode($response, JSON_PRETTY_PRINT);
-
-
 }
 
 function loadConfigPropsFromFile($inFile)
