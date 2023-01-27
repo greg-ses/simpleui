@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { AppTabNormalComponent } from './app-tab-normal/app-tab-normal.component';
 import { AppTabOverlayComponent } from './app-tab-overlay/app-tab-overlay.component';
@@ -12,9 +12,11 @@ import { SeparatorBarComponent } from './dataset-tables/separator-bar';
 import {OverlayPageComponent} from './app-tab-overlay/overlay-page';
 import {CommonModule} from '@angular/common';
 
+
 describe('AppComponent', () => {
-  beforeAll(async(() => {
-    TestBed.configureTestingModule({
+
+  beforeAll( async () => {
+    await TestBed.configureTestingModule({
       declarations: [
         AppComponent,
         SeparatorBarComponent,
@@ -31,7 +33,7 @@ describe('AppComponent', () => {
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     }).compileComponents();
     const commonModule = new CommonModule();
-  }));
+  });
 
   it('should create the AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -53,4 +55,5 @@ describe('AppComponent', () => {
     const appTitle = compiled.querySelector('.appTitle');
     expect(appTitle).toBeTruthy();
   });
+
 });
