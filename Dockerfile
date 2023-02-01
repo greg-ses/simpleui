@@ -68,6 +68,10 @@ COPY deploy_docker/apache2.conf /etc/apache2/apache2.conf
 # Install mysqli
 RUN docker-php-ext-install mysqli
 
+# php debugging
+RUN pecl install xdebug-2.9.3 && \
+    docker-php-ext-enable xdebug
+
 # Php config
 COPY deploy_docker/php.ini "$PHP_INI_DIR/php.ini"
 
