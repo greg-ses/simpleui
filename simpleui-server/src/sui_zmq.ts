@@ -43,9 +43,9 @@ export class ZMQ_Socket_Wrapper {
         this.port = port;
         this.http_queue = new Queue();
         this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
-        this.ZMQ_monitor_interval_ms = 500;
+        this.ZMQ_monitor_interval_ms = 1_000;
         this.reconnect_attempt = 0;
-        this.max_reconnect_attempts = 5;
+        this.max_reconnect_attempts = 10;
 
 
 
@@ -65,6 +65,12 @@ export class ZMQ_Socket_Wrapper {
             this.socket.on('connect_retry', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.CONNECTING;
                 this.reconnect_attempt++;
+
+                if (this.reconnect_attempt >= this.max_reconnect_attempts) {
+                    this.close();
+                    SuiData.zmqMap.recreate_socket(this.port, this.hostname);
+                    Logger.log(LogLevel.INFO, `Recreated socket ${this.port}`);
+                }
             });
 
             this.socket.on('disconnect', (data: any) => {
@@ -273,6 +279,23 @@ export class zmq_wrapper {
             this.socket_map.delete(port);
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Could not delete socket ${port}, got error ${err}`);
+        }
+    }
+
+    /**
+     * Recreates a specific socket (close, delete, and replace)
+     * @param port
+     * @param hostname (optional)
+     */
+    recreate_socket(port: number, hostname?: string) {
+        try {
+            // get socket
+            let old_socket = this.get(port);
+            old_socket.close();
+            this.delete_socket(port);
+            this.add_socket(port, hostname);
+        } catch (err) {
+            Logger.log(LogLevel.ERROR, `Could not recreate socket ${port}, got error ${err}`);
         }
     }
 

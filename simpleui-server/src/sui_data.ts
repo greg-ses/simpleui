@@ -236,16 +236,16 @@ export class SuiData {
             Logger.log(LogLevel.INFO, `No socket for ZMQ socket with port ${zmq_port}, created new socket`);
         }
 
-        if (socket.reconnect_attempt >= socket.max_reconnect_attempts) {
-            // close socket
-            socket.close();
-            // delete socket
-            SuiData.zmqMap.delete_socket(zmq_port);
-            // recreate socket
-            SuiData.zmqMap.add_socket(zmq_port);
-            socket = SuiData.zmqMap.get(zmq_port);
-            Logger.log(LogLevel.INFO, `Recreated socket ${zmq_port}`);
-        }
+        // if (socket.reconnect_attempt >= socket.max_reconnect_attempts) {
+        //     // close socket
+        //     socket.close();
+        //     // delete socket
+        //     SuiData.zmqMap.delete_socket(zmq_port);
+        //     // recreate socket
+        //     SuiData.zmqMap.add_socket(zmq_port);
+        //     socket = SuiData.zmqMap.get(zmq_port);
+        //     Logger.log(LogLevel.INFO, `Recreated socket ${zmq_port}`);
+        // }
 
 
         // get and set connection timeout (is this needed anymore?)
