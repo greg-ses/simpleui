@@ -70,7 +70,7 @@ if ($result === false) {
 	exit();
 } else {
     $outJSON = json_encode(array(response => 200, result => "1 record added"), JSON_PRETTY_PRINT);
-	writeError("0", "200", $outJSON, $query);
+	writeError("0", "200", $outJSON, "Successfully completed operation");
 };
 
 
