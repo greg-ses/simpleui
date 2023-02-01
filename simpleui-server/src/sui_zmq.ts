@@ -32,6 +32,8 @@ export class ZMQ_Socket_Wrapper {
     http_queue: Queue;
     connection_status: ZMQ_Connection_Status;
     ZMQ_monitor_interval_ms: number; // allows for `connect` and `connect_retry` event listeners https://github.com/zeromq/zeromq.js/blob/5.x/lib/index.js#L547
+    reconnect_attempt: number;
+    max_reconnect_attempts: number;
 
 
     constructor(hostname: string, port: number, timeout: number=500, send_timeout: number=500) {
@@ -42,6 +44,9 @@ export class ZMQ_Socket_Wrapper {
         this.http_queue = new Queue();
         this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
         this.ZMQ_monitor_interval_ms = 500;
+        this.reconnect_attempt = 0;
+        this.max_reconnect_attempts = 5;
+
 
 
 
@@ -54,14 +59,17 @@ export class ZMQ_Socket_Wrapper {
 
             this.socket.on('connect', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.CONNECTED;
+                this.reconnect_attempt = 0;
             });
 
             this.socket.on('connect_retry', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.CONNECTING;
+                this.reconnect_attempt++;
             });
 
             this.socket.on('disconnect', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
+                this.reconnect_attempt = 0;
             });
 
 
@@ -233,14 +241,18 @@ export class zmq_wrapper {
      */
     log_status(): void {
         if (this.socket_map.size == 0) return;
-        let msg = "--- ZMQ Socket Connection Status ---\n";
+        let msg = "\n--- ZMQ Socket Connection Status ---\n";
         this.socket_map.forEach( (socket_instance: ZMQ_Socket_Wrapper, port: number) => {
              const id = `${socket_instance.hostname}:${port}`;
              const status = socket_instance.connection_status;
-             const line = `\t${id}\t ==> ${status}\n`;
+             const queue_capacity = socket_instance.http_queue.length;
+             const queue_limit = socket_instance.http_queue.max_queue_length;
+             const reconnect_attempt = socket_instance.reconnect_attempt;
+             const reconnect_limit = socket_instance.max_reconnect_attempts;
+             const line = `\t${id}\t ==> ${status}\n \tHttp queue capacity: ${queue_capacity}/${queue_limit} \tReconnect attempts: ${reconnect_attempt}/${reconnect_limit}`;
              msg += line;
         });
-        msg += "------------------------------------";
+        msg += "------------------------------------\n";
         Logger.log(LogLevel.DEBUG, msg);
     }
 
@@ -250,6 +262,18 @@ export class zmq_wrapper {
      */
     get_all_ports() {
         return Array.from(this.socket_map.keys());
+    }
+
+    /**
+     * Deletes a socket from the map
+     * @param port
+     */
+    delete_socket(port: number) {
+        try {
+            this.socket_map.delete(port);
+        } catch (err) {
+            Logger.log(LogLevel.ERROR, `Could not delete socket ${port}, got error ${err}`);
+        }
     }
 
 }
