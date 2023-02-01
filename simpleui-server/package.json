@@ -15,7 +15,8 @@
     "start": "node dist/simpleui-server/simpleui-server.js --appName=bms --uiProp=ui.nodejs",
     "test-all": "bash -x test/script/run-all-tests.bash",
     "unit-test-normalize-json": "bash test/script/unit-test.normalize-json.bash",
-    "unit-test-simpleui-server": "bash -x test/script/unit-test.simpleui-server.bash"
+    "unit-test-simpleui-server": "bash -x test/script/unit-test.simpleui-server.bash",
+    "test": "jest"
   },
   "private": true,
   "dependencies": {
@@ -35,10 +36,16 @@
     "zeromq": "^5.2.8"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.18.6",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
+    "@types/jest": "^29.4.0",
     "@types/node": "17.0.29",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^29.4.1",
+    "jest": "^29.4.1",
     "serve-static": "^1.14.1",
     "ts-node": "^7.0.1",
     "tslint": "~6.1.0",
