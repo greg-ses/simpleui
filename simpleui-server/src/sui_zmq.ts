@@ -246,10 +246,10 @@ export class zmq_wrapper {
              const id = `${socket_instance.hostname}:${port}`;
              const status = socket_instance.connection_status;
              const queue_capacity = socket_instance.http_queue.length;
-             const queue_limit = socket_instance.http_queue.max_queue_length;
+             const queue_limit = socket_instance.http_queue.MAX_QUEUE_SIZE;
              const reconnect_attempt = socket_instance.reconnect_attempt;
              const reconnect_limit = socket_instance.max_reconnect_attempts;
-             const line = `\t${id}\t ==> ${status}\n \tHttp queue capacity: ${queue_capacity}/${queue_limit} \tReconnect attempts: ${reconnect_attempt}/${reconnect_limit}`;
+             const line = `\t${id}\t ==> ${status} \tHttp queue capacity: ${queue_capacity}/${queue_limit} \tReconnect attempts: ${reconnect_attempt}/${reconnect_limit}\n`;
              msg += line;
         });
         msg += "------------------------------------\n";
