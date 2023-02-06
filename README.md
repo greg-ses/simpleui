@@ -1,6 +1,11 @@
 # Improve testing
-- [ ] headless tests from karma
-- [ ]
+- [x] headless tests from karma (and add to ci)
+- [ ] fix frontend titlebar tests (http related stuff)
+- [ ] write basic e2e tests for frontend
+- [ ] write tests for simpleui-server
+    - [ ] add tests to ci
+
+![Frontend unit tests](https://github.com/greg-ses/simpleui/actions/workflows/frontend_tests.yml/badge.svg?event=push&branch=improve-testing)
 
 
 
