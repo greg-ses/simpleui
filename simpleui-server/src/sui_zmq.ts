@@ -48,14 +48,24 @@ export class ZMQ_Socket_Wrapper {
         this.max_reconnect_attempts = 10;
 
 
+        this.initalize();
 
 
+
+
+    }
+
+    initalize() {
+        Logger.log(LogLevel.INFO, `Socket ${this.port} is initializing`);
         try {
-            this.socket = _zmq.socket('req').setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
-            this.socket.connect_timeout = timeout;
-            this.connect(this.port);
+            this.close();
+            this.reconnect_attempt = 0;
 
+            this.socket = _zmq.socket('req').setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
+            this.socket.connect_timeout = this.timeout;
+            this.connect(this.port);
             this.socket.monitor(this.ZMQ_monitor_interval_ms, 0);
+
 
             this.socket.on('connect', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.CONNECTED;
@@ -65,19 +75,13 @@ export class ZMQ_Socket_Wrapper {
             this.socket.on('connect_retry', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.CONNECTING;
                 this.reconnect_attempt++;
-
-                if (this.reconnect_attempt >= this.max_reconnect_attempts) {
-                    this.close();
-                    SuiData.zmqMap.recreate_socket(this.port, this.hostname);
-                    Logger.log(LogLevel.INFO, `Recreated socket ${this.port}`);
-                }
+                if (this.reconnect_attempt >= this.max_reconnect_attempts) { Logger.log(LogLevel.INFO, `Socket ${this.port} is reinitializing`); this.initalize(); }
             });
 
             this.socket.on('disconnect', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
                 this.reconnect_attempt = 0;
             });
-
 
             this.socket.on('message', (msg) => {
                 const raw_zmq_data = msg.toString();
@@ -102,7 +106,6 @@ export class ZMQ_Socket_Wrapper {
                 // read the most recent item
                 let [_, req] = this.http_queue.elements[0];
                 let zmq_request_packet = "";
-
                 if (req.method === 'POST') {        // cmd request
                     const parsed_request = {cmd: `${req.params.zmqCmd}`};
                     if (req.headers.accept === "*/*" && req.body) {     // regular cmd request
@@ -123,18 +126,16 @@ export class ZMQ_Socket_Wrapper {
                     zmq_request_packet = `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
                     // log zmq details
                     Logger.log( SuiData.requestNum <= 5 ? LogLevel.INFO : LogLevel.DEBUG,
-                        `zmq request details:\n\ttimeout:\t${timeout}\n\tPort:\t\t${this.port}\n\tCMD:\t\t${JSON.stringify(cmd)}\n\tMsg:\t\t${zmq_request_packet}`);
+                        `zmq request details:\n\ttimeout:\t${this.timeout}\n\tPort:\t\t${this.port}\n\tCMD:\t\t${JSON.stringify(cmd)}\n\tMsg:\t\t${zmq_request_packet}`);
                 }
-
                 // send request
                 this.socket.send(zmq_request_packet);
             });
 
-
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Could not create ZMQ socket at port ${this.port} got error: ${err}`);
-            process.exit(1);
         }
+
     }
 
     connect(port: number) {
@@ -156,9 +157,9 @@ export class ZMQ_Socket_Wrapper {
     }
 
     close() {
-        if (this.socket.closed === false) {
-            this.socket.close();
+        if (this?.socket?.closed === false) {
             this.socket.unmonitor();
+            this.socket.close();
         }
     }
 
@@ -300,3 +301,89 @@ export class zmq_wrapper {
     }
 
 }
+
+
+
+
+
+
+
+// try {
+//     this.socket = _zmq.socket('req').setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
+//     this.socket.connect_timeout = timeout;
+//     this.connect(this.port);
+
+//     this.socket.monitor(this.ZMQ_monitor_interval_ms, 0);
+
+//     this.socket.on('connect', (data: any) => {
+//         this.connection_status = ZMQ_Connection_Status.CONNECTED;
+//         this.reconnect_attempt = 0;
+//     });
+
+//     this.socket.on('connect_retry', (data: any) => {
+//         this.connection_status = ZMQ_Connection_Status.CONNECTING;
+//         this.reconnect_attempt++;
+//     });
+
+//     this.socket.on('disconnect', (data: any) => {
+//         this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
+//         this.reconnect_attempt = 0;
+//     });
+
+
+//     this.socket.on('message', (msg) => {
+//         const raw_zmq_data = msg.toString();
+//         const zmq_data = SuiData.addXmlStatus(raw_zmq_data);
+//         Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at port ${this.port}: ${zmq_data.substring(0, 16)}`);
+//         // get response + request from queue
+//         let [res, req] = this.http_queue.dequeue();
+//         // send response
+//         SuiData.sendResponse(req, res, zmq_data);
+//     });
+
+//     this.socket.on('error', (zmqErr) => {
+//         const zmq_data = ServerUtil.getServerError('ZMQ_ERROR', '{{ERROR}}', zmqErr);
+//         Logger.log(LogLevel.ERROR, `ZMQ socket at port ${this.port} got error: ${zmqErr}`);
+//         // get response + request from queue
+//         let [res, req] = this.http_queue.dequeue();
+//         // send response
+//         SuiData.sendResponse(req, res, zmq_data);
+//     });
+
+//     this.http_queue.events.on('item_added', () => {
+//         // read the most recent item
+//         let [_, req] = this.http_queue.elements[0];
+//         let zmq_request_packet = "";
+
+//         if (req.method === 'POST') {        // cmd request
+//             const parsed_request = {cmd: `${req.params.zmqCmd}`};
+//             if (req.headers.accept === "*/*" && req.body) {     // regular cmd request
+//                 zmq_request_packet = SuiData.getXmlFromJsonArgs(req, parsed_request);
+//             } else if (Object.keys(req.query).includes('xml')) {    // &xml debug request
+//                 zmq_request_packet = req.body;
+//             } else {
+//                 Logger.log(LogLevel.WARNING,
+//                     `item_added event listener got unknown request type with headers ${req.headers} and body ${req.body}`);
+//             }
+//             Logger.log(LogLevel.INFO, `App "${req.params.appName}" received command "${parsed_request.cmd}" ` +
+//                 `for tab ${req.params.tabName} - forwarding to ZMQ.`);
+//         }
+//         else {                                        // data request
+//             // get data cmd
+//             const cmd = SuiData.getCmdFromReq(req);
+//             // create packet
+//             zmq_request_packet = `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
+//             // log zmq details
+//             Logger.log( SuiData.requestNum <= 5 ? LogLevel.INFO : LogLevel.DEBUG,
+//                 `zmq request details:\n\ttimeout:\t${timeout}\n\tPort:\t\t${this.port}\n\tCMD:\t\t${JSON.stringify(cmd)}\n\tMsg:\t\t${zmq_request_packet}`);
+//         }
+
+//         // send request
+//         this.socket.send(zmq_request_packet);
+//     });
+
+
+// } catch (err) {
+//     Logger.log(LogLevel.ERROR, `Could not create ZMQ socket at port ${this.port} got error: ${err}`);
+//     process.exit(1);
+// }
