@@ -9,8 +9,8 @@ jobs:
       run:
         working-directory: ./base_app
     steps:
-      - uses: actions/checkout@v2		# checkout sui repo
-      - uses: actions/setup-node@v2	# use nodejs v18
+      - uses: actions/checkout@v3		# checkout sui repo
+      - uses: actions/setup-node@v3	# use nodejs v18
         with:
           node-version: '18'
       - name: Run Karama Tests
