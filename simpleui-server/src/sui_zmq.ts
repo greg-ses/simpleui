@@ -59,7 +59,6 @@ export class ZMQ_Socket_Wrapper {
         Logger.log(LogLevel.INFO, `Socket ${this.port} is initializing`);
         try {
             this.close();
-            this.reconnect_attempt = 0;
 
             this.socket = _zmq.socket('req').setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
             this.socket.connect_timeout = this.timeout;
@@ -75,7 +74,11 @@ export class ZMQ_Socket_Wrapper {
             this.socket.on('connect_retry', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.CONNECTING;
                 this.reconnect_attempt++;
-                if (this.reconnect_attempt >= this.max_reconnect_attempts) { Logger.log(LogLevel.INFO, `Socket ${this.port} is reinitializing`); this.initalize(); }
+                if (this.reconnect_attempt >= this.max_reconnect_attempts) {
+                    Logger.log(LogLevel.INFO, `Socket ${this.port} is reinitializing ${this.reconnect_attempt} >= ${this.max_reconnect_attempts} ${this.reconnect_attempt >= this.max_reconnect_attempts}`);
+                    this.reconnect_attempt = 0;
+                    this.initalize();
+                }
             });
 
             this.socket.on('disconnect', (data: any) => {
