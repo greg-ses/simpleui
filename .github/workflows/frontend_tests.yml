@@ -13,5 +13,5 @@ jobs:
       - uses: actions/setup-node@v3	# use nodejs v18
         with:
           node-version: '18'
-      - name: Run Karama Tests
+      - name: Run Karama Unit Tests
         run: npm run ci:test
