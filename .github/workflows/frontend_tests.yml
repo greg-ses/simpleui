@@ -14,4 +14,4 @@ jobs:
         with:
         node-version: '18'
       - name: Run Karama Tests
-        run: npm install && npm run ci:test
+        run: npm run ci:test

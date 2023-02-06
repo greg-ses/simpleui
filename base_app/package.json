@@ -20,7 +20,7 @@
     "test-headless-once": "ng test --browsers ChromeHeadlessWin --watch=false",
     "e2e--not-tested": "bash -c \"node node_modules/@angular/cli/bin/ng.js e2e\"",
     "lint": "ng lint",
-    "ci:test": "ng test"
+    "ci:test": "npm install && ng test"
   },
   "private": true,
   "dependencies": {
