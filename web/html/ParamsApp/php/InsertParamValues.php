@@ -35,7 +35,7 @@ $user_input = $_POST['newParamValues'][0]['Value'];
 $limitation_query = "SELECT type, min, max FROM $AbstractParameterTable WHERE name='$name'";
 $limitation_result = $conn->query($limitation_query);
 if ($limitation_result === false) {
-	writeError("1", "102", "Limitation Query failed", $limitation_query);
+	writeError("1", "102", "Limitation Query failed", "");
     exit();
 }
 
@@ -62,11 +62,11 @@ if (!$isInputValid) {
 
 // query to insert value
 $paramFields = array('name', 'resource', 'subsystem', 'category', 'timestamp', 'Value', 'user');
-$query = "INSERT INTO $DataParameterTable(" . implode(",", $paramFields) . ")"  .  " VALUES (\"" . implode("\" , \"", $data["newParamValues"]) . "\");";
+$query = "INSERT INTO $DataParameterTable(" . implode(",", $paramFields) . ")"  .  " VALUES (\"" . implode("\" , \"", $data["newParamValues"][0]) . "\");";
 
 $result = $conn->query($query);
 if ($result === false) {
-	writeError("1", "102", "Query failed", $query);
+	writeError("1", "102", "Query failed", "");
 	exit();
 } else {
     $outJSON = json_encode(array(response => 200, result => "1 record added"), JSON_PRETTY_PRINT);
