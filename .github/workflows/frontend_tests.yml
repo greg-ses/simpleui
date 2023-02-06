@@ -2,14 +2,13 @@ name: Sui CI Frontend Tests
 
 on: [push]
 
-
 jobs:
-	test-frontend:
-		runs-on: ubuntu-latest
-		defaults:
-			run:
-				working-directory: ./base_app
-		steps:
+  test-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./base_app
+    steps:
 			- uses: actions/checkout@v2		# checkout sui repo
 			- uses: actions/setup-node@v2	# use nodejs v18
 				with:
