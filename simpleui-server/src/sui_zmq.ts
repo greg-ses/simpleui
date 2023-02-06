@@ -75,8 +75,8 @@ export class ZMQ_Socket_Wrapper {
                 this.connection_status = ZMQ_Connection_Status.CONNECTING;
                 this.reconnect_attempt++;
                 if (this.reconnect_attempt >= this.max_reconnect_attempts) {
-                    Logger.log(LogLevel.INFO, `Socket ${this.port} is reinitializing ${this.reconnect_attempt} >= ${this.max_reconnect_attempts} ${this.reconnect_attempt >= this.max_reconnect_attempts}`);
                     this.reconnect_attempt = 0;
+                    Logger.log(LogLevel.INFO, `Socket ${this.port} is reinitializing ${this.reconnect_attempt} >= ${this.max_reconnect_attempts} ${this.reconnect_attempt >= this.max_reconnect_attempts}`);
                     this.initalize();
                 }
             });
