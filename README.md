@@ -7,6 +7,7 @@
 
 ![Frontend unit tests](https://github.com/greg-ses/simpleui/actions/workflows/frontend_tests.yml/badge.svg?event=push&branch=improve-testing)
 
+![Docker image](https://github.com/greg-ses/simpleui/actions/workflows/dockerimage.yml/badge.svg)
 
 
 
