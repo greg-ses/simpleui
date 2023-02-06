@@ -1,4 +1,4 @@
-name: Sui CI Frontend Tests
+name: CI Frontend Unit Tests
 
 on: [push]
 
