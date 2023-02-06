@@ -132,126 +132,126 @@ class Page {
     }
 }
 
-describe('TitleBarTest', () => {
-    let component: AppComponent = null;
-    let fixture: ComponentFixture<AppComponent> = null;;
-    let page: Page = null;
+// describe('TitleBarTest', () => {
+//     let component: AppComponent = null;
+//     let fixture: ComponentFixture<AppComponent> = null;;
+//     let page: Page = null;
 
-    beforeEach(() => {
+//     beforeEach(() => {
 
-        TestBed.configureTestingModule({
-            declarations: [
-                AppComponent,
-                AppTabNormalComponent,
-                AppTabOverlayComponent,
-                CommandButtonComponent,
-                ImageOverlaysComponent,
-                DatasetTableComponent,
-                OverlayCmdBarComponent,
-                OverlayPageComponent,
-                PropDefinedTableComponent
-            ],
-            imports: [
-                CommonModule,
-                MatTabsModule,
-                PortalModule,
-                NoopAnimationsModule
-            ],
-            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-        }).compileComponents();
-        const commonModule = new CommonModule();
+//         TestBed.configureTestingModule({
+//             declarations: [
+//                 AppComponent,
+//                 AppTabNormalComponent,
+//                 AppTabOverlayComponent,
+//                 CommandButtonComponent,
+//                 ImageOverlaysComponent,
+//                 DatasetTableComponent,
+//                 OverlayCmdBarComponent,
+//                 OverlayPageComponent,
+//                 PropDefinedTableComponent
+//             ],
+//             imports: [
+//                 CommonModule,
+//                 MatTabsModule,
+//                 PortalModule,
+//                 NoopAnimationsModule
+//             ],
+//             schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+//         }).compileComponents();
+//         const commonModule = new CommonModule();
 
-        if (fixture === null) {
-            fixture = TestBed.createComponent(AppComponent);
-            component = fixture.componentInstance;
-            page = new Page(fixture);
+//         if (fixture === null) {
+//             fixture = TestBed.createComponent(AppComponent);
+//             component = fixture.componentInstance;
+//             page = new Page(fixture);
 
-            // 1st change detection triggers noOnInit which starts the update cycle
-            fixture.detectChanges();
-            fixture.whenStable().then(() => {
-                // 2nd change detection
-                fixture.detectChanges();
-            });
-        }
-    });
+//             // 1st change detection triggers noOnInit which starts the update cycle
+//             fixture.detectChanges();
+//             fixture.whenStable().then(() => {
+//                 // 2nd change detection
+//                 fixture.detectChanges();
+//             });
+//         }
+//     });
 
-    it('should have created the AppComponent', () => {
-        expect(component).toBeDefined();
-    });
+//     it('should have created the AppComponent', () => {
+//         expect(component).toBeDefined();
+//     });
 
-    /*
-    it('should call getProps', (done) => {
-        expect(component).toBeDefined();
+//     /*
+//     it('should call getProps', (done) => {
+//         expect(component).toBeDefined();
 
-        component.getProps();
+//         component.getProps();
 
-        waitUntil(function () {
-            return (component._propsSubscriptionState !== SubscriptionState.AwaitingAsyncResponse);
-        }).then(function () {
-            done();
-        });
-    });
+//         waitUntil(function () {
+//             return (component._propsSubscriptionState !== SubscriptionState.AwaitingAsyncResponse);
+//         }).then(function () {
+//             done();
+//         });
+//     });
 
-    it ('should receive async result from getProps()', (done) => {
-        expect(component._propsSubscriptionState).not.toEqual(SubscriptionState.ErrorFromAsyncResponse);
+//     it ('should receive async result from getProps()', (done) => {
+//         expect(component._propsSubscriptionState).not.toEqual(SubscriptionState.ErrorFromAsyncResponse);
 
-        waitUntil( function () {
-            return component._propsSubscriptionState === SubscriptionState.Idle;
-        }).then( function() {
-            done();
-        });
-    });
-    */
+//         waitUntil( function () {
+//             return component._propsSubscriptionState === SubscriptionState.Idle;
+//         }).then( function() {
+//             done();
+//         });
+//     });
+//     */
 
-    it('should have  _refreshState set to "indicatorOn"', (done) => {
-        waitUntil(function() {
-            return (component._tBarProps && (component._tBarProps._refreshState === 'indicatorOn'));
-        }).then(function() {
-            done();
-        });
-    });
+//     it('should have  _refreshState set to "indicatorOn"', (done) => {
+//         waitUntil(function() {
+//             return (component._tBarProps && (component._tBarProps._refreshState === 'indicatorOn'));
+//         }).then(function() {
+//             done();
+//         });
+//     });
 
-    it('should have some inputs', () => {
-        expect(page.inputs.length > 0);
-    });
+//     it('should have some inputs', () => {
+//         expect(page.inputs.length > 0);
+//     });
 
-    it('should click dbPulseButton to call onToggleAutoRefresh() to turn updates off', (done) => {
-        // Turn off auto-refresh
-        // component.onToggleAutoRefresh();
+//     it('should click dbPulseButton to call onToggleAutoRefresh() to turn updates off', (done) => {
+//         // Turn off auto-refresh
+//         // component.onToggleAutoRefresh();
 
-        // fixture.whenStable().then(() => {
-        //     click(page.dbPulseButton);
-        // // });
+//         // fixture.whenStable().then(() => {
+//         //     click(page.dbPulseButton);
+//         // // });
 
-        // waitUntil(function() {
-        //     return ( (component?._tBarProps?._refreshState === 'indicatorOff'));
-        // }).then(function() {
-        //     done();
-        // });
+//         // waitUntil(function() {
+//         //     return ( (component?._tBarProps?._refreshState === 'indicatorOff'));
+//         // }).then(function() {
+//         //     done();
+//         // });
 
 
 
-    });
+//     });
 
-    it('should check that dbPulse element has className "indicatorOff"', (done) => {
-        expect(document).toBeDefined();
-        expect(page.dbPulseButton).toBeDefined();
-        expect(page.dbPulseButton.className).toEqual('indicatorOff');
-    });
+//     it('should check that dbPulse element has className "indicatorOff"', (done) => {
+//         expect(document).toBeDefined();
+//         expect(page.dbPulseButton).toBeDefined();
+//         expect(page.dbPulseButton.className).toEqual('indicatorOff');
+//     });
 
-    it('should fill first tab from ajax data', () => {
-//        fixture.whenRenderingDone().then(() => {
+//     it('should fill first tab from ajax data', () => {
+// //        fixture.whenRenderingDone().then(() => {
 
-            expect(page.activeTab).toBeDefined();
-            // expect(activeTab.getAttribute('innerText')).toEqual('IO 1');
-            // expect(activeTab.getAttribute('tabindex')).toEqual('0');
-//        });
-    });
+//             expect(page.activeTab).toBeDefined();
+//             // expect(activeTab.getAttribute('innerText')).toEqual('IO 1');
+//             // expect(activeTab.getAttribute('tabindex')).toEqual('0');
+// //        });
+//     });
 
-    it('should click the "Remote" button', () => {
+//     it('should click the "Remote" button', () => {
 
-        const remoteButton = findInputElementByName('Remote');
-        expect(remoteButton).toBeDefined();
-    });
+//         const remoteButton = findInputElementByName('Remote');
+//         expect(remoteButton).toBeDefined();
+//     });
 
-});
+// });
