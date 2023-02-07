@@ -71,8 +71,8 @@ function loadAppProperties()
     $GLOBALS['MYSQL_HOST'] = $ConfigProperties["DatabaseMgr.MYSQL_HOST"];
 
     // dbName override from simpleui CLI
-    if (! empty($_GET['database'])) {
-        $GLOBALS['MYSQL_DB'] = $_GET['database'];
+    if (getenv('SUI_DB_NAME_OVERRIDE') !== false) {
+        $GLOBALS['MYSQL_DB'] = getenv('SUI_DB_NAME_OVERRIDE');
     } else {
         $GLOBALS['MYSQL_DB'] = $ConfigProperties["DatabaseMgr.MYSQL_DB"];
     }
