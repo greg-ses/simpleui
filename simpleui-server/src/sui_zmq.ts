@@ -43,13 +43,14 @@ export class ZMQ_Socket_Wrapper {
         this.port = port;
         this.http_queue = new Queue();
         this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
-        this.ZMQ_monitor_interval_ms = 1_000;
+        this.ZMQ_monitor_interval_ms = 500;
         this.reconnect_attempt = 0;
         this.max_reconnect_attempts = 1_000;
 
         try {
             this.socket = _zmq.socket('req')
             this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
+            this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, 30 * 1000);
             this.socket.connect_timeout = this.timeout;
             this.connect(this.port);
             this.socket.monitor(this.ZMQ_monitor_interval_ms, 0);
@@ -184,6 +185,7 @@ export class ZMQ_Socket_Wrapper {
             this.close();
             this.socket = _zmq.socket('req');
             this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
+            this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, 30 * 1000);
             this.socket.connect_timeout = this.timeout;
             this.connect(this.port);
             this.socket.monitor(this.ZMQ_monitor_interval_ms, 0);
