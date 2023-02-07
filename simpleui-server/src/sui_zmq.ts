@@ -54,7 +54,51 @@ export class ZMQ_Socket_Wrapper {
             this.connect(this.port);
             this.socket.monitor(this.ZMQ_monitor_interval_ms, 0);
 
+            this.add_connection_listeners();
+            this.add_messaging_listeners();
 
+        } catch (err) {
+            Logger.log(LogLevel.ERROR, `Could not create ZMQ socket at port ${this.port} got error: ${err}`);
+        }
+
+    }
+
+
+    connect(port: number) {
+        try {
+            Logger.log(LogLevel.VERBOSE, `ZMQ connecting to tcp://${this.hostname}:${port}`)
+            this.socket.connect(`tcp://${this.hostname}:${port}`)
+        } catch (e) {
+            Logger.log(LogLevel.ERROR, `Could not connect to tcp://${this.hostname}:${port} ${typeof port} Got error: ${e}`);
+            //process.exit(1);
+        }
+    }
+
+    send(msg: string) {
+        try {
+            this.socket.send(msg);
+        } catch (err) {
+            Logger.log(LogLevel.ERROR, `Could not send zmq message:\n${msg} got error: ${err}`);
+        }
+    }
+
+    close() {
+        if (this?.socket?.closed === false) {
+            this.socket.unmonitor();
+            this.socket.close();
+        }
+    }
+
+    set_timeout(ms: number) {
+        try {
+            this.socket.connect_timeout = ms;
+        } catch (err) {
+            Logger.log(LogLevel.ERROR, `Could not set zmq socket timeout: ${ms} got error: ${err}`);
+        }
+    }
+
+    add_connection_listeners() {
+        try {
             this.socket.on('connect', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.CONNECTED;
                 this.reconnect_attempt = 0;
@@ -63,6 +107,9 @@ export class ZMQ_Socket_Wrapper {
             this.socket.on('connect_retry', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.CONNECTING;
                 this.reconnect_attempt++;
+                if (this.reconnect_attempt > this.max_reconnect_attempts) {
+                    this.recreate_socket();
+                }
             });
 
             this.socket.on('disconnect', (data: any) => {
@@ -70,6 +117,14 @@ export class ZMQ_Socket_Wrapper {
                 this.reconnect_attempt = 0;
             });
 
+        } catch (err) {
+            Logger.log(LogLevel.ERROR, `Could not add connection listeners on port ${this.port} got error: ${err}`);
+
+        }
+    }
+
+    add_messaging_listeners() {
+        try {
             this.socket.on('message', (msg) => {
                 const raw_zmq_data = msg.toString();
                 const zmq_data = SuiData.addXmlStatus(raw_zmq_data);
@@ -118,49 +173,29 @@ export class ZMQ_Socket_Wrapper {
                 // send request
                 this.socket.send(zmq_request_packet);
             });
-
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not create ZMQ socket at port ${this.port} got error: ${err}`);
-        }
-
-    }
-
-
-    connect(port: number) {
-        try {
-            Logger.log(LogLevel.VERBOSE, `ZMQ connecting to tcp://${this.hostname}:${port}`)
-            this.socket.connect(`tcp://${this.hostname}:${port}`)
-        } catch (e) {
-            Logger.log(LogLevel.ERROR, `Could not connect to tcp://${this.hostname}:${port} ${typeof port} Got error: ${e}`);
-            //process.exit(1);
+            Logger.log(LogLevel.ERROR, `Could not add messaging listeners on port ${this.port} got error: ${err}`);
         }
     }
 
-    send(msg: string) {
+    recreate_socket() {
+        Logger.log(LogLevel.INFO, `Recreating ${this.hostname}:${this.port}`);
         try {
-            this.socket.send(msg);
+            this.close();
+            this.socket = _zmq.socket('req');
+            this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
+            this.socket.connect_timeout = this.timeout;
+            this.connect(this.port);
+            this.socket.monitor(this.ZMQ_monitor_interval_ms, 0);
+
+            this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
+            this.reconnect_attempt = 0;
+
+            this.add_connection_listeners();
+            this.add_messaging_listeners();
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not send zmq message:\n${msg} got error: ${err}`);
+            Logger.log(LogLevel.ERROR, `Could not recreate ${this.hostname}:${this.port}, got error ${err}`);
         }
-    }
-
-    close() {
-        if (this?.socket?.closed === false) {
-            this.socket.unmonitor();
-            this.socket.close();
-        }
-    }
-
-    set_timeout(ms: number) {
-        try {
-            this.socket.connect_timeout = ms;
-        } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not set zmq socket timeout: ${ms} got error: ${err}`);
-        }
-    }
-
-    increase_attempt_number() {
-        this.reconnect_attempt = this.reconnect_attempt + 1;
     }
 }
 
