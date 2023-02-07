@@ -45,27 +45,14 @@ export class ZMQ_Socket_Wrapper {
         this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
         this.ZMQ_monitor_interval_ms = 1_000;
         this.reconnect_attempt = 0;
-        this.max_reconnect_attempts = 10;
+        this.max_reconnect_attempts = 1_000;
 
-
-        this.initalize();
-
-
-
-
-    }
-
-    initalize() {
-        Logger.log(LogLevel.INFO, `Socket ${this.port} is initializing`);
         try {
-            this.close();
-
-            this.socket = _zmq.socket('req').setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
+            this.socket = _zmq.socket('req')
+            this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
             this.socket.connect_timeout = this.timeout;
             this.connect(this.port);
             this.socket.monitor(this.ZMQ_monitor_interval_ms, 0);
-            this.reconnect_attempt = 0;
-
 
 
             this.socket.on('connect', (data: any) => {
@@ -76,10 +63,6 @@ export class ZMQ_Socket_Wrapper {
             this.socket.on('connect_retry', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.CONNECTING;
                 this.reconnect_attempt++;
-                if (this.reconnect_attempt >= this.max_reconnect_attempts) {
-                    Logger.log(LogLevel.INFO, `Socket ${this.port} is reinitializing ${this.reconnect_attempt} >= ${this.max_reconnect_attempts} ${this.reconnect_attempt >= this.max_reconnect_attempts}`);
-                    this.initalize();
-                }
             });
 
             this.socket.on('disconnect', (data: any) => {
@@ -142,6 +125,7 @@ export class ZMQ_Socket_Wrapper {
 
     }
 
+
     connect(port: number) {
         try {
             Logger.log(LogLevel.VERBOSE, `ZMQ connecting to tcp://${this.hostname}:${port}`)
@@ -153,7 +137,7 @@ export class ZMQ_Socket_Wrapper {
     }
 
     send(msg: string) {
-        try{
+        try {
             this.socket.send(msg);
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Could not send zmq message:\n${msg} got error: ${err}`);
@@ -174,6 +158,10 @@ export class ZMQ_Socket_Wrapper {
             Logger.log(LogLevel.ERROR, `Could not set zmq socket timeout: ${ms} got error: ${err}`);
         }
     }
+
+    increase_attempt_number() {
+        this.reconnect_attempt = this.reconnect_attempt + 1;
+    }
 }
 
 
@@ -191,6 +179,12 @@ export class zmq_wrapper {
 
         process.on('SIGINT', () => this.handleApplicationExit('SIGINT'));
         process.on('SIGTERM', () => this.handleApplicationExit('SIGTERM'));
+
+        setInterval( () => {
+            if (this.socket_map.size != 0) {
+                this.log_status();
+            }
+        }, 1_000);
 
     }
 
@@ -260,7 +254,7 @@ export class zmq_wrapper {
              const queue_limit = socket_instance.http_queue.MAX_QUEUE_SIZE;
              const reconnect_attempt = socket_instance.reconnect_attempt;
              const reconnect_limit = socket_instance.max_reconnect_attempts;
-             const line = `\t${id}\t ==> ${status} \tHttp queue capacity: ${queue_capacity}/${queue_limit} \tReconnect attempts: ${reconnect_attempt}/${reconnect_limit}\n`;
+             const line = `\t${id}\t ==> ${status} \tHttp queue capacity: ${queue_capacity}/${queue_limit} \tReconnect attempts: ${reconnect_attempt}/${reconnect_limit} \tListeners: ${socket_instance.socket.listenerCount('connect')}|${socket_instance.socket.listenerCount('connect_retry')}|${socket_instance.socket.listenerCount('disconnect')}|${socket_instance.socket.listenerCount('msg')}\n`;
              msg += line;
         });
         msg += "------------------------------------\n";

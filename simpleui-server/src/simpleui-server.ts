@@ -401,7 +401,7 @@ export class SimpleUIServer {
                         SimpleUIServer.overlay_image_file_names.filter(file => ((file.endsWith("gif")) || (file.endsWith("png"))));
                     } catch (err) { /* no overlay folder */ }
 
-                    SuiData.zmqMap.log_status();
+                    //SuiData.zmqMap.log_status();
                     const props = PropsFileReader.getProps(`${req.params.propsStub}.properties`);
                     SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
@@ -429,7 +429,7 @@ export class SimpleUIServer {
                 // Replies with data from a zeromq request
                 Logger.log(LogLevel.VERBOSE, `cmd request callback: ${++SimpleUIServer.requestCallbacks}`);
                 try {
-                    SuiData.zmqMap.log_status();
+                    //SuiData.zmqMap.log_status();
                     const props = PropsFileReader.getProps(`${req.params.propsStub}.properties`);
                     SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
