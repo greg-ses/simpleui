@@ -112,6 +112,7 @@ export class ZMQ_Socket_Wrapper {
                 this.reconnect_attempt++;
                 if (this.reconnect_attempt > this.max_reconnect_attempts) {
                     //this.recreate_socket();
+                    this.reconnect_attempt = 0;
                     console.log(`not recreating ${this.hostname}:${this.port}`);
                 }
             });

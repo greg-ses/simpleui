@@ -230,7 +230,7 @@ export class SuiData {
         // get socket
         let socket = SuiData.zmqMap.get(zmq_port);
 
-        if (!socket) {
+        if (!socket && zmq_port !== 0) {
             SuiData.zmqMap.add_socket(zmq_port);
             socket = SuiData.zmqMap.get(zmq_port);
             Logger.log(LogLevel.INFO, `No socket for ZMQ socket with port ${zmq_port}, created new socket`);
