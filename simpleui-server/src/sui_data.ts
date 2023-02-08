@@ -226,7 +226,6 @@ export class SuiData {
         // get port
         const zmq_port = SuiData.getZmqPort(req);
 
-
         // get socket
         let socket = SuiData.zmqMap.get(zmq_port);
 
@@ -237,7 +236,7 @@ export class SuiData {
         }
 
 
-        // get and set connection timeout (is this needed anymore?)
+        // get and set connection timeout
         const timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
 
         socket.set_timeout(timeout);

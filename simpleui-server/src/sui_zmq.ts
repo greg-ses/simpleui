@@ -5,6 +5,14 @@
  *
  *  An http request can only request data from a single zmq socket
  *
+ *
+ *
+ * svcmachineapps (down, no start)
+ *      - ZMQ_monitor_interval_ms not applied
+ *      - only incremented when request sent'
+ * svcmachineapps (up, no start)
+ *      - ZMQ_monitor_interval_ms is applied
+ *
  ******************************************************************
  */
 
@@ -18,8 +26,11 @@ import { Queue } from './queue';
 
 enum ZMQ_Connection_Status {
     CONNECTED = "connected",
-    CONNECTING = "attempting to connect",
-    DISCONNECTED = "disconnected"
+    RETRY_CONNECTING = "retrying to connect",
+    DELAY_CONNECTING = "connecting delayed",
+    DISCONNECTED = "disconnected",
+    LISTENING = "listening",
+    ACCEPTED = "accepted connection",
 }
 
 
@@ -34,7 +45,8 @@ export class ZMQ_Socket_Wrapper {
     ZMQ_monitor_interval_ms: number; // allows for `connect` and `connect_retry` event listeners https://github.com/zeromq/zeromq.js/blob/5.x/lib/index.js#L547
     reconnect_attempt: number;
     max_reconnect_attempts: number;
-    message_queue: number;
+    outgoing_batch_length: any;
+    remote_address: string;
 
 
     constructor(hostname: string, port: number, timeout: number=500, send_timeout: number=500) {
@@ -44,18 +56,22 @@ export class ZMQ_Socket_Wrapper {
         this.port = port;
         this.http_queue = new Queue();
         this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
-        this.ZMQ_monitor_interval_ms = 500;
+        this.ZMQ_monitor_interval_ms = 1_000;
         this.reconnect_attempt = 0;
-        this.max_reconnect_attempts = 1_000;
-        this.message_queue = 0;
+        this.max_reconnect_attempts = 20;
+        this.remote_address = `tcp://${this.hostname}:${this.port}`;
+
+
 
         try {
             this.socket = _zmq.socket('req');
-            this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
-            this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, 30 * 1000);
-            this.socket.setsockopt(_zmq.ZMQ_CONNECT_TIMEOUT, this.timeout);
-            this.connect(this.port);
+            //this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
+            //this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, 30 * 1000);
+            //this.socket.setsockopt(_zmq.ZMQ_CONNECT_TIMEOUT, this.timeout);
+            this.connect();
             this.socket.monitor(this.ZMQ_monitor_interval_ms, 0);
+            this.outgoing_batch_length = this.socket._outgoing.length;
+
 
             this.add_connection_listeners();
             this.add_messaging_listeners();
@@ -67,13 +83,12 @@ export class ZMQ_Socket_Wrapper {
     }
 
 
-    connect(port: number) {
+    connect() {
         try {
-            Logger.log(LogLevel.VERBOSE, `ZMQ connecting to tcp://${this.hostname}:${port}`)
-            this.socket.connect(`tcp://${this.hostname}:${port}`)
+            Logger.log(LogLevel.VERBOSE, `ZMQ connecting to ${this.remote_address}`);
+            this.socket.connect(this.remote_address);
         } catch (e) {
-            Logger.log(LogLevel.ERROR, `Could not connect to tcp://${this.hostname}:${port} ${typeof port} Got error: ${e}`);
-            //process.exit(1);
+            Logger.log(LogLevel.ERROR, `Could not connect to ${this.remote_address} Got error: ${e}`);
         }
     }
 
@@ -108,17 +123,25 @@ export class ZMQ_Socket_Wrapper {
             });
 
             this.socket.on('connect_retry', (data: any) => {
-                this.connection_status = ZMQ_Connection_Status.CONNECTING;
-                this.reconnect_attempt++;
-                if (this.reconnect_attempt > this.max_reconnect_attempts) {
-                    //this.recreate_socket();
-                    this.reconnect_attempt = 0;
-                    console.log(`not recreating ${this.hostname}:${this.port}`);
-                }
+                this.connection_status = ZMQ_Connection_Status.RETRY_CONNECTING;
+                this.reconnect_attempt = this.reconnect_attempt + 1;
+            });
+            this.socket.on('connect_delay', (data: any) => {
+                this.connection_status = ZMQ_Connection_Status.DELAY_CONNECTING;
+
             });
 
             this.socket.on('disconnect', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
+                this.reconnect_attempt = 0;
+            });
+
+            this.socket.on('listen', (data: any) => {
+                this.connection_status = ZMQ_Connection_Status.LISTENING;
+            });
+
+            this.socket.on('accept', (data: any) => {
+                this.connection_status = ZMQ_Connection_Status.ACCEPTED;
                 this.reconnect_attempt = 0;
             });
 
@@ -131,7 +154,6 @@ export class ZMQ_Socket_Wrapper {
     add_messaging_listeners() {
         try {
             this.socket.on('message', (msg) => {
-                this.message_queue--;
                 const raw_zmq_data = msg.toString();
                 const zmq_data = SuiData.addXmlStatus(raw_zmq_data);
                 Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at port ${this.port}: ${zmq_data.substring(0, 16)}`);
@@ -177,7 +199,6 @@ export class ZMQ_Socket_Wrapper {
                         `zmq request details:\n\ttimeout:\t${this.timeout}\n\tPort:\t\t${this.port}\n\tCMD:\t\t${JSON.stringify(cmd)}\n\tMsg:\t\t${zmq_request_packet}`);
                 }
                 // send request
-                this.message_queue++;
                 this.socket.send(zmq_request_packet);
             });
         } catch (err) {
@@ -188,12 +209,24 @@ export class ZMQ_Socket_Wrapper {
     recreate_socket() {
         Logger.log(LogLevel.INFO, `Recreating ${this.hostname}:${this.port}`);
         try {
-            this.close();
+            // this.close();
+            // this.socket.removeEventListener('message', () => { console.log('++++++++++++++++++++++++++++++++') });
+            // this.socket.removeEventListener('error', () => {});
+            // this.socket.removeEventListener('connect', () => {});
+            // this.socket.removeEventListener('connect_retry', () => {});
+            // this.socket.removeEventListener('connect_delay', () => {});
+            // this.socket.removeEventListener('disconnect', () => {});
+            this.http_queue.events.removeListener('item_added', () => {});
+
+            this.socket.disconnect()
+
+            this.socket = null;
+
             this.socket = _zmq.socket('req');
-            this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
-            this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, 30 * 1000);
-            this.socket.connect_timeout = this.timeout;
-            this.connect(this.port);
+            //this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
+            //this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, 30 * 1000);
+            //this.socket.connect_timeout = this.timeout;
+            this.connect();
             this.socket.monitor(this.ZMQ_monitor_interval_ms, 0);
 
             this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
@@ -204,6 +237,10 @@ export class ZMQ_Socket_Wrapper {
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Could not recreate ${this.hostname}:${this.port}, got error ${err}`);
         }
+    }
+
+    clear_message_queue() {
+
     }
 }
 
@@ -297,7 +334,7 @@ export class zmq_wrapper {
              const queue_limit = socket_instance.http_queue.MAX_QUEUE_SIZE;
              const reconnect_attempt = socket_instance.reconnect_attempt;
              const reconnect_limit = socket_instance.max_reconnect_attempts;
-             const line = `\t${id}\t ==> ${status} \tHttp queue capacity: ${queue_capacity}/${queue_limit} \tReconnect attempts: ${reconnect_attempt}/${reconnect_limit} \tMessage Queue: ${socket_instance.message_queue}\n`;
+             const line = `\t${id}\t ==> ${status} \tHttp queue capacity: ${queue_capacity}/${queue_limit} \tReconnect attempts: ${reconnect_attempt}/${reconnect_limit} \tBatch Size: ${socket_instance.socket?._outgoing?.length}\n`;
              msg += line;
         });
         msg += "------------------------------------\n";
