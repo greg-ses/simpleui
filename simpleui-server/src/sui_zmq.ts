@@ -49,7 +49,7 @@ export class ZMQ_Socket_Wrapper {
     remote_address: string;
 
 
-    constructor(hostname: string, port: number, timeout: number=500, send_timeout: number=500) {
+    constructor(hostname: string, port: number, timeout: number=30_000, send_timeout: number=500) {
         this.hostname = hostname;
         this.timeout = timeout;
         this.ZMQ_SEND_MSG_TIMEOUT_ms = send_timeout;
@@ -67,7 +67,8 @@ export class ZMQ_Socket_Wrapper {
             this.socket = _zmq.socket('req');
             //this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
             //this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, 30 * 1000);
-            //this.socket.setsockopt(_zmq.ZMQ_CONNECT_TIMEOUT, this.timeout);
+            this.socket.setsockopt(_zmq.ZMQ_CONNECT_TIMEOUT, this.timeout);
+            this.socket.setsockopt(_zmq.ZMQ_LINGER, 0);
             this.connect();
             this.socket.monitor(this.ZMQ_monitor_interval_ms, 0);
             this.outgoing_batch_length = this.socket._outgoing.length;
@@ -209,23 +210,17 @@ export class ZMQ_Socket_Wrapper {
     recreate_socket() {
         Logger.log(LogLevel.INFO, `Recreating ${this.hostname}:${this.port}`);
         try {
-            // this.close();
-            // this.socket.removeEventListener('message', () => { console.log('++++++++++++++++++++++++++++++++') });
-            // this.socket.removeEventListener('error', () => {});
-            // this.socket.removeEventListener('connect', () => {});
-            // this.socket.removeEventListener('connect_retry', () => {});
-            // this.socket.removeEventListener('connect_delay', () => {});
-            // this.socket.removeEventListener('disconnect', () => {});
             this.http_queue.events.removeListener('item_added', () => {});
 
-            this.socket.disconnect()
+            this.socket.close();
 
             this.socket = null;
 
             this.socket = _zmq.socket('req');
             //this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
             //this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, 30 * 1000);
-            //this.socket.connect_timeout = this.timeout;
+            this.socket.setsockopt(_zmq.ZMQ_CONNECT_TIMEOUT, this.timeout);
+            this.socket.setsockopt(_zmq.ZMQ_LINGER, 0);
             this.connect();
             this.socket.monitor(this.ZMQ_monitor_interval_ms, 0);
 
@@ -237,10 +232,6 @@ export class ZMQ_Socket_Wrapper {
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Could not recreate ${this.hostname}:${this.port}, got error ${err}`);
         }
-    }
-
-    clear_message_queue() {
-
     }
 }
 
