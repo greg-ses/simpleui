@@ -1,4 +1,9 @@
-# Unit Tests
+
+# Jest Unit Tests
+1. Start the dev env and open a terminal in the container
+2. While under the `simpleui-server` folder, run `npm test` or `npm exec jest`
+
+# Bash Unit Tests (not working at the moment)
 
     a. When updating any file in the  src/public/simpleui-server  folder
     b. When updating the server side of zmq communications.
