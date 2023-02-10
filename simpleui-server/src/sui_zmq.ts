@@ -3,15 +3,7 @@
  *
  ****************************** NOTE ******************************
  *
- *  An http request can only request data from a single zmq socket
- *
- *
- *
- * svcmachineapps (down, no start)
- *      - ZMQ_monitor_interval_ms not applied
- *      - only incremented when request sent'
- * svcmachineapps (up, no start)
- *      - ZMQ_monitor_interval_ms is applied
+ *  A http request can only request data from a single zmq socket
  *
  ******************************************************************
  */
@@ -26,56 +18,110 @@ import { Queue } from './queue';
 
 enum ZMQ_Connection_Status {
     CONNECTED = "connected",
-    RETRY_CONNECTING = "retrying to connect",
-    DELAY_CONNECTING = "connecting delayed",
-    DISCONNECTED = "disconnected",
-    LISTENING = "listening",
-    ACCEPTED = "accepted connection",
+    RETRY_CONNECTING = "reconnecting",                  // ZMQ_RCVTIMEO ended, attempt to reconnect
+    DELAY_CONNECTING = "Waiting for a response",        // waiting for response for ZMQ_RCVTIMEO amount of time
+    DISCONNECTED = "disconnected"
 }
 
 
 export class ZMQ_Socket_Wrapper {
     hostname: string;
-    timeout: number;
-    ZMQ_SEND_MSG_TIMEOUT_ms: number;
     port: number;
-    socket: any;
-    http_queue: Queue;
-    connection_status: ZMQ_Connection_Status;
-    ZMQ_monitor_interval_ms: number; // allows for `connect` and `connect_retry` event listeners https://github.com/zeromq/zeromq.js/blob/5.x/lib/index.js#L547
-    reconnect_attempt: number;
-    max_reconnect_attempts: number;
-    outgoing_batch_length: any;
     remote_address: string;
 
+    socket: any;
 
-    constructor(hostname: string, port: number, timeout: number=30_000, send_timeout: number=500) {
+    http_queue: Queue;
+
+    connection_status: ZMQ_Connection_Status;
+
+    connection_timeout: number;
+    send_timeout: number;
+    receive_timeout: number;
+
+    monitor_interval: number; // allows for `connect` and `connect_retry` event listeners https://github.com/zeromq/zeromq.js/blob/5.x/lib/index.js#L547
+
+    messages_received: number;
+    messages_sent: number;
+
+    watchdog: any;
+    watchdog_interval: number;
+
+
+    constructor(hostname: string, port: number, connect_timeout: number=30_000, send_timeout: number=500) {
         this.hostname = hostname;
-        this.timeout = timeout;
-        this.ZMQ_SEND_MSG_TIMEOUT_ms = send_timeout;
         this.port = port;
-        this.http_queue = new Queue();
-        this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
-        this.ZMQ_monitor_interval_ms = 1_000;
-        this.reconnect_attempt = 0;
-        this.max_reconnect_attempts = 20;
         this.remote_address = `tcp://${this.hostname}:${this.port}`;
+
+        this.http_queue = new Queue();
+
+        this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
+
+        this.connection_timeout = connect_timeout;
+        this.send_timeout = send_timeout;
+        this.receive_timeout = 30_000;
+
+        this.monitor_interval = 1_000;
+        this.watchdog_interval = 1_000;
+
+        this.messages_received = 0;
+        this.messages_sent = 0;
+
+
 
 
 
         try {
             this.socket = _zmq.socket('req');
-            //this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
-            //this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, 30 * 1000);
-            this.socket.setsockopt(_zmq.ZMQ_CONNECT_TIMEOUT, this.timeout);
+            //this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.send_timeout);
+            this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, this.receive_timeout);
+            this.socket.setsockopt(_zmq.ZMQ_CONNECT_TIMEOUT, this.connection_timeout);
             this.socket.setsockopt(_zmq.ZMQ_LINGER, 0);
             this.connect();
-            this.socket.monitor(this.ZMQ_monitor_interval_ms, 0);
-            this.outgoing_batch_length = this.socket._outgoing.length;
-
+            this.socket.monitor(this.monitor_interval, 0);
 
             this.add_connection_listeners();
             this.add_messaging_listeners();
+
+
+            // this.watchdog = setInterval( () => {
+            //     if ( (this.messages_sent - this.messages_received) >  4) {
+            //         this.recreate_socket();
+            //     }
+            // }, this.watchdog_interval);
+
+            this.http_queue.events.on('item_added', () => {
+                // read the most recent item
+                let [_, req] = this.http_queue.elements[0];
+                let zmq_request_packet = "";
+                if (req.method === 'POST') {        // cmd request
+                    const parsed_request = {cmd: `${req.params.zmqCmd}`};
+                    if (req.headers.accept === "*/*" && req.body) {     // regular cmd request
+                        zmq_request_packet = SuiData.getXmlFromJsonArgs(req, parsed_request);
+                    } else if (Object.keys(req.query).includes('xml')) {    // &xml debug request
+                        zmq_request_packet = req.body;
+                    } else {
+                        Logger.log(LogLevel.WARNING,
+                            `item_added event listener got unknown request type with headers ${req.headers} and body ${req.body}`);
+                    }
+                    Logger.log(LogLevel.INFO, `App "${req.params.appName}" received command "${parsed_request.cmd}" ` +
+                        `for tab ${req.params.tabName} - forwarding to ZMQ.`);
+                }
+                else {                                        // data request
+                    // get data cmd
+                    const cmd = SuiData.getCmdFromReq(req);
+                    // create packet
+                    zmq_request_packet = `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
+                    // log zmq details
+                    Logger.log(
+                        SuiData.requestNum <= 5 ? LogLevel.INFO : LogLevel.DEBUG,
+                        `Sent ZMQ Request: \n\ttimeout: \t${this.connection_timeout}\n\tPort: \t${this.port}\n\tCMD: \t${JSON.stringify(cmd)}\n\tMsg: \t${zmq_request_packet}`
+                    );
+                }
+                // send request
+                this.messages_sent = this.messages_sent + 1;
+                this.socket.send(zmq_request_packet);
+            });
 
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Could not create ZMQ socket at port ${this.port} got error: ${err}`);
@@ -108,11 +154,11 @@ export class ZMQ_Socket_Wrapper {
         }
     }
 
-    set_timeout(ms: number) {
+    disconnect() {
         try {
-            this.socket.connect_timeout = ms;
+            this.socket.disconnect(this.remote_address);
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not set zmq socket timeout: ${ms} got error: ${err}`);
+            Logger.log(LogLevel.ERROR, `Could not disconnect ${this.remote_address}, got error: ${err}`);
         }
     }
 
@@ -120,43 +166,29 @@ export class ZMQ_Socket_Wrapper {
         try {
             this.socket.on('connect', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.CONNECTED;
-                this.reconnect_attempt = 0;
             });
-
             this.socket.on('connect_retry', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.RETRY_CONNECTING;
-                this.reconnect_attempt = this.reconnect_attempt + 1;
             });
             this.socket.on('connect_delay', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.DELAY_CONNECTING;
-
             });
-
             this.socket.on('disconnect', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
-                this.reconnect_attempt = 0;
-            });
-
-            this.socket.on('listen', (data: any) => {
-                this.connection_status = ZMQ_Connection_Status.LISTENING;
-            });
-
-            this.socket.on('accept', (data: any) => {
-                this.connection_status = ZMQ_Connection_Status.ACCEPTED;
-                this.reconnect_attempt = 0;
             });
 
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Could not add connection listeners on port ${this.port} got error: ${err}`);
-
         }
     }
 
     add_messaging_listeners() {
         try {
             this.socket.on('message', (msg) => {
+                this.messages_received = this.messages_received + 1;
                 const raw_zmq_data = msg.toString();
                 const zmq_data = SuiData.addXmlStatus(raw_zmq_data);
+
                 Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at port ${this.port}: ${zmq_data.substring(0, 16)}`);
                 // get response + request from queue
                 let [res, req] = this.http_queue.dequeue();
@@ -173,35 +205,6 @@ export class ZMQ_Socket_Wrapper {
                 SuiData.sendResponse(req, res, zmq_data);
             });
 
-            this.http_queue.events.on('item_added', () => {
-                // read the most recent item
-                let [_, req] = this.http_queue.elements[0];
-                let zmq_request_packet = "";
-                if (req.method === 'POST') {        // cmd request
-                    const parsed_request = {cmd: `${req.params.zmqCmd}`};
-                    if (req.headers.accept === "*/*" && req.body) {     // regular cmd request
-                        zmq_request_packet = SuiData.getXmlFromJsonArgs(req, parsed_request);
-                    } else if (Object.keys(req.query).includes('xml')) {    // &xml debug request
-                        zmq_request_packet = req.body;
-                    } else {
-                        Logger.log(LogLevel.WARNING,
-                            `item_added event listener got unknown request type with headers ${req.headers} and body ${req.body}`);
-                    }
-                    Logger.log(LogLevel.INFO, `App "${req.params.appName}" received command "${parsed_request.cmd}" ` +
-                        `for tab ${req.params.tabName} - forwarding to ZMQ.`);
-                }
-                else {                                        // data request
-                    // get data cmd
-                    const cmd = SuiData.getCmdFromReq(req);
-                    // create packet
-                    zmq_request_packet = `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
-                    // log zmq details
-                    Logger.log( SuiData.requestNum <= 5 ? LogLevel.INFO : LogLevel.DEBUG,
-                        `zmq request details:\n\ttimeout:\t${this.timeout}\n\tPort:\t\t${this.port}\n\tCMD:\t\t${JSON.stringify(cmd)}\n\tMsg:\t\t${zmq_request_packet}`);
-                }
-                // send request
-                this.socket.send(zmq_request_packet);
-            });
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Could not add messaging listeners on port ${this.port} got error: ${err}`);
         }
@@ -210,22 +213,24 @@ export class ZMQ_Socket_Wrapper {
     recreate_socket() {
         Logger.log(LogLevel.INFO, `Recreating ${this.hostname}:${this.port}`);
         try {
-            this.http_queue.events.removeListener('item_added', () => {});
+            //this.http_queue.events.removeAllListeners('item_added');
 
             this.socket.close();
 
             this.socket = null;
 
             this.socket = _zmq.socket('req');
-            //this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.ZMQ_SEND_MSG_TIMEOUT_ms);
-            //this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, 30 * 1000);
-            this.socket.setsockopt(_zmq.ZMQ_CONNECT_TIMEOUT, this.timeout);
+            //this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.send_timeout);
+            this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, this.receive_timeout);
+            this.socket.setsockopt(_zmq.ZMQ_CONNECT_TIMEOUT, this.connection_timeout);
             this.socket.setsockopt(_zmq.ZMQ_LINGER, 0);
             this.connect();
-            this.socket.monitor(this.ZMQ_monitor_interval_ms, 0);
+            this.socket.monitor(this.monitor_interval, 0);
 
             this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
-            this.reconnect_attempt = 0;
+
+            this.messages_received = 0;
+            this.messages_sent = 0;
 
             this.add_connection_listeners();
             this.add_messaging_listeners();
@@ -243,6 +248,7 @@ export class ZMQ_Socket_Wrapper {
 export class zmq_wrapper {
     socket_map: Map<number, ZMQ_Socket_Wrapper>;
     hostname: string;
+    log_interval: any;
 
     constructor(hostname: string) {
         this.socket_map = new Map();
@@ -251,7 +257,7 @@ export class zmq_wrapper {
         process.on('SIGINT', () => this.handleApplicationExit('SIGINT'));
         process.on('SIGTERM', () => this.handleApplicationExit('SIGTERM'));
 
-        setInterval( () => {
+        this.log_interval = setInterval( () => {
             if (this.socket_map.size != 0) {
                 this.log_status();
             }
@@ -301,7 +307,8 @@ export class zmq_wrapper {
      */
     handleApplicationExit(signalName: string) {
         Logger.log(LogLevel.INFO, `ZMQ_Socket_Wrapper recieved signal ${signalName}`);
-        //process.exit(1)
+
+        clearInterval(this.log_interval);
 
         this.socket_map.forEach((zmq_wrapper_instance, port) => {
             Logger.log(LogLevel.INFO, `closing zmq port: ${port}`);
@@ -323,9 +330,7 @@ export class zmq_wrapper {
              const status = socket_instance.connection_status;
              const queue_capacity = socket_instance.http_queue.length;
              const queue_limit = socket_instance.http_queue.MAX_QUEUE_SIZE;
-             const reconnect_attempt = socket_instance.reconnect_attempt;
-             const reconnect_limit = socket_instance.max_reconnect_attempts;
-             const line = `\t${id}\t ==> ${status} \tHttp queue capacity: ${queue_capacity}/${queue_limit} \tReconnect attempts: ${reconnect_attempt}/${reconnect_limit} \tBatch Size: ${socket_instance.socket?._outgoing?.length}\n`;
+             const line = `\t${id}\t ==> ${status} \tHttp queue capacity: ${queue_capacity}/${queue_limit} \tReceived/sent message: ${socket_instance.messages_received}/${socket_instance.messages_sent} \tInternal socket queue: ${socket_instance.socket?._outgoing?.length}\n`;
              msg += line;
         });
         msg += "------------------------------------\n";

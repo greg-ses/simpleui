@@ -237,9 +237,8 @@ export class SuiData {
 
 
         // get and set connection timeout
-        const timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
-
-        socket.set_timeout(timeout);
+        //const timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
+        //socket.set_timeout(timeout);
 
         // add res + req pair to socket's queue
         socket.http_queue.enqueue([res, req]);
