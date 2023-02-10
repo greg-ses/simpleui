@@ -11,7 +11,7 @@ import { DatasetTableComponent } from './dataset-table';
 import { PortalModule } from '@angular/cdk/portal';
 import { MatTabsModule } from '@angular/material/tabs';
 import { PropDefinedTableComponent } from '../prop-defined-table/prop-defined-table';
-import {CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
@@ -162,6 +162,7 @@ describe('TitleBarTest', () => {
             schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
         }).compileComponents();
         const commonModule = new CommonModule();
+        httpMockBackend = TestBed.inject(HttpTestingController);
 
         if (fixture === null) {
             fixture = TestBed.createComponent(AppComponent);
@@ -177,33 +178,28 @@ describe('TitleBarTest', () => {
         }
     });
 
+
+
+
     it('should have created the AppComponent', () => {
         expect(component).toBeDefined();
     });
 
-    /*
-    it('should call getProps', (done) => {
-        expect(component).toBeDefined();
 
-        component.getProps();
+    // it('should call getProps', (done) => {
+    //     expect(component).toBeDefined();
 
-        waitUntil(function () {
-            return (component._propsSubscriptionState !== SubscriptionState.AwaitingAsyncResponse);
-        }).then(function () {
-            done();
-        });
-    });
+    //     component.getProps();
 
-    it ('should receive async result from getProps()', (done) => {
-        expect(component._propsSubscriptionState).not.toEqual(SubscriptionState.ErrorFromAsyncResponse);
+    //     waitUntil(function () {
+    //         return (component._propsSubscriptionState !== SubscriptionState.AwaitingAsyncResponse);
+    //     }).then(function () {
+    //         done();
+    //     });
+    // });
 
-        waitUntil( function () {
-            return component._propsSubscriptionState === SubscriptionState.Idle;
-        }).then( function() {
-            done();
-        });
-    });
-    */
+    it('should call getProps() and the first tab should have the title XYZ', () => {});
+
 
     it('should have  _refreshState set to "indicatorOn"', (done) => {
         waitUntil(function() {
@@ -213,6 +209,41 @@ describe('TitleBarTest', () => {
         });
     });
 
+
+    it('should check that dbPulse element has className "indicatorOn"', () => {
+        const dbPulseBtnElement = fixture.debugElement.nativeElement.querySelector('#dbPulse'); // document.getElementById('dbPulse');
+        expect(document).toBeDefined();
+        expect(page.dbPulseButton).toBeDefined();
+        expect(dbPulseBtnElement.className).toEqual('indicatorOn');
+    });
+
+
+    it('should click the "Remote" button', () => {
+        const remoteButton = findInputElementByName('Remote');
+        expect(remoteButton).toBeDefined();
+    });
+
+
+
+    // it ('should receive async result from getProps()', (done) => {
+    //     expect(component._propsSubscriptionState).not.toEqual(SubscriptionState.ErrorFromAsyncResponse);
+
+    //     waitUntil( function () {
+    //         return component._propsSubscriptionState === SubscriptionState.Idle;
+    //     }).then( function() {
+    //         done();
+    //     });
+    // });
+
+
+//     it('should fill first tab from ajax data', () => {
+// //        fixture.whenRenderingDone().then(() => {
+
+//             expect(page.activeTab).toBeDefined();
+//             // expect(activeTab.getAttribute('innerText')).toEqual('IO 1');
+//             // expect(activeTab.getAttribute('tabindex')).toEqual('0');
+// //        });
+//     });
 
 
 
@@ -231,29 +262,5 @@ describe('TitleBarTest', () => {
     //     // });
 
     // });
-
-
-    it('should check that dbPulse element has className "indicatorOn"', () => {
-        const dbPulseBtnElement = fixture.debugElement.nativeElement.querySelector('#dbPulse'); // document.getElementById('dbPulse');
-        expect(document).toBeDefined();
-        expect(page.dbPulseButton).toBeDefined();
-        expect(dbPulseBtnElement.className).toEqual('indicatorOn');
-    });
-
-
-
-    it('should fill first tab from ajax data', () => {
-//        fixture.whenRenderingDone().then(() => {
-
-            expect(page.activeTab).toBeDefined();
-            // expect(activeTab.getAttribute('innerText')).toEqual('IO 1');
-            // expect(activeTab.getAttribute('tabindex')).toEqual('0');
-//        });
-    });
-
-    it('should click the "Remote" button', () => {
-        const remoteButton = findInputElementByName('Remote');
-        expect(remoteButton).toBeDefined();
-    });
 
 });
