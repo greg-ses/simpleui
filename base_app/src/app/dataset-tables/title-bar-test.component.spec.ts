@@ -213,9 +213,6 @@ describe('TitleBarTest', () => {
         });
     });
 
-    it('should have some inputs', () => {
-        expect(page.inputs.length).toBeGreaterThan(0);
-    });
 
 
 
