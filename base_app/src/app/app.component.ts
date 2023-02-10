@@ -7,8 +7,6 @@ import {ClientLogger, LogLevel} from '../tools/logger';
 import {DataSummary} from './interfaces/data-summary';
 import {UTIL} from '../tools/utility';
 
-
-const debug = (msg: any) => console.debug(msg)
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [],
@@ -523,6 +521,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         const newTabIndex = tab.index;
         sessionStorage.setItem('selectedTab', newTabIndex.toString());
         this._selectedTabIndex = newTabIndex;
+        console.debug(`New Tab index: ${newTabIndex}`);
         if (typeof sessionStorage[`tab${newTabIndex}ScrollTop`] === 'undefined') {
             sessionStorage[`tab${newTabIndex}ScrollTop`] = 0;
         }
