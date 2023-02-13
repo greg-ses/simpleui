@@ -8,7 +8,7 @@ export class Queue {
 
     constructor() {
         this.elements = [];
-        this.MAX_QUEUE_SIZE = 32;
+        this.MAX_QUEUE_SIZE = 1000;
         this.events = new EventEmitter();
     }
 
@@ -29,7 +29,7 @@ export class Queue {
      * @returns
      */
     dequeue() {
-        return this.isEmpty() ? "Queue Underflow" : this.elements.shift();
+        return this.isEmpty() ? ["Queue Underflow", "Queue Underflow"] : this.elements.shift();
     }
 
     view_all() {
