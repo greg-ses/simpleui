@@ -120,8 +120,13 @@ export class SuiData {
                 res.send(xmlMetaPrefix + xmlResponse);
                 return;
             } else {
-                res.setHeader('Content-Type', 'application/json');
-                res.setHeader('charset', 'UTF-8');
+                    // svcmachineapps stopped at 11:15
+                try {
+                    res.setHeader('Content-Type', 'application/json');
+                    res.setHeader('charset', 'UTF-8');
+                } catch (err) {
+                    let i = [err, req]
+                }
                 let versionString: any = 'V.xxx';
                 if (req.query.version) {
                     versionString = req.query.version;
@@ -143,6 +148,7 @@ export class SuiData {
                         sJson = JSON.stringify(json);
                     }
                 }
+                console.log(`SENT HTTP RESPONSE!!!!!!!!!!!! Finished: ${res.writableEnded}\n`);
                 res.send(sJson);
             }
         } catch (err) {

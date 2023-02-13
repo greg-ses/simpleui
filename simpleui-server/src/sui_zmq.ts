@@ -119,6 +119,7 @@ export class ZMQ_Socket_Wrapper {
                     );
                 }
                 // send request
+                console.log('Got HTTP GET Request!')
                 this.messages_sent = this.messages_sent + 1;
                 this.socket.send(zmq_request_packet);
             });
@@ -154,13 +155,7 @@ export class ZMQ_Socket_Wrapper {
         }
     }
 
-    disconnect() {
-        try {
-            this.socket.disconnect(this.remote_address);
-        } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not disconnect ${this.remote_address}, got error: ${err}`);
-        }
-    }
+
 
     add_connection_listeners() {
         try {
@@ -192,6 +187,10 @@ export class ZMQ_Socket_Wrapper {
                 Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at port ${this.port}: ${zmq_data.substring(0, 16)}`);
                 // get response + request from queue
                 let [res, req] = this.http_queue.dequeue();
+                if (typeof res === "string") {
+                    console.log('No more items in the HTTP queue to send to the client, returning...');
+                    return
+                }
                 // send response
                 SuiData.sendResponse(req, res, zmq_data);
             });
@@ -213,7 +212,6 @@ export class ZMQ_Socket_Wrapper {
     recreate_socket() {
         Logger.log(LogLevel.INFO, `Recreating ${this.hostname}:${this.port}`);
         try {
-            //this.http_queue.events.removeAllListeners('item_added');
 
             this.socket.close();
 
