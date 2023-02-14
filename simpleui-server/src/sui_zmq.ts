@@ -84,11 +84,11 @@ export class ZMQ_Socket_Wrapper {
             this.add_messaging_listeners();
 
 
-            // this.watchdog = setInterval( () => {
-            //     if ( (this.messages_sent - this.messages_received) >  4) {
-            //         this.recreate_socket();
-            //     }
-            // }, this.watchdog_interval);
+            this.watchdog = setInterval( () => {
+                if ( (this.messages_sent - this.messages_received) >  4 && this.connection_status === ZMQ_Connection_Status.CONNECTED) {
+                    this.recreate_socket();
+                }
+            }, this.watchdog_interval);
 
             this.http_queue.events.on('item_added', () => {
                 // read the most recent item
