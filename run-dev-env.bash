@@ -12,6 +12,8 @@ do
     fi
 done
 
+install_script=install-script-debug-simpleui-server.bash
+
 echo "Using SIMPLEUI_TEST_DATA: ${SIMPLEUI_TEST_DATA}"
 
 DEV_TARGET=sample_app
@@ -29,6 +31,25 @@ fi
 echo "${SIMPLEUI_TEST_DATA}/${DEV_TARGET}"
 
 
+# docker run \
+#     -it \
+#     --rm \
+#     --name sui-dev-container \
+#     --mount type=bind,src="${PWD}"/base_app,dst=/usr/src/app/base_app/ \
+#     --mount type=bind,src="${PWD}"/simpleui-server,dst=/usr/src/app/simpleui-server/ \
+#     --mount type=bind,src="${PWD}"/develop_docker/${install_script},dst=/usr/src/app/${install_script} \
+#     --mount type=bind,src="${SIMPLEUI_TEST_DATA}/${DEV_TARGET}",dst=/usr/src/app/base_app/src/assets/ \
+#     --mount type=bind,src="${SIMPLEUI_TEST_DATA}/${DEV_TARGET}",dst=/var/www/simple_ui/ \
+#     --mount type=bind,src="${SIMPLEUI_TEST_DATA}/${DEV_TARGET}"/opt,dst=/opt/ \
+#     -p 4200:4200 \
+#     -p 4100:4100 \
+#     -w /usr/src/app \
+#     sui-dev-image /bin/bash /usr/src/app/${install_script}
+
+
+# This script creates the docker container (sui-dev-container || sui-dev-sim-container) from the dev env image (sui-dev-image)
+
+
 docker run \
     -it \
     --rm \
@@ -41,5 +62,7 @@ docker run \
     --mount type=bind,src="${SIMPLEUI_TEST_DATA}/${DEV_TARGET}"/opt,dst=/opt/ \
     -p 4200:4200 \
     -p 4100:4100 \
-    -w /usr/src/app \
+    -p 9876:9876 \
+    --network=vcharge_sim_1mw_1804_default \
+    -w /usr/src/app/base_app \
     sui-dev-image /bin/bash /usr/src/app/${install_script}
