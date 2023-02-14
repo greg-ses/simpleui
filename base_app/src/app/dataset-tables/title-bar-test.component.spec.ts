@@ -186,20 +186,6 @@ describe('TitleBarTest', () => {
     });
 
 
-    // it('should call getProps', (done) => {
-    //     expect(component).toBeDefined();
-
-    //     component.getProps();
-
-    //     waitUntil(function () {
-    //         return (component._propsSubscriptionState !== SubscriptionState.AwaitingAsyncResponse);
-    //     }).then(function () {
-    //         done();
-    //     });
-    // });
-
-    it('should call getProps() and the first tab should have the title XYZ', () => {});
-
 
     it('should have  _refreshState set to "indicatorOn"', (done) => {
         waitUntil(function() {
