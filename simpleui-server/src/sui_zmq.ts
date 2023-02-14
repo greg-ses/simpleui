@@ -59,7 +59,7 @@ export class ZMQ_Socket_Wrapper {
 
         this.connection_timeout = connect_timeout;
         this.send_timeout = send_timeout;
-        this.receive_timeout = 30_000;
+        this.receive_timeout = 500;
 
         this.monitor_interval = 1_000;
         this.watchdog_interval = 1_000;
