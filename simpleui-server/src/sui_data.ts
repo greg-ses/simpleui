@@ -151,7 +151,7 @@ export class SuiData {
                 sJson length: ${sJson.length}
 
                 Headers:
-                ${res.getHeaders()}\n
+                ${JSON.stringify(res.getHeaders())}\n
 
 
                 `);
