@@ -56,10 +56,10 @@ let test_request_socket: ZMQ_Socket_Wrapper;
 
 describe('ZMQ_Socket_Wrapper Class testing', () => {
 
-    afterAll( () => {
-        mock_reply_socket.close();
-        test_request_socket.close();
-    });
+    // afterAll( () => {
+    //     mock_reply_socket.close();
+    //     test_request_socket.close();
+    // });
 
 
     beforeEach( () => {
@@ -75,8 +75,7 @@ describe('ZMQ_Socket_Wrapper Class testing', () => {
     // class inits properly
     test('Class instance exist', () => {
         expect(test_request_socket).toBeTruthy();
-    });
-
+    }, 1_000);
 
 
     // also tests that sockets connect on init (bc of beforeEach())
@@ -88,13 +87,12 @@ describe('ZMQ_Socket_Wrapper Class testing', () => {
             expect(zmq_msg).toEqual(test_message);
             done();
         });
-    });
+    }, 1_000);
 
 
     // times out occasionally because the socket from the previous test hasnt closed yet and therefore
     // cannot create a new socket
     test('REQ socket sends message when item is added to its queue', done => {
-
         let test_message = "ABCDEFG";
 
         // create message listener
@@ -103,7 +101,6 @@ describe('ZMQ_Socket_Wrapper Class testing', () => {
             expect(zmq_msg).toEqual(`<request COMMAND="${test_message}" valueName=""/>`);
             done();
         });
-
 
         let mock_req = {
             query: { cmd: test_message },
@@ -117,5 +114,8 @@ describe('ZMQ_Socket_Wrapper Class testing', () => {
 
 
     test.todo('Sockets close down when SIGINT/SIGTERM is recevieved');
+
+
+    test.todo('HTTP queue max size and ZMQ Socket interal queue max size should be the same value');
 });
 
