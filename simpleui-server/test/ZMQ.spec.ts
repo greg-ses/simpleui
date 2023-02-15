@@ -1,9 +1,10 @@
 var _zmq = require('zeromq');
 import { ZMQ_Socket_Wrapper } from '../src/sui_zmq';
-import { Logger, LogLevel } from '../src/server-logger';
 
+
+//import { Logger, LogLevel } from '../src/server-logger';
 // setup logger
-Logger.setLogLevel("ERROR");
+//Logger.setLogLevel("DEBUG");
 
 
 class ZMQ_Reply_Socket {
@@ -18,25 +19,26 @@ class ZMQ_Reply_Socket {
             this.socket = _zmq.socket('rep');
             this.socket.setsockopt(_zmq.ZMQ_LINGER, 0);
             this.socket.bindSync(this.address);
+
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not make REPLY socket on ${this.address}, got error: ${err}`);
+           console.error(`Could not make REPLY socket on ${this.address}, got error: ${err}`);
         }
     }
     send(msg: string) {
         try {
             this.socket.send(msg);
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not send zmq message: ${msg} got error: ${err}`);
+            console.error(`Could not send zmq message: ${msg} got error: ${err}`);
         }
     }
     close() {
         try {
             if (this.socket.closed === false) {
                 this.socket.close();
-                Logger.log(LogLevel.ERROR, `Socket closed`);
+                console.info(`Socket closed ${this.address}`);
             }
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not close socket ${this.port}, got error: ${err}`);
+            console.error(`Could not close socket ${this.address}, got error: ${err}`);
         }
     }
 }
@@ -56,26 +58,21 @@ let test_request_socket: ZMQ_Socket_Wrapper;
 
 describe('ZMQ_Socket_Wrapper Class testing', () => {
 
-    // afterAll( () => {
-    //     mock_reply_socket.close();
-    //     test_request_socket.close();
-    // });
-
-
     beforeEach( () => {
-        mock_reply_socket = new ZMQ_Reply_Socket(PORT);
         test_request_socket = new ZMQ_Socket_Wrapper(HOSTNAME, PORT);
+        mock_reply_socket = new ZMQ_Reply_Socket(PORT);
     });
     afterEach( () => {
-        mock_reply_socket.close();
         test_request_socket.close();
+        mock_reply_socket.socket.unbindSync(mock_reply_socket.address);
+        mock_reply_socket.close();
     });
 
 
     // class inits properly
     test('Class instance exist', () => {
         expect(test_request_socket).toBeTruthy();
-    }, 1_000);
+    });
 
 
     // also tests that sockets connect on init (bc of beforeEach())
@@ -87,13 +84,13 @@ describe('ZMQ_Socket_Wrapper Class testing', () => {
             expect(zmq_msg).toEqual(test_message);
             done();
         });
-    }, 1_000);
+    });
 
 
-    // times out occasionally because the socket from the previous test hasnt closed yet and therefore
-    // cannot create a new socket
+    // times out occasionally because the socket from the previous test
+    // hasnt closed yet and therefore cannot create a new socket
     test('REQ socket sends message when item is added to its queue', done => {
-        let test_message = "ABCDEFG";
+        let test_message = "ABCDEFG_";
 
         // create message listener
         mock_reply_socket.socket.on('message', (raw_data: any) => {
@@ -106,8 +103,9 @@ describe('ZMQ_Socket_Wrapper Class testing', () => {
             query: { cmd: test_message },
             params: { zmqValue: "" }
         }
+
         test_request_socket.http_queue.enqueue([{}, mock_req]);
-    }, 10_000);
+    }, 1_000);
 
 
     test.todo('REQ Socket should reconnect to REP socket if REP socket power cycles');
