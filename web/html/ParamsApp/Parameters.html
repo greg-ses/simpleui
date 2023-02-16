@@ -179,13 +179,22 @@
                     }
 
 	                $http.post(php_post_request_url, data, config)
-	                .then(function (data, status, headers, config) {
-	                    $scope.content = status + ' - ' + data;
-                        postStatus = 0;
-	                }, function (data, status, headers, config) {
-	                    $scope.content = 'error';
-                        postStatus = 1;
-	                });
+	                .then(  // resolved
+                        (response) => {
+                            let { data, status, headers, config, statusText } = response;
+                            if (data?.error?.msg) {
+                                let msg = JSON.parse(data.error.msg);
+                                console.log(msg.result);
+                            }
+                            $scope.content = status + ' - ' + data;
+                            postStatus = 0;
+	                    },  // rejected
+                        (response) => {
+                            console.error(`post request promise was rejected`, response);
+                            $scope.content = 'error';
+                            postStatus = 1;
+	                    }
+                    );
                     return( postStatus );
                 };  // end function addNewParamValues
 
@@ -200,6 +209,7 @@
                    p.BackupValue[resourceNum] = pr.resVal;
                };  // end function makeBackup
 
+                // show 'save value' popup and check if value is valid
                 $scope.checkSave = function (p, params, pr) {
                     var resourceNum = pr.resourceIndex;
                     var ev;
