@@ -77,12 +77,7 @@ export class SimpleUIServer {
         }
         if (cmdVars.dbName) {
             Logger.log(LogLevel.INFO, `Overriding Parameters App DB with the value of command line arg "--dbName=${cmdVars.dbName}"`);
-            let appLinks = props.appLink;
-            appLinks.forEach( (link) => {
-                if (link.url.endsWith('/Parameters.html')) {
-                    link.url = link.url + `?database=${cmdVars.dbName}`;
-                }
-            })
+            // env var was set in run.sh
         }
         if (cmdVars.urlResource) {
             Logger.log(LogLevel.INFO, `Overriding the RESOURCE param of the appLinks urls with the value of command line arg "--dbName=${cmdVars.urlResource}"`);
