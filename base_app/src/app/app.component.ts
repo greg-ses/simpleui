@@ -2,10 +2,14 @@ import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild, isDev
 import {AppProperties, SubscriptionState, TabUI, TitleBarProperties} from './interfaces/props-data';
 import {ajax} from 'rxjs/ajax';
 import {MatTabChangeEvent, MatTabGroup} from '@angular/material/tabs';
-import {interval} from 'rxjs';
+import {interval, of, timer} from 'rxjs';
 import {ClientLogger, LogLevel} from '../tools/logger';
 import {DataSummary} from './interfaces/data-summary';
 import {UTIL} from '../tools/utility';
+
+
+import { concatMap, delay, repeat, repeatWhen, takeWhile, timeout } from 'rxjs/operators'
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -225,6 +229,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     }
 
     constructor(
+        private http: HttpClient
     ) {
     }
 
@@ -563,15 +568,17 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
         this._refreshRate = Math.max(this._refreshRate, 1000); // Don't allow a refreshRate < 1000 ms
 
-        const updateTimer = interval(this._refreshRate);
+        this.doUpdate(0)
 
-        this._updateSubscription = updateTimer.subscribe(
-            cycle => {
-                this.doUpdate(cycle);
-            },
-            err => {
-                console.error(`Error in initTabDataUpdates() ajax subscribe callback.`, err);
-            });
+        // const updateTimer = interval(this._refreshRate);
+
+        // this._updateSubscription = updateTimer.subscribe(
+        //     cycle => {
+        //         this.doUpdate(cycle);
+        //     },
+        //     err => {
+        //         console.error(`Error in initTabDataUpdates() ajax subscribe callback.`, err);
+        //     });
     }
 
     /**
@@ -713,28 +720,70 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                     url: `${AppComponent.getDataTabPath(tab.dataUrl, tab.index, tab_hash, serverSideJsDebugging)}`,
                     withCredentials: true,
                     crossDomain: true,
-                    timeout:  1_000  //parseInt(this.getProp('ajaxTimeout', '5001'), 10)
+                    timeout:  2 * 1_000  //parseInt(this.getProp('ajaxTimeout', '5001'), 10)
                 };
-                const remoteData$ = ajax(ajaxRequest);
-                remoteData$.subscribe(
-                    res => {
-                        if (res.status === 200 && typeof res.response === 'object' && (null !== res.response)) {
-                            tab._pendingRequestExpiration = 0; // Cancel wait
-                            this.onTabDataUpdate(tab, res.response);
-                            //console.log('requested data...')
+
+                of(ajaxRequest.url).pipe(
+                    concatMap((request: any) => this.http.get(request).pipe(
+                        timeout(ajaxRequest.timeout)
+                    )),
+                    repeatWhen((pause) => {
+                        return pause.pipe(
+                            delay(this._refreshRate),
+                            takeWhile(() => this._tBarProps._serverStatus !== 'updates paused'), // AppComponent._updatesSuspended
+                            concatMap((err) => {
+                                if (err instanceof Error) {
+                                    if (err.name === "TimeoutError") {
+                                        console.error(`Timeout of request (of)`, err);
+                                    } else {
+                                        console.error(`of request error`, err);
+                                    }
+                                    return timer(0); // stop
+                                } else {
+                                    return timer();
+                                }
+                            })
+                        );
+                    })
+                ).subscribe(
+                    (res) => {
+                        if (res) {
+                            tab._pendingRequestExpiration = 0;
+                            this.onTabDataUpdate(tab, res);
                         } else {
-                            console.warn(`Got odd response:`, res);
+                            console.warn("got odd response: ", res)
                         }
                     },
-                    err => {
-                        console.log(`Error in getRemoteTabData() ajax subscribe callback.`);
-                        try {
-                            console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
-                        } catch (err1) {
-                            console.log('error logging ajax error in getRemoteTabData()');
+                    (err) => {
+                        if (err instanceof Error && err.name === "TimeoutError") {
+                            console.error(`Timeout of request (sub)`, err)
                         }
-                    });
-            }
+                    }
+                )
+
+                // const remoteData$ = ajax(ajaxRequest);
+                // remoteData$.subscribe(
+                //     res => {
+                //         if (res.status === 200 && typeof res.response === 'object' && (null !== res.response)) {
+                //             tab._pendingRequestExpiration = 0; // Cancel wait
+                //             this.onTabDataUpdate(tab, res.response);
+                //             //console.log('requested data...')
+                //         } else {
+                //             console.warn(`Got odd response:`, res);
+                //         }
+                //     },
+                //     err => {
+                //         console.log(`Error in getRemoteTabData() ajax subscribe callback.`);
+                //         try {
+                //             console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
+                //         } catch (err1) {
+                //             console.log('error logging ajax error in getRemoteTabData()');
+                //         }
+                //     }
+                // );
+                }
+
+
         }
     }
 
@@ -755,7 +804,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             this.updateData(tab, response['Overlay_Summary']);
             ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');
         } else if (response['ZMQ_error']) {
-            document.title = "ZACK!!!"
+            document.title = "RECONNECTING"
         } else {
             console.warn(response)
             ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed with error (EMPTY RESPONSE).');
@@ -834,3 +883,5 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     }
 
 }
+
+

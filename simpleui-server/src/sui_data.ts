@@ -11,6 +11,26 @@ import * as path from 'path';
 import * as fastXmlParser from 'fast-xml-parser';
 import * as he from 'he';
 
+/**
+
+[Unit]
+Description=Simpleui
+Requires=bms.lce.service
+After=bms.lce.service
+
+[Service]
+ExecStart=/path/to/Simpleui/start
+ExecStop=/path/to/Simpleui/stop
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+ *
+ *
+ *
+ */
+
 
 export interface UiPropStubs {
     uiProp: string,
