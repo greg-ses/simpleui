@@ -213,6 +213,12 @@ export class ZMQ_Socket_Wrapper {
         Logger.log(LogLevel.INFO, `Recreating ${this.hostname}:${this.port}`);
         try {
 
+            // clear http queue
+            while (!this.http_queue.isEmpty()) {
+                let [_res, _req] = this.http_queue.dequeue();
+                _res.status(269).json({"error": "shit broke"})
+            }
+
             this.socket.close();
 
             this.socket = null;
