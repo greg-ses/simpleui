@@ -85,7 +85,7 @@ export class ZMQ_Socket_Wrapper {
 
 
             this.watchdog = setInterval( () => {
-                if ( (this.messages_sent - this.messages_received) >  4 && this.connection_status === ZMQ_Connection_Status.CONNECTED) {
+                if ( (this.messages_sent - this.messages_received) >  3 && this.connection_status === ZMQ_Connection_Status.CONNECTED) {
                     this.recreate_socket();
                 }
             }, this.watchdog_interval);
@@ -216,6 +216,7 @@ export class ZMQ_Socket_Wrapper {
             // clear http queue
             while (!this.http_queue.isEmpty()) {
                 let [_res, _req] = this.http_queue.dequeue();
+                console.log('======== clearing http queue', _res.headersSent, _res.writableEnded)
                 _res.status(269).json({"error": "shit broke"})
             }
 

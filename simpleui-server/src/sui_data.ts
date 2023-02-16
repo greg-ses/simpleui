@@ -164,16 +164,11 @@ export class SuiData {
                     }
                 }
                 console.log(`SENT HTTP RESPONSE!!!!!!!!!!!!
-                Finished: ${res.writableEnded}\n
-
-                Headers Sent: ${res.headersSent}\n
-
+                Finished: ${res.writableEnded}
+                Headers Sent: ${res.headersSent}
                 sJson length: ${sJson.length}
-
                 Headers:
-                ${JSON.stringify(res.getHeaders())}\n
-
-
+                ${JSON.stringify(res.getHeaders())}
                 `);
                 res.send(sJson);
             }
