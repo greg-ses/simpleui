@@ -570,17 +570,17 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
         this._refreshRate = Math.max(this._refreshRate, 1000); // Don't allow a refreshRate < 1000 ms
 
-        this.doUpdate(0)
+        //this.doUpdate(0)
 
-        // const updateTimer = interval(this._refreshRate);
+        const updateTimer = interval(this._refreshRate);
 
-        // this._updateSubscription = updateTimer.subscribe(
-        //     cycle => {
-        //         this.doUpdate(cycle);
-        //     },
-        //     err => {
-        //         console.error(`Error in initTabDataUpdates() ajax subscribe callback.`, err);
-        //     });
+        this._updateSubscription = updateTimer.subscribe(
+            cycle => {
+                this.doUpdate(cycle);
+            },
+            err => {
+                console.error(`Error in initTabDataUpdates() ajax subscribe callback.`, err);
+            });
     }
 
     /**
@@ -725,64 +725,64 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                     timeout:  2 * 1_000  //parseInt(this.getProp('ajaxTimeout', '5001'), 10)
                 };
 
-                of(ajaxRequest.url).pipe(
-                    concatMap((request: any) => this.http.get(request).pipe(
-                        timeout(ajaxRequest.timeout)
-                    )),
-                    repeatWhen((pause) => {
-                        return pause.pipe(
-                            delay(this._refreshRate),
-                            takeWhile(() => this._tBarProps._serverStatus !== 'updates paused'), // AppComponent._updatesSuspended
-                            concatMap((err) => {
-                                if (err instanceof Error) {
-                                    if (err.name === "TimeoutError") {
-                                        console.error(`Timeout of request (of)`, err);
-                                    } else {
-                                        console.error(`of request error`, err);
-                                    }
-                                    return timer(0); // stop
-                                } else {
-                                    return timer();
-                                }
-                            })
-                        );
-                    })
-                ).subscribe(
-                    (res) => {
-                        if (res) {
-                            tab._pendingRequestExpiration = 0;
-                            this.onTabDataUpdate(tab, res);
-                        } else {
-                            console.warn("got odd response: ", res)
-                        }
-                    },
-                    (err) => {
-                        if (err instanceof Error && err.name === "TimeoutError") {
-                            console.error(`Timeout of request (sub)`, err)
-                        }
-                    }
-                )
-
-                // const remoteData$ = ajax(ajaxRequest);
-                // remoteData$.subscribe(
-                //     res => {
-                //         if (res.status === 200 && typeof res.response === 'object' && (null !== res.response)) {
-                //             tab._pendingRequestExpiration = 0; // Cancel wait
-                //             this.onTabDataUpdate(tab, res.response);
-                //             //console.log('requested data...')
+                // of(ajaxRequest.url).pipe(
+                //     concatMap((request: any) => this.http.get(request).pipe(
+                //         timeout(ajaxRequest.timeout)
+                //     )),
+                //     repeatWhen((pause) => {
+                //         return pause.pipe(
+                //             delay(this._refreshRate),
+                //             takeWhile(() => this._tBarProps._serverStatus !== 'updates paused'), // AppComponent._updatesSuspended
+                //             concatMap((err) => {
+                //                 if (err instanceof Error) {
+                //                     if (err.name === "TimeoutError") {
+                //                         console.error(`Timeout of request (of)`, err);
+                //                     } else {
+                //                         console.error(`of request error`, err);
+                //                     }
+                //                     return timer(0); // stop
+                //                 } else {
+                //                     return timer();
+                //                 }
+                //             })
+                //         );
+                //     })
+                // ).subscribe(
+                //     (res) => {
+                //         if (res) {
+                //             tab._pendingRequestExpiration = 0;
+                //             this.onTabDataUpdate(tab, res);
                 //         } else {
-                //             console.warn(`Got odd response:`, res);
+                //             console.warn("got odd response: ", res)
                 //         }
                 //     },
-                //     err => {
-                //         console.log(`Error in getRemoteTabData() ajax subscribe callback.`);
-                //         try {
-                //             console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
-                //         } catch (err1) {
-                //             console.log('error logging ajax error in getRemoteTabData()');
+                //     (err) => {
+                //         if (err instanceof Error && err.name === "TimeoutError") {
+                //             console.error(`Timeout of request (sub)`, err)
                 //         }
                 //     }
-                // );
+                // )
+
+                const remoteData$ = ajax(ajaxRequest);
+                remoteData$.subscribe(
+                    res => {
+                        if (res.status === 200 && typeof res.response === 'object' && (null !== res.response)) {
+                            tab._pendingRequestExpiration = 0; // Cancel wait
+                            this.onTabDataUpdate(tab, res.response);
+                            //console.log('requested data...')
+                        } else {
+                            console.warn(`Got odd response:`, res);
+                        }
+                    },
+                    err => {
+                        console.log(`Error in getRemoteTabData() ajax subscribe callback.`);
+                        try {
+                            console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
+                        } catch (err1) {
+                            console.log('error logging ajax error in getRemoteTabData()');
+                        }
+                    }
+                );
                 }
 
 
