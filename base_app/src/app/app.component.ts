@@ -723,7 +723,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                             this.onTabDataUpdate(tab, res.response);
                             //console.log('requested data...')
                         } else {
-                            console.warn(`Got odd response: ${res.response}`);
+                            console.warn(`Got odd response:`, res);
                         }
                     },
                     err => {
@@ -754,8 +754,10 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             this._detectChanges = {'name': tab.name, 'value': true};
             this.updateData(tab, response['Overlay_Summary']);
             ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');
-
+        } else if (response['ZMQ_error']) {
+            document.title = "ZACK!!!"
         } else {
+            console.warn(response)
             ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed with error (EMPTY RESPONSE).');
         }
     }

@@ -5,7 +5,7 @@ import {Logger, LogLevel} from './server-logger';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
 import { SimpleUIServer } from './simpleui-server';
-import { zmq_wrapper } from './sui_zmq';
+import { zmq_wrapper, ZMQ_Connection_Status } from './sui_zmq';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as fastXmlParser from 'fast-xml-parser';
@@ -245,6 +245,11 @@ export class SuiData {
             SuiData.zmqMap.add_socket(zmq_port);
             socket = SuiData.zmqMap.get(zmq_port);
             Logger.log(LogLevel.INFO, `No socket for ZMQ socket with port ${zmq_port}, created new socket`);
+        }
+
+        if (socket.connection_status !== ZMQ_Connection_Status.CONNECTED) {
+            res.status(200).json({"ZMQ_error": "reconnecting"});
+            return;
         }
 
 

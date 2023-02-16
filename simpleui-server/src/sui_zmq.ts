@@ -16,7 +16,7 @@ import { SuiData } from './sui_data';
 import { Queue } from './queue';
 
 
-enum ZMQ_Connection_Status {
+export enum ZMQ_Connection_Status {
     CONNECTED = "connected",
     RETRY_CONNECTING = "reconnecting",                  // ZMQ_RCVTIMEO ended, attempt to reconnect
     DELAY_CONNECTING = "Waiting for a response",        // waiting for response for ZMQ_RCVTIMEO amount of time
