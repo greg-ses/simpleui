@@ -248,6 +248,7 @@ export class SuiData {
         }
 
         if (socket.connection_status !== ZMQ_Connection_Status.CONNECTED) {
+            console.log('bounced request')
             res.status(200).json({"ZMQ_error": "reconnecting"});
             return;
         }
