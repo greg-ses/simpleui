@@ -722,7 +722,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                     url: `${AppComponent.getDataTabPath(tab.dataUrl, tab.index, tab_hash, serverSideJsDebugging)}`,
                     withCredentials: true,
                     crossDomain: true,
-                    timeout:  120 * 1_000  //parseInt(this.getProp('ajaxTimeout', '5001'), 10)
+                    timeout:  5_000  //parseInt(this.getProp('ajaxTimeout', '5001'), 10)
                 };
 
                 // of(ajaxRequest.url).pipe(
