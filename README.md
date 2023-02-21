@@ -25,10 +25,10 @@ back to the front end.
 - start the dev enviroment `bash run-dev-env.bash`
     - This might take a while since it will download the `node_modules` for `base_app` and `simpleui-server`
 ## Production installation
-We use ansible to deploy to production. Make sure that your ansible `yml` file is pointing to the correct simpleui docker url
+We use ansible to deploy to production. Make sure that your ansible `yml` file is pointing to the correct release URL. If you are not sure, check out [Releases](https://github.com/greg-ses/simpleui/releases) for prod builds or [Packages](https://github.com/greg-ses/simpleui/pkgs/container/simpleui) for dev builds
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.Please make sure to update tests as appropriate.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Please make sure to update tests as appropriate.
 
 ## Credits
 
