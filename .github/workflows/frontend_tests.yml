@@ -1,4 +1,4 @@
-name: CI Frontend Unit Tests
+name: Frontend Unit Tests
 
 on: [push]
 
