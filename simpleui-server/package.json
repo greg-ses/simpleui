@@ -16,7 +16,8 @@
     "test-all": "bash -x test/script/run-all-tests.bash",
     "unit-test-normalize-json": "bash test/script/unit-test.normalize-json.bash",
     "unit-test-simpleui-server": "bash -x test/script/unit-test.simpleui-server.bash",
-    "test": "jest"
+    "test": "jest",
+    "lint": "tslint -c tslint.json './src/**/*.ts' -e './node_modules/' -e './dist/*' ."
   },
   "private": true,
   "dependencies": {
