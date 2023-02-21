@@ -51,7 +51,10 @@ describe('Queue class testing', () => {
         expect(test_queue.elements).toEqual([0,0,0]);
     });
 
-    it.todo('should read the front of the queue and get the oldest item');
+    it('should read the front of the queue and get the oldest item', () => {
+        test_queue.elements = [0,1,2,3,4];
+        expect(test_queue.elements[0]).toEqual(0);
+    });
 
     it.todo('should read the back of the queue and get the most recent item');
 });
