@@ -32,7 +32,7 @@ back to the front end.
 
 ## Production installation
 
-We use ansible to deploy to production. Make sure that your ansible `yml` file is pointing to the correct release URL. If you are not sure, check out [Releases](https://github.com/greg-ses/simpleui/releases) for prod builds or [Packages](https://github.com/greg-ses/simpleui/pkgs/container/simpleui) for dev builds
+We use ansible to deploy to production. Make sure that your ansible `yml` file is pointing to the correct release URL. If you are not sure, check out [Releases](https://github.com/greg-ses/simpleui/releases) for prod builds or [Packages](https://github.com/greg-ses/simpleui/pkgs/container/simpleui) for dev builds. You can make a local version of the prod image by running `docker build -t <YOUR_IMAGE_NAME> .` in the root folder of this project
 
 ## Testing
 
