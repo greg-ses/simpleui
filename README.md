@@ -4,8 +4,6 @@
 ![Docker image](https://github.com/greg-ses/simpleui/actions/workflows/dockerimage.yml/badge.svg)
 
 
-
-
 # Simple UI
 
 Simple UI is a real-time display framework using `Angular 14` for the front end display
@@ -30,16 +28,26 @@ back to the front end.
 - start the dev enviroment `bash run-dev-env.bash`
     - This might take a while since it will download the `node_modules` for `base_app` and `simpleui-server`
 
+
 ## Production installation
 
 We use ansible to deploy to production. Make sure that your ansible `yml` file is pointing to the correct release URL. If you are not sure, check out [Releases](https://github.com/greg-ses/simpleui/releases) for prod builds or [Packages](https://github.com/greg-ses/simpleui/pkgs/container/simpleui) for dev builds. You can make a local version of the prod image by running `docker build -t <YOUR_IMAGE_NAME> .` in the root folder of this project
 
+
 ## Testing
 
-- start the dev enviroment and enter the docker container
+- Start the dev enviroment and enter the docker container
 - For frontend unit testing, run `ng test` in the `base_app` folder
 - For backend unit testing, run `npm run test` in the `simpleui-server` folder
 - E2E testing is coming soon
+
+
+## Linting
+- Start the dev enviroment and enter the docker container
+- For frontend linting, run `ng lint` in the `base_app` folder
+- For backend linting, run `npm run lint` in the `simpleui-server` folder
+
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Please make sure to update tests as appropriate.
