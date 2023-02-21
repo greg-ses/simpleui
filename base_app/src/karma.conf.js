@@ -1,6 +1,13 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
+/**
+ **********************  NOTICE  **********************
+ *
+ * autoWatch, singleRun, and restartOnFileChanfe should all be false for ci to work
+ *
+ ******************************************************
+ */
 
 
 module.exports = function (config) {
