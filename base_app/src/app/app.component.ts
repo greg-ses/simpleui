@@ -739,6 +739,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     }
 
     onTabDataUpdate(tab: TabUI, response: any) {
+        this.updateToggleButton()
         if (typeof response === 'object'
                 && typeof response['Data_Summary'] === 'object'
                 && typeof response['Data_Summary']['status'] === 'string'
@@ -759,8 +760,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             toggleButton.innerText = "";
             toggleButton.className = "indicatorReconnecting";
             this._tBarProps._serverStatus = "Server reconnecting";
-            this._tBarProps._updateTime = "Reconnecting to server";
-
         } else {
             console.warn(`onTabDataUpdate() got data that isnt DataSummary or OverlaySummary`, response);
             ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed with error (EMPTY RESPONSE).');
