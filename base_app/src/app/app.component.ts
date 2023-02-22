@@ -739,7 +739,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     }
 
     onTabDataUpdate(tab: TabUI, response: any) {
-        this.updateToggleButton()
         if (typeof response === 'object'
                 && typeof response['Data_Summary'] === 'object'
                 && typeof response['Data_Summary']['status'] === 'string'
