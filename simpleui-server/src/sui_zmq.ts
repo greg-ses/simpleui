@@ -90,6 +90,7 @@ export class ZMQ_Socket_Wrapper {
                 }
             }, this.watchdog_interval);
 
+
             this.http_queue.events.on('item_added', () => {
                 // read the most recent item
                 let [_, req] = this.http_queue.elements[0];
@@ -119,13 +120,12 @@ export class ZMQ_Socket_Wrapper {
                     );
                 }
                 // send request
-                console.log('Got HTTP GET Request!')
                 this.messages_sent = this.messages_sent + 1;
                 this.socket.send(zmq_request_packet);
             });
 
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not create ZMQ socket at port ${this.port} got error: ${err}`);
+            Logger.log(LogLevel.ERROR, `Could not create ZMQ socket at ${this.remote_address} got error: ${err}`);
         }
 
     }
@@ -133,7 +133,6 @@ export class ZMQ_Socket_Wrapper {
 
     connect() {
         try {
-            Logger.log(LogLevel.VERBOSE, `ZMQ connecting to ${this.remote_address}`);
             this.socket.connect(this.remote_address);
         } catch (e) {
             Logger.log(LogLevel.ERROR, `Could not connect to ${this.remote_address} Got error: ${e}`);
@@ -144,14 +143,19 @@ export class ZMQ_Socket_Wrapper {
         try {
             this.socket.send(msg);
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not send zmq message:\n${msg} got error: ${err}`);
+            Logger.log(LogLevel.ERROR, `ZMQ socket ${this.remote_address} could not send zmq message: ${msg} got error: ${err}`);
         }
     }
 
     close() {
         if (this?.socket?.closed === false) {
-            this.socket.unmonitor();
-            this.socket.close();
+            try {
+                this.socket.unmonitor();
+                this.socket.close();
+            } catch (err) {
+                Logger.log(LogLevel.ERROR, `Could not close ${this.remote_address}, got error: ${err}`);
+            }
+
         }
     }
 
@@ -171,9 +175,8 @@ export class ZMQ_Socket_Wrapper {
             this.socket.on('disconnect', (data: any) => {
                 this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
             });
-
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not add connection listeners on port ${this.port} got error: ${err}`);
+            Logger.log(LogLevel.ERROR, `Could not add connection listeners to ${this.remote_address} got error: ${err}`);
         }
     }
 
@@ -184,11 +187,11 @@ export class ZMQ_Socket_Wrapper {
                 const raw_zmq_data = msg.toString();
                 const zmq_data = SuiData.addXmlStatus(raw_zmq_data);
 
-                Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at port ${this.port}: ${zmq_data.substring(0, 16)}`);
+                Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at ${this.remote_address}: ${zmq_data.substring(0, 16)}`);
                 // get response + request from queue
                 let [res, req] = this.http_queue.dequeue();
                 if (typeof res === "string") {
-                    console.log('No more items in the HTTP queue to send to the client, returning...');
+                    Logger.log(LogLevel.DEBUG, `No more items in HTTP queue of ${this.remote_address} to send, returning...`);
                     return
                 }
                 // send response
@@ -197,7 +200,7 @@ export class ZMQ_Socket_Wrapper {
 
             this.socket.on('error', (zmqErr) => {
                 const zmq_data = ServerUtil.getServerError('ZMQ_ERROR', '{{ERROR}}', zmqErr);
-                Logger.log(LogLevel.ERROR, `ZMQ socket at port ${this.port} got error: ${zmqErr}`);
+                Logger.log(LogLevel.ERROR, `ZMQ socket ${this.remote_address} got error: ${zmqErr}`);
                 // get response + request from queue
                 let [res, req] = this.http_queue.dequeue();
                 // send response
@@ -205,19 +208,19 @@ export class ZMQ_Socket_Wrapper {
             });
 
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not add messaging listeners on port ${this.port} got error: ${err}`);
+            Logger.log(LogLevel.ERROR, `Could not add messaging listeners on port ${this.remote_address} got error: ${err}`);
         }
     }
 
     recreate_socket() {
-        Logger.log(LogLevel.INFO, `Recreating ${this.hostname}:${this.port}`);
+        Logger.log(LogLevel.INFO, `Recreating ${this.remote_address}`);
         try {
 
             // clear http queue
             while (!this.http_queue.isEmpty()) {
                 let [_res, _req] = this.http_queue.dequeue();
-                console.log('======== clearing http queue', _res.headersSent, _res.writableEnded)
-                _res.status(269).json({"error": "shit broke"})
+                Logger.log(LogLevel.DEBUG, `Clearing HTTP queue of ${this.remote_address}`);
+                _res.status(200).json({"ZMQ_error": "flushing_queue"});
             }
 
             this.socket.close();
@@ -240,7 +243,7 @@ export class ZMQ_Socket_Wrapper {
             this.add_connection_listeners();
             this.add_messaging_listeners();
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not recreate ${this.hostname}:${this.port}, got error ${err}`);
+            Logger.log(LogLevel.ERROR, `Could not recreate ${this.remote_address}, got error ${err}`);
         }
     }
 }

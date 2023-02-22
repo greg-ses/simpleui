@@ -69,3 +69,17 @@
     -webkit-border-radius:20px;
     -moz-border-radius:20px;
 }
+
+.indicatorReconnecting {
+    background-color: yellow;
+    position: relative;
+    top: 0;
+    right: 0;
+    border: 3px solid #000;
+    height:40px;
+    width: 40px;
+    font-family: Tahoma, sans-serif;
+    font-size: 8px;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+}

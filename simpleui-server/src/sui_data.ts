@@ -11,25 +11,6 @@ import * as path from 'path';
 import * as fastXmlParser from 'fast-xml-parser';
 import * as he from 'he';
 
-/**
-
-[Unit]
-Description=Simpleui
-Requires=bms.lce.service
-After=bms.lce.service
-
-[Service]
-ExecStart=/path/to/Simpleui/start
-ExecStop=/path/to/Simpleui/stop
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-
- *
- *
- *
- */
 
 
 export interface UiPropStubs {
@@ -163,13 +144,7 @@ export class SuiData {
                         sJson = JSON.stringify(json);
                     }
                 }
-                console.log(`SENT HTTP RESPONSE!!!!!!!!!!!!
-                Finished: ${res.writableEnded}
-                Headers Sent: ${res.headersSent}
-                sJson length: ${sJson.length}
-                Headers:
-                ${JSON.stringify(res.getHeaders())}
-                `);
+                Logger.log(LogLevel.DEBUG, `Sending HTTP response`);
                 res.send(sJson);
             }
         } catch (err) {
@@ -263,7 +238,6 @@ export class SuiData {
         }
 
         if (socket.connection_status !== ZMQ_Connection_Status.CONNECTED) {
-            console.log('bounced request')
             res.status(200).json({"ZMQ_error": "reconnecting"});
             return;
         }
