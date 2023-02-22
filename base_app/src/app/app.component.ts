@@ -757,7 +757,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');
         } else if (response['ZMQ_error']) {
             const toggleButton = document.getElementById('dbPulse');
-            toggleButton.innerText = "";
             toggleButton.className = "indicatorReconnecting";
             this._tBarProps._serverStatus = "Server reconnecting";
         } else {
