@@ -15,11 +15,7 @@ import {UTIL} from '../tools/utility';
     styleUrls: ['./app.component.css']
 })
 
-/*
- * AppComponent communications with children:
- * 1. AppComponent listens for events sent from AppTabComponent
- * 2. AppComponent _tBarProps is an @Input to AppTitleBarComponent
- */
+
 
 export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     static _updatesSuspended = false;
@@ -51,14 +47,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _propsSubscriptionState = SubscriptionState.Idle;
     _isDevMode = (document.location.port == "4200" ? true : false);
 
-    /*
-        // appOptions is normally hidden - can be enabled for development
-        _appOptionsVisible = false;
-        _appOptions = [
-            { name: 'mouseDownSuspendsUpdates', description: 'Mouse Down Suspends Updates', value: true},
-            { name: 'trackMouseClicks', description: 'Track Mouse Clicks', value: false}
-        ];
-    */
+
     _detectChanges: { 'name': string, 'value': boolean };
 
     @ViewChild('_tabGroup', {static: false}) _tabGroup !: MatTabGroup;
@@ -180,7 +169,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     }
 
     static resizeTabScrollRegion() {
-        //console.log('called AppComponent.resizeTabScrollRegion');
         const actualScrollElement = AppComponent.getActualScrollElement();
         if (actualScrollElement) {
             actualScrollElement.style.width = window.innerWidth + 'px';
@@ -199,8 +187,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                             const tabIndex = pattern[1];
                             sessionStorage[`tab${tabIndex}ScrollTop`] = targetElement.scrollTop;
                             sessionStorage[`tab${tabIndex}ScrollLeft`] = targetElement.scrollLeft;
-                            // console.log(`onscroll - tab: ${tabIndex},
-                            //     scrollTop: ${targetElement.scrollTop}, scrollLeft: ${targetElement.scrollLeft}`);
                         }
                     } catch (e) {
                         // Do nothing
@@ -258,7 +244,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             this._selectedTabIndex = 0;
         }
 
-        // do something with the 'scrolling region' of the tab
         if (Number(sessionStorage.selectedTab) === this._tabGroup.selectedIndex) {
             setTimeout(() => this.configureTabBar(), 1);
             AppComponent.doResizeTabScrollRegion({}, 10);
@@ -492,17 +477,11 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                     }
 
                     if (i === this._selectedTabIndex) {
-                        // console.log('matTabHeader.children[' + i + '].tagName:', child.tagName, '.className:', child.className);
-
                         tabLabel['style'].color = 'wheat';
                         tabLabel['style'].backgroundColor = '#673AB7';
                     } else if (tabLabel.tagName === 'MD-INK-BAR') {
-                        // console.log('tabLabel.tagName:', tabLabel.tagName);
-
                         tabLabel['style'].display = 'none';
                     } else {
-                        // console.log('tabLabel.tagName:', tabLabel.tagName, '.className:', tabLabel.className);
-
                         tabLabel['style'].color = '#B4B7BA';
                         tabLabel['style'].backgroundColor = '#ECF2F9';
                     }
@@ -721,7 +700,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                         if (res.status === 200 && typeof res.response === 'object' && (null !== res.response)) {
                             tab._pendingRequestExpiration = 0; // Cancel wait
                             this.onTabDataUpdate(tab, res.response);
-                            //console.log('requested data...')
                         } else {
                             console.warn(`Got odd response: ${res.response}`);
                         }
