@@ -194,6 +194,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     @Output() onUpdateModelOfChildDataSet(evt: any) {
+        // TODO: Check if this is needed since we don't do incremental updates anymore
         if (this._props.tab[evt.uiTab.index]._DataSummary['Section'][evt.sectionIdx]['DataSets'][evt.dataSetsIdx] !== evt.newChildData) {
             this._props.tab[evt.uiTab.index]._DataSummary['Section'][evt.sectionIdx]['DataSets'][evt.dataSetsIdx] = evt.newChildData;
         } else {
@@ -256,30 +257,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         return this._globalProps;
     }
 
-    displayBrokenCommsDialog() {
-        // this._errorPopup
-        /*
-        <mat-tab *ngIf="(!_props || !_props['uiProp'])">
-            <ng-template mat-tab-label>Stalled Communications</ng-template>
-        <div class="tabScrollRegion">
-        <div class="tabBody">
-        <div [className]="_props['appTheme'].name">
-        <div style="width:100%; padding:50px">
-            <br>Waiting to receive properties from: <a [href]="propsURL">{{_propsURL}}</a>
-        <br>&nbsp;
-        <br>On host <b>{{ getWindowLocationField('hostname') }}</b>, execute the command:
-        <pre>sudo systemctl status {{ getServiceName('-web') }}</pre>
-        If necessary, execute this command to restart the service:
-            <pre>sudo systemctl restart {{ getServiceName('-web') }}</pre>
-        Once the service is running, refresh this page.
-        </div>
-        </div>
-        </div>
-        </div>
-        </mat-tab>
-        */
-    }
-
     getCssToJsonURL(tab): string {
         let overlayNum = 1;
         const overlayImageUrl = tab['overlayImageUrl'];
@@ -335,42 +312,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
         // event.preventDefault();
         // event.stopPropagation();
-    }
-
-    onMoveElement(event: MouseEvent) {
-        if (event) {
-            if (event.ctrlKey && event.shiftKey) {
-                // CTRL-SHIFT-CLICK
-            } else if (event.ctrlKey && event.altKey) {
-                // CTRL-ALT-CLICK
-            } else if (event.shiftKey && event.altKey) {
-                // SHIFT-ALT-CLICK
-            } else {
-                const container = document.getElementById('unimplementedOverlaysContainer');
-                const newPos = window.prompt(
-                    'Enter the new TOP,LEFT for unimplementedOverlaysContainer',
-                    `${parseInt(getComputedStyle(container)['top'], 10)}, ${parseInt(getComputedStyle(container)['left'], 10)}`);
-                const arr = newPos.split(',');
-                if (arr.length === 2) {
-                    container.style.top = `${arr[0]}px`;
-                    container.style.left = `${arr[1]}px`;
-                }
-            }
-            event.preventDefault();
-        }
-    }
-
-    onEditUIElements(event) {
-        if (event) {
-            /*
-                if (event.ctrlKey && event.shiftKey) {
-                    window['editUiPanel'] = new AppEditUiPanelComponent();
-                    setTimeout(() => window['editUiPanel'].create(), 1000);
-                } else if (event.shiftKey) {
-                    AppComponent.turnOffAnimatedGifs();
-                }
-           */
-            }
     }
 
     getWindowLocationField(fieldName) {
@@ -600,8 +541,8 @@ export class AppComponent implements OnInit, AfterViewInit {
                     }
                 }
             }
-        } catch (e) {
-            console.error(`updateMinColWidths got error ${e}`);
+        } catch (err) {
+            console.error(`updateMinColWidths got error`, err);
         }
     }
 
@@ -672,12 +613,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                         }
                     },
                     err => {
-                        console.log(`Error in getRemoteTabData() ajax subscribe callback.`);
-                        try {
-                            console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
-                        } catch (err1) {
-                            console.log('error logging ajax error in getRemoteTabData()');
-                        }
+                        console.error(`Error in getRemoteTabData() ajax subscribe callback.`, err, err?.name, err?.message, err?.request?.url);
                     });
             }
         }
