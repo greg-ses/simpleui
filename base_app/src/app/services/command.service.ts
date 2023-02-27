@@ -15,8 +15,6 @@ import {TabUI} from '../interfaces/props-data';
 
 
 
-// import { ClientLogger } from '../../tools/logger';
-
 @Injectable()
 export class CommandService {
     _response: string;

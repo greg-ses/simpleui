@@ -1,7 +1,6 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogActions } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ClientLogger } from '../../tools/logger' ;
 
 @Component({
     selector: 'app-material-popup',
@@ -15,26 +14,6 @@ export class MaterialPopupComponent implements OnInit {
     cmd: string;
     noControls: boolean;
     commandData: any;
-    /*
-    mockControls = [
-        {name: 'Boolean Example 1',  id: '1001', desc: 'Sample Boolean Field 1', type: 'boolean'},
-        {name: 'Boolean Example 2',  id: '1002', desc: 'Sample Boolean Field 2', type: 'boolean'},
-
-        {name: 'Date Example 1',    id: '1003', desc: 'Sample Date Field 1', type: 'date'},
-        {name: 'Date Example 2',    id: '1004', desc: 'Sample Date Field 2', type: 'date'},
-
-        {name: 'Dropdown Example 1', id: '1005', desc: 'Sample Dropdown Field 1', type: 'dropdown',
-            choices: ['Choice 1', 'Choice 2', 'Choice 3']},
-        {name: 'Dropdown Example 2', id: '1006', desc: 'Sample Dropdown Field 2', type: 'dropdown',
-            choices: ['Choice 1', 'Choice 2', 'Choice 3']},
-
-        {name: 'Float Example 1',    id: '1007', desc: 'Sample Float Field 1', type: 'float'},
-        {name: 'Float Example 2',    id: '1008', desc: 'Sample Float Field 2', type: 'float'},
-
-        {name: 'Text Example 1',     id: '1009', desc: 'Sample Text Field 1', type: 'text'},
-        {name: 'Text Example 2',     id: '1010', desc: 'Sample Text Field 2', type: 'text'}
-    ];
-    */
 
 
     @HostListener('keypress', ['$event'])
@@ -82,7 +61,6 @@ export class MaterialPopupComponent implements OnInit {
         {
             controls = commandData.element.command.controls;
         }
-        ClientLogger.log('CommandButtonComponentDetails', `getControls(commandData): ${controls}`);
         return controls;
     }
 
@@ -175,7 +153,6 @@ export class MaterialPopupComponent implements OnInit {
         if (typeof this.commandData.element.command[fieldName] === 'string') {
             value = this.commandData.element.command[fieldName];
         }
-        ClientLogger.log('CommandButtonComponentDetails', `getCommandField('${fieldName}'): ${value}`);
         return value;
     }
 }

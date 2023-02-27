@@ -12,7 +12,6 @@ import {CommandService} from '../services/command.service';
 import {CommandButtonChangeService} from '../services/command-button-change.service';
 import {Subscription} from 'rxjs';
 import {HttpClientModule} from '@angular/common/http';
-import {ClientLogger} from '../../tools/logger';
 import {UTIL} from '../../tools/utility';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import {MaterialPopupComponent} from '../cmdsets/material-popup-component';
@@ -89,10 +88,6 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
                 anyChange = true;
                 break;
             }
-        }
-        if (anyChange) {
-            ClientLogger.log('CommandButtonChangeDetection',
-                'anyChange is true', true);
         }
     }
 
@@ -379,12 +374,6 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
                             }
                         }
                         json['cmd']['values'][key] = valueInstance;
-                        /* Not needed.
-                        if (   (typeof json['cmd']['values'][key]['dest'] === 'undefined')
-                            && (typeof this._element.command['dest'] !== 'undefined') ) {
-                            json['cmd']['values'][key]['dest'] = this._element.command['dest'];
-                        }
-                        */
                         break;
                     }
                 }
@@ -589,12 +578,6 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
             console.log('Error "' + e + '" in isChanged()');
             propChanged = true;
         }
-
-        if (propChanged) {
-            ClientLogger.log('CommandButtonChangeDetection',
-                'isChanged(propName: ' + (typeof propName === 'string' ? propName : 'unknown'), true);
-        }
-
         return propChanged;
     }
 

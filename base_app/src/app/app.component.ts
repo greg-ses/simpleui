@@ -3,7 +3,6 @@ import {AppProperties, SubscriptionState, TabUI, TitleBarProperties} from './int
 import {ajax} from 'rxjs/ajax';
 import {MatTabChangeEvent, MatTabGroup} from '@angular/material/tabs';
 import {interval} from 'rxjs';
-import {ClientLogger, LogLevel} from '../tools/logger';
 import {DataSummary} from './interfaces/data-summary';
 import {UTIL} from '../tools/utility';
 
@@ -22,7 +21,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     static _trackClicks = false;
     static _mouseDownSuspendsUpdates = false;
     static _minutesBeforeAutoPageReload_Default = 90; // Time until the page auto-refreshes, doing automatic garbage collection
-    static _logLevel = LogLevel.CRITICAL;
 
     @Output() selectedTabChange = new EventEmitter<MatTabChangeEvent>();
 
@@ -329,7 +327,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 AppComponent._mouseDownSuspendsUpdates = window.confirm('Suspend data/GUI updates on MOUSEDOWN?');
             } else if (event.shiftKey && event.altKey) {
                 // SHIFT-ALT-CLICK
-                ClientLogger.initialize();
                 window['setLoggingFeatures']();
             } else if (event.shiftKey && !selectedTab._autoRefreshEnabled) {
                 // SHIFT-CLICK with updates paused
@@ -396,13 +393,11 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
         if (this._props && this._props.initialized) {
             // already have properties - don't fetch again
-            console.log('Using cached _props');
+            console.debug('Using cached _props');
             return;
         }
 
-        if (AppComponent._logLevel >= LogLevel.VERBOSE) {
-            console.log(`AppComponent.getProps(${uiProp} initializing...`);
-        }
+        console.debug(`AppComponent.getProps(${uiProp} initializing...`);
 
         const ajaxRequest = {
             url: this._propsURL,
@@ -579,12 +574,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         try {
             const dsHeads = document.getElementsByClassName('dataSetSizerHead');
             const dsBodies = document.getElementsByClassName('dataSetSizerBody');
-
-
-            if (AppComponent._logLevel >= LogLevel.VERBOSE) {
-                console.log(`Called AppComponent.updateMinColWidths(${tab.name}`);
-            }
-
             if ((dsHeads.length > 0) && (dsHeads.length === dsBodies.length)) {
 
                 for (let i = 0; i < dsHeads.length; i++) {
@@ -724,17 +713,11 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
             this._detectChanges = {'name': tab.name, 'value': true};
             this.updateData(tab, response['Data_Summary']);
-            ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');
 
-        } else if (typeof response === 'object'
-            && typeof response['Overlay_Summary'] === 'object') {
+        } else if (typeof response === 'object' && typeof response['Overlay_Summary'] === 'object') {
 
             this._detectChanges = {'name': tab.name, 'value': true};
             this.updateData(tab, response['Overlay_Summary']);
-            ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');
-
-        } else {
-            ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed with error (EMPTY RESPONSE).');
         }
     }
 

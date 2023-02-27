@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { DataSetChangeService } from '../services/dataset-change.service';
 import {HttpClientModule} from '@angular/common/http';
-import {ClientLogger} from '../../tools/logger';
 import {UiObjList} from '../interfaces/ui-obj-list';
 import {SiteIndex} from '../interfaces/site-index';
 
@@ -139,9 +138,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     }
 
     getImplementedOverlays(nthOverlay): any {
-
-        ClientLogger.log('LogOverlayList', 'getImplementedOverlays(nthOverlay)');
-
         const ajaxRequest = {
             url: `${this._cssToJsonURL}`,
             withCredentials: true,
@@ -168,9 +164,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
                 console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
             } catch (err1) { }
         });
-
-        ClientLogger.log('LogOverlayList',
-            (typeof this._implementedOverlays === 'undefined') ? 'undefined' : this._implementedOverlays.toString());
     }
 
     onImplementedOverlaysUpdate(cssElements: any) {
@@ -180,9 +173,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
                 this._implementedOverlays[key] = cssElements[key];
             }
         }
-        ClientLogger.log('LogOverlayListAll',
-            'onImplementedOverlaysUpdate() - count _implementedOverlays: '
-                  + Object.keys(this._implementedOverlays).length);
     }
 
     normalizeSection(sectionName: string, sectionLabel: string, sortIt?: boolean) {

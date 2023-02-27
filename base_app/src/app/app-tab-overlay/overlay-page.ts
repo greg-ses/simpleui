@@ -1,9 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Optional, Output, AfterViewChecked, ViewChild, ElementRef, NgZone} from '@angular/core';
 import {DataSummary} from '../interfaces/data-summary';
-import {ClientLogger} from '../../tools/logger';
 import {OverlayType} from './overlay-type';
 import {SiteIndex} from '../interfaces/site-index';
-// import { CssUpdateService } from '../services/css-update-service';
 import {AppComponent} from '../app.component';
 import {UTIL} from '../../tools/utility';
 
@@ -78,10 +76,6 @@ export class OverlayPageComponent {
         @Optional() public app: AppComponent
     ) {    }
 
-
-    // _dataRefreshed: boolean = (typeof this._DataSummary.DerivedSummary === 'UiObjList') &&
-    //          (this._DataSummary.DerivedSummary.elements.length > 0);
-    //
 
     isDesignEnabled(): boolean {
         return (this.app._props && this.app._props['mode'] && this.app._props['mode'] === 'design');
@@ -246,14 +240,9 @@ export class OverlayPageComponent {
                 }
             }
         }
-
         if (this.isDesignEnabled()) {
             OverlayPageComponent.writeOverlayDebugInfo(overlayGroupName, this.elemListToIdList(elemList), overlayType);
         }
-
-        // ClientLogger.log('LogOverlayList', 'getGroupMemberIds (' + overlayType + ", " + Object.keys(elemList).length + ') for group "'
-        //     + overlayGroupName + '": [' + idList + ']');
-
         return elemList;
     }
 
@@ -286,15 +275,11 @@ export class OverlayPageComponent {
     // ----------------------
     get_implemented_dyns_in_group(overlayGroupName: string): any {
         const elemList = this.getGroupMembers(OverlayType.ImplementedDyns, overlayGroupName, 'dyn');
-        // ClientLogger.log('LogOverlayList', 'ImplementedOverlayElementIDs (' + Object.keys(elemList).length + ') for group "'
-        //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
         return elemList;
     }
 
     get_un_implemented_dyns_in_group(overlayGroupName: string): any {
         const elemList = this.getGroupMembers(OverlayType.UnImplementedDyns, overlayGroupName, 'dyn');
-        // ClientLogger.log('LogOverlayList', 'UnImplementedOverlayElementIDs (' + Object.keys(elemList).length + ') for group "'
-        //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
         return elemList;
     }
 
@@ -302,14 +287,9 @@ export class OverlayPageComponent {
     // ----------------------
     get_implemented_commands_in_group(overlayGroupName: string): any {
         const elemList = this.getGroupMembers(OverlayType.ImplementedCommands, overlayGroupName, 'command');
-
-        // ClientLogger.log('LogOverlayList_commands', 'ImplementedCommands (' + Object.keys(elemList).length + ') for group "'
-        //     + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
-
         if (!this.isArray(this._commandList[overlayGroupName])) {
             this._commandList[overlayGroupName] = [];
         }
-
         if (elemList.length !== this._commandList[overlayGroupName].length) {
             this._commandList[overlayGroupName] = UTIL.deepCopy(elemList);
         } else {
@@ -324,21 +304,15 @@ export class OverlayPageComponent {
 
     get_un_implemented_commands_in_group(overlayGroupName: string): any {
         const elemList = this.getGroupMembers(OverlayType.UnImplementedCommands, overlayGroupName, 'command');
-        ClientLogger.log('LogOverlayList_commands', 'UnImplementedCommands (' + Object.keys(elemList).length + ') for group "'
-            + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
         return elemList;
     }
 
     // ----------------------
     get_implemented_images_in_group(overlayGroupName: string): any {
         const elemList = this.getGroupMembers(OverlayType.ImplementedImages, overlayGroupName, 'img');
-        // ClientLogger.log('LogOverlayList', 'ImplementedDataTableIDs (' + Object.keys(elemList).length + ') for group "'
-        //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
-
         if (!this.isArray(this._imageList[overlayGroupName])) {
             this._imageList[overlayGroupName] = [];
         }
-
         if (elemList.length !== this._imageList[overlayGroupName].length) {
             this._imageList[overlayGroupName] = UTIL.deepCopy(elemList);
         } else {
@@ -354,16 +328,11 @@ export class OverlayPageComponent {
 
     get_un_implemented_images_in_group(overlayGroupName: string): any {
         const elemList = this.getGroupMembers(OverlayType.UnImplementedImages, overlayGroupName, 'img');
-        // ClientLogger.log('LogOverlayList', 'UnImplementedOverlayImageIDs (' + Object.keys(elemList).length + ') for group "'
-        //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
         return elemList;
     }
 
     get_implemented_animations_in_group(overlayGroupName: string): any {
         const elemList = this.getGroupMembers(OverlayType.ImplementedAnimations, overlayGroupName, 'animation');
-        // ClientLogger.log('LogOverlayList', 'ImplementedDataTableIDs (' + Object.keys(elemList).length + ') for group "'
-        //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
-
         if (!this.isArray(this._animationList[overlayGroupName])) {
             this._animationList[overlayGroupName] = [];
         }
@@ -383,8 +352,6 @@ export class OverlayPageComponent {
 
     get_un_implemented_animations_in_group(overlayGroupName: string): any {
         const elemList = this.getGroupMembers(OverlayType.UnImplementedAnimations, overlayGroupName, 'animation');
-        // ClientLogger.log('LogOverlayList', 'UnImplementedOverlayImageIDs (' + Object.keys(elemList).length + ') for group "'
-        //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
         return elemList;
     }
 
@@ -392,8 +359,6 @@ export class OverlayPageComponent {
     // ----------------------
     get_implemented_defined_table_in_group(overlayGroupName: string, tableName: string): any {
         const elemList = this.getGroupMembers(OverlayType.ImplementedDataTables, overlayGroupName, 'prop-def-table');
-        // ClientLogger.log('LogOverlayList', 'ImplementedOverlayDataTableIDs (' + Object.keys(elemList).length + ') for group "'
-        //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
         for (const key of elemList) {
             if (key.name === tableName) {
                 return key;
@@ -406,15 +371,11 @@ export class OverlayPageComponent {
     // ----------------------
     get_implemented_prop_defined_tables_in_group(overlayGroupName: string): any {
         const elemList = this.getGroupMembers(OverlayType.ImplementedDataTables, overlayGroupName, 'prop-def-table');
-        // ClientLogger.log('LogOverlayList', 'ImplementedOverlayDataTableIDs (' + Object.keys(elemList).length + ') for group "'
-        //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
         return elemList;
     }
 
     get_un_implemented_prop_defined_tables_in_group(overlayGroupName: string): any {
         const elemList = this.getGroupMembers(OverlayType.UnImplementedDataTables, overlayGroupName, 'prop-def-table');
-        // ClientLogger.log('LogOverlayList', 'UnImplementedOverlayDataTableIDs (' + Object.keys(elemList).length + ') for group "'
-        //     + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
         return elemList;
     }
 
@@ -424,33 +385,16 @@ export class OverlayPageComponent {
         // Get a handle to the JSON element the var is based on
 
         if (!overlayGroupName || overlayGroupName === '') {
-            ClientLogger.log('LogOverlayList_JSON',
-                'Missing Element: overlayGroupName: ' + overlayGroupName
-                + ', longName: ' + longName
-                + ', tagName: '
-                + tagName);
             return null;
         }
-
         if (!longName || longName === '') {
-            ClientLogger.log('LogOverlayList_JSON',
-                'Missing Element: overlayGroupName: ' + overlayGroupName
-                + ', longName: ' + longName
-                + ', tagName: '
-                + tagName);
             return null;
         }
-
         const shortName = UTIL.removeContextPrefix(longName);
-        ClientLogger.log('LogOverlayList_JSON',
-            'Found Element: overlayGroupName: ' + overlayGroupName
-            + ', longName: ' + longName
-            + ', shortName: ' + shortName
-            + ', tagName: '
-            + tagName);
-
         return this.getJsonElement1(overlayGroupName, shortName, tagName);
     }
+
+
 
     getJsonElement1(overlayGroupName: string, shortName: string, tagName: string): any {
 
@@ -476,24 +420,9 @@ export class OverlayPageComponent {
                 }
             }
         }
-
         if (typeof retObj['id'] === 'undefined') {
             retObj['id'] = UTIL.addContextPrefix(overlayGroupName, shortName);
         }
-
-        ClientLogger.log('LogOverlayList_JSON',
-            'In getJsonElement1: '
-            + 'o.id: ' + (typeof retObj.id === 'string') ? retObj.id : 'unknown'
-            + ', o.command: '
-            + (typeof retObj['command'] === 'string')
-                ? retObj['command']
-                : (typeof retObj['command'] === 'object')
-                    ? '(object)'
-                    : 'unknown'
-                    + ', o.label: ' + (typeof retObj['label'] === 'string') ? retObj['label'] : 'unknown'
-                    + ', o.Name: ' + (typeof retObj.name === 'string') ? retObj.name : 'value'
-                        + tagName);
-
         return retObj;
     }
 
