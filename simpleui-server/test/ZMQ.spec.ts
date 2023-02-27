@@ -87,8 +87,6 @@ describe('ZMQ_Socket_Wrapper Class testing', () => {
     });
 
 
-    // times out occasionally because the socket from the previous test
-    // hasnt closed yet and therefore cannot create a new socket
     test('REQ socket sends message when item is added to its queue', done => {
         let test_message = "ABCDEFG_";
 
