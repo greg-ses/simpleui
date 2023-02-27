@@ -16,11 +16,10 @@ import {UTIL} from '../tools/utility';
 
 
 
-export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
+export class AppComponent implements OnInit, AfterViewInit {
     static _updatesSuspended = false;
     static _trackClicks = false;
     static _mouseDownSuspendsUpdates = false;
-    static _minutesBeforeAutoPageReload_Default = 90; // Time until the page auto-refreshes, doing automatic garbage collection
 
     @Output() selectedTabChange = new EventEmitter<MatTabChangeEvent>();
 
@@ -516,15 +515,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             tab.pageType = tab.pageType || 'normal'; // Make 'normal' the default
             tab._lastUpdate = '1970-01-01 00:00.00';
             tab.hash = AppComponent.getUniqueHash();
-        }
-
-        let minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
-        if ((this._props instanceof Object)
-            && (typeof this._props['minutesBeforeAutoPageReload'] === 'string')) {
-            minutesBeforeAutoPageReload = parseInt(this._props['minutesBeforeAutoPageReload'], 10);
-            if (isNaN(minutesBeforeAutoPageReload)) {
-                minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
-            }
         }
 
         this._refreshRate = 1000;
