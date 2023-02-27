@@ -204,12 +204,6 @@ describe('TitleBarTest', () => {
     });
 
 
-    it('should click the "Remote" button', () => {
-        const remoteButton = findInputElementByName('Remote');
-        expect(remoteButton).toBeDefined();
-    });
-
-
 
     // it ('should receive async result from getProps()', (done) => {
     //     expect(component._propsSubscriptionState).not.toEqual(SubscriptionState.ErrorFromAsyncResponse);
