@@ -31,8 +31,12 @@ back to the front end.
 
 ## Production installation
 
-We use ansible to deploy to production. Make sure that your ansible `yml` file is pointing to the correct release URL. If you are not sure, check out [Releases](https://github.com/greg-ses/simpleui/releases) for prod builds or [Packages](https://github.com/greg-ses/simpleui/pkgs/container/simpleui) for dev builds. You can make a local version of the prod image by running `docker build -t <YOUR_IMAGE_NAME> .` in the root folder of this project
-
+When running SimpleUI in production, the docker container requires some CLI arguments.
+```bash
+docker run simpleui-image YOUR_APP_NAME zmqHostname=YOUR_ZMQ_HOSTNAME
+```
+- `YOUR_APP_NAME`: The name of your SimpleUI instance
+- `zmqHostname=`: The hostname of your ZMQ REPLY sockets
 
 ## Testing
 
