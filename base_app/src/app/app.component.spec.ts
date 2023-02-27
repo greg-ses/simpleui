@@ -77,63 +77,10 @@ describe('AppComponent', () => {
   });
 
 
-  // it('should call getProps and make a request', (done) => {
-  //   const httpMock = TestBed.inject(HttpClientTestingModule);
-  //   const TEST_TAB_TITLE = "Test Tab";
-  //   component._propsURL = "localhost:4100/simple_ui/ui/query/props"
-  //   const request_url = "localhost:4100/simple_ui/ui/query/props"
-  //   const mock_response = {
-  //     "props": {
-  //       "srcFile": "/var/www/simple_ui/ui.properties",
-  //       "mtimeMs": "1675090930263.723",
-  //       "propsLastRefresh": "2023-02-21.15:14:44",
-  //       "uiProp": {
-  //         "value": "ui"
-  //       },
-  //       "uiVersionLong": {
-  //         "value": "UI Version Long"
-  //       },
-  //       "uiVersionShort": {
-  //         "value": "UI Version Short"
-  //       },
-  //       "propsUrl": {
-  //         "value": "/simple_ui/ui/query/props"
-  //       },
-  //       "fullAppUrl": {
-  //         "value": "/simple_ui"
-  //       },
-  //       "selectedIndex": {
-  //         "value": "0"
-  //       },
-  //       "instance": {
-  //         "name": "Simple ui sample app"
-  //       },
-  //       "nodejsPort": {
-  //         "value": "2080"
-  //       },
-  //       "refreshRate": "1200",
-  //       "appTheme": {
-  //         "name": "SimpleUiPeach"
-  //       },
-  //       "tab": [{
-  //         "index": "0",
-  //         "id": "tab-1",
-  //         "name": `${TEST_TAB_TITLE}`
-  //       }]
-  //     }
-  //   };
-  //   const mockRequest = httpMock.expectOne(request_url);
-  //   mockRequest.flush(mock_response);
-  //   fixture.detectChanges(); // make DOM update with async data
-  // });
 
+  // TODO
+  xit('should call getProps and make a request', (done) => {});
 
-
-  // it('should call getProps() and give the first tab the title XYZ', (done) => {
-  //   const getPropsSpy = spyOn(component, 'getProps' );
-  //   fixture.detectChanges();
-  //   expect(getPropsSpy).toHaveBeenCalled();
-  //   done()
-  // });
+  xit('should call getProps() and give the first tab the title XYZ', (done) => {});
 
 });
