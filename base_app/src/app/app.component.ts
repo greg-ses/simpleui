@@ -149,8 +149,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     static doResizeTabScrollRegion(evt: any, timeout = 10) {
-        if (evt) {
-        }
         setTimeout(() => {
             AppComponent.resizeTabScrollRegion();
         }, timeout);
@@ -185,9 +183,9 @@ export class AppComponent implements OnInit, AfterViewInit {
                             sessionStorage[`tab${tabIndex}ScrollTop`] = targetElement.scrollTop;
                             sessionStorage[`tab${tabIndex}ScrollLeft`] = targetElement.scrollLeft;
                         }
-                    } catch (e) {
+                    } catch (err) {
                         // Do nothing
-                        console.error(`resizeTabScrollRegion got error: ${e}`);
+                        console.error(`resizeTabScrollRegion got error:`, err);
                     }
                 };
 
@@ -199,11 +197,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (this._props.tab[evt.uiTab.index]._DataSummary['Section'][evt.sectionIdx]['DataSets'][evt.dataSetsIdx] !== evt.newChildData) {
             this._props.tab[evt.uiTab.index]._DataSummary['Section'][evt.sectionIdx]['DataSets'][evt.dataSetsIdx] = evt.newChildData;
         } else {
-            console.log(
-                'Unnecessary call to onUpdateModelOfChildDataSet('
-                + 'sectionIdx:' + evt.sectionIdx
-                + ', dataSetsIdx: ' + evt.dataSetsIdx
-                + ') - src and target are identical');
+            console.info(`Unnecessary call to onUpdateModelOfChildDataSet(sectionIdx: ${evt.sectionIdx} , dataSetsIdx: ${evt.dataSetsIdx} ) - src and target are identical`);
         }
     }
 
@@ -418,12 +412,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                 }
             },
             err => {
-                console.error(`Error in getProps() ajax subscribe callback. ${err}`);
-                try {
-                    console.error('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
-                } catch (err1) {
-                    console.error('Error trying to display error');
-                }
+                console.error(`Error in getProps() ajax subscribe callback`, err, err?.name, err?.message, err?.request?.url);
             });
         this._propsSubscriptionState = SubscriptionState.AwaitingAsyncResponse;
     }
@@ -530,8 +519,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         const updateTimer = interval(this._refreshRate);
 
         this._updateSubscription = updateTimer.subscribe(
-            cycle => {
-                this.doUpdate(cycle);
+            _ => {
+                this.doUpdate();
             },
             err => {
                 console.error(`Error in initTabDataUpdates() ajax subscribe callback.`, err);
@@ -540,9 +529,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     /**
      * Main update loop of the base_app.
-     * @param {Number} cycle : the number of document.location.reload()'s have been used
      */
-    doUpdate(cycle: number = 0) {
+    doUpdate() {
         try {
             if (!AppComponent._updatesSuspended) {
                 for (const tab of this._props.tab) {
@@ -555,8 +543,8 @@ export class AppComponent implements OnInit, AfterViewInit {
                     this.updateMinColWidths(tab);
                 }
             }
-        } catch (e) {
-            console.error(`AppComponent.doUpdate() error: ${e}`);
+        } catch (err) {
+            console.error(`AppComponent.doUpdate() error:`, err);
         }
     }
 
