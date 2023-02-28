@@ -24,6 +24,7 @@ export class SimpleUIServer {
     static overlay_image_file_names = [];
     static missing_overlay_files = new Set();
     static APP_NAME = ""; // name of the app
+    static zmqHostname = "";
 
     static executeMockRequest(cmdArgs: CommandArgs, props: any, req: Request<ParamsDictionary> = null, res: Response = null) {
         if (props) {
@@ -234,8 +235,10 @@ export class SimpleUIServer {
             // Parse input arguments
             SimpleUIServer.setBinDir(process.argv[1]);
             const cli_args = process.argv.slice(2).join(" ");
-            const cmdVars = SimpleUIServer.parseCommandLine(cli_args);
+            let cmdVars = SimpleUIServer.parseCommandLine(cli_args);
             PropsFileReader.cmdVars = cmdVars;
+
+            SimpleUIServer.zmqHostname = cmdVars.zmqHostname;
 
             if (!cmdVars.valid) {
                 Logger.log(LogLevel.ERROR, `${cmdVars.errors}${cmdVars.help}`);
@@ -243,15 +246,6 @@ export class SimpleUIServer {
             }
 
             SimpleUIServer.APP_NAME = cmdVars.appName;
-
-            let _props = PropsFileReader.getProps('ui.properties');
-
-            ////// set up zmq sockets
-            let zmq_ports_array = ServerUtil.getZMQPortsFromProps(_props).map(p => Number(p));
-            const zmqHostname = cmdVars.zmqHostname;
-            Logger.log(LogLevel.INFO, zmq_ports_array ? `ZMQ ports: ${zmq_ports_array}` : `No ZMQ ports were parsed from the inital props`);
-            SuiData.zmqMap = new zmq_wrapper(zmq_ports_array, zmqHostname);
-            //////
 
             ////// get list of gif and png files for overlay
             const overlay_assets_dir_path = `/var/www/${SimpleUIServer.APP_NAME}/overlay-1/images/`;

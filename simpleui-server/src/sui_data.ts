@@ -5,7 +5,7 @@ import {Logger, LogLevel} from './server-logger';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
 import { SimpleUIServer } from './simpleui-server';
-import { zmq_wrapper } from './sui_zmq';
+import { ZMQ_Socket_Wrapper, zmq_wrapper } from './sui_zmq';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as fastXmlParser from 'fast-xml-parser';
@@ -28,7 +28,6 @@ export class SuiData {
     static mockRequestNum = 0;
     static mockDataFileIndex = [];
     static uiProps = "";
-    static zmqMap: null|zmq_wrapper  = null;
 
 
 
@@ -213,10 +212,7 @@ export class SuiData {
     static handleZmqRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
         if (!uiProps) { Logger.log(LogLevel.ERROR, `ui.props is null`); return }
 
-        if (!SuiData.zmqMap) {
-            Logger.log(LogLevel.NOTICE, `Waiting for the zmq sockets to set up...`);
-            return;
-        }
+
 
         SuiData.incrRequestNum();
 
@@ -226,23 +222,16 @@ export class SuiData {
         // get port
         const zmq_port = SuiData.getZmqPort(req);
 
-        // get socket
-        let socket = SuiData.zmqMap.get(zmq_port);
+        // get connection timeout
+        const connect_timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
 
-        if (!socket) {
-            SuiData.zmqMap.add_socket(zmq_port);
-            socket = SuiData.zmqMap.get(zmq_port);
-            Logger.log(LogLevel.WARNING, `No socket for ZMQ socket with port ${zmq_port}, created new socket`);
-            Logger.log(LogLevel.DEBUG, `All ZMQ socket ports: ${Array.from(SuiData.zmqMap.socket_map.keys())}`)
-        }
+        // make the socket
+        let requester = new ZMQ_Socket_Wrapper(SimpleUIServer.zmqHostname, zmq_port);
 
-        // get and set connection timeout (is this needed anymore?)
-        const timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
 
-        socket.set_timeout(timeout);
 
-        // add res + req pair to socket's queue
-        socket.http_queue.enqueue([res, req]);
+
+
     }
 
     static async suiCssToJsonRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {

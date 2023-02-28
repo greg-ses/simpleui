@@ -19,6 +19,66 @@ import { Queue } from './queue';
 
 export class ZMQ_Socket_Wrapper {
     hostname: string;
+    port: number;
+    remote_address: string;
+    connection_timeout: number;
+    send_timeout: number;
+    recieve_timeout: number;
+    socket: any;
+
+    constructor(hostname: string, port: number, connection_timeout: number=1_000, send_timeout: number=500, recieve_timeout: number=500) {
+        this.hostname = hostname;
+        this.port = port;
+        this.remote_address = `tcp://${hostname}:${port}`;
+        this.connection_timeout = connection_timeout;
+        this.send_timeout = send_timeout;
+        this.recieve_timeout = recieve_timeout;
+
+
+        try {
+            this.socket = _zmq.socket('req');
+            this.socket.setsockopt(_zmq.ZMQ_LINGER, 0); // dont wait for response before closing
+            this.socket.setsockopt(_zmq.zmq.ZMQ_CONNECT_TIMEOUT, this.connection_timeout);
+            this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.send_timeout);
+            this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, this.recieve_timeout);
+
+            this.connect();
+
+        } catch (err) {
+            Logger.log(LogLevel.ERROR, `Could not create ${this.remote_address}, got error ${err}`);
+        }
+    }
+
+    connect() {
+        this.socket.connect(this.remote_address);
+    }
+
+    send(msg: string) {
+        try{
+            this.socket.send(msg);
+        } catch (err) {
+            Logger.log(LogLevel.ERROR, `Could not send zmq message:\n${msg} got error: ${err}`);
+        }
+    }
+
+    close() {
+        try {
+            if (this.socket.closed === false) {
+                this.socket.close();
+            }
+        } catch (err) {
+            Logger.log(LogLevel.ERROR, `Could not close ${this.remote_address}, got error: ${err}`);
+        }
+    }
+
+
+}
+
+
+
+
+export class __ZMQ_Socket_Wrapper {
+    hostname: string;
     timeout: number;
     ZMQ_SEND_MSG_TIMEOUT_ms: number;
     port: number;
