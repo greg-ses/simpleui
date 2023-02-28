@@ -42,7 +42,14 @@ export class ZMQ_Socket_Wrapper {
             this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.send_timeout);
             this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, this.recieve_timeout);
 
-            this.connect();
+            this.socket.monitor(5000, 0);
+
+            try {
+                this.connect();
+            } catch(err) {
+                console.log(`Timeout???? ${err?.code} ${err}`, err)
+                this.socket.close();
+            }
 
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Could not create ${this.remote_address}, got error ${err}`);

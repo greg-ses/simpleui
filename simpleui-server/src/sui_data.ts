@@ -213,6 +213,12 @@ export class SuiData {
         if (!uiProps) { Logger.log(LogLevel.ERROR, `ui.props is null`); return }
 
 
+        /**
+         *
+         * MEMORY LEAK WHEN BMS IS DOWN IS STILL PRESENT
+         *      - MAYBE DISCONNECT INSTEAD OF CLOSE?
+         */
+
 
         SuiData.incrRequestNum();
 
