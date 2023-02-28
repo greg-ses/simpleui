@@ -278,7 +278,7 @@ export class SuiData {
             data = req.body;
         } else {
             Logger.log(LogLevel.WARNING,
-                `item_added event listener got unknown request type with headers ${req.headers} and body ${req.body}`);
+                `Got unknown request type with headers ${req.headers} and body ${req.body}`);
         }
         Logger.log(LogLevel.INFO, `Received ZMQ command "${parsed_request.cmd}" for tab ${req.params.tabName}`);
         return data
