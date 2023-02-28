@@ -249,9 +249,9 @@ export class SuiData {
         // build the message
         let zmq_request_packet = "";
         if (req.method === "POST") {
-            zmq_request_packet = SuiData.makeZmqCmdPacket(req, res);
+            zmq_request_packet = SuiData.makeZmqCmdPacket(req);
         } else {
-            zmq_request_packet = SuiData.makeZmqDataPacket(req, res);
+            zmq_request_packet = SuiData.makeZmqDataPacket(req);
         }
 
         // send the message
@@ -264,10 +264,15 @@ export class SuiData {
     }
 
 
-    static makeZmqCmdPacket(req: Request<ParamsDictionary>, res: Response) {
+    /**
+     * Creates the ZMQ packet for a command
+     * @param req
+     * @returns
+     */
+    static makeZmqCmdPacket(req: Request<ParamsDictionary>) {
         let data = "";
         let parsed_request = {cmd: `${req.params.zmqCmd}`};
-        if (req.headers.accept === "*/*" && req.body) {     // regular cmd request
+        if (req.headers.accept === "*/*" && req.body) {         // regular cmd request
             data = SuiData.getXmlFromJsonArgs(req, parsed_request);
         } else if (Object.keys(req.query).includes('xml')) {    // &xml debug request
             data = req.body;
@@ -279,11 +284,17 @@ export class SuiData {
         return data
     }
 
-    static makeZmqDataPacket(req: Request<ParamsDictionary>, res: Response) {
+    /**
+     * Creates a ZMQ packet for data
+     * @param req
+     * @param res
+     * @returns
+     */
+    static makeZmqDataPacket(req: Request<ParamsDictionary>) {
         // get data cmd
         const cmd = SuiData.getZmqCmdFromReq(req);
         // return packet
-        return  `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
+        return `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
     }
 
     static async suiCssToJsonRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
