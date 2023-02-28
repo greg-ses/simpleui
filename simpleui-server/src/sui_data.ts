@@ -154,7 +154,7 @@ export class SuiData {
      * @param req request from base_app
      * @returns
      */
-    static getCmdFromReq(req: Request<ParamsDictionary>): any {
+    static getZmqCmdFromReq(req: Request<ParamsDictionary>): any {
         const cmd = {
             source: 'unknown',
             cmd: 'missing',
@@ -225,13 +225,65 @@ export class SuiData {
         // get connection timeout
         const connect_timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
 
-        // make the socket
+        // make the socket and connect
         let requester = new ZMQ_Socket_Wrapper(SimpleUIServer.zmqHostname, zmq_port);
 
 
+        requester.socket.on('message', (msg: any) => {
+            const zmqResponse = SuiData.addXmlStatus(msg.toString());
+            Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at ${requester.remote_address}: ${zmqResponse.substring(0, 105)}`);
+            requester.close();
+            SuiData.sendResponse(req, res, zmqResponse);
+            return;
+        });
+
+        requester.socket.on('error', (err: any) => {
+            const zmqResponse = ServerUtil.getServerError('ZMQ_ERROR', '{{ERROR}}', err);
+            SuiData.sendResponse(req, res, zmqResponse);
+            Logger.log(LogLevel.ERROR, `ZMQ socket at ${requester.remote_address} got error: ${err}`);
+            requester.close();
+            return;
+        });
 
 
+        // build the message
+        let zmq_request_packet = "";
+        if (req.method === "POST") {
+            zmq_request_packet = SuiData.makeZmqCmdPacket(req, res);
+        } else {
+            zmq_request_packet = SuiData.makeZmqDataPacket(req, res);
+        }
 
+        // send the message
+        requester.send(zmq_request_packet);
+
+        Logger.log(
+            SuiData.requestNum <= 5 ? LogLevel.INFO : LogLevel.DEBUG,
+            `Sent ZMQ request: ${requester.remote_address} ${zmq_request_packet}`
+        );
+    }
+
+
+    static makeZmqCmdPacket(req: Request<ParamsDictionary>, res: Response) {
+        let data = "";
+        let parsed_request = {cmd: `${req.params.zmqCmd}`};
+        if (req.headers.accept === "*/*" && req.body) {     // regular cmd request
+            data = SuiData.getXmlFromJsonArgs(req, parsed_request);
+        } else if (Object.keys(req.query).includes('xml')) {    // &xml debug request
+            data = req.body;
+        } else {
+            Logger.log(LogLevel.WARNING,
+                `item_added event listener got unknown request type with headers ${req.headers} and body ${req.body}`);
+        }
+        Logger.log(LogLevel.INFO, `Received ZMQ command "${parsed_request.cmd}" for tab ${req.params.tabName}`);
+        return data
+    }
+
+    static makeZmqDataPacket(req: Request<ParamsDictionary>, res: Response) {
+        // get data cmd
+        const cmd = SuiData.getZmqCmdFromReq(req);
+        // return packet
+        return  `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
     }
 
     static async suiCssToJsonRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
@@ -244,7 +296,7 @@ export class SuiData {
             Logger.log(LogLevel.ERROR, 'No response is defined for the root folder "/".');
             return;
         }
-        const cmd = SuiData.getCmdFromReq(req);
+        const cmd = SuiData.getZmqCmdFromReq(req);
         ServerUtil.logRequestDetails(LogLevel.DEBUG, req,
             `Starting css_elements_to_json request # ${SuiData.requestNum}`,
             'suiCssToJsonRequest', '/query/css_elements_to_json', cmd);
