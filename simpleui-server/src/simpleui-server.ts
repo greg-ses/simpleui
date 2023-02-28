@@ -230,7 +230,7 @@ export class SimpleUIServer {
         try {
 
 
-            Logger.logLevel = LogLevel.INFO;
+            Logger.logLevel = LogLevel.DEBUG;
 
             // Parse input arguments
             SimpleUIServer.setBinDir(process.argv[1]);
@@ -333,7 +333,7 @@ export class SimpleUIServer {
                         res.send(svrCmdResponse);
                     }
             } catch (err) {
-                const cmd = SuiData.getCmdFromReq(req);
+                const cmd = SuiData.getZmqCmdFromReq(req);
                 ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                     `Err in svr-util request: ${err}`,
                     'main svr-util handler', '/svr-util/cmdName/cmdValue', cmd);
@@ -364,7 +364,7 @@ export class SimpleUIServer {
 
                     await PropsFileReader.propsFileRequest(req, res, props);
                 } catch (err) {
-                    const cmd = SuiData.getCmdFromReq(req);
+                    const cmd = SuiData.getZmqCmdFromReq(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                         `Err in props request: ${err}`,
                         'main props handler', '/query/props', cmd);
@@ -396,7 +396,7 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(`${req.params.propsStub}.properties`);
                     SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
-                    const cmd = SuiData.getCmdFromReq(req);
+                    const cmd = SuiData.getZmqCmdFromReq(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                         `Err in data request: ${err}`,
                         'main data handler', '/query/data/zmq', cmd);
@@ -424,7 +424,7 @@ export class SimpleUIServer {
                     SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
 
-                    const cmd = SuiData.getCmdFromReq(req);
+                    const cmd = SuiData.getZmqCmdFromReq(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                         `Err in cmd request: ${err}`,
                         'main cmd handler', '/query/cmd/zmq', cmd);
@@ -506,7 +506,7 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(`${req.params.propsStub}.properties`);
                     await SuiData.suiCssToJsonRequest(req, res, props);
                 } catch (err) {
-                    const cmd = SuiData.getCmdFromReq(req);
+                    const cmd = SuiData.getZmqCmdFromReq(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                         `Err in cssToJsonQuery request: ${err}`,
                         'main cssToJsonQuery handler', '/query/css_elements_to_json/overlay', cmd);
