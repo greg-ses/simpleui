@@ -41,5 +41,6 @@ docker run \
     --mount type=bind,src="${SIMPLEUI_TEST_DATA}/${DEV_TARGET}"/opt,dst=/opt/ \
     -p 4200:4200 \
     -p 4100:4100 \
-    -w /usr/src/app \
+    -p 9876:9876 \
+    -w /usr/src/app/base_app \
     sui-dev-image /bin/bash /usr/src/app/${install_script}

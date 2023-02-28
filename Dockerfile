@@ -34,25 +34,6 @@ RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-# ZMQ
-RUN wget --no-check-certificate --quiet \
-    https://github.com/zeromq/libzmq/releases/download/v4.3.2/zeromq-4.3.2.tar.gz && \
-    tar -xzf zeromq-4.3.2.tar.gz && \
-    cd zeromq-4.3.2 && \
-    ./configure && \
-    make -j$(nproc) && \
-    make install && \
-    cd .. && \
-    rm -rf ./zeromq-4.3.2 zeromq-4.3.2.tar.gz && \
-    ldconfig
-
-# php-zmq
-RUN git clone https://github.com/mkoppanen/php-zmq.git && \
-    cd php-zmq && \
-    phpize && ./configure && make install -j$(nproc) && \
-    cd .. && \
-    rm -rf ./php-zmq
-
 # Tini init-system
 ENV TINI_VERSION v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini

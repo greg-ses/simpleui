@@ -16,10 +16,11 @@
     "start-client-dev": "cd ../ && bash run-dev-env.bash",
     "start-client-prod": "bash -c \"node node_modules/@angular/cli/bin/ng.js serve --aot\"",
     "post-build-step--setup-bms-for-dev": "sh build-app-for-dev.sh 0 bms git-workspace-all ${USER}",
-    "test": "node node_modules/@angular/cli/bin/ng.js test --browsers Chrome_small",
+    "test": "node node_modules/@angular/cli/bin/ng.js test --browsers ChromeHeadless",
     "test-headless-once": "ng test --browsers ChromeHeadlessWin --watch=false",
     "e2e--not-tested": "bash -c \"node node_modules/@angular/cli/bin/ng.js e2e\"",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "ci:test": "npm install && ng test --no-watch --no-progress"
   },
   "private": true,
   "dependencies": {

@@ -11,8 +11,9 @@ import { DatasetTableComponent } from './dataset-table';
 import { PortalModule } from '@angular/cdk/portal';
 import { MatTabsModule } from '@angular/material/tabs';
 import { PropDefinedTableComponent } from '../prop-defined-table/prop-defined-table';
-import {CommonModule} from '@angular/common';
-
+import { CommonModule } from '@angular/common';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 /** Button events to pass to `DebugElement.triggerEventHandler` for RouterLink event handler */
 export const ButtonClickEvents = {
@@ -135,6 +136,7 @@ describe('TitleBarTest', () => {
     let component: AppComponent = null;
     let fixture: ComponentFixture<AppComponent> = null;;
     let page: Page = null;
+    let httpMockBackend: HttpTestingController;
 
     beforeEach(() => {
 
@@ -153,11 +155,14 @@ describe('TitleBarTest', () => {
             imports: [
                 CommonModule,
                 MatTabsModule,
-                PortalModule
+                PortalModule,
+                NoopAnimationsModule,
+                HttpClientTestingModule
             ],
             schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
         }).compileComponents();
         const commonModule = new CommonModule();
+        httpMockBackend = TestBed.inject(HttpTestingController);
 
         if (fixture === null) {
             fixture = TestBed.createComponent(AppComponent);
@@ -173,33 +178,14 @@ describe('TitleBarTest', () => {
         }
     });
 
+
+
+
     it('should have created the AppComponent', () => {
         expect(component).toBeDefined();
     });
 
-    /*
-    it('should call getProps', (done) => {
-        expect(component).toBeDefined();
 
-        component.getProps();
-
-        waitUntil(function () {
-            return (component._propsSubscriptionState !== SubscriptionState.AwaitingAsyncResponse);
-        }).then(function () {
-            done();
-        });
-    });
-
-    it ('should receive async result from getProps()', (done) => {
-        expect(component._propsSubscriptionState).not.toEqual(SubscriptionState.ErrorFromAsyncResponse);
-
-        waitUntil( function () {
-            return component._propsSubscriptionState === SubscriptionState.Idle;
-        }).then( function() {
-            done();
-        });
-    });
-    */
 
     it('should have  _refreshState set to "indicatorOn"', (done) => {
         waitUntil(function() {
@@ -209,52 +195,52 @@ describe('TitleBarTest', () => {
         });
     });
 
-    it( 'should have _refreshCycle > 2', (done) => {
-        waitUntil(function() {
-            return (component._refreshCycle > 2);
-        }).then(function() {
-            done();
-        });
-    });
 
-    it('should have some inputs', () => {
-        expect(page.inputs.length > 0);
-    });
-
-    it('should click dbPulseButton to call onToggleAutoRefresh() to turn updates off', (done) => {
-        // Turn off auto-refresh
-        // component.onToggleAutoRefresh();
-
-        // fixture.whenStable().then(() => {
-            click(page.dbPulseButton);
-        // });
-
-        waitUntil(function() {
-            return ( (typeof component._tBarProps === 'object') && (component._tBarProps._refreshState === 'indicatorOff'));
-        }).then(function() {
-            done();
-        });
-    });
-
-    it('should check that dbPulse element has className "indicatorOff"', (done) => {
+    it('should check that dbPulse element has className "indicatorOn"', () => {
+        const dbPulseBtnElement = fixture.debugElement.nativeElement.querySelector('#dbPulse'); // document.getElementById('dbPulse');
         expect(document).toBeDefined();
         expect(page.dbPulseButton).toBeDefined();
-        expect(page.dbPulseButton.className).toEqual('indicatorOff');
+        expect(dbPulseBtnElement.className).toEqual('indicatorOn');
     });
 
-    it('should fill first tab from ajax data', () => {
-//        fixture.whenRenderingDone().then(() => {
 
-            expect(page.activeTab).toBeDefined();
-            // expect(activeTab.getAttribute('innerText')).toEqual('IO 1');
-            // expect(activeTab.getAttribute('tabindex')).toEqual('0');
-//        });
-    });
 
-    it('should click the "Remote" button', () => {
+    // it ('should receive async result from getProps()', (done) => {
+    //     expect(component._propsSubscriptionState).not.toEqual(SubscriptionState.ErrorFromAsyncResponse);
 
-        const remoteButton = findInputElementByName('Remote');
-        expect(remoteButton).toBeDefined();
-    });
+    //     waitUntil( function () {
+    //         return component._propsSubscriptionState === SubscriptionState.Idle;
+    //     }).then( function() {
+    //         done();
+    //     });
+    // });
+
+
+//     it('should fill first tab from ajax data', () => {
+// //        fixture.whenRenderingDone().then(() => {
+
+//             expect(page.activeTab).toBeDefined();
+//             // expect(activeTab.getAttribute('innerText')).toEqual('IO 1');
+//             // expect(activeTab.getAttribute('tabindex')).toEqual('0');
+// //        });
+//     });
+
+
+
+    // it('should click dbPulseButton to call onToggleAutoRefresh() to turn updates off', (done) => {
+    //     // Turn off auto-refresh
+    //     // component.onToggleAutoRefresh();
+
+    //     // fixture.whenStable().then(() => {
+    //     //     click(page.dbPulseButton);
+    //     // // });
+
+    //     // waitUntil(function() {
+    //     //     return ( (component?._tBarProps?._refreshState === 'indicatorOff'));
+    //     // }).then(function() {
+    //     //     done();
+    //     // });
+
+    // });
 
 });

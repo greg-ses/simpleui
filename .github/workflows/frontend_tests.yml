@@ -1,0 +1,17 @@
+name: Frontend Unit Tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./base_app
+    steps:
+      - uses: actions/checkout@v3		# checkout sui repo
+      - uses: actions/setup-node@v3	# use nodejs v18
+        with:
+          node-version: '18'
+      - name: Run Karama Unit Tests
+        run: npm run ci:test
