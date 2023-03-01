@@ -25,16 +25,14 @@ enum ZMQ_Connection_Status {
 export class ZMQ_Socket_Wrapper {
     hostname: string;
     port: number;
-    remote_address: string;
     connection_timeout: number;
     send_timeout: number;
     recieve_timeout: number;
     socket: any;
     connection_status: ZMQ_Connection_Status;
 
-    constructor(hostname: string, port: number = 0, connection_timeout: number=1_000, send_timeout: number=0, recieve_timeout: number=500) {
-        this.hostname = hostname;
-        this.remote_address = `tcp://${hostname}:${port}`;
+    constructor(connection_timeout: number=1_000, send_timeout: number=0, recieve_timeout: number=500) {
+        this.hostname = "";
         this.connection_timeout = connection_timeout;
         this.send_timeout = send_timeout;
         this.recieve_timeout = recieve_timeout;
@@ -66,19 +64,19 @@ export class ZMQ_Socket_Wrapper {
                 this.connection_status = ZMQ_Connection_Status.CLOSED;
             });
             this.socket.once('close_error', (data: any) => {
-                console.log(`${this.remote_address} close_error ${data} ${data.toString()}`)
+                console.log(`${this.port} close_error ${data} ${data.toString()}`)
             });
 
 
             //this.connect();
 
 
-            setInterval( () => {
-                //console.log(`\t${this.remote_address} ${this.connection_status}`)
-            }, 250);
+            // setInterval( () => {
+            //     //console.log(`\t${this.port} ${this.connection_status}`)
+            // }, 250);
 
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not create ${this.remote_address}, got error ${err}`);
+            Logger.log(LogLevel.ERROR, `Could not create ${this.port}, got error ${err}`);
         }
     }
 
@@ -101,10 +99,10 @@ export class ZMQ_Socket_Wrapper {
         try {
             if (this.socket.closed === false) {
                 this.socket.close();
-                Logger.log(LogLevel.DEBUG, `Closed ${this.remote_address}`)
+                Logger.log(LogLevel.DEBUG, `Closed ${this.port}`)
             }
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not close ${this.remote_address}, got error: ${err}`);
+            Logger.log(LogLevel.ERROR, `Could not close ${this.port}, got error: ${err}`);
         }
     }
 
@@ -246,51 +244,51 @@ export class ZMQ_Socket_Wrapper {
  * and sockets
  */
 export class zmq_wrapper {
-    socket_map: Map<number, ZMQ_Socket_Wrapper>;
-    hostname: string;
+    // socket_map: Map<number, ZMQ_Socket_Wrapper>;
+    // hostname: string;
 
-    constructor(port_list: Array<number>, hostname: string) {
-        this.socket_map = new Map();
-        this.hostname = hostname;
+    // constructor(port_list: Array<number>, hostname: string) {
+    //     this.socket_map = new Map();
+    //     this.hostname = hostname;
 
 
-        port_list.forEach( (port) => {
-            const zmq_wrapper_instance = new ZMQ_Socket_Wrapper(hostname, port);
-            this.socket_map.set(port, zmq_wrapper_instance);
-        });
+    //     port_list.forEach( (port) => {
+    //         const zmq_wrapper_instance = new ZMQ_Socket_Wrapper(hostname, port);
+    //         this.socket_map.set(port, zmq_wrapper_instance);
+    //     });
 
-        process.on('SIGINT', () => this.handleApplicationExit('SIGINT'));
+    //     process.on('SIGINT', () => this.handleApplicationExit('SIGINT'));
 
-        process.on('SIGTERM', () => this.handleApplicationExit('SIGTERM'));
+    //     process.on('SIGTERM', () => this.handleApplicationExit('SIGTERM'));
 
-    }
+    // }
 
-    get(port: number) {
-        return this.socket_map.get(port);
-    }
+    // get(port: number) {
+    //     return this.socket_map.get(port);
+    // }
 
-    size(): number {
-        return this.socket_map.size;
-    }
+    // size(): number {
+    //     return this.socket_map.size;
+    // }
 
-    /**
-     * Add a zmq socket to the socket map
-     * @param port
-     */
-    add_socket(port: number) {
-        const zmq_wrapper_instance = new ZMQ_Socket_Wrapper(this.hostname, port);
-        this.socket_map.set(port, zmq_wrapper_instance);
-    }
+    // /**
+    //  * Add a zmq socket to the socket map
+    //  * @param port
+    //  */
+    // add_socket(port: number) {
+    //     const zmq_wrapper_instance = new ZMQ_Socket_Wrapper(this.hostname, port);
+    //     this.socket_map.set(port, zmq_wrapper_instance);
+    // }
 
-    handleApplicationExit(signalName: string) {
-        Logger.log(LogLevel.INFO, `ZMQ_Socket_Wrapper recieved signal ${signalName}`);
-        //process.exit(1)
+    // handleApplicationExit(signalName: string) {
+    //     Logger.log(LogLevel.INFO, `ZMQ_Socket_Wrapper recieved signal ${signalName}`);
+    //     //process.exit(1)
 
-        this.socket_map.forEach((zmq_wrapper_instance, port) => {
-            Logger.log(LogLevel.INFO, `closing zmq port: ${port}`);
-            zmq_wrapper_instance.close();
-            // close event listeners (message, error, item_added)?
-            // zmq_wrapper_instance.http_queue.removeEventListener('item_added', () => {})
-        });
-    }
+    //     this.socket_map.forEach((zmq_wrapper_instance, port) => {
+    //         Logger.log(LogLevel.INFO, `closing zmq port: ${port}`);
+    //         zmq_wrapper_instance.close();
+    //         // close event listeners (message, error, item_added)?
+    //         // zmq_wrapper_instance.http_queue.removeEventListener('item_added', () => {})
+    //     });
+    // }
 }

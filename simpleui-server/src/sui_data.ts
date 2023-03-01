@@ -29,7 +29,7 @@ export class SuiData {
     static mockDataFileIndex = [];
     static uiProps = "";
     static open_zmq_connections = 0;
-    static requester = new ZMQ_Socket_Wrapper(SimpleUIServer.zmqHostname);
+    static requester = new ZMQ_Socket_Wrapper();
 
 
 
@@ -230,6 +230,7 @@ export class SuiData {
         // get port
         const zmq_port = SuiData.getZmqPort(req);
         SuiData.requester.port = zmq_port;
+        SuiData.requester.hostname = SimpleUIServer.zmqHostname;
 
         // get connection timeout
         const connect_timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
@@ -249,7 +250,7 @@ export class SuiData {
 
         SuiData.requester.socket.once('message', (msg: any) => {
             const zmqResponse = SuiData.addXmlStatus(msg.toString());
-            Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at ${SuiData.requester.remote_address}: ${zmqResponse.substring(0, 105)}`);
+            Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at ${SuiData.requester.port}: ${zmqResponse.substring(0, 105)}`);
             //requester.close();
             SuiData.requester.disconnect();
             SuiData.open_zmq_connections -= 1;
@@ -260,7 +261,7 @@ export class SuiData {
         SuiData.requester.socket.once('error', (err: any) => {
             const zmqResponse = ServerUtil.getServerError('ZMQ_ERROR', '{{ERROR}}', err);
             SuiData.sendResponse(req, res, zmqResponse);
-            Logger.log(LogLevel.ERROR, `ZMQ socket at ${SuiData.requester.remote_address} got error: ${err}`);
+            Logger.log(LogLevel.DEBUG, `ZMQ socket at ${SuiData.requester.port} got error: ${err}`);
             SuiData.requester.disconnect();
             SuiData.open_zmq_connections -= 1;
             return;
@@ -278,7 +279,7 @@ export class SuiData {
         // bounce if max number of connections are open
         if (SuiData.open_zmq_connections > 7) {
             SuiData.open_zmq_connections -= 1;
-            console.log(`Bouncing request for ${SuiData.requester.remote_address} ${req.params.tabName} ${SuiData.open_zmq_connections}`)
+            console.log(`Bouncing request for ${SuiData.requester.port} ${req.params.tabName} ${SuiData.open_zmq_connections}`)
 
             res.json({"ZMQ_error": "reconnecting"});
             return;
@@ -289,7 +290,7 @@ export class SuiData {
 
         Logger.log(
             SuiData.requestNum <= 5 ? LogLevel.INFO : LogLevel.DEBUG,
-            `Sent ZMQ request: ${SuiData.requester.remote_address} ${zmq_request_packet} ${SuiData.open_zmq_connections}`
+            `Sent ZMQ request: ${SuiData.requester.port} ${zmq_request_packet} ${SuiData.open_zmq_connections}`
         );
     }
 
