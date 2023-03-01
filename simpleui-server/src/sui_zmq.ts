@@ -32,9 +32,8 @@ export class ZMQ_Socket_Wrapper {
     socket: any;
     connection_status: ZMQ_Connection_Status;
 
-    constructor(hostname: string, port: number, connection_timeout: number=1_000, send_timeout: number=0, recieve_timeout: number=500) {
+    constructor(hostname: string, port: number = 0, connection_timeout: number=1_000, send_timeout: number=0, recieve_timeout: number=500) {
         this.hostname = hostname;
-        this.port = port;
         this.remote_address = `tcp://${hostname}:${port}`;
         this.connection_timeout = connection_timeout;
         this.send_timeout = send_timeout;
@@ -84,10 +83,10 @@ export class ZMQ_Socket_Wrapper {
     }
 
     connect() {
-        this.socket.connect(this.remote_address);
+        this.socket.connect(`tcp://${this.hostname}:${this.port}`);
     }
     disconnect() {
-        this.socket.disconnect(this.remote_address);
+        this.socket.connect(`tcp://${this.hostname}:${this.port}`);
     }
 
     send(msg: string) {
