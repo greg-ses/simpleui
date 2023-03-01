@@ -325,12 +325,12 @@ export class SimpleUIServer {
                         const result = Logger.setLogLevel(req.params.svrCmdValue);
                         res.setHeader('Content-Type', 'application/json');
                         res.setHeader('charset', 'UTF-8');
-                        const svrCmdResponse = `{"svr-util": {` +
-                            `"SvrCmd": "${req.params.svrCmdValue}", ` +
-                            `"CmdValue": "${req.params.svrCmdValue}", ` +
-                            `"Status": "${result}."` +
-                            `}`;
-                        res.send(svrCmdResponse);
+                        const serverCommandResponse = {
+                            "SvrCmd": `${req.params.svrCmdName}`,
+                            "CmdValue": `${req.params.svrCmdValue}`,
+                            "result": `${result}`
+                        };
+                        res.json(serverCommandResponse);
                     }
             } catch (err) {
                 const cmd = SuiData.getZmqCmdFromReq(req);
