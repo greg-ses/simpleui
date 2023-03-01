@@ -10,12 +10,17 @@
 
 
 var _zmq = require('zeromq');
-import {ServerUtil} from './server-util';
 import {Logger, LogLevel} from './server-logger';
-import { SuiData } from './sui_data';
-import { Queue } from './queue';
 
 
+
+enum ZMQ_Connection_Status {
+    CONNECTED = "Connected",
+    RETRY_CONNECTING = "Reconnecting",                  // ZMQ_RCVTIMEO ended, attempt to reconnect
+    DELAY_CONNECTING = "Waiting for a response",        // waiting for response for ZMQ_RCVTIMEO amount of time
+    DISCONNECTED = "Disconnected",
+    CLOSED = "Closed"
+}
 
 export class ZMQ_Socket_Wrapper {
     hostname: string;
@@ -25,31 +30,53 @@ export class ZMQ_Socket_Wrapper {
     send_timeout: number;
     recieve_timeout: number;
     socket: any;
+    connection_status: ZMQ_Connection_Status;
 
-    constructor(hostname: string, port: number, connection_timeout: number=1_000, send_timeout: number=500, recieve_timeout: number=500) {
+    constructor(hostname: string, port: number, connection_timeout: number=1_000, send_timeout: number=0, recieve_timeout: number=500) {
         this.hostname = hostname;
         this.port = port;
         this.remote_address = `tcp://${hostname}:${port}`;
         this.connection_timeout = connection_timeout;
         this.send_timeout = send_timeout;
         this.recieve_timeout = recieve_timeout;
+        this.connection_status = ZMQ_Connection_Status.DISCONNECTED
 
 
         try {
             this.socket = _zmq.socket('req');
-            this.socket.setsockopt(_zmq.ZMQ_LINGER, 0); // dont wait for response before closing
-            this.socket.connect_timeout = this.connection_timeout;
-            this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, this.send_timeout);
+            this.socket.setsockopt(_zmq.ZMQ_LINGER, 0);                 // dont wait for response before closing
+            this.socket.setsockopt(_zmq.ZMQ_CONNECT_TIMEOUT, connection_timeout);
+            this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, 0);               // throw error if we cannot send message
             this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, this.recieve_timeout);
 
-            this.socket.monitor(5000, 0);
+            this.socket.monitor(100, 0);
 
-            try {
-                this.connect();
-            } catch(err) {
-                console.log(`Timeout???? ${err?.code} ${err}`, err)
-                this.socket.close();
-            }
+            this.socket.once('connect', (data: any) => {
+                this.connection_status = ZMQ_Connection_Status.CONNECTED;
+            });
+            this.socket.once('connect_retry', (data: any) => {
+                this.connection_status = ZMQ_Connection_Status.RETRY_CONNECTING;
+            });
+            this.socket.once('connect_delay', (data: any) => {
+                this.connection_status = ZMQ_Connection_Status.DELAY_CONNECTING;
+            });
+            this.socket.once('disconnect', (data: any) => {
+                this.connection_status = ZMQ_Connection_Status.DISCONNECTED;
+            });
+            this.socket.once('close', (data: any) => {
+                this.connection_status = ZMQ_Connection_Status.CLOSED;
+            });
+            this.socket.once('close_error', (data: any) => {
+                console.log(`${this.remote_address} close_error ${data} ${data.toString()}`)
+            });
+
+
+            //this.connect();
+
+
+            setInterval( () => {
+                //console.log(`\t${this.remote_address} ${this.connection_status}`)
+            }, 250);
 
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Could not create ${this.remote_address}, got error ${err}`);
@@ -58,6 +85,9 @@ export class ZMQ_Socket_Wrapper {
 
     connect() {
         this.socket.connect(this.remote_address);
+    }
+    disconnect() {
+        this.socket.disconnect(this.remote_address);
     }
 
     send(msg: string) {
