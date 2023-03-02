@@ -214,14 +214,6 @@ export class SuiData {
     static handleZmqRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
         if (!uiProps) { Logger.log(LogLevel.ERROR, `ui.props is null`); return }
 
-
-        /**
-         *
-         * MEMORY LEAK WHEN BMS IS DOWN IS STILL PRESENT
-         *      - MAYBE DISCONNECT INSTEAD OF CLOSE?
-         */
-
-
         SuiData.incrRequestNum();
 
         // Update SuiData's copy of uiProps
@@ -235,38 +227,23 @@ export class SuiData {
         // get connection timeout
         const connect_timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
 
-
         // make the socket and connect
-        //let requester = new ZMQ_Socket_Wrapper(SimpleUIServer.zmqHostname, zmq_port);
-
-
         SuiData.open_zmq_connections += 1;
 
-
-        //requester.connect();
         SuiData.requester.connect();
-
-
 
         SuiData.requester.socket.once('message', (msg: any) => {
             const zmqResponse = SuiData.addXmlStatus(msg.toString());
+            if (zmqResponse === "<response>Fail</response>") {
+                res.send("");
+                return;
+            }
             Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at ${SuiData.requester.port}: ${zmqResponse.substring(0, 105)}`);
-            //requester.close();
             SuiData.requester.disconnect();
             SuiData.open_zmq_connections -= 1;
             SuiData.sendResponse(req, res, zmqResponse);
             return;
         });
-
-        SuiData.requester.socket.once('error', (err: any) => {
-            const zmqResponse = ServerUtil.getServerError('ZMQ_ERROR', '{{ERROR}}', err);
-            SuiData.sendResponse(req, res, zmqResponse);
-            Logger.log(LogLevel.DEBUG, `ZMQ socket at ${SuiData.requester.port} got error: ${err}`);
-            SuiData.requester.disconnect();
-            SuiData.open_zmq_connections -= 1;
-            return;
-        });
-
 
         // build the message
         let zmq_request_packet = "";
@@ -280,7 +257,6 @@ export class SuiData {
         if (SuiData.open_zmq_connections > 7) {
             SuiData.open_zmq_connections -= 1;
             console.log(`Bouncing request for ${SuiData.requester.port} ${req.params.tabName} ${SuiData.open_zmq_connections}`)
-
             res.json({"ZMQ_error": "reconnecting"});
             return;
         }
@@ -293,6 +269,7 @@ export class SuiData {
             `Sent ZMQ request: ${SuiData.requester.port} ${zmq_request_packet} ${SuiData.open_zmq_connections}`
         );
     }
+
 
 
     /**
