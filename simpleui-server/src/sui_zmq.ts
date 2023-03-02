@@ -11,6 +11,8 @@
 
 var _zmq = require('zeromq');
 import {Logger, LogLevel} from './server-logger';
+import { SuiData } from './sui_data';
+import { ServerUtil } from './server-util';
 
 
 
@@ -68,12 +70,22 @@ export class ZMQ_Socket_Wrapper {
             });
 
 
+            this.socket.once('error', (err: any) => {
+                const zmqResponse = ServerUtil.getServerError('ZMQ_ERROR', '{{ERROR}}', err);
+                //SuiData.sendResponse(req, res, zmqResponse);
+                Logger.log(LogLevel.DEBUG, `ZMQ socket at ${SuiData.requester.port} got error: ${err}`);
+                SuiData.requester.disconnect();
+                SuiData.open_zmq_connections -= 1;
+                return;
+            });
+
+
             //this.connect();
 
 
-            // setInterval( () => {
-            //     //console.log(`\t${this.port} ${this.connection_status}`)
-            // }, 250);
+            setInterval( () => {
+                console.log(`\t${this.port} ${this.connection_status}`)
+            }, 500);
 
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Could not create ${this.port}, got error ${err}`);
@@ -81,10 +93,18 @@ export class ZMQ_Socket_Wrapper {
     }
 
     connect() {
+        console.log(`${this.port} connecting to tcp://${this.hostname}:${this.port}`)
         this.socket.connect(`tcp://${this.hostname}:${this.port}`);
     }
     disconnect() {
-        this.socket.connect(`tcp://${this.hostname}:${this.port}`);
+        try {
+            console.log(`${this.port} ${this.hostname} disconnecting`)
+            this.socket.disconnect(`tcp://${this.hostname}:${this.port}`);
+        } catch (err) {
+            console.log(err)
+
+        }
+
     }
 
     send(msg: string) {
@@ -93,6 +113,7 @@ export class ZMQ_Socket_Wrapper {
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Could not send zmq message:\n${msg} got error: ${err}`);
         }
+        this.count_listeners()
     }
 
     close() {
@@ -104,6 +125,22 @@ export class ZMQ_Socket_Wrapper {
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Could not close ${this.port}, got error: ${err}`);
         }
+    }
+
+    count_listeners() {
+        const eventNames = this.socket.eventNames();
+        let count = 0;
+        for (const eventName of eventNames) {
+            count += this.socket.listenerCount(eventName);
+        }
+        console.log(`event listener count ${count}`)
+    }
+
+    set_port(new_port: number) {
+        if (this.port != new_port) {
+            this.disconnect();
+        }
+        this.port = new_port;
     }
 
 
