@@ -232,11 +232,8 @@ export class SuiData {
             Logger.log(LogLevel.WARNING, `No socket for ZMQ socket with port ${tabName}, created new socket`);
         }
 
-        // get and set connection timeout (is this needed anymore?)
-        // const timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
-
         // add res + req pair to socket's queue
-        socket.http_queue.enqueue([res, req]);
+        socket.http_queue.enqueue([req, res]);
     }
 
 
