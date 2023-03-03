@@ -31,18 +31,22 @@ class ZmqSocket {
     tabName: string;
     socket: any;
     connectionStatus: ZmqConnectionStatus;
-    http_queue: HttpQueue;
+    httpQueue: HttpQueue;
+    messagesSent: number;
+    messagesRecieved: number;
+    watchdogInterval: any;
 
     constructor(hostname: string, port: number, tab: string) {
         this.hostname = hostname;
         this.port = port;
         this.tabName = tab;
         this.connectionStatus = ZmqConnectionStatus.DISCONNECTED;
-        this.http_queue = new HttpQueue();
+        this.httpQueue = new HttpQueue();
 
-        this.http_queue.events.on('item_added', () => {
+
+        this.httpQueue.events.on('item_added', () => {
             // read front of the queue
-            let [req, _] = this.http_queue.front;
+            let [req, _] = this.httpQueue.front;
             let zmqRequestPacket = "";
 
             if (req.method === 'POST') {
@@ -52,8 +56,15 @@ class ZmqSocket {
                 zmqRequestPacket = SuiData.buildZmqDataPacket(req);
             }
             // send request
+            this.messagesSent += 1;
             this.socket.send(zmqRequestPacket);
         });
+
+        this.watchdogInterval = setInterval( () => {
+            if (this.messagesSent - this.messagesRecieved > 3) {
+                this.recreateSocket();
+            }
+        }, 1_000);
     }
 
 
@@ -67,6 +78,10 @@ class ZmqSocket {
             this.socket.setsockopt(_zmq.ZMQ_CONNECT_TIMEOUT, 900);
             this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, 0);               // throw error if we cannot send message
             this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, 500);
+
+            this.messagesSent = 0;
+            this.messagesRecieved = 0;
+            this.socket.connectionStatus = ZmqConnectionStatus.DISCONNECTED;
 
             // set up socket monitoring
             this.socket.monitor(250, 0);
@@ -96,12 +111,13 @@ class ZmqSocket {
 
                 Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at ${this.tabName}: ${zmq_data.substring(0, 16)}`);
                 // get response + request from queue
-                let [req, res] = this.http_queue.dequeue();
+                let [req, res] = this.httpQueue.dequeue();
                 if (typeof res === "string") {
                     Logger.log(LogLevel.DEBUG, `No more items in HTTP queue of ${this.tabName} to send, returning...`);
                     return;
                 }
                 // send response
+                this.messagesRecieved += 1;
                 SuiData.sendResponse(req, res, zmq_data);
             });
 
@@ -109,7 +125,7 @@ class ZmqSocket {
                 const zmq_data = ServerUtil.getServerError('ZMQ_ERROR', '{{ERROR}}', zmqErr);
                 Logger.log(LogLevel.ERROR, `ZMQ socket ${this.tabName} got error: ${zmqErr}`);
                 // get response + request from queue
-                let [req, res] = this.http_queue.dequeue();
+                let [req, res] = this.httpQueue.dequeue();
                 // send response
                 SuiData.sendResponse(req, res, zmq_data);
             });
@@ -127,10 +143,10 @@ class ZmqSocket {
     }
 
     send(msg: string) {
-        try{
+        try {
             this.socket.send(msg);
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not send zmq message:\n${msg} got error: ${err}`);
+            Logger.log(LogLevel.ERROR, `Socket ${this.tabName} could not send ${msg}, got error: ${err}`);
         }
     }
 
@@ -138,6 +154,13 @@ class ZmqSocket {
         if (this.socket.closed === false) {
             this.socket.close();
         }
+    }
+
+    recreateSocket() {
+            Logger.log(LogLevel.INFO, `Recreating the socket for ${this.tabName}`);
+            this.close();
+            this.httpQueue.flush_queue();
+            this.initalize();
     }
 }
 
@@ -184,8 +207,8 @@ export class ZmqMap {
         let msg = "\n--- ZMQ Socket Connection Status ---\n";
         this.socketMap.forEach( (socket, tabName) => {
             const status = socket.connectionStatus;
-            const line = `\t${tabName}\t ${status}\n`
-            msg += line;
+            const line = `\t${tabName}\t\t ${status}\t ${socket.messagesSent}/${socket.messagesRecieved}\t ${socket.httpQueue.length}/${socket.httpQueue.MAX_QUEUE_SIZE}`;
+            msg += `${line}\n`;
         });
         msg += "------------------------------------\n";
         Logger.log(LogLevel.DEBUG, msg);
