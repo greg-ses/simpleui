@@ -13,7 +13,7 @@ var _zmq = require('zeromq');
 import {ServerUtil} from './server-util';
 import {Logger, LogLevel} from './server-logger';
 import { SuiData } from './sui_data';
-import { Queue } from './queue';
+import { HttpQueue } from './queue';
 
 
 
@@ -31,18 +31,18 @@ class ZmqSocket {
     tabName: string;
     socket: any;
     connectionStatus: ZmqConnectionStatus;
-    http_queue: Queue;
+    http_queue: HttpQueue;
 
     constructor(hostname: string, port: number, tab: string) {
         this.hostname = hostname;
         this.port = port;
         this.tabName = tab;
         this.connectionStatus = ZmqConnectionStatus.DISCONNECTED;
-        this.http_queue = new Queue();
+        this.http_queue = new HttpQueue();
 
         this.http_queue.events.on('item_added', () => {
             // read front of the queue
-            let [req, _] = this.http_queue.elements[0];
+            let [req, _] = this.http_queue.front;
             let zmqRequestPacket = "";
 
             if (req.method === 'POST') {
@@ -143,6 +143,10 @@ class ZmqSocket {
 
 
 
+
+
+
+
 export class ZmqMap {
     socketMap: Map<string, ZmqSocket>;
     logInterval: any;
@@ -154,7 +158,7 @@ export class ZmqMap {
 
         this.logInterval = setInterval( () => {
             if (this.socketMap.size != 0) {
-                this.logStatus()
+                this.logStatus();
             }
         }, 1_000);
     }
