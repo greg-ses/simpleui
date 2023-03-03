@@ -1,6 +1,6 @@
 import { EventEmitter } from "events";
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
-import { Logger, LogLevel } from "server-logger";
+import { Logger, LogLevel } from "./server-logger";
 
 
 export class Queue {
@@ -10,7 +10,7 @@ export class Queue {
 
     constructor() {
         this.elements = [];
-        this.MAX_QUEUE_SIZE = 32;
+        this.MAX_QUEUE_SIZE = 10_000;
         this.events = new EventEmitter();
     }
 
@@ -76,8 +76,6 @@ export class HttpQueue extends Queue {
             let [_req, _res] = this.dequeue();
             Logger.log(LogLevel.DEBUG, `Clearing HTTP Queue, ${this.length} items left`);
             _res.status(200).json({"ZMQ_error": "flushing_queue"});
-
         }
     }
-
 }
