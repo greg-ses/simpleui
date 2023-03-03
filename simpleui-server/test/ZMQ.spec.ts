@@ -1,5 +1,5 @@
 var _zmq = require('zeromq');
-import { ZMQ_Socket_Wrapper } from '../src/sui_zmq';
+import { ZmqMap, ZmqSocket, ZmqConnectionStatus } from '../src/sui_zmq';
 
 
 //import { Logger, LogLevel } from '../src/server-logger';
@@ -50,7 +50,7 @@ class ZMQ_Reply_Socket {
 const PORT = 1234;
 const HOSTNAME = '127.0.0.1';
 let mock_reply_socket: ZMQ_Reply_Socket;
-let test_request_socket: ZMQ_Socket_Wrapper;
+let test_request_socket: ZmqSocket;
 
 
 
@@ -59,7 +59,8 @@ let test_request_socket: ZMQ_Socket_Wrapper;
 describe('ZMQ_Socket_Wrapper Class testing', () => {
 
     beforeEach( () => {
-        test_request_socket = new ZMQ_Socket_Wrapper(HOSTNAME, PORT);
+        test_request_socket = new ZmqSocket(HOSTNAME, PORT, "test-tab");
+        test_request_socket.initalize();
         mock_reply_socket = new ZMQ_Reply_Socket(PORT);
     });
     afterEach( () => {
@@ -102,7 +103,7 @@ describe('ZMQ_Socket_Wrapper Class testing', () => {
             params: { zmqValue: "" }
         }
 
-        test_request_socket.http_queue.enqueue([{}, mock_req]);
+        test_request_socket.httpQueue.enqueue([mock_req, {}]);
     }, 1_000);
 
 

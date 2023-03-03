@@ -28,7 +28,7 @@ export class SuiData {
     static mockRequestNum = 0;
     static mockDataFileIndex = [];
     static uiProps = "";
-    static zmqMap: ZmqMap  = new ZmqMap();
+    static zmqSocketMap = new ZmqMap();
 
 
 
@@ -220,14 +220,14 @@ export class SuiData {
         const tabName = req.params.tabName;
 
         // get socket
-        let socket = SuiData.zmqMap.get(tabName);
+        let socket = SuiData.zmqSocketMap.get(tabName);
 
         // get port
         const zmqPort = SuiData.getZmqPort(req);
 
         if (!socket) {
-            SuiData.zmqMap.addSocket(SimpleUIServer.zmqHostname, zmqPort, tabName);
-            socket = SuiData.zmqMap.get(tabName);
+            SuiData.zmqSocketMap.addSocket(SimpleUIServer.zmqHostname, zmqPort, tabName);
+            socket = SuiData.zmqSocketMap.get(tabName);
             socket.initalize();
             Logger.log(LogLevel.WARNING, `No socket for ZMQ socket ${tabName}, created new socket`);
         }

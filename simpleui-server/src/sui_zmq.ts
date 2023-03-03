@@ -17,7 +17,7 @@ import { HttpQueue } from './queue';
 
 
 
-enum ZmqConnectionStatus {
+export enum ZmqConnectionStatus {
     CONNECTED = "connected",
     DELAY_CONNECTION = "wait for a respsonse",
     RETRY_CONNECTION = "reconnecting",
@@ -25,7 +25,7 @@ enum ZmqConnectionStatus {
     CLOSED = "closed"
 }
 
-class ZmqSocket {
+export class ZmqSocket {
     hostname: string;
     port: number;
     tabName: string;
@@ -108,7 +108,6 @@ class ZmqSocket {
             this.socket.on('message', (msg) => {
                 const raw_zmq_data = msg.toString();
                 const zmq_data = SuiData.addXmlStatus(raw_zmq_data);
-
                 Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at ${this.tabName}: ${zmq_data.substring(0, 16)}`);
                 // get response + request from queue
                 let [req, res] = this.httpQueue.dequeue();
