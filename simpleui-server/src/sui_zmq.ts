@@ -28,7 +28,7 @@ export enum ZmqConnectionStatus {
 export class ZmqSocket {
     hostname: string;
     port: number;
-    tabName: string;
+    id: string;     // 'tabName-propStub'
     socket: any;
     connectionStatus: ZmqConnectionStatus;
     httpQueue: HttpQueue;
@@ -39,7 +39,7 @@ export class ZmqSocket {
     constructor(hostname: string, port: number, tab: string) {
         this.hostname = hostname;
         this.port = port;
-        this.tabName = tab;
+        this.id = tab;
         this.connectionStatus = ZmqConnectionStatus.DISCONNECTED;
         this.httpQueue = new HttpQueue();
 
@@ -108,11 +108,11 @@ export class ZmqSocket {
             this.socket.on('message', (msg) => {
                 const raw_zmq_data = msg.toString();
                 const zmq_data = SuiData.addXmlStatus(raw_zmq_data);
-                Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at ${this.tabName}: ${zmq_data.substring(0, 16)}`);
+                Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at ${this.id}: ${zmq_data.substring(0, 16)}`);
                 // get response + request from queue
                 let [req, res] = this.httpQueue.dequeue();
                 if (typeof res === "string") {
-                    Logger.log(LogLevel.DEBUG, `No more items in HTTP queue of ${this.tabName} to send, returning...`);
+                    Logger.log(LogLevel.DEBUG, `No more items in HTTP queue of ${this.id} to send, returning...`);
                     return;
                 }
                 // send response
@@ -122,14 +122,14 @@ export class ZmqSocket {
 
             this.socket.on('error', (zmqErr) => {
                 const zmq_data = ServerUtil.getServerError('ZMQ_ERROR', '{{ERROR}}', zmqErr);
-                Logger.log(LogLevel.ERROR, `ZMQ socket ${this.tabName} got error: ${zmqErr}`);
+                Logger.log(LogLevel.ERROR, `ZMQ socket ${this.id} got error: ${zmqErr}`);
                 // get response + request from queue
                 let [req, res] = this.httpQueue.dequeue();
                 // send response
                 SuiData.sendResponse(req, res, zmq_data);
             });
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not initalize socket ${this.tabName}`);
+            Logger.log(LogLevel.ERROR, `Could not initalize socket ${this.id}`);
         }
     }
 
@@ -137,7 +137,7 @@ export class ZmqSocket {
         try {
             this.socket.connect(`tcp://${this.hostname}:${this.port}`);
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Socket ${this.tabName} could not connect, got error ${err}`);
+            Logger.log(LogLevel.ERROR, `Socket ${this.id} could not connect, got error ${err}`);
         }
     }
 
@@ -145,7 +145,7 @@ export class ZmqSocket {
         try {
             this.socket.send(msg);
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Socket ${this.tabName} could not send ${msg}, got error: ${err}`);
+            Logger.log(LogLevel.ERROR, `Socket ${this.id} could not send ${msg}, got error: ${err}`);
         }
     }
 
@@ -156,7 +156,7 @@ export class ZmqSocket {
     }
 
     recreateSocket() {
-            Logger.log(LogLevel.INFO, `Recreating the socket for ${this.tabName}`);
+            Logger.log(LogLevel.INFO, `Recreating the socket for ${this.id}`);
             this.close();
             this.httpQueue.flush_queue();
             this.initalize();
@@ -206,9 +206,9 @@ export class ZmqMap {
     logStatus() {
         if (this.socketMap.size == 0) return;
         let msg = "\n--- ZMQ Socket Connection Status ---\n";
-        this.socketMap.forEach( (socket, tabName) => {
+        this.socketMap.forEach( (socket, id) => {
             const status = socket.connectionStatus;
-            const line = `\t${tabName}\t\t ${status}\t ${socket.messagesSent}/${socket.messagesRecieved}\t ${socket.httpQueue.length}/${socket.httpQueue.MAX_QUEUE_SIZE}`;
+            const line = `\t${id}\t\t ${status}\t ${socket.messagesSent}/${socket.messagesRecieved}\t ${socket.httpQueue.length}/${socket.httpQueue.MAX_QUEUE_SIZE}`;
             msg += `${line}\n`;
         });
         msg += "------------------------------------\n";
@@ -216,8 +216,8 @@ export class ZmqMap {
     }
 
 
-    get(tabName: string) {
-        return this.socketMap.get(tabName);
+    get(id: string) {
+        return this.socketMap.get(id);
     }
 
     size(): number {
