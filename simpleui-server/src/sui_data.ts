@@ -223,10 +223,10 @@ export class SuiData {
         const propsStub = req.params.propsStub;
 
         // make socket id
-        const id = `${tabName}-${propsStub}`
+        const id = `${tabName}-${propsStub}`;
 
         // get socket
-        let socket = SuiData.zmqSocketMap.get(tabName);
+        let socket = SuiData.zmqSocketMap.get(id);
 
         // get port
         const zmqPort = SuiData.getZmqPort(req);
