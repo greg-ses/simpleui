@@ -219,6 +219,12 @@ export class SuiData {
         // get tab name
         const tabName = req.params.tabName;
 
+        // get ui-prop
+        const propsStub = req.params.propsStub;
+
+        // make socket id
+        const id = `${tabName}-${propsStub}`
+
         // get socket
         let socket = SuiData.zmqSocketMap.get(tabName);
 
@@ -226,8 +232,8 @@ export class SuiData {
         const zmqPort = SuiData.getZmqPort(req);
 
         if (!socket) {
-            SuiData.zmqSocketMap.addSocket(SimpleUIServer.zmqHostname, zmqPort, tabName);
-            socket = SuiData.zmqSocketMap.get(tabName);
+            SuiData.zmqSocketMap.addSocket(SimpleUIServer.zmqHostname, zmqPort, id);
+            socket = SuiData.zmqSocketMap.get(id);
             socket.initalize();
             Logger.log(LogLevel.INFO, `No socket for ZMQ socket ${tabName}, created new socket`);
         }
