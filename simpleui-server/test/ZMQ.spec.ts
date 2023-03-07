@@ -65,8 +65,6 @@ describe('ZmqSocket Class testing', () => {
         test_request_socket = new ZmqSocket(HOSTNAME, PORT, "test-tab");
         test_request_socket.initalize();
         mock_reply_socket = new ZMQ_Reply_Socket(PORT);
-
-        //SuiData.zmqSocketMap = new ZmqMap();
     });
     afterEach( () => {
         test_request_socket.close();
