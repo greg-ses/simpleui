@@ -1,4 +1,6 @@
 var _zmq = require('zeromq');
+import { clearInterval } from 'timers';
+import { SuiData } from '../src/sui_data';
 import { ZmqMap, ZmqSocket, ZmqConnectionStatus } from '../src/sui_zmq';
 
 
@@ -56,15 +58,21 @@ let test_request_socket: ZmqSocket;
 
 
 
-describe('ZMQ_Socket_Wrapper Class testing', () => {
+describe('ZmqSocket Class testing', () => {
+
 
     beforeEach( () => {
         test_request_socket = new ZmqSocket(HOSTNAME, PORT, "test-tab");
         test_request_socket.initalize();
         mock_reply_socket = new ZMQ_Reply_Socket(PORT);
+
+        //SuiData.zmqSocketMap = new ZmqMap();
     });
     afterEach( () => {
         test_request_socket.close();
+        clearInterval(test_request_socket.watchdogInterval);
+        clearInterval(SuiData.zmqSocketMap.logInterval);
+
         mock_reply_socket.socket.unbindSync(mock_reply_socket.address);
         mock_reply_socket.close();
     });
@@ -109,10 +117,33 @@ describe('ZMQ_Socket_Wrapper Class testing', () => {
 
     test.todo('REQ Socket should reconnect to REP socket if REP socket power cycles');
 
-
     test.todo('Sockets close down when SIGINT/SIGTERM is recevieved');
 
-
-    test.todo('HTTP queue max size and ZMQ Socket interal queue max size should be the same value');
+    test.todo('HTTP queue max size and ZMQ Socket internal queue max size should be the same value');
 });
+
+
+
+
+describe('ZmqMap class testing', () => {
+    let testZmqMap: ZmqMap;
+
+    beforeEach( () => {
+        testZmqMap = new ZmqMap();
+    });
+    afterEach( () => {
+        clearInterval(testZmqMap.logInterval);
+    });
+
+
+    test('ZmqMap is initalized', () => {
+        expect(testZmqMap).toBeTruthy();
+    });
+
+    test('Should add a socket to the ZmqMap', () => {
+        testZmqMap.addSocket(HOSTNAME,PORT, "test-tab");
+        expect(testZmqMap.size()).toEqual(1);
+    });
+});
+
 

@@ -229,7 +229,7 @@ export class SuiData {
             SuiData.zmqSocketMap.addSocket(SimpleUIServer.zmqHostname, zmqPort, tabName);
             socket = SuiData.zmqSocketMap.get(tabName);
             socket.initalize();
-            Logger.log(LogLevel.WARNING, `No socket for ZMQ socket ${tabName}, created new socket`);
+            Logger.log(LogLevel.INFO, `No socket for ZMQ socket ${tabName}, created new socket`);
         }
 
         // add res + req pair to socket's queue
