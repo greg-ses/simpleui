@@ -190,6 +190,8 @@ export class ZmqMap {
         this.socketMap.forEach( (socket, tab) => {
             Logger.log(LogLevel.INFO, `closing socket for tab ${tab} tcp://${socket.hostname}:${socket.port}`);
         } )
+
+        clearInterval(this.logInterval);
     }
 
     addSocket( hostname: string, port: number, tab: string ) {
