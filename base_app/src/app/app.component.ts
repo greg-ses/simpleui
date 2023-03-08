@@ -295,9 +295,6 @@ export class AppComponent implements OnInit, AfterViewInit {
             } else if (event.ctrlKey && event.altKey) {
                 // CTRL-ALT-CLICK
                 AppComponent._mouseDownSuspendsUpdates = window.confirm('Suspend data/GUI updates on MOUSEDOWN?');
-            } else if (event.shiftKey && event.altKey) {
-                // SHIFT-ALT-CLICK
-                window['setLoggingFeatures']();
             } else if (event.shiftKey && !selectedTab._autoRefreshEnabled) {
                 // SHIFT-CLICK with updates paused
                 selectedTab._commands_enabled  = window.confirm(`Allow commands even when refresh is paused (developers only)?`);

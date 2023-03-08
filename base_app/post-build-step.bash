@@ -31,7 +31,6 @@ cp src/public/proxy-index.php dist/
 cp src/public/collect-apache-coredumps.bash dist/
 cp src/public/sample_ui.properties.txt dist/
 cp src/public/service-worker.js dist/
-cp src/public/LoggingFeatures.js dist/
 
 cp dist/${PROJ}/*.css dist/css/
 cp dist/${PROJ}/*.css.map dist/css/
