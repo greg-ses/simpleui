@@ -12,7 +12,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {UiObjList} from '../interfaces/ui-obj-list';
 import {SiteIndex} from '../interfaces/site-index';
 
-import {CssUpdateService} from '../services/css-update-service';
 import {TabUI} from '../interfaces/props-data';
 
 import {ajax} from 'rxjs/ajax';
@@ -26,7 +25,6 @@ import {AppComponent} from '../app.component';
     styleUrls: ['./app-tab-overlay.component.css'] ,
     providers: [
         HttpClientModule,
-        CssUpdateService,
         DataSetChangeService
     ]
 })
@@ -94,7 +92,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     get detectChanges(): {name: string, value: boolean} { return this._detectChanges; }
 
     constructor(
-        private _cssUpdateService: CssUpdateService,
         private _changeDetectorRef: ChangeDetectorRef,
         private dataSetChangeService: DataSetChangeService,
         @Optional() public app: AppComponent
