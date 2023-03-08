@@ -229,7 +229,7 @@ export class SimpleUIServer {
         try {
 
 
-            Logger.logLevel = LogLevel.DEBUG;
+            Logger.logLevel = LogLevel.INFO;
 
             // Parse input arguments
             SimpleUIServer.setBinDir(process.argv[1]);

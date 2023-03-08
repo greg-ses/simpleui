@@ -103,7 +103,6 @@ export class SuiData {
      * depending on filetype.
      * @param req
      * @param res
-     * @param uiProps
      * @param xmlResponse data to send to base_app
     */
     static sendResponse(req: Request<ParamsDictionary>, res: Response, xmlResponse: string) {
