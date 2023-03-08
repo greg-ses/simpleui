@@ -296,33 +296,4 @@ export class ImageOverlaysComponent {
 
         return s;
     }
-
-    onDragStart(ev: any): any {
-        if (this._logLevel) {
-            const msg = ImageOverlaysComponent.evtToString(ev);
-            setTimeout('console.log("' + msg + '");', 50);
-        }
-        if (ev.currentTarget.tagName === 'DIV') {
-            ev.dataTransfer.setData('Text', ev.currentTarget.id);
-            ev.target.style = 'width: 100px; background-color: green;';
-        } else if (ev.currentTarget.tagName === 'IMG') {
-            ev.dataTransfer.setData('Text', ev.currentTarget.id);
-        }
-        const moveLogger = document.getElementById('moveLogger');
-        moveLogger.innerHTML = 'x:' + ev.pageX + 'px, y:' + ev.pageY + 'px';
-        const rect = ev.currentTarget.getBoundingClientRect();
-
-        const leftOffsetToMouse = Math.round((rect.left - ev.pageX) * 10) / 10;
-        const topOffsetToMouse = Math.round((rect.top - ev.pageY) * 10) / 10;
-
-        moveLogger['dragStartInfo'] = {
-            'id': ev.currentTarget.id,
-            'startX': ev.pageX,
-            'startY': ev.pageY,
-            'leftOffsetToMouse': leftOffsetToMouse,
-            'topOffsetToMouse': topOffsetToMouse
-        };
-
-    }
-
 }
