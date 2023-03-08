@@ -36,10 +36,10 @@ export class ZmqSocket {
     messagesRecieved: number;
     watchdogInterval: any;
 
-    constructor(hostname: string, port: number, tab: string) {
+    constructor(hostname: string, port: number, id: string) {
         this.hostname = hostname;
         this.port = port;
-        this.id = tab;
+        this.id = id;
         this.connectionStatus = ZmqConnectionStatus.DISCONNECTED;
         this.httpQueue = new HttpQueue();
 
@@ -187,19 +187,19 @@ export class ZmqMap {
 
     handleApplicationExit(signalName: string) {
         Logger.log(LogLevel.INFO, `SimpleUI recieved signal ${signalName}`);
-        this.socketMap.forEach( (socket, tab) => {
-            Logger.log(LogLevel.INFO, `closing socket for tab ${tab} tcp://${socket.hostname}:${socket.port}`);
+        this.socketMap.forEach( (socket, id) => {
+            Logger.log(LogLevel.INFO, `closing socket for tab ${id} tcp://${socket.hostname}:${socket.port}`);
         } )
 
         clearInterval(this.logInterval);
     }
 
-    addSocket( hostname: string, port: number, tab: string ) {
+    addSocket( hostname: string, port: number, id: string ) {
         try {
-            const newSocket = new ZmqSocket(hostname, port, tab);
-            this.socketMap.set(tab, newSocket);
+            const newSocket = new ZmqSocket(hostname, port, id);
+            this.socketMap.set(id, newSocket);
         } catch (err) {
-            Logger.log(LogLevel.INFO, `Could not add socket for ${tab}, got error ${err}`);
+            Logger.log(LogLevel.INFO, `Could not add socket for ${id}, got error ${err}`);
         }
     }
 
