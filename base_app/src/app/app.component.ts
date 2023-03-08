@@ -544,24 +544,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
 
-    isDeltaUpdate(tab: TabUI) {
-        return (tab._DataSummary
-            && typeof tab._DataSummary === 'object'
-            && typeof tab._DataSummary['updateType'] === 'string'
-            && (tab._DataSummary['updateType'] === 'delta'));
-    }
-
-    aboutDialog() {
-        const aboutMsg =
-            'About'
-            + '\n\nApp Title: ' + this.getAppTitle()
-            + '\n\nSimple UI Version Short: ' + this.getProp('uiVersionShort', 'ui version short')
-            + '\n\nSimple UI Version Long: ' + this.getProp('uiVersionLong', 'ui version long')
-            + '\n\nApp Title: ' + this.getProp('uiVersionLong', 'app version long');
-
-        alert(aboutMsg);
-    }
-
     init_common_props(tab: TabUI) {
         this._tBarProps._appTitle = this.getAppTitle();
         this._tBarProps._tabTitle = this.getTabTitle(tab);
@@ -693,14 +675,6 @@ export class AppComponent implements OnInit, AfterViewInit {
             dVersion = tab._DataSummary.Version.value;
         }
         return dVersion;
-    }
-
-    hasProps() {
-        return (this._props instanceof Object);
-    }
-
-    hasProp(key: string) {
-        return ((this._props instanceof Object) && (typeof this._props[key] !== 'undefined'));
     }
 
 }
