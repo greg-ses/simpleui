@@ -112,17 +112,7 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
         return (s && s.split(/,[ ]*/)) || [];
     }
 
-    log(logLevel: number, msg: string): void {
-        if (this._siteIndex && this._siteIndex['props']
-            && this._siteIndex['props'].logLevel
-            && (this._siteIndex['props'].logLevel.value >= logLevel) ) {
 
-            this._logCount++;
-            const now = new Date();
-            const ts: string = now.getHours() + 'h ' + now.getMinutes() + 'm ' + now.getSeconds() + 's ' + now.getMilliseconds() + 'ms';
-            console.log('Level: ' + logLevel + ', logCount: ' + this._logCount + ', at ' + ts + ': ' + msg);
-        }
-    }
 
     getNthOverlayNumber() {
 
