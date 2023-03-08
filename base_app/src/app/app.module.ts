@@ -28,12 +28,10 @@ import { PropDefinedTableComponent } from './prop-defined-table/prop-defined-tab
 import { SectionComponent } from './section/section.component';
 import { SeparatorBarComponent } from './dataset-tables/separator-bar';
 import { CommandButtonChangeService } from './services/command-button-change.service';
-import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-component';
 
 @NgModule({
     declarations: [
       AppComponent,
-      AppEditUiPanelComponent,
       AppTabNormalComponent,
       AppTabOverlayComponent,
       CmdSetComponent,
