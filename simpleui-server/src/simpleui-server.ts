@@ -6,7 +6,6 @@ import * as os from 'os';
 import {PropsFileReader} from './props-file-reader';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
-import { zmq_wrapper } from './sui_zmq';
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
 
 const app = express();
@@ -24,6 +23,7 @@ export class SimpleUIServer {
     static overlay_image_file_names = [];
     static missing_overlay_files = new Set();
     static APP_NAME = ""; // name of the app
+    static zmqHostname = "";
 
     static executeMockRequest(cmdArgs: CommandArgs, props: any, req: Request<ParamsDictionary> = null, res: Response = null) {
         if (props) {
@@ -244,14 +244,10 @@ export class SimpleUIServer {
 
             SimpleUIServer.APP_NAME = cmdVars.appName;
 
-            let _props = PropsFileReader.getProps('ui.properties');
 
             ////// set up zmq sockets
-            let zmq_ports_array = ServerUtil.getZMQPortsFromProps(_props).map(p => Number(p));
-            const zmqHostname = cmdVars.zmqHostname;
-            Logger.log(LogLevel.INFO, zmq_ports_array ? `ZMQ ports: ${zmq_ports_array}` : `No ZMQ ports were parsed from the inital props`);
-            SuiData.zmqMap = new zmq_wrapper(zmq_ports_array, zmqHostname);
-            //////
+            SimpleUIServer.zmqHostname = cmdVars.zmqHostname;
+
 
             ////// get list of gif and png files for overlay
             const overlay_assets_dir_path = `/var/www/${SimpleUIServer.APP_NAME}/overlay-1/images/`;
@@ -339,7 +335,7 @@ export class SimpleUIServer {
                         res.send(svrCmdResponse);
                     }
             } catch (err) {
-                const cmd = SuiData.getCmdFromReq(req);
+                const cmd = SuiData.getZmqCmdFromRequest(req);
                 ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                     `Err in svr-util request: ${err}`,
                     'main svr-util handler', '/svr-util/cmdName/cmdValue', cmd);
@@ -370,7 +366,7 @@ export class SimpleUIServer {
 
                     await PropsFileReader.propsFileRequest(req, res, props);
                 } catch (err) {
-                    const cmd = SuiData.getCmdFromReq(req);
+                    const cmd = SuiData.getZmqCmdFromRequest(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                         `Err in props request: ${err}`,
                         'main props handler', '/query/props', cmd);
@@ -402,7 +398,7 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(`${req.params.propsStub}.properties`);
                     SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
-                    const cmd = SuiData.getCmdFromReq(req);
+                    const cmd = SuiData.getZmqCmdFromRequest(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                         `Err in data request: ${err}`,
                         'main data handler', '/query/data/zmq', cmd);
@@ -430,7 +426,7 @@ export class SimpleUIServer {
                     SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
 
-                    const cmd = SuiData.getCmdFromReq(req);
+                    const cmd = SuiData.getZmqCmdFromRequest(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                         `Err in cmd request: ${err}`,
                         'main cmd handler', '/query/cmd/zmq', cmd);
@@ -512,7 +508,7 @@ export class SimpleUIServer {
                     const props = PropsFileReader.getProps(`${req.params.propsStub}.properties`);
                     await SuiData.suiCssToJsonRequest(req, res, props);
                 } catch (err) {
-                    const cmd = SuiData.getCmdFromReq(req);
+                    const cmd = SuiData.getZmqCmdFromRequest(req);
                     ServerUtil.logRequestDetails(LogLevel.ERROR, req,
                         `Err in cssToJsonQuery request: ${err}`,
                         'main cssToJsonQuery handler', '/query/css_elements_to_json/overlay', cmd);

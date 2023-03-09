@@ -5,7 +5,7 @@ import {Logger, LogLevel} from './server-logger';
 import {CommandArgs} from './interfaces';
 import {ServerUtil} from './server-util';
 import { SimpleUIServer } from './simpleui-server';
-import { zmq_wrapper } from './sui_zmq';
+import { ZmqMap } from './sui_zmq';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as fastXmlParser from 'fast-xml-parser';
@@ -28,7 +28,7 @@ export class SuiData {
     static mockRequestNum = 0;
     static mockDataFileIndex = [];
     static uiProps = "";
-    static zmqMap: null|zmq_wrapper  = null;
+    static zmqSocketMap = new ZmqMap();
 
 
 
@@ -36,8 +36,6 @@ export class SuiData {
     static propOrDefault(props: Object, prop: string, defaultValue: any): any {
         return props[prop] ? props[prop] : defaultValue;
     }
-
-
 
     /**
      * Parses the Overlay_Summary object to extract all the image and
@@ -105,7 +103,6 @@ export class SuiData {
      * depending on filetype.
      * @param req
      * @param res
-     * @param uiProps
      * @param xmlResponse data to send to base_app
     */
     static sendResponse(req: Request<ParamsDictionary>, res: Response, xmlResponse: string) {
@@ -155,7 +152,7 @@ export class SuiData {
      * @param req request from base_app
      * @returns
      */
-    static getCmdFromReq(req: Request<ParamsDictionary>): any {
+    static getZmqCmdFromRequest(req: Request<ParamsDictionary>): any {
         const cmd = {
             source: 'unknown',
             cmd: 'missing',
@@ -213,37 +210,66 @@ export class SuiData {
     static handleZmqRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
         if (!uiProps) { Logger.log(LogLevel.ERROR, `ui.props is null`); return }
 
-        if (!SuiData.zmqMap) {
-            Logger.log(LogLevel.NOTICE, `Waiting for the zmq sockets to set up...`);
-            return;
-        }
-
         SuiData.incrRequestNum();
 
         // Update SuiData's copy of uiProps
         SuiData.uiProps = uiProps;
 
-        // get port
-        const zmq_port = SuiData.getZmqPort(req);
+        // get tab name
+        const tabName = req.params.tabName;
+
+        // get ui-prop
+        const propsStub = req.params.propsStub;
+
+        // make socket id
+        const id = `${tabName}-${propsStub}`;
 
         // get socket
-        let socket = SuiData.zmqMap.get(zmq_port);
+        let socket = SuiData.zmqSocketMap.get(id);
+
+        // get port
+        const zmqPort = SuiData.getZmqPort(req);
 
         if (!socket) {
-            SuiData.zmqMap.add_socket(zmq_port);
-            socket = SuiData.zmqMap.get(zmq_port);
-            Logger.log(LogLevel.WARNING, `No socket for ZMQ socket with port ${zmq_port}, created new socket`);
-            Logger.log(LogLevel.DEBUG, `All ZMQ socket ports: ${Array.from(SuiData.zmqMap.socket_map.keys())}`)
+            SuiData.zmqSocketMap.addSocket(SimpleUIServer.zmqHostname, zmqPort, id);
+            socket = SuiData.zmqSocketMap.get(id);
+            socket.initalize();
+            Logger.log(LogLevel.INFO, `No socket for ZMQ socket ${tabName}, created new socket`);
         }
 
-        // get and set connection timeout (is this needed anymore?)
-        const timeout = SuiData.propOrDefault(SuiData.uiProps, 'zmqTimeout', 1000);
-
-        socket.set_timeout(timeout);
-
         // add res + req pair to socket's queue
-        socket.http_queue.enqueue([res, req]);
+        socket.httpQueue.enqueue([req, res]);
     }
+
+
+
+    static buildZmqCmdPacket(request: Request) {
+        let data = "";
+        const parsed_request = {cmd: `${request.params.zmqCmd}`};
+        if (request.headers.accept === "*/*" && request.body) {     // regular cmd request
+            data = SuiData.getXmlFromJsonArgs(request, parsed_request);
+        } else if (Object.keys(request.query).includes('xml')) {    // &xml debug request
+            data = request.body;
+        } else {
+            Logger.log(LogLevel.WARNING, `item_added event listener got unknown request type with headers ${request.headers} and body ${request.body}`);
+        }
+        Logger.log(LogLevel.INFO, `Received command "${parsed_request.cmd}" for tab ${request.params.tabName}`);
+        return data;
+    }
+
+
+
+    static buildZmqDataPacket(request: Request) {
+        // get data cmd
+        const cmd = SuiData.getZmqCmdFromRequest(request);
+        // create packet
+        return `<request COMMAND="${cmd.cmd}" valueName="${cmd.valueName}"/>`;
+    }
+
+
+
+
+
 
     static async suiCssToJsonRequest(req: Request<ParamsDictionary>, res: Response, uiProps: any) {
         // req contains:  /:appName/:propsStub/:tabName/query/css_elements_to_json/overlay/:nthOverlay
@@ -255,7 +281,7 @@ export class SuiData {
             Logger.log(LogLevel.ERROR, 'No response is defined for the root folder "/".');
             return;
         }
-        const cmd = SuiData.getCmdFromReq(req);
+        const cmd = SuiData.getZmqCmdFromRequest(req);
         ServerUtil.logRequestDetails(LogLevel.DEBUG, req,
             `Starting css_elements_to_json request # ${SuiData.requestNum}`,
             'suiCssToJsonRequest', '/query/css_elements_to_json', cmd);
@@ -265,6 +291,8 @@ export class SuiData {
         SuiData.sendResponse(req, res, response);
         return;
     }
+
+
 
     /**
      * Injects a status if the XML doesn't aready have it
