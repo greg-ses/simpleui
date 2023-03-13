@@ -189,6 +189,7 @@ export class ZmqMap {
         Logger.log(LogLevel.INFO, `SimpleUI recieved signal ${signalName}`);
         this.socketMap.forEach( (socket, id) => {
             Logger.log(LogLevel.INFO, `closing socket for tab ${id} tcp://${socket.hostname}:${socket.port}`);
+            socket.close();
         } )
 
         clearInterval(this.logInterval);
