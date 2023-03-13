@@ -267,8 +267,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         // TODO: create data message for client to send to server to give server info about tab (use this._tabgroup_selectedIndex or this._selectedTabIndex)
         // send websocket message
         const tabChange: DataMessage = {
-            appName: '',
-            propsStub: '',
+            appName: this._tBarProps._appTitle,
+            propsStub: 'ui',
             tabName: '',
             zmqPort: 0,
             zmqCommand: ''
@@ -558,10 +558,10 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             tab.hash = AppComponent.getUniqueHash();
         }
 
-        this.dataService.recieve().subscribe(
+        this.dataService.messages$.subscribe(
             (data: any) => {
                 // got message
-                console.log('got data');
+                console.log('got data', data);
             },
             (err: any) => {
                 // sub error?

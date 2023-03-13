@@ -42,5 +42,6 @@ docker run \
     -p 4200:4200 \
     -p 4100:4100 \
     -p 9876:9876 \
+    -p 9991:9991 \
     -w /usr/src/app/base_app \
     sui-dev-image /bin/bash /usr/src/app/${install_script}

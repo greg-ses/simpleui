@@ -40,9 +40,13 @@ export interface DataMessage {
 export class DataService {
 
   private socket$: WebSocketSubject<any>;
+  public messages$: Observable<any>;
+
+
 
   constructor() {
-    this.socket$ = new WebSocketSubject('wss://localhost:9991');
+    this.socket$ = new WebSocketSubject('ws://localhost:9991');
+    this.messages$ = this.socket$.asObservable();
   }
 
 
@@ -54,12 +58,11 @@ export class DataService {
     try {
       const _msg = JSON.stringify(msg);   // double check that I have to stringify this. DOnt if I dont need to
       this.socket$.next(_msg);
+      console.log('sent message')
     } catch (err) {
       console.error('Could not send websocket message', msg);
     }
   }
-
-
 
 
 

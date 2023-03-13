@@ -9,6 +9,12 @@ import {ServerUtil} from './server-util';
 import { zmq_wrapper } from './sui_zmq';
 import {ParamsDictionary, Request, Response} from 'express-serve-static-core';
 
+
+
+import * as WebSocket from 'ws';
+
+
+
 const app = express();
 
 
@@ -526,6 +532,26 @@ export class SimpleUIServer {
             // ------------------------------
             try {
                 const server = app.listen(cmdVars.webPort, SimpleUIServer.SERVER_IP, SimpleUIServer.BACKLOG, () => SimpleUIServer.printServerInfo(cmdVars));
+
+
+                const webSocketServer = new WebSocket.Server({
+                    port: 9991,
+                });
+                webSocketServer.on('connection', (webSocket: WebSocket) => {
+                    console.log('connected')
+
+                    webSocket.on('message', (message: string) => {
+                        console.log("Message from client :: "+ message);
+                    });
+
+                    webSocket.on('error', (err: any) => {
+                        console.error(err)
+                    })
+                });
+
+                webSocketServer.on("listening", () => {
+                    console.log('socket listening')
+                })
 
             } catch (err) {
                 Logger.log(LogLevel.ERROR, `Error in app.listen(): ${err}`);
