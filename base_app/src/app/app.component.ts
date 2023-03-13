@@ -7,6 +7,9 @@ import {ClientLogger, LogLevel} from '../tools/logger';
 import {DataSummary} from './interfaces/data-summary';
 import {UTIL} from '../tools/utility';
 
+
+import { DataService, DataMessage } from './data.service';
+
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [],
@@ -224,7 +227,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
     }
 
-    constructor() {}
+    constructor(
+        private dataService: DataService
+    ) {}
 
     ngOnInit() {
         const base = document.getElementsByTagName('base')[0];
@@ -257,6 +262,19 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         } else {
             this._selectedTabIndex = 0;
         }
+
+
+        // TODO: create data message for client to send to server to give server info about tab (use this._tabgroup_selectedIndex or this._selectedTabIndex)
+        // send websocket message
+        const tabChange: DataMessage = {
+            appName: '',
+            propsStub: '',
+            tabName: '',
+            zmqPort: 0,
+            zmqCommand: ''
+        }
+        this.dataService.send(tabChange);
+
 
         // do something with the 'scrolling region' of the tab
         if (Number(sessionStorage.selectedTab) === this._tabGroup.selectedIndex) {
@@ -415,10 +433,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             return;
         }
 
-        if (AppComponent._logLevel >= LogLevel.VERBOSE) {
-            console.log(`AppComponent.getProps(${uiProp} initializing...`);
-        }
-
         const ajaxRequest = {
             url: this._propsURL,
             withCredentials: true,
@@ -544,6 +558,22 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             tab.hash = AppComponent.getUniqueHash();
         }
 
+        this.dataService.recieve().subscribe(
+            (data: any) => {
+                // got message
+                console.log('got data');
+            },
+            (err: any) => {
+                // sub error?
+                console.error(err);
+            },
+            () => {
+                console.error('disconnected')
+            }
+
+        )
+
+        /*
         let minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
         if ((this._props instanceof Object)
             && (typeof this._props['minutesBeforeAutoPageReload'] === 'string')) {
@@ -572,6 +602,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             err => {
                 console.error(`Error in initTabDataUpdates() ajax subscribe callback.`, err);
             });
+        */
     }
 
     /**
