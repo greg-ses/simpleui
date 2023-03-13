@@ -64,12 +64,4 @@ export class DataService {
     }
   }
 
-
-
-  /**
-   * listen for messages
-   */
-  recieve(): Observable<any> {
-    return this.socket$.asObservable();
-  }
 }

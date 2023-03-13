@@ -1,3 +1,56 @@
+import * as WebSocket from 'ws';
+
+
+export interface DataMessage {
+    appName: string;
+    propsStub: string;
+    tabName: string;
+    zmqPort: number;
+    zmqCommand: string;
+  }
+
+
+
+export class SuiWebSocketServer {
+    port: number;
+    server: WebSocket.Server;
+
+    constructor(port: number) {
+        this.port = port;
+
+
+        this.server = new WebSocket.Server({
+            port: this.port
+        });
+
+        this.server.on("listening", () => {
+            console.log('socket listening')
+        })
+
+
+        this.server.on('connection', (webSocket: WebSocket) => {
+
+            webSocket.on('message', (raw_msg: string) => {
+                let message = JSON.parse(raw_msg);
+                console.log(`Got message from ${raw_msg}`);
+            });
+
+            webSocket.on('error', (err: any) => {
+                console.error(`Websocket got error`, err)
+            });
+        })
+    }
+}
+
+
+
+
+
+
+
+
+
+
 // import { WebSocket } from 'ws';
 
 // export class SuiWebSocketServer {
@@ -32,5 +85,3 @@
 //         });
 //     }
 // }
-
-
