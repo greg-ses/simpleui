@@ -19,7 +19,7 @@ import { HttpQueue } from './queue';
 
 export enum ZmqConnectionStatus {
     CONNECTED = "connected",
-    DELAY_CONNECTION = "wait for a respsonse",
+    DELAY_CONNECTION = "wait for a response",
     RETRY_CONNECTION = "reconnecting",
     DISCONNECTED = "disconnected",
     CLOSED = "closed"
@@ -32,8 +32,7 @@ export class ZmqSocket {
     socket: any;
     connectionStatus: ZmqConnectionStatus;
     httpQueue: HttpQueue;
-    messagesSent: number;
-    messagesRecieved: number;
+    outboundMessages: number;
     watchdogInterval: any;
 
     constructor(hostname: string, port: number, id: string) {
@@ -56,19 +55,19 @@ export class ZmqSocket {
                 zmqRequestPacket = SuiData.buildZmqDataPacket(req);
             }
             // send request
-            this.messagesSent += 1;
+            this.outboundMessages += 1;
             this.socket.send(zmqRequestPacket);
         });
 
         this.watchdogInterval = setInterval( () => {
-            if (this.messagesSent - this.messagesRecieved > 3) {
+            if (this.outboundMessages > 3) {
                 this.recreateSocket();
             }
         }, 1_000);
     }
 
 
-    initalize() {
+    initialize() {
         try {
 
             // set up socket
@@ -79,8 +78,7 @@ export class ZmqSocket {
             this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, 0);               // throw error if we cannot send message
             this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, 500);
 
-            this.messagesSent = 0;
-            this.messagesRecieved = 0;
+            this.outboundMessages = 0;
             this.socket.connectionStatus = ZmqConnectionStatus.DISCONNECTED;
 
             // set up socket monitoring
@@ -108,7 +106,7 @@ export class ZmqSocket {
             this.socket.on('message', (msg) => {
                 const raw_zmq_data = msg.toString();
                 const zmq_data = SuiData.addXmlStatus(raw_zmq_data);
-                Logger.log(LogLevel.DEBUG, `Recieved ZMQ message at ${this.id}: ${zmq_data.substring(0, 16)}`);
+                Logger.log(LogLevel.DEBUG, `Received ZMQ message at ${this.id}: ${zmq_data.substring(0, 16)}`);
                 // get response + request from queue
                 let [req, res] = this.httpQueue.dequeue();
                 if (typeof res === "string") {
@@ -116,8 +114,11 @@ export class ZmqSocket {
                     return;
                 }
                 // send response
-                this.messagesRecieved += 1;
                 SuiData.sendResponse(req, res, zmq_data);
+
+                // reset outbound messages
+                this.outboundMessages = 0;
+
             });
 
             this.socket.on('error', (zmqErr) => {
@@ -129,7 +130,7 @@ export class ZmqSocket {
                 SuiData.sendResponse(req, res, zmq_data);
             });
         } catch (err) {
-            Logger.log(LogLevel.ERROR, `Could not initalize socket ${this.id}`);
+            Logger.log(LogLevel.ERROR, `Could not initialize socket ${this.id}`);
         }
     }
 
@@ -159,7 +160,7 @@ export class ZmqSocket {
             Logger.log(LogLevel.INFO, `Recreating the socket for ${this.id}`);
             this.close();
             this.httpQueue.flush_queue();
-            this.initalize();
+            this.initialize();
     }
 }
 
@@ -179,6 +180,7 @@ export class ZmqMap {
         process.once('SIGTERM', () => this.handleApplicationExit('SIGTERM'));
 
         this.logInterval = setInterval( () => {
+            // tslint:disable-next-line:triple-equals
             if (this.socketMap.size != 0) {
                 this.logStatus();
             }
@@ -186,9 +188,10 @@ export class ZmqMap {
     }
 
     handleApplicationExit(signalName: string) {
-        Logger.log(LogLevel.INFO, `SimpleUI recieved signal ${signalName}`);
+        Logger.log(LogLevel.INFO, `SimpleUI received signal ${signalName}`);
         this.socketMap.forEach( (socket, id) => {
             Logger.log(LogLevel.INFO, `closing socket for tab ${id} tcp://${socket.hostname}:${socket.port}`);
+            socket.close();
         } )
 
         clearInterval(this.logInterval);
@@ -206,9 +209,10 @@ export class ZmqMap {
     logStatus() {
         if (this.socketMap.size == 0) return;
         let msg = "\n--- ZMQ Socket Connection Status ---\n";
+        msg += '\tsocket ID | connection status | outbound ZMQ messages | http queue capacity / http queue max | zmq internal queue capacity / zmq internal queue max\n'
         this.socketMap.forEach( (socket, id) => {
             const status = socket.connectionStatus;
-            const line = `\t${id}\t\t ${status}\t ${socket.messagesSent}/${socket.messagesRecieved}\t ${socket.httpQueue.length}/${socket.httpQueue.MAX_QUEUE_SIZE}`;
+            const line = `\t${id}\t ${status}\t ${socket.outboundMessages}\t ${socket.httpQueue.length}/${socket.httpQueue.MAX_QUEUE_SIZE}\t ${socket.socket?._outgoing?.length}/10000`;
             msg += `${line}\n`;
         });
         msg += "------------------------------------\n";

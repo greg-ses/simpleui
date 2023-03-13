@@ -63,7 +63,7 @@ describe('ZmqSocket Class testing', () => {
 
     beforeEach( () => {
         test_request_socket = new ZmqSocket(HOSTNAME, PORT, "test-tab");
-        test_request_socket.initalize();
+        test_request_socket.initialize();
         mock_reply_socket = new ZMQ_Reply_Socket(PORT);
     });
     afterEach( () => {
