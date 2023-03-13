@@ -264,17 +264,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
 
 
-        // TODO: create data message for client to send to server to give server info about tab (use this._tabgroup_selectedIndex or this._selectedTabIndex)
-        // send websocket message
-        const tabChange: DataMessage = {
-            appName: this._tBarProps._appTitle,
-            propsStub: 'ui',
-            tabName: '',
-            zmqPort: 0,
-            zmqCommand: ''
-        }
-        this.dataService.send(tabChange);
-
 
         // do something with the 'scrolling region' of the tab
         if (Number(sessionStorage.selectedTab) === this._tabGroup.selectedIndex) {
@@ -545,6 +534,16 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this.updateToggleButton();
         this.configureTabBar();
         AppComponent.doResizeTabScrollRegion({}, 200);
+
+        const tabChange: DataMessage = {
+            appName: this._tBarProps._appTitle,
+            propsStub: 'ui',
+            tabName: this._props.tab[this._selectedTabIndex].name,
+            zmqPort: 0,
+            zmqCommand: 'init'
+        }
+        this.dataService.send(tabChange);
+        console.log()
     }
 
 
