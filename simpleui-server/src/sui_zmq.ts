@@ -32,8 +32,7 @@ export class ZmqSocket {
     socket: any;
     connectionStatus: ZmqConnectionStatus;
     httpQueue: HttpQueue;
-    messagesSent: number;
-    messagesRecieved: number;
+    outboundMessages: number;
     watchdogInterval: any;
 
     constructor(hostname: string, port: number, id: string) {
@@ -56,12 +55,12 @@ export class ZmqSocket {
                 zmqRequestPacket = SuiData.buildZmqDataPacket(req);
             }
             // send request
-            this.messagesSent += 1;
+            this.outboundMessages += 1;
             this.socket.send(zmqRequestPacket);
         });
 
         this.watchdogInterval = setInterval( () => {
-            if (this.messagesSent - this.messagesRecieved > 3) {
+            if (this.outboundMessages > 3) {
                 this.recreateSocket();
             }
         }, 1_000);
@@ -79,8 +78,7 @@ export class ZmqSocket {
             this.socket.setsockopt(_zmq.ZMQ_SNDTIMEO, 0);               // throw error if we cannot send message
             this.socket.setsockopt(_zmq.ZMQ_RCVTIMEO, 500);
 
-            this.messagesSent = 0;
-            this.messagesRecieved = 0;
+            this.outboundMessages = 0;
             this.socket.connectionStatus = ZmqConnectionStatus.DISCONNECTED;
 
             // set up socket monitoring
@@ -116,8 +114,11 @@ export class ZmqSocket {
                     return;
                 }
                 // send response
-                this.messagesRecieved += 1;
                 SuiData.sendResponse(req, res, zmq_data);
+
+                // reset outbound messages
+                this.outboundMessages = 0;
+
             });
 
             this.socket.on('error', (zmqErr) => {
@@ -209,7 +210,7 @@ export class ZmqMap {
         let msg = "\n--- ZMQ Socket Connection Status ---\n";
         this.socketMap.forEach( (socket, id) => {
             const status = socket.connectionStatus;
-            const line = `\t${id}\t\t ${status}\t ${socket.messagesSent}/${socket.messagesRecieved}\t ${socket.httpQueue.length}/${socket.httpQueue.MAX_QUEUE_SIZE}`;
+            const line = `\t${id}\t\t ${status}\t ${socket.outboundMessages}\t ${socket.httpQueue.length}/${socket.httpQueue.MAX_QUEUE_SIZE}`;
             msg += `${line}\n`;
         });
         msg += "------------------------------------\n";
