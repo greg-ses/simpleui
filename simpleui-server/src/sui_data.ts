@@ -233,7 +233,7 @@ export class SuiData {
         if (!socket) {
             SuiData.zmqSocketMap.addSocket(SimpleUIServer.zmqHostname, zmqPort, id);
             socket = SuiData.zmqSocketMap.get(id);
-            socket.initalize();
+            socket.initialize();
             Logger.log(LogLevel.INFO, `No socket for ZMQ socket ${tabName}, created new socket`);
         }
 
