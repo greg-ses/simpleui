@@ -1,0 +1,75 @@
+<p>smart-table works!</p>
+<p>{{getColumns()}}</p>
+<table mat-table [dataSource]="_dataset.elements" class="mat-elevation-z8" style="width: 100%;">
+
+
+
+    <ng-container matColumnDef="idx">
+        <th mat-header-cell *matHeaderCellDef> Index </th>
+        <td mat-cell *matCellDef="let element"> {{element.idx}} </td>
+    </ng-container>
+    <ng-container matColumnDef="timestamp">
+        <th mat-header-cell *matHeaderCellDef> timestamp </th>
+        <td mat-cell *matCellDef="let element"> {{element.timestamp}} </td>
+    </ng-container>
+    <ng-container matColumnDef="primLoc">
+        <th mat-header-cell *matHeaderCellDef> primLoc </th>
+        <td mat-cell *matCellDef="let element"> {{element.primLoc}} </td>
+    </ng-container>
+    <ng-container matColumnDef="subLoc">
+        <th mat-header-cell *matHeaderCellDef> subLoc </th>
+        <td mat-cell *matCellDef="let element"> {{element.subLoc}} </td>
+    </ng-container>
+    <ng-container matColumnDef="mode_critical_only">
+        <th mat-header-cell *matHeaderCellDef> mode_critical_only </th>
+        <td mat-cell *matCellDef="let element"> {{element.mode_critical_only}} </td>
+    </ng-container>
+    <ng-container matColumnDef="mode_tolerant">
+        <th mat-header-cell *matHeaderCellDef> mode_tolerant </th>
+        <td mat-cell *matCellDef="let element"> {{element.mode_tolerant}} </td>
+    </ng-container>
+    <ng-container matColumnDef="mode_averse">
+        <th mat-header-cell *matHeaderCellDef> mode_averse </th>
+        <td mat-cell *matCellDef="let element"> {{element.mode_averse}} </td>
+    </ng-container>
+    <ng-container matColumnDef="fault_code">
+        <th mat-header-cell *matHeaderCellDef> fault_code </th>
+        <td mat-cell *matCellDef="let element"> {{element.fault_code}} </td>
+    </ng-container>
+    <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="desc">
+        <th mat-header-cell *matHeaderCellDef> desc </th>
+        <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
+    </ng-container>
+    <ng-container matColumnDef="warn_ms">
+        <th mat-header-cell *matHeaderCellDef> warn_ms </th>
+        <td mat-cell *matCellDef="let element"> {{element.warn_ms}} </td>
+    </ng-container>
+    <ng-container matColumnDef="trip_ms">
+        <th mat-header-cell *matHeaderCellDef> trip_ms </th>
+        <td mat-cell *matCellDef="let element"> {{element.trip_ms}} </td>
+    </ng-container>
+    <ng-container matColumnDef="conditions">
+        <th mat-header-cell *matHeaderCellDef> conditions </th>
+        <td mat-cell *matCellDef="let element"> {{element.conditions}} </td>
+    </ng-container>
+    <ng-container matColumnDef="currVal">
+        <th mat-header-cell *matHeaderCellDef> currVal </th>
+        <td mat-cell *matCellDef="let element"> {{element.currVal}} </td>
+    </ng-container>
+    <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef> value </th>
+        <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="getColumns()"></tr>
+    <tr mat-row *matRowDef="let row; columns: getColumns();"></tr>
+</table>
