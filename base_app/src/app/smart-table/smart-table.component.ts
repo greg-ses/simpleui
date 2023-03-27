@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { TabUI } from '../interfaces/props-data';
 
 
-
 enum Fault_Status {
   EMPTY = "",
   NONE = "none",
@@ -10,6 +9,7 @@ enum Fault_Status {
   WARNING = "warning",
   TRIP = "trip"
 }
+
 
 @Component({
   selector: 'app-smart-table',
@@ -21,9 +21,12 @@ export class SmartTableComponent implements OnInit {
   @Input() _uiTab: TabUI;
   @Input() _id: string;
 
-
   columns = [];
   filterFaultValue: Fault_Status = Fault_Status.EMPTY;
+
+
+  allStatuses = ['', 'none', 'disabled', 'warning', 'trip']
+  // allStatuses = Object.values(Fault_Status); I would like to do this instead of we need to change transpile lib target to es2017+
 
   constructor() { }
 
@@ -53,4 +56,8 @@ export class SmartTableComponent implements OnInit {
     return columns
   }
 
+  handleSelection(selectedValues) {
+    console.log(selectedValues)
+    this.filterFaultValue = selectedValues;
+  }
 }

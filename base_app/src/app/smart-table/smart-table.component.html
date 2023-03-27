@@ -1,9 +1,12 @@
 <h2>Filter via fault status</h2>
-<button mat-raised-button (click)="onFilterFault($event)" value="">remove table filter</button>
-<button mat-raised-button (click)="onFilterFault($event)" value="none">NONE</button>
-<button mat-raised-button (click)="onFilterFault($event)" value="disabled">DISABLED</button>
-<button mat-raised-button (click)="onFilterFault($event)" value="warning">WARNING</button>
-<button mat-raised-button (click)="onFilterFault($event)" value="trip">TRIP</button>
+
+
+<mat-form-field appearance="fill">
+    <mat-label>Fault Status Filter</mat-label>
+    <mat-select multiple (selectionChange)="handleSelection($event.value)">
+        <mat-option *ngFor="let status of allStatuses" [value]="status">{{status}}</mat-option>
+    </mat-select>
+</mat-form-field>
 
 
 <table mat-table [dataSource]="_dataset.elements | filter:filterFaultValue" class="mat-elevation-z8" style="width: 100%;">

@@ -5,18 +5,15 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'filter'
 })
 export class FilterPipe implements PipeTransform {
-  transform(items: any[], searchText: string): any[] {
+  transform(items: any[], filterValues: any[]): any[] {
     if (!items) {
       return [];
     }
-    if (!searchText) {
+    if (!filterValues) {
       return items;
     }
-    searchText = searchText.toLowerCase();
     return items.filter(item => {
-      // Define your filtering logic here
-      return item.value == searchText;
-
+      return filterValues.includes(item.value);
     });
   }
 }
