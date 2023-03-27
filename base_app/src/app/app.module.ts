@@ -30,6 +30,7 @@ import { SeparatorBarComponent } from './dataset-tables/separator-bar';
 import { CommandButtonChangeService } from './services/command-button-change.service';
 import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
     declarations: [
@@ -48,7 +49,8 @@ import { SmartTableComponent } from './smart-table/smart-table.component';
       PropDefinedTableComponent,
       SectionComponent,
       SeparatorBarComponent,
-      SmartTableComponent
+      SmartTableComponent,
+      FilterPipe
   ],
   imports: [
       BrowserModule,

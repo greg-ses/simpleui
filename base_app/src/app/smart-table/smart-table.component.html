@@ -1,7 +1,12 @@
-<p>smart-table works!</p>
-<p>{{getColumns()}}</p>
+<h2>Filter via fault status</h2>
+<button mat-raised-button (click)="onFilterFault($event)" value="">remove table filter</button>
+<button mat-raised-button (click)="onFilterFault($event)" value="none">NONE</button>
+<button mat-raised-button (click)="onFilterFault($event)" value="disabled">DISABLED</button>
+<button mat-raised-button (click)="onFilterFault($event)" value="warning">WARNING</button>
+<button mat-raised-button (click)="onFilterFault($event)" value="trip">TRIP</button>
 
-<table mat-table [dataSource]="_dataset.elements" class="mat-elevation-z8" style="width: 100%;">
+
+<table mat-table [dataSource]="_dataset.elements | filter:filterFaultValue" class="mat-elevation-z8" style="width: 100%;">
 
     <ng-container *ngFor="let column of getColumns()" [matColumnDef]="column">
         <th mat-header-cell *matHeaderCellDef> {{column}} </th>

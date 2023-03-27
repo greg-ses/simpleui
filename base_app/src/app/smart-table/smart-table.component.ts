@@ -1,6 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TabUI } from '../interfaces/props-data';
 
+
+
+enum Fault_Status {
+  EMPTY = "",
+  NONE = "none",
+  DISABLED = "disabled",
+  WARNING = "warning",
+  TRIP = "trip"
+}
+
 @Component({
   selector: 'app-smart-table',
   templateUrl: './smart-table.component.html',
@@ -13,29 +23,7 @@ export class SmartTableComponent implements OnInit {
 
 
   columns = [];
-
-  dataSource = [
-    {
-      "value": "none",
-      "conditions": "value > Warn:0.75 > Trip:1.75",
-      "currVal": "+OOR",
-      "desc": "Tank Leak Sensor warning.",
-      "ev_details": "",
-      "fault_code": "Process-Mod1-1",
-      "idx": "1",
-      "mode_averse": "offline",
-      "mode_critical_only": "none",
-      "mode_no_response": "none",
-      "mode_tolerant": "none",
-      "name": "Mod1-Process-AnTank-2-Leak_Detected",
-      "primLoc": "Mod1",
-      "subLoc": "mod",
-      "timestamp": "20:36:24",
-      "trip_ms": "20000",
-      "type": "Leak-Flt",
-      "warn_ms": "10000"
-    }
-  ]
+  filterFaultValue: Fault_Status = Fault_Status.EMPTY;
 
   constructor() { }
 
@@ -44,6 +32,14 @@ export class SmartTableComponent implements OnInit {
     this.getColumns()
   }
 
+  onSearch(event: any) {
+    this.filterFaultValue = event.target.value;
+  }
+
+  onFilterFault(event: any) {
+    this.filterFaultValue = event.target.value;
+    console.log(this.filterFaultValue)
+  }
 
 
   getColumns() {
@@ -54,8 +50,7 @@ export class SmartTableComponent implements OnInit {
     originalColumns.forEach(element => {
       columns.push(element[0])
     });
-
-
     return columns
   }
+
 }
