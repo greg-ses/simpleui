@@ -25,13 +25,12 @@ export class SmartTableComponent implements OnInit {
   filterFaultValue: Fault_Status = Fault_Status.EMPTY;
 
 
-  allStatuses = ['', 'none', 'disabled', 'warning', 'trip']
+  allStatuses = ['none', 'disabled', 'warning', 'trip']
   // allStatuses = Object.values(Fault_Status); I would like to do this instead of we need to change transpile lib target to es2017+
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this._dataset)
     this.getColumns()
   }
 
@@ -41,15 +40,12 @@ export class SmartTableComponent implements OnInit {
 
   onFilterFault(event: any) {
     this.filterFaultValue = event.target.value;
-    console.log(this.filterFaultValue)
   }
 
 
   getColumns() {
     let originalColumns = this._dataset?.props?.columns
-
     let columns = [];
-
     originalColumns.forEach(element => {
       columns.push(element[0])
     });
@@ -57,7 +53,6 @@ export class SmartTableComponent implements OnInit {
   }
 
   handleSelection(selectedValues) {
-    console.log(selectedValues)
     this.filterFaultValue = selectedValues;
   }
 }

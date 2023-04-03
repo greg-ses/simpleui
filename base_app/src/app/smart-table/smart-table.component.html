@@ -8,7 +8,6 @@
     </mat-select>
 </mat-form-field>
 
-
 <table mat-table [dataSource]="_dataset.elements | filter:filterFaultValue" class="mat-elevation-z8" style="width: 100%;">
 
     <ng-container *ngFor="let column of getColumns()" [matColumnDef]="column">
