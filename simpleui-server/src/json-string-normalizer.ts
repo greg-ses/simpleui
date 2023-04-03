@@ -212,7 +212,7 @@ export class JsonStringNormalizer {
                     const tableInfo: any = JsonStringNormalizer.getTableInfo(dsItem, $propsJson);
                     if (tableInfo['tableType'] === 'PairListTable') {
                         arr.push(JsonStringNormalizer.makePairListTableObject(dsItem, dataset));
-                    } else if (tableInfo['tableType'] === 'PropDefinedTable') {
+                    } else if (tableInfo['tableType'] === 'PropDefinedTable' || tableInfo['tableType'] === 'smart') {
                         arr.push(JsonStringNormalizer.makePropDefinedTableObject(dsItem, dataset, tableInfo['props']));
                     }
                 }
@@ -231,11 +231,8 @@ export class JsonStringNormalizer {
 
             // Determine if dsItem is in the "propDefinedTable" list
             for (const table of propsJson[0].table) {
-                if (typeof table === 'object'
-                    && typeof table['element'] === 'string'
-                    && (table['element'] === tableName)) {
-
-                    pair['tableType'] = 'PropDefinedTable';
+                if (typeof table === 'object' && typeof table['element'] === 'string' && (table['element'] === tableName)) {
+                    pair['tableType'] = table?.type ? 'smart' : 'PropDefinedTable';
                     pair['props'] = table;
                     break;
                 }

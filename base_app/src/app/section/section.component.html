@@ -47,13 +47,13 @@
                             [_uiTab]="_uiTab"
                             [id]="dsItem.id">
             </dataset-table>
-            <prop-defined-table *ngIf="getTableType(dsItem) === '-----PropDefinedTable'"
+            <prop-defined-table *ngIf="getTableType(dsItem) === 'PropDefinedTable'"
                                 [_dataset]="dsItem"
                                 [_uiTab]="_uiTab"
                                 [_id]="dsItem.id">
             </prop-defined-table>
 
-            <app-smart-table *ngIf="getTableType(dsItem) === 'PropDefinedTable'"
+            <app-smart-table *ngIf="getTableType(dsItem) === 'smart'"
                                 [_dataset]="dsItem"
                                 [_uiTab]="_uiTab"
                                 [_id]="dsItem.id">
