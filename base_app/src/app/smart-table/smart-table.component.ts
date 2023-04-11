@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { TabUI } from '../interfaces/props-data';
 
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
-import {MatSort, Sort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
 
 enum Fault_Status {
   EMPTY = "",
@@ -30,7 +30,7 @@ export class SmartTableComponent implements OnInit, AfterViewInit {
   columns = [];
   filterFaultValue: Fault_Status|Fault_Status[] = Fault_Status.EMPTY;
   allStatuses = ['none', 'disabled', 'warning', 'trip'];
-  datasource: any;
+  datasource: any =  new MatTableDataSource();
 
   constructor() { }
 
@@ -41,12 +41,12 @@ export class SmartTableComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.datasource = new MatTableDataSource(this._dataset.elements);
+    this.datasource = new MatTableDataSource(this._dataset?.elements);
     this.datasource.sort = this.sort;
   }
 
   getColumns() {
-    const originalColumns = this._dataset?.props?.columns
+    const originalColumns = this._dataset?.props?.columns !== undefined ? this._dataset.props.columns : [];
     let columns = [];
     originalColumns.forEach(element => {
       columns.push(element[0]);
