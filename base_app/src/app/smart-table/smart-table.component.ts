@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { TabUI } from '../interfaces/props-data';
 
 
+
 enum Fault_Status {
   EMPTY = "",
   NONE = "none",
@@ -21,33 +22,24 @@ export class SmartTableComponent implements OnInit {
   @Input() _uiTab: TabUI;
   @Input() _id: string;
 
+
   columns = [];
-  filterFaultValue: Fault_Status = Fault_Status.EMPTY;
-
-
+  filterFaultValue: Fault_Status|Fault_Status[] = Fault_Status.EMPTY;
   allStatuses = ['none', 'disabled', 'warning', 'trip']
-  // allStatuses = Object.values(Fault_Status); I would like to do this instead of we need to change transpile lib target to es2017+
 
   constructor() { }
 
   ngOnInit(): void {
-    this.getColumns()
+    if (this._uiTab?.name.toLowerCase() == 'fault list') {
+      this.filterFaultValue = [Fault_Status.TRIP, Fault_Status.WARNING]; // default filter
+    }
   }
-
-  onSearch(event: any) {
-    this.filterFaultValue = event.target.value;
-  }
-
-  onFilterFault(event: any) {
-    this.filterFaultValue = event.target.value;
-  }
-
 
   getColumns() {
-    let originalColumns = this._dataset?.props?.columns
+    const originalColumns = this._dataset?.props?.columns
     let columns = [];
     originalColumns.forEach(element => {
-      columns.push(element[0])
+      columns.push(element[0]);
     });
     return columns
   }
