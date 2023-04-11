@@ -14,9 +14,8 @@ export class FilterPipe implements PipeTransform {
     }
 
     if (filterValues.length == 0) {
-      return items
+      return items;
     }
-    console.log(`items: `, items)
     return items['filteredData'].filter(item => {
       return filterValues.includes(item.value);
     });
