@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 
-enum Fault_Status {
+export enum Fault_Status {
   EMPTY = "",
   NONE = "none",
   DISABLED = "disabled",
