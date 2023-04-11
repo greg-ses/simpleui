@@ -31,6 +31,7 @@ import { CommandButtonChangeService } from './services/command-button-change.ser
 import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
 import { FilterPipe } from './filter.pipe';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
     declarations: [
@@ -66,7 +67,8 @@ import { FilterPipe } from './filter.pipe';
       MatTabsModule,
       NoopAnimationsModule,
       PortalModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      MatSortModule
   ],
   providers: [
       CommandButtonChangeService,
