@@ -52,6 +52,12 @@
                                 [_uiTab]="_uiTab"
                                 [_id]="dsItem.id">
             </prop-defined-table>
+
+            <app-smart-table *ngIf="getTableType(dsItem) === 'smart'"
+                                [_dataset]="dsItem"
+                                [_uiTab]="_uiTab"
+                                [_id]="dsItem.id">
+            </app-smart-table>
         </td>
     </tr>
 

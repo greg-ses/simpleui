@@ -29,6 +29,9 @@ import { SectionComponent } from './section/section.component';
 import { SeparatorBarComponent } from './dataset-tables/separator-bar';
 import { CommandButtonChangeService } from './services/command-button-change.service';
 import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-component';
+import { SmartTableComponent } from './smart-table/smart-table.component';
+import { FilterPipe } from './filter.pipe';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
     declarations: [
@@ -46,7 +49,9 @@ import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-com
       DatasetTableComponent,
       PropDefinedTableComponent,
       SectionComponent,
-      SeparatorBarComponent
+      SeparatorBarComponent,
+      SmartTableComponent,
+      FilterPipe
   ],
   imports: [
       BrowserModule,
@@ -62,7 +67,8 @@ import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-com
       MatTabsModule,
       NoopAnimationsModule,
       PortalModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      MatSortModule
   ],
   providers: [
       CommandButtonChangeService,

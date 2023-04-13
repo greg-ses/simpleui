@@ -27,6 +27,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     static _mouseDownSuspendsUpdates = false;
     static _minutesBeforeAutoPageReload_Default = 90; // Time until the page auto-refreshes, doing automatic garbage collection
     static _logLevel = LogLevel.CRITICAL;
+    static _show_click_debug = false;
+
 
     @Output() selectedTabChange = new EventEmitter<MatTabChangeEvent>();
 
@@ -64,6 +66,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     @ViewChild('_tabGroup', {static: false}) _tabGroup !: MatTabGroup;
 
     static onWindowClick(event: MouseEvent) {
+        if (!this._show_click_debug) return
         const e = document.getElementById('eventMsg');
         e.innerHTML = 'Clicked on target: ';
 
@@ -344,8 +347,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 AppComponent._mouseDownSuspendsUpdates = window.confirm('Suspend data/GUI updates on MOUSEDOWN?');
             } else if (event.shiftKey && event.altKey) {
                 // SHIFT-ALT-CLICK
-                ClientLogger.initialize();
-                window['setLoggingFeatures']();
+                AppComponent._show_click_debug = !AppComponent._show_click_debug;
+                console.debug(`Click display is ${AppComponent._show_click_debug}`);
             } else if (event.shiftKey && !selectedTab._autoRefreshEnabled) {
                 // SHIFT-CLICK with updates paused
                 selectedTab._commands_enabled  = window.confirm(`Allow commands even when refresh is paused (developers only)?`);
