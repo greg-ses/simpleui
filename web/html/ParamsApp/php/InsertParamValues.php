@@ -34,6 +34,7 @@ foreach ($post_data['newParamValues'] as $param) {
         );
         array_push($invalid_params, $info);
         unset($info);
+        continue;
     }
 
     $row = $limitation_result->fetch_assoc();
