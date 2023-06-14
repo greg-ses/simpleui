@@ -28,8 +28,12 @@ foreach ($post_data['newParamValues'] as $param) {
     $limitation_query = "SELECT type, min, max FROM $AbstractParameterTable WHERE name='$name'";
     $limitation_result = $conn->query($limitation_query);
     if ($limitation_result === false) {
-        writeError("1", "102", "Could not find the allowed bounds for $name . Is there an entry for $name in the abstract params table?", "");
-        exit();
+        $info = array(
+            "name" => $name,
+            "reason" => "Limitation query failed. Param is potentially not in Abstract Params table"
+        );
+        array_push($invalid_params, $info);
+        unset($info);
     }
 
     $row = $limitation_result->fetch_assoc();
