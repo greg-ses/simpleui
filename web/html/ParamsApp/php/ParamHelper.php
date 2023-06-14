@@ -20,11 +20,11 @@ function propOrDefault($props, $prop, $default) {
 
 function writeError($statusCode, $errorCode, $errorMsg, $errorContext) {
     $response = array(
-        status => $statusCode,
-        error => array(
-            code => $errorCode,
-            msg => $errorMsg,
-            context => $errorContext
+        "status" => $statusCode,
+        "error" => array(
+            "code" => $errorCode,
+            "msg" => $errorMsg,
+            "context" => $errorContext
         )
     );
     echo json_encode($response, JSON_PRETTY_PRINT);
