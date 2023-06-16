@@ -2,10 +2,25 @@
 
 <mat-form-field appearance="fill" *ngIf="_uiTab?.name.toLowerCase() == 'fault list'">
     <mat-label>Fault Status Filter</mat-label>
-    <mat-select multiple (selectionChange)="handleSelection($event.value)">
+    <mat-select multiple (selectionChange)="applyFilter($event.value)">
         <mat-option *ngFor="let status of allStatuses" [value]="status">{{status}}</mat-option>
     </mat-select>
 </mat-form-field>
+
+
+
+
+
+<mat-form-field appearance="fill" *ngIf="_config?.filter_options">
+    <mat-label>{{_config?.filter_options.title}}</mat-label>
+    <mat-select multiple (selectionChange)="applyFilter($event.value)">
+        <mat-option *ngFor="let option of _config?.filter_options.possible_options" [value]="option">{{option}}</mat-option>
+    </mat-select>
+</mat-form-field>
+
+
+
+
 
 
 <table
@@ -17,7 +32,8 @@
 
     <ng-container *ngFor="let column of getColumns()" [matColumnDef]="column">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
-        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+        <!-- data.column will populate the row -->
+        <td mat-cell *matCellDef="let element">{{element[column]}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="getColumns()"></tr>

@@ -6,6 +6,7 @@ import {SiteIndex} from '../interfaces/site-index';
 // import { CssUpdateService } from '../services/css-update-service';
 import {AppComponent} from '../app.component';
 import {UTIL} from '../../tools/utility';
+import { SmartTableConfig, Filter_Options } from '../smart-table/smart-table.component';
 
 @Component({
     animations: [],
@@ -785,4 +786,107 @@ export class OverlayPageComponent {
             instructions.style.display = 'none';
         }
     }
+
+
+
+
+
+
+    massageDataForSmartTable(data: any): SmartTableConfig|void {
+        const _columns = ['Time', 'Type', 'Description'];
+
+        let _rows = [];
+
+        data.json.Fault.forEach(fault => {
+            _rows.push({
+                "Time": fault.timestamp,
+                "Type": fault.name,
+                "Description": fault.value
+            })
+
+        });
+
+
+        const options: Filter_Options = {
+            title: "Filter by Mod",
+            possible_options: ['Mod1', 'Mod2'],
+            filter_column: 'Type'
+        }
+
+        const result: SmartTableConfig = {
+            columns: _columns,
+            rows: _rows,
+            filter_options: options
+        }
+
+        return result
+
+
+       /**
+        * for the each row, I need a object who's keys are the column names and the values are the value per column per row
+        * cols = [title, type, mod]
+        * rows [ {
+        *   title: "stupid",
+        *   type: "dumb",
+        *   mod: 1
+        *   }
+        * ]
+        *
+        *
+        *
+        * Description -> value
+        * Time -> timestamp
+        * Type -> name (full fault name I think, also look into fault_code)
+        *
+        */
+
+
+    }
 }
+/**
+ *
+ *
+ *
+ *
+{
+  "value": "warning",
+  "class": "warning",
+  "ev_details": "",
+  "fault_code": "Warning",
+  "idx": "54",
+  "name": "Something kinda went wrong...",
+  "timestamp": "14:11:15",
+  "u_id": "2248"
+}
+
+
+
+
+
+
+
+{
+  "value": "none",
+  "conditions": "value > Warn:0.75 > Trip:1.75",
+  "currVal": "+OOR",
+  "desc": "Tank Leak Sensor warning.",
+  "ev_details": "",
+  "fault_code": "Process-Mod1-1",
+  "idx": "1",
+  "mode_averse": "offline",
+  "mode_critical_only": "none",
+  "mode_no_response": "none",
+  "mode_tolerant": "none",
+  "name": "Mod1-Process-AnTank-2-Leak_Detected",
+  "primLoc": "Mod1",
+  "subLoc": "mod",
+  "timestamp": "20:36:24",
+  "trip_ms": "20000",
+  "type": "Leak-Flt",
+  "warn_ms": "10000"
+}
+ *
+ *
+ *
+ *
+ */

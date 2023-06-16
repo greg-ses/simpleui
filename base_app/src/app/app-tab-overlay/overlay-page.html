@@ -95,7 +95,12 @@
          [id]='tableInfo.id'
          [title]='"tableName: " + tableInfo.id' creator='impl-tables-ngIf'>
         <p class="tableTitle">Active Faults & Warnings</p>
-        <table [id]='tableInfo.id + "_table"' class='dataTable'>
+        <app-smart-table
+            [_config]="massageDataForSmartTable(tableInfo)"
+        >
+
+        </app-smart-table>
+        <!-- <table [id]='tableInfo.id + "_table"' class='dataTable'>
             <tr>
                 <th class='dataTableTH'>Time</th>
                 <th class='dataTableTH'>Type</th>
@@ -107,7 +112,7 @@
                 <td class='dataTableTD'>{{tblRD.fault_code}} : {{tblRD.name}}</td>
                 <td [ngClass]='"dataTableTD " + tblRD.class'>{{tblRD.value}}</td>
             </tr>
-        </table>
+        </table> -->
     </div>
 
     <div *ngIf="get_implemented_defined_table_in_group(overlayGroupName, 'NonExhistant') as tableInfo"
