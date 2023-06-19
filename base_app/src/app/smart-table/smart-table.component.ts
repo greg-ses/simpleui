@@ -2,32 +2,12 @@ import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/cor
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-/**
- * TODO
- *    - [x] double check work I did today and make sure I understand it
- *    - [x] make faultlist not hardcoded
- *    - [ ] make sure generic smart-table works with other tables too
- *    - [ ] restrict overlay mod filter to 1 at a time (Mod1 or Mod2, never both)
- *    - [ ] remove filter pipe
- *    - [x] check if I even need this.current_filter
- */
 
-
-
-export interface Filter_Options {
+export interface FilterOptions {
   possible_options: string[];
   title: string;
   filter_column: string;
-  allow_multiple_filters?: boolean;
 }
-
-
-export interface SmartTableConfig {
-  columns: string[];
-  rows: any;
-  filter_options?: Filter_Options;
-}
-
 
 
 
@@ -38,7 +18,9 @@ export interface SmartTableConfig {
 })
 export class SmartTableComponent implements OnInit, AfterViewInit {
 
-  @Input() _config: SmartTableConfig;
+  @Input() _rows: Object[];
+  @Input() _columns: string[];
+  @Input() filter_options?: FilterOptions;
 
 
   @ViewChild(MatSort) sort: MatSort;
@@ -52,24 +34,29 @@ export class SmartTableComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    /**
-     * ugly, refactor
-     */
-    if (this?._config?.rows?.length > 0) {
 
-      this.datasource = new MatTableDataSource(this?._config.rows);
+    if (this._rows.length < 0) return;
 
-      // allows us to define our own filter method
-      this.datasource.filterPredicate = (data, filter: string|[]): boolean => {
-        if (filter.length == 0) return true; // if nothing is checked, show everything (not filtered)
+    this.datasource = new MatTableDataSource(this._rows);
 
-        // should make this: 'if data[this._config.filter_options.filter_column] includes anything in filter,
-        // return true so this allows multiple values if needed
-        if (data[this._config.filter_options.filter_column].includes(filter[0])) {
-          return true;
+    // dont do anything if we dont want to filter
+    if (this.filter_options == undefined) return;
+
+
+    // allows us to define our own filter method
+    this.datasource.filterPredicate = (row, filter: string|[]): boolean => {
+      if (filter.length == 0) return true; // if nothing is checked, show everything (not filtered)
+
+      if (typeof filter == "string") return row[this.filter_options.filter_column].includes(filter)
+
+      else if (Array.isArray(filter)) {
+        // allows for multiple filters at once
+        for (let indx=0; indx<filter.length; indx++) {
+          if (row[this.filter_options.filter_column].includes(filter[indx])) return true
         }
-        return false;
       }
+      return false
+
     }
 
   }
@@ -79,8 +66,7 @@ export class SmartTableComponent implements OnInit, AfterViewInit {
    * Returns column names of table
    */
   getColumns() {
-    if (this?._config?.columns) { return this._config.columns; }
-    return [];
+    return this._columns;
   }
 
 

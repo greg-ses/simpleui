@@ -54,7 +54,10 @@
             </prop-defined-table>
 
             <app-smart-table *ngIf="getTableType(dsItem) === 'smart'"
-                                [_config]="massageDataForSmartTable(dsItem)">
+                                [_rows]="generateRowsForSmartTable(dsItem)"
+                                [_columns]="['idx', 'timestamp', 'primLoc', 'subLoc', 'mode_critical_only', 'mode_tolerant', 'mode_averse', 'fault_code', 'type', 'name', 'desc', 'warn_ms', 'trip_ms', 'conditions', 'currVal', 'value']"
+                                [filter_options]="generateFilterOptions()"
+                                >
             </app-smart-table>
         </td>
     </tr>

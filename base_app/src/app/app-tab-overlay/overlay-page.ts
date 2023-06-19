@@ -6,7 +6,6 @@ import {SiteIndex} from '../interfaces/site-index';
 // import { CssUpdateService } from '../services/css-update-service';
 import {AppComponent} from '../app.component';
 import {UTIL} from '../../tools/utility';
-import { SmartTableConfig, Filter_Options } from '../smart-table/smart-table.component';
 
 @Component({
     animations: [],
@@ -790,30 +789,19 @@ export class OverlayPageComponent {
 
 
 
-    massageDataForSmartTable(data: any): SmartTableConfig|void {
-        const _columns = ['Time', 'Type', 'Description'];
-
+    generateRowsForSmartTable(data: any): any {
         let _rows = [];
 
+        // format row data for SmartTable to injest
         data.json.Fault.forEach(fault => {
-
             // skip row if it is a fault for the wrong mod
             if (!fault.name.includes(this._uiTab.ModuleToShowInFaultsTable)) { return; }
-
             _rows.push({
                 "Time": fault.timestamp,
                 "Type": fault.name,
                 "Description": fault.value
             })
         });
-
-
-        const result: SmartTableConfig = {
-            columns: _columns,
-            rows: _rows,
-        }
-
-        return result
-
+        return _rows;
     }
 }

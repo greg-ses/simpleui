@@ -5,7 +5,7 @@
 import {ChangeDetectionStrategy, Component, Input, Optional, OnInit, OnDestroy} from '@angular/core';
 import { AppComponent } from '../app.component';
 import { TabUI } from '../interfaces/props-data';
-import { SmartTableConfig, Filter_Options } from '../smart-table/smart-table.component';
+import { FilterOptions } from '../smart-table/smart-table.component';
 
 @Component({
     selector: 'app-section',
@@ -64,31 +64,6 @@ export class SectionComponent implements OnInit, OnDestroy {
         return s ? s.replace(/\(NL\)/g, '\n') : '';
     }
 
-
-    /**
-     * Mostly for the FaultList
-     * @param data
-     */
-    massageDataForSmartTable(data: any): SmartTableConfig|void {
-
-        const options: Filter_Options = {
-            title: "Filter by Fault Value",
-            possible_options: ['none', 'disabled', 'warning', 'trip'],
-            filter_column: 'value'
-        }
-
-
-        const unformattedFaultListColumns = ['idx', 'timestamp', 'primLoc', 'subLoc', 'mode_critical_only', 'mode_tolerant', 'mode_averse', 'fault_code', 'type', 'name', 'desc', 'warn_ms', 'trip_ms', 'conditions', 'currVal', 'value']
-        let config: SmartTableConfig = {
-            columns: unformattedFaultListColumns,
-            rows: data?.elements,
-            filter_options: options
-        }
-
-        return config;
-
-    }
-
 /**
  * *ngFor methods for preventing destruction and recreation of
  * components on each iteration. Basically stops components
@@ -99,6 +74,29 @@ export class SectionComponent implements OnInit, OnDestroy {
     }
     cmdsetTrackBy(index: number, cmdset: any) {
         return cmdset.u_id;
+    }
+
+
+
+    /**
+     * Mostly for the FaultList
+     * @param data
+     */
+    generateRowsForSmartTable(data: any): any[] {
+        return data?.elements;
+    }
+
+    /**
+     * Mostly for the FaultList
+     * @param data
+     */
+    generateFilterOptions(): any {
+        const options: FilterOptions = {
+            title: "Filter by Fault Value",
+            possible_options: ['none', 'disabled', 'warning', 'trip'],
+            filter_column: 'value'
+        }
+        return options
     }
 
 }
