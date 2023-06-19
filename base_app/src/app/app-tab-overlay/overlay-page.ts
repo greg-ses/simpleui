@@ -393,8 +393,6 @@ export class OverlayPageComponent {
     // ----------------------
     get_implemented_defined_table_in_group(overlayGroupName: string, tableName: string): any {
         const elemList = this.getGroupMembers(OverlayType.ImplementedDataTables, overlayGroupName, 'prop-def-table');
-        // ClientLogger.log('LogOverlayList', 'ImplementedOverlayDataTableIDs (' + Object.keys(elemList).length + ') for group "'
-        //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
         for (const key of elemList) {
             if (key.name === tableName) {
                 return key;
@@ -798,24 +796,21 @@ export class OverlayPageComponent {
         let _rows = [];
 
         data.json.Fault.forEach(fault => {
+
+            // skip row if it is a fault for the wrong mod
+            if (!fault.name.includes(this._uiTab.ModuleToShowInFaultsTable)) { return; }
+
             _rows.push({
                 "Time": fault.timestamp,
                 "Type": fault.name,
                 "Description": fault.value
             })
-
         });
 
-        const options: Filter_Options = {
-            title: "Filter by Mod",
-            possible_options: ['Mod1', 'Mod2'],
-            filter_column: 'Type'
-        }
 
         const result: SmartTableConfig = {
             columns: _columns,
             rows: _rows,
-            filter_options: options
         }
 
         return result
