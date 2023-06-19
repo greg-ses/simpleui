@@ -37,7 +37,7 @@ div.process_var, span.process_var, label.process_var {
     height:16px;
     color: #003399;
     background-color: khaki;
-    #background-color: lightyellow;
+/*    #background-color: lightyellow; */
     text-align: center;
     font-size: 12px;
     border: 1px solid #c4c4c4;
@@ -136,7 +136,7 @@ table.dataTable {
     color: #444444;
     background-color: #e3e2e2;
     text-align: left;
-    #font-size: 14px;
+/*    #font-size: 14px; */
     border: 1px solid #c4c4c4;
     border-radius: 6px;
     -moz-border-radius: 6px;
@@ -163,8 +163,8 @@ td.warning {
     left: 3px;
     top: 50px;
     white-space: nowrap;
-    #width:1900px;
-    #height:800px;
+/*    #width:1900px;*/
+/*    #height:800px;*/
 }
 
 .impeller-right {
