@@ -1,15 +1,5 @@
 
 
-<mat-form-field appearance="fill" *ngIf="_uiTab?.name.toLowerCase() == 'fault list'">
-    <mat-label>Fault Status Filter</mat-label>
-    <mat-select multiple (selectionChange)="applyFilter($event.value)">
-        <mat-option *ngFor="let status of allStatuses" [value]="status">{{status}}</mat-option>
-    </mat-select>
-</mat-form-field>
-
-
-
-
 
 <mat-form-field appearance="fill" *ngIf="_config?.filter_options">
     <mat-label>{{_config?.filter_options.title}}</mat-label>
@@ -26,7 +16,7 @@
 <table
   mat-table
   matSort
-  [dataSource]="_uiTab?.name.toLowerCase() == 'fault list' ? (datasource | filter:filterFaultValue) : datasource"
+  [dataSource]="datasource"
   class="mat-elevation-z8"
   style="width: 100%;">
 
