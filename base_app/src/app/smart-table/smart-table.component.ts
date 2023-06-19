@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 
@@ -23,7 +22,6 @@ export class SmartTableComponent implements OnInit, AfterViewInit {
   @Input() filter_options?: FilterOptions;
 
 
-  @ViewChild(MatSort) sort: MatSort;
   datasource: MatTableDataSource<any> =  new MatTableDataSource();
 
 
@@ -44,9 +42,10 @@ export class SmartTableComponent implements OnInit, AfterViewInit {
 
 
     // allows us to define our own filter method
-    this.datasource.filterPredicate = (row, filter: string|[]): boolean => {
+    this.datasource.filterPredicate = (row, filter: string|string[]): boolean => {
       if (filter.length == 0) return true; // if nothing is checked, show everything (not filtered)
 
+      // we have a single filter
       if (typeof filter == "string") return row[this.filter_options.filter_column].includes(filter)
 
       else if (Array.isArray(filter)) {
