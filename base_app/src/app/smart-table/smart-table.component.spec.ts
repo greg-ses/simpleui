@@ -2,8 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-import { SmartTableComponent, Fault_Status } from './smart-table.component';
-import { FilterPipe } from '../filter.pipe';
+import { SmartTableComponent } from './smart-table.component';
 
 import { DataSummary } from '../interfaces/data-summary';
 import { MatSortModule } from '@angular/material/sort';
@@ -21,7 +20,6 @@ describe('SmartTableComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         SmartTableComponent,
-        FilterPipe
        ],
        imports: [
         MatSortModule,
