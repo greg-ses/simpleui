@@ -1,7 +1,7 @@
 th {
     color: black;
-    font-size: 18px;
-    padding: 0 12px 0 12px !important;
+    font-size: 16px;
+    padding: 0 10px 0 10px !important;
     font-style: normal;
     border: 5px;
     background-color: darkgray;
@@ -10,8 +10,9 @@ th {
 td {
     font-size: 12px;
     padding: 0 5px 0 5px !important;
-}
+    font-weight: bold;
 
+}
 
 mat-label {
     color: black;

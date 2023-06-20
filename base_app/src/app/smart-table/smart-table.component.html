@@ -21,9 +21,24 @@
 
     <ng-container *ngFor="let column of getColumns()" [matColumnDef]="column">
         <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-        <!-- data.column will populate the row -->
-        <td mat-cell *matCellDef="let element">{{element[column]}} </td>
+
+        <!--
+            For the 'Active Faults & Warnings' table on the overlays. Colors the background
+            for the corresponding error level
+        -->
+        <ng-container *ngIf="column == 'Description'">
+            <td mat-cell *matCellDef="let row" [ngClass]='"dataTableTD " + row.css_class'> {{ row[column] }} </td>
+        </ng-container>
+
+        <!--
+            essentially:
+                for row in datasource:
+                    return <td mat-cell> row[column] </td>
+        -->
+        <td mat-cell *matCellDef="let row"> {{row[column]}} </td>
     </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="getColumns() sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: getColumns(); let even = even; let odd = odd" [ngClass]="{ odd: odd, even: even}"></tr>
+    <tr mat-row *matRowDef="let row; columns: getColumns(); let even = even; let odd = odd"
+        [ngClass]="{ odd: odd, even: even}"></tr>
 </table>
