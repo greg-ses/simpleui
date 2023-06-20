@@ -788,7 +788,9 @@ export class OverlayPageComponent {
 
 
 
-
+    /**
+     * For the 'Active Faults & Warnings' table
+     */
     generateRowsForSmartTable(data: any): any {
         let _rows = [];
 
@@ -799,7 +801,8 @@ export class OverlayPageComponent {
             _rows.push({
                 "Time": fault.timestamp,
                 "Type": fault.name,
-                "Description": fault.value
+                "Description": fault.value,
+                "css_class": fault.class
             })
         });
         return _rows;

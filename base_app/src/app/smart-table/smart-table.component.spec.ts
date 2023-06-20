@@ -4,7 +4,6 @@ import { By } from '@angular/platform-browser';
 
 import { SmartTableComponent, FilterOptions } from './smart-table.component';
 
-import { DataSummary } from '../interfaces/data-summary';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
