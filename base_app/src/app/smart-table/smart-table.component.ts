@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
 
@@ -13,9 +13,9 @@ export interface FilterOptions {
 @Component({
   selector: 'app-smart-table',
   templateUrl: './smart-table.component.html',
-  styleUrls: ['./smart-table.component.css']
+  styleUrls: ['./smart-table.component.css'],
 })
-export class SmartTableComponent implements OnInit, AfterViewInit {
+export class SmartTableComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() _rows: Object[];
   @Input() _columns: string[];
@@ -23,23 +23,35 @@ export class SmartTableComponent implements OnInit, AfterViewInit {
 
 
   datasource: MatTableDataSource<any> =  new MatTableDataSource();
+  current_filter: string|string[]
 
 
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
+  ngAfterViewInit() { }
 
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes._rows) {
+      this.updateDataSource();  // update the datasource to reflect the changes to the model
+      this.applyFilter(this.current_filter);  // make the filter persist through changes to the model
+    }
+  }
 
-  ngAfterViewInit() {
 
-    if (this._rows.length < 0) return;
+  /**
+   * Updates the datasource to reflect changes to the model (this._rows).
+   * Also will impliment the custom filtering method if applicable
+   * @returns void
+   */
+  updateDataSource(): void {
 
     this.datasource = new MatTableDataSource(this._rows);
 
     // dont do anything if we dont want to filter
     if (this.filter_options == undefined) return;
-
 
     // allows us to define our own filter method
     this.datasource.filterPredicate = (row, filter: string|string[]): boolean => {
@@ -54,11 +66,10 @@ export class SmartTableComponent implements OnInit, AfterViewInit {
           if (row[this.filter_options.filter_column].includes(filter[indx])) return true
         }
       }
-      return false
-
+      return false;
     }
-
   }
+
 
 
   /**
@@ -75,6 +86,7 @@ export class SmartTableComponent implements OnInit, AfterViewInit {
    * @param data data to filter
    */
   applyFilter(data: any): void {
+    this.current_filter = data;
     this.datasource.filter = data;
   }
 }
