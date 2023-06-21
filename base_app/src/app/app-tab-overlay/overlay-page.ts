@@ -795,7 +795,7 @@ export class OverlayPageComponent {
         let _rows = [];
 
         // format row data for SmartTable to injest
-        data.json.Fault.forEach(fault => {
+        data?.json?.Fault?.forEach(fault => {
             // skip row if it is a fault for the wrong mod
             if (!fault.name.includes(this._uiTab.ModuleToShowInActiveFaultsTable)) { return; }
             _rows.push({

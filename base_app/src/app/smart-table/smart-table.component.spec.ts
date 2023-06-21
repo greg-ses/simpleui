@@ -27,9 +27,8 @@ describe('SmartTableComponent', () => {
        ]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
+
     fixture = TestBed.createComponent(SmartTableComponent);
     component = fixture.componentInstance;
 
@@ -68,7 +67,31 @@ describe('SmartTableComponent', () => {
     expect(columnNames[2].nativeElement.textContent.trim()).toBe('col2');
   });
 
+
+  it('should show the correct rows', () => {
+    fixture.detectChanges(); // update to see rows
+
+    const debugElement: DebugElement = fixture.debugElement;
+    const rows: DebugElement[] = debugElement.queryAll(By.css('td'));
+
+    expect(rows.length).toBe(6); // 3 cols * 2 rows
+
+    expect(rows[0].nativeElement.textContent.trim()).toBe('1');
+    expect(rows[1].nativeElement.textContent.trim()).toBe('foo');
+    expect(rows[2].nativeElement.textContent.trim()).toBe('bar');
+    expect(rows[3].nativeElement.textContent.trim()).toBe('2');
+    expect(rows[4].nativeElement.textContent.trim()).toBe('fizz');
+    expect(rows[5].nativeElement.textContent.trim()).toBe('buzz');
+  });
+
+
+  it('should show no rows', () => {
+    component._rows = [];
+
+    const debugElement: DebugElement = fixture.debugElement;
+    const rows: DebugElement[] = debugElement.queryAll(By.css('td'));
+
+    expect(rows.length).toBe(0);
+  });
+
 });
-
-
-
