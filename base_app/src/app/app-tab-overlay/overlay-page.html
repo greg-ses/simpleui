@@ -100,19 +100,6 @@
             [_rows]="generateRowsForSmartTable(tableInfo)"
             >
         </app-smart-table>
-        <!-- <table [id]='tableInfo.id + "_table"' class='dataTable'>
-            <tr>
-                <th class='dataTableTH'>Time</th>
-                <th class='dataTableTH'>Type</th>
-                <th class='dataTableTH'>Description</th>
-            </tr>
-            <tr *ngFor="let tblRD of tableInfo.json.Fault let even = even; let odd = odd"
-                [ngClass]="{ odd: odd, even: even }">
-                <td class='dataTableTD'>{{tblRD.timestamp}}</td>
-                <td class='dataTableTD'>{{tblRD.fault_code}} : {{tblRD.name}}</td>
-                <td [ngClass]='"dataTableTD " + tblRD.class'>{{tblRD.value}}</td>
-            </tr>
-        </table> -->
     </div>
 
     <div *ngIf="get_implemented_defined_table_in_group(overlayGroupName, 'NonExhistant') as tableInfo"
