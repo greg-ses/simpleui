@@ -392,8 +392,6 @@ export class OverlayPageComponent {
     // ----------------------
     get_implemented_defined_table_in_group(overlayGroupName: string, tableName: string): any {
         const elemList = this.getGroupMembers(OverlayType.ImplementedDataTables, overlayGroupName, 'prop-def-table');
-        // ClientLogger.log('LogOverlayList', 'ImplementedOverlayDataTableIDs (' + Object.keys(elemList).length + ') for group "'
-        //    + overlayGroupName + '": [' + this.elemListToIdList(elemList) + ']');
         for (const key of elemList) {
             if (key.name === tableName) {
                 return key;
@@ -784,5 +782,29 @@ export class OverlayPageComponent {
             e.innerHTML = '►';
             instructions.style.display = 'none';
         }
+    }
+
+
+
+
+
+    /**
+     * For the 'Active Faults & Warnings' table
+     */
+    generateRowsForSmartTable(data: any): any {
+        let _rows = [];
+
+        // format row data for SmartTable to injest
+        data?.json?.Fault?.forEach(fault => {
+            // skip row if it is a fault for the wrong mod
+            if (!fault.name.includes(this._uiTab.ModuleToShowInActiveFaultsTable)) { return; }
+            _rows.push({
+                "Time": fault.timestamp,
+                "Type": fault.name,
+                "Description": fault.value,
+                "css_class": fault.class
+            })
+        });
+        return _rows;
     }
 }

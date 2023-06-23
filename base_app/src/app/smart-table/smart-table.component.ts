@@ -1,60 +1,92 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
-import { TabUI } from '../interfaces/props-data';
-
-import { MatSort } from '@angular/material/sort';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
 
-export enum Fault_Status {
-  EMPTY = "",
-  NONE = "none",
-  DISABLED = "disabled",
-  WARNING = "warning",
-  TRIP = "trip"
+export interface FilterOptions {
+  possible_options: string[];
+  title: string;
+  filter_column: string;
 }
+
 
 
 @Component({
   selector: 'app-smart-table',
   templateUrl: './smart-table.component.html',
-  styleUrls: ['./smart-table.component.css']
+  styleUrls: ['./smart-table.component.css'],
 })
-export class SmartTableComponent implements OnInit, AfterViewInit {
-  @Input() _dataset: any;
-  @Input() _uiTab: TabUI;
-  @Input() _id: string;
+export class SmartTableComponent implements OnInit, AfterViewInit, OnChanges {
 
-  @ViewChild(MatSort) sort: MatSort;
+  @Input() _rows: Object[];
+  @Input() _columns: string[];
+  @Input() filter_options?: FilterOptions;
 
 
-  columns = [];
-  filterFaultValue: Fault_Status|Fault_Status[] = Fault_Status.EMPTY;
-  allStatuses = ['none', 'disabled', 'warning', 'trip'];
-  datasource: any =  new MatTableDataSource();
+  datasource: MatTableDataSource<any> =  new MatTableDataSource();
+  current_filter: string|string[]
 
-  constructor() { }
 
-  ngOnInit(): void {
-    if (this._uiTab?.name.toLowerCase() == 'fault list') {
-      this.filterFaultValue = [Fault_Status.TRIP, Fault_Status.WARNING]; // default filter
+  constructor(private cdr: ChangeDetectorRef) { }
+
+  ngOnInit(): void { }
+
+  ngAfterViewInit() { }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes._rows) {
+      this.updateDataSource();  // update the datasource to reflect the changes to the model
+      this.applyFilter(this.current_filter);  // make the filter persist through changes to the model
     }
   }
 
-  ngAfterViewInit() {
-    this.datasource = new MatTableDataSource(this._dataset?.elements);
-    this.datasource.sort = this.sort;
+
+  /**
+   * Updates the datasource to reflect changes to the model (this._rows).
+   * Also will impliment the custom filtering method if applicable
+   * @returns void
+   */
+  updateDataSource(): void {
+
+    this.datasource = new MatTableDataSource(this._rows);
+
+    // dont do anything if we dont want to filter
+    if (this.filter_options == undefined) return;
+
+    // allows us to define our own filter method
+    this.datasource.filterPredicate = (row, filter: string|string[]): boolean => {
+      if (filter.length == 0) return true; // if nothing is checked, show everything (not filtered)
+
+      // we have a single filter
+      if (typeof filter == "string") return row[this.filter_options.filter_column].includes(filter)
+
+      else if (Array.isArray(filter)) {
+        // allows for multiple filters at once
+        for (let indx=0; indx<filter.length; indx++) {
+          if (row[this.filter_options.filter_column].includes(filter[indx])) return true
+        }
+      }
+      return false;
+    }
   }
 
+
+
+  /**
+   * Returns column names of table
+   */
   getColumns() {
-    const originalColumns = this._dataset?.props?.columns !== undefined ? this._dataset.props.columns : [];
-    let columns = [];
-    originalColumns.forEach(element => {
-      columns.push(element[0]);
-    });
-    return columns
+    return this._columns;
   }
 
-  handleSelection(selectedValues) {
-    this.filterFaultValue = selectedValues;
+
+
+  /**
+   * applies the filter to the table rows
+   * @param data data to filter
+   */
+  applyFilter(data: any): void {
+    this.current_filter = data;
+    this.datasource.filter = data;
   }
 }

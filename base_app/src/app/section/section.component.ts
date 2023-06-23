@@ -5,6 +5,7 @@
 import {ChangeDetectionStrategy, Component, Input, Optional, OnInit, OnDestroy} from '@angular/core';
 import { AppComponent } from '../app.component';
 import { TabUI } from '../interfaces/props-data';
+import { FilterOptions } from '../smart-table/smart-table.component';
 
 @Component({
     selector: 'app-section',
@@ -63,8 +64,6 @@ export class SectionComponent implements OnInit, OnDestroy {
         return s ? s.replace(/\(NL\)/g, '\n') : '';
     }
 
-
-
 /**
  * *ngFor methods for preventing destruction and recreation of
  * components on each iteration. Basically stops components
@@ -75,6 +74,29 @@ export class SectionComponent implements OnInit, OnDestroy {
     }
     cmdsetTrackBy(index: number, cmdset: any) {
         return cmdset.u_id;
+    }
+
+
+
+    /**
+     * Mostly for the FaultList
+     * @param data
+     */
+    generateRowsForSmartTable(data: any): any[] {
+        return data?.elements;
+    }
+
+    /**
+     * Mostly for the FaultList
+     * @param data
+     */
+    generateFilterOptions(): any {
+        const options: FilterOptions = {
+            title: "Filter by Fault Value",
+            possible_options: ['none', 'disabled', 'warning', 'trip'],
+            filter_column: 'value'
+        }
+        return options
     }
 
 }

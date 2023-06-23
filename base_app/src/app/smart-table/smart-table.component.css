@@ -1,7 +1,19 @@
 th {
-    padding: 0 15px 0 15px !important;
+    color: black;
+    font-size: 16px;
+    padding: 0 10px 0 10px !important;
+    font-style: normal;
+    border: 5px;
+    background-color: darkgray;
 }
 
 td {
-    padding: 0 15px 0 15px !important;
+    font-size: 12px;
+    padding: 0 5px 0 5px !important;
+    font-weight: bold;
+
+}
+
+mat-label {
+    color: black;
 }
