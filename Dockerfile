@@ -1,9 +1,3 @@
-FROM ubuntu:22.04
-
-ARG DEBIAN_FRONTEND noninteractive
-
-RUN apt-get update && apt-get upgrade -y
-
 ###############################################################################
 # build stage-0: BUILD THE BASE CLIENT PACKAGE
 FROM node:18 as build_base_client
@@ -29,17 +23,19 @@ FROM php:7.4-apache
 
 WORKDIR /tmp
 
+ARG DEBIAN_FRONTEND noninteractive
 
 # Node 18 script, mostly just adds it to apt
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 
 # Install nodejs, install wget for zmq, install git for php-zmq
-RUN apt-get install -y \
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     git \
     nodejs \
     vim \
     wget \
     gcc \
+    libzmq5 \
     && rm -rf /var/lib/apt/lists/*
 
 # Tini init-system
