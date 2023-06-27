@@ -96,4 +96,7 @@ cp $INCOMING_DIR/*.properties ${STAGING_DIR}
 # Deploy
 cp -a ${STAGING_DIR}/. "$DEPLOY_DIR/"
 
+ldd /var/www/device/node_modules/zeromq/prebuilds/linux-x64/node.abi108.node
+
+
 printf "Merged app deployment complete\n\n"
