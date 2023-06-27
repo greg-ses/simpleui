@@ -19,7 +19,7 @@ RUN npm run build
 
 ###############################################################################
 # build stage-2: FINAL IMAGE
-FROM php:7.1-apache
+FROM php:7-apache
 
 WORKDIR /tmp
 
@@ -34,6 +34,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     nodejs \
     vim \
     wget \
+    gcc \
     && rm -rf /var/lib/apt/lists/*
 
 # Tini init-system
