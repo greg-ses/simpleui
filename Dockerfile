@@ -19,7 +19,7 @@ RUN npm run build
 
 ###############################################################################
 # build stage-2: FINAL IMAGE
-FROM php:7-apache
+FROM php:7.1-apache
 
 WORKDIR /tmp
 
