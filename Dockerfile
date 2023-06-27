@@ -23,11 +23,13 @@ FROM php:7-apache
 
 WORKDIR /tmp
 
+ARG DEBIAN_FRONTEND noninteractive
+
 # Node 18 script, mostly just adds it to apt
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 
 # Install nodejs, install wget for zmq, install git for php-zmq
-RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     git \
     nodejs \
     vim \
