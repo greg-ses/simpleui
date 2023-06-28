@@ -96,7 +96,4 @@ cp $INCOMING_DIR/*.properties ${STAGING_DIR}
 # Deploy
 cp -a ${STAGING_DIR}/. "$DEPLOY_DIR/"
 
-ldd "/var/www/$app_name/node_modules/zeromq/build/Release/zmq.node"
-
-
 printf "Merged app deployment complete\n\n"
