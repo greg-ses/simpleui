@@ -1,9 +1,3 @@
-FROM ubuntu:22.04
-
-ARG DEBIAN_FRONTEND noninteractive
-
-RUN apt-get update && apt-get upgrade -y
-
 ###############################################################################
 # build stage-0: BUILD THE BASE CLIENT PACKAGE
 FROM node:18 as build_base_client
@@ -15,7 +9,7 @@ RUN npm run build-client-prod
 
 ###############################################################################
 # build stage-1: BUILD THE BASE SERVER PAKCGAE
-FROM node:18 as build_base_server
+FROM node:18.15 as build_base_server
 
 COPY "simpleui-server/" "/simpleui-server/"
 WORKDIR /simpleui-server/
@@ -25,23 +19,19 @@ RUN npm run build
 
 ###############################################################################
 # build stage-2: FINAL IMAGE
-FROM php:7.4-apache
+FROM php:7-apache
 
 WORKDIR /tmp
-
 
 # Node 18 script, mostly just adds it to apt
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 
 # Install nodejs, install wget for zmq, install git for php-zmq
-RUN apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
     git \
     nodejs \
     vim \
     wget \
-    gcc \
-    libzmq5 \
-    libc6 \
     && rm -rf /var/lib/apt/lists/*
 
 # Tini init-system
