@@ -41,6 +41,7 @@ RUN apt-get install -y \
     wget \
     gcc \
     libzmq5 \
+    libc6 \
     && rm -rf /var/lib/apt/lists/*
 
 # Tini init-system
