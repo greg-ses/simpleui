@@ -34,7 +34,7 @@
     "microtime": "^3.0.0",
     "sha1": "^1.1.1",
     "tslib": "^2.0.0",
-    "zeromq": "5.2.8"
+    "zeromq": "^5.2.8"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",

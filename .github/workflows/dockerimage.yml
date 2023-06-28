@@ -14,7 +14,7 @@ env:
 on:
   push:
     branches:
-      - 'fix-ci-image-bug'
+      - 'master'
     tags:
       - 'v*'
   pull_request:
