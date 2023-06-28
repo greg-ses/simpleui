@@ -9,7 +9,7 @@ RUN npm run build-client-prod
 
 ###############################################################################
 # build stage-1: BUILD THE BASE SERVER PAKCGAE
-FROM node:18 as build_base_server
+FROM node:18.15 as build_base_server
 
 COPY "simpleui-server/" "/simpleui-server/"
 WORKDIR /simpleui-server/
