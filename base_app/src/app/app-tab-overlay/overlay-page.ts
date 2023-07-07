@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, Optional, Outpu
 import {DataSummary} from '../interfaces/data-summary';
 import {OverlayType} from './overlay-type';
 import {SiteIndex} from '../interfaces/site-index';
-// import { CssUpdateService } from '../services/css-update-service';
 import {AppComponent} from '../app.component';
 import {UTIL} from '../../tools/utility';
 
