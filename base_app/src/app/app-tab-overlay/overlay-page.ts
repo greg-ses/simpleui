@@ -75,9 +75,6 @@ export class OverlayPageComponent {
     ) {    }
 
 
-    // _dataRefreshed: boolean = (typeof this._DataSummary.DerivedSummary === 'UiObjList') &&
-    //          (this._DataSummary.DerivedSummary.elements.length > 0);
-    //
 
     isDesignEnabled(): boolean {
         return (this.app._props && this.app._props['mode'] && this.app._props['mode'] === 'design');
