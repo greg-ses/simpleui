@@ -74,12 +74,6 @@ export class OverlayPageComponent {
         @Optional() public app: AppComponent
     ) {    }
 
-
-
-    isDesignEnabled(): boolean {
-        return (this.app._props && this.app._props['mode'] && this.app._props['mode'] === 'design');
-    }
-
     toggleAutoRefresh(): void {
         if (this._autoRefreshLabel === 'Pause Auto Refresh') {
             this._autoRefreshLabel = 'Resume Auto Refresh';
@@ -220,10 +214,6 @@ export class OverlayPageComponent {
                     }
                 }
             }
-        }
-
-        if (this.isDesignEnabled()) {
-            OverlayPageComponent.writeOverlayDebugInfo(overlayGroupName, this.elemListToIdList(elemList), overlayType);
         }
 
         return elemList;
