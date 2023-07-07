@@ -105,9 +105,6 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
         return s.replace(/_/g, ' ');
     }
 
-    getDomId(): string {
-        return this._element.command.id;
-    }
 
     getClassName(): string {
         let className = '';

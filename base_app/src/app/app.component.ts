@@ -36,7 +36,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _refreshRate = 1000;
     _pendingRequestWait = 10000;
     _updateSubscription = null;
-    _debugRefreshCycle = 0;
     _errorMessage = '';
     _appURI = AppComponent.getServiceURI();
     _propsURL = AppComponent.getPropsURL();
@@ -362,42 +361,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         // event.stopPropagation();
     }
 
-    onMoveElement(event: MouseEvent) {
-        if (event) {
-            if (event.ctrlKey && event.shiftKey) {
-                // CTRL-SHIFT-CLICK
-            } else if (event.ctrlKey && event.altKey) {
-                // CTRL-ALT-CLICK
-            } else if (event.shiftKey && event.altKey) {
-                // SHIFT-ALT-CLICK
-            } else {
-                const container = document.getElementById('unimplementedOverlaysContainer');
-                const newPos = window.prompt(
-                    'Enter the new TOP,LEFT for unimplementedOverlaysContainer',
-                    `${parseInt(getComputedStyle(container)['top'], 10)}, ${parseInt(getComputedStyle(container)['left'], 10)}`);
-                const arr = newPos.split(',');
-                if (arr.length === 2) {
-                    container.style.top = `${arr[0]}px`;
-                    container.style.left = `${arr[1]}px`;
-                }
-            }
-            event.preventDefault();
-        }
-    }
-
-    onEditUIElements(event) {
-        if (event) {
-            /*
-                if (event.ctrlKey && event.shiftKey) {
-                    window['editUiPanel'] = new AppEditUiPanelComponent();
-                    setTimeout(() => window['editUiPanel'].create(), 1000);
-                } else if (event.shiftKey) {
-                    AppComponent.turnOffAnimatedGifs();
-                }
-           */
-            }
-    }
-
     getWindowLocationField(fieldName) {
         return window.location[fieldName];
     }
@@ -638,25 +601,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
     }
 
-
-    isDeltaUpdate(tab: TabUI) {
-        return (tab._DataSummary
-            && typeof tab._DataSummary === 'object'
-            && typeof tab._DataSummary['updateType'] === 'string'
-            && (tab._DataSummary['updateType'] === 'delta'));
-    }
-
-    aboutDialog() {
-        const aboutMsg =
-            'About'
-            + '\n\nApp Title: ' + this.getAppTitle()
-            + '\n\nSimple UI Version Short: ' + this.getProp('uiVersionShort', 'ui version short')
-            + '\n\nSimple UI Version Long: ' + this.getProp('uiVersionLong', 'ui version long')
-            + '\n\nApp Title: ' + this.getProp('uiVersionLong', 'app version long');
-
-        alert(aboutMsg);
-    }
-
     init_common_props(tab: TabUI) {
         this._tBarProps._appTitle = this.getAppTitle();
         this._tBarProps._tabTitle = this.getTabTitle(tab);
@@ -795,14 +739,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             dVersion = tab._DataSummary.Version.value;
         }
         return dVersion;
-    }
-
-    hasProps() {
-        return (this._props instanceof Object);
-    }
-
-    hasProp(key: string) {
-        return ((this._props instanceof Object) && (typeof this._props[key] !== 'undefined'));
     }
 
 }

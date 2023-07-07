@@ -34,31 +34,6 @@ export class CommandService {
 
     constructor (private http: HttpClient) { }
 
-    formParamsToString(formParams: any): string {
-        const formBody = [];
-        for (const property in formParams) {
-            if (['_input', 'value'].indexOf(property) > -1) {
-                let innerValue = '';
-                let delimiter = '';
-                for (const key in formParams['value']) {
-                    if (formParams['value'].hasOwnProperty(key)) {
-                        const encodedInnerKey = encodeURIComponent(key);
-                        const encodedInnerValue = encodeURIComponent(formParams[key]);
-                        innerValue += delimiter + encodedInnerKey + '=' + encodedInnerValue;
-                        delimiter = ', ';
-                    }
-                }
-                formBody.push('value = {' +  innerValue + '}');
-            } else {
-                // property is not '_input' or 'value'
-                const encodedKey = encodeURIComponent(property);
-                const encodedValue = encodeURIComponent(formParams[property]);
-                formBody.push(encodedKey + '=' + encodedValue);
-            }
-        }
-        return formBody.join('&');
-    }
-
     sendCommand(uiTab: TabUI, jsonToPost: any,
                 caller: any,
                 responseHandler: any,

@@ -49,25 +49,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     _autoRefreshLabel = 'Pause';
     _refreshState = 'pending';
 
-    static getImgInfoCmd(id, tag): string  {
-        let cmd: string;
-        cmd = 'var e = document.getElementById("' + id + '");' +
-            'if (e) {var cs = window.getComputedStyle(e);' +
-            'if (cs) {' +
-            'var msg = "[' + tag + '] id: ' + id +
-            ' .className: " + e.className + ' +
-            '", .style { position: " + cs.position + ' +
-            '"; top: " + cs.top + ' +
-            '"; left: " + cs.left + ' +
-            '"; width: " + cs.width + ' +
-            '"; height:" + cs.height + ' +
-            '"; }";' +
-            'console.log(msg);' +
-            '}' +
-            '} else { console.log("[\' + tag + \'] id: \' + id + \' - Element not found.") } ';
-        return cmd;
-    }
-
     @Input()
     set detectChanges(detectChanges: {name: string, value: boolean}) {
 
@@ -122,16 +103,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
             const ts: string = now.getHours() + 'h ' + now.getMinutes() + 'm ' + now.getSeconds() + 's ' + now.getMilliseconds() + 'ms';
             console.log('Level: ' + logLevel + ', logCount: ' + this._logCount + ', at ' + ts + ': ' + msg);
         }
-    }
-
-    getNthOverlayNumber() {
-
-        let nthOverlay: any;
-        nthOverlay = (this._siteIndex && this._siteIndex['props']
-            && this._siteIndex['props'].nthOverlay
-            && (this._siteIndex['props'].nthOverlay.value)) || 1;
-
-        return nthOverlay;
     }
 
     getImplementedOverlays(nthOverlay): any {
@@ -273,28 +244,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
             normalSection.elements = normalElements;
             this._uiTab._DataSummary[sectionName] = normalSection;
         }
-    }
-
-    onDataUpdate(response: any): void {
-        if (typeof response['Overlay_Summary'] === 'object') {
-            this._uiTab._DataSummary = response['Overlay_Summary'];
-        } else {
-            this._uiTab._DataSummary = response;
-            }
-        this.normalizeSection('StatusOverview', 'Status Overview');
-
-        const groups = this._imageOverlayGroupNames?.split(',');
-        for (const gName in groups) {
-            if (groups.hasOwnProperty(gName)) {
-                this.normalizeSection(gName, gName.replace(/([a-z])([A-Z])/g, '$1 $2'));
-            }
-        }
-
-        this.normalizeActiveFaultsSection('ActiveFaultList', 'Active Faults');
-
-        // this._changeDetectorRef.markForCheck();
-        this._changeDetectorRef.detectChanges();
-        this._changeDetectorRef.detach();
     }
 
     getOverlayImage() {
