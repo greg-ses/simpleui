@@ -1,7 +1,6 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogActions } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ClientLogger } from '../../tools/logger' ;
 
 @Component({
     selector: 'app-material-popup',
@@ -82,7 +81,6 @@ export class MaterialPopupComponent implements OnInit {
         {
             controls = commandData.element.command.controls;
         }
-        ClientLogger.log('CommandButtonComponentDetails', `getControls(commandData): ${controls}`);
         return controls;
     }
 
@@ -175,7 +173,6 @@ export class MaterialPopupComponent implements OnInit {
         if (typeof this.commandData.element.command[fieldName] === 'string') {
             value = this.commandData.element.command[fieldName];
         }
-        ClientLogger.log('CommandButtonComponentDetails', `getCommandField('${fieldName}'): ${value}`);
         return value;
     }
 }

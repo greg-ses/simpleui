@@ -3,7 +3,6 @@ import {AppProperties, SubscriptionState, TabUI, TitleBarProperties} from './int
 import {ajax} from 'rxjs/ajax';
 import {MatTabChangeEvent, MatTabGroup} from '@angular/material/tabs';
 import {interval} from 'rxjs';
-import {ClientLogger, LogLevel} from '../tools/logger';
 import {DataSummary} from './interfaces/data-summary';
 import {UTIL} from '../tools/utility';
 
@@ -26,7 +25,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     static _trackClicks = false;
     static _mouseDownSuspendsUpdates = false;
     static _minutesBeforeAutoPageReload_Default = 90; // Time until the page auto-refreshes, doing automatic garbage collection
-    static _logLevel = LogLevel.CRITICAL;
     static _show_click_debug = false;
 
 
@@ -414,13 +412,11 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
         if (this._props && this._props.initialized) {
             // already have properties - don't fetch again
-            console.log('Using cached _props');
+            console.debug('Using cached _props');
             return;
         }
 
-        if (AppComponent._logLevel >= LogLevel.VERBOSE) {
-            console.log(`AppComponent.getProps(${uiProp} initializing...`);
-        }
+        console.debug(`AppComponent.getProps(${uiProp} initializing...`);
 
         const ajaxRequest = {
             url: this._propsURL,
@@ -442,12 +438,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 }
             },
             err => {
-                console.error(`Error in getProps() ajax subscribe callback. ${err}`);
-                try {
-                    console.error('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
-                } catch (err1) {
-                    console.error('Error trying to display error');
-                }
+                console.error(`Error in getProps() ajax subscribe callback.`, err);
             });
         this._propsSubscriptionState = SubscriptionState.AwaitingAsyncResponse;
     }
@@ -495,16 +486,13 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                     }
 
                     if (i === this._selectedTabIndex) {
-                        // console.log('matTabHeader.children[' + i + '].tagName:', child.tagName, '.className:', child.className);
 
                         tabLabel['style'].color = 'wheat';
                         tabLabel['style'].backgroundColor = '#673AB7';
                     } else if (tabLabel.tagName === 'MD-INK-BAR') {
-                        // console.log('tabLabel.tagName:', tabLabel.tagName);
 
                         tabLabel['style'].display = 'none';
                     } else {
-                        // console.log('tabLabel.tagName:', tabLabel.tagName, '.className:', tabLabel.className);
 
                         tabLabel['style'].color = '#B4B7BA';
                         tabLabel['style'].backgroundColor = '#ECF2F9';
@@ -604,10 +592,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             const dsHeads = document.getElementsByClassName('dataSetSizerHead');
             const dsBodies = document.getElementsByClassName('dataSetSizerBody');
 
-
-            if (AppComponent._logLevel >= LogLevel.VERBOSE) {
-                console.log(`Called AppComponent.updateMinColWidths(${tab.name}`);
-            }
+            console.debug(`Called AppComponent.updateMinColWidths(${tab.name}`);
 
             if ((dsHeads.length > 0) && (dsHeads.length === dsBodies.length)) {
 
@@ -749,17 +734,12 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
             this._detectChanges = {'name': tab.name, 'value': true};
             this.updateData(tab, response['Data_Summary']);
-            ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');
 
         } else if (typeof response === 'object'
             && typeof response['Overlay_Summary'] === 'object') {
 
             this._detectChanges = {'name': tab.name, 'value': true};
             this.updateData(tab, response['Overlay_Summary']);
-            ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed.');
-
-        } else {
-            ClientLogger.log('LogRefreshCycleCount', 'Cycle #' + this._refreshCycle + ' completed with error (EMPTY RESPONSE).');
         }
     }
 

@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { DataSetChangeService } from '../services/dataset-change.service';
 import {HttpClientModule} from '@angular/common/http';
-import {ClientLogger} from '../../tools/logger';
 import {UiObjList} from '../interfaces/ui-obj-list';
 import {SiteIndex} from '../interfaces/site-index';
 
@@ -140,8 +139,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
 
     getImplementedOverlays(nthOverlay): any {
 
-        ClientLogger.log('LogOverlayList', 'getImplementedOverlays(nthOverlay)');
-
         const ajaxRequest = {
             url: `${this._cssToJsonURL}`,
             withCredentials: true,
@@ -159,18 +156,13 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
             ) {
                 return this.onImplementedOverlaysUpdate(res.response.CSS_Elements);
             } else {
-                console.log(`Error ${res.status} fetching res,response.CSS_Elements data in getImplementedOverlays(${nthOverlay})`);
+                console.error(`Error ${res.status} fetching res,response.CSS_Elements data in getImplementedOverlays(${nthOverlay})`);
             }
         },
         err => {
-            console.log(`Error in AppTabOverlayComponent.getImplementedOverlays() ajax subscribe callback.`);
-            try {
-                console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
-            } catch (err1) { }
-        });
+            console.error(`Error in AppTabOverlayComponent.getImplementedOverlays() ajax subscribe callback.`, err);
 
-        ClientLogger.log('LogOverlayList',
-            (typeof this._implementedOverlays === 'undefined') ? 'undefined' : this._implementedOverlays.toString());
+        });
     }
 
     onImplementedOverlaysUpdate(cssElements: any) {
@@ -180,9 +172,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
                 this._implementedOverlays[key] = cssElements[key];
             }
         }
-        ClientLogger.log('LogOverlayListAll',
-            'onImplementedOverlaysUpdate() - count _implementedOverlays: '
-                  + Object.keys(this._implementedOverlays).length);
     }
 
     normalizeSection(sectionName: string, sectionLabel: string, sortIt?: boolean) {

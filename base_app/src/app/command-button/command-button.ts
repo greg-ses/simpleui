@@ -12,7 +12,6 @@ import {CommandService} from '../services/command.service';
 import {CommandButtonChangeService} from '../services/command-button-change.service';
 import {Subscription} from 'rxjs';
 import {HttpClientModule} from '@angular/common/http';
-import {ClientLogger} from '../../tools/logger';
 import {UTIL} from '../../tools/utility';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import {MaterialPopupComponent} from '../cmdsets/material-popup-component';
@@ -89,10 +88,6 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
                 anyChange = true;
                 break;
             }
-        }
-        if (anyChange) {
-            ClientLogger.log('CommandButtonChangeDetection',
-                'anyChange is true', true);
         }
     }
 
@@ -195,7 +190,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
             }
 
         } catch (e) {
-            console.log('error in findAttr(' + attr + '): ' + e);
+            console.error(`error in findAttr(${attr})`, e);
         }
 
         return value;
@@ -538,7 +533,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
                 }
             }
         } catch (err) {
-            console.log('error in CommandButtonComponent.onClick()', err.toString());
+            console.error('error in CommandButtonComponent.onClick()', err);
             //alert('Error: ' + err.toString());
             this.updateClass('command');
         }
@@ -586,15 +581,9 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
                     propChanged = true;
             }
         } catch (e) {
-            console.log('Error "' + e + '" in isChanged()');
+            console.error(e);
             propChanged = true;
         }
-
-        if (propChanged) {
-            ClientLogger.log('CommandButtonChangeDetection',
-                'isChanged(propName: ' + (typeof propName === 'string' ? propName : 'unknown'), true);
-        }
-
         return propChanged;
     }
 
