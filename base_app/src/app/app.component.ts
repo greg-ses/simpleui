@@ -546,8 +546,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             const dsHeads = document.getElementsByClassName('dataSetSizerHead');
             const dsBodies = document.getElementsByClassName('dataSetSizerBody');
 
-            console.debug(`Called AppComponent.updateMinColWidths(${tab.name}`);
-
             if ((dsHeads.length > 0) && (dsHeads.length === dsBodies.length)) {
 
                 for (let i = 0; i < dsHeads.length; i++) {
