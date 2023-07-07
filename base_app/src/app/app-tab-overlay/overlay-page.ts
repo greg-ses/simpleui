@@ -29,8 +29,6 @@ export class OverlayPageComponent {
 
     @Output() onToggleAutoRefresh = new EventEmitter<boolean>();
 
-    warningPanelOpenState = false;
-
     _autoRefreshLabel = 'Pause Auto Refresh';
 
     _commandList = [];
@@ -85,11 +83,6 @@ export class OverlayPageComponent {
         return (this.app._props && this.app._props['mode'] && this.app._props['mode'] === 'design');
     }
 
-    getMode(): string {
-        const retVal = (this.app._props && this.app._props['mode']) || '';
-        return retVal;
-    }
-
     toggleAutoRefresh(): void {
         if (this._autoRefreshLabel === 'Pause Auto Refresh') {
             this._autoRefreshLabel = 'Resume Auto Refresh';
@@ -97,19 +90,6 @@ export class OverlayPageComponent {
             this._autoRefreshLabel = 'Pause Auto Refresh';
         }
         this.onToggleAutoRefresh.emit(this._autoRefreshLabel === 'Pause Auto Refresh');
-    }
-
-    showQuickLinks(): boolean {
-        let retVal = false;
-
-        if (typeof this._DataSummary === 'object'
-            && typeof this._DataSummary.Access === 'object'
-            && typeof this._DataSummary.Access.value === 'string') {
-            if (this._DataSummary.Access.value > 2 || !this.TODO__hide_graphs_and_data) {
-                retVal = true;
-            }
-        }
-        return retVal;
     }
 
     isImplemented(eName: string): boolean {
@@ -261,19 +241,6 @@ export class OverlayPageComponent {
         return idList;
     }
 
-    getLabelId(arg: any) {
-        if (arg instanceof Object) {
-            if ((arg.command instanceof Object)
-                && (typeof arg.command.id === 'string')) {
-
-                return arg.command.id + '_label';
-            } else if (typeof arg.id === 'string') {
-                return arg.id + '_label';
-            }
-        }
-        return 'ill-formed-label';
-    }
-
     getElement(arg: any) {
         return arg;
     }
@@ -281,11 +248,6 @@ export class OverlayPageComponent {
     // ----------------------
     get_implemented_dyns_in_group(overlayGroupName: string): any {
         const elemList = this.getGroupMembers(OverlayType.ImplementedDyns, overlayGroupName, 'dyn');
-        return elemList;
-    }
-
-    get_un_implemented_dyns_in_group(overlayGroupName: string): any {
-        const elemList = this.getGroupMembers(OverlayType.UnImplementedDyns, overlayGroupName, 'dyn');
         return elemList;
     }
 
@@ -310,11 +272,6 @@ export class OverlayPageComponent {
         return this._commandList[overlayGroupName];
     }
 
-    get_un_implemented_commands_in_group(overlayGroupName: string): any {
-        const elemList = this.getGroupMembers(OverlayType.UnImplementedCommands, overlayGroupName, 'command');
-        return elemList;
-    }
-
     // ----------------------
     get_implemented_images_in_group(overlayGroupName: string): any {
         const elemList = this.getGroupMembers(OverlayType.ImplementedImages, overlayGroupName, 'img');
@@ -334,11 +291,6 @@ export class OverlayPageComponent {
         }
         return this._imageList[overlayGroupName];
 
-    }
-
-    get_un_implemented_images_in_group(overlayGroupName: string): any {
-        const elemList = this.getGroupMembers(OverlayType.UnImplementedImages, overlayGroupName, 'img');
-        return elemList;
     }
 
     get_implemented_animations_in_group(overlayGroupName: string): any {
@@ -361,11 +313,6 @@ export class OverlayPageComponent {
 
     }
 
-    get_un_implemented_animations_in_group(overlayGroupName: string): any {
-        const elemList = this.getGroupMembers(OverlayType.UnImplementedAnimations, overlayGroupName, 'animation');
-        return elemList;
-    }
-
 
     // ----------------------
     get_implemented_defined_table_in_group(overlayGroupName: string, tableName: string): any {
@@ -376,18 +323,6 @@ export class OverlayPageComponent {
             }
         }
         return null;
-    }
-
-
-    // ----------------------
-    get_implemented_prop_defined_tables_in_group(overlayGroupName: string): any {
-        const elemList = this.getGroupMembers(OverlayType.ImplementedDataTables, overlayGroupName, 'prop-def-table');
-        return elemList;
-    }
-
-    get_un_implemented_prop_defined_tables_in_group(overlayGroupName: string): any {
-        const elemList = this.getGroupMembers(OverlayType.UnImplementedDataTables, overlayGroupName, 'prop-def-table');
-        return elemList;
     }
 
 
@@ -436,15 +371,6 @@ export class OverlayPageComponent {
             retObj['id'] = UTIL.addContextPrefix(overlayGroupName, shortName);
         }
         return retObj;
-    }
-
-    getLabel(overlayGroupName: string, varName: string, defaultLabel = '') {
-        const e = this.getJsonElement(overlayGroupName, varName);
-        if (!e) return '';
-
-        const label = ((typeof e === 'object') && (typeof e['label'] === 'string') && e['label']) || defaultLabel;
-
-        return label;
     }
 
     splitPrefix(name: any) {
@@ -643,31 +569,6 @@ export class OverlayPageComponent {
         return retVal;
     }
 
-    getImplOverlayImageCssDef(eName: string, eValue: string): string {
-        let retVal = '';
-        let cssKey = eName;
-        if (eValue) {
-            cssKey = UTIL.addContextPrefix(cssKey, eValue);
-        }
-        if (this._all_implemented_overlays && this._all_implemented_overlays[cssKey]) {
-            retVal = this._all_implemented_overlays[cssKey];
-        } else if (this._all_implemented_overlays && this._all_implemented_overlays[eName]) {
-            retVal = this._all_implemented_overlays[eName];
-        }
-
-        return retVal;
-    }
-
-    getImgLabel(overlayGroupName: string, varName: string): string {
-        const shortName = UTIL.removeContextPrefix(varName);
-
-        return (typeof this._DataSummary === 'object'
-            && typeof this._DataSummary[overlayGroupName] === 'object'
-            && typeof this._DataSummary[overlayGroupName][shortName] === 'object'
-            && typeof this._DataSummary[overlayGroupName][shortName].value === 'string'
-            && this._DataSummary[overlayGroupName][shortName].value) || '';
-    }
-
     getImgSrc(overlayGroupName: string, imgInfo: object): string {
         const varName = imgInfo['id'];
         let s = 'invalid-filename.png';
@@ -711,18 +612,6 @@ export class OverlayPageComponent {
         }
 
         return s;
-    }
-
-    showHideInstructions(): void {
-        const e = document.getElementById('dnd-toggle');
-        const instructions = document.getElementById('movedElementInfo');
-        if (e && e.innerHTML === '►') {
-            e.innerHTML = '▼';
-            instructions.style.display = 'block';
-        } else {
-            e.innerHTML = '►';
-            instructions.style.display = 'none';
-        }
     }
 
 
