@@ -24,7 +24,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     static _updatesSuspended = false;
     static _trackClicks = false;
     static _mouseDownSuspendsUpdates = false;
-    static _minutesBeforeAutoPageReload_Default = 90; // Time until the page auto-refreshes, doing automatic garbage collection
     static _show_click_debug = false;
 
 
@@ -535,14 +534,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             tab.hash = AppComponent.getUniqueHash();
         }
 
-        let minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
-        if ((this._props instanceof Object)
-            && (typeof this._props['minutesBeforeAutoPageReload'] === 'string')) {
-            minutesBeforeAutoPageReload = parseInt(this._props['minutesBeforeAutoPageReload'], 10);
-            if (isNaN(minutesBeforeAutoPageReload)) {
-                minutesBeforeAutoPageReload = AppComponent._minutesBeforeAutoPageReload_Default;
-            }
-        }
 
         this._refreshRate = 1000;
         if ((this._props instanceof Object)
