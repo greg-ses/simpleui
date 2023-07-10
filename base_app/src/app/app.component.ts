@@ -506,8 +506,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                     this.updateMinColWidths(tab);
                 }
             }
-        } catch (e) {
-            console.error(`AppComponent.doUpdate() error: ${e}`);
+        } catch (err) {
+            console.error(`AppComponent.doUpdate() error:`, err);
         }
     }
 
@@ -584,7 +584,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
      * @param tab_hash -
      * @param {boolean} serverSideJsDebugging -
      */
-    getRemoteTabData(tab: TabUI, tab_hash, serverSideJsDebugging: boolean) {
+    getRemoteTabData(tab: TabUI, tab_hash: string, serverSideJsDebugging: boolean) {
 
         this._tBarProps._refreshState = 'indicatorPending';
         this._tBarProps._serverStatus = 'Server connection pending';
