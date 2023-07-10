@@ -49,14 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _propsSubscriptionState = SubscriptionState.Idle;
     _isDevMode = (document.location.port == "4200" ? true : false);
 
-    /*
-        // appOptions is normally hidden - can be enabled for development
-        _appOptionsVisible = false;
-        _appOptions = [
-            { name: 'mouseDownSuspendsUpdates', description: 'Mouse Down Suspends Updates', value: true},
-            { name: 'trackMouseClicks', description: 'Track Mouse Clicks', value: false}
-        ];
-    */
+
     _detectChanges: { 'name': string, 'value': boolean };
 
     @ViewChild('_tabGroup', {static: false}) _tabGroup !: MatTabGroup;
@@ -347,6 +340,11 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         return window.location.pathname.replace(/\//g, '') + suffix;
     }
 
+    /**
+     * Retrieves the props from simpleui server
+     * @param uiProp
+     * @returns
+     */
     getProps(uiProp: string): void {
 
         if (this._props && this._props.initialized) {
@@ -355,7 +353,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             return;
         }
 
-        console.debug(`AppComponent.getProps(${uiProp} initializing...`);
+        console.debug(`AppComponent.getProps(${uiProp}) initializing...`);
 
         const ajaxRequest = {
             url: this._propsURL,
@@ -384,7 +382,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
     onPropsUpdate(propsIn: any) {
         this._props = UTIL.deepCopy(propsIn);
-        //this._props = propsIn;
         if (typeof this._props.instance === 'object'
             && typeof this._props.instance['name'] === 'string') {
             this._theAppTitle = this._props.instance['name'];

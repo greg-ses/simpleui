@@ -34,15 +34,7 @@
 </div>
 <!-- End Title Bar -->
 
-    <!-- appOptions is normally hidden - can be enabled for development -->
-    <!--
-    <div class="appOptions" *ngIf="_appOptionsVisible">
-      <div>Options Window</div>
-      <div>
-        <input *ngFor="let option of _appOptions" type="radio" [name]="_appOptions.option.value" [value]="_appOptions.option.value"/>
-      </div>
-    </div>
-    -->
+
 
 <mat-tab-group #_tabGroup (selectedTabChange)="onSelect($event)">
   <mat-tab *ngIf="(!_props || !_props['uiProp'])">
