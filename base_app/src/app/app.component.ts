@@ -279,29 +279,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         return this._globalProps;
     }
 
-    displayBrokenCommsDialog() {
-        // this._errorPopup
-        /*
-        <mat-tab *ngIf="(!_props || !_props['uiProp'])">
-            <ng-template mat-tab-label>Stalled Communications</ng-template>
-        <div class="tabScrollRegion">
-        <div class="tabBody">
-        <div [className]="_props['appTheme'].name">
-        <div style="width:100%; padding:50px">
-            <br>Waiting to receive properties from: <a [href]="propsURL">{{_propsURL}}</a>
-        <br>&nbsp;
-        <br>On host <b>{{ getWindowLocationField('hostname') }}</b>, execute the command:
-        <pre>sudo systemctl status {{ getServiceName('-web') }}</pre>
-        If necessary, execute this command to restart the service:
-            <pre>sudo systemctl restart {{ getServiceName('-web') }}</pre>
-        Once the service is running, refresh this page.
-        </div>
-        </div>
-        </div>
-        </div>
-        </mat-tab>
-        */
-    }
 
     getCssToJsonURL(tab): string {
         let overlayNum = 1;
