@@ -39,30 +39,7 @@ export class OverlayPageComponent {
     isMissingFiles = false;
     missingFiles = [];
 
-    static writeOverlayDebugInfo(overlayGroupName: string, idList: any, overlayType: OverlayType): void {
-        const implKey = OverlayType[OverlayType[overlayType]] || 'Unimplemented';
 
-        if (typeof window['overlays'] === 'undefined') {
-            window['overlays'] = {};
-        }
-
-        if (typeof window['overlays'][implKey] === 'undefined') {
-            window['overlays'][implKey] = {};
-        }
-
-        if (typeof window['overlays'][implKey][overlayGroupName] === 'undefined') {
-            window['overlays'][implKey][overlayGroupName] = [];
-        }
-
-        let o: any = null;
-        for (o of idList) {
-            if (typeof window['overlays'][implKey][overlayGroupName][o] === 'undefined') {
-                const cmd = 'window["overlays"]["' + implKey + '"]["' + overlayGroupName + '"]["' + o + '"]' +
-                    '= document.getElementById("' + o + '");';
-                setTimeout(cmd, 500);
-            }
-        }
-    }
 
     static isImage(e: any): boolean {
         return (typeof e['type'] === 'string') && (e['type'] === 'valToImg');
