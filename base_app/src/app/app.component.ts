@@ -380,15 +380,13 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this._propsSubscriptionState = SubscriptionState.AwaitingAsyncResponse;
     }
 
+    /**
+     * Updates application specific prop values
+     * @param propsIn props object
+     */
     onPropsUpdate(propsIn: any) {
         this._props = UTIL.deepCopy(propsIn);
-        if (typeof this._props.instance === 'object'
-            && typeof this._props.instance['name'] === 'string') {
-            this._theAppTitle = this._props.instance['name'];
-        } else {
-            this._theAppTitle = 'DEFAULT-APP-TITLE';
-        }
-
+        this._theAppTitle = (this._props?.instance != undefined ? this._props.instance : "DEFAULT-APP-TITLE")
         this._props.appURI = this._appURI;
         this._props.GLOBAL = this;
 
@@ -471,15 +469,14 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             tab.hash = AppComponent.getUniqueHash();
         }
 
-
         this._refreshRate = 1000;
-        if ((this._props instanceof Object)
-            && (typeof this._props['refreshRate'] === 'string')) {
-            this._refreshRate = parseInt(this._props['refreshRate'], 10);
+        if (this._props['refreshRate'] != undefined) {
+            this._refreshRate = parseInt(this._props['refreshRate']);
             if (isNaN(this._refreshRate)) {
                 this._refreshRate = 1000;
             }
         }
+
         this._refreshRate = Math.max(this._refreshRate, 1000); // Don't allow a refreshRate < 1000 ms
 
         const updateTimer = interval(this._refreshRate);
@@ -621,12 +618,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                         }
                     },
                     err => {
-                        console.log(`Error in getRemoteTabData() ajax subscribe callback.`);
-                        try {
-                            console.log('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
-                        } catch (err1) {
-                            console.log('error logging ajax error in getRemoteTabData()');
-                        }
+                        console.error(`Error in getRemoteTabData() ajax subscribe callback.`, err);
                     });
             }
         }
