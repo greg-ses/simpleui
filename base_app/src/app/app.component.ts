@@ -495,16 +495,13 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
      */
     doUpdate() {
         try {
-            if (!AppComponent._updatesSuspended) {
-                for (const tab of this._props.tab) {
-                    if (Number(tab.index) === this._selectedTabIndex) {
-                        if (tab._autoRefreshEnabled) {
-                            let serverSideJsDebugging = false;
-                            this.getRemoteTabData(tab, tab.hash, serverSideJsDebugging);
-                        }
-                    }
-                    this.updateMinColWidths(tab);
+            if (AppComponent._updatesSuspended) return;
+            for (const tab of this._props.tab) {
+                if (Number(tab.index) === this._selectedTabIndex && tab._autoRefreshEnabled) {
+                    let serverSideJsDebugging = false;
+                    this.getRemoteTabData(tab, tab.hash, serverSideJsDebugging);
                 }
+                this.updateMinColWidths(tab);
             }
         } catch (err) {
             console.error(`AppComponent.doUpdate() error:`, err);
@@ -580,9 +577,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
     /**
      * Gets remote information for the selected tab
-     * @param {TabUI} tab -
-     * @param tab_hash -
-     * @param {boolean} serverSideJsDebugging -
+     * @param tab
+     * @param tab_hash
+     * @param serverSideJsDebugging
      */
     getRemoteTabData(tab: TabUI, tab_hash: string, serverSideJsDebugging: boolean) {
 
