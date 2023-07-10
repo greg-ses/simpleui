@@ -25,7 +25,6 @@ export class OverlayPageComponent {
     @Input() _cmdBarNames: any;
     @Input() _dataTableNames: any;
     @Input() _all_implemented_overlays: any;
-    @Input() _logLevel = 0;
 
     @Output() onToggleAutoRefresh = new EventEmitter<boolean>();
 
