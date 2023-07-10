@@ -43,7 +43,6 @@ export class AppTabOverlayComponent implements AfterViewInit, OnInit {
     _debug = false;
     _siteIndex = new SiteIndex();
     _implementedOverlays: any;
-    _ticks = 0;
     _serverStatus: string;
     _autoRefreshLabel = 'Pause';
     _refreshState = 'pending';

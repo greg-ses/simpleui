@@ -18,7 +18,6 @@ import {UTIL} from '../../tools/utility';
 export class OverlayPageComponent {
     @Input() _DataSummary: DataSummary;
     @Input() _siteIndex: SiteIndex;
-    @Input() _ticks: any;
     @Input() _props: any;
     @Input() _uiTab: any;
     @Input() _imageOverlayGroupNames: any;
