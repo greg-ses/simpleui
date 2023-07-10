@@ -8,7 +8,6 @@ import { ImageOverlaysComponent } from './app-tab-overlay/image-overlays';
 import { OverlayCmdBarComponent } from './app-tab-overlay/overlay-cmd-bar';
 import { DatasetTableComponent } from './dataset-tables/dataset-table';
 import { PropDefinedTableComponent } from './prop-defined-table/prop-defined-table';
-import { SeparatorBarComponent } from './dataset-tables/separator-bar';
 import { OverlayPageComponent } from './app-tab-overlay/overlay-page';
 import { CommonModule } from '@angular/common';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -22,7 +21,6 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        SeparatorBarComponent,
         PropDefinedTableComponent,
         DatasetTableComponent,
         OverlayPageComponent,

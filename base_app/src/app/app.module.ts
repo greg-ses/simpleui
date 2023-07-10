@@ -26,7 +26,6 @@ import { DatasetTableComponent } from './dataset-tables/dataset-table';
 import { PortalModule } from '@angular/cdk/portal';
 import { PropDefinedTableComponent } from './prop-defined-table/prop-defined-table';
 import { SectionComponent } from './section/section.component';
-import { SeparatorBarComponent } from './dataset-tables/separator-bar';
 import { CommandButtonChangeService } from './services/command-button-change.service';
 import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
@@ -48,7 +47,6 @@ import { MatSortModule } from '@angular/material/sort';
       DatasetTableComponent,
       PropDefinedTableComponent,
       SectionComponent,
-      SeparatorBarComponent,
       SmartTableComponent
   ],
   imports: [
