@@ -38,12 +38,7 @@ export class OverlayPageComponent {
 
 
 
-    static isImage(e: any): boolean {
-        return (typeof e['type'] === 'string') && (e['type'] === 'valToImg');
-    }
-
     constructor(
-        // private _changeDetectorRef: ChangeDetectorRef,
         @Optional() public app: AppComponent
     ) {    }
 
