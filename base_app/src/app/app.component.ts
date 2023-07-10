@@ -511,8 +511,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         const updateTimer = interval(this._refreshRate);
 
         this._updateSubscription = updateTimer.subscribe(
-            cycle => {
-                this.doUpdate(cycle);
+            _ => {
+                this.doUpdate();
             },
             err => {
                 console.error(`Error in initTabDataUpdates() ajax subscribe callback.`, err);
@@ -521,9 +521,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
     /**
      * Main update loop of the base_app.
-     * @param {Number} cycle : the number of document.location.reload()'s have been used
      */
-    doUpdate(cycle: number = 0) {
+    doUpdate() {
         try {
             if (!AppComponent._updatesSuspended) {
                 for (const tab of this._props.tab) {
