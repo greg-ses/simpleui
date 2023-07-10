@@ -3,7 +3,7 @@
 # this could be parameterized???
 PROJ=simple_ui
 
-#set -e
+set -e
 
 echo "------------------ Starting post-build-step -----------------------"
 
@@ -22,28 +22,14 @@ cp src/app/cmdsets/popup-dialog.css dist/css/
 
 cp -rv src/public/doc dist
 cp -rv src/public/images dist
-cp -rv src/public/php dist
-
 cp src/public/version.txt dist/
-
-cp src/public/example-overlay.tgz dist/
-cp src/public/proxy-index.php dist/
 cp src/public/collect-apache-coredumps.bash dist/
-cp src/public/sample_ui.properties.txt dist/
 cp src/public/service-worker.js dist/
-cp src/public/LoggingFeatures.js dist/
 
 cp dist/${PROJ}/*.css dist/css/
 cp dist/${PROJ}/*.css.map dist/css/
 cp dist/${PROJ}/*.js dist/js/
 cp dist/${PROJ}/*.js.map dist/js/
-
-
-if (($# > 0)) && [[ "$1" == "--include-mocks" ]]; then
-    cp -rv src/public/mock-config dist
-    cp -rv src/public/mock-data dist
-    cp -rv src/public/mock-php dist
-fi
 
 # Fix names of javascript files
 cat dist/${PROJ}/index.html | \
