@@ -33,8 +33,6 @@ export class OverlayPageComponent {
     _imageList = [];
     _animationList = [];
 
-    TODO__hide_graphs_and_data = false;
-
     isMissingFiles = false;
     missingFiles = [];
 
