@@ -32,7 +32,7 @@
                             [id]='varInfo.command.id'
                             class="overlay-control"
                             [_uiTab]='_uiTab'
-                            [element]='getElement(varInfo)'
+                            [element]='varInfo'
                             [_container]='varInfo.id'
                             [_sha1sum]="varInfo.sha1sum ? varInfo.sha1sum : 0"
         >
@@ -49,7 +49,7 @@
             <app-command-button [id]="commandInfo.json.id + '_button'"
                                 class="overlay-control"
                                 [_uiTab]='_uiTab'
-                                [element]='getElement(commandInfo)'
+                                [element]='commandInfo'
                                 [_container]='commandInfo.json.id'
                                 [_sha1sum]="commandInfo.sha1sum?commandInfo.sha1sum:0"
                                 #btn
@@ -101,23 +101,5 @@
             >
         </app-smart-table>
     </div>
-
-    <!-- <div *ngIf="get_implemented_defined_table_in_group(overlayGroupName, 'NonExhistant') as tableInfo"
-         [id]='tableInfo.id'
-         class='dataTable'
-         [title]='"tableName: " + tableInfo.id' creator='impl-tables-ngIf'>
-        <table [id]='tableInfo.id + "_table"'>
-            <tr>
-                <th>ShouldNotBe</th>
-                <th>JustToTest function of ngIf</th>
-                <th>TO BE REMOVED AT A LATER DATE ONCE THE TWO TABLES ABOVE ARE MADE GENERIC SOMEHOW</th>
-            </tr>
-            <tr>
-                <td>{{tableInfo.json.Event.timestamp}}</td>
-                <td>{{tableInfo.json.Event.type}}</td>
-                <td>{{tableInfo.json.Event.value}}</td>
-            </tr>
-        </table>
-    </div> -->
 
 </div>

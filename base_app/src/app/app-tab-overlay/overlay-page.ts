@@ -20,7 +20,7 @@ export class OverlayPageComponent {
     @Input() _siteIndex: SiteIndex;
     @Input() _props: any;
     @Input() _uiTab: any;
-    @Input() _imageOverlayGroupNames: any;
+    @Input() _imageOverlayGroupNames: string[]; // array of groupnames
     @Input() _cmdBarNames: any;
     @Input() _dataTableNames: any;
     @Input() _all_implemented_overlays: any;
@@ -196,9 +196,6 @@ export class OverlayPageComponent {
         return idList;
     }
 
-    getElement(arg: any) {
-        return arg;
-    }
 
     // ----------------------
     get_implemented_dyns_in_group(overlayGroupName: string): any {
@@ -249,6 +246,7 @@ export class OverlayPageComponent {
     }
 
     get_implemented_animations_in_group(overlayGroupName: string): any {
+        console.log(overlayGroupName)
         const elemList = this.getGroupMembers(OverlayType.ImplementedAnimations, overlayGroupName, 'animation');
 
         if (!this.isArray(this._animationList[overlayGroupName])) {
