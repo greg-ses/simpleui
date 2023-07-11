@@ -31,6 +31,7 @@ import { CommandButtonChangeService } from './services/command-button-change.ser
 import { AppEditUiPanelComponent } from './app-tab-overlay/app-edit-ui-panel-component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
 import { MatSortModule } from '@angular/material/sort';
+import { RemoteDataService } from './remote-data.service';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { MatSortModule } from '@angular/material/sort';
       PropDefinedTableComponent,
       SectionComponent,
       SeparatorBarComponent,
-      SmartTableComponent
+      SmartTableComponent,
+
   ],
   imports: [
       BrowserModule,
@@ -71,7 +73,8 @@ import { MatSortModule } from '@angular/material/sort';
   providers: [
       CommandButtonChangeService,
       DataSetChangeService,
-      HttpClient
+      HttpClient,
+      RemoteDataService
   ],
   schemas: [
       CUSTOM_ELEMENTS_SCHEMA,

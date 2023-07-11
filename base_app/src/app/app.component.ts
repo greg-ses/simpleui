@@ -6,6 +6,7 @@ import {interval} from 'rxjs';
 import {ClientLogger, LogLevel} from '../tools/logger';
 import {DataSummary} from './interfaces/data-summary';
 import {UTIL} from '../tools/utility';
+import { RemoteDataService } from './remote-data.service';
 
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -227,7 +228,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
     }
 
-    constructor() {}
+    constructor(private remoteDataService: RemoteDataService) {}
 
     ngOnInit() {
         const base = document.getElementsByTagName('base')[0];
@@ -422,48 +423,27 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
             console.log(`AppComponent.getProps(${uiProp} initializing...`);
         }
 
-        const ajaxRequest = {
-            url: this._propsURL,
-            withCredentials: true,
-            crossDomain: true,
-            timeout: 5001
-        };
-        const propsData$ = ajax(ajaxRequest);
-        propsData$.subscribe(
-            res => {
+
+
+        this.remoteDataService.getRemoteData(this._propsURL)
+        .subscribe(
+            response => {
                 this._propsSubscriptionState = SubscriptionState.ProcessingAsyncResponse;
-                if (res.status === 200 && typeof res.response === 'object' && typeof res.response.props === 'object') {
-                    this.onPropsUpdate(res.response.props);
-                    this._propsSubscriptionState = SubscriptionState.Idle;
-                } else {
-                    console.error(`${this._propsURL} failed`);
-                    alert(this._errorMessage + '\n\nPress F5 or REFRESH BUTTON to retry.');
-                    this._propsSubscriptionState = SubscriptionState.ErrorFromAsyncResponse;
-                }
+                this.onPropsUpdate(response.props);
+                this._propsSubscriptionState = SubscriptionState.Idle;
             },
             err => {
-                console.error(`Error in getProps() ajax subscribe callback. ${err}`);
-                try {
-                    console.error('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
-                } catch (err1) {
-                    console.error('Error trying to display error');
-                }
-            });
+                console.error(`Error in getProps() ajax subscribe callback`, err);
+                this._propsSubscriptionState = SubscriptionState.ErrorFromAsyncResponse;
+            }
+        )
         this._propsSubscriptionState = SubscriptionState.AwaitingAsyncResponse;
     }
 
     onPropsUpdate(propsIn: any) {
         this._props = UTIL.deepCopy(propsIn);
-        //this._props = propsIn;
-        if (typeof this._props.instance === 'object'
-            && typeof this._props.instance['name'] === 'string') {
-            this._theAppTitle = this._props.instance['name'];
-        } else {
-            this._theAppTitle = 'DEFAULT-APP-TITLE';
-        }
 
         this._props.appURI = this._appURI;
-        this._props.GLOBAL = this;
 
         this.initTabDataUpdates();
     }
