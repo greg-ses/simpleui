@@ -64,7 +64,7 @@ describe('AppComponent', () => {
     // const fixture = TestBed.createComponent(AppComponent);
     // const app = fixture.debugElement.componentInstance;
     // // expect(app).isNot(null);
-    expect(component._theAppTitle).toEqual('INITIAL-APP-TITLE');
+    expect(component._tBarProps._appTitle).toEqual('INITIAL-APP-TITLE');
   });
 
   it('should render title in a div with class=appTitle', () => {
