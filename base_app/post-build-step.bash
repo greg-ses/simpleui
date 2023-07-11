@@ -3,7 +3,7 @@
 # this could be parameterized???
 PROJ=simple_ui
 
-set -e
+#set -e
 
 echo "------------------ Starting post-build-step -----------------------"
 
@@ -21,7 +21,6 @@ cp -rv src/app/css dist
 cp src/app/cmdsets/popup-dialog.css dist/css/
 
 cp -rv src/public/doc dist
-cp -rv src/public/images dist
 cp src/public/version.txt dist/
 cp src/public/collect-apache-coredumps.bash dist/
 cp src/public/service-worker.js dist/

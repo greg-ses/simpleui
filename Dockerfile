@@ -43,14 +43,14 @@ RUN chmod +x /tini
 RUN a2enmod rewrite && \
     a2enmod proxy && \
     a2enmod proxy_http
-COPY deploy_docker/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY deploy_docker/apache2.conf /etc/apache2/apache2.conf
+COPY deploy/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY deploy/apache2.conf /etc/apache2/apache2.conf
 
 # Install mysqli
 RUN docker-php-ext-install mysqli
 
 # Php config
-COPY deploy_docker/php.ini "$PHP_INI_DIR/php.ini"
+COPY deploy/php.ini "$PHP_INI_DIR/php.ini"
 
 # Copy params app
 COPY "web/" "/staging/"
@@ -60,7 +60,7 @@ COPY --from=build_base_client "/base_app/dist.tgz" "/tmp/client_dist.tgz"
 COPY --from=build_base_server "/simpleui-server/dist.tgz" "/tmp/server_dist.tgz"
 
 # Copy the deployment/run scripts
-COPY "deploy_docker/*.sh" "/scripts/"
+COPY "deploy/*.sh" "/scripts/"
 
 WORKDIR /
 ENTRYPOINT [ "/tini", "-g", "--", "bash", "/scripts/run.sh" ]
