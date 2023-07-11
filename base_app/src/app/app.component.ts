@@ -388,7 +388,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this._props = UTIL.deepCopy(propsIn);
         this._theAppTitle = (this._props?.instance != undefined ? this._props.instance : "DEFAULT-APP-TITLE")
         this._props.appURI = this._appURI;
-        this._props.GLOBAL = this;
 
         this.initTabDataUpdates();
     }
@@ -470,8 +469,8 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         }
 
         this._refreshRate = 1000;
-        if (this._props['refreshRate'] != undefined) {
-            this._refreshRate = parseInt(this._props['refreshRate']);
+        if (this._props.refreshRate != undefined) {
+            this._refreshRate = parseInt(this._props.refreshRate);
             if (isNaN(this._refreshRate)) {
                 this._refreshRate = 1000;
             }

@@ -91,12 +91,12 @@ export class AppProperties {
     public uiVersionShort: string;
     public appTheme: any;
     public initialized: boolean;
-    public GLOBAL: any;
     public selectedIndex: number;
     public logLevel: number;
     public mode: string;
     public instance: any;
     public appLink: Array<AppLink>;
+    public refreshRate: string;
 
     constructor( propsIn: any ) {
         this.tab = [];
@@ -106,7 +106,6 @@ export class AppProperties {
         this.uiVersionShort = 'UI Version Short';
         this.appTheme = { 'name': 'SimpleUiBlue' };
         this.initialized = false;
-        this.GLOBAL = null;
         this.selectedIndex = 0;
         this.logLevel = 0;
         this.mode = '';
