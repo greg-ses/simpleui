@@ -246,7 +246,6 @@ export class OverlayPageComponent {
     }
 
     get_implemented_animations_in_group(overlayGroupName: string): any {
-        console.log(overlayGroupName)
         const elemList = this.getGroupMembers(OverlayType.ImplementedAnimations, overlayGroupName, 'animation');
 
         if (!this.isArray(this._animationList[overlayGroupName])) {
