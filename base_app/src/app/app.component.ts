@@ -52,6 +52,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _commands_enabled = false;
     _propsSubscriptionState = SubscriptionState.Idle;
     _isDevMode = (document.location.port == "4200" ? true : false);
+    _read_only_app: boolean = false;
 
     /*
         // appOptions is normally hidden - can be enabled for development
@@ -452,6 +453,27 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this._propsSubscriptionState = SubscriptionState.AwaitingAsyncResponse;
     }
 
+    /**
+     * Only allows clicks on the
+     * tab labels
+     * @param e Click event
+     */
+    negateClick(e: Event): void {
+        if (e.target['className'].includes('mat-tab-label')) return;
+        e.stopPropagation();
+        console.log('captured click');
+
+    }
+
+    /**
+     * adds the event listener to
+     * enforce app-wide readonly
+     */
+    enforceReadonly(): void {
+        if (document.onclick != null) return;
+        document.addEventListener('click', this.negateClick, true);
+    }
+
     onPropsUpdate(propsIn: any) {
         this._props = UTIL.deepCopy(propsIn);
         //this._props = propsIn;
@@ -466,6 +488,10 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this._props.GLOBAL = this;
 
         this.initTabDataUpdates();
+
+        if (this._props['readonly'] == 'true') {
+            this.enforceReadonly()
+        }
     }
 
     /**
