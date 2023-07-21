@@ -1,0 +1,49 @@
+
+version: '3'
+services:
+    sui:
+        image: sui-dev-image
+        init: true
+        ports:
+            - "4100:4100"
+            - "4200:4200"
+        volumes:
+            # base_app
+            - type: bind
+              source: "${PWD}/../base_app"
+              target: /usr/src/app/base_app/
+            # sui-server
+            - type: bind
+              source: "${PWD}/../simpleui-server"
+              target: /usr/src/app/simpleui-server/
+            # develop_docker folder
+            # - type: bind
+            #   source: "${PWD}/../develop_docker/"
+            #   target: /usr/src/app/develop_docker
+            # sample data
+            # - type: bind
+            #   source: "${SIMPLEUI_TEST_DATA}/sample-app/opt"
+            #   target: /opt
+            # - type: bind
+            #   source: "${SIMPLEUI_TEST_DATA}/sample-app"
+            #   target: /var/www/simple_ui
+        #entrypoint: ["/bin/bash", "/usr/src/app/develop_docker/install-script-debug-simpleui-server.bash"]
+        #entrypoint: ["/bin/bash", "/usr/src/app/develop_docker/install-script.bash"]
+
+    zmq_backend:
+        image: python:3.10
+        hostname: svcmachineapps
+        init: true
+        working_dir: /app
+        environment:
+          PYTHONUNBUFFERED: 1
+        # volumes:
+        #     # python file
+        #     - type: bind
+        #       source: "${PWD}/../docker_zmq_backend/backend.py"
+        #       target: /app/backend.py
+        #     # sample data
+        #     - type: bind
+        #       source: "${SIMPLEUI_TEST_DATA}/sample-app/"
+        #       target: /app/data/
+        # entrypoint: ["python", "backend.py"]

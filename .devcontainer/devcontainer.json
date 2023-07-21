@@ -1,0 +1,24 @@
+// https://containers.dev/implementors/json_reference/
+{
+    "name": "SimpleUI Development",
+    "dockerComposeFile": ["./docker-compose.yml"],
+    "service": "sui",
+    "workspaceFolder": "/usr/src/app",
+    "shutdownAction": "stopCompose",
+    "forwardPorts": ["4200:4200", "4100:4100"],
+    "init": true,
+    "mounts": [
+        // base_app
+        "source=${localWorkspaceFolder}/base_app/,target=/usr/src/app/base_app,type=bind",
+        // simpleui-server
+        "source=${localWorkspaceFolder}/simpleui-server/,target=/usr/src/app/simpleui-server,type=bind"
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"Angular.ng-template",
+				"loiane.ts-extension-pack"
+			]
+		}
+	}
+}
