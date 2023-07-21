@@ -93,7 +93,18 @@ export class SimpleUIServer {
         if (cmdVars.readonly) {
             Logger.log(LogLevel.INFO, "Running app in readonly mode");
             props['readonly'] = true;
-            props['instance']['name'] = `Read Only ${props['instance']['name']}`;
+            if (props['instance']['name'].substring(0,9) != 'Read Only') {
+                props['instance']['name'] = `Read Only ${props['instance']['name']}`;
+            }
+            for (let i = 0; i < props['tab'].length; i++) {
+                if (props['tab'][i]['name'].substring(0,4) != '(RO)') {
+                    props['tab'][i]['name'] = `(RO) ${props['tab'][i]['name']}`;
+                }
+
+                if (props['tab'][i]['disabled_buttons'] != 'true') {
+                    props['tab'][i]['disabled_buttons'] = 'true';
+                }
+            }
         }
 
         return props;
@@ -245,7 +256,7 @@ export class SimpleUIServer {
             // Parse input arguments
             SimpleUIServer.setBinDir(process.argv[1]);
             const cli_args = process.argv.slice(2).join(" ");
-            console.log(cli_args)
+
             const cmdVars = SimpleUIServer.parseCommandLine(cli_args);
             PropsFileReader.cmdVars = cmdVars;
 

@@ -457,20 +457,19 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
      * tab labels
      * @param e Click event
      */
-    negateClick(e: Event): void {
-        if (e.target['className'].includes('mat-tab-label')) return;
-        e.stopPropagation();
-    }
+    // negateClick(e: Event): void {
+    //     if (e.target['className'].includes('mat-tab-label')) return;
+    //     e.stopPropagation();
+    // }
 
     /**
      * adds the event listener to
      * enforce app-wide readonly
      */
-    enforceReadonly(): void {
-        if (document.onclick != null) return;
-        document.addEventListener('click', this.negateClick, true);
-        this._commands_enabled = false;
-    }
+    // enforceReadonly(): void {
+    //     if (document.onclick != null) return;
+    //     document.addEventListener('click', this.negateClick, true);
+    // }
 
     onPropsUpdate(propsIn: any) {
         this._props = UTIL.deepCopy(propsIn);
@@ -487,9 +486,9 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
         this.initTabDataUpdates();
 
-        if (this._props['readonly'] == true) {
-            this.enforceReadonly()
-        }
+        // if (this._props['readonly'] == true) {
+        //     this.enforceReadonly()
+        // }
     }
 
     /**
