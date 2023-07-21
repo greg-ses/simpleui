@@ -93,6 +93,7 @@ export class SimpleUIServer {
         if (cmdVars.readonly) {
             Logger.log(LogLevel.INFO, "Running app in readonly mode");
             props['readonly'] = true;
+            props['instance']['name'] = `Read Only ${props['instance']['name']}`;
         }
 
         return props;
