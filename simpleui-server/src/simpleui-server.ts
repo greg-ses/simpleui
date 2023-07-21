@@ -88,14 +88,18 @@ export class SimpleUIServer {
                     const resourceEndIndex = link.url.indexOf('&', resourceIndex);
                     link.url = link.url.substring(0, resourceIndex + 9) + cmdVars.urlResource + link.url.substring(resourceEndIndex);
                 }
-            })
+            });
+        }
+        if (cmdVars.readonly) {
+            Logger.log(LogLevel.INFO, "Running app in readonly mode");
+            props['readonly'] = true;
         }
 
         return props;
     }
 
     static parseCommandLine(cmdLine: string): any {
-        const cmdVars: CommandArgs = <CommandArgs> {
+        const cmdVars: CommandArgs = {
             valid: true,
             help: '\nSyntax:\n\n', // Each arg help is appended in arg definition
             examples: '\n\nExample for running as a daemon:' +
@@ -120,7 +124,8 @@ export class SimpleUIServer {
             dbName: '',
             themeName: '',
             mock: false,
-            urlResource: ''
+            urlResource: '',
+            readonly: false
         };
 
         cmdVars.help += '\n    -m or --mode=     (optional) the mode (daemon or test) - defaults to daemon';
@@ -204,6 +209,11 @@ export class SimpleUIServer {
             cmdVars.urlResource = match[2];
         }
 
+        const readonly = cmdLine.includes('--readonly');
+        if (readonly) {
+            cmdVars.readonly = true;
+        }
+
         return cmdVars;
     }
 
@@ -234,6 +244,7 @@ export class SimpleUIServer {
             // Parse input arguments
             SimpleUIServer.setBinDir(process.argv[1]);
             const cli_args = process.argv.slice(2).join(" ");
+            console.log(cli_args)
             const cmdVars = SimpleUIServer.parseCommandLine(cli_args);
             PropsFileReader.cmdVars = cmdVars;
 

@@ -52,7 +52,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     _commands_enabled = false;
     _propsSubscriptionState = SubscriptionState.Idle;
     _isDevMode = (document.location.port == "4200" ? true : false);
-    _read_only_app: boolean = false;
 
     /*
         // appOptions is normally hidden - can be enabled for development
@@ -461,8 +460,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     negateClick(e: Event): void {
         if (e.target['className'].includes('mat-tab-label')) return;
         e.stopPropagation();
-        console.log('captured click');
-
     }
 
     /**
@@ -472,6 +469,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
     enforceReadonly(): void {
         if (document.onclick != null) return;
         document.addEventListener('click', this.negateClick, true);
+        this._commands_enabled = false;
     }
 
     onPropsUpdate(propsIn: any) {
@@ -489,7 +487,7 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
 
         this.initTabDataUpdates();
 
-        if (this._props['readonly'] == 'true') {
+        if (this._props['readonly'] == true) {
             this.enforceReadonly()
         }
     }
