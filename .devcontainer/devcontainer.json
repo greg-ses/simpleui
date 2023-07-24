@@ -8,6 +8,8 @@
     "forwardPorts": ["4200:4200", "4100:4100"],
     "init": true,
     "mounts": [
+        // vscode stuff
+        "source=${localWorkspaceFolder}/.vscode/,target=/usr/src/app/.vscode,type=bind",
         // base_app
         "source=${localWorkspaceFolder}/base_app/,target=/usr/src/app/base_app,type=bind",
         // simpleui-server

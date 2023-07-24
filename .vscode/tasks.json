@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start_dev_server",
+			"path": "base_app",
+			"problemMatcher": [],
+			"label": "npm: start_dev_server - base_app",
+			"detail": "ng serve --host 0.0.0.0 --port 4200"
+		}
+	]
+}

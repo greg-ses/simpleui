@@ -8,6 +8,10 @@ services:
             - "4100:4100"
             - "4200:4200"
         volumes:
+            # vscode stuff
+            - type: bind
+              source: "${PWD}/../.vscode"
+              target: "/usr/src/app/.vscode/"
             # base_app
             - type: bind
               source: "${PWD}/../base_app"
