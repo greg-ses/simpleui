@@ -93,9 +93,11 @@ export class SimpleUIServer {
         if (cmdVars.readonly) {
             Logger.log(LogLevel.INFO, "Running app in readonly mode");
             props['readonly'] = true;
+            // append 'Read Only ' to title of app
             if (props['instance']['name'].substring(0,9) != 'Read Only') {
                 props['instance']['name'] = `Read Only ${props['instance']['name']}`;
             }
+            // append '(RO) ' to beginning of tab title
             for (let i = 0; i < props['tab'].length; i++) {
                 if (props['tab'][i]['name'].substring(0,4) != '(RO)') {
                     props['tab'][i]['name'] = `(RO) ${props['tab'][i]['name']}`;
@@ -105,6 +107,12 @@ export class SimpleUIServer {
                     props['tab'][i]['disabled_buttons'] = 'true';
                 }
             }
+            // remove params applink if present
+            props.appLink.forEach(p => {
+                if (p.url.includes('Parameters.html')) {
+                    p.url = '';
+                }
+            });
         }
 
         return props;
