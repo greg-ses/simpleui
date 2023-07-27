@@ -111,6 +111,8 @@ export class SimpleUIServer {
             props.appLink.forEach(p => {
                 if (p.url.includes('Parameters.html')) {
                     p.url = '';
+                    p.name = '';
+                    p.tooltip = '';
                 }
             });
         }

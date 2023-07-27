@@ -442,38 +442,14 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 }
             },
             err => {
-                console.error(`Error in getProps() ajax subscribe callback. ${err}`);
-                try {
-                    console.error('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
-                } catch (err1) {
-                    console.error('Error trying to display error');
-                }
+                console.error("getProps() got an error", err);
             });
         this._propsSubscriptionState = SubscriptionState.AwaitingAsyncResponse;
     }
 
-    /**
-     * Only allows clicks on the
-     * tab labels
-     * @param e Click event
-     */
-    // negateClick(e: Event): void {
-    //     if (e.target['className'].includes('mat-tab-label')) return;
-    //     e.stopPropagation();
-    // }
-
-    /**
-     * adds the event listener to
-     * enforce app-wide readonly
-     */
-    // enforceReadonly(): void {
-    //     if (document.onclick != null) return;
-    //     document.addEventListener('click', this.negateClick, true);
-    // }
-
     onPropsUpdate(propsIn: any) {
         this._props = UTIL.deepCopy(propsIn);
-        //this._props = propsIn;
+
         if (typeof this._props.instance === 'object'
             && typeof this._props.instance['name'] === 'string') {
             this._theAppTitle = this._props.instance['name'];
@@ -485,10 +461,6 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
         this._props.GLOBAL = this;
 
         this.initTabDataUpdates();
-
-        // if (this._props['readonly'] == true) {
-        //     this.enforceReadonly()
-        // }
     }
 
     /**
