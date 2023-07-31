@@ -12,7 +12,7 @@ if test "$#" \< "2"; then
     printf "\t dbName      ==> (optional) override DB name \n";
     printf "\t themeName   ==> (optional) override themeName \n";
     printf "\t urlResource ==> (optional) override the RESOURCE param for all appLink urls \n"
-    printf "\t readonly    ==> (optional) doesnt allow commands or acces to the device pages or the paramsApp \n"
+    printf "\t readonly    ==> (optional) doesnt allow commands or access to the device pages or the paramsApp \n"
     exit 1;
 fi
 
