@@ -11,11 +11,14 @@
                                     <th colspan="2" class="tableTitle" align="center" [uid]="_dataset.u_id" >
                                         <div [className]="this._hidden ? 'sectionClosed':'sectionOpened'"
                                             [title]="fixNL(_dataset.desc)"
-                                            (click)="toggleTableDisplay()"
-                                        >&nbsp;</div>
-                                        <span *ngIf="!_dataset.url">{{ getTitle() }}</span
-                                        >&nbsp;<a *ngIf="_dataset.url" target="_blank"  href={{_dataset.url}}
-                                                  title={{fixNL(_dataset.tooltip)}}>{{ getTitle() }}</a>
+                                            (click)="toggleTableDisplay()">&nbsp;</div>
+
+                                        <span *ngIf="!_dataset.url">{{ getTitle() }}</span>
+                                            &nbsp;
+
+                                        <span *ngIf="_dataset.url && _props?.readonly" title={{fixNL(_dataset.tooltip)}}>{{ getTitle() }}</span>
+                                        <a *ngIf="_dataset.url && !_props?.readonly" target="_blank" href={{_dataset.url}}>{{ getTitle() }}</a>
+
                                     </th>
                                 </tr>
                                 </thead>
