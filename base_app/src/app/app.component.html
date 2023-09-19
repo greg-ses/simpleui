@@ -90,9 +90,7 @@
             <app-tab-normal
                     *ngIf="((t['pageType'] !== 'overlay') && (t['pageType'] !== 'mock-tab'))"
                     (updateModelOfChildDataSet)="onUpdateModelOfChildDataSet($event)"
-                    [_uiTab]="t"
-                    [_props]="_props"
-                    >
+                    [_uiTab]="t" >
             </app-tab-normal>
           </div>
         </div>

@@ -14,10 +14,8 @@
                                             (click)="toggleTableDisplay()"
                                         >&nbsp;</div>
                                         <span *ngIf="!_dataset.url">{{ getTitle() }}</span
-                                        >&nbsp;
-                                        <span *ngIf="_dataset.url && _props?.readonly" title={{fixNL(_dataset.tooltip)}}>{{ getTitle() }}</span>
-                                        <a *ngIf="_dataset.url && !_props?.readonly" target="_blank" href={{_dataset.url}}>{{ getTitle() }}</a>
-
+                                        >&nbsp;<a *ngIf="_dataset.url" target="_blank"  href={{_dataset.url}}
+                                                  title={{fixNL(_dataset.tooltip)}}>{{ getTitle() }}</a>
                                     </th>
                                 </tr>
                                 </thead>

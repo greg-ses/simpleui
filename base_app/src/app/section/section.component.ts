@@ -19,7 +19,6 @@ export class SectionComponent implements OnInit, OnDestroy {
     @Input() _section: any;
     @Input() _sectionIndex: number;
     @Input() _uiTab: TabUI;
-    @Input() _props: any;
 
 
     constructor(
