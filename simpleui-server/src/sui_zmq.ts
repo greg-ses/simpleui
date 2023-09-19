@@ -49,7 +49,6 @@ export class ZmqSocket {
             let zmqRequestPacket = "";
 
             if (req.method === 'POST') {
-                console.log('--- got CMD')
                 zmqRequestPacket = SuiData.buildZmqCmdPacket(req);
             }
             else {
@@ -57,8 +56,6 @@ export class ZmqSocket {
             }
             // send request
             this.outboundMessages += 1;
-            if (zmqRequestPacket.includes("cmd="))
-                console.log(`Sending ZMQ: ${zmqRequestPacket}`)
             this.socket.send(zmqRequestPacket);
         });
 
@@ -148,6 +145,7 @@ export class ZmqSocket {
     send(msg: string) {
         try {
             this.socket.send(msg);
+            Logger.log(LogLevel.DEBUG, `Sending the following ZMQ packet: ${msg}`);
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Socket ${this.id} could not send ${msg}, got error: ${err}`);
         }
@@ -160,10 +158,10 @@ export class ZmqSocket {
     }
 
     recreateSocket() {
-            Logger.log(LogLevel.INFO, `Recreating the socket for ${this.id}`);
-            this.close();
-            this.httpQueue.flush_queue();
-            this.initialize();
+        Logger.log(LogLevel.INFO, `Recreating the socket for ${this.id}`);
+        this.close();
+        this.httpQueue.flush_queue();
+        this.initialize();
     }
 }
 
