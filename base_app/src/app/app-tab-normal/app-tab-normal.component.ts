@@ -11,9 +11,7 @@ import { AppComponent } from '../app.component';
 
 export class AppTabNormalComponent implements AfterContentInit {
     @Input() _uiTab: TabUI;
-    @Input() _props: any;
     @Output() updateModelOfChildDataSet = new EventEmitter<{uiTab: any, sectionIdx: number, dataSetsIdx: number, newChildData: any}>();
-
     _initialized = false;
 
     constructor(

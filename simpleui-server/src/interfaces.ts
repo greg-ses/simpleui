@@ -2,7 +2,6 @@
 export interface CommandArgs {
     valid: boolean;
     help: string;
-    examples: string;
     errors: string;
     mode: string;
     appName: string;
@@ -14,7 +13,6 @@ export interface CommandArgs {
     themeName: string;
     mock: boolean;
     urlResource: string;
-    readonly: boolean;
 }
 
 export interface ProcessInfo {

@@ -442,14 +442,19 @@ export class AppComponent implements OnInit, AfterViewInit /*, OnChanges */ {
                 }
             },
             err => {
-                console.error("getProps() got an error", err);
+                console.error(`Error in getProps() ajax subscribe callback. ${err}`);
+                try {
+                    console.error('  name: ' + err.name + ', message: ' + err.message + ', url: ' + err.request.url);
+                } catch (err1) {
+                    console.error('Error trying to display error');
+                }
             });
         this._propsSubscriptionState = SubscriptionState.AwaitingAsyncResponse;
     }
 
     onPropsUpdate(propsIn: any) {
         this._props = UTIL.deepCopy(propsIn);
-
+        //this._props = propsIn;
         if (typeof this._props.instance === 'object'
             && typeof this._props.instance['name'] === 'string') {
             this._theAppTitle = this._props.instance['name'];
