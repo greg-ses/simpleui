@@ -456,6 +456,7 @@ export class SimpleUIServer {
                 Logger.log(LogLevel.VERBOSE, `cmd request callback: ${++SimpleUIServer.requestCallbacks}`);
                 try {
                     const props = PropsFileReader.getProps(`${req.params.propsStub}.properties`);
+                    console.log("Got POST requst")
                     SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
 

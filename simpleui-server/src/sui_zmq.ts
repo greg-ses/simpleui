@@ -49,6 +49,7 @@ export class ZmqSocket {
             let zmqRequestPacket = "";
 
             if (req.method === 'POST') {
+                console.log('--- got CMD')
                 zmqRequestPacket = SuiData.buildZmqCmdPacket(req);
             }
             else {
@@ -56,6 +57,8 @@ export class ZmqSocket {
             }
             // send request
             this.outboundMessages += 1;
+            if (zmqRequestPacket.includes("cmd="))
+                console.log(`Sending ZMQ: ${zmqRequestPacket}`)
             this.socket.send(zmqRequestPacket);
         });
 

@@ -504,6 +504,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
     }
 
     onClick(event) {
+        console.log('registed button click', this._uiTab._commands_enabled)
         try {
             if (!this._uiTab._commands_enabled) {
                 this.showCommandsDisabledWhenUpdatesPausesMessage();                // stops updates
