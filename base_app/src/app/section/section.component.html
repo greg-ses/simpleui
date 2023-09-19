@@ -43,9 +43,10 @@
             [title]="fixNL(dsItem.desc)" class="L3"
         >
             <dataset-table *ngIf="getTableType(dsItem) === 'PairListTable'"
-                           [_dataset]="dsItem"
-                            [_uiTab]="_uiTab"
-                            [id]="dsItem.id">
+                [_dataset]="dsItem"
+                [_uiTab]="_uiTab"
+                [id]="dsItem.id"
+                [_props]="_props">
             </dataset-table>
             <prop-defined-table *ngIf="getTableType(dsItem) === 'PropDefinedTable'"
                                 [_dataset]="dsItem"
