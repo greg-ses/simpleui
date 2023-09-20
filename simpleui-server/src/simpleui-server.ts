@@ -94,12 +94,12 @@ export class SimpleUIServer {
             Logger.log(LogLevel.INFO, "Running app in readonly mode");
             props['readonly'] = true;
             // prepend 'Read Only ' to title of app
-            if (props['instance']['name'].substring(0,9) !== 'Read Only') {
+            if (!props['instance']['name'].startsWith('Read Only')) {
                 props['instance']['name'] = `Read Only ${props['instance']['name']}`;
             }
             // prepend '(RO) ' to beginning of tab title
             for (let i = 0; i < props['tab'].length; i++) {
-                if (props['tab'][i]['name'].substring(0,4) !== '(RO)') {
+                if (!props['tab'][i]['name'].startsWith('(RO)')) {
                     props['tab'][i]['name'] = `(RO) ${props['tab'][i]['name']}`;
                 }
 
