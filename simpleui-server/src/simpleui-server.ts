@@ -102,10 +102,7 @@ export class SimpleUIServer {
                 if (!props['tab'][i]['name'].startsWith('(RO)')) {
                     props['tab'][i]['name'] = `(RO) ${props['tab'][i]['name']}`;
                 }
-
-                if (props['tab'][i]['disabled_buttons'] !== 'true') {
-                    props['tab'][i]['disabled_buttons'] = 'true';
-                }
+                props['tab'][i]['disabled_buttons'] = 'true';
             }
             // remove params applink if present
             props.appLink.forEach(p => {
