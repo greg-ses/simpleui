@@ -10,11 +10,11 @@
 
 
 var _zmq = require('zeromq');
-import {ServerUtil} from './server-util';
-import {Logger, LogLevel} from './server-logger';
+import { ServerUtil } from './server-util';
+import { Logger, LogLevel } from './server-logger';
 import { SuiData } from './sui_data';
 import { HttpQueue } from './queue';
-
+import { PropsFileReader } from './props-file-reader';
 
 
 export enum ZmqConnectionStatus {
@@ -54,9 +54,13 @@ export class ZmqSocket {
             else {
                 zmqRequestPacket = SuiData.buildZmqDataPacket(req);
             }
+
+            // dont send if in readonly mode and packet is a cmd (redundency)
+            if (PropsFileReader.cmdVars?.readonly && zmqRequestPacket.includes("cmd=")) { return; }
+
             // send request
             this.outboundMessages += 1;
-            this.socket.send(zmqRequestPacket);
+            this.send(zmqRequestPacket);
         });
 
         this.watchdogInterval = setInterval( () => {
