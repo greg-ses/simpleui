@@ -228,8 +228,7 @@ export class SimpleUIServer {
             cmdVars.urlResource = match[2];
         }
 
-        const readonly = cmdLine.includes('--readonly');
-        if (readonly) {
+        if (cmdLine.includes('--readonly')) {
             cmdVars.readonly = true;
         }
 
