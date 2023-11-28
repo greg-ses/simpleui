@@ -28,7 +28,8 @@ export class Logger {
 
     public static log(logLevel: LogLevel, message: string) {
         if (logLevel <= Logger.logLevel) {
-            console.log(message);
+            let curr_time = new Date().toLocaleString();
+            console.log(`[${curr_time}] ${message}`);
         }
     }
 
