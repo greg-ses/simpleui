@@ -313,7 +313,7 @@ export class PropsFileReader {
         const propRegEx = /\W*([0-9a-zA-Z._-]+)\W*=\W*([^\n]*)\n/g;
         const pairs: any = propsText.match(propRegEx);
         if (!pairs) {
-            console.log(`Invalid UI Properties file: ${uiPropsFile}`);
+            Logger.log(LogLevel.ERROR, `Invalid UI Properties file: ${uiPropsFile}`);
             return null;
         }
 
@@ -401,12 +401,7 @@ export class PropsFileReader {
                }
             });
         }
-
-        console.log(`UI Properties file: ${uiPropsFile}, ` +
-            `#direct props: ${propCount}, ` +
-//            `#derived props: ${derivedPropCount}, ` +
-            `total complete macros: ${macroCount}`);
-
+        Logger.log(LogLevel.INFO, `UI Properties file: ${uiPropsFile}, #direct props: ${propCount}, total complete macros: ${macroCount}`);
         return props;
     }
 

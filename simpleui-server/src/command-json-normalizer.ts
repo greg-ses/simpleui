@@ -1,3 +1,4 @@
+import { LogLevel, Logger } from './server-logger';
 import * as sha1 from './sha1';
 
 /**
@@ -338,7 +339,7 @@ export class CommandJsonNormalizer {
             }
 
         } catch (e) {
-            console.log('error in findAttr(' + attr + '): ' + e);
+            Logger.log(LogLevel.ERROR, `error in findAttr(${attr}): ${e}`);
         }
 
         return value;

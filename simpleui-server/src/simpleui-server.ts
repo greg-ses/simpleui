@@ -35,7 +35,7 @@ export class SimpleUIServer {
 
     static setBinDir(argv1): void {
         SimpleUIServer.bin_dir = argv1.substr(0, argv1.lastIndexOf('/'));
-        console.log(`bin_dir: ${SimpleUIServer.bin_dir}`);
+        Logger.log(LogLevel.INFO, `bin_dir: ${SimpleUIServer.bin_dir}`);
 
     }
 
@@ -53,7 +53,7 @@ export class SimpleUIServer {
 
                 if (alias === 0) {
                     ipAddress = iface.address;
-                    console.log(`interface: ${ifname}`);
+                    Logger.log(LogLevel.INFO, `interface: ${ifname}`);
                 } else {
                     // console.log(`${ifname}:${alias}`, iface.address);
                 }
@@ -237,10 +237,10 @@ export class SimpleUIServer {
 
     static printServerInfo(cmdVars: any): void {
         Logger.log(LogLevel.INFO, `app.listen callback: ${++SimpleUIServer.requestCallbacks}`)
-        Logger.log(LogLevel.INFO,
-            `\n==> Server started at http://${os.hostname()}${SimpleUIServer.webPortString}\n\n==> Handled Requests:`);
-        Logger.log(LogLevel.INFO, `\nNote: Only the first 5 ZMQ responses will be logged at INFO level.`);
-        Logger.log(LogLevel.INFO, `      To see later responses, set the LogLevel to DEBUG with this URL:\n`);
+        Logger.log(LogLevel.INFO,`==> Server started at http://${os.hostname()}${SimpleUIServer.webPortString}`);
+        Logger.log(LogLevel.INFO, "==> Handled Requests:");
+        Logger.log(LogLevel.INFO, `Note: Only the first 5 ZMQ responses will be logged at INFO level.`);
+        Logger.log(LogLevel.INFO, `      To see later responses, set the LogLevel to DEBUG with this URL:`);
         let hostname = `${os.hostname()}`;
         if (hostname.match(/[a-z0-9]{12}/)  && !hostname.match(/site/i)) {
             // crude attempt to see if this is a docker hostname
@@ -337,7 +337,7 @@ export class SimpleUIServer {
             // ----------------------------------------
             // Handler for managing this app (svr-util)
             // ----------------------------------------
-            Logger.log(LogLevel.INFO, `\n==> Internal Web-Server Management`);
+            Logger.log(LogLevel.INFO, `==> Internal Web-Server Management`);
             const suiSvrUtility = `/${cmdVars.appName.split(',')[0]}/svr-util/:svrCmdName/:svrCmdValue`;
             const svrCmds = ['SetLogLevel'];
             SimpleUIServer.webPortString = (cmdVars.webPort === '80') ? '' : `:${cmdVars.webPort}`;
@@ -376,7 +376,7 @@ export class SimpleUIServer {
                     ? `(${cmdVars.appName.replace(',', ' | ')})`
                     : `${cmdVars.appName}`;
 
-            Logger.log(LogLevel.INFO, `\n==> /var/www/${displayName}`);
+            Logger.log(LogLevel.INFO, `==> /var/www/${displayName}`);
 
 
             // --------------------------------
@@ -452,7 +452,7 @@ export class SimpleUIServer {
                 Logger.log(LogLevel.VERBOSE, `cmd request callback: ${++SimpleUIServer.requestCallbacks}`);
                 try {
                     const props = PropsFileReader.getProps(`${req.params.propsStub}.properties`);
-                    console.log("Got POST requst")
+                    Logger.log(LogLevel.INFO, "Got POST requst");
                     SuiData.handleZmqRequest(req, res, props);
                 } catch (err) {
 
