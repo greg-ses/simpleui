@@ -123,10 +123,16 @@ export class SuiData {
                 if (req.query.version) {
                     versionString = req.query.version;
                 }
+                console.log(`Outside: ${JSON.stringify(req.params.zmqCmd)}`)
+                if (JSON.stringify(req.params.zmqCmd) === "ModuleIODataCSV") {
+                    console.log(`Inside: ${req.params.zmqCmd}`)
+                }
                 let sJson = "";
                 if (xmlResponse[0] === "{") {
                     sJson = xmlResponse;
-                } else {
+                }
+
+                else {
                     sJson = SuiData.xmlToJSON(xmlResponse, req.params.appName, SuiData.uiProps, req);
                 }
                 // if sJson is for an overlay, check the imgs to see if any are missing

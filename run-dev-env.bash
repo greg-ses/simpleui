@@ -39,6 +39,7 @@ docker run \
     --mount type=bind,src="${SIMPLEUI_TEST_DATA}/${DEV_TARGET}",dst=/usr/src/app/base_app/src/assets/ \
     --mount type=bind,src="${SIMPLEUI_TEST_DATA}/${DEV_TARGET}",dst=/var/www/simple_ui/ \
     --mount type=bind,src="${SIMPLEUI_TEST_DATA}/${DEV_TARGET}"/opt,dst=/opt/ \
+    --network vcharge_sim_1mw_1804_default \
     -p 4200:4200 \
     -p 4100:4100 \
     -p 9876:9876 \
