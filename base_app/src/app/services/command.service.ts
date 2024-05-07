@@ -26,7 +26,7 @@ export class CommandService {
     _errorResponseHandler = function(caller = this, response: any) {
         let msg = 'Error on ajax.post()';
         if ( (typeof response === 'object') && (typeof response.status === 'string') ) {
-            msg += `{response.status}`;
+            msg += `${response.status}`;
         }
         console.log(msg);
     };
@@ -78,7 +78,9 @@ export class CommandService {
         data$.subscribe(res => {
             if (res.status === 200) {
                 this._responseHandler(caller, res.response.props);
+                console.log(`*** Got 200 for POST request: ${caller?._element?.command?.label}`)
             } else {
+                console.error(`Could not send command from button ${caller?._element?.command?.label}`);
                 this._errorResponseHandler(caller, res.response.props);
             }
         });

@@ -76,9 +76,12 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
         'textInputDialog'
     ];
 
-    ngOnInit() {  }
+    ngOnInit() {
+        console.log('init', this._element?.command?.label);
+     }
 
     ngOnDestroy() {
+        console.log('destroy', this._element?.command?.label);
         this.commandButtonChangeSubscription.unsubscribe();
     }
 
@@ -379,12 +382,6 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
                             }
                         }
                         json['cmd']['values'][key] = valueInstance;
-                        /* Not needed.
-                        if (   (typeof json['cmd']['values'][key]['dest'] === 'undefined')
-                            && (typeof this._element.command['dest'] !== 'undefined') ) {
-                            json['cmd']['values'][key]['dest'] = this._element.command['dest'];
-                        }
-                        */
                         break;
                     }
                 }
@@ -392,7 +389,6 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
         }
 
         this.getExtraAttributes(json);
-
         return json;
     }
 
@@ -504,7 +500,7 @@ export class CommandButtonComponent implements OnChanges, OnDestroy, OnInit, OnC
     }
 
     onClick(event) {
-        console.log('registed button click', this._uiTab._commands_enabled)
+        console.log('clicked', this._element?.command?.label)
         try {
             if (!this._uiTab._commands_enabled) {
                 this.showCommandsDisabledWhenUpdatesPausesMessage();                // stops updates
