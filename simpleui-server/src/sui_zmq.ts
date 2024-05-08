@@ -5,9 +5,14 @@ import { SuiData } from './sui_data';
 import { HttpQueue } from './queue';
 import { PropsFileReader } from './props-file-reader';
 
-// TODO: Make sure if simpleui starts before the BMS that sui can still connect
 
-const slice_string = (data: string) => data.substring(0, 16)
+/**
+ * [x] sui will reconnect if BMS restarts (connected, disconnected, connecting, connected)
+ * [x] sui will connect if the BMS is down and then comes back up (disconnected, connecting, connected)
+ * [ ] multiple clients get the correct data
+ * [ ] ?
+ */
+
 
 export enum ZmqConnectionStatus {
     CONNECTED = "connected",
@@ -16,6 +21,8 @@ export enum ZmqConnectionStatus {
     DISCONNECTED = "disconnected",
     CLOSED = "closed"
 }
+
+const slice_string = (data: string) => data.substring(0, 16)
 
 export class ZmqSocket {
     hostname: string;
@@ -27,6 +34,8 @@ export class ZmqSocket {
     outboundMessages: number;
     watchdogInterval: any;
     msgCount: number;
+    waitingForResponse: boolean;
+    sendingRequest: boolean;
 
     constructor(hostname: string, port: number, id: string) {
         this.hostname = hostname;
@@ -35,73 +44,68 @@ export class ZmqSocket {
         this.connectionStatus = ZmqConnectionStatus.DISCONNECTED;
         this.httpQueue = new HttpQueue();
         this.msgCount = 0;
+        this.waitingForResponse = false;
+        this.sendingRequest = false;
 
+    }
 
-        this.httpQueue.events.on('item_added', async () => {
-            // if (this.connectionStatus != ZmqConnectionStatus.CONNECTED) { return; }
+    /**
+     * Reads the socket's queue and will send and wait for a response
+     */
+    async process() {
 
-            while (this.connectionStatus == ZmqConnectionStatus.CONNECTED && !this.httpQueue.isEmpty()) {
-                // get front of the queue
-                let [req, res] = this.httpQueue.dequeue();
-                let zmqRequestPacket = req.method === 'POST' ? SuiData.buildZmqCmdPacket(req) : SuiData.buildZmqDataPacket(req);
+        // socket is ready if we are connected, if we are not wating for a response, and if we are not currently trying to send.
+        const socketIsReady = (this.connectionStatus == ZmqConnectionStatus.CONNECTED) &&
+                            (!this.waitingForResponse) && (!this.sendingRequest);
 
-                // dont send if in readonly mode and packet is a cmd (redundency)
-                if (PropsFileReader.cmdVars?.readonly && zmqRequestPacket.includes("cmd=")) { return; }
+        // don't continue unless the socket is ready
+        if (!socketIsReady) { return; }
 
-                // send request
-                Logger.log(LogLevel.DEBUG, `Socket ${id} sending ZMQ msg to ${this.hostname}`)
-                this.send(zmqRequestPacket);
+        while (!this.httpQueue.isEmpty()) {
+            // 1. Get the oldest http request (front of queue)
+            let [req, res] = this.httpQueue.dequeue();
 
-                // Sometimes, the socket complains when it has sent a message and gets no response (BMS is down).
-                // This is because the socket will send a message and wait or a response which won't arrive (bc the BMS is down).
-                // This usually has a error code 'EAGAIN' or 'EBUSY'. Since we don't really care what the response is,
-                // we can just recreate the socket and reconnect
-                let raw_zmq_data;
-                try {
-                    [raw_zmq_data] = await this.socket.receive();
-                } catch (err) {
-                    Logger.log(LogLevel.DEBUG, `WARNING: Socket ${this.id} got receive error: ${err.code}`);
-                    this.recreateSocket();
-                    return
-                }
+            // 2. Generate the ZMQ data packet
+            const zmqPacket = req.method === 'POST' ? SuiData.buildZmqCmdPacket(req) : SuiData.buildZmqDataPacket(req);
 
-                // parse response
-                const zmq_data = raw_zmq_data.toString();
-                Logger.log(LogLevel.DEBUG, `Socket ${this.id} recieved ZMQ response: ${slice_string(zmq_data)}`);
+            // 3. Make sure that if the app is in read-only mode, we do not send commands (for redundency)
+            if (PropsFileReader.cmdVars?.readonly && zmqPacket.includes("cmd=")) { return; }
 
-                // create http response body
-                const res_data = SuiData.addXmlStatus(zmq_data);
+            // 4. Send the ZMQ request
+            this.send(zmqPacket);
 
-                // send response
-                SuiData.sendResponse(req, res, res_data);
-
-                // reset outbound messages
-                this.outboundMessages = 0;
-
-                this.msgCount++;
-
+            // 5. Wait for a response
+            let rawZmqResponse;
+            try {
+                this.waitingForResponse = true;
+                rawZmqResponse = await this.socket.receive();
+                this.waitingForResponse = false;
+            } catch (err) {
+                console.log(`Socket ${this.id} got error while recieving ${err?.code}`);
+                // NOTE: If we can't receieve the response, its no big deal. We care mostly that the request got to the BMS
+                rawZmqResponse = Buffer.from("<response>fail</response>");
             }
-        });
 
-        this.watchdogInterval = setInterval( () => {
-            if (this.outboundMessages > 3) {
-                this.recreateSocket();
-            }
-        }, 1_000);
+            // 6. Parse the ZMQ response
+            const zmqResponse = rawZmqResponse.toString();
+
+            // 7. Create the HTTP response
+            const responseBody = SuiData.addXmlStatus(zmqResponse);
+
+            // 8. Send the HTTP response
+            SuiData.sendResponse(req, res, responseBody);
+        }
     }
 
 
     initialize() {
         try {
-            console.log("Initalizing ZMQ socket");
+            Logger.log(LogLevel.INFO, `Initializing socket ${this.id}`);
 
             // set up socket
-            this.socket = null;
             this.socket = new Request({
                 linger: 0,           // dont wait for messages to be sent before closing the socket
-                connectTimeout: 900, // dont wait forever to connect
-                // sendTimeout: 0,
-                // receiveTimeout: 500,
+                // connectTimeout: 900, // dont wait forever to connect
             });
 
             this.outboundMessages = 0;
@@ -109,17 +113,17 @@ export class ZmqSocket {
             this.socket.events.on("connect", (metadata) => {
                 this.connectionStatus = ZmqConnectionStatus.CONNECTED;
                 Logger.log(LogLevel.DEBUG, `Socket ${this.id} connected to ${this.hostname}`);
-            })
+            });
             this.socket.events.on("connect:delay", (metadata) => {
                 this.connectionStatus = ZmqConnectionStatus.DELAY_CONNECTION;
-            })
+            });
             this.socket.events.on("connect:retry", (metadata) => {
                 this.connectionStatus = ZmqConnectionStatus.RETRY_CONNECTION;
-            })
+            });
             this.socket.events.on("disconnect", (metadata) => {
                 this.connectionStatus = ZmqConnectionStatus.DISCONNECTED;
                 Logger.log(LogLevel.DEBUG, `Socket ${this.id} disconnected from ${this.hostname}`);
-            })
+            });
 
             // connect socket
             this.connect();
@@ -139,11 +143,13 @@ export class ZmqSocket {
 
     async send(msg: string) {
         try {
+            this.sendingRequest = true;
             await this.socket.send(msg);
-            Logger.log(LogLevel.DEBUG, `Sending the following ZMQ packet: ${msg}`);
+            Logger.log(LogLevel.DEBUG, `Socket ${this.id} sending ZMQ msg to ${this.hostname} ${msg}`);
         } catch (err) {
             Logger.log(LogLevel.ERROR, `Socket ${this.id} could not send ${msg}, got error: ${err}`);
         }
+        this.sendingRequest = false;
     }
 
     close() {

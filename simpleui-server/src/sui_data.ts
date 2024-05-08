@@ -239,6 +239,7 @@ export class SuiData {
 
         // add res + req pair to socket's queue
         socket.httpQueue.enqueue([req, res]);
+        socket.process();
     }
 
 
